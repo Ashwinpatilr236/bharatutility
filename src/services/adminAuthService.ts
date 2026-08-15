@@ -3,8 +3,20 @@ import { getSupabase, isSupabaseConfigured } from './supabaseClient';
 
 const ADMIN_USERS_STORAGE_KEY = 'bu_admin_users_list';
 
-// Default Admin Profiles - dynamic list managed via Supabase Auth
-const DEFAULT_ADMIN_PROFILES: AdminUser[] = [];
+/**
+ * Computes environment-aware redirect URL compatible with hash routing (/#/admin)
+ * Supports local development, Netlify previews, custom domain, and APP_URL environment variable.
+ */
+const getAuthRedirectUrl = (): string => {
+  const envAppUrl = (import.meta.env.VITE_APP_URL || import.meta.env.APP_URL || '').trim();
+  const baseUrl = (envAppUrl && envAppUrl.startsWith('http'))
+    ? envAppUrl.replace(/\/+$/, '')
+    : typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : 'https://bharatutility.in';
+
+  return `${baseUrl}/#/admin`;
+};
 
 // Role to permissions mapping (Authorization Layer)
 const ROLE_PERMISSIONS: Record<AdminRole, PermissionKey[]> = {
@@ -105,14 +117,14 @@ class AdminAuthService {
         // 1. Check existing session from Supabase client
         const { data: { session }, error } = await supabase.auth.getSession();
         if (session?.user && !error) {
-          this.syncUserFromSupabase(session.user);
+          await this.syncUserFromSupabase(session.user);
         }
 
         // 2. Listen to Supabase auth state transitions
         supabase.auth.onAuthStateChange(async (event, session) => {
           if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
             if (session?.user) {
-              this.syncUserFromSupabase(session.user);
+              await this.syncUserFromSupabase(session.user);
             }
           } else if (event === 'SIGNED_OUT') {
             this.currentUser = null;
@@ -126,29 +138,68 @@ class AdminAuthService {
     this.isInitialized = true;
   }
 
-  private syncUserFromSupabase(sbUser: any): void {
+  /**
+   * Synchronize authenticated Supabase user and verify database authorization profile
+   */
+  public async syncUserFromSupabase(sbUser: any): Promise<AdminUser | null> {
+    const supabase = getSupabase();
     const email = (sbUser.email || '').toLowerCase();
-    const authorizedUsers = this.getAllUsers();
-    const match = authorizedUsers.find(u => u.email.toLowerCase() === email);
+    const userId = sbUser.id;
 
-    // Read role from user metadata or fallback to match in authorized users directory
-    const role: AdminRole = sbUser.app_metadata?.role || sbUser.user_metadata?.role || match?.role || 'super_admin';
-    const name: string = sbUser.user_metadata?.full_name || sbUser.user_metadata?.name || match?.name || email.split('@')[0];
+    let role: AdminRole = 'super_admin';
+    let status: 'active' | 'suspended' | 'invited' = 'active';
+    let name: string = sbUser.user_metadata?.full_name || sbUser.user_metadata?.name || email.split('@')[0] || 'Administrator';
+    let avatarUrl: string | undefined = sbUser.user_metadata?.avatar_url;
+
+    // 1. Check server-side admin_profiles table if Supabase is connected
+    if (supabase && isSupabaseConfigured()) {
+      try {
+        const { data: profile, error } = await supabase
+          .from('admin_profiles')
+          .select('*')
+          .eq('user_id', userId)
+          .maybeSingle();
+
+        if (profile && !error) {
+          role = (profile.role as AdminRole) || role;
+          status = (profile.status as 'active' | 'suspended' | 'invited') || status;
+          name = profile.name || name;
+          avatarUrl = profile.avatar_url || avatarUrl;
+        } else if (sbUser.app_metadata?.role || sbUser.user_metadata?.role) {
+          // Fallback to role stored in Supabase Auth custom claims / metadata
+          role = (sbUser.app_metadata?.role || sbUser.user_metadata?.role) as AdminRole;
+        }
+      } catch (err) {
+        console.warn('Could not query admin_profiles table, using auth metadata:', err);
+        if (sbUser.app_metadata?.role || sbUser.user_metadata?.role) {
+          role = (sbUser.app_metadata?.role || sbUser.user_metadata?.role) as AdminRole;
+        }
+      }
+    }
+
+    if (status === 'suspended') {
+      this.currentUser = null;
+      this.notifyListeners();
+      return null;
+    }
 
     const adminUser: AdminUser = {
-      id: sbUser.id || match?.id || 'usr_' + Math.random().toString(36).substring(2, 9),
+      id: userId,
       name,
       email,
       role,
-      status: match?.status || 'active',
+      status,
       lastActive: new Date().toISOString(),
-      createdAt: sbUser.created_at || match?.createdAt || new Date().toISOString(),
+      createdAt: sbUser.created_at || new Date().toISOString(),
       emailVerified: Boolean(sbUser.email_confirmed_at),
-      avatarUrl: sbUser.user_metadata?.avatar_url || match?.avatarUrl,
+      avatarUrl,
+      mfaEnabled: Boolean(sbUser.factors && sbUser.factors.length > 0),
     };
 
     this.currentUser = adminUser;
+    this.saveUserLocally(adminUser);
     this.notifyListeners();
+    return adminUser;
   }
 
   public getCurrentUser(): AdminUser | null {
@@ -177,9 +228,9 @@ class AdminAuthService {
       if (stored) {
         return JSON.parse(stored);
       }
-      return [];
+      return this.currentUser ? [this.currentUser] : [];
     } catch {
-      return [];
+      return this.currentUser ? [this.currentUser] : [];
     }
   }
 
@@ -233,35 +284,38 @@ class AdminAuthService {
           const totpFactor = factors?.totp?.find(f => f.status === 'verified');
           if (totpFactor) {
             this.pendingMfaFactorId = totpFactor.id;
-            return { user: this.currentUser!, requiresMfa: true };
+            const syncedUser = await this.syncUserFromSupabase(data.user);
+            return { user: syncedUser || this.currentUser!, requiresMfa: true };
           }
         }
       } catch (mfaErr) {
         // Continue if MFA is not configured on Supabase project
       }
 
-      this.syncUserFromSupabase(data.user);
-      return { user: this.currentUser!, requiresMfa: false };
+      const adminUser = await this.syncUserFromSupabase(data.user);
+      if (!adminUser) {
+        await supabase.auth.signOut();
+        throw new Error('Access Denied: This administrator account is suspended or unauthorized.');
+      }
+
+      return { user: adminUser, requiresMfa: false };
     }
 
-    // Fallback: If Supabase connection variables are not yet configured in environment
-    const authorized = this.getAllUsers().find(u => u.email.toLowerCase() === cleanEmail);
-    if (!authorized) {
-      throw new Error('No administrator profile authorized for this email. Configure VITE_SUPABASE_URL or register in Supabase.');
-    }
-
-    if (authorized.status === 'suspended') {
-      throw new Error('This administrator account has been suspended.');
-    }
-
-    const updatedUser: AdminUser = {
-      ...authorized,
+    // Local development fallback when VITE_SUPABASE_URL is not yet connected
+    const fallbackUser: AdminUser = {
+      id: 'local_admin_' + Math.random().toString(36).substring(2, 9),
+      name: cleanEmail.split('@')[0] || 'Local Admin',
+      email: cleanEmail,
+      role: 'super_admin',
       status: 'active',
       lastActive: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      emailVerified: true,
     };
-    this.currentUser = updatedUser;
+    this.currentUser = fallbackUser;
+    this.saveUserLocally(fallbackUser);
     this.notifyListeners();
-    return { user: updatedUser, requiresMfa: false };
+    return { user: fallbackUser, requiresMfa: false };
   }
 
   /**
@@ -287,20 +341,21 @@ class AdminAuthService {
 
     const supabase = getSupabase();
     if (supabase && isSupabaseConfigured()) {
+      const redirectUrl = getAuthRedirectUrl();
       const { error } = await supabase.auth.signInWithOtp({
         email: cleanEmail,
         options: {
-          emailRedirectTo: window.location.origin + '/#/admin',
+          emailRedirectTo: redirectUrl,
+          shouldCreateUser: false,
         },
       });
 
       if (error) {
         throw new Error(error.message || 'Failed to send one-time authentication link.');
       }
-      return { message: `A secure login link / OTP has been dispatched to ${cleanEmail}.` };
+      return { message: `A secure login link has been dispatched to ${cleanEmail}. Check your inbox to sign in.` };
     }
 
-    // Local development fallback
     return { message: `Supabase Auth OTP dispatched for ${cleanEmail}.` };
   }
 
@@ -336,7 +391,7 @@ class AdminAuthService {
     this.pendingMfaFactorId = null;
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      this.syncUserFromSupabase(user);
+      await this.syncUserFromSupabase(user);
     }
     return this.currentUser!;
   }
@@ -352,8 +407,9 @@ class AdminAuthService {
 
     const supabase = getSupabase();
     if (supabase && isSupabaseConfigured()) {
+      const redirectUrl = getAuthRedirectUrl();
       const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
-        redirectTo: window.location.origin + '/#/admin',
+        redirectTo: redirectUrl,
       });
       if (error) {
         throw new Error(error.message || 'Failed to dispatch password reset email.');
@@ -402,7 +458,7 @@ class AdminAuthService {
     this.notifyListeners();
   }
 
-  public saveUser(user: AdminUser): void {
+  private saveUserLocally(user: AdminUser): void {
     const users = this.getAllUsers();
     const index = users.findIndex(u => u.id === user.id || u.email.toLowerCase() === user.email.toLowerCase());
     if (index >= 0) {
@@ -410,13 +466,50 @@ class AdminAuthService {
     } else {
       users.unshift(user);
     }
-    localStorage.setItem(ADMIN_USERS_STORAGE_KEY, JSON.stringify(users));
+    try {
+      localStorage.setItem(ADMIN_USERS_STORAGE_KEY, JSON.stringify(users));
+    } catch {
+      // Storage quota or private window protection
+    }
   }
 
-  public deleteUser(userId: string): boolean {
+  public async saveUser(user: AdminUser): Promise<void> {
+    this.saveUserLocally(user);
+    const supabase = getSupabase();
+    if (supabase && isSupabaseConfigured()) {
+      try {
+        await supabase.from('admin_profiles').upsert({
+          user_id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+          status: user.status,
+          avatar_url: user.avatarUrl,
+          updated_at: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.warn('Could not sync admin profile to Supabase database:', err);
+      }
+    }
+  }
+
+  public async deleteUser(userId: string): Promise<boolean> {
     const users = this.getAllUsers();
     const filtered = users.filter(u => u.id !== userId);
-    localStorage.setItem(ADMIN_USERS_STORAGE_KEY, JSON.stringify(filtered));
+    try {
+      localStorage.setItem(ADMIN_USERS_STORAGE_KEY, JSON.stringify(filtered));
+    } catch {
+      // Storage quota or private window protection
+    }
+
+    const supabase = getSupabase();
+    if (supabase && isSupabaseConfigured()) {
+      try {
+        await supabase.from('admin_profiles').delete().eq('user_id', userId);
+      } catch (err) {
+        console.warn('Could not delete admin profile from Supabase:', err);
+      }
+    }
     return true;
   }
 
