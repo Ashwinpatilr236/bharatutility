@@ -4,7 +4,7 @@ import { getSupabase, isSupabaseConfigured } from './supabaseClient';
 const ADMIN_USERS_STORAGE_KEY = 'bu_admin_users_list';
 
 /**
- * Computes environment-aware redirect URL compatible with hash routing (/#/admin)
+ * Computes environment-aware redirect URL for Supabase Auth
  * Supports local development, Netlify previews, custom domain, and APP_URL environment variable.
  */
 const getAuthRedirectUrl = (): string => {
@@ -15,7 +15,7 @@ const getAuthRedirectUrl = (): string => {
       ? window.location.origin
       : 'https://bharatutility.in';
 
-  return `${baseUrl}/#/admin`;
+  return baseUrl.replace(/\/+$/, '');
 };
 
 // Role to permissions mapping (Authorization Layer)
@@ -357,6 +357,42 @@ class AdminAuthService {
     }
 
     return { message: `Supabase Auth OTP dispatched for ${cleanEmail}.` };
+  }
+
+  /**
+   * Verify 6-digit email OTP token from Supabase signInWithOtp
+   */
+  public async verifyEmailOtp(email: string, token: string): Promise<AdminUser> {
+    const supabase = getSupabase();
+    if (!supabase || !isSupabaseConfigured()) {
+      throw new Error('Supabase authentication service is not connected.');
+    }
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanToken = token.trim();
+    if (!cleanToken) {
+      throw new Error('Please enter the 6-digit verification code sent to your email.');
+    }
+
+    const { data, error } = await supabase.auth.verifyOtp({
+      email: cleanEmail,
+      token: cleanToken,
+      type: 'email',
+    });
+
+    if (error) {
+      throw new Error(error.message || 'Invalid or expired verification code.');
+    }
+
+    if (!data.user) {
+      throw new Error('Authentication failed. No user returned by authentication provider.');
+    }
+
+    const adminUser = await this.syncUserFromSupabase(data.user);
+    if (!adminUser) {
+      await supabase.auth.signOut();
+      throw new Error('Access Denied: This administrator account is suspended or unauthorized.');
+    }
+    return adminUser;
   }
 
   /**

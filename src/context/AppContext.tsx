@@ -79,12 +79,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (
       hash.startsWith('#/admin') ||
       hash.startsWith('#admin') ||
-      path.startsWith('/admin')
+      path.startsWith('/admin') ||
+      hash.includes('access_token=') ||
+      hash.includes('type=magiclink') ||
+      hash.includes('type=recovery') ||
+      hash.includes('type=invite') ||
+      search.includes('type=magiclink') ||
+      search.includes('type=recovery') ||
+      search.includes('code=')
     ) {
       const cleanHash = hash.replace(/^#\/?/, '');
       const parts = cleanHash.split('/');
       // parts[0] === 'admin'
-      const section = (parts[1] || 'dashboard') as AdminSection;
+      const section = (parts[1] && !parts[1].includes('=') ? parts[1] : 'dashboard') as AdminSection;
       const subParam = parts[2];
       return { type: 'admin', section, subParam };
     }
@@ -224,11 +231,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (
         hash.startsWith('#/admin') ||
-        hash.startsWith('#admin')
+        hash.startsWith('#admin') ||
+        hash.includes('access_token=') ||
+        hash.includes('type=magiclink') ||
+        hash.includes('type=recovery') ||
+        hash.includes('type=invite')
       ) {
         const cleanHash = hash.replace(/^#\/?/, '');
         const parts = cleanHash.split('/');
-        const section = (parts[1] || 'dashboard') as AdminSection;
+        const section = (parts[1] && !parts[1].includes('=') ? parts[1] : 'dashboard') as AdminSection;
         const subParam = parts[2];
         setViewState({ type: 'admin', section, subParam });
         window.scrollTo({ top: 0, behavior: 'smooth' });

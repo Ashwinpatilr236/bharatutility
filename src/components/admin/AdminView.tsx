@@ -86,6 +86,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
   const [loginIdentifier, setLoginIdentifier] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [mfaCode, setMfaCode] = useState('');
+  const [otpToken, setOtpToken] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [loginError, setLoginError] = useState('');
@@ -148,8 +149,18 @@ export const AdminView: React.FC<AdminViewProps> = ({
           `Role: ${result.user.role} | Verified via Supabase Auth`
         );
       } else if (authMode === 'otp') {
-        const result = await adminAuth.loginWithOtp(loginIdentifier.trim());
-        setLoginSuccess(result.message);
+        if (otpToken.trim()) {
+          const user = await adminAuth.verifyEmailOtp(loginIdentifier.trim(), otpToken.trim());
+          adminStore.logActivity(
+            'Admin Authenticated (OTP)',
+            'user',
+            user.email,
+            `Role: ${user.role} | Verified via Supabase Email OTP`
+          );
+        } else {
+          const result = await adminAuth.loginWithOtp(loginIdentifier.trim());
+          setLoginSuccess(result.message);
+        }
       } else if (authMode === 'mfa') {
         if (!mfaCode || mfaCode.trim().length < 6) {
           setLoginError('Please enter a valid 6-digit MFA code.');
@@ -304,6 +315,28 @@ export const AdminView: React.FC<AdminViewProps> = ({
               </div>
             )}
 
+            {authMode === 'otp' && loginSuccess && (
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+                    6-Digit Email Code (Optional)
+                  </label>
+                  <span className="text-[10px] text-neutral-400">Or click email link</span>
+                </div>
+                <div className="relative">
+                  <KeyRound className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    maxLength={6}
+                    placeholder="123456"
+                    value={otpToken}
+                    onChange={e => setOtpToken(e.target.value.replace(/\D/g, ''))}
+                    className="w-full pl-10 pr-4 py-2.5 text-sm tracking-widest font-mono bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                  />
+                </div>
+              </div>
+            )}
+
             {authMode === 'mfa' && (
               <div>
                 <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1.5">
@@ -351,7 +384,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
                   : authMode === 'password'
                   ? 'Sign In with Supabase'
                   : authMode === 'otp'
-                  ? 'Send Magic Link / OTP'
+                  ? (otpToken.trim().length >= 6 ? 'Verify 6-Digit Email Code' : 'Send Magic Link / OTP')
                   : authMode === 'mfa'
                   ? 'Verify 2FA Code'
                   : 'Send Password Reset Email'}
