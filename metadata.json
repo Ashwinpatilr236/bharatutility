@@ -1,0 +1,6 @@
+{
+  "name": "BharatUtility - India Utility Super-Site",
+  "description": "Fast, modern, and trustworthy everyday utility tools for India including EMI, GST, SIP, Salary, Age, Unit Converters, and more.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

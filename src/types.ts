@@ -1,0 +1,157 @@
+import { AdminSection } from './types/admin';
+
+export type CategoryId =
+  | 'money'
+  | 'daily-life'
+  | 'home'
+  | 'documents'
+  | 'technology'
+  | 'education'
+  | 'travel'
+  | 'business'
+  | 'date-time';
+
+export interface Category {
+  id: CategoryId;
+  name: string;
+  shortName: string;
+  description: string;
+  icon: string;
+  color: string;
+  badge?: string;
+  toolCount: number;
+  order?: number;
+  active?: boolean;
+  seoTitle?: string;
+  metaDescription?: string;
+  ogImage?: string;
+}
+
+export type AccentColor = 'indigo' | 'emerald' | 'purple' | 'amber' | 'rose' | 'cyan';
+export type ThemeMode = 'light' | 'dark' | 'system';
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface ToolSEO {
+  title: string;
+  description: string;
+  keywords: string[];
+  canonicalSlug: string;
+  h1?: string;
+  ogImage?: string;
+  schemaType?: string;
+  indexEnabled?: boolean;
+}
+
+export interface Tool {
+  id: string;
+  slug: string;
+  name: string;
+  shortName?: string;
+  tagline?: string;
+  description: string;
+  category: CategoryId;
+  icon: string;
+  keywords: string[];
+  popular?: boolean;
+  trending?: boolean;
+  featured?: boolean;
+  isNew?: boolean;
+  isEditorsPick?: boolean;
+  featuredRank?: number;
+  status?: 'published' | 'draft' | 'unpublished' | 'archived' | 'inactive';
+  badge?: string;
+  views?: number;
+  calculationCount?: number;
+  favoritesCount?: number;
+  sharesCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  introContent?: string;
+  seo: ToolSEO;
+  formulaDescription?: string;
+  formulaLatex?: string;
+  workedExample?: {
+    inputSummary: string;
+    calculationSteps: string[];
+    finalResult: string;
+  };
+  faqs: FAQItem[];
+  relatedToolSlugs: string[];
+  relatedTools?: string[];
+  disclaimer?: string;
+}
+
+export interface CalculationHistoryItem {
+  id: string;
+  toolId: string;
+  toolName: string;
+  toolSlug: string;
+  timestamp: number;
+  summary: string;
+  params: Record<string, any>;
+}
+
+export type ViewMode =
+  | { type: 'home' }
+  | { type: 'tool'; slug: string }
+  | { type: 'category'; categoryId: CategoryId }
+  | { type: 'all-tools' }
+  | { type: 'favorites' }
+  | { type: 'contact' }
+  | { type: 'request-tool' }
+  | { type: 'admin-tariffs' }
+  | { type: 'admin'; section?: AdminSection; subParam?: string }
+  | { type: 'legal'; page: 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact' };
+
+export type ToolRequestStatus = 'New' | 'Reviewing' | 'Planned' | 'In Development' | 'Completed';
+
+export interface ToolRequest {
+  id: string;
+  name?: string;
+  email?: string;
+  toolName: string;
+  title?: string;
+  category: string;
+  description: string;
+  usefulness?: string;
+  useCase?: string;
+  referenceUrl?: string;
+  createdAt: string;
+  status: ToolRequestStatus;
+  upvotes?: number;
+  votes?: number;
+}
+
+export type ContactReason =
+  | 'General Question'
+  | 'Bug Report'
+  | 'Tool Suggestion'
+  | 'Partnership'
+  | 'Advertising'
+  | 'Feedback'
+  | 'Other';
+
+export interface ContactSubmission {
+  id: string;
+  name: string;
+  email: string;
+  reason: ContactReason;
+  subject: string;
+  message: string;
+  createdAt: string;
+  status?: 'new' | 'in_progress' | 'replied' | 'archived' | 'resolved';
+  priority?: 'low' | 'medium' | 'high';
+}
+
+export interface SocialLinks {
+  instagram: string;
+  facebook: string;
+  youtube: string;
+  x: string;
+  linkedin: string;
+  telegram: string;
+}

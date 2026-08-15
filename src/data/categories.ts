@@ -1,0 +1,93 @@
+import { Category, CategoryId } from '../types';
+
+export const CATEGORIES: Category[] = [
+  {
+    id: 'money',
+    name: 'Money & Finance',
+    shortName: 'Finance',
+    description: 'Home loan EMI, SIP, mutual funds, New Tax Regime, FD, RD, PPF, EPF, and gratuity calculations.',
+    icon: 'IndianRupee',
+    color: 'emerald',
+    badge: 'Popular',
+    toolCount: 14,
+  },
+  {
+    id: 'daily-life',
+    name: 'Daily Life & Utilities',
+    shortName: 'Daily Life',
+    description: 'Age calculations, date differences, percentage increase/decrease, ratios, averages, and multi-unit conversions.',
+    icon: 'Sparkles',
+    color: 'indigo',
+    toolCount: 8,
+  },
+  {
+    id: 'home',
+    name: 'Home & Construction',
+    shortName: 'Home',
+    description: 'State electricity bill slabs, wall paint estimator, room tiles, land area (Gaj, Bigha, Guntha), AC sizing, and water tanks.',
+    icon: 'Home',
+    color: 'amber',
+    badge: 'Essential',
+    toolCount: 8,
+  },
+  {
+    id: 'education',
+    name: 'Education & Career',
+    shortName: 'Education',
+    description: 'Board marks percentage, CBSE/University CGPA to percentage, college attendance requirement, and study planners.',
+    icon: 'GraduationCap',
+    color: 'purple',
+    toolCount: 6,
+  },
+  {
+    id: 'travel',
+    name: 'Travel & Commute',
+    shortName: 'Travel',
+    description: 'Vehicle petrol/diesel fuel costs, mileage (km/L) calculator, trip cost split, and monthly commute budget.',
+    icon: 'Car',
+    color: 'rose',
+    toolCount: 5,
+  },
+  {
+    id: 'business',
+    name: 'Business & Commerce',
+    shortName: 'Business',
+    description: 'GST invoice generator, profit margin & markup, break-even analysis, sales commission, and CTC cost calculations.',
+    icon: 'Briefcase',
+    color: 'blue',
+    badge: 'Business',
+    toolCount: 6,
+  },
+  {
+    id: 'technology',
+    name: 'Technology & Digital',
+    shortName: 'Tech',
+    description: 'Broadband download time, data usage, digital storage converter, screen viewing distance, and Wi-Fi diagnostics.',
+    icon: 'Laptop',
+    color: 'teal',
+    toolCount: 5,
+  },
+  {
+    id: 'documents',
+    name: 'Documents & Letters',
+    shortName: 'Documents',
+    description: 'Indian formal resignation letter, sick/casual leave, NOC generator, bank account closure, and rent agreements.',
+    icon: 'FileText',
+    color: 'cyan',
+    badge: 'Formats',
+    toolCount: 8,
+  },
+  {
+    id: 'date-time',
+    name: 'Date & Time',
+    shortName: 'Date & Time',
+    description: 'Add or subtract days, working day countdown, date to day finder, and IST to global time zone converter.',
+    icon: 'Calendar',
+    color: 'orange',
+    toolCount: 5,
+  },
+];
+
+export function getCategoryById(id: CategoryId): Category | undefined {
+  return CATEGORIES.find(cat => cat.id === id);
+}
