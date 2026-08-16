@@ -4,42 +4,37 @@ import {
   ElectricityTariff,
   ProposedTariffRevision,
   TariffAuditLog,
-  TariffComparisonField,
   TariffSlab
 } from '../../types/electricity';
-import { tariffRepository, TariffValidationResult } from '../../services/tariffRepository';
+import {
+  tariffRepository,
+  TariffValidationResult,
+  TariffValidationIssue
+} from '../../services/tariffRepository';
 import { isSupabaseConfigured } from '../../services/supabaseClient';
-import { formatINR } from '../../utils/formatters';
 import {
   ShieldCheck,
   Zap,
   RefreshCw,
   Search,
-  Filter,
   CheckCircle2,
   AlertTriangle,
   History,
   ExternalLink,
   Edit3,
-  XCircle,
   Database,
-  ArrowRight,
-  FileText,
   Clock,
-  Layers,
-  ChevronRight,
-  Info,
   Check,
   X,
   UploadCloud,
-  HelpCircle,
-  Lock,
   Building2,
-  MapPin,
   Plus,
   FileCode,
   Sliders,
-  Trash2
+  Trash2,
+  FileCheck2,
+  XCircle,
+  HelpCircle
 } from 'lucide-react';
 
 export const AdminTariffView: React.FC = () => {
@@ -58,6 +53,8 @@ export const AdminTariffView: React.FC = () => {
   const [importCategory, setImportCategory] = useState('Domestic (LT-1 Residential)');
   const [importJsonText, setImportJsonText] = useState('');
   const [validationResult, setValidationResult] = useState<TariffValidationResult | null>(null);
+  const [isValidated, setIsValidated] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
 
   // Edit / Preview Workbench State
   const [previewProposal, setPreviewProposal] = useState<ProposedTariffRevision | null>(null);
@@ -104,15 +101,6 @@ export const AdminTariffView: React.FC = () => {
     return states;
   }, [allTariffs]);
 
-  // DISCOMs for selected import state
-  const discomOptionsForState = useMemo(() => {
-    const matching = allTariffs.filter(
-      t => t.state.toLowerCase() === importState.toLowerCase() && t.id !== 'india-average'
-    );
-    const names = Array.from(new Set(matching.map(t => t.discom)));
-    return names.length > 0 ? names : [importDiscom];
-  }, [allTariffs, importState, importDiscom]);
-
   // Filtered Tariffs
   const filteredTariffs = useMemo(() => {
     return allTariffs.filter(t => {
@@ -156,7 +144,7 @@ export const AdminTariffView: React.FC = () => {
     };
   }, [allTariffs, auditLogs]);
 
-  // ── OPEN IMPORT MODAL FOR SPECIFIC TARIFF OR NEW ──
+  // ── OPEN IMPORT MODAL ──
   const handleOpenImport = (tariff?: ElectricityTariff) => {
     if (tariff) {
       setImportState(tariff.state);
@@ -168,7 +156,8 @@ export const AdminTariffView: React.FC = () => {
           {
             state: tariff.state,
             discom: tariff.discom,
-            category: tariff.category,
+            consumerCategory: tariff.category,
+            tariffName: `${tariff.source} Order (${tariff.effectiveFrom})`,
             effectiveFrom: tariff.effectiveFrom || '2026-04-01',
             fixedCharge: tariff.fixedCharge,
             fixedChargeUnit: tariff.fixedChargeUnit,
@@ -193,45 +182,70 @@ export const AdminTariffView: React.FC = () => {
       setImportJsonText(tariffRepository.getSampleTariffJson('Gujarat', 'MGVCL'));
     }
     setValidationResult(null);
+    setIsValidated(false);
     setPreviewProposal(null);
     setIsImportModalOpen(true);
   };
 
-  // ── VALIDATE JSON ──
+  // ── UNIFIED VALIDATE JSON ACTION ──
   const handleValidateJson = () => {
-    const result = tariffRepository.validateManualTariffJson(
-      importJsonText,
-      importState,
-      importDiscom,
-      importCategory
-    );
-    setValidationResult(result);
-    if (result.isValid && result.parsedProposal) {
-      setPreviewProposal(result.parsedProposal);
-    } else {
+    setIsValidating(true);
+    try {
+      const result = tariffRepository.validateTariffImport(
+        importJsonText,
+        importState,
+        importDiscom,
+        importCategory
+      );
+
+      setValidationResult(result);
+      setIsValidated(result.isValid);
+
+      if (result.isValid && result.parsedProposal) {
+        setPreviewProposal(result.parsedProposal);
+        showToast('Tariff JSON validated successfully! Preview ready.', 'success');
+      } else {
+        setPreviewProposal(null);
+        showToast(`Validation failed: ${result.errors.length} issue(s) detected.`, 'error');
+      }
+    } catch (err: any) {
+      const fallbackResult: TariffValidationResult = {
+        isValid: false,
+        errors: [{ category: 'JSON Syntax', message: err.message || 'Fatal parser error.' }]
+      };
+      setValidationResult(fallbackResult);
+      setIsValidated(false);
       setPreviewProposal(null);
+      showToast('Invalid JSON syntax. Please check formatted string.', 'error');
+    } finally {
+      setIsValidating(false);
     }
   };
 
-  // ── FILE UPLOAD HANDLER ──
+  // ── FILE UPLOAD (Uses same validation pipeline) ──
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = event => {
-      const content = event.target?.result as string;
+      const content = (event.target?.result as string) || '';
       setImportJsonText(content);
-      // Auto validate upon file upload
-      const result = tariffRepository.validateManualTariffJson(
+      // Auto-validate upon upload
+      const result = tariffRepository.validateTariffImport(
         content,
         importState,
         importDiscom,
         importCategory
       );
       setValidationResult(result);
+      setIsValidated(result.isValid);
       if (result.isValid && result.parsedProposal) {
         setPreviewProposal(result.parsedProposal);
+        showToast('Uploaded JSON validated successfully!', 'success');
+      } else {
+        setPreviewProposal(null);
+        showToast(`Uploaded JSON has ${result.errors.length} error(s).`, 'error');
       }
     };
     reader.readAsText(file);
@@ -271,8 +285,20 @@ export const AdminTariffView: React.FC = () => {
 
   // ── ACTION: PUBLISH DIRECTLY TO SUPABASE & PUBLIC CALCULATOR ──
   const handlePublishTariff = async () => {
-    if (!previewProposal) {
-      showToast('Please validate tariff data before publishing.', 'error');
+    // 1. Mandatory pre-publish validation safety check
+    if (!previewProposal || !isValidated) {
+      showToast('Validation required before publishing.', 'error');
+      return;
+    }
+
+    // Re-verify payload validity before DB write
+    if (
+      !previewProposal.stateName ||
+      !previewProposal.discomName ||
+      previewProposal.slabs.length === 0 ||
+      previewProposal.slabs.some(s => isNaN(s.ratePerUnit) || s.ratePerUnit < 0)
+    ) {
+      showToast('Cannot publish: Tariff payload has invalid rates or missing fields.', 'error');
       return;
     }
 
@@ -294,12 +320,25 @@ export const AdminTariffView: React.FC = () => {
       setIsImportModalOpen(false);
       setPreviewProposal(null);
       setValidationResult(null);
+      setIsValidated(false);
     } catch (err: any) {
       showToast(err.message || 'Failed to publish tariff to Supabase.', 'error');
     } finally {
       setIsPublishing(false);
     }
   };
+
+  // Helper to group validation errors by category
+  const groupedErrors = useMemo(() => {
+    if (!validationResult || validationResult.isValid) return {};
+    const groups: Record<string, string[]> = {};
+    validationResult.errors.forEach(issue => {
+      const cat = issue.category || 'General Errors';
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(issue.message);
+    });
+    return groups;
+  }, [validationResult]);
 
   return (
     <div className="space-y-6">
@@ -316,7 +355,7 @@ export const AdminTariffView: React.FC = () => {
               </h1>
             </div>
             <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
-              Manual Tariff Import &bull; Instant Side-by-Side Preview &bull; Single-Click Supabase Publishing &bull; Live Public Calculator Synchronization.
+              Manual Tariff Import &bull; Strict Validation Engine &bull; Side-by-Side Preview &bull; Single-Click Supabase Publishing.
             </p>
           </div>
 
@@ -688,7 +727,12 @@ export const AdminTariffView: React.FC = () => {
                   </label>
                   <select
                     value={importState}
-                    onChange={e => setImportState(e.target.value)}
+                    onChange={e => {
+                      setImportState(e.target.value);
+                      setIsValidated(false);
+                      setValidationResult(null);
+                      setPreviewProposal(null);
+                    }}
                     className="w-full px-3 py-2 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-300 dark:border-neutral-600 font-semibold text-neutral-900 dark:text-white outline-none focus:border-accent"
                   >
                     {stateOptions.map(st => (
@@ -706,7 +750,12 @@ export const AdminTariffView: React.FC = () => {
                   <input
                     type="text"
                     value={importDiscom}
-                    onChange={e => setImportDiscom(e.target.value)}
+                    onChange={e => {
+                      setImportDiscom(e.target.value);
+                      setIsValidated(false);
+                      setValidationResult(null);
+                      setPreviewProposal(null);
+                    }}
                     placeholder="e.g., MGVCL, MSEDCL, BESCOM"
                     className="w-full px-3 py-2 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-300 dark:border-neutral-600 font-semibold text-neutral-900 dark:text-white outline-none focus:border-accent"
                   />
@@ -719,7 +768,12 @@ export const AdminTariffView: React.FC = () => {
                   <input
                     type="text"
                     value={importCategory}
-                    onChange={e => setImportCategory(e.target.value)}
+                    onChange={e => {
+                      setImportCategory(e.target.value);
+                      setIsValidated(false);
+                      setValidationResult(null);
+                      setPreviewProposal(null);
+                    }}
                     placeholder="Domestic (LT-1 Residential)"
                     className="w-full px-3 py-2 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-300 dark:border-neutral-600 font-semibold text-neutral-900 dark:text-white outline-none focus:border-accent"
                   />
@@ -747,8 +801,10 @@ export const AdminTariffView: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        setImportJsonText(tariffRepository.getSampleTariffJson(importState, importDiscom));
+                        const sample = tariffRepository.getSampleTariffJson(importState, importDiscom);
+                        setImportJsonText(sample);
                         setValidationResult(null);
+                        setIsValidated(false);
                         setPreviewProposal(null);
                       }}
                       className="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-[11px] font-semibold text-neutral-700 dark:text-neutral-200 transition-colors cursor-pointer border border-neutral-300 dark:border-neutral-600"
@@ -763,7 +819,10 @@ export const AdminTariffView: React.FC = () => {
                   value={importJsonText}
                   onChange={e => {
                     setImportJsonText(e.target.value);
-                    if (validationResult) setValidationResult(null);
+                    // Critical: Editing invalidates previous validation state immediately
+                    setValidationResult(null);
+                    setIsValidated(false);
+                    setPreviewProposal(null);
                   }}
                   placeholder="Paste verified electricity tariff JSON here..."
                   className="w-full p-4 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-300 dark:border-neutral-700 font-mono text-xs text-neutral-900 dark:text-white outline-none focus:border-accent resize-y shadow-inner"
@@ -773,43 +832,94 @@ export const AdminTariffView: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleValidateJson}
-                    className="px-4 py-2 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    disabled={isValidating || !importJsonText.trim()}
+                    className="px-5 py-2.5 rounded-xl bg-accent hover:bg-accent/90 disabled:opacity-50 text-white font-bold text-xs transition-all inline-flex items-center gap-2 cursor-pointer shadow-md shadow-accent/20"
                   >
                     <Check className="w-4 h-4" />
-                    Validate JSON
+                    {isValidating ? 'Validating...' : 'Validate JSON'}
                   </button>
                   <span className="text-[11px] text-neutral-400">
-                    Validates numeric values, slabs, effective dates, and mandatory SERC metadata.
+                    Mandatory: Must validate successfully before publishing is unlocked.
                   </span>
                 </div>
               </div>
 
-              {/* Validation Status Box */}
+              {/* ── VALIDATION FEEDBACK BOX ── */}
               {validationResult && (
-                <div>
-                  {validationResult.isValid ? (
-                    <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2 text-emerald-700 dark:text-emerald-300 font-bold">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                      <span>Tariff data is valid and ready to preview / publish.</span>
+                <div className="space-y-3 animate-in fade-in duration-200">
+                  {validationResult.isValid && validationResult.summary ? (
+                    <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-3 text-emerald-900 dark:text-emerald-200">
+                      <div className="flex items-center gap-2 font-bold text-xs text-emerald-600 dark:text-emerald-400">
+                        <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                        <span>✅ Tariff data is valid and ready for preview &amp; publishing.</span>
+                      </div>
+
+                      {/* Summary Grid */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-emerald-500/20 text-[11px]">
+                        <div className="bg-white/60 dark:bg-neutral-800/60 p-2.5 rounded-xl border border-emerald-500/20">
+                          <span className="text-neutral-400 block text-[10px] uppercase font-bold">State</span>
+                          <strong className="text-neutral-900 dark:text-white">{validationResult.summary.state}</strong>
+                        </div>
+                        <div className="bg-white/60 dark:bg-neutral-800/60 p-2.5 rounded-xl border border-emerald-500/20">
+                          <span className="text-neutral-400 block text-[10px] uppercase font-bold">DISCOM</span>
+                          <strong className="text-neutral-900 dark:text-white">{validationResult.summary.discom}</strong>
+                        </div>
+                        <div className="bg-white/60 dark:bg-neutral-800/60 p-2.5 rounded-xl border border-emerald-500/20">
+                          <span className="text-neutral-400 block text-[10px] uppercase font-bold">Category</span>
+                          <strong className="text-neutral-900 dark:text-white">{validationResult.summary.category}</strong>
+                        </div>
+                        <div className="bg-white/60 dark:bg-neutral-800/60 p-2.5 rounded-xl border border-emerald-500/20">
+                          <span className="text-neutral-400 block text-[10px] uppercase font-bold">Effective From</span>
+                          <strong className="font-mono text-emerald-600 dark:text-emerald-400">{validationResult.summary.effectiveFrom}</strong>
+                        </div>
+                        <div className="bg-white/60 dark:bg-neutral-800/60 p-2.5 rounded-xl border border-emerald-500/20">
+                          <span className="text-neutral-400 block text-[10px] uppercase font-bold">Slabs</span>
+                          <strong className="text-neutral-900 dark:text-white">{validationResult.summary.slabCount} Tiers</strong>
+                        </div>
+                        <div className="bg-white/60 dark:bg-neutral-800/60 p-2.5 rounded-xl border border-emerald-500/20">
+                          <span className="text-neutral-400 block text-[10px] uppercase font-bold">Fixed Charge</span>
+                          <strong className="font-mono text-neutral-900 dark:text-white">₹{validationResult.summary.fixedCharge}/mo</strong>
+                        </div>
+                        <div className="bg-white/60 dark:bg-neutral-800/60 p-2.5 rounded-xl border border-emerald-500/20">
+                          <span className="text-neutral-400 block text-[10px] uppercase font-bold">Duty Rate</span>
+                          <strong className="font-mono text-neutral-900 dark:text-white">{validationResult.summary.dutyRate}%</strong>
+                        </div>
+                        <div className="bg-white/60 dark:bg-neutral-800/60 p-2.5 rounded-xl border border-emerald-500/20">
+                          <span className="text-neutral-400 block text-[10px] uppercase font-bold">Source</span>
+                          <strong className="text-neutral-900 dark:text-white truncate block">{validationResult.summary.source}</strong>
+                        </div>
+                      </div>
                     </div>
                   ) : (
-                    <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800/40 space-y-1.5 text-rose-700 dark:text-rose-300">
-                      <div className="flex items-center gap-1.5 font-bold">
-                        <AlertTriangle className="w-4 h-4 text-rose-500 shrink-0" />
-                        <span>Validation Errors Detected:</span>
+                    <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800/40 space-y-2 text-rose-700 dark:text-rose-300">
+                      <div className="flex items-center gap-2 font-bold text-xs">
+                        <XCircle className="w-5 h-5 text-rose-500 shrink-0" />
+                        <span>❌ Validation Errors Detected: Please resolve before previewing or publishing.</span>
                       </div>
-                      <ul className="list-disc list-inside space-y-1 text-[11px]">
-                        {validationResult.errors.map((err, i) => (
-                          <li key={i}>{err}</li>
+
+                      <div className="space-y-2 pt-2 border-t border-rose-200 dark:border-rose-800/40 text-[11px]">
+                        {(Object.entries(groupedErrors) as [string, string[]][]).map(([category, errorList]) => (
+                          <div key={category} className="space-y-1">
+                            <span className="font-bold text-rose-900 dark:text-rose-200 uppercase text-[10px] tracking-wider block">
+                              {category}:
+                            </span>
+                            <ul className="list-disc list-inside space-y-0.5 pl-2">
+                              {errorList.map((err, i) => (
+                                <li key={i} className="text-rose-700 dark:text-rose-300 font-medium">
+                                  {err}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   )}
                 </div>
               )}
 
-              {/* PREVIEW & INLINE EDITING WORKBENCH */}
-              {previewProposal && (
+              {/* ── PREVIEW & INLINE EDITING WORKBENCH ── */}
+              {previewProposal && isValidated && (
                 <div className="space-y-4 pt-4 border-t border-neutral-200 dark:border-neutral-800">
                   <div className="flex items-center justify-between">
                     <div>
@@ -818,11 +928,12 @@ export const AdminTariffView: React.FC = () => {
                         Tariff Preview &amp; Inline Field Editor
                       </h4>
                       <p className="text-[11px] text-neutral-500">
-                        Review and adjust any fields before committing directly to Supabase.
+                        Adjust individual rates or metadata before committing directly to Supabase.
                       </p>
                     </div>
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30">
-                      Ready to Publish
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                      Validated &amp; Ready to Publish
                     </span>
                   </div>
 
@@ -1019,15 +1130,26 @@ export const AdminTariffView: React.FC = () => {
                 Cancel
               </button>
 
-              <button
-                type="button"
-                onClick={handlePublishTariff}
-                disabled={isPublishing || !previewProposal}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 disabled:opacity-50 text-white font-bold text-xs transition-all shadow-md shadow-emerald-600/20 inline-flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <CheckCircle2 className="w-4 h-4" />
-                {isPublishing ? 'Publishing to Supabase...' : 'Publish Tariff to Production'}
-              </button>
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={handlePublishTariff}
+                  disabled={isPublishing || !isValidated || !previewProposal || (validationResult !== null && !validationResult.isValid)}
+                  className={`w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs transition-all inline-flex items-center justify-center gap-2 ${
+                    isPublishing || !isValidated || !previewProposal || (validationResult !== null && !validationResult.isValid)
+                      ? 'bg-neutral-300 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 cursor-not-allowed opacity-60'
+                      : 'bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 cursor-pointer'
+                  }`}
+                  title={
+                    !isValidated
+                      ? 'Please validate JSON before publishing'
+                      : 'Publish validated tariff to Supabase & Live Calculator'
+                  }
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  {isPublishing ? 'Publishing to Supabase...' : 'Publish Tariff to Production'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

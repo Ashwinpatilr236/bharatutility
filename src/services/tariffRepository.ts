@@ -15,9 +15,30 @@ const STORAGE_KEYS = {
   PROPOSALS: 'bu_tariff_proposals',
 };
 
+export interface TariffValidationIssue {
+  category: 'JSON Syntax' | 'Required Fields' | 'Slabs & Rates' | 'Dates & Sources';
+  message: string;
+}
+
+export interface TariffValidationSummary {
+  state: string;
+  discom: string;
+  category: string;
+  tariffName: string;
+  effectiveFrom: string;
+  slabCount: number;
+  fixedCharge: number;
+  fixedChargeUnit: string;
+  dutyRate: number;
+  dutyType: string;
+  source: string;
+  sourceUrl?: string;
+}
+
 export interface TariffValidationResult {
   isValid: boolean;
-  errors: string[];
+  errors: TariffValidationIssue[];
+  summary?: TariffValidationSummary;
   parsedProposal?: ProposedTariffRevision;
 }
 
@@ -322,79 +343,180 @@ class TariffRepository {
     }
   }
 
-  // ── MANUAL TARIFF JSON VALIDATION ENGINE ──
-  public validateManualTariffJson(
+  // ── UNIFIED MANUAL TARIFF JSON VALIDATION ENGINE ──
+  public validateTariffImport(
     jsonString: string,
     defaultState?: string,
     defaultDiscom?: string,
     defaultCategory?: string
   ): TariffValidationResult {
-    const errors: string[] = [];
+    const issues: TariffValidationIssue[] = [];
 
     if (!jsonString || !jsonString.trim()) {
-      return { isValid: false, errors: ['Please paste or upload JSON tariff data.'] };
+      return {
+        isValid: false,
+        errors: [{ category: 'JSON Syntax', message: 'Tariff JSON string is empty. Please paste or upload JSON.' }]
+      };
     }
 
     let parsed: any;
     try {
       parsed = JSON.parse(jsonString.trim());
     } catch (err: any) {
-      return { isValid: false, errors: [`Invalid JSON format: ${err.message || 'Syntax error in JSON string.'}`] };
+      return {
+        isValid: false,
+        errors: [
+          {
+            category: 'JSON Syntax',
+            message: `JSON Syntax Error: ${err.message || 'Malformed JSON syntax. Check quotes, commas, and closing braces.'}`
+          }
+        ]
+      };
     }
 
+    if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+      return {
+        isValid: false,
+        errors: [{ category: 'JSON Syntax', message: 'Tariff root must be a valid JSON Object with key-value pairs.' }]
+      };
+    }
+
+    // 1. Required Fields Validation
     const stateName = (parsed.state || parsed.stateName || defaultState || '').trim();
-    if (!stateName) {
-      errors.push('Missing required field: "state" (e.g., "Gujarat", "Maharashtra").');
+    if (!stateName || stateName.length < 2) {
+      issues.push({
+        category: 'Required Fields',
+        message: 'Missing or invalid "state" name (e.g., "Gujarat", "Maharashtra").'
+      });
     }
 
     const discomName = (parsed.discom || parsed.discomName || defaultDiscom || '').trim();
-    if (!discomName) {
-      errors.push('Missing required field: "discom" (e.g., "MGVCL", "MSEDCL").');
+    if (!discomName || discomName.length < 2) {
+      issues.push({
+        category: 'Required Fields',
+        message: 'Missing or invalid "discom" name (e.g., "MGVCL", "MSEDCL", "BRPL").'
+      });
     }
 
-    const consumerCategory = (parsed.category || parsed.consumerCategory || defaultCategory || 'Domestic (LT-1 Residential)').trim();
+    const consumerCategory = (
+      parsed.consumerCategory ||
+      parsed.category ||
+      defaultCategory ||
+      'Domestic (LT-1 Residential)'
+    ).trim();
 
-    // Slabs validation
+    const tariffName = (
+      parsed.tariffName ||
+      parsed.orderNumber ||
+      `Tariff Schedule ${new Date().getFullYear()}`
+    ).trim();
+
+    // 2. Date Validation
+    const effectiveFromRaw = (parsed.effectiveFrom ?? parsed.effective_from ?? '').toString().trim();
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!effectiveFromRaw) {
+      issues.push({
+        category: 'Dates & Sources',
+        message: 'Missing required field: "effectiveFrom" (date in YYYY-MM-DD format).'
+      });
+    } else if (!dateRegex.test(effectiveFromRaw) || isNaN(new Date(effectiveFromRaw).getTime())) {
+      issues.push({
+        category: 'Dates & Sources',
+        message: `Invalid "effectiveFrom" date "${effectiveFromRaw}". Expected valid date in YYYY-MM-DD format.`
+      });
+    }
+
+    // 3. Slabs & Rates Validation
     const rawSlabs = parsed.slabs || parsed.tariffSlabs || [];
     if (!Array.isArray(rawSlabs) || rawSlabs.length === 0) {
-      errors.push('Missing required field: "slabs" (must be an array with at least 1 consumption tier).');
+      issues.push({
+        category: 'Slabs & Rates',
+        message: 'Missing required field: "slabs" (must be an array containing at least 1 consumption tier).'
+      });
     } else {
+      let prevMax: number | null = -1;
       rawSlabs.forEach((s: any, idx: number) => {
+        if (typeof s !== 'object' || s === null) {
+          issues.push({
+            category: 'Slabs & Rates',
+            message: `Slab #${idx + 1} must be an object with minUnits, maxUnits, and ratePerUnit.`
+          });
+          return;
+        }
+
         const minU = Number(s.minUnits ?? s.min ?? 0);
         const maxU = s.maxUnits !== undefined && s.maxUnits !== null ? Number(s.maxUnits) : null;
         const rate = Number(s.ratePerUnit ?? s.rate ?? -1);
 
         if (isNaN(minU) || minU < 0) {
-          errors.push(`Slab #${idx + 1}: "minUnits" must be a non-negative number.`);
+          issues.push({
+            category: 'Slabs & Rates',
+            message: `Slab #${idx + 1}: "minUnits" (${s.minUnits}) must be a valid non-negative number.`
+          });
         }
+
         if (isNaN(rate) || rate < 0) {
-          errors.push(`Slab #${idx + 1}: "ratePerUnit" must be a non-negative number (got ${rate}).`);
+          issues.push({
+            category: 'Slabs & Rates',
+            message: `Slab #${idx + 1}: "ratePerUnit" (${s.ratePerUnit}) cannot be negative or non-numeric.`
+          });
         }
-        if (maxU !== null && (isNaN(maxU) || maxU <= minU)) {
-          errors.push(`Slab #${idx + 1}: "maxUnits" (${maxU}) must be greater than "minUnits" (${minU}).`);
+
+        if (maxU !== null) {
+          if (isNaN(maxU) || maxU <= minU) {
+            issues.push({
+              category: 'Slabs & Rates',
+              message: `Slab #${idx + 1}: "maxUnits" (${maxU}) must be strictly greater than "minUnits" (${minU}).`
+            });
+          }
         }
+
+        // Logical ordering check
+        if (idx > 0 && prevMax !== null && minU < prevMax) {
+          issues.push({
+            category: 'Slabs & Rates',
+            message: `Slab #${idx + 1}: "minUnits" (${minU}) overlaps with preceding slab maximum (${prevMax}).`
+          });
+        }
+        prevMax = maxU;
       });
     }
 
     const fixedCharge = Number(parsed.fixedCharge ?? parsed.fixed_charge ?? 0);
     if (isNaN(fixedCharge) || fixedCharge < 0) {
-      errors.push('"fixedCharge" must be a non-negative number.');
+      issues.push({
+        category: 'Slabs & Rates',
+        message: '"fixedCharge" must be a non-negative number.'
+      });
     }
 
     const dutyRate = Number(parsed.dutyRate ?? parsed.duty_rate ?? 0);
     if (isNaN(dutyRate) || dutyRate < 0) {
-      errors.push('"dutyRate" must be a non-negative number.');
+      issues.push({
+        category: 'Slabs & Rates',
+        message: '"dutyRate" must be a non-negative percentage or rate.'
+      });
     }
 
-    const effectiveFrom = (parsed.effectiveFrom ?? parsed.effective_from ?? new Date().toISOString().split('T')[0]).trim();
-    if (!effectiveFrom) {
-      errors.push('Missing required field: "effectiveFrom" (date in YYYY-MM-DD format).');
+    // 4. Source & Authority Validation
+    const sourceName = (parsed.source ?? parsed.sourceName ?? '').trim();
+    if (!sourceName) {
+      issues.push({
+        category: 'Dates & Sources',
+        message: 'Missing required field: "source" (State Regulatory Commission or DISCOM order authority).'
+      });
     }
 
-    const sourceName = (parsed.source ?? parsed.sourceName ?? 'State Electricity Regulatory Commission').trim();
+    const sourceUrl = (parsed.sourceUrl ?? parsed.source_url ?? '').trim();
+    if (sourceUrl && !sourceUrl.startsWith('http://') && !sourceUrl.startsWith('https://')) {
+      issues.push({
+        category: 'Dates & Sources',
+        message: `Invalid "sourceUrl" "${sourceUrl}". Must start with http:// or https://.`
+      });
+    }
 
-    if (errors.length > 0) {
-      return { isValid: false, errors };
+    if (issues.length > 0) {
+      return { isValid: false, errors: issues };
     }
 
     // Cleaned slabs
@@ -408,13 +530,14 @@ class TariffRepository {
     }));
 
     const discomId = `${stateName.toLowerCase().replace(/[^a-z0-9]/g, '')}-${discomName.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+    const effectiveFrom = effectiveFromRaw || new Date().toISOString().split('T')[0];
 
     const parsedProposal: ProposedTariffRevision = {
       discomId,
       discomName,
       stateName,
-      orderNumber: parsed.orderNumber || `SERC Tariff Schedule ${effectiveFrom.split('-')[0] || '2026'}`,
-      orderDate: parsed.orderDate || new Date().toISOString().split('T')[0],
+      orderNumber: tariffName,
+      orderDate: parsed.orderDate || effectiveFrom,
       effectiveFrom,
       consumerCategory,
       fixedCharge,
@@ -425,28 +548,53 @@ class TariffRepository {
       slabs: cleanedSlabs,
       subsidyRule: parsed.subsidy || parsed.subsidyRule || null,
       sourceName,
-      sourceUrl: (parsed.sourceUrl ?? parsed.source_url ?? '').trim(),
-      sourceDocument: parsed.sourceDocument || parsed.orderNumber || 'Official SERC Schedule',
+      sourceUrl,
+      sourceDocument: parsed.sourceDocument || tariffName,
       confidence: 'High',
       reviewWarnings: [],
-      notes: parsed.notes || 'Manually entered and verified tariff schedule.',
+      notes: parsed.notes || 'Manually verified official tariff schedule.',
       status: 'pending_review'
     };
 
     return {
       isValid: true,
       errors: [],
+      summary: {
+        state: stateName,
+        discom: discomName,
+        category: consumerCategory,
+        tariffName,
+        effectiveFrom,
+        slabCount: cleanedSlabs.length,
+        fixedCharge,
+        fixedChargeUnit: parsedProposal.fixedChargeUnit,
+        dutyRate,
+        dutyType: parsedProposal.dutyType,
+        source: sourceName,
+        sourceUrl
+      },
       parsedProposal
     };
   }
 
-  // ── SAMPLE TEMPLATE GENERATOR ──
+  // Alias for backward compatibility
+  public validateManualTariffJson(
+    jsonString: string,
+    defaultState?: string,
+    defaultDiscom?: string,
+    defaultCategory?: string
+  ): TariffValidationResult {
+    return this.validateTariffImport(jsonString, defaultState, defaultDiscom, defaultCategory);
+  }
+
+  // ── 100% VALID SAMPLE TEMPLATE GENERATOR ──
   public getSampleTariffJson(stateName = 'Gujarat', discomName = 'MGVCL'): string {
     return JSON.stringify(
       {
         state: stateName,
         discom: discomName,
-        category: 'Domestic (LT-1 Residential)',
+        consumerCategory: 'Domestic (LT-1 Residential)',
+        tariffName: 'GERC Retail Supply Tariff Order 2026-27',
         effectiveFrom: '2026-04-01',
         fixedCharge: 25,
         fixedChargeUnit: 'per_month',
@@ -462,7 +610,7 @@ class TariffRepository {
         subsidy: null,
         source: 'Gujarat Electricity Regulatory Commission (GERC)',
         sourceUrl: 'https://gercin.org',
-        notes: 'Verified against GERC FY 2026-27 Retail Supply Schedule.'
+        notes: 'Verified against GERC Retail Supply Schedule for FY 2026-27.'
       },
       null,
       2
