@@ -14,7 +14,9 @@ import {
   ChevronDown,
   Flame,
   FileCheck2,
-  HeartHandshake
+  HeartHandshake,
+  Download,
+  Smartphone
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -217,13 +219,13 @@ export const Header: React.FC = () => {
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150">
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               <button
                 onClick={() => {
                   navigateToAllTools();
                   setIsMobileMenuOpen(false);
                 }}
-                className="flex flex-col items-center justify-center gap-1.5 p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200"
+                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
               >
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span>All Tools</span>
@@ -233,7 +235,7 @@ export const Header: React.FC = () => {
                   setIsFavModalOpen(true);
                   setIsMobileMenuOpen(false);
                 }}
-                className="flex flex-col items-center justify-center gap-1.5 p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200"
+                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
               >
                 <Star className="w-4 h-4 text-amber-500 fill-current" />
                 <span>Saved ({favorites.length})</span>
@@ -243,10 +245,24 @@ export const Header: React.FC = () => {
                   navigateToRequestTool();
                   setIsMobileMenuOpen(false);
                 }}
-                className="flex flex-col items-center justify-center gap-1.5 p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200"
+                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
               >
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span>Request</span>
+              </button>
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  const banner = document.getElementById('pwa-install-btn');
+                  if (banner) banner.click();
+                  else {
+                    window.dispatchEvent(new CustomEvent('bu:prompt-install'));
+                  }
+                }}
+                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-accent-subtle text-accent text-[11px] font-bold"
+              >
+                <Download className="w-4 h-4" />
+                <span>Install</span>
               </button>
             </div>
 

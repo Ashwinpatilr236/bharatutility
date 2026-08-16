@@ -1,21 +1,79 @@
 {
+  "id": "/?source=pwa",
+  "name": "BharatUtility — Smart Calculations & Everyday Tools",
   "short_name": "BharatUtility",
-  "name": "BharatUtility — Smart Calculations & Tools for India",
+  "description": "Free, fast, and privacy-first Indian calculators & everyday utilities. Works 100% offline.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#0a0a0a",
+  "theme_color": "#4f46e5",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["utilities", "finance", "productivity", "education"],
   "icons": [
     {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=192&auto=format&fit=crop&q=80",
-      "type": "image/jpeg",
-      "sizes": "192x192"
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=512&auto=format&fit=crop&q=80",
-      "type": "image/jpeg",
-      "sizes": "512x512"
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": "/",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
-  "display": "standalone",
-  "scope": "/"
+  "shortcuts": [
+    {
+      "name": "Home Loan EMI Calculator",
+      "short_name": "EMI Calculator",
+      "description": "Calculate monthly loan EMI, interest & amortization schedule",
+      "url": "/?tool=emi-calculator",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "GST Calculator",
+      "short_name": "GST Calculator",
+      "description": "Calculate GST inclusive & exclusive amounts across 5%, 12%, 18%, 28% slabs",
+      "url": "/?tool=gst-calculator",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "In-Hand Salary Calculator",
+      "short_name": "Salary Calculator",
+      "description": "Convert CTC to monthly take-home salary with PF and tax deductions",
+      "url": "/?tool=salary-calculator",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "SIP Wealth Calculator",
+      "short_name": "SIP Calculator",
+      "description": "Forecast mutual fund wealth creation with monthly SIP compounding",
+      "url": "/?tool=sip-calculator",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Multi-Unit & Land Converter",
+      "short_name": "Unit Converter",
+      "description": "Convert Indian land units (Gaj, Bigha, Guntha, Acre) and global units",
+      "url": "/?tool=unit-converter",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
 }

@@ -29,7 +29,12 @@ export const PwaInstallBanner: React.FC = () => {
       setIsSupported(true);
     };
 
+    const handleCustomPrompt = () => {
+      handleInstallClick();
+    };
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('bu:prompt-install', handleCustomPrompt);
 
     window.addEventListener('appinstalled', () => {
       setIsInstalled(true);
@@ -39,8 +44,9 @@ export const PwaInstallBanner: React.FC = () => {
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('bu:prompt-install', handleCustomPrompt);
     };
-  }, []);
+  }, [deferredPrompt]);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) {
@@ -93,6 +99,7 @@ export const PwaInstallBanner: React.FC = () => {
 
         <div className="flex items-center gap-2 w-full sm:w-auto justify-end z-10">
           <button
+            id="pwa-install-btn"
             onClick={handleInstallClick}
             className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-white hover:bg-neutral-100 text-neutral-900 font-bold text-xs inline-flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95 shadow-xs"
           >
