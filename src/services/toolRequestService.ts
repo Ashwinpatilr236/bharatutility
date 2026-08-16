@@ -21,7 +21,13 @@ export interface ToolRequestResponse {
  */
 export async function submitToolRequest(data: ToolRequestFormData): Promise<ToolRequestResponse> {
   // 1. Validation
-  const requestedTool = (data.toolName || '').trim();
+  const requestedTool = (
+    data.toolName ||
+    (data as any).requested_tool ||
+    (data as any).requestedTool ||
+    (data as any).title ||
+    ''
+  ).trim();
   if (!requestedTool) {
     throw new Error('Please provide the name of the tool you are requesting.');
   }
@@ -65,29 +71,29 @@ export async function submitToolRequest(data: ToolRequestFormData): Promise<Tool
   }
 
   // 3. Insert into Supabase public.tool_requests
-  const { data: record, error } = await supabase
-    .from('tool_requests')
-    .insert([
-      {
-        requested_tool: requestedTool,
-        description: fullDescription || null,
-        category: category || null,
-        name: name || null,
-        email: email || null,
-        status: 'new',
-      },
-    ])
-    .select('id, requested_tool, status, created_at')
-    .single();
+  // Note: We do not call .select() here because public/anon users only have INSERT permission,
+  // not SELECT permission. Calling .select() triggers Postgres SELECT RLS and causes a violation.
+  const payload = {
+    requested_tool: requestedTool,
+    description: fullDescription || null,
+    category: category || null,
+    name: name || null,
+    email: email || null,
+    status: 'new',
+  };
 
-  if (error || !record) {
+  const { error } = await supabase
+    .from('tool_requests')
+    .insert([payload]);
+
+  if (error) {
     console.error('Supabase tool request insert error:', error);
-    throw new Error(error?.message || 'Something went wrong while submitting your request. Please try again.');
+    throw new Error(error.message || 'Something went wrong while submitting your request. Please try again.');
   }
 
   return {
     success: true,
     message: 'Thanks! Your tool request has been submitted.',
-    id: record.id,
+    id: '',
   };
 }
