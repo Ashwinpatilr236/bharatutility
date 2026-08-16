@@ -360,18 +360,44 @@ class TariffRepository {
     }
 
     let parsed: any;
+    let rawText = jsonString.trim();
+
+    // 1. Strip Markdown code fences if user copied ```json ... ``` directly from AI chat
+    if (rawText.includes('```')) {
+      const fenceMatch = rawText.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+      if (fenceMatch && fenceMatch[1]) {
+        rawText = fenceMatch[1].trim();
+      } else {
+        rawText = rawText.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+      }
+    }
+
+    // 2. Extract outermost JSON object if surrounding text is present
+    const firstBrace = rawText.indexOf('{');
+    const lastBrace = rawText.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+      rawText = rawText.substring(firstBrace, lastBrace + 1);
+    }
+
+    // 3. Robust JSON Parsing with auto-recovery for trailing commas
     try {
-      parsed = JSON.parse(jsonString.trim());
-    } catch (err: any) {
-      return {
-        isValid: false,
-        errors: [
-          {
-            category: 'JSON Syntax',
-            message: `JSON Syntax Error: ${err.message || 'Malformed JSON syntax. Check quotes, commas, and closing braces.'}`
-          }
-        ]
-      };
+      parsed = JSON.parse(rawText);
+    } catch (initialErr: any) {
+      try {
+        // Attempt trailing comma cleanup before closing braces or brackets
+        const sanitized = rawText.replace(/,\s*([\]}])/g, '$1');
+        parsed = JSON.parse(sanitized);
+      } catch (secondErr: any) {
+        return {
+          isValid: false,
+          errors: [
+            {
+              category: 'JSON Syntax',
+              message: `JSON Syntax Error: ${initialErr.message || 'Malformed JSON. Check missing quotes, commas, or unclosed braces.'}`
+            }
+          ]
+        };
+      }
     }
 
     if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
@@ -382,7 +408,7 @@ class TariffRepository {
     }
 
     // 1. Required Fields Validation
-    const stateName = (parsed.state || parsed.stateName || defaultState || '').trim();
+    const stateName = (parsed.state || parsed.stateName || parsed.state_name || defaultState || '').trim();
     if (!stateName || stateName.length < 2) {
       issues.push({
         category: 'Required Fields',
@@ -390,7 +416,7 @@ class TariffRepository {
       });
     }
 
-    const discomName = (parsed.discom || parsed.discomName || defaultDiscom || '').trim();
+    const discomName = (parsed.discom || parsed.discomName || parsed.discom_name || defaultDiscom || '').trim();
     if (!discomName || discomName.length < 2) {
       issues.push({
         category: 'Required Fields',
@@ -400,6 +426,7 @@ class TariffRepository {
 
     const consumerCategory = (
       parsed.consumerCategory ||
+      parsed.consumer_category ||
       parsed.category ||
       defaultCategory ||
       'Domestic (LT-1 Residential)'
@@ -407,12 +434,20 @@ class TariffRepository {
 
     const tariffName = (
       parsed.tariffName ||
+      parsed.tariff_name ||
       parsed.orderNumber ||
+      parsed.order_number ||
       `Tariff Schedule ${new Date().getFullYear()}`
     ).trim();
 
     // 2. Date Validation
-    const effectiveFromRaw = (parsed.effectiveFrom ?? parsed.effective_from ?? '').toString().trim();
+    const effectiveFromRaw = (
+      parsed.effectiveFrom ??
+      parsed.effective_from ??
+      parsed.effectiveDate ??
+      parsed.effective_date ??
+      ''
+    ).toString().trim();
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!effectiveFromRaw) {
       issues.push({
@@ -427,7 +462,7 @@ class TariffRepository {
     }
 
     // 3. Slabs & Rates Validation
-    const rawSlabs = parsed.slabs || parsed.tariffSlabs || [];
+    const rawSlabs = parsed.slabs || parsed.tariffSlabs || parsed.tariff_slabs || parsed.energy_charges || parsed.energySlabs || [];
     if (!Array.isArray(rawSlabs) || rawSlabs.length === 0) {
       issues.push({
         category: 'Slabs & Rates',
@@ -444,21 +479,27 @@ class TariffRepository {
           return;
         }
 
-        const minU = Number(s.minUnits ?? s.min ?? 0);
-        const maxU = s.maxUnits !== undefined && s.maxUnits !== null ? Number(s.maxUnits) : null;
-        const rate = Number(s.ratePerUnit ?? s.rate ?? -1);
+        const minU = Number(s.minUnits ?? s.min_units ?? s.min ?? s.fromUnits ?? s.from ?? 0);
+        const maxU = s.maxUnits !== undefined && s.maxUnits !== null
+          ? Number(s.maxUnits)
+          : s.max_units !== undefined && s.max_units !== null
+          ? Number(s.max_units)
+          : s.toUnits !== undefined && s.toUnits !== null
+          ? Number(s.toUnits)
+          : null;
+        const rate = Number(s.ratePerUnit ?? s.rate_per_unit ?? s.rate ?? s.unitRate ?? s.pricePerUnit ?? -1);
 
         if (isNaN(minU) || minU < 0) {
           issues.push({
             category: 'Slabs & Rates',
-            message: `Slab #${idx + 1}: "minUnits" (${s.minUnits}) must be a valid non-negative number.`
+            message: `Slab #${idx + 1}: "minUnits" (${s.minUnits ?? s.min}) must be a valid non-negative number.`
           });
         }
 
         if (isNaN(rate) || rate < 0) {
           issues.push({
             category: 'Slabs & Rates',
-            message: `Slab #${idx + 1}: "ratePerUnit" (${s.ratePerUnit}) cannot be negative or non-numeric.`
+            message: `Slab #${idx + 1}: "ratePerUnit" (${s.ratePerUnit ?? s.rate}) cannot be negative or non-numeric.`
           });
         }
 
@@ -482,7 +523,7 @@ class TariffRepository {
       });
     }
 
-    const fixedCharge = Number(parsed.fixedCharge ?? parsed.fixed_charge ?? 0);
+    const fixedCharge = Number(parsed.fixedCharge ?? parsed.fixed_charge ?? parsed.fixedCharges ?? 0);
     if (isNaN(fixedCharge) || fixedCharge < 0) {
       issues.push({
         category: 'Slabs & Rates',
@@ -490,7 +531,7 @@ class TariffRepository {
       });
     }
 
-    const dutyRate = Number(parsed.dutyRate ?? parsed.duty_rate ?? 0);
+    const dutyRate = Number(parsed.dutyRate ?? parsed.duty_rate ?? parsed.electricityDuty ?? 0);
     if (isNaN(dutyRate) || dutyRate < 0) {
       issues.push({
         category: 'Slabs & Rates',
@@ -499,7 +540,7 @@ class TariffRepository {
     }
 
     // 4. Source & Authority Validation
-    const sourceName = (parsed.source ?? parsed.sourceName ?? '').trim();
+    const sourceName = (parsed.source ?? parsed.sourceName ?? parsed.source_name ?? parsed.regulatorySource ?? '').trim();
     if (!sourceName) {
       issues.push({
         category: 'Dates & Sources',
@@ -522,11 +563,17 @@ class TariffRepository {
     // Cleaned slabs
     const cleanedSlabs: TariffSlab[] = rawSlabs.map((s: any, idx: number) => ({
       id: s.id || `slab_${idx + 1}`,
-      minUnits: Number(s.minUnits ?? s.min ?? 0),
-      maxUnits: s.maxUnits !== undefined && s.maxUnits !== null ? Number(s.maxUnits) : null,
-      ratePerUnit: Number(s.ratePerUnit ?? s.rate ?? 0),
-      label: s.label || s.name || `${s.minUnits ?? 0}–${s.maxUnits || 'Above'} Units`,
-      name: s.name || s.label || `${s.minUnits ?? 0}–${s.maxUnits || 'Above'} Units`,
+      minUnits: Number(s.minUnits ?? s.min_units ?? s.min ?? s.fromUnits ?? s.from ?? 0),
+      maxUnits: s.maxUnits !== undefined && s.maxUnits !== null
+        ? Number(s.maxUnits)
+        : s.max_units !== undefined && s.max_units !== null
+        ? Number(s.max_units)
+        : s.toUnits !== undefined && s.toUnits !== null
+        ? Number(s.toUnits)
+        : null,
+      ratePerUnit: Number(s.ratePerUnit ?? s.rate_per_unit ?? s.rate ?? s.unitRate ?? s.pricePerUnit ?? 0),
+      label: s.label || s.name || `${s.minUnits ?? s.min ?? 0}–${s.maxUnits ?? s.max ?? 'Above'} Units`,
+      name: s.name || s.label || `${s.minUnits ?? s.min ?? 0}–${s.maxUnits ?? s.max ?? 'Above'} Units`,
     }));
 
     const discomId = `${stateName.toLowerCase().replace(/[^a-z0-9]/g, '')}-${discomName.toLowerCase().replace(/[^a-z0-9]/g, '')}`;

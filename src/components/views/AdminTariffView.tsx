@@ -222,6 +222,42 @@ export const AdminTariffView: React.FC = () => {
     }
   };
 
+  // ── AUTO-FORMAT & CLEAN JSON ──
+  const handleAutoFormatJson = () => {
+    if (!importJsonText.trim()) return;
+    try {
+      let rawText = importJsonText.trim();
+      if (rawText.includes('```')) {
+        const fenceMatch = rawText.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+        if (fenceMatch && fenceMatch[1]) rawText = fenceMatch[1].trim();
+        else rawText = rawText.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+      }
+      const firstBrace = rawText.indexOf('{');
+      const lastBrace = rawText.lastIndexOf('}');
+      if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+        rawText = rawText.substring(firstBrace, lastBrace + 1);
+      }
+      const sanitized = rawText.replace(/,\s*([\]}])/g, '$1');
+      const parsed = JSON.parse(sanitized);
+      setImportJsonText(JSON.stringify(parsed, null, 2));
+      showToast('JSON formatted and cleaned successfully!', 'info');
+      // Trigger validation
+      const result = tariffRepository.validateTariffImport(
+        JSON.stringify(parsed),
+        importState,
+        importDiscom,
+        importCategory
+      );
+      setValidationResult(result);
+      setIsValidated(result.isValid);
+      if (result.isValid && result.parsedProposal) {
+        setPreviewProposal(result.parsedProposal);
+      }
+    } catch (e: any) {
+      showToast('Could not auto-format. Please ensure opening { and closing } exist.', 'error');
+    }
+  };
+
   // ── FILE UPLOAD (Uses same validation pipeline) ──
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -798,6 +834,15 @@ export const AdminTariffView: React.FC = () => {
                         className="hidden"
                       />
                     </label>
+                    <button
+                      type="button"
+                      onClick={handleAutoFormatJson}
+                      className="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-[11px] font-semibold text-neutral-700 dark:text-neutral-200 transition-colors cursor-pointer border border-neutral-300 dark:border-neutral-600 inline-flex items-center gap-1"
+                      title="Strip markdown formatting and fix trailing commas"
+                    >
+                      <FileCheck2 className="w-3 h-3 text-emerald-500" />
+                      Clean &amp; Format
+                    </button>
                     <button
                       type="button"
                       onClick={() => {
