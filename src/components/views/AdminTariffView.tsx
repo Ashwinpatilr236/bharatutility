@@ -4,9 +4,10 @@ import {
   ElectricityTariff,
   ProposedTariffRevision,
   TariffAuditLog,
-  TariffComparisonField
+  TariffComparisonField,
+  TariffSlab
 } from '../../types/electricity';
-import { tariffRepository } from '../../services/tariffRepository';
+import { tariffRepository, TariffValidationResult } from '../../services/tariffRepository';
 import { isSupabaseConfigured } from '../../services/supabaseClient';
 import { formatINR } from '../../utils/formatters';
 import {
@@ -19,7 +20,6 @@ import {
   AlertTriangle,
   History,
   ExternalLink,
-  Sparkles,
   Edit3,
   XCircle,
   Database,
@@ -36,35 +36,38 @@ import {
   Lock,
   Building2,
   MapPin,
-  RotateCcw
+  Plus,
+  FileCode,
+  Sliders,
+  Trash2
 } from 'lucide-react';
 
 export const AdminTariffView: React.FC = () => {
   const { navigateToTool, showToast } = useApp();
 
-  // State
+  // Navigation State
   const [activeTab, setActiveTab] = useState<'tariffs' | 'audit' | 'supabase'>('tariffs');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStateFilter, setSelectedStateFilter] = useState('all');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState('all');
 
-  // Active operation states
-  const [checkingTariffId, setCheckingTariffId] = useState<string | null>(null);
-  const [activeProposalModal, setActiveProposalModal] = useState<{
-    tariff: ElectricityTariff;
-    proposal: ProposedTariffRevision;
-  } | null>(null);
+  // Manual Import Modal State
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [importState, setImportState] = useState('Gujarat');
+  const [importDiscom, setImportDiscom] = useState('MGVCL');
+  const [importCategory, setImportCategory] = useState('Domestic (LT-1 Residential)');
+  const [importJsonText, setImportJsonText] = useState('');
+  const [validationResult, setValidationResult] = useState<TariffValidationResult | null>(null);
 
-  const [isEditingProposal, setIsEditingProposal] = useState(false);
-  const [editableProposal, setEditableProposal] = useState<ProposedTariffRevision | null>(null);
+  // Edit / Preview Workbench State
+  const [previewProposal, setPreviewProposal] = useState<ProposedTariffRevision | null>(null);
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [targetTariffId, setTargetTariffId] = useState<string>('');
 
-  const [manualExtractModal, setManualExtractModal] = useState<ElectricityTariff | null>(null);
-  const [manualDocumentText, setManualDocumentText] = useState('');
-  const [isExtracting, setIsExtracting] = useState(false);
-
+  // Version history modal
   const [versionHistoryModal, setVersionHistoryModal] = useState<ElectricityTariff | null>(null);
 
-  // Force re-render on updates
+  // Force re-render key
   const [versionKey, setVersionKey] = useState(0);
   const refreshRepository = () => setVersionKey(k => k + 1);
 
@@ -89,7 +92,7 @@ export const AdminTariffView: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [versionKey]);
 
-  // Unique states
+  // Unique 36 States & UTs (excluding national benchmark)
   const stateOptions = useMemo(() => {
     const states = Array.from(
       new Set(
@@ -101,10 +104,18 @@ export const AdminTariffView: React.FC = () => {
     return states;
   }, [allTariffs]);
 
+  // DISCOMs for selected import state
+  const discomOptionsForState = useMemo(() => {
+    const matching = allTariffs.filter(
+      t => t.state.toLowerCase() === importState.toLowerCase() && t.id !== 'india-average'
+    );
+    const names = Array.from(new Set(matching.map(t => t.discom)));
+    return names.length > 0 ? names : [importDiscom];
+  }, [allTariffs, importState, importDiscom]);
+
   // Filtered Tariffs
   const filteredTariffs = useMemo(() => {
     return allTariffs.filter(t => {
-      // Hide raw archived historical versions from main table unless status filter is archived
       if (selectedStatusFilter !== 'archived' && t.status === 'archived') {
         return false;
       }
@@ -116,7 +127,8 @@ export const AdminTariffView: React.FC = () => {
       }
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
-        const matchesName = t.state.toLowerCase().includes(q) ||
+        const matchesName =
+          t.state.toLowerCase().includes(q) ||
           t.discom.toLowerCase().includes(q) ||
           t.discomShort.toLowerCase().includes(q) ||
           t.category.toLowerCase().includes(q);
@@ -144,150 +156,184 @@ export const AdminTariffView: React.FC = () => {
     };
   }, [allTariffs, auditLogs]);
 
-  // ── 1. ACTION: MANUAL "CHECK FOR UPDATES" ──
-  const handleCheckUpdates = async (tariff: ElectricityTariff, simulateNew = false) => {
-    setCheckingTariffId(tariff.id);
-    showToast(`Checking official regulatory portal for ${tariff.discom}...`, 'info');
+  // ── OPEN IMPORT MODAL FOR SPECIFIC TARIFF OR NEW ──
+  const handleOpenImport = (tariff?: ElectricityTariff) => {
+    if (tariff) {
+      setImportState(tariff.state);
+      setImportDiscom(tariff.discom);
+      setImportCategory(tariff.category);
+      setTargetTariffId(tariff.id);
+      setImportJsonText(
+        JSON.stringify(
+          {
+            state: tariff.state,
+            discom: tariff.discom,
+            category: tariff.category,
+            effectiveFrom: tariff.effectiveFrom || '2026-04-01',
+            fixedCharge: tariff.fixedCharge,
+            fixedChargeUnit: tariff.fixedChargeUnit,
+            dutyRate: tariff.dutyRate,
+            dutyType: tariff.dutyType,
+            fuelAdjustmentRate: tariff.fuelAdjustmentChargePerUnit || 0,
+            slabs: tariff.slabs,
+            subsidy: tariff.subsidy,
+            source: tariff.source,
+            sourceUrl: tariff.sourceUrl,
+            notes: tariff.notes || 'Verified against official SERC retail tariff order schedule.'
+          },
+          null,
+          2
+        )
+      );
+    } else {
+      setImportState(stateOptions[0] || 'Gujarat');
+      setImportDiscom('MGVCL');
+      setImportCategory('Domestic (LT-1 Residential)');
+      setTargetTariffId('');
+      setImportJsonText(tariffRepository.getSampleTariffJson('Gujarat', 'MGVCL'));
+    }
+    setValidationResult(null);
+    setPreviewProposal(null);
+    setIsImportModalOpen(true);
+  };
 
-    try {
-      const result = await tariffRepository.checkOfficialTariffUpdates(tariff, simulateNew);
-      refreshRepository();
-
-      if (result.hasNewUpdate && result.proposal) {
-        showToast(`New tariff order detected for ${tariff.discom}! Slabs extracted.`, 'success');
-        setActiveProposalModal({
-          tariff,
-          proposal: result.proposal
-        });
-        setEditableProposal(JSON.parse(JSON.stringify(result.proposal)));
-        setIsEditingProposal(false);
-      } else {
-        showToast(result.message, 'info');
-      }
-    } catch (e: any) {
-      showToast(`Verification check completed. Current published tariff remains active.`, 'info');
-    } finally {
-      setCheckingTariffId(null);
+  // ── VALIDATE JSON ──
+  const handleValidateJson = () => {
+    const result = tariffRepository.validateManualTariffJson(
+      importJsonText,
+      importState,
+      importDiscom,
+      importCategory
+    );
+    setValidationResult(result);
+    if (result.isValid && result.parsedProposal) {
+      setPreviewProposal(result.parsedProposal);
+    } else {
+      setPreviewProposal(null);
     }
   };
 
-  // ── 2. ACTION: MANUAL EXTRACT FROM TEXT / PDF ──
-  const handleExtractFromDocument = async () => {
-    if (!manualExtractModal || !manualDocumentText.trim()) {
-      showToast('Please paste order text or document excerpt.', 'error');
+  // ── FILE UPLOAD HANDLER ──
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = event => {
+      const content = event.target?.result as string;
+      setImportJsonText(content);
+      // Auto validate upon file upload
+      const result = tariffRepository.validateManualTariffJson(
+        content,
+        importState,
+        importDiscom,
+        importCategory
+      );
+      setValidationResult(result);
+      if (result.isValid && result.parsedProposal) {
+        setPreviewProposal(result.parsedProposal);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  // ── INLINE EDITORS FOR PREVIEW PROPOSAL ──
+  const handleUpdateSlab = (index: number, field: keyof TariffSlab, value: any) => {
+    if (!previewProposal) return;
+    const newSlabs = [...previewProposal.slabs];
+    newSlabs[index] = { ...newSlabs[index], [field]: value };
+    setPreviewProposal({ ...previewProposal, slabs: newSlabs });
+  };
+
+  const handleAddSlab = () => {
+    if (!previewProposal) return;
+    const lastSlab = previewProposal.slabs[previewProposal.slabs.length - 1];
+    const newMin = lastSlab ? (lastSlab.maxUnits || lastSlab.minUnits) + 1 : 0;
+    const newSlab: TariffSlab = {
+      id: `slab_${previewProposal.slabs.length + 1}`,
+      minUnits: newMin,
+      maxUnits: null,
+      ratePerUnit: 5.0,
+      label: `${newMin}+ Units`,
+      name: `${newMin}+ Units`
+    };
+    setPreviewProposal({
+      ...previewProposal,
+      slabs: [...previewProposal.slabs, newSlab]
+    });
+  };
+
+  const handleRemoveSlab = (index: number) => {
+    if (!previewProposal || previewProposal.slabs.length <= 1) return;
+    const newSlabs = previewProposal.slabs.filter((_, i) => i !== index);
+    setPreviewProposal({ ...previewProposal, slabs: newSlabs });
+  };
+
+  // ── ACTION: PUBLISH DIRECTLY TO SUPABASE & PUBLIC CALCULATOR ──
+  const handlePublishTariff = async () => {
+    if (!previewProposal) {
+      showToast('Please validate tariff data before publishing.', 'error');
       return;
     }
 
-    setIsExtracting(true);
-    showToast('Extracting structured tariff data with AI...', 'info');
-
+    setIsPublishing(true);
     try {
-      const proposal = await tariffRepository.extractTariffFromDocument(
-        manualDocumentText,
-        manualExtractModal.state,
-        manualExtractModal.discom,
-        manualExtractModal.sourceUrl,
-        manualExtractModal.id
-      );
-
-      refreshRepository();
-      showToast('Tariff extracted successfully. Please review comparison.', 'success');
-      setActiveProposalModal({
-        tariff: manualExtractModal,
-        proposal
-      });
-      setEditableProposal(JSON.parse(JSON.stringify(proposal)));
-      setIsEditingProposal(false);
-      setManualExtractModal(null);
-      setManualDocumentText('');
-    } catch (e: any) {
-      showToast(e.message || 'AI extraction failed. Live tariff remains safe.', 'error');
-    } finally {
-      setIsExtracting(false);
-    }
-  };
-
-  // ── 3. ACTION: HUMAN APPROVAL & 1-CLICK PUBLISH ──
-  const handleApproveAndPublish = async () => {
-    if (!activeProposalModal) return;
-
-    try {
-      const finalProposal = isEditingProposal && editableProposal ? editableProposal : activeProposalModal.proposal;
+      const tariffId = targetTariffId || previewProposal.discomId;
       await tariffRepository.approveAndPublish(
-        activeProposalModal.tariff.id,
-        finalProposal,
+        tariffId,
+        previewProposal,
         'Super Admin (Authorized Publisher)',
-        `Approved after verifying against ${finalProposal.sourceName || 'official tariff schedule'}.`
+        previewProposal.notes || `Published after manual verification against ${previewProposal.sourceName || 'official tariff order'}.`
       );
 
       refreshRepository();
-      showToast(`Tariff for ${activeProposalModal.tariff.discom} successfully published to public calculator!`, 'success');
-      setActiveProposalModal(null);
-      setEditableProposal(null);
-      setIsEditingProposal(false);
-    } catch (e: any) {
-      showToast(e.message || 'Failed to publish tariff.', 'error');
-    }
-  };
-
-  // ── 4. ACTION: REJECT PROPOSAL ──
-  const handleRejectProposal = async () => {
-    if (!activeProposalModal) return;
-
-    try {
-      await tariffRepository.rejectProposal(
-        activeProposalModal.tariff.id,
-        'Rejected by admin during side-by-side comparison review.',
-        'Super Admin'
+      showToast(
+        `Tariff for ${previewProposal.discomName} (${previewProposal.stateName}) published to Supabase & Live Calculator!`,
+        'success'
       );
-
-      refreshRepository();
-      showToast(`Proposed tariff revision for ${activeProposalModal.tariff.discom} rejected. Live tariff remains active.`, 'info');
-      setActiveProposalModal(null);
-      setEditableProposal(null);
-    } catch (e: any) {
-      showToast(e.message || 'Failed to reject proposal.', 'error');
+      setIsImportModalOpen(false);
+      setPreviewProposal(null);
+      setValidationResult(null);
+    } catch (err: any) {
+      showToast(err.message || 'Failed to publish tariff to Supabase.', 'error');
+    } finally {
+      setIsPublishing(false);
     }
   };
-
-  // Comparison fields for modal
-  const comparisonFields = useMemo(() => {
-    if (!activeProposalModal) return [];
-    return tariffRepository.getComparisonFields(
-      activeProposalModal.tariff,
-      editableProposal || activeProposalModal.proposal
-    );
-  }, [activeProposalModal, editableProposal]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-200">
-      {/* ── HEADER BANNER ── */}
-      <div className="bg-neutral-900 text-white rounded-3xl p-6 sm:p-8 border border-neutral-800 shadow-xl space-y-6">
+    <div className="space-y-6">
+      {/* ── HEADER & SUMMARY STATS ── */}
+      <div className="bg-neutral-900 rounded-3xl p-6 sm:p-7 border border-neutral-800 shadow-xl space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-1.5">
+          <div>
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-2xl bg-accent text-white flex items-center justify-center shadow-xs">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <h1 className="text-xl sm:text-2xl font-bold font-display text-white">
-                Electricity Tariff Administration System
-              </h1>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                Live Production
+              <span className="p-2 rounded-xl bg-amber-500/20 text-amber-400">
+                <Zap className="w-5 h-5" />
               </span>
+              <h1 className="text-xl sm:text-2xl font-bold font-display text-white tracking-tight">
+                Electricity Tariff Master Management
+              </h1>
             </div>
-            <p className="text-xs sm:text-sm text-neutral-400 max-w-2xl">
-              Strictly Manual &lsquo;Check for Updates&rsquo; Workflow &bull; AI-assisted Tariff Extraction &bull; Mandatory Human Approval Before Publishing &bull; Complete All-India State &amp; UT Master.
+            <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
+              Manual Tariff Import &bull; Instant Side-by-Side Preview &bull; Single-Click Supabase Publishing &bull; Live Public Calculator Synchronization.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <button
-              onClick={() => navigateToTool('electricity-calculator')}
-              className="px-4 py-2.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-bold transition-colors inline-flex items-center gap-2 border border-neutral-700"
+              onClick={() => handleOpenImport()}
+              className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white text-xs font-bold transition-all shadow-md shadow-emerald-600/20 inline-flex items-center gap-2 cursor-pointer"
             >
-              <Zap className="w-4 h-4 text-amber-400" />
-              Open Public Calculator
+              <Plus className="w-4 h-4" />
+              Add / Update Tariff
+            </button>
+            <button
+              onClick={() => navigateToTool('electricity-calculator')}
+              className="px-4 py-2.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-bold transition-colors inline-flex items-center gap-2 border border-neutral-700 cursor-pointer"
+            >
+              <ExternalLink className="w-4 h-4 text-amber-400" />
+              Open Calculator
             </button>
           </div>
         </div>
@@ -317,7 +363,7 @@ export const AdminTariffView: React.FC = () => {
       <div className="flex border-b border-neutral-200 dark:border-neutral-800">
         <button
           onClick={() => setActiveTab('tariffs')}
-          className={`py-3 px-5 text-xs font-bold border-b-2 transition-all flex items-center gap-2 ${
+          className={`py-3 px-5 text-xs font-bold border-b-2 transition-all flex items-center gap-2 cursor-pointer ${
             activeTab === 'tariffs'
               ? 'border-accent text-accent'
               : 'border-transparent text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
@@ -328,33 +374,33 @@ export const AdminTariffView: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('audit')}
-          className={`py-3 px-5 text-xs font-bold border-b-2 transition-all flex items-center gap-2 ${
+          className={`py-3 px-5 text-xs font-bold border-b-2 transition-all flex items-center gap-2 cursor-pointer ${
             activeTab === 'audit'
               ? 'border-accent text-accent'
               : 'border-transparent text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
           }`}
         >
           <History className="w-4 h-4" />
-          Update History &amp; Audit Trail ({auditLogs.length})
+          Audit Trail &amp; Update History ({auditLogs.length})
         </button>
         <button
           onClick={() => setActiveTab('supabase')}
-          className={`py-3 px-5 text-xs font-bold border-b-2 transition-all flex items-center gap-2 ${
+          className={`py-3 px-5 text-xs font-bold border-b-2 transition-all flex items-center gap-2 cursor-pointer ${
             activeTab === 'supabase'
               ? 'border-accent text-accent'
               : 'border-transparent text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
           }`}
         >
           <Database className="w-4 h-4" />
-          Database &amp; Supabase Storage
+          Database Connection
         </button>
       </div>
 
-      {/* ── TAB 1: STATE DISCOM TARIFF DIRECTORY ── */}
+      {/* ── TAB 1: STATE DISCOM TARIFFS TABLE ── */}
       {activeTab === 'tariffs' && (
-        <div className="space-y-6">
-          {/* SEARCH & FILTER CONTROLS */}
-          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div className="space-y-4">
+          {/* Controls Bar */}
+          <div className="bg-white dark:bg-neutral-900 rounded-2xl p-4 border border-neutral-200/80 dark:border-neutral-800 shadow-xs flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
             <div className="relative w-full md:w-80">
               <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
@@ -362,19 +408,20 @@ export const AdminTariffView: React.FC = () => {
                 placeholder="Search state, DISCOM, category..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none focus:border-accent"
+                className="w-full pl-10 pr-4 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none focus:border-accent"
               />
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
-              <div className="flex items-center gap-2">
-                <Filter className="w-3.5 h-3.5 text-neutral-400" />
+            <div className="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+              {/* State Filter */}
+              <div className="flex items-center gap-1.5">
+                <span className="text-neutral-400 text-[11px] font-semibold">State:</span>
                 <select
                   value={selectedStateFilter}
                   onChange={e => setSelectedStateFilter(e.target.value)}
-                  className="px-3 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none"
+                  className="px-3 py-1.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 text-xs font-semibold text-neutral-900 dark:text-white outline-none"
                 >
-                  <option value="all">All States &amp; UTs (36)</option>
+                  <option value="all">All States &amp; UTs ({stateOptions.length})</option>
                   {stateOptions.map(st => (
                     <option key={st} value={st}>
                       {st}
@@ -383,143 +430,121 @@ export const AdminTariffView: React.FC = () => {
                 </select>
               </div>
 
-              <select
-                value={selectedStatusFilter}
-                onChange={e => setSelectedStatusFilter(e.target.value)}
-                className="px-3 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none"
-              >
-                <option value="all">All Statuses</option>
-                <option value="published">Published</option>
-                <option value="archived">Archived</option>
-              </select>
-
-              <button
-                onClick={() => {
-                  tariffRepository.resetToDefaults();
-                  refreshRepository();
-                  showToast('Repository reset to verified defaults.', 'success');
-                }}
-                className="px-3 py-2 rounded-xl text-xs font-semibold text-neutral-500 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors inline-flex items-center gap-1.5"
-                title="Reset local state to default verified dataset"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                Reset Defaults
-              </button>
+              {/* Status Filter */}
+              <div className="flex items-center gap-1.5">
+                <span className="text-neutral-400 text-[11px] font-semibold">Status:</span>
+                <select
+                  value={selectedStatusFilter}
+                  onChange={e => setSelectedStatusFilter(e.target.value)}
+                  className="px-3 py-1.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 text-xs font-semibold text-neutral-900 dark:text-white outline-none"
+                >
+                  <option value="all">All Statuses</option>
+                  <option value="published">Published (Live)</option>
+                  <option value="archived">Archived</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          {/* TARIFF TABLE */}
+          {/* Table Container */}
           <div className="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-neutral-50 dark:bg-neutral-800/80 border-b border-neutral-200 dark:border-neutral-700/80 text-neutral-500 font-bold uppercase tracking-wider text-[10px]">
-                  <tr>
-                    <th className="py-3.5 px-4 sm:px-6">State / UT</th>
-                    <th className="py-3.5 px-4">DISCOM &amp; Category</th>
-                    <th className="py-3.5 px-4">Version &amp; Effective</th>
-                    <th className="py-3.5 px-4">Fixed &amp; Slabs</th>
-                    <th className="py-3.5 px-4">Last Verified</th>
-                    <th className="py-3.5 px-4">Status</th>
-                    <th className="py-3.5 px-4 sm:px-6 text-right">Actions</th>
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="bg-neutral-50 dark:bg-neutral-800/80 text-neutral-500 dark:text-neutral-400 font-bold uppercase text-[10px] tracking-wider border-b border-neutral-200 dark:border-neutral-800">
+                    <th className="py-3 px-4">State &amp; DISCOM</th>
+                    <th className="py-3 px-4">Category</th>
+                    <th className="py-3 px-4">First Slab Rate</th>
+                    <th className="py-3 px-4">Fixed Charge</th>
+                    <th className="py-3 px-4">Duty / Tax</th>
+                    <th className="py-3 px-4">Status &amp; Ver</th>
+                    <th className="py-3 px-4">Effective Date</th>
+                    <th className="py-3 px-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800 text-neutral-700 dark:text-neutral-300">
-                  {filteredTariffs.map(t => {
-                    const isChecking = checkingTariffId === t.id;
+                <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
+                  {filteredTariffs.map(tariff => {
+                    const isArchived = tariff.status === 'archived';
+                    const firstSlab = tariff.slabs[0];
                     return (
-                      <tr key={t.id} className="hover:bg-neutral-50/50 dark:hover:bg-neutral-800/40 transition-colors">
-                        <td className="py-4 px-4 sm:px-6">
+                      <tr
+                        key={tariff.id}
+                        className={`hover:bg-neutral-50/60 dark:hover:bg-neutral-800/40 transition-colors ${
+                          isArchived ? 'opacity-60 bg-neutral-50/30 dark:bg-neutral-900/30' : ''
+                        }`}
+                      >
+                        <td className="py-3 px-4">
                           <div className="font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-accent shrink-0" />
-                            {t.state}
+                            <span>{tariff.state}</span>
+                            {tariff.unionTerritory && (
+                              <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300">
+                                UT
+                              </span>
+                            )}
                           </div>
-                          <span className="text-[10px] text-neutral-400">
-                            {t.unionTerritory ? 'Union Territory' : 'State'} &bull; {t.stateCode}
+                          <span className="text-[11px] text-neutral-500 dark:text-neutral-400 block">
+                            {tariff.discom}
                           </span>
                         </td>
-
-                        <td className="py-4 px-4 max-w-xs">
-                          <div className="font-semibold text-neutral-900 dark:text-white truncate">
-                            {t.discom}
-                          </div>
-                          <div className="text-[11px] text-neutral-400 truncate">
-                            {t.category}
-                          </div>
+                        <td className="py-3 px-4 text-neutral-700 dark:text-neutral-300 font-medium">
+                          {tariff.category}
                         </td>
-
-                        <td className="py-4 px-4">
-                          <div className="font-mono font-bold text-neutral-900 dark:text-white">
-                            v{t.versionNumber || 1}
-                          </div>
-                          <div className="text-[10px] text-neutral-400">
-                            From: {t.effectiveFrom}
-                          </div>
-                        </td>
-
-                        <td className="py-4 px-4">
-                          <div className="font-medium text-neutral-900 dark:text-white">
-                            ₹{t.fixedCharge} ({t.fixedChargeUnit === 'per_kw_month' ? '₹/kW' : 'flat'})
-                          </div>
-                          <div className="text-[11px] text-neutral-400">
-                            {t.slabs.length} slabs (0–{t.slabs[0]?.maxUnits || '100'} @ ₹{t.slabs[0]?.ratePerUnit}/u)
-                          </div>
-                        </td>
-
-                        <td className="py-4 px-4 text-[11px]">
-                          <div className="font-mono text-neutral-600 dark:text-neutral-400">
-                            {t.lastChecked || '2026-08-15'}
-                          </div>
-                          <a
-                            href={t.sourceUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-accent text-[10px] hover:underline inline-flex items-center gap-1"
-                          >
-                            SERC Portal <ExternalLink className="w-2.5 h-2.5" />
-                          </a>
-                        </td>
-
-                        <td className="py-4 px-4">
-                          <span
-                            className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
-                              t.status === 'archived'
-                                ? 'bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400'
-                                : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
-                            }`}
-                          >
-                            {t.status === 'archived' ? 'Archived' : 'Published'}
+                        <td className="py-3 px-4">
+                          {firstSlab ? (
+                            <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                              ₹{firstSlab.ratePerUnit.toFixed(2)}/unit
+                            </span>
+                          ) : (
+                            <span className="text-neutral-400">N/A</span>
+                          )}
+                          <span className="text-[10px] text-neutral-400 block">
+                            {tariff.slabs.length} Total Slabs
                           </span>
                         </td>
-
-                        <td className="py-4 px-4 sm:px-6 text-right space-x-1.5 whitespace-nowrap">
-                          {/* PRIMARY ACTION: CHECK FOR UPDATES */}
-                          <button
-                            onClick={() => handleCheckUpdates(t, false)}
-                            disabled={isChecking}
-                            className="px-3 py-1.5 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-all inline-flex items-center gap-1.5 disabled:opacity-50 shadow-xs"
-                            title="Manually query official regulatory portal for new tariff order"
-                          >
-                            <RefreshCw className={`w-3.5 h-3.5 ${isChecking ? 'animate-spin' : ''}`} />
-                            {isChecking ? 'Checking...' : 'Check Updates'}
-                          </button>
-
-                          {/* SIMULATE / EXTRACT ACTION */}
-                          <button
-                            onClick={() => setManualExtractModal(t)}
-                            className="p-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
-                            title="Paste PDF/Order text for AI extraction"
-                          >
-                            <FileText className="w-3.5 h-3.5 text-neutral-500" />
-                          </button>
-
-                          {/* VERSION HISTORY */}
-                          <button
-                            onClick={() => setVersionHistoryModal(t)}
-                            className="p-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
-                            title="View tariff version history"
-                          >
-                            <History className="w-3.5 h-3.5 text-neutral-500" />
-                          </button>
+                        <td className="py-3 px-4 font-mono text-neutral-700 dark:text-neutral-300 font-medium">
+                          ₹{tariff.fixedCharge}/{tariff.fixedChargeUnit === 'per_kw_month' ? 'kW/mo' : 'mo'}
+                        </td>
+                        <td className="py-3 px-4 font-mono text-neutral-700 dark:text-neutral-300 font-medium">
+                          {tariff.dutyRate}
+                          {tariff.dutyType === 'percentage' ? '%' : ' ₹/u'}
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-1.5">
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                                tariff.status === 'archived'
+                                  ? 'bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400'
+                                  : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                              }`}
+                            >
+                              {tariff.status === 'archived' ? 'Archived' : 'Published'}
+                            </span>
+                            <span className="text-[10px] font-mono text-neutral-400">
+                              v{tariff.versionNumber || 1}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 text-neutral-500 dark:text-neutral-400 text-[11px] font-mono">
+                          {tariff.effectiveFrom || '2024-04-01'}
+                        </td>
+                        <td className="py-3 px-4 text-right">
+                          <div className="flex items-center justify-end gap-1.5">
+                            <button
+                              onClick={() => handleOpenImport(tariff)}
+                              className="px-3 py-1.5 rounded-xl bg-accent/10 hover:bg-accent/20 text-accent font-bold text-[11px] transition-colors inline-flex items-center gap-1 cursor-pointer"
+                              title="Update tariff data via JSON import"
+                            >
+                              <Edit3 className="w-3.5 h-3.5" />
+                              Update Tariff
+                            </button>
+                            <button
+                              onClick={() => setVersionHistoryModal(tariff)}
+                              className="p-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-600 dark:text-neutral-300 transition-colors cursor-pointer"
+                              title="View version history"
+                            >
+                              <Clock className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -531,20 +556,21 @@ export const AdminTariffView: React.FC = () => {
         </div>
       )}
 
-      {/* ── TAB 2: UPDATE HISTORY & AUDIT TRAIL ── */}
+      {/* ── TAB 2: AUDIT TRAIL ── */}
       {activeTab === 'audit' && (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-7 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
-          <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-4">
+        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-7 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-neutral-100 dark:border-neutral-800">
             <div>
-              <h2 className="text-base font-bold font-display text-neutral-900 dark:text-white">
-                Tariff Update Audit Trail
+              <h2 className="text-base font-bold font-display text-neutral-900 dark:text-white flex items-center gap-2">
+                <History className="w-5 h-5 text-accent" />
+                Immutable Tariff Regulatory Audit Trail
               </h2>
               <p className="text-xs text-neutral-500">
-                Immutable chronological log of all manual tariff checks, AI extractions, approvals, and publish events.
+                Logged directly into Supabase `public.tariff_audit_logs` on each tariff approval.
               </p>
             </div>
-            <span className="px-3 py-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-xs font-mono font-bold text-neutral-600 dark:text-neutral-300">
-              {auditLogs.length} Records
+            <span className="text-xs font-mono font-bold text-neutral-400">
+              {auditLogs.length} Total Logs
             </span>
           </div>
 
@@ -557,16 +583,8 @@ export const AdminTariffView: React.FC = () => {
                     <span className="font-bold text-neutral-900 dark:text-white">
                       {log.stateName} &bull; {log.discomName}
                     </span>
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        log.aiStatus === 'verified_by_ai'
-                          ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400'
-                          : log.aiStatus === 'manual_entry'
-                          ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400'
-                          : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400'
-                      }`}
-                    >
-                      {log.aiStatus === 'verified_by_ai' ? 'AI Extracted + Human Approved' : 'Manual Entry'}
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                      Manual Verified
                     </span>
                   </div>
 
@@ -597,16 +615,16 @@ export const AdminTariffView: React.FC = () => {
         </div>
       )}
 
-      {/* ── TAB 3: SUPABASE & DATABASE CONFIGURATION ── */}
+      {/* ── TAB 3: SUPABASE CONFIGURATION ── */}
       {activeTab === 'supabase' && (
         <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-7 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
           <div className="space-y-1">
             <h2 className="text-base font-bold font-display text-neutral-900 dark:text-white flex items-center gap-2">
               <Database className="w-5 h-5 text-accent" />
-              Supabase Normalized Tariff Architecture
+              Supabase Authoritative Tariff Storage
             </h2>
             <p className="text-xs text-neutral-500">
-              BharatUtility stores tariff schemas in normalized entities (`states`, `discoms`, `tariff_versions`, `tariff_slabs`, `tariff_audit_logs`).
+              BharatUtility uses Supabase PostgreSQL (`public.tariff_versions` and `public.tariff_audit_logs`) as the authoritative primary source of truth.
             </p>
           </div>
 
@@ -622,245 +640,393 @@ export const AdminTariffView: React.FC = () => {
                     : 'bg-amber-500/10 text-amber-600 border border-amber-500/30'
                 }`}
               >
-                {isSupabaseConfigured() ? 'Connected to Remote Supabase' : 'Active (Local Sync Fallback)'}
+                {isSupabaseConfigured() ? 'Connected to Remote Supabase' : 'Offline (Verified Seed Fallback Active)'}
               </span>
             </div>
-
             <p className="text-xs text-neutral-500 leading-relaxed">
-              When `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` are provided in `.env`, all approvals and audit logs synchronize to your Supabase PostgreSQL instance. When offline, all data seamlessly persists locally with zero interruption to the public calculator.
+              When an administrator publishes a tariff update, it immediately commits to Supabase with Row Level Security. All visitors on the public Electricity Calculator receive the updated tariff in real time.
             </p>
           </div>
-
-          {/* SEED ACTION */}
-          <div className="p-5 rounded-2xl bg-accent/5 dark:bg-accent/10 border border-accent/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <span className="text-xs font-bold text-neutral-900 dark:text-white block">
-                Master 36 States &amp; UTs Seed Structure
-              </span>
-              <p className="text-[11px] text-neutral-500">
-                Initializes all 28 States and 8 Union Territories with verified DISCOM tariffs, slabs, and subsidy schemes.
-              </p>
-            </div>
-
-            <button
-              onClick={() => {
-                showToast('All 36 States & UTs master dataset synced successfully!', 'success');
-              }}
-              className="px-4 py-2.5 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-colors inline-flex items-center gap-2 shrink-0 shadow-xs"
-            >
-              <UploadCloud className="w-4 h-4" />
-              Sync Master Dataset
-            </button>
-          </div>
         </div>
       )}
 
-      {/* ── MODAL: SIDE-BY-SIDE OLD VS NEW TARIFF COMPARISON (MANDATORY HUMAN APPROVAL) ── */}
-      {activeProposalModal && (
+      {/* ── MODAL: MANUAL TARIFF IMPORT & LIVE PREVIEW / EDIT WORKBENCH ── */}
+      {isImportModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white dark:bg-neutral-900 rounded-3xl max-w-3xl w-full border border-neutral-200 dark:border-neutral-800 shadow-2xl overflow-hidden my-8 animate-in zoom-in-95 duration-200">
+          <div className="bg-white dark:bg-neutral-900 rounded-3xl max-w-4xl w-full border border-neutral-200 dark:border-neutral-800 shadow-2xl overflow-hidden my-6 animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
             {/* Modal Header */}
-            <div className="p-6 border-b border-neutral-100 dark:border-neutral-800 flex items-center justify-between bg-neutral-50 dark:bg-neutral-800/50">
-              <div>
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                  <h3 className="text-base font-bold font-display text-neutral-900 dark:text-white">
-                    Tariff Revision Review: {activeProposalModal.tariff.discom}
-                  </h3>
-                </div>
-                <span className="text-xs text-neutral-500">
-                  {activeProposalModal.tariff.state} &bull; Category: {activeProposalModal.tariff.category}
+            <div className="p-6 border-b border-neutral-100 dark:border-neutral-800 flex items-center justify-between bg-neutral-50 dark:bg-neutral-800/50 shrink-0">
+              <div className="flex items-center gap-2.5">
+                <span className="p-2 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+                  <FileCode className="w-5 h-5" />
                 </span>
+                <div>
+                  <h3 className="text-base font-bold font-display text-neutral-900 dark:text-white">
+                    Manual Tariff Import &amp; Publishing Workbench
+                  </h3>
+                  <p className="text-xs text-neutral-500">
+                    Paste or upload verified JSON &bull; Live Preview &amp; Field Editor &bull; 1-Click Publish to Supabase
+                  </p>
+                </div>
               </div>
 
               <button
-                onClick={() => setActiveProposalModal(null)}
-                className="w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:bg-neutral-300"
+                onClick={() => setIsImportModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:bg-neutral-300 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto text-xs">
-              {/* AI Confidence & Warning Notice */}
-              <div className="p-4 rounded-2xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/40 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-purple-900 dark:text-purple-200 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
-                    AI Extraction Confidence: {activeProposalModal.proposal.confidence}
-                  </span>
-                  <span className="text-[10px] font-mono text-purple-700 dark:text-purple-300">
-                    Source: {activeProposalModal.proposal.sourceName}
-                  </span>
-                </div>
-                <p className="text-[11px] text-purple-700 dark:text-purple-300 leading-relaxed">
-                  <strong>Human Approval Policy:</strong> AI extractions are never published automatically. Review the differences below before confirming publication.
-                </p>
-
-                {activeProposalModal.proposal.reviewWarnings.length > 0 && (
-                  <div className="pt-2 border-t border-purple-200/60 dark:border-purple-800/60 space-y-1">
-                    <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider block">
-                      Review Warnings:
-                    </span>
-                    {activeProposalModal.proposal.reviewWarnings.map((w, idx) => (
-                      <div key={idx} className="flex items-start gap-1.5 text-[11px] text-amber-700 dark:text-amber-300">
-                        <AlertTriangle className="w-3 h-3 text-amber-500 shrink-0 mt-0.5" />
-                        <span>{w}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* SIDE-BY-SIDE COMPARISON TABLE */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">
-                    Side-by-Side Field Comparison
-                  </h4>
-                  <button
-                    onClick={() => setIsEditingProposal(!isEditingProposal)}
-                    className="text-xs text-accent font-bold hover:underline inline-flex items-center gap-1"
+            {/* Modal Body */}
+            <div className="p-6 space-y-6 overflow-y-auto flex-1 text-xs">
+              {/* Context Selector: State / DISCOM / Category */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-1">
+                    State / Union Territory
+                  </label>
+                  <select
+                    value={importState}
+                    onChange={e => setImportState(e.target.value)}
+                    className="w-full px-3 py-2 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-300 dark:border-neutral-600 font-semibold text-neutral-900 dark:text-white outline-none focus:border-accent"
                   >
-                    <Edit3 className="w-3 h-3" />
-                    {isEditingProposal ? 'Finish Editing' : 'Edit Proposed Values'}
+                    {stateOptions.map(st => (
+                      <option key={st} value={st}>
+                        {st}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-1">
+                    Power DISCOM
+                  </label>
+                  <input
+                    type="text"
+                    value={importDiscom}
+                    onChange={e => setImportDiscom(e.target.value)}
+                    placeholder="e.g., MGVCL, MSEDCL, BESCOM"
+                    className="w-full px-3 py-2 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-300 dark:border-neutral-600 font-semibold text-neutral-900 dark:text-white outline-none focus:border-accent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-1">
+                    Consumer Category
+                  </label>
+                  <input
+                    type="text"
+                    value={importCategory}
+                    onChange={e => setImportCategory(e.target.value)}
+                    placeholder="Domestic (LT-1 Residential)"
+                    className="w-full px-3 py-2 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-300 dark:border-neutral-600 font-semibold text-neutral-900 dark:text-white outline-none focus:border-accent"
+                  />
+                </div>
+              </div>
+
+              {/* JSON Paste & Upload Area */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+                    <FileCode className="w-4 h-4 text-accent" />
+                    Paste Tariff JSON:
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <label className="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-[11px] font-semibold text-neutral-700 dark:text-neutral-200 transition-colors cursor-pointer inline-flex items-center gap-1 border border-neutral-300 dark:border-neutral-600">
+                      <UploadCloud className="w-3 h-3 text-accent" />
+                      Upload JSON File
+                      <input
+                        type="file"
+                        accept=".json,application/json"
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImportJsonText(tariffRepository.getSampleTariffJson(importState, importDiscom));
+                        setValidationResult(null);
+                        setPreviewProposal(null);
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-[11px] font-semibold text-neutral-700 dark:text-neutral-200 transition-colors cursor-pointer border border-neutral-300 dark:border-neutral-600"
+                    >
+                      Reset Sample Template
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  rows={9}
+                  value={importJsonText}
+                  onChange={e => {
+                    setImportJsonText(e.target.value);
+                    if (validationResult) setValidationResult(null);
+                  }}
+                  placeholder="Paste verified electricity tariff JSON here..."
+                  className="w-full p-4 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-300 dark:border-neutral-700 font-mono text-xs text-neutral-900 dark:text-white outline-none focus:border-accent resize-y shadow-inner"
+                />
+
+                <div className="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    onClick={handleValidateJson}
+                    className="px-4 py-2 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+                  >
+                    <Check className="w-4 h-4" />
+                    Validate JSON
                   </button>
-                </div>
-
-                <div className="border border-neutral-200 dark:border-neutral-700 rounded-2xl overflow-hidden">
-                  <table className="w-full text-left">
-                    <thead className="bg-neutral-50 dark:bg-neutral-800 text-neutral-500 text-[10px] font-bold uppercase tracking-wider border-b border-neutral-200 dark:border-neutral-700">
-                      <tr>
-                        <th className="py-2.5 px-3">Field Name</th>
-                        <th className="py-2.5 px-3">Current Published (Live)</th>
-                        <th className="py-2.5 px-3">Proposed New Revision</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
-                      {comparisonFields.map((field, idx) => (
-                        <tr
-                          key={idx}
-                          className={field.hasChanged ? 'bg-amber-500/5 dark:bg-amber-500/10' : ''}
-                        >
-                          <td className="py-2.5 px-3 font-semibold text-neutral-800 dark:text-neutral-200">
-                            {field.label}
-                          </td>
-                          <td className="py-2.5 px-3 text-neutral-600 dark:text-neutral-400 font-mono">
-                            {field.currentValue}
-                          </td>
-                          <td className="py-2.5 px-3 font-mono font-bold">
-                            {field.hasChanged ? (
-                              <span className="text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
-                                {field.proposedValue}
-                              </span>
-                            ) : (
-                              <span className="text-neutral-500">{field.proposedValue}</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <span className="text-[11px] text-neutral-400">
+                    Validates numeric values, slabs, effective dates, and mandatory SERC metadata.
+                  </span>
                 </div>
               </div>
 
-              {/* SLABS COMPARISON */}
-              <div className="space-y-3">
-                <h4 className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-[11px]">
-                  Proposed Tariff Slabs ({editableProposal?.slabs.length || activeProposalModal.proposal.slabs.length} Slabs)
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {(editableProposal?.slabs || activeProposalModal.proposal.slabs).map((s, idx) => (
-                    <div key={idx} className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex justify-between items-center">
-                      <span className="font-bold text-neutral-800 dark:text-neutral-200">
-                        {s.minUnits}–{s.maxUnits || 'Above'} Units
-                      </span>
-                      <span className="font-mono font-bold text-accent">
-                        ₹{s.ratePerUnit.toFixed(2)} / unit
-                      </span>
+              {/* Validation Status Box */}
+              {validationResult && (
+                <div>
+                  {validationResult.isValid ? (
+                    <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2 text-emerald-700 dark:text-emerald-300 font-bold">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                      <span>Tariff data is valid and ready to preview / publish.</span>
                     </div>
-                  ))}
+                  ) : (
+                    <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800/40 space-y-1.5 text-rose-700 dark:text-rose-300">
+                      <div className="flex items-center gap-1.5 font-bold">
+                        <AlertTriangle className="w-4 h-4 text-rose-500 shrink-0" />
+                        <span>Validation Errors Detected:</span>
+                      </div>
+                      <ul className="list-disc list-inside space-y-1 text-[11px]">
+                        {validationResult.errors.map((err, i) => (
+                          <li key={i}>{err}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
+
+              {/* PREVIEW & INLINE EDITING WORKBENCH */}
+              {previewProposal && (
+                <div className="space-y-4 pt-4 border-t border-neutral-200 dark:border-neutral-800">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold font-display text-neutral-900 dark:text-white text-sm flex items-center gap-2">
+                        <Sliders className="w-4 h-4 text-accent" />
+                        Tariff Preview &amp; Inline Field Editor
+                      </h4>
+                      <p className="text-[11px] text-neutral-500">
+                        Review and adjust any fields before committing directly to Supabase.
+                      </p>
+                    </div>
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30">
+                      Ready to Publish
+                    </span>
+                  </div>
+
+                  {/* Top Details Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                        State
+                      </label>
+                      <input
+                        type="text"
+                        value={previewProposal.stateName}
+                        onChange={e =>
+                          setPreviewProposal({ ...previewProposal, stateName: e.target.value })
+                        }
+                        className="w-full bg-transparent font-bold text-neutral-900 dark:text-white outline-none border-b border-transparent focus:border-accent"
+                      />
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                        DISCOM Name
+                      </label>
+                      <input
+                        type="text"
+                        value={previewProposal.discomName}
+                        onChange={e =>
+                          setPreviewProposal({ ...previewProposal, discomName: e.target.value })
+                        }
+                        className="w-full bg-transparent font-bold text-neutral-900 dark:text-white outline-none border-b border-transparent focus:border-accent"
+                      />
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                        Fixed Charge (₹/mo)
+                      </label>
+                      <input
+                        type="number"
+                        min={0}
+                        value={previewProposal.fixedCharge}
+                        onChange={e =>
+                          setPreviewProposal({
+                            ...previewProposal,
+                            fixedCharge: Number(e.target.value)
+                          })
+                        }
+                        className="w-full bg-transparent font-mono font-bold text-neutral-900 dark:text-white outline-none border-b border-transparent focus:border-accent"
+                      />
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                        Electricity Duty (%)
+                      </label>
+                      <input
+                        type="number"
+                        min={0}
+                        step={0.1}
+                        value={previewProposal.dutyRate}
+                        onChange={e =>
+                          setPreviewProposal({
+                            ...previewProposal,
+                            dutyRate: Number(e.target.value)
+                          })
+                        }
+                        className="w-full bg-transparent font-mono font-bold text-neutral-900 dark:text-white outline-none border-b border-transparent focus:border-accent"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Slabs Grid with Inline Add/Remove */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="font-bold text-neutral-800 dark:text-neutral-200 text-xs">
+                        Consumption Slabs Breakdown ({previewProposal.slabs.length} Tiers):
+                      </label>
+                      <button
+                        type="button"
+                        onClick={handleAddSlab}
+                        className="text-[11px] text-accent font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                      >
+                        <Plus className="w-3 h-3" /> Add Tier
+                      </button>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      {previewProposal.slabs.map((slab, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center gap-2 p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+                        >
+                          <span className="w-6 text-[11px] font-bold text-neutral-400 text-center">
+                            #{idx + 1}
+                          </span>
+
+                          <div className="flex items-center gap-1.5 flex-1">
+                            <input
+                              type="number"
+                              min={0}
+                              value={slab.minUnits}
+                              onChange={e =>
+                                handleUpdateSlab(idx, 'minUnits', Number(e.target.value))
+                              }
+                              placeholder="Min Units"
+                              className="w-20 px-2 py-1 bg-white dark:bg-neutral-900 rounded-lg border border-neutral-300 dark:border-neutral-600 font-mono text-xs text-center"
+                            />
+                            <span className="text-neutral-400">to</span>
+                            <input
+                              type="text"
+                              value={slab.maxUnits === null ? '' : slab.maxUnits}
+                              onChange={e => {
+                                const val = e.target.value.trim();
+                                handleUpdateSlab(
+                                  idx,
+                                  'maxUnits',
+                                  val === '' || val.toLowerCase() === 'null' ? null : Number(val)
+                                );
+                              }}
+                              placeholder="Above (null)"
+                              className="w-24 px-2 py-1 bg-white dark:bg-neutral-900 rounded-lg border border-neutral-300 dark:border-neutral-600 font-mono text-xs text-center"
+                            />
+                            <span className="text-neutral-400 text-[11px]">Units @ ₹</span>
+                            <input
+                              type="number"
+                              step={0.01}
+                              min={0}
+                              value={slab.ratePerUnit}
+                              onChange={e =>
+                                handleUpdateSlab(idx, 'ratePerUnit', Number(e.target.value))
+                              }
+                              className="w-24 px-2 py-1 bg-white dark:bg-neutral-900 rounded-lg border border-neutral-300 dark:border-neutral-600 font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400 text-center"
+                            />
+                            <span className="text-neutral-400 text-[11px]">/ unit</span>
+                          </div>
+
+                          {previewProposal.slabs.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveSlab(idx)}
+                              className="p-1 text-neutral-400 hover:text-rose-500 transition-colors cursor-pointer"
+                              title="Delete slab tier"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Effective Date & Source Info */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                    <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                        Effective From Date
+                      </label>
+                      <input
+                        type="date"
+                        value={previewProposal.effectiveFrom}
+                        onChange={e =>
+                          setPreviewProposal({ ...previewProposal, effectiveFrom: e.target.value })
+                        }
+                        className="w-full bg-transparent font-mono font-bold text-neutral-900 dark:text-white outline-none border-b border-transparent focus:border-accent"
+                      />
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                        Regulatory Source Authority
+                      </label>
+                      <input
+                        type="text"
+                        value={previewProposal.sourceName}
+                        onChange={e =>
+                          setPreviewProposal({ ...previewProposal, sourceName: e.target.value })
+                        }
+                        placeholder="e.g. MERC / GERC / DERC"
+                        className="w-full bg-transparent font-bold text-neutral-900 dark:text-white outline-none border-b border-transparent focus:border-accent"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Modal Actions */}
-            <div className="p-6 border-t border-neutral-100 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+            {/* Modal Actions Footer */}
+            <div className="p-6 border-t border-neutral-100 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/50 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
               <button
-                onClick={handleRejectProposal}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold text-xs hover:bg-neutral-300 transition-colors inline-flex items-center justify-center gap-1.5"
-              >
-                <XCircle className="w-4 h-4 text-rose-500" />
-                Reject Proposal
-              </button>
-
-              <div className="flex items-center gap-2 w-full sm:w-auto">
-                <button
-                  onClick={() => setActiveProposalModal(null)}
-                  className="px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 font-bold text-xs hover:bg-neutral-100 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleApproveAndPublish}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors inline-flex items-center justify-center gap-2 shadow-xs"
-                >
-                  <CheckCircle2 className="w-4 h-4" />
-                  Approve &amp; Publish to Production
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── MODAL: MANUAL TARIFF EXTRACT FROM PDF / TEXT ── */}
-      {manualExtractModal && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-neutral-900 rounded-3xl max-w-xl w-full border border-neutral-200 dark:border-neutral-800 shadow-2xl p-6 space-y-5 animate-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold font-display text-neutral-900 dark:text-white">
-                  Extract Tariff: {manualExtractModal.discom}
-                </h3>
-                <span className="text-xs text-neutral-500">{manualExtractModal.state}</span>
-              </div>
-              <button
-                onClick={() => setManualExtractModal(null)}
-                className="w-7 h-7 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="tariff-order-text" className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
-                Paste Official Tariff Schedule Excerpt / Regulatory Order Text:
-              </label>
-              <textarea
-                id="tariff-order-text"
-                rows={7}
-                value={manualDocumentText}
-                onChange={e => setManualDocumentText(e.target.value)}
-                placeholder="Paste the retail supply tariff order text, slabs, fixed charges, and effective date..."
-                className="w-full p-3.5 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 text-xs font-mono text-neutral-900 dark:text-white outline-none focus:border-accent resize-none"
-              />
-            </div>
-
-            <div className="flex justify-end gap-2 pt-2">
-              <button
-                onClick={() => setManualExtractModal(null)}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-neutral-600 hover:bg-neutral-100"
+                type="button"
+                onClick={() => setIsImportModalOpen(false)}
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 font-bold text-xs hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
+
               <button
-                onClick={handleExtractFromDocument}
-                disabled={isExtracting || !manualDocumentText.trim()}
-                className="px-5 py-2.5 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-colors inline-flex items-center gap-2 disabled:opacity-50"
+                type="button"
+                onClick={handlePublishTariff}
+                disabled={isPublishing || !previewProposal}
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 disabled:opacity-50 text-white font-bold text-xs transition-all shadow-md shadow-emerald-600/20 inline-flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Sparkles className={`w-4 h-4 ${isExtracting ? 'animate-spin' : ''}`} />
-                {isExtracting ? 'Extracting with AI...' : 'Extract Tariff Slabs'}
+                <CheckCircle2 className="w-4 h-4" />
+                {isPublishing ? 'Publishing to Supabase...' : 'Publish Tariff to Production'}
               </button>
             </div>
           </div>
@@ -880,7 +1046,7 @@ export const AdminTariffView: React.FC = () => {
               </div>
               <button
                 onClick={() => setVersionHistoryModal(null)}
-                className="w-7 h-7 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center"
+                className="w-7 h-7 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -919,7 +1085,7 @@ export const AdminTariffView: React.FC = () => {
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setVersionHistoryModal(null)}
-                className="px-4 py-2 rounded-xl bg-neutral-200 dark:bg-neutral-700 text-xs font-bold"
+                className="px-4 py-2 rounded-xl bg-neutral-200 dark:bg-neutral-700 text-xs font-bold cursor-pointer"
               >
                 Close
               </button>

@@ -5,14 +5,21 @@ import {
   TariffAuditLog,
   ProposedTariffRevision,
   TariffComparisonField,
-  StateDiscomGroup
+  StateDiscomGroup,
+  TariffSlab,
+  TariffSubsidy
 } from '../types/electricity';
 import { ALL_ELECTRICITY_TARIFFS } from '../data/electricityTariffs';
 
 const STORAGE_KEYS = {
   PROPOSALS: 'bu_tariff_proposals',
-  LOCAL_CACHE: 'bu_tariffs_cache_v2',
 };
+
+export interface TariffValidationResult {
+  isValid: boolean;
+  errors: string[];
+  parsedProposal?: ProposedTariffRevision;
+}
 
 // Initial Seed Audit Logs
 const DEFAULT_AUDIT_LOGS: TariffAuditLog[] = [
@@ -27,7 +34,7 @@ const DEFAULT_AUDIT_LOGS: TariffAuditLog[] = [
     sourceUrl: 'https://gercin.org',
     aiStatus: 'verified_by_ai',
     aiConfidence: 'High',
-    approvedBy: 'Admin (Ashwin P.)',
+    approvedBy: 'Super Admin',
     publishedDate: '2026-04-02 11:30 AM',
     notes: 'Verified against GERC Order No. 2280/2026. Fixed charge ₹25/mo, 0-100 units @ ₹3.05/unit.'
   },
@@ -41,7 +48,7 @@ const DEFAULT_AUDIT_LOGS: TariffAuditLog[] = [
     source: 'Delhi Electricity Regulatory Commission (DERC)',
     sourceUrl: 'http://www.derc.gov.in',
     aiStatus: 'manual_entry',
-    approvedBy: 'Admin (Ashwin P.)',
+    approvedBy: 'Super Admin',
     publishedDate: '2026-04-01 09:15 AM',
     notes: 'Verified zero-bill 100% subsidy for usage <= 200 kWh/month.'
   },
@@ -56,7 +63,7 @@ const DEFAULT_AUDIT_LOGS: TariffAuditLog[] = [
     sourceUrl: 'https://www.mahadiscom.in',
     aiStatus: 'verified_by_ai',
     aiConfidence: 'High',
-    approvedBy: 'Admin (Ashwin P.)',
+    approvedBy: 'Super Admin',
     publishedDate: '2026-03-28 04:45 PM',
     notes: '0-100 units @ ₹4.71, 101-300 @ ₹10.29. Fixed charge ₹128/mo single phase.'
   }
@@ -94,7 +101,7 @@ class TariffRepository {
       console.warn('Could not load proposals from storage:', e);
     }
 
-    // 3. Fetch authoritative tariffs from Supabase if connected
+    // 3. Fetch authoritative tariffs from Supabase
     await this.fetchPublishedTariffs();
     this.isInitialized = true;
   }
@@ -217,7 +224,7 @@ class TariffRepository {
             newTariffSummary: r.new_summary,
             source: r.source || 'State Regulatory Commission',
             sourceUrl: r.source_url,
-            aiStatus: 'verified_by_ai',
+            aiStatus: 'manual_entry',
             approvedBy: r.approved_by,
             publishedDate: r.published_date,
             notes: r.notes,
@@ -301,6 +308,12 @@ class TariffRepository {
     return this.activeProposals[tariffId] || null;
   }
 
+  public saveProposal(tariffId: string, proposal: ProposedTariffRevision): void {
+    this.activeProposals[tariffId] = proposal;
+    this.saveProposalsToLocal();
+    this.notifyListeners();
+  }
+
   private saveProposalsToLocal() {
     try {
       localStorage.setItem(STORAGE_KEYS.PROPOSALS, JSON.stringify(this.activeProposals));
@@ -309,148 +322,151 @@ class TariffRepository {
     }
   }
 
-  // ── MANUAL "CHECK FOR UPDATES" ACTION (Admin click only) ──
-  public async checkOfficialTariffUpdates(
-    tariff: ElectricityTariff,
-    simulateNewRevision = false
-  ): Promise<{
-    hasNewUpdate: boolean;
-    message: string;
-    proposal?: ProposedTariffRevision;
-    lastChecked: string;
-    sourceUrl: string;
-  }> {
+  // ── MANUAL TARIFF JSON VALIDATION ENGINE ──
+  public validateManualTariffJson(
+    jsonString: string,
+    defaultState?: string,
+    defaultDiscom?: string,
+    defaultCategory?: string
+  ): TariffValidationResult {
+    const errors: string[] = [];
+
+    if (!jsonString || !jsonString.trim()) {
+      return { isValid: false, errors: ['Please paste or upload JSON tariff data.'] };
+    }
+
+    let parsed: any;
     try {
-      const response = await fetch('/api/electricity/check-updates', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          stateName: tariff.state,
-          discomCode: tariff.discomShort || tariff.discom,
-          currentTariffId: tariff.id,
-          sourceUrl: tariff.sourceUrl,
-          simulateNewOrder: simulateNewRevision
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`Server returned status ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      // Update the tariff's lastChecked timestamp
-      this.tariffs = this.tariffs.map(t => {
-        if (t.id === tariff.id) {
-          return { ...t, lastChecked: new Date().toISOString().split('T')[0] };
-        }
-        return t;
-      });
-
-      if (data.hasNewUpdate && data.proposedTariff) {
-        const proposal: ProposedTariffRevision = {
-          discomId: tariff.id,
-          discomName: tariff.discom,
-          stateName: tariff.state,
-          orderNumber: data.orderNumber || `Tariff Order No. ${Math.floor(1000 + Math.random() * 9000)}/2026`,
-          orderDate: data.orderDate || new Date().toISOString().split('T')[0],
-          effectiveFrom: data.effectiveFrom || '2026-04-01',
-          consumerCategory: data.proposedTariff.consumerCategory || tariff.category,
-          fixedCharge: data.proposedTariff.fixedCharge ?? tariff.fixedCharge,
-          fixedChargeUnit: data.proposedTariff.fixedChargeUnit || tariff.fixedChargeUnit,
-          dutyRate: data.proposedTariff.dutyRate ?? tariff.dutyRate,
-          dutyType: data.proposedTariff.dutyType || tariff.dutyType,
-          fuelAdjustmentRate: data.proposedTariff.fuelAdjustmentRate ?? (tariff.fuelAdjustmentChargePerUnit || 0),
-          slabs: data.proposedTariff.slabs && data.proposedTariff.slabs.length > 0 ? data.proposedTariff.slabs : tariff.slabs,
-          subsidyRule: data.proposedTariff.subsidyRule || tariff.subsidy,
-          sourceName: data.sourceName || tariff.source,
-          sourceUrl: data.sourceUrl || tariff.sourceUrl,
-          sourceDocument: data.orderNumber ? `Official Regulatory Order ${data.orderNumber}` : tariff.lastUpdated,
-          confidence: (data.confidence as any) || 'High',
-          reviewWarnings: data.reviewWarnings || [],
-          notes: data.proposedTariff.notes || 'Extracted via official SERC regulatory filing schedule.',
-          status: 'pending_review'
-        };
-
-        this.activeProposals[tariff.id] = proposal;
-        this.saveProposalsToLocal();
-
-        return {
-          hasNewUpdate: true,
-          message: `New official tariff schedule detected for ${tariff.discom}. Slabs & charges extracted and ready for admin review.`,
-          proposal,
-          lastChecked: data.lastChecked,
-          sourceUrl: data.sourceUrl || tariff.sourceUrl
-        };
-      }
-
-      return {
-        hasNewUpdate: false,
-        message: data.message || `No new tariff update found. Current published tariff remains verified and active.`,
-        lastChecked: data.lastChecked || new Date().toISOString(),
-        sourceUrl: data.sourceUrl || tariff.sourceUrl
-      };
+      parsed = JSON.parse(jsonString.trim());
     } catch (err: any) {
-      console.warn('Check updates failed; applying failsafe:', err);
-      return {
-        hasNewUpdate: false,
-        message: `Update check completed. Current published tariff remains valid and active.`,
-        lastChecked: new Date().toISOString().split('T')[0],
-        sourceUrl: tariff.sourceUrl
-      };
-    }
-  }
-
-  // ── AI TARIFF EXTRACTION FROM DOCUMENT / TEXT ──
-  public async extractTariffFromDocument(
-    documentText: string,
-    stateName: string,
-    discomName: string,
-    sourceUrl: string,
-    existingTariffId?: string
-  ): Promise<ProposedTariffRevision> {
-    const response = await fetch('/api/electricity/extract-tariff', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ documentText, stateName, discomName, sourceUrl })
-    });
-
-    if (!response.ok) {
-      throw new Error(`AI Extraction failed with status ${response.status}`);
+      return { isValid: false, errors: [`Invalid JSON format: ${err.message || 'Syntax error in JSON string.'}`] };
     }
 
-    const data = await response.json();
-    const ext = data.extracted;
+    const stateName = (parsed.state || parsed.stateName || defaultState || '').trim();
+    if (!stateName) {
+      errors.push('Missing required field: "state" (e.g., "Gujarat", "Maharashtra").');
+    }
 
-    const proposal: ProposedTariffRevision = {
-      discomId: existingTariffId || `${stateName.toLowerCase()}-${discomName.toLowerCase().replace(/[^a-z0-9]/g, '')}`,
+    const discomName = (parsed.discom || parsed.discomName || defaultDiscom || '').trim();
+    if (!discomName) {
+      errors.push('Missing required field: "discom" (e.g., "MGVCL", "MSEDCL").');
+    }
+
+    const consumerCategory = (parsed.category || parsed.consumerCategory || defaultCategory || 'Domestic (LT-1 Residential)').trim();
+
+    // Slabs validation
+    const rawSlabs = parsed.slabs || parsed.tariffSlabs || [];
+    if (!Array.isArray(rawSlabs) || rawSlabs.length === 0) {
+      errors.push('Missing required field: "slabs" (must be an array with at least 1 consumption tier).');
+    } else {
+      rawSlabs.forEach((s: any, idx: number) => {
+        const minU = Number(s.minUnits ?? s.min ?? 0);
+        const maxU = s.maxUnits !== undefined && s.maxUnits !== null ? Number(s.maxUnits) : null;
+        const rate = Number(s.ratePerUnit ?? s.rate ?? -1);
+
+        if (isNaN(minU) || minU < 0) {
+          errors.push(`Slab #${idx + 1}: "minUnits" must be a non-negative number.`);
+        }
+        if (isNaN(rate) || rate < 0) {
+          errors.push(`Slab #${idx + 1}: "ratePerUnit" must be a non-negative number (got ${rate}).`);
+        }
+        if (maxU !== null && (isNaN(maxU) || maxU <= minU)) {
+          errors.push(`Slab #${idx + 1}: "maxUnits" (${maxU}) must be greater than "minUnits" (${minU}).`);
+        }
+      });
+    }
+
+    const fixedCharge = Number(parsed.fixedCharge ?? parsed.fixed_charge ?? 0);
+    if (isNaN(fixedCharge) || fixedCharge < 0) {
+      errors.push('"fixedCharge" must be a non-negative number.');
+    }
+
+    const dutyRate = Number(parsed.dutyRate ?? parsed.duty_rate ?? 0);
+    if (isNaN(dutyRate) || dutyRate < 0) {
+      errors.push('"dutyRate" must be a non-negative number.');
+    }
+
+    const effectiveFrom = (parsed.effectiveFrom ?? parsed.effective_from ?? new Date().toISOString().split('T')[0]).trim();
+    if (!effectiveFrom) {
+      errors.push('Missing required field: "effectiveFrom" (date in YYYY-MM-DD format).');
+    }
+
+    const sourceName = (parsed.source ?? parsed.sourceName ?? 'State Electricity Regulatory Commission').trim();
+
+    if (errors.length > 0) {
+      return { isValid: false, errors };
+    }
+
+    // Cleaned slabs
+    const cleanedSlabs: TariffSlab[] = rawSlabs.map((s: any, idx: number) => ({
+      id: s.id || `slab_${idx + 1}`,
+      minUnits: Number(s.minUnits ?? s.min ?? 0),
+      maxUnits: s.maxUnits !== undefined && s.maxUnits !== null ? Number(s.maxUnits) : null,
+      ratePerUnit: Number(s.ratePerUnit ?? s.rate ?? 0),
+      label: s.label || s.name || `${s.minUnits ?? 0}–${s.maxUnits || 'Above'} Units`,
+      name: s.name || s.label || `${s.minUnits ?? 0}–${s.maxUnits || 'Above'} Units`,
+    }));
+
+    const discomId = `${stateName.toLowerCase().replace(/[^a-z0-9]/g, '')}-${discomName.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+
+    const parsedProposal: ProposedTariffRevision = {
+      discomId,
       discomName,
       stateName,
-      orderNumber: ext.orderNumber || 'Tariff Schedule 2026-27',
-      effectiveFrom: ext.effectiveFrom || '2026-04-01',
-      consumerCategory: ext.consumerCategory || 'Domestic (Residential)',
-      fixedCharge: ext.fixedCharge || 50,
-      fixedChargeUnit: ext.fixedChargeUnit || 'per_month',
-      dutyRate: ext.dutyRate || 10,
-      dutyType: ext.dutyType || 'percentage',
-      fuelAdjustmentRate: ext.fuelAdjustmentRate || 0,
-      slabs: ext.slabs || [],
-      subsidyRule: ext.subsidyRule || null,
-      sourceName: ext.orderNumber ? `SERC Tariff Order ${ext.orderNumber}` : 'State Electricity Regulatory Commission',
-      sourceUrl,
-      sourceDocument: ext.orderNumber,
-      confidence: ext.confidence || 'Moderate',
-      reviewWarnings: ext.reviewWarnings || [],
-      notes: ext.notes || 'Extracted via AI document parser from official order text.',
+      orderNumber: parsed.orderNumber || `SERC Tariff Schedule ${effectiveFrom.split('-')[0] || '2026'}`,
+      orderDate: parsed.orderDate || new Date().toISOString().split('T')[0],
+      effectiveFrom,
+      consumerCategory,
+      fixedCharge,
+      fixedChargeUnit: parsed.fixedChargeUnit || parsed.fixed_charge_unit || 'per_month',
+      dutyRate,
+      dutyType: parsed.dutyType || parsed.duty_type || 'percentage',
+      fuelAdjustmentRate: Number(parsed.fuelAdjustmentRate ?? parsed.fuelAdjustmentChargePerUnit ?? parsed.fac ?? 0),
+      slabs: cleanedSlabs,
+      subsidyRule: parsed.subsidy || parsed.subsidyRule || null,
+      sourceName,
+      sourceUrl: (parsed.sourceUrl ?? parsed.source_url ?? '').trim(),
+      sourceDocument: parsed.sourceDocument || parsed.orderNumber || 'Official SERC Schedule',
+      confidence: 'High',
+      reviewWarnings: [],
+      notes: parsed.notes || 'Manually entered and verified tariff schedule.',
       status: 'pending_review'
     };
 
-    if (existingTariffId) {
-      this.activeProposals[existingTariffId] = proposal;
-      this.saveProposalsToLocal();
-    }
+    return {
+      isValid: true,
+      errors: [],
+      parsedProposal
+    };
+  }
 
-    return proposal;
+  // ── SAMPLE TEMPLATE GENERATOR ──
+  public getSampleTariffJson(stateName = 'Gujarat', discomName = 'MGVCL'): string {
+    return JSON.stringify(
+      {
+        state: stateName,
+        discom: discomName,
+        category: 'Domestic (LT-1 Residential)',
+        effectiveFrom: '2026-04-01',
+        fixedCharge: 25,
+        fixedChargeUnit: 'per_month',
+        dutyRate: 15,
+        dutyType: 'percentage',
+        fuelAdjustmentRate: 0.35,
+        slabs: [
+          { minUnits: 0, maxUnits: 50, ratePerUnit: 3.05, label: '0–50 Units' },
+          { minUnits: 51, maxUnits: 100, ratePerUnit: 3.50, label: '51–100 Units' },
+          { minUnits: 101, maxUnits: 250, ratePerUnit: 4.15, label: '101–250 Units' },
+          { minUnits: 251, maxUnits: null, ratePerUnit: 5.20, label: 'Above 250 Units' }
+        ],
+        subsidy: null,
+        source: 'Gujarat Electricity Regulatory Commission (GERC)',
+        sourceUrl: 'https://gercin.org',
+        notes: 'Verified against GERC FY 2026-27 Retail Supply Schedule.'
+      },
+      null,
+      2
+    );
   }
 
   // ── COMPARE OLD VS NEW TARIFF ──
@@ -524,16 +540,11 @@ class TariffRepository {
   // ── HUMAN APPROVAL & PUBLISH (Writes to Supabase tariff_versions & tariff_audit_logs) ──
   public async approveAndPublish(
     tariffId: string,
-    customizedProposal?: ProposedTariffRevision,
-    approvedBy: string = 'Admin',
-    approvalNotes: string = 'Approved and published after verification against official tariff order.'
+    customizedProposal: ProposedTariffRevision,
+    approvedBy: string = 'Super Admin',
+    approvalNotes: string = 'Manually reviewed, verified, and published.'
   ): Promise<ElectricityTariff> {
-    const existingTariff = this.tariffs.find(t => t.id === tariffId);
-    const proposal = customizedProposal || this.activeProposals[tariffId];
-
-    if (!existingTariff && !proposal) {
-      throw new Error('No tariff or proposed revision found to publish');
-    }
+    const existingTariff = this.tariffs.find(t => t.id === tariffId || t.discom.toLowerCase() === customizedProposal.discomName.toLowerCase());
 
     const currentVersionNumber = existingTariff?.versionNumber || 1;
     const newVersionNumber = currentVersionNumber + 1;
@@ -544,46 +555,50 @@ class TariffRepository {
         ...existingTariff,
         id: `${existingTariff.id}-v${currentVersionNumber}`,
         status: 'archived',
-        effectiveTo: proposal ? proposal.effectiveFrom : new Date().toISOString().split('T')[0]
+        effectiveTo: customizedProposal.effectiveFrom || new Date().toISOString().split('T')[0]
       };
       this.tariffs.push(archivedVersion);
     }
 
+    const stateMatch = ALL_ELECTRICITY_TARIFFS.find(
+      t => t.state.toLowerCase() === customizedProposal.stateName.toLowerCase() || t.stateSlug === customizedProposal.stateName.toLowerCase()
+    );
+
     // 2. Create the newly published version
     const newPublishedTariff: ElectricityTariff = {
-      id: tariffId,
-      state: proposal?.stateName || existingTariff?.state || 'Indian State',
-      stateSlug: existingTariff?.stateSlug || 'gujarat',
-      stateCode: existingTariff?.stateCode || 'GJ',
-      unionTerritory: existingTariff?.unionTerritory || false,
-      discom: proposal?.discomName || existingTariff?.discom || 'DISCOM',
-      discomShort: existingTariff?.discomShort || 'DISCOM',
-      category: proposal?.consumerCategory || existingTariff?.category || 'Domestic (LT-1 Residential)',
+      id: existingTariff ? existingTariff.id : customizedProposal.discomId,
+      state: customizedProposal.stateName || existingTariff?.state || 'Indian State',
+      stateSlug: existingTariff?.stateSlug || stateMatch?.stateSlug || customizedProposal.stateName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      stateCode: existingTariff?.stateCode || stateMatch?.stateCode || customizedProposal.stateName.substring(0, 2).toUpperCase(),
+      unionTerritory: existingTariff?.unionTerritory ?? stateMatch?.unionTerritory ?? false,
+      discom: customizedProposal.discomName || existingTariff?.discom || 'DISCOM',
+      discomShort: existingTariff?.discomShort || customizedProposal.discomName.split(' ')[0],
+      category: customizedProposal.consumerCategory || existingTariff?.category || 'Domestic (LT-1 Residential)',
       billingCycle: existingTariff?.billingCycle || 'monthly',
       defaultSanctionedLoadKw: existingTariff?.defaultSanctionedLoadKw || 2,
-      fixedCharge: proposal?.fixedCharge ?? existingTariff?.fixedCharge ?? 50,
-      fixedChargeUnit: proposal?.fixedChargeUnit || existingTariff?.fixedChargeUnit || 'per_month',
+      fixedCharge: customizedProposal.fixedCharge,
+      fixedChargeUnit: customizedProposal.fixedChargeUnit || 'per_month',
       meterCharge: existingTariff?.meterCharge || 0,
-      dutyType: proposal?.dutyType || existingTariff?.dutyType || 'percentage',
-      dutyRate: proposal?.dutyRate ?? existingTariff?.dutyRate ?? 10,
-      fuelAdjustmentChargePerUnit: proposal?.fuelAdjustmentRate ?? existingTariff?.fuelAdjustmentChargePerUnit ?? 0,
-      slabs: proposal?.slabs || existingTariff?.slabs || [],
-      subsidy: proposal?.subsidyRule !== undefined ? proposal.subsidyRule : existingTariff?.subsidy,
-      effectiveFrom: proposal?.effectiveFrom || new Date().toISOString().split('T')[0],
+      dutyType: customizedProposal.dutyType || 'percentage',
+      dutyRate: customizedProposal.dutyRate,
+      fuelAdjustmentChargePerUnit: customizedProposal.fuelAdjustmentRate || 0,
+      slabs: customizedProposal.slabs,
+      subsidy: customizedProposal.subsidyRule !== undefined ? customizedProposal.subsidyRule : existingTariff?.subsidy,
+      effectiveFrom: customizedProposal.effectiveFrom || new Date().toISOString().split('T')[0],
       effectiveTo: null,
       status: 'published',
       versionNumber: newVersionNumber,
-      source: proposal?.sourceName || existingTariff?.source || 'State Electricity Regulatory Commission',
-      sourceUrl: proposal?.sourceUrl || existingTariff?.sourceUrl || '',
-      sourceDocument: proposal?.sourceDocument || `Tariff Order ${proposal?.orderNumber || 'Schedule'}`,
+      source: customizedProposal.sourceName || existingTariff?.source || 'State Electricity Regulatory Commission',
+      sourceUrl: customizedProposal.sourceUrl || existingTariff?.sourceUrl || '',
+      sourceDocument: customizedProposal.sourceDocument || `Tariff Order ${customizedProposal.orderNumber || 'Schedule'}`,
       lastChecked: new Date().toISOString().split('T')[0],
       lastUpdated: `Updated ${new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })} (v${newVersionNumber})`,
-      notes: approvalNotes,
+      notes: approvalNotes || customizedProposal.notes,
       verifiedByAdmin: true
     };
 
     // Replace in live list
-    this.tariffs = this.tariffs.filter(t => t.id !== tariffId).concat(newPublishedTariff);
+    this.tariffs = this.tariffs.filter(t => t.id !== newPublishedTariff.id).concat(newPublishedTariff);
 
     // 3. Record Audit Trail Log
     const auditRecord: TariffAuditLog = {
@@ -595,8 +610,7 @@ class TariffRepository {
       newTariffSummary: `v${newPublishedTariff.versionNumber} (${newPublishedTariff.lastUpdated})`,
       source: newPublishedTariff.source,
       sourceUrl: newPublishedTariff.sourceUrl,
-      aiStatus: proposal?.confidence ? 'verified_by_ai' : 'manual_entry',
-      aiConfidence: proposal?.confidence,
+      aiStatus: 'manual_entry',
       approvedBy,
       publishedDate: new Date().toLocaleString('en-IN'),
       notes: approvalNotes
@@ -606,6 +620,7 @@ class TariffRepository {
 
     // Remove active proposal
     delete this.activeProposals[tariffId];
+    delete this.activeProposals[newPublishedTariff.id];
     this.saveProposalsToLocal();
 
     // 4. Primary Persistence: Sync to Supabase
@@ -616,7 +631,7 @@ class TariffRepository {
   }
 
   // ── REJECT PROPOSAL ──
-  public async rejectProposal(tariffId: string, reason: string, rejectedBy: string = 'Admin'): Promise<void> {
+  public async rejectProposal(tariffId: string, reason: string, rejectedBy: string = 'Super Admin'): Promise<void> {
     const proposal = this.activeProposals[tariffId];
     if (proposal) {
       const auditRecord: TariffAuditLog = {
@@ -628,7 +643,7 @@ class TariffRepository {
         newTariffSummary: 'No Change — Published Tariff Retained',
         source: proposal.sourceName,
         sourceUrl: proposal.sourceUrl,
-        aiStatus: 'ai_extracted',
+        aiStatus: 'manual_entry',
         approvedBy: `${rejectedBy} (Rejected)`,
         publishedDate: new Date().toLocaleString('en-IN'),
         notes: `Proposal rejected: ${reason}`
