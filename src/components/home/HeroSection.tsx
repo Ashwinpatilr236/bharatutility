@@ -183,6 +183,11 @@ export const HeroSection: React.FC = () => {
                             <span className="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-accent transition-colors truncate">
                               {tool.name}
                             </span>
+                            {tool.badge === 'New' && (
+                              <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-bold">
+                                New
+                              </span>
+                            )}
                             {tool.trending && (
                               <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-rose-50 dark:bg-rose-950 text-rose-600 dark:text-rose-400 font-bold">
                                 Trending
@@ -209,10 +214,10 @@ export const HeroSection: React.FC = () => {
               {searchQuery.trim().length >= 2 && !hasMatches && (
                 <div className="p-4 text-center space-y-3">
                   <p className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
-                    We don't have that tool yet.
+                    We couldn't find that tool
                   </p>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto">
-                    Tell us what you need and our engineering team will build it for you for free.
+                    Try another search or request a tool.
                   </p>
                   <div className="flex items-center justify-center gap-2 pt-1">
                     <button
@@ -220,7 +225,7 @@ export const HeroSection: React.FC = () => {
                       className="px-3.5 py-2 rounded-xl bg-accent text-white text-xs font-bold inline-flex items-center gap-1.5 hover:bg-accent/90 transition-all hover:scale-105 active:scale-95"
                     >
                       <MessageSquarePlus className="w-3.5 h-3.5" />
-                      <span>Request This Tool</span>
+                      <span>Request a Tool</span>
                     </button>
                     <button
                       onMouseDown={navigateToAllTools}

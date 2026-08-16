@@ -253,6 +253,17 @@ export const CommandPalette: React.FC = () => {
                         <span className="text-sm font-bold truncate">
                           {tool.name}
                         </span>
+                        {tool.badge === 'New' && (
+                          <span
+                            className={`text-[10px] font-extrabold px-1.5 py-0.2 rounded-md uppercase tracking-wider ${
+                              selectedIndex === idx
+                                ? 'bg-white text-neutral-900'
+                                : 'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400'
+                            }`}
+                          >
+                            New
+                          </span>
+                        )}
                         {tool.trending && (
                           <span
                             className={`text-[10px] font-extrabold px-1.5 py-0.2 rounded-md uppercase tracking-wider ${
@@ -313,10 +324,10 @@ export const CommandPalette: React.FC = () => {
               </div>
               <div>
                 <h4 className="text-base font-bold text-neutral-900 dark:text-white font-display">
-                  We don't have that tool yet.
+                  We couldn't find that tool
                 </h4>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto mt-1">
-                  Tell us what you need and our team will build it for you for free.
+                  Try another search or request a tool.
                 </p>
               </div>
 
@@ -326,7 +337,7 @@ export const CommandPalette: React.FC = () => {
                   className="px-4 py-2.5 rounded-xl bg-accent text-white font-bold text-xs inline-flex items-center gap-1.5 hover:bg-accent/90 transition-all hover:scale-105 active:scale-95 shadow-xs"
                 >
                   <MessageSquarePlus className="w-3.5 h-3.5" />
-                  <span>Request This Tool</span>
+                  <span>Request a Tool</span>
                 </button>
                 <button
                   onClick={() => {
