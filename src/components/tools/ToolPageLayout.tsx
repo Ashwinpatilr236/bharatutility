@@ -21,7 +21,6 @@ const AgeCalculator = React.lazy(() => import('../calculators/AgeCalculator').th
 const PercentageCalculator = React.lazy(() => import('../calculators/PercentageCalculator').then(m => ({ default: m.PercentageCalculator })));
 const DateDifferenceCalculator = React.lazy(() => import('../calculators/DateDifferenceCalculator').then(m => ({ default: m.DateDifferenceCalculator })));
 const UnitConverter = React.lazy(() => import('../calculators/UnitConverter').then(m => ({ default: m.UnitConverter })));
-const ElectricityCalculator = React.lazy(() => import('../calculators/ElectricityCalculator').then(m => ({ default: m.ElectricityCalculator })));
 const PaintCalculator = React.lazy(() => import('../calculators/PaintCalculator').then(m => ({ default: m.PaintCalculator })));
 const TileCalculator = React.lazy(() => import('../calculators/TileCalculator').then(m => ({ default: m.TileCalculator })));
 const MarksPercentageCalculator = React.lazy(() => import('../calculators/MarksPercentageCalculator').then(m => ({ default: m.MarksPercentageCalculator })));
@@ -148,10 +147,6 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       case 'unit-converter':
         return <UnitConverter onResultChange={handleResultChange} />;
-
-      case 'electricity-calculator':
-      case 'ac-power-calculator':
-        return <ElectricityCalculator onResultChange={handleResultChange} />;
 
       case 'paint-calculator':
         return <PaintCalculator onResultChange={handleResultChange} />;

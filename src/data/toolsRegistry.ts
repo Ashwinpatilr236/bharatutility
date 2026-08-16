@@ -388,58 +388,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     relatedToolSlugs: ['area-calculator', 'paint-calculator', 'tile-calculator']
   },
 
-  // 10. Electricity Bill Calculator (All Indian States & UTs)
-  {
-    id: 'electricity-calculator',
-    slug: 'electricity-calculator',
-    name: 'State-Wise Electricity Bill Calculator (All India)',
-    shortName: 'Electricity Calculator',
-    tagline: 'Calculate electricity power bill by units across all Indian States & Union Territories',
-    description: 'Calculate your home electricity bill across all 28 Indian States and 8 Union Territories. Accurately calculates DISCOM-specific tariff slabs, sanctioned load fixed charges, Fuel Adjustment Charges (FAC/PPAC), statutory electricity duty, and state government subsidies (e.g. Delhi Zero-Bill, Punjab 300 Units, Karnataka Gruha Jyothi, Rajasthan Nishulk Bijli, Tamil Nadu 100 Free Units).',
-    category: 'home',
-    icon: 'Zap',
-    keywords: ['electricity bill', 'power bill calculator', 'units kwh', 'bijli bill', 'electricity slab rates', 'discom tariff', 'delhi free electricity', 'msedcl tariff', 'bescom bill', 'tangedco tariff', 'uppcl electricity bill', 'punjab 300 units free'],
-    popular: true,
-    trending: true,
-    badge: 'All 36 States & UTs',
-    views: 45000,
-    seo: {
-      title: 'Electricity Bill Calculator India — All States & UTs Tariff Slab Estimator',
-      description: 'Calculate state-wise electricity bills for all Indian States & UTs. Includes latest DISCOM slabs, fixed meter charges, electricity duty, and state subsidies.',
-      keywords: ['electricity bill calculator india', 'state wise electricity tariff calculator', 'calculate power consumption cost', 'discom bijli bill calculator'],
-      canonicalSlug: 'electricity-calculator',
-    },
-    formulaDescription: 'Total Net Bill = Energy Charges (Slab Breakdown) + Fixed Load Charges + Meter Rent + FAC/PPAC + Electricity Duty - Government Subsidy Entitlements.',
-    workedExample: {
-      inputSummary: '240 Units consumed in Maharashtra (MSEDCL / Mahavitaran) with 2 kW Load',
-      calculationSteps: [
-        'First 100 units @ ₹4.71/unit = ₹471.00',
-        'Remaining 140 units (101–240) @ ₹10.29/unit = ₹1,440.60',
-        'Total Energy Charges = ₹1,911.60',
-        'Fixed Charge (MSEDCL Single Phase) = ₹128.00',
-        'FAC @ ₹0.45/unit (240 units) = ₹108.00',
-        'Electricity Duty (16% on Energy + Fixed) = ₹326.34'
-      ],
-      finalResult: 'Gross Monthly Bill: ₹2,474 | Effective Cost: ₹10.31 / kWh',
-    },
-    faqs: [
-      {
-        question: 'How do tiered slab rates work on Indian electricity bills?',
-        answer: 'Indian DISCOMs calculate electricity charges using a progressive telescopic slab system. Your total monthly consumption is broken into volume tiers: initial units (e.g., 0–100 units) are charged at lower rates, while subsequent blocks are billed at progressively higher per-unit rates.'
-      },
-      {
-        question: 'Which Indian states offer free or subsidized electricity?',
-        answer: 'Several Indian states provide domestic electricity subsidies: Delhi offers 100% free electricity up to 200 units/mo and 50% discount up to 400 units; Punjab provides 300 free units/mo; Karnataka provides up to 200 units under Gruha Jyothi; Tamil Nadu provides the first 100 units free for all domestic connections; and Rajasthan provides 100 free units under Mukhyamantri Nishulk Bijli Yojana.'
-      },
-      {
-        question: 'What are Fixed Charges and Fuel Adjustment Charges (FAC/PPAC)?',
-        answer: 'Fixed charges are flat monthly fees based on your sanctioned load (in kW) or single/three-phase connection, regardless of usage. FAC (Fuel Adjustment Charge) or PPAC (Power Purchase Adjustment Cost) accounts for variable coal/gas procurement costs incurred by distribution companies.'
-      }
-    ],
-    relatedToolSlugs: ['unit-converter', 'paint-calculator', 'fuel-cost-calculator']
-  },
-
-  // 11. Paint Quantity & Cost Calculator
+  // 10. Paint Quantity & Cost Calculator
   {
     id: 'paint-calculator',
     slug: 'paint-calculator',
@@ -636,7 +585,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'In Indian driving conditions, running the car air conditioner continuously generally reduces fuel economy by approximately 8% to 12% in city traffic and 5% to 8% on highways.'
       }
     ],
-    relatedToolSlugs: ['electricity-calculator', 'unit-converter', 'salary-calculator']
+    relatedToolSlugs: ['unit-converter', 'salary-calculator', 'emi-calculator']
   },
 
   // 16. Indian Formal Letter & Leave Generator

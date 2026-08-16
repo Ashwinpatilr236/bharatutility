@@ -20,7 +20,6 @@ import { adminStore } from '../../../services/adminStore';
 
 const ENTITY_ICONS: Record<string, React.ReactNode> = {
   tool: <Layers className="w-3.5 h-3.5 text-indigo-500" />,
-  tariff: <Zap className="w-3.5 h-3.5 text-amber-500" />,
   ad: <Sparkles className="w-3.5 h-3.5 text-emerald-500" />,
   user: <Shield className="w-3.5 h-3.5 text-rose-500" />,
   setting: <FileText className="w-3.5 h-3.5 text-purple-500" />,
@@ -91,7 +90,7 @@ export const AdminActivityLog: React.FC = () => {
           <div>
             <h1 className="text-xl font-bold text-neutral-900 dark:text-white">Admin Activity & Audit Trail</h1>
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
-              Immutable historical event log tracking all tariff publications, tool changes, SEO saves, and admin logins.
+              Immutable historical event log tracking all tool releases, configuration changes, SEO saves, and admin logins.
             </p>
           </div>
         </div>
@@ -132,7 +131,6 @@ export const AdminActivityLog: React.FC = () => {
             className="px-3 py-2 text-sm bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg text-neutral-700 dark:text-neutral-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="all">All Entity Types ({logs.length})</option>
-            <option value="tariff">Electricity Tariffs</option>
             <option value="tool">Tools & Calculators</option>
             <option value="category">Categories</option>
             <option value="ad">Ad Slots</option>

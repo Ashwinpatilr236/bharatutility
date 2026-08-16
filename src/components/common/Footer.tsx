@@ -185,7 +185,7 @@ export const Footer: React.FC = () => {
         {/* Disclaimer Notice */}
         <div className="mt-10 pt-6 border-t border-neutral-100 dark:border-neutral-900 text-[11px] text-neutral-400 dark:text-neutral-500 leading-normal">
           <p>
-            <strong>Disclaimer:</strong> BharatUtility calculators and generators provide estimates for general informational purposes based on Indian standard financial, mathematical, and tax formulas. Actual loan interest, income tax assessments, electricity tariffs, and material estimates may vary depending on state policies, bank guidelines, and specific vendor parameters.
+            <strong>Disclaimer:</strong> BharatUtility calculators and generators provide estimates for general informational purposes based on Indian standard financial, mathematical, and tax formulas. Actual loan interest, income tax assessments, and material estimates may vary depending on state policies, bank guidelines, and specific vendor parameters.
           </p>
         </div>
 

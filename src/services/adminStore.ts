@@ -110,8 +110,8 @@ const DEFAULT_ADS_CONFIG: AdsManagementConfig = {
 // Initial Global SEO Configuration
 const DEFAULT_SEO_CONFIG: GlobalSEOConfig = {
   defaultTitle: 'BharatUtility — Free Everyday Calculators & Utilities for India',
-  defaultDescription: 'Fast, privacy-friendly, 100% free everyday calculators, state electricity bill estimator, EMI, GST, land conversion, and document generators built specifically for Indian citizens.',
-  defaultKeywords: ['india calculators', 'electricity bill calculator state wise', 'emi calculator india', 'gst calculator', 'land converter', 'bharat utility'],
+  defaultDescription: 'Fast, privacy-friendly, 100% free everyday calculators, EMI, GST, land conversion, and document generators built specifically for Indian citizens.',
+  defaultKeywords: ['india calculators', 'emi calculator india', 'gst calculator', 'land converter', 'bharat utility'],
   defaultOgImage: 'https://bharatutility.in/og-image.png',
   siteName: 'BharatUtility',
   canonicalDomain: 'https://bharatutility.in',
@@ -140,15 +140,6 @@ const DEFAULT_APPEARANCE_CONFIG: AppearanceConfig = {
 
 // Initial Feature Flags
 const DEFAULT_FEATURE_FLAGS: FeatureFlagItem[] = [
-  {
-    key: 'newElectricityUI',
-    name: 'All-India 36 States & DISCOM Tariff Engine',
-    description: 'Enables advanced telescopic slab calculation, DISCOM selector, subsidy deductions (Gruha Jyothi, Delhi, Punjab), and SERC verified order metadata.',
-    enabled: true,
-    category: 'core',
-    rolloutPercentage: 100,
-    updatedAt: new Date().toISOString(),
-  },
   {
     key: 'newSearch',
     name: 'Command Palette & Instant Search (Cmd+K)',
@@ -200,10 +191,10 @@ const DEFAULT_FEATURE_FLAGS: FeatureFlagItem[] = [
 const DEFAULT_ANNOUNCEMENTS: SiteAnnouncement[] = [
   {
     id: 'ann_1',
-    title: '⚡ All-India Electricity Tariffs Updated',
-    message: 'Now calculate domestic power bills across all 28 States & 8 UTs with DISCOM-specific SERC verified slabs and subsidy deductions.',
-    ctaText: 'Calculate Bill',
-    ctaUrl: '#/tool/electricity-bill-calculator',
+    title: '🚀 BharatUtility 2.0 Live',
+    message: 'Fast, privacy-friendly, 100% free everyday calculators and utility tools for Indian citizens.',
+    ctaText: 'Explore Tools',
+    ctaUrl: '#/',
     style: 'new',
     enabled: true,
     createdAt: '2026-08-01T10:00:00Z',
@@ -331,7 +322,7 @@ const DEFAULT_ACTIVITY_LOGS: AdminActivityLogItem[] = [
     action: 'System Initialized',
     entityType: 'setting',
     entityName: 'BharatUtility Production Platform',
-    details: 'Verified 36 state & UT electricity tariff datasets, core calculator registry, and security protocols.',
+    details: 'Verified core utility calculator registry and security protocols.',
     timestamp: new Date().toISOString(),
   },
 ];
@@ -341,7 +332,7 @@ const DEFAULT_NOTIFICATIONS: AdminNotification[] = [
   {
     id: 'notif_ready',
     title: 'BharatUtility Platform Active',
-    message: 'All 16 civic & financial utility calculators, all-India electricity datasets, and admin systems are operational.',
+    message: 'All civic & financial utility calculators and admin systems are operational.',
     category: 'system_error',
     severity: 'info',
     timestamp: new Date().toISOString(),
@@ -364,20 +355,6 @@ const DEFAULT_NOTIFICATION_RULES: NotificationRuleConfig[] = [
     name: 'Contact & Support Message Alert',
     description: 'Trigger notification when a contact submission or feedback is received.',
     category: 'contact_message',
-    enabled: true,
-  },
-  {
-    id: 'rule_tariff_update',
-    name: 'Electricity Tariff Update Detected',
-    description: 'Notify when SERC state DISCOM tariff order documents are fetched.',
-    category: 'tariff_update',
-    enabled: true,
-  },
-  {
-    id: 'rule_tariff_failed',
-    name: 'Tariff Extraction Failure Alert',
-    description: 'Notify immediately if AI SERC document parser fails.',
-    category: 'tariff_failed',
     enabled: true,
   },
   {
@@ -439,8 +416,8 @@ const DEFAULT_HOMEPAGE_SECTIONS: HomepageSectionConfig[] = [
   {
     id: 'sec_trending',
     type: 'trending',
-    title: 'Trending Utilities & Tariffs',
-    subtitle: 'Recently updated electricity tariff calculators and trending tools.',
+    title: 'Trending Utilities',
+    subtitle: 'Most popular calculators and trending tools in India.',
     enabled: true,
     displayOrder: 3,
     itemCount: 4,
@@ -466,12 +443,12 @@ const DEFAULT_HOMEPAGE_SECTIONS: HomepageSectionConfig[] = [
   {
     id: 'sec_featured',
     type: 'featured',
-    title: 'Featured Government & Tax Tools',
-    subtitle: 'Hand-picked utilities for Income Tax 115BAC, GST, and State Bill calculations.',
+    title: 'Featured Financial & Daily Tools',
+    subtitle: 'Hand-picked utilities for EMI, GST, Salary, and Currency conversions.',
     enabled: true,
     displayOrder: 6,
     itemCount: 4,
-    selectedToolSlugs: ['income-tax-calculator', 'electricity-bill-calculator', 'gst-calculator', 'land-area-converter'],
+    selectedToolSlugs: ['emi-calculator', 'sip-calculator', 'gst-calculator', 'salary-calculator'],
     backgroundStyle: 'card',
   },
   {
@@ -488,7 +465,7 @@ const DEFAULT_HOMEPAGE_SECTIONS: HomepageSectionConfig[] = [
     id: 'sec_announcements',
     type: 'announcements',
     title: 'Live Citizen Alerts & Announcements',
-    subtitle: 'Important public service notices and state tariff releases.',
+    subtitle: 'Important public service notices and platform updates.',
     enabled: true,
     displayOrder: 8,
     backgroundStyle: 'default',
@@ -535,13 +512,13 @@ const DEFAULT_REDIRECTS: UrlRedirect[] = [
   {
     id: 'red_2',
     oldUrl: '/old/electricity-bill',
-    newUrl: '/tool/electricity-bill-calculator',
+    newUrl: '/',
     type: 301,
     status: 'active',
     hits: 89,
     createdAt: '2026-07-15T12:00:00Z',
     updatedAt: '2026-08-14T14:30:00Z',
-    notes: 'State DISCOM bill calculator direct alias',
+    notes: 'Legacy route redirected to home',
   },
   {
     id: 'red_3',

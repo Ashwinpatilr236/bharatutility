@@ -53,7 +53,7 @@ export const AdminSystemHealth: React.FC = () => {
       status: 'healthy',
       latencyMs: 180,
       uptime: '99.95%',
-      details: 'Active for manual SERC tariff extraction & AI summaries',
+      details: 'Active for search discovery & opportunity analysis',
     },
     {
       name: 'Local Browser Storage & State Cache',
@@ -64,12 +64,12 @@ export const AdminSystemHealth: React.FC = () => {
       details: 'Instant client-side key-value persistence for all registries',
     },
     {
-      name: 'All-India 36 State SERC Tariff Engine',
+      name: 'Dynamic Indian Financial & Tax Engine',
       category: 'engine',
       status: 'optimal',
       latencyMs: 1,
       uptime: '100%',
-      details: 'All 28 States + 8 UTs DISCOM slabs compiled in memory',
+      details: 'All civic, tax, and loan math modules compiled in memory',
     },
     {
       name: 'Privacy Telemetry & Aggregation Bus',
@@ -301,7 +301,7 @@ export const AdminSystemHealth: React.FC = () => {
           Cache & State Maintenance
         </h2>
         <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">
-          Safely purge volatile session cache, calculation counters, and temporary browser indexes without affecting production tools or custom electricity tariff orders.
+          Safely purge volatile session cache, calculation counters, and temporary browser indexes without affecting production tools or saved settings.
         </p>
 
         <div className="flex flex-wrap items-center gap-3">

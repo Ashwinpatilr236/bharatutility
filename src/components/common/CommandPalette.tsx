@@ -113,7 +113,7 @@ export const CommandPalette: React.FC = () => {
           <input
             ref={inputRef}
             type="text"
-            placeholder="Search tools, calculate EMI, 75000 salary ka in hand, GST, electricity..."
+            placeholder="Search tools, calculate EMI, 75000 salary ka in hand, GST, SIP..."
             value={query}
             onChange={e => {
               setQuery(e.target.value);

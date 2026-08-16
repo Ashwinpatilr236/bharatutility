@@ -396,7 +396,7 @@ export const AdminRedirects: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="/tool/electricity-bill-calculator"
+                  placeholder="/tool/gst-calculator"
                   value={newUrlInput}
                   onChange={e => setNewUrlInput(e.target.value)}
                   className="w-full px-3 py-2 text-xs rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 font-mono text-neutral-900 dark:text-white"
@@ -425,7 +425,7 @@ export const AdminRedirects: React.FC = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Migrated state tariff slug"
+                    placeholder="e.g. Migrated tool slug alias"
                     value={notesInput}
                     onChange={e => setNotesInput(e.target.value)}
                     className="w-full px-3 py-2 text-xs rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white"

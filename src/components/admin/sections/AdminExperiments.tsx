@@ -277,7 +277,7 @@ export const AdminExperiments: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Electricity Calculator - Instant Calculate CTA Test"
+                  placeholder="e.g. EMI Calculator - Interactive Sliders vs Input Fields"
                   value={nameInput}
                   onChange={e => setNameInput(e.target.value)}
                   className="w-full px-3 py-2 text-xs rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white"

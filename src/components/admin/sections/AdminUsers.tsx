@@ -29,7 +29,7 @@ const ROLE_BADGES: Record<AdminRole, { label: string; bg: string; text: string; 
     bg: 'bg-rose-50 dark:bg-rose-950/30',
     text: 'text-rose-700 dark:text-rose-300',
     border: 'border-rose-200 dark:border-rose-800',
-    desc: 'Unrestricted access to all tools, tariffs, ads, SEO, users, flags & settings.',
+    desc: 'Unrestricted access to all tools, categories, ads, SEO, users, flags & settings.',
   },
   content_admin: {
     label: 'Content Admin',
@@ -43,7 +43,7 @@ const ROLE_BADGES: Record<AdminRole, { label: string; bg: string; text: string; 
     bg: 'bg-amber-50 dark:bg-amber-950/30',
     text: 'text-amber-700 dark:text-amber-300',
     border: 'border-amber-200 dark:border-amber-800',
-    desc: 'Manage electricity tariff orders, SERC slabs, fuel prices & dynamic datasets.',
+    desc: 'Manage tax slabs, fuel prices, currency rates & dynamic datasets.',
   },
   support_admin: {
     label: 'Support Admin',
@@ -486,7 +486,7 @@ export const AdminUsers: React.FC = () => {
                 >
                   <option value="super_admin">Super Admin (Full Platform Control)</option>
                   <option value="content_admin">Content Admin (Tools, Categories, SEO)</option>
-                  <option value="data_admin">Data Admin (Tariffs, Fuel & Slabs)</option>
+                  <option value="data_admin">Data Admin (Fuel, Tax & Slabs)</option>
                   <option value="support_admin">Support Admin (Requests & Messages)</option>
                   <option value="analyst">Analyst (Metrics & Insights Viewer)</option>
                 </select>

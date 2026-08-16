@@ -107,7 +107,7 @@ export const HeroSection: React.FC = () => {
             <input
               id="hero-tool-search-input"
               type="text"
-              placeholder="Search e.g. EMI, 75000 salary ka in hand, electricity Gujarat, GST, bike mileage..."
+              placeholder="Search e.g. EMI, 75000 salary ka in hand, GST, SIP wealth, bike mileage..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}

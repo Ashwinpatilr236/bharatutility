@@ -23,7 +23,6 @@ const AdminMessages = React.lazy(() => import('./sections/AdminMessages').then(m
 const AdminSearchInsights = React.lazy(() => import('./sections/AdminSearchInsights').then(m => ({ default: m.AdminSearchInsights })));
 const AdminOpportunityCenter = React.lazy(() => import('./sections/AdminOpportunityCenter').then(m => ({ default: m.AdminOpportunityCenter })));
 const AdminDynamicData = React.lazy(() => import('./sections/AdminDynamicData').then(m => ({ default: m.AdminDynamicData })));
-const AdminElectricityTariffs = React.lazy(() => import('./sections/AdminElectricityTariffs').then(m => ({ default: m.AdminElectricityTariffs })));
 const AdminAds = React.lazy(() => import('./sections/AdminAds').then(m => ({ default: m.AdminAds })));
 const AdminSEO = React.lazy(() => import('./sections/AdminSEO').then(m => ({ default: m.AdminSEO })));
 const AdminSocial = React.lazy(() => import('./sections/AdminSocial').then(m => ({ default: m.AdminSocial })));
@@ -426,7 +425,6 @@ export const AdminView: React.FC<AdminViewProps> = ({
     { section: 'dashboard' as AdminSection, title: 'Executive Dashboard', desc: 'KPI metrics, revenue overview, traffic volume' },
     { section: 'tools' as AdminSection, title: 'Tools Registry', desc: 'Create, edit, duplicate, and publish calculators' },
     { section: 'categories' as AdminSection, title: 'Category Taxonomy', desc: 'Organize utilities into categories and adjust hierarchy' },
-    { section: 'electricity-tariffs' as AdminSection, title: 'Electricity Tariffs (36 States)', desc: 'DISCOM telescopic slabs, SERC orders, Gruha Jyothi subsidy' },
     { section: 'requests' as AdminSection, title: 'Tool Requests', desc: 'Review user suggestions and convert into tools' },
     { section: 'opportunity-center' as AdminSection, title: 'Opportunity Center', desc: 'AI discovery engine for high-demand missing calculators' },
     { section: 'search-insights' as AdminSection, title: 'Search Insights', desc: 'Top searched terms, 0-result gap analysis' },
@@ -560,9 +558,6 @@ export const AdminView: React.FC<AdminViewProps> = ({
               )}
               {currentSection === 'dynamic-data' && (
                 <AdminDynamicData />
-              )}
-              {currentSection === 'electricity-tariffs' && (
-                <AdminElectricityTariffs />
               )}
               {currentSection === 'ads' && (
                 <AdminAds />

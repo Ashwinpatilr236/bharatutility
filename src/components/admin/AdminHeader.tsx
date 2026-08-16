@@ -51,7 +51,6 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   'search-insights': 'Search Discovery & Gap Analysis',
   'opportunity-center': 'Tool Opportunity Center',
   'dynamic-data': 'Dynamic External Datasets',
-  'electricity-tariffs': 'Electricity Tariffs (SERC)',
   ads: 'Google AdSense & Ad Placements',
   seo: 'Global SEO & Meta Optimization',
   social: 'Social & Community Channels',

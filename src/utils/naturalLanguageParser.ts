@@ -84,18 +84,6 @@ export function extractTenureYears(text: string): number | null {
 }
 
 /**
- * Extracts electricity units
- */
-export function extractElectricityUnits(text: string): number | null {
-  const match = text.match(/(\d+)\s*(?:units|unit|kwh)/i);
-  if (match) {
-    const val = parseInt(match[1], 10);
-    if (!isNaN(val)) return val;
-  }
-  return null;
-}
-
-/**
  * Detects Indian State mentions
  */
 const INDIAN_STATES = [
@@ -219,47 +207,7 @@ export function parseNaturalLanguageQuery(query: string): ParsedToolIntent | nul
     };
   }
 
-  // 3. Electricity Bill / Tariffs
-  if (
-    q.includes('electricity') ||
-    q.includes('bijli') ||
-    q.includes('power bill') ||
-    q.includes('light bill') ||
-    q.includes('discom') ||
-    q.includes('tariff') ||
-    q.includes('units') ||
-    q.includes('kwh') ||
-    q.includes('unit consumption')
-  ) {
-    const units = extractElectricityUnits(q) || extractIndianNumber(q);
-    const state = extractStateSlug(q);
-    const params: Record<string, any> = {};
-    const parts: string[] = [];
-
-    if (state) {
-      params.state = state.slug;
-      parts.push(`State: ${state.name.toUpperCase()}`);
-    }
-    if (units && units <= 5000) {
-      params.units = units;
-      parts.push(`Units: ${units} kWh`);
-    }
-
-    const explanation = parts.length > 0
-      ? `Calculate Electricity Bill (${parts.join(', ')})`
-      : 'Calculate state-wise domestic electricity bill & slabs';
-
-    return {
-      toolSlug: 'electricity-calculator',
-      toolName: 'State-wise Electricity Bill Calculator',
-      confidence: 0.92,
-      params,
-      explanation,
-      matchedTerms: ['electricity', 'bijli', 'units']
-    };
-  }
-
-  // 4. GST Calculator
+  // 3. GST Calculator
   if (
     q.includes('gst') ||
     q.includes('cgst') ||

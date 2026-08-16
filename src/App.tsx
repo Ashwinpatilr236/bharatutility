@@ -29,7 +29,6 @@ const FavoritesView = React.lazy(() => import('./components/views/FavoritesView'
 const LegalView = React.lazy(() => import('./components/views/LegalView').then(m => ({ default: m.LegalView })));
 const ContactView = React.lazy(() => import('./components/views/ContactView').then(m => ({ default: m.ContactView })));
 const RequestToolView = React.lazy(() => import('./components/views/RequestToolView').then(m => ({ default: m.RequestToolView })));
-const AdminTariffView = React.lazy(() => import('./components/views/AdminTariffView').then(m => ({ default: m.AdminTariffView })));
 const AdminView = React.lazy(() => import('./components/admin/AdminView').then(m => ({ default: m.AdminView })));
 
 const ViewLoadingFallback: React.FC = () => (
@@ -151,10 +150,6 @@ const AppContent: React.FC = () => {
 
           {view.type === 'request-tool' && (
             <RequestToolView />
-          )}
-
-          {view.type === 'admin-tariffs' && (
-            <AdminTariffView />
           )}
 
           {view.type === 'legal' && (

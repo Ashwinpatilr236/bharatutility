@@ -27,7 +27,6 @@ const ROLE_PERMISSIONS: Record<AdminRole, PermissionKey[]> = {
     'messages:read', 'messages:write',
     'analytics:read', 'search_insights:read', 'opportunity:read',
     'dynamic_data:read', 'dynamic_data:write',
-    'tariffs:read', 'tariffs:write', 'tariffs:publish',
     'ads:read', 'ads:write',
     'seo:read', 'seo:write',
     'social:read', 'social:write',
@@ -48,7 +47,6 @@ const ROLE_PERMISSIONS: Record<AdminRole, PermissionKey[]> = {
   ],
   data_admin: [
     'dynamic_data:read', 'dynamic_data:write',
-    'tariffs:read', 'tariffs:write', 'tariffs:publish',
     'tools:read',
     'health:read', 'activity:read',
   ],
@@ -87,7 +85,6 @@ const SECTION_ALLOWED_ROLES: Record<AdminSection, AdminRole[]> = {
   'search-insights': ['super_admin', 'analyst', 'content_admin'],
   'opportunity-center': ['super_admin', 'analyst', 'content_admin'],
   'dynamic-data': ['super_admin', 'data_admin'],
-  'electricity-tariffs': ['super_admin', 'data_admin'],
   'ads': ['super_admin', 'content_admin'],
   'seo': ['super_admin', 'content_admin'],
   'social': ['super_admin', 'content_admin'],

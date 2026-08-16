@@ -125,7 +125,7 @@ export const AdminSettings: React.FC = () => {
 
           <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
             {isSupabaseConfigured()
-              ? 'Connected to your production Supabase database cluster. All tariffs, tools, and admin logs are securely synchronized in real time.'
+              ? 'Connected to your production Supabase database cluster. All tools, configurations, and admin logs are securely synchronized in real time.'
               : 'Operating in self-contained client storage mode. Configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to enable cross-device cloud persistence.'}
           </p>
 
@@ -144,7 +144,7 @@ export const AdminSettings: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-neutral-900 dark:text-white">Google Gemini 2.5 Flash</h3>
-                <span className="text-xs text-neutral-500">SERC AI Tariff Extraction</span>
+                <span className="text-xs text-neutral-500">AI Assistant & Opportunity Engine</span>
               </div>
             </div>
             <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
@@ -153,7 +153,7 @@ export const AdminSettings: React.FC = () => {
           </div>
 
           <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            Gemini AI assists administrators by parsing official SERC PDF tariff orders and proposing structured telescopic slab changes. (Note: AI never publishes changes automatically; human approval is strictly required).
+            Gemini AI assists administrators in identifying tool demand trends, analyzing citizen search opportunities, and drafting metadata.
           </p>
 
           <div className="p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-xs font-mono text-neutral-700 dark:text-neutral-300">
@@ -170,7 +170,7 @@ export const AdminSettings: React.FC = () => {
           Full System Backup & Disaster Recovery
         </h2>
         <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-          Export a complete, self-contained JSON snapshot containing all 18+ tools, 36 State SERC electricity tariff orders, ad unit configurations, global SEO metadata, feature flags, and site announcements.
+          Export a complete, self-contained JSON snapshot containing all 18+ tools, ad unit configurations, global SEO metadata, feature flags, and site announcements.
         </p>
 
         <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -203,14 +203,14 @@ export const AdminSettings: React.FC = () => {
           Production Security & Environment Setup
         </h2>
         <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-          BharatUtility adheres to enterprise-grade security standards. Secret keys are never transmitted to client browsers, and all tariff updates require explicit human administrator signoff.
+          BharatUtility adheres to enterprise-grade security standards. Secret keys are never transmitted to client browsers, and all public configuration updates require authenticated administrator signoff.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
           <div className="p-4 rounded-lg bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200 dark:border-neutral-700">
             <strong className="text-neutral-900 dark:text-white block mb-1">Human-in-the-Loop</strong>
             <span className="text-neutral-500 dark:text-neutral-400">
-              No AI extraction can mutate live electricity bill calculators without Super Admin approval.
+              Tool publication and configuration updates require Super Admin approval.
             </span>
           </div>
 
@@ -224,7 +224,7 @@ export const AdminSettings: React.FC = () => {
           <div className="p-4 rounded-lg bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200 dark:border-neutral-700">
             <strong className="text-neutral-900 dark:text-white block mb-1">Audit Trail</strong>
             <span className="text-neutral-500 dark:text-neutral-400">
-              Every setting change, tool duplication, and tariff revision is recorded in the immutable audit log.
+              Every setting change, tool configuration, and admin action is recorded in the immutable audit log.
             </span>
           </div>
         </div>

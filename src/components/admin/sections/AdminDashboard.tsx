@@ -99,7 +99,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <span>⚙️</span> BharatUtility Master Portal
           </h1>
           <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-            Real-time management for utilities, state tariffs, categories, citizen requests, and platform status.
+            Real-time management for utilities, categories, citizen requests, and platform status.
           </p>
         </div>
 
@@ -197,25 +197,25 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </span>
         </div>
 
-        {/* State Electricity Tariffs */}
+        {/* Tool Categories */}
         <div
-          onClick={() => onNavigate('electricity-tariffs')}
+          onClick={() => onNavigate('categories')}
           className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:border-accent/40 cursor-pointer transition-all group"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">Electricity Tariffs</span>
-            <div className="p-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400">
-              <Zap className="w-4 h-4" />
+            <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">Tool Categories</span>
+            <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+              <FolderTree className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-2">
             <span className="text-2xl font-bold font-display text-neutral-900 dark:text-white">
-              36
+              {categories.length}
             </span>
-            <span className="text-[11px] text-emerald-600 font-semibold">States & UTs</span>
+            <span className="text-[11px] text-indigo-600 font-semibold">Active Suites</span>
           </div>
           <span className="text-[10.5px] text-neutral-400 dark:text-neutral-500 mt-1 block">
-            Verified DISCOM slab rates
+            Organized civic taxonomies
           </span>
         </div>
 
@@ -558,9 +558,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             {[
               { name: 'Local Data Store & Schema Cache', status: 'Healthy', color: 'bg-emerald-500' },
               { name: 'Authentication (Supabase Auth & MFA)', status: 'Secure', color: 'bg-emerald-500' },
-              { name: 'Gemini AI Tariff Extraction API', status: 'Healthy', color: 'bg-emerald-500' },
               { name: 'Contact & Tool Request Pipeline', status: 'Active', color: 'bg-emerald-500' },
-              { name: '36 States Dynamic Tariff Engine', status: 'Verified', color: 'bg-emerald-500' },
+              { name: 'Dynamic Financial & Tax Engine', status: 'Verified', color: 'bg-emerald-500' },
               { name: 'Public BharatUtility Web Ingress', status: 'Operational', color: 'bg-emerald-500' },
             ].map((srv) => (
               <div

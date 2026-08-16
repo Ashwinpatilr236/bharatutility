@@ -45,7 +45,7 @@ export const AdminAnnouncements: React.FC = () => {
     setTitle('');
     setMessage('');
     setCtaText('Check Out');
-    setCtaUrl('#/tool/electricity-bill-calculator');
+    setCtaUrl('#/');
     setStyle('new');
     setEnabled(true);
     setIsNewOpen(true);
@@ -95,7 +95,7 @@ export const AdminAnnouncements: React.FC = () => {
             <BellRing className="w-5 h-5 text-rose-500" /> Site-Wide Announcement Banners
           </h1>
           <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-            Broadcast major utility updates, regulatory tariff changes, or site maintenance notices to all visitors.
+            Broadcast major utility updates, new calculator releases, or site maintenance notices to all visitors.
           </p>
         </div>
 
@@ -210,7 +210,7 @@ export const AdminAnnouncements: React.FC = () => {
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="e.g. ⚡ All-India Electricity Tariffs Updated"
+                  placeholder="e.g. 🚀 BharatUtility 2.0 Live"
                   className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium outline-hidden"
                 />
               </div>
@@ -224,7 +224,7 @@ export const AdminAnnouncements: React.FC = () => {
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Now calculate domestic power bills across all 28 States & 8 UTs..."
+                  placeholder="Fast, privacy-friendly everyday calculators for India..."
                   className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-hidden"
                 />
               </div>
@@ -238,7 +238,7 @@ export const AdminAnnouncements: React.FC = () => {
                     type="text"
                     value={ctaText}
                     onChange={(e) => setCtaText(e.target.value)}
-                    placeholder="Calculate Bill"
+                    placeholder="Explore Tools"
                     className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-hidden"
                   />
                 </div>
@@ -251,7 +251,7 @@ export const AdminAnnouncements: React.FC = () => {
                     type="text"
                     value={ctaUrl}
                     onChange={(e) => setCtaUrl(e.target.value)}
-                    placeholder="#/tool/electricity-bill-calculator"
+                    placeholder="#/"
                     className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-mono outline-hidden"
                   />
                 </div>

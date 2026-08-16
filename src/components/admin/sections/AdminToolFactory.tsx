@@ -45,7 +45,7 @@ export const AdminToolFactory: React.FC<AdminToolFactoryProps> = ({ onToolCreate
       { question: 'Is this calculation formula compliant with Indian standards?', answer: 'Yes, all calculations are aligned with current Indian statutory norms and financial guidelines.' },
       { question: 'Is my data private and secure?', answer: 'Yes, 100% of calculations run privately in your browser without saving personal inputs to any server.' },
     ],
-    relatedTools: ['electricity-bill-calculator', 'income-tax-calculator'],
+    relatedTools: ['emi-calculator', 'gst-calculator'],
     disclaimer: 'Calculations provided by BharatUtility are for informational and educational estimation purposes only.',
   });
 
@@ -252,7 +252,7 @@ export const AdminToolFactory: React.FC<AdminToolFactoryProps> = ({ onToolCreate
               </label>
               <input
                 type="text"
-                placeholder="e.g. Haryana Electricity Bill Calculator"
+                placeholder="e.g. Gratuity Calculation Estimator"
                 value={toolData.name}
                 onChange={e => handleNameChange(e.target.value)}
                 className="w-full px-3 py-2 text-xs rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white"
@@ -269,7 +269,7 @@ export const AdminToolFactory: React.FC<AdminToolFactoryProps> = ({ onToolCreate
                 </span>
                 <input
                   type="text"
-                  placeholder="haryana-electricity-bill-calculator"
+                  placeholder="gratuity-calculation-estimator"
                   value={toolData.slug}
                   onChange={e => setToolData(prev => ({ ...prev, slug: handleSlugify(e.target.value) }))}
                   className="w-full px-3 py-2 text-xs rounded-r-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 font-mono text-neutral-900 dark:text-white"
@@ -300,7 +300,7 @@ export const AdminToolFactory: React.FC<AdminToolFactoryProps> = ({ onToolCreate
               </label>
               <input
                 type="text"
-                placeholder="e.g. 2026 TARIFF, FY 26-27, POPULAR"
+                placeholder="e.g. POPULAR, NEW, STATUTORY"
                 value={toolData.badge}
                 onChange={e => setToolData(prev => ({ ...prev, badge: e.target.value }))}
                 className="w-full px-3 py-2 text-xs rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white"
@@ -313,7 +313,7 @@ export const AdminToolFactory: React.FC<AdminToolFactoryProps> = ({ onToolCreate
               </label>
               <textarea
                 rows={3}
-                placeholder="Describe what this tool calculates, supported Indian states, and citizen use cases..."
+                placeholder="Describe what this tool calculates and citizen use cases..."
                 value={toolData.description}
                 onChange={e => setToolData(prev => ({ ...prev, description: e.target.value }))}
                 className="w-full px-3 py-2 text-xs rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white"
@@ -353,7 +353,7 @@ export const AdminToolFactory: React.FC<AdminToolFactoryProps> = ({ onToolCreate
               </div>
               <input
                 type="text"
-                placeholder="e.g. Haryana Electricity Bill Calculator 2026 | DHBVN & UHBVN Slabs"
+                placeholder="e.g. Gratuity Calculator India | Statutory Formula & Tax Limits"
                 value={toolData.seo?.title || ''}
                 onChange={e =>
                   setToolData(prev => ({
@@ -376,7 +376,7 @@ export const AdminToolFactory: React.FC<AdminToolFactoryProps> = ({ onToolCreate
               </div>
               <textarea
                 rows={2}
-                placeholder="Calculate your domestic or commercial electricity bill for Haryana DISCOMs with latest 2026 tariff slabs, fixed charges, and fuel surcharge."
+                placeholder="Calculate your statutory gratuity payout based on completed service years, monthly basic pay, and current Indian tax exemption limits."
                 value={toolData.seo?.description || ''}
                 onChange={e =>
                   setToolData(prev => ({
@@ -396,7 +396,7 @@ export const AdminToolFactory: React.FC<AdminToolFactoryProps> = ({ onToolCreate
               <div className="flex gap-2">
                 <input
                   type="text"
-                  placeholder="e.g. dhbvn tariff calculator"
+                  placeholder="e.g. gratuity tax exemption 2026"
                   value={keywordInput}
                   onChange={e => setKeywordInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), handleAddKeyword())}
@@ -477,7 +477,7 @@ export const AdminToolFactory: React.FC<AdminToolFactoryProps> = ({ onToolCreate
                 <div className="flex items-center justify-between gap-2">
                   <input
                     type="text"
-                    placeholder="Citizen Question (e.g. How are tariff slabs calculated?)"
+                    placeholder="Citizen Question (e.g. How is gratuity calculated in India?)"
                     value={faq.question}
                     onChange={e => handleUpdateFaq(idx, 'question', e.target.value)}
                     className="flex-1 px-3 py-1.5 text-xs font-bold rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-600"

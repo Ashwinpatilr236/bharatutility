@@ -79,11 +79,11 @@ app.get("/api/admin/health-check", async (req, res) => {
       lastChecked: new Date().toISOString()
     },
     {
-      name: "Storage & Tariff S3/Asset Layer",
+      name: "Storage & Static Asset Layer",
       category: "storage",
       status: "operational" as const,
       latencyMs: 15,
-      details: "Static tariff repository & JSON stores healthy",
+      details: "Static repositories & JSON stores healthy",
       lastChecked: new Date().toISOString()
     },
     {
@@ -118,15 +118,6 @@ app.get("/api/admin/system-stats", (req, res) => {
     pid: process.pid,
     uptime: process.uptime(),
     env: process.env.NODE_ENV || "development",
-    timestamp: new Date().toISOString()
-  });
-});
-
-// ── TARIFF STATUS & MANUAL MANAGEMENT HEALTH ──
-app.get("/api/electricity/status", (req, res) => {
-  res.json({
-    success: true,
-    message: "BharatUtility Electricity Tariff System operates on manual verified JSON imports and Supabase persistence.",
     timestamp: new Date().toISOString()
   });
 });

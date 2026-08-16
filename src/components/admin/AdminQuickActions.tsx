@@ -3,7 +3,6 @@ import { AdminSection } from '../../types/admin';
 import {
   PlusCircle,
   Inbox,
-  Zap,
   DollarSign,
   Sparkles,
   BellRing,
@@ -43,12 +42,12 @@ export const AdminQuickActions: React.FC<AdminQuickActionsProps> = ({
       action: () => onNavigate('requests'),
     },
     {
-      id: 'check-electricity',
-      label: 'Check Electricity Updates',
-      description: 'Review 36 States SERC orders',
-      icon: Zap,
+      id: 'seo-health',
+      label: 'SEO Health Audit',
+      description: 'Review meta tags & structured schemas',
+      icon: Globe,
       color: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20',
-      action: () => onNavigate('electricity-tariffs'),
+      action: () => onNavigate('seo-health'),
     },
     {
       id: 'manage-ads',

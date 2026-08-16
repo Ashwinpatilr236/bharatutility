@@ -11,7 +11,6 @@ import {
   Search,
   Sparkles,
   Database,
-  Zap,
   DollarSign,
   Globe,
   Share2,
@@ -76,7 +75,6 @@ const NAV_ITEMS: NavItem[] = [
 
   // Data
   { id: 'dynamic-data', label: 'Dynamic Data', icon: Database, category: 'data' },
-  { id: 'electricity-tariffs', label: 'Electricity Tariffs', icon: Zap, badge: '36 States', category: 'data' },
 
   // Growth & Monetization
   { id: 'experiments', label: 'A/B Experiments', icon: Split, category: 'growth' },

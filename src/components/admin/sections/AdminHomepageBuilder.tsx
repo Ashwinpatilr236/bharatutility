@@ -35,10 +35,10 @@ const SECTION_TYPE_METADATA: Record<HomepageSectionType, { label: string; icon: 
   popular: {
     label: 'Popular Tools Grid',
     icon: Star,
-    description: 'Most frequently used tools in India (EMI, GST, Income Tax, Electricity).',
+    description: 'Most frequently used tools in India (EMI, GST, Income Tax, Salary).',
   },
   trending: {
-    label: 'Trending Tools & Electricity Tariffs',
+    label: 'Trending Tools',
     icon: Flame,
     description: 'Calculators and utilities experiencing high velocity search spikes.',
   },
@@ -55,12 +55,12 @@ const SECTION_TYPE_METADATA: Record<HomepageSectionType, { label: string; icon: 
   recently_added: {
     label: 'Recently Added & Updated Tools',
     icon: Clock,
-    description: 'Freshly published utilities and tariff formula updates.',
+    description: 'Freshly published utilities and core calculation formula updates.',
   },
   announcements: {
     label: 'Live Citizen Broadcast Banner',
     icon: Radio,
-    description: 'Important public service notices, tariff updates, and system alerts.',
+    description: 'Important public service notices, platform announcements, and system alerts.',
   },
   social: {
     label: 'Social & Community Channels',

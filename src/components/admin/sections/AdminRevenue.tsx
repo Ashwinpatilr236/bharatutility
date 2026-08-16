@@ -138,8 +138,8 @@ export const AdminRevenue: React.FC = () => {
               <p className="text-[11.5px] text-neutral-500">API keys remain purely server-side with zero browser exposure.</p>
             </div>
             <div className="p-3 rounded-xl bg-white dark:bg-neutral-900 border border-amber-200/60 dark:border-neutral-800 text-xs space-y-1">
-              <span className="font-bold text-neutral-900 dark:text-white">2. Multi-State RPM Logic</span>
-              <p className="text-[11.5px] text-neutral-500">Tracks high-intent electricity and tax calculator page value.</p>
+              <span className="font-bold text-neutral-900 dark:text-white">2. High-Intent RPM Logic</span>
+              <p className="text-[11.5px] text-neutral-500">Tracks high-intent finance, loan, and tax calculator page value.</p>
             </div>
             <div className="p-3 rounded-xl bg-white dark:bg-neutral-900 border border-amber-200/60 dark:border-neutral-800 text-xs space-y-1">
               <span className="font-bold text-neutral-900 dark:text-white">3. Zero Data Fabrication</span>
@@ -323,7 +323,7 @@ export const AdminRevenue: React.FC = () => {
                   className="px-2.5 py-1 text-xs rounded-lg bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 focus:outline-hidden"
                 >
                   <option value="all">All Categories</option>
-                  <option value="home">Home & Electricity</option>
+                  <option value="home">Home & Construction</option>
                   <option value="money">Money & Tax</option>
                   <option value="business">Business & GST</option>
                   <option value="converters">Converters</option>

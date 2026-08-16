@@ -66,7 +66,7 @@ export const RequestToolCta: React.FC<RequestToolCtaProps> = ({
             Can't find the tool or calculator you need?
           </h3>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-            BharatUtility is constantly evolving. Whether it's an Indian state tariff, specific financial formula, or workplace template — tell us what you need and we'll build it.
+            BharatUtility is constantly evolving. Whether it's a specific tax calculation, financial formula, or workplace template — tell us what you need and we'll build it.
           </p>
         </div>
 

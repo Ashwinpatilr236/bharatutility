@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   Split,
   FolderTree,
-  Zap,
   Sliders,
   MessageSquare,
   Sparkles,
@@ -72,7 +71,6 @@ export const AdminCommandPalette: React.FC<AdminCommandPaletteProps> = ({
     { section: 'seo-health', title: 'SEO Health & Schema Center', category: 'SEO & Routing', icon: ShieldCheck },
     { section: 'tool-factory', title: 'Tool Factory & Quality Wizard', category: 'Tool Management', icon: Wrench },
     { section: 'experiments', title: 'A/B Testing & Experiments', category: 'Growth & Ads', icon: Split },
-    { section: 'electricity-tariffs', title: 'Electricity Tariff Center', category: 'Dynamic Data', icon: Zap },
     { section: 'tools', title: 'Tool Management (All Tools)', category: 'Tool Management', icon: Wrench },
     { section: 'categories', title: 'Category Taxonomy', category: 'Tool Management', icon: FolderTree },
     { section: 'requests', title: 'Citizen Tool Requests', category: 'Feedback', icon: MessageSquare },
@@ -123,7 +121,7 @@ export const AdminCommandPalette: React.FC<AdminCommandPaletteProps> = ({
           <input
             ref={inputRef}
             type="text"
-            placeholder="Quick search admin sections, tools, tariffs, redirects, SEO..."
+            placeholder="Quick search admin sections, tools, categories, redirects, SEO..."
             value={query}
             onChange={e => setQuery(e.target.value)}
             className="w-full text-sm bg-transparent text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-hidden"

@@ -23,7 +23,6 @@ export type AdminSection =
   | 'search-insights'
   | 'opportunity-center'
   | 'dynamic-data'
-  | 'electricity-tariffs'
   | 'ads'
   | 'seo'
   | 'social'
@@ -64,9 +63,6 @@ export type PermissionKey =
   | 'opportunity:read'
   | 'dynamic_data:read'
   | 'dynamic_data:write'
-  | 'tariffs:read'
-  | 'tariffs:write'
-  | 'tariffs:publish'
   | 'ads:read'
   | 'ads:write'
   | 'seo:read'
@@ -92,7 +88,7 @@ export interface AdminActivityLogItem {
   adminName: string;
   adminEmail: string;
   action: string;
-  entityType: 'tool' | 'category' | 'tariff' | 'ad' | 'seo' | 'announcement' | 'user' | 'setting' | 'dynamic_data' | 'feature_flag' | 'request' | 'message' | 'notification' | 'redirect' | 'experiment';
+  entityType: 'tool' | 'category' | 'ad' | 'seo' | 'announcement' | 'user' | 'setting' | 'dynamic_data' | 'feature_flag' | 'request' | 'message' | 'notification' | 'redirect' | 'experiment';
   entityId?: string;
   entityName?: string;
   details?: string;
@@ -237,8 +233,6 @@ export type NotificationSeverity = 'info' | 'warning' | 'error' | 'success' | 'c
 export type NotificationCategory =
   | 'tool_request'
   | 'contact_message'
-  | 'tariff_update'
-  | 'tariff_failed'
   | 'system_error'
   | 'ai_error'
   | 'email_error'

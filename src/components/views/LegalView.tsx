@@ -81,10 +81,10 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
               Financial & Calculation Disclaimer
             </h1>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              The calculations, estimates, formulas, and results provided on BharatUtility (including but not limited to Loan EMI, Mutual Fund SIP, In-Hand Salary, GST, Fixed Deposits, and Electricity bills) are intended solely for informational, planning, and educational purposes.
+              The calculations, estimates, formulas, and results provided on BharatUtility (including but not limited to Loan EMI, Mutual Fund SIP, In-Hand Salary, GST, and Fixed Deposits) are intended solely for informational, planning, and educational purposes.
             </p>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              While we strive to ensure that all financial formulas and tax slab rules match official Indian government notifications and standard banking conventions, actual financial results may vary depending on bank processing fees, compounding dates, state electricity surcharges, and individual tax circumstances. BharatUtility is not a certified Chartered Accountant or registered SEBI financial advisor.
+              While we strive to ensure that all financial formulas and tax slab rules match official Indian government notifications and standard banking conventions, actual financial results may vary depending on bank processing fees, compounding dates, and individual tax circumstances. BharatUtility is not a certified Chartered Accountant or registered SEBI financial advisor.
             </p>
           </div>
         )}

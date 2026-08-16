@@ -37,7 +37,7 @@ export const TrendingToolsSection: React.FC<TrendingToolsSectionProps> = ({ item
             Trending Today
           </h2>
           <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
-            Most frequently used electricity, tax, and loan calculators across India
+            Most frequently used financial, tax, and loan calculators across India
           </p>
         </div>
 

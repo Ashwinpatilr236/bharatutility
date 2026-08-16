@@ -20,7 +20,6 @@ interface AppContextType {
   navigateToLegal: (page: 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact') => void;
   navigateToContact: () => void;
   navigateToRequestTool: () => void;
-  navigateToAdminTariffs: () => void;
   navigateToAdmin: (section?: AdminSection, subParam?: string) => void;
   theme: ThemeMode;
   setTheme: (theme: ThemeMode) => void;
@@ -211,7 +210,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const hash = window.location.hash;
       if (hash.startsWith('#/tool/')) {
         const slug = hash.replace('#/tool/', '').split('?')[0];
-        setViewState({ type: 'tool', slug });
+        if (slug === 'electricity-calculator' || slug === 'electricity-bill-calculator') {
+          // Graceful redirect for old electricity routes
+          setViewState({ type: 'all-tools' });
+          window.location.hash = '#/all-tools';
+        } else {
+          setViewState({ type: 'tool', slug });
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (hash.startsWith('#/category/')) {
         const categoryId = hash.replace('#/category/', '') as CategoryId;
@@ -306,8 +311,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       window.location.hash = `#/request-tool`;
     } else if (newView.type === 'admin') {
       window.location.hash = newView.section ? `#/admin/${newView.section}` : `#/admin`;
-    } else if (newView.type === 'admin-tariffs') {
-      window.location.hash = `#/admin/electricity-tariffs`;
     } else if (newView.type === 'legal') {
       window.location.hash = `#/legal/${newView.page}`;
     } else {
@@ -355,10 +358,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const navigateToRequestTool = () => {
     setView({ type: 'request-tool' });
-  };
-
-  const navigateToAdminTariffs = () => {
-    setView({ type: 'admin-tariffs' });
   };
 
   const toggleFavorite = (toolSlug: string) => {
@@ -459,7 +458,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         navigateToLegal,
         navigateToContact,
         navigateToRequestTool,
-        navigateToAdminTariffs,
         navigateToAdmin,
         theme,
         setTheme,

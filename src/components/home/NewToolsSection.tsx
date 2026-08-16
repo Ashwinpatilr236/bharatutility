@@ -37,7 +37,7 @@ export const NewToolsSection: React.FC<NewToolsSectionProps> = ({ itemCount = 4 
             New on BharatUtility
           </h2>
           <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
-            Freshly built utilities, upgraded tariff engines, and everyday Indian templates
+            Freshly built utilities, upgraded calculation engines, and everyday Indian templates
           </p>
         </div>
 

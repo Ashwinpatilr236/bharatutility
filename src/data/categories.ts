@@ -24,7 +24,7 @@ export const CATEGORIES: Category[] = [
     id: 'home',
     name: 'Home & Construction',
     shortName: 'Home',
-    description: 'State electricity bill slabs, wall paint estimator, room tiles, land area (Gaj, Bigha, Guntha), AC sizing, and water tanks.',
+    description: 'Wall paint estimator, room tiles, land area (Gaj, Bigha, Guntha), room cooling sizing, and water tanks.',
     icon: 'Home',
     color: 'amber',
     badge: 'Essential',

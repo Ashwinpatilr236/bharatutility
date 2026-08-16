@@ -160,7 +160,7 @@ export const AdminToolEditorModal: React.FC<AdminToolEditorModalProps> = ({
           }
         : undefined,
       faqs: faqs.filter(f => f.question.trim() && f.answer.trim()),
-      relatedToolSlugs: initialTool?.relatedToolSlugs || ['emi-calculator', 'electricity-bill-calculator'],
+      relatedToolSlugs: initialTool?.relatedToolSlugs || ['emi-calculator', 'gst-calculator'],
     };
   };
 
