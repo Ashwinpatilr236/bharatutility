@@ -254,6 +254,9 @@ class TariffRepository {
     const map: Record<string, StateDiscomGroup> = {};
 
     for (const tariff of published) {
+      if (tariff.id === 'india-average' || tariff.stateSlug === 'india-average') {
+        continue;
+      }
       const slug = tariff.stateSlug;
       if (!map[slug]) {
         map[slug] = {

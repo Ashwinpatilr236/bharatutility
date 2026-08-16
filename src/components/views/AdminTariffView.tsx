@@ -91,7 +91,13 @@ export const AdminTariffView: React.FC = () => {
 
   // Unique states
   const stateOptions = useMemo(() => {
-    const states = Array.from(new Set(allTariffs.map(t => t.state))).sort();
+    const states = Array.from(
+      new Set(
+        allTariffs
+          .filter(t => t.id !== 'india-average' && t.stateSlug !== 'india-average')
+          .map(t => t.state)
+      )
+    ).sort();
     return states;
   }, [allTariffs]);
 
@@ -124,7 +130,11 @@ export const AdminTariffView: React.FC = () => {
   const metrics = useMemo(() => {
     const publishedCount = allTariffs.filter(t => t.status === 'published' || !t.status).length;
     const archivedCount = allTariffs.filter(t => t.status === 'archived').length;
-    const stateCount = new Set(allTariffs.map(t => t.state)).size;
+    const stateCount = new Set(
+      allTariffs
+        .filter(t => t.id !== 'india-average' && t.stateSlug !== 'india-average')
+        .map(t => t.state)
+    ).size;
     return {
       total: allTariffs.length,
       published: publishedCount,
