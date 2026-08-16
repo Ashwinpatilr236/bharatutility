@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import {
   ElectricityTariff,
@@ -67,6 +67,16 @@ export const AdminTariffView: React.FC = () => {
   // Force re-render on updates
   const [versionKey, setVersionKey] = useState(0);
   const refreshRepository = () => setVersionKey(k => k + 1);
+
+  useEffect(() => {
+    const unsub = tariffRepository.subscribe(() => {
+      refreshRepository();
+    });
+    tariffRepository.fetchAdminTariffData().then(() => {
+      refreshRepository();
+    });
+    return unsub;
+  }, []);
 
   // Repository Data
   const allTariffs = useMemo(() => {
@@ -188,15 +198,15 @@ export const AdminTariffView: React.FC = () => {
   };
 
   // ── 3. ACTION: HUMAN APPROVAL & 1-CLICK PUBLISH ──
-  const handleApproveAndPublish = () => {
+  const handleApproveAndPublish = async () => {
     if (!activeProposalModal) return;
 
     try {
       const finalProposal = isEditingProposal && editableProposal ? editableProposal : activeProposalModal.proposal;
-      tariffRepository.approveAndPublish(
+      await tariffRepository.approveAndPublish(
         activeProposalModal.tariff.id,
         finalProposal,
-        'Admin (Authorized Publisher)',
+        'Super Admin (Authorized Publisher)',
         `Approved after verifying against ${finalProposal.sourceName || 'official tariff schedule'}.`
       );
 
@@ -211,19 +221,23 @@ export const AdminTariffView: React.FC = () => {
   };
 
   // ── 4. ACTION: REJECT PROPOSAL ──
-  const handleRejectProposal = () => {
+  const handleRejectProposal = async () => {
     if (!activeProposalModal) return;
 
-    tariffRepository.rejectProposal(
-      activeProposalModal.tariff.id,
-      'Rejected by admin during side-by-side comparison review.',
-      'Admin'
-    );
+    try {
+      await tariffRepository.rejectProposal(
+        activeProposalModal.tariff.id,
+        'Rejected by admin during side-by-side comparison review.',
+        'Super Admin'
+      );
 
-    refreshRepository();
-    showToast(`Proposed tariff revision for ${activeProposalModal.tariff.discom} rejected. Live tariff remains active.`, 'info');
-    setActiveProposalModal(null);
-    setEditableProposal(null);
+      refreshRepository();
+      showToast(`Proposed tariff revision for ${activeProposalModal.tariff.discom} rejected. Live tariff remains active.`, 'info');
+      setActiveProposalModal(null);
+      setEditableProposal(null);
+    } catch (e: any) {
+      showToast(e.message || 'Failed to reject proposal.', 'error');
+    }
   };
 
   // Comparison fields for modal

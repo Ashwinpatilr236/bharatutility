@@ -1,20 +1,17 @@
 import { getSupabase, isSupabaseConfigured } from './supabaseClient';
 import {
   ElectricityTariff,
-  StateEntity,
-  DiscomEntity,
   TariffStatus,
   TariffAuditLog,
   ProposedTariffRevision,
   TariffComparisonField,
   StateDiscomGroup
 } from '../types/electricity';
-import { ALL_ELECTRICITY_TARIFFS, getStateDiscomGroups } from '../data/electricityTariffs';
+import { ALL_ELECTRICITY_TARIFFS } from '../data/electricityTariffs';
 
 const STORAGE_KEYS = {
-  TARIFFS: 'bu_tariffs_v2',
-  AUDIT_LOGS: 'bu_tariff_audit_logs',
   PROPOSALS: 'bu_tariff_proposals',
+  LOCAL_CACHE: 'bu_tariffs_cache_v2',
 };
 
 // Initial Seed Audit Logs
@@ -69,79 +66,189 @@ class TariffRepository {
   private tariffs: ElectricityTariff[] = [];
   private auditLogs: TariffAuditLog[] = [];
   private activeProposals: Record<string, ProposedTariffRevision> = {};
+  private listeners: Array<() => void> = [];
+  private isUsingFallback: boolean = false;
+  private isInitialized: boolean = false;
 
   constructor() {
     this.initializeData();
   }
 
-  private initializeData() {
+  private async initializeData() {
+    // 1. Load verified seed fallback dataset as default baseline
+    this.tariffs = ALL_ELECTRICITY_TARIFFS.map(t => ({
+      ...t,
+      status: t.status || 'published',
+      versionNumber: t.versionNumber || 1,
+      lastChecked: t.lastChecked || '2026-08-15'
+    }));
+    this.auditLogs = [...DEFAULT_AUDIT_LOGS];
+
+    // 2. Load active in-flight proposals from local workspace
     try {
-      const storedTariffs = localStorage.getItem(STORAGE_KEYS.TARIFFS);
-      if (storedTariffs) {
-        this.tariffs = JSON.parse(storedTariffs);
-      } else {
-        this.tariffs = ALL_ELECTRICITY_TARIFFS.map(t => ({
-          ...t,
-          status: t.status || 'published',
-          versionNumber: t.versionNumber || 1,
-          lastChecked: t.lastChecked || '2026-08-15'
-        }));
-        this.saveTariffsToLocal();
-      }
-
-      const storedAudit = localStorage.getItem(STORAGE_KEYS.AUDIT_LOGS);
-      if (storedAudit) {
-        this.auditLogs = JSON.parse(storedAudit);
-      } else {
-        this.auditLogs = DEFAULT_AUDIT_LOGS;
-        this.saveAuditLogsToLocal();
-      }
-
       const storedProposals = localStorage.getItem(STORAGE_KEYS.PROPOSALS);
       if (storedProposals) {
         this.activeProposals = JSON.parse(storedProposals);
       }
     } catch (e) {
-      console.warn('Local storage error in TariffRepository:', e);
-      this.tariffs = ALL_ELECTRICITY_TARIFFS;
-      this.auditLogs = DEFAULT_AUDIT_LOGS;
+      console.warn('Could not load proposals from storage:', e);
     }
+
+    // 3. Fetch authoritative tariffs from Supabase if connected
+    await this.fetchPublishedTariffs();
+    this.isInitialized = true;
   }
 
-  private saveTariffsToLocal() {
+  /**
+   * Maps a database row from Supabase tariff_versions to an application ElectricityTariff object
+   */
+  private mapRowToTariff(row: any): ElectricityTariff {
+    const seedMatch = ALL_ELECTRICITY_TARIFFS.find(t => t.id === row.id);
+
+    return {
+      id: row.id,
+      state: row.state,
+      stateSlug: seedMatch?.stateSlug || row.state.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      stateCode: seedMatch?.stateCode || row.state.substring(0, 2).toUpperCase(),
+      unionTerritory: seedMatch?.unionTerritory ?? false,
+      discom: row.discom,
+      discomShort: seedMatch?.discomShort || row.discom.split(' ')[0],
+      category: row.category,
+      billingCycle: seedMatch?.billingCycle || 'monthly',
+      defaultSanctionedLoadKw: seedMatch?.defaultSanctionedLoadKw || 2,
+      fixedCharge: Number(row.fixed_charge ?? seedMatch?.fixedCharge ?? 50),
+      fixedChargeUnit: seedMatch?.fixedChargeUnit || 'per_month',
+      meterCharge: seedMatch?.meterCharge || 0,
+      dutyType: seedMatch?.dutyType || 'percentage',
+      dutyRate: Number(row.duty_rate ?? seedMatch?.dutyRate ?? 10),
+      fuelAdjustmentChargePerUnit: seedMatch?.fuelAdjustmentChargePerUnit || 0,
+      slabs: Array.isArray(row.slabs) && row.slabs.length > 0 ? row.slabs : seedMatch?.slabs || [],
+      subsidy: seedMatch?.subsidy || null,
+      effectiveFrom: row.effective_from || seedMatch?.effectiveFrom || '2025-04-01',
+      effectiveTo: null,
+      status: (row.status as TariffStatus) || 'published',
+      versionNumber: Number(row.version ?? seedMatch?.versionNumber ?? 1),
+      source: row.source || seedMatch?.source || 'State Electricity Regulatory Commission',
+      sourceUrl: row.source_url || seedMatch?.sourceUrl || '',
+      sourceDocument: seedMatch?.sourceDocument,
+      lastChecked: row.updated_at ? new Date(row.updated_at).toISOString().split('T')[0] : '2026-08-15',
+      lastUpdated: `Updated ${new Date(row.updated_at || Date.now()).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })} (v${row.version || 1})`,
+      notes: seedMatch?.notes,
+      verifiedByAdmin: true,
+    };
+  }
+
+  /**
+   * Fetch primary authoritative published tariffs from Supabase (status IN ('published', 'active'))
+   */
+  public async fetchPublishedTariffs(): Promise<ElectricityTariff[]> {
+    const supabase = getSupabase();
+    if (!supabase || !isSupabaseConfigured()) {
+      this.isUsingFallback = true;
+      return this.getPublishedTariffs();
+    }
+
     try {
-      localStorage.setItem(STORAGE_KEYS.TARIFFS, JSON.stringify(this.tariffs));
-    } catch (e) {
-      console.warn('Could not save tariffs to localStorage', e);
+      const { data, error } = await supabase
+        .from('tariff_versions')
+        .select('*')
+        .in('status', ['published', 'active'])
+        .order('state', { ascending: true });
+
+      if (!error && data && data.length > 0) {
+        const remoteTariffs = data.map(r => this.mapRowToTariff(r));
+        
+        // Merge Supabase published records over baseline
+        const mergedMap: Record<string, ElectricityTariff> = {};
+        for (const t of this.tariffs) {
+          mergedMap[t.id] = t;
+        }
+        for (const rt of remoteTariffs) {
+          mergedMap[rt.id] = rt;
+        }
+
+        this.tariffs = Object.values(mergedMap);
+        this.isUsingFallback = false;
+        this.notifyListeners();
+        return this.getPublishedTariffs();
+      }
+    } catch (err) {
+      console.warn('Supabase remote tariffs fetch fallback notice:', err);
+      this.isUsingFallback = true;
     }
+
+    return this.getPublishedTariffs();
   }
 
-  private saveAuditLogsToLocal() {
-    try {
-      localStorage.setItem(STORAGE_KEYS.AUDIT_LOGS, JSON.stringify(this.auditLogs));
-    } catch (e) {
-      console.warn('Could not save audit logs to localStorage', e);
+  /**
+   * Admin: Fetch all tariff records and audit logs from Supabase
+   */
+  public async fetchAdminTariffData(): Promise<{ tariffs: ElectricityTariff[]; auditLogs: TariffAuditLog[] }> {
+    const supabase = getSupabase();
+    if (supabase && isSupabaseConfigured()) {
+      try {
+        // 1. Fetch all versions
+        const { data: tariffRows, error: tariffErr } = await supabase
+          .from('tariff_versions')
+          .select('*')
+          .order('state', { ascending: true });
+
+        if (!tariffErr && tariffRows && tariffRows.length > 0) {
+          const fetchedTariffs = tariffRows.map(r => this.mapRowToTariff(r));
+          const existingMap: Record<string, ElectricityTariff> = {};
+          for (const t of this.tariffs) existingMap[t.id] = t;
+          for (const ft of fetchedTariffs) existingMap[ft.id] = ft;
+          this.tariffs = Object.values(existingMap);
+        }
+
+        // 2. Fetch all audit logs
+        const { data: auditRows, error: auditErr } = await supabase
+          .from('tariff_audit_logs')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (!auditErr && auditRows && auditRows.length > 0) {
+          this.auditLogs = auditRows.map(r => ({
+            id: r.id,
+            date: r.created_at ? new Date(r.created_at).toISOString().split('T')[0] : r.published_date,
+            stateName: r.state_name,
+            discomName: r.discom_name,
+            oldTariffSummary: r.old_summary,
+            newTariffSummary: r.new_summary,
+            source: r.source || 'State Regulatory Commission',
+            sourceUrl: r.source_url,
+            aiStatus: 'verified_by_ai',
+            approvedBy: r.approved_by,
+            publishedDate: r.published_date,
+            notes: r.notes,
+          }));
+        }
+
+        this.notifyListeners();
+      } catch (err) {
+        console.warn('Could not fetch admin data from Supabase:', err);
+      }
     }
+
+    return {
+      tariffs: this.getAllTariffVersions(),
+      auditLogs: this.getAuditLogs(),
+    };
   }
 
-  private saveProposalsToLocal() {
-    try {
-      localStorage.setItem(STORAGE_KEYS.PROPOSALS, JSON.stringify(this.activeProposals));
-    } catch (e) {
-      console.warn('Could not save proposals to localStorage', e);
-    }
+  public isFallbackActive(): boolean {
+    return this.isUsingFallback;
   }
 
-  // ── GET ALL PUBLISHED TARIFFS (For Public Calculator) ──
   public getPublishedTariffs(): ElectricityTariff[] {
-    return this.tariffs.filter(t => t.status === 'published' || !t.status);
+    return this.tariffs.filter(t => t.status === 'published' || t.status === 'active' || !t.status);
   }
 
   public getTariffById(id: string): ElectricityTariff | undefined {
     return this.tariffs.find(t => t.id === id);
   }
 
-  // ── GET STATE GROUPS ──
+  // ── GET STATE GROUPS FOR PUBLIC CALCULATOR ──
   public getStateGroups(): StateDiscomGroup[] {
     const published = this.getPublishedTariffs();
     const map: Record<string, StateDiscomGroup> = {};
@@ -191,6 +298,14 @@ class TariffRepository {
     return this.activeProposals[tariffId] || null;
   }
 
+  private saveProposalsToLocal() {
+    try {
+      localStorage.setItem(STORAGE_KEYS.PROPOSALS, JSON.stringify(this.activeProposals));
+    } catch (e) {
+      console.warn('Could not save proposals to storage:', e);
+    }
+  }
+
   // ── MANUAL "CHECK FOR UPDATES" ACTION (Admin click only) ──
   public async checkOfficialTariffUpdates(
     tariff: ElectricityTariff,
@@ -221,14 +336,13 @@ class TariffRepository {
 
       const data = await response.json();
 
-      // Update the tariff's lastChecked timestamp in repository
+      // Update the tariff's lastChecked timestamp
       this.tariffs = this.tariffs.map(t => {
         if (t.id === tariff.id) {
           return { ...t, lastChecked: new Date().toISOString().split('T')[0] };
         }
         return t;
       });
-      this.saveTariffsToLocal();
 
       if (data.hasNewUpdate && data.proposedTariff) {
         const proposal: ProposedTariffRevision = {
@@ -275,7 +389,6 @@ class TariffRepository {
       };
     } catch (err: any) {
       console.warn('Check updates failed; applying failsafe:', err);
-      // Mandatory failsafe: Live published tariff remains untouched
       return {
         hasNewUpdate: false,
         message: `Update check completed. Current published tariff remains valid and active.`,
@@ -405,14 +518,13 @@ class TariffRepository {
     return fields;
   }
 
-  // ── HUMAN APPROVAL & PUBLISH ──
-  // CRITICAL RULE: AI NEVER automatically publishes. Human must click "Approve & Publish".
-  public approveAndPublish(
+  // ── HUMAN APPROVAL & PUBLISH (Writes to Supabase tariff_versions & tariff_audit_logs) ──
+  public async approveAndPublish(
     tariffId: string,
     customizedProposal?: ProposedTariffRevision,
     approvedBy: string = 'Admin',
     approvalNotes: string = 'Approved and published after verification against official tariff order.'
-  ): ElectricityTariff {
+  ): Promise<ElectricityTariff> {
     const existingTariff = this.tariffs.find(t => t.id === tariffId);
     const proposal = customizedProposal || this.activeProposals[tariffId];
 
@@ -421,6 +533,7 @@ class TariffRepository {
     }
 
     const currentVersionNumber = existingTariff?.versionNumber || 1;
+    const newVersionNumber = currentVersionNumber + 1;
 
     // 1. Archive previous version if it exists
     if (existingTariff) {
@@ -430,7 +543,6 @@ class TariffRepository {
         status: 'archived',
         effectiveTo: proposal ? proposal.effectiveFrom : new Date().toISOString().split('T')[0]
       };
-      // Keep archived version in historical list
       this.tariffs.push(archivedVersion);
     }
 
@@ -457,19 +569,18 @@ class TariffRepository {
       effectiveFrom: proposal?.effectiveFrom || new Date().toISOString().split('T')[0],
       effectiveTo: null,
       status: 'published',
-      versionNumber: currentVersionNumber + 1,
+      versionNumber: newVersionNumber,
       source: proposal?.sourceName || existingTariff?.source || 'State Electricity Regulatory Commission',
       sourceUrl: proposal?.sourceUrl || existingTariff?.sourceUrl || '',
       sourceDocument: proposal?.sourceDocument || `Tariff Order ${proposal?.orderNumber || 'Schedule'}`,
       lastChecked: new Date().toISOString().split('T')[0],
-      lastUpdated: `Updated ${new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })} (v${currentVersionNumber + 1})`,
+      lastUpdated: `Updated ${new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })} (v${newVersionNumber})`,
       notes: approvalNotes,
       verifiedByAdmin: true
     };
 
-    // Replace in live published list
+    // Replace in live list
     this.tariffs = this.tariffs.filter(t => t.id !== tariffId).concat(newPublishedTariff);
-    this.saveTariffsToLocal();
 
     // 3. Record Audit Trail Log
     const auditRecord: TariffAuditLog = {
@@ -489,20 +600,20 @@ class TariffRepository {
     };
 
     this.auditLogs.unshift(auditRecord);
-    this.saveAuditLogsToLocal();
 
     // Remove active proposal
     delete this.activeProposals[tariffId];
     this.saveProposalsToLocal();
 
-    // Sync to Supabase if configured
-    this.syncToSupabase(newPublishedTariff, auditRecord);
+    // 4. Primary Persistence: Sync to Supabase
+    await this.syncToSupabase(newPublishedTariff, auditRecord);
 
+    this.notifyListeners();
     return newPublishedTariff;
   }
 
   // ── REJECT PROPOSAL ──
-  public rejectProposal(tariffId: string, reason: string, rejectedBy: string = 'Admin'): void {
+  public async rejectProposal(tariffId: string, reason: string, rejectedBy: string = 'Admin'): Promise<void> {
     const proposal = this.activeProposals[tariffId];
     if (proposal) {
       const auditRecord: TariffAuditLog = {
@@ -520,20 +631,40 @@ class TariffRepository {
         notes: `Proposal rejected: ${reason}`
       };
       this.auditLogs.unshift(auditRecord);
-      this.saveAuditLogsToLocal();
 
       delete this.activeProposals[tariffId];
       this.saveProposalsToLocal();
+
+      // Write rejection log to Supabase
+      const supabase = getSupabase();
+      if (supabase && isSupabaseConfigured()) {
+        try {
+          await supabase.from('tariff_audit_logs').insert({
+            id: auditRecord.id,
+            state_name: auditRecord.stateName,
+            discom_name: auditRecord.discomName,
+            old_summary: auditRecord.oldTariffSummary,
+            new_summary: auditRecord.newTariffSummary,
+            approved_by: auditRecord.approvedBy,
+            published_date: auditRecord.publishedDate,
+            notes: auditRecord.notes
+          });
+        } catch (err) {
+          console.warn('Could not write rejection audit log to Supabase:', err);
+        }
+      }
+
+      this.notifyListeners();
     }
   }
 
-  // ── SUPABASE SYNC (Background safe) ──
+  // ── SUPABASE SYNC (Authoritative persistence) ──
   private async syncToSupabase(tariff: ElectricityTariff, audit: TariffAuditLog) {
     const supabase = getSupabase();
-    if (!supabase) return;
+    if (!supabase || !isSupabaseConfigured()) return;
 
     try {
-      // Upsert tariff version
+      // 1. Upsert newly published tariff version
       await supabase.from('tariff_versions').upsert({
         id: tariff.id,
         state: tariff.state,
@@ -550,7 +681,7 @@ class TariffRepository {
         updated_at: new Date().toISOString()
       });
 
-      // Insert audit log
+      // 2. Insert audit log
       await supabase.from('tariff_audit_logs').insert({
         id: audit.id,
         state_name: audit.stateName,
@@ -562,16 +693,26 @@ class TariffRepository {
         notes: audit.notes
       });
     } catch (err) {
-      console.warn('Supabase remote sync non-blocking warning:', err);
+      console.warn('Supabase remote tariff sync warning:', err);
     }
+  }
+
+  public subscribe(listener: () => void): () => void {
+    this.listeners.push(listener);
+    return () => {
+      this.listeners = this.listeners.filter(l => l !== listener);
+    };
+  }
+
+  private notifyListeners(): void {
+    this.listeners.forEach(fn => fn());
   }
 
   // ── RESET TO DEFAULTS ──
   public resetToDefaults(): void {
-    localStorage.removeItem(STORAGE_KEYS.TARIFFS);
-    localStorage.removeItem(STORAGE_KEYS.AUDIT_LOGS);
     localStorage.removeItem(STORAGE_KEYS.PROPOSALS);
     this.initializeData();
+    this.notifyListeners();
   }
 }
 

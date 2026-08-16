@@ -32,7 +32,7 @@ import {
 } from '../../data/electricityTariffs';
 import { tariffRepository } from '../../services/tariffRepository';
 import { calculateElectricityBill } from '../../utils/electricityCalculationEngine';
-import { ElectricityTariff } from '../../types/electricity';
+import { ElectricityTariff, StateDiscomGroup } from '../../types/electricity';
 
 interface ElectricityCalculatorProps {
   onResultChange?: (summary: string, params: Record<string, any>) => void;
@@ -56,8 +56,20 @@ const POPULAR_STATES = [
 export const ElectricityCalculator: React.FC<ElectricityCalculatorProps> = ({ onResultChange }) => {
   const { currentToolParams } = useApp();
 
-  const stateGroups = useMemo(() => {
-    return tariffRepository.getStateGroups();
+  const [stateGroups, setStateGroups] = useState<StateDiscomGroup[]>(() => tariffRepository.getStateGroups());
+  const [isUsingFallback, setIsUsingFallback] = useState<boolean>(() => tariffRepository.isFallbackActive());
+
+  useEffect(() => {
+    const unsub = tariffRepository.subscribe(() => {
+      setStateGroups([...tariffRepository.getStateGroups()]);
+      setIsUsingFallback(tariffRepository.isFallbackActive());
+    });
+    // Trigger remote fetch if not yet loaded
+    tariffRepository.fetchPublishedTariffs().then(() => {
+      setStateGroups([...tariffRepository.getStateGroups()]);
+      setIsUsingFallback(tariffRepository.isFallbackActive());
+    });
+    return unsub;
   }, []);
 
   // Selected state slug

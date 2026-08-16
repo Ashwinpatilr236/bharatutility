@@ -6,7 +6,8 @@ export type TariffStatus =
   | 'approved'
   | 'published'
   | 'archived'
-  | 'rejected';
+  | 'rejected'
+  | 'active';
 
 export interface StateEntity {
   id: string;
