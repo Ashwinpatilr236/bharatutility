@@ -150,15 +150,20 @@ export type ContactReason =
   | 'Feedback'
   | 'Other';
 
+export type ContactMessageStatus = 'new' | 'read' | 'replied' | 'closed' | 'spam' | 'New' | 'Read' | 'Replied' | 'Closed' | 'Spam';
+
 export interface ContactSubmission {
   id: string;
   name: string;
   email: string;
-  reason: ContactReason;
-  subject: string;
+  reason?: ContactReason | string;
+  subject?: string;
   message: string;
   createdAt: string;
-  status?: 'new' | 'in_progress' | 'replied' | 'archived' | 'resolved';
+  created_at?: string;
+  updatedAt?: string;
+  updated_at?: string;
+  status?: ContactMessageStatus;
   priority?: 'low' | 'medium' | 'high';
 }
 

@@ -96,10 +96,10 @@ export const ContactView: React.FC = () => {
       if (response.success) {
         setIsSubmitted(true);
         setLastSubmittedPayload(currentPayload);
-        showToast('Message sent successfully!', 'success');
+        showToast('Thanks! Your message has been sent successfully.', 'success');
       }
     } catch (err: any) {
-      showToast(err.message || 'Failed to submit message. Please try again.', 'error');
+      showToast(err.message || 'Something went wrong while sending your message. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -154,10 +154,10 @@ export const ContactView: React.FC = () => {
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 dark:text-white">
-                    Thanks for contacting BharatUtility!
+                    Thanks! Your message has been sent successfully.
                   </h2>
                   <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-md mx-auto leading-relaxed">
-                    Your message has been received. We&apos;ll get back to you when appropriate.
+                    Our team reviews all incoming inquiries and will respond to your email as soon as possible.
                   </p>
                 </div>
 

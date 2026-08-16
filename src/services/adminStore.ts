@@ -1025,7 +1025,7 @@ class AdminStore {
 
       if (error) {
         console.warn('Could not fetch tool requests from Supabase:', error.message);
-        return this.getToolRequests();
+        throw new Error(error.message);
       }
 
       if (data) {
@@ -1051,8 +1051,9 @@ class AdminStore {
         this.notify();
         return mapped;
       }
-    } catch (err) {
-      console.warn('Error fetching tool requests from Supabase:', err);
+    } catch (err: any) {
+      console.warn('Error in fetchToolRequestsFromSupabase:', err);
+      throw err;
     }
     return this.getToolRequests();
   }
@@ -1118,7 +1119,52 @@ class AdminStore {
     }
   }
 
-  // ── CONTACT MESSAGES MANAGEMENT ──
+  // ── CONTACT MESSAGES MANAGEMENT (Supabase-backed with local fallback) ──
+  public async fetchContactMessagesFromSupabase(): Promise<ContactSubmission[]> {
+    try {
+      const supabase = getSupabase();
+      if (!supabase || !isSupabaseConfigured()) {
+        return this.getContactMessages();
+      }
+
+      const { data, error } = await supabase
+        .from('contact_messages')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.warn('Could not fetch contact messages from Supabase:', error.message);
+        throw new Error(error.message);
+      }
+
+      if (data) {
+        const mapped: ContactSubmission[] = data.map((r: any) => ({
+          id: r.id,
+          name: r.name || 'Anonymous',
+          email: r.email || '',
+          subject: r.subject || 'General Inquiry',
+          message: r.message || '',
+          status: r.status || 'new',
+          createdAt: r.created_at || new Date().toISOString(),
+          created_at: r.created_at,
+          updatedAt: r.updated_at,
+          updated_at: r.updated_at,
+        }));
+
+        try {
+          localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(mapped));
+        } catch {}
+
+        this.notify();
+        return mapped;
+      }
+    } catch (err: any) {
+      console.warn('Error in fetchContactMessagesFromSupabase:', err);
+      throw err;
+    }
+    return this.getContactMessages();
+  }
+
   public getContactMessages(): ContactSubmission[] {
     try {
       const stored = localStorage.getItem(MESSAGES_STORAGE_KEY);
@@ -1133,10 +1179,50 @@ class AdminStore {
     return this.getContactMessages();
   }
 
-  public deleteContactMessage(id: string): void {
+  public async updateContactMessageStatus(id: string, status: string): Promise<void> {
+    // 1. Update local cache immediately
+    const list = this.getContactMessages();
+    const index = list.findIndex(m => m.id === id);
+    if (index >= 0) {
+      list[index] = { ...list[index], status: status as any, updatedAt: new Date().toISOString() };
+      localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(list));
+      this.notify();
+    }
+
+    // 2. Persist to Supabase public.contact_messages
+    try {
+      const supabase = getSupabase();
+      if (supabase && isSupabaseConfigured()) {
+        const dbStatus = status.toLowerCase().replace(/\s+/g, '_');
+        await supabase
+          .from('contact_messages')
+          .update({
+            status: dbStatus,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', id);
+      }
+    } catch (err) {
+      console.error('Failed to sync contact message status to Supabase:', err);
+    }
+  }
+
+  public async deleteContactMessage(id: string): Promise<void> {
     const list = this.getContactMessages().filter(m => m.id !== id);
     localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(list));
     this.notify();
+
+    try {
+      const supabase = getSupabase();
+      if (supabase && isSupabaseConfigured()) {
+        await supabase
+          .from('contact_messages')
+          .delete()
+          .eq('id', id);
+      }
+    } catch (err) {
+      console.error('Failed to sync contact message deletion to Supabase:', err);
+    }
   }
 
   // ── ADS CONFIGURATION ──

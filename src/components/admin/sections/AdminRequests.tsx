@@ -9,7 +9,9 @@ import {
   RefreshCw,
   User,
   Mail,
-  Calendar
+  Calendar,
+  AlertCircle,
+  Clock
 } from 'lucide-react';
 import { AdminSection } from '../../../types/admin';
 
@@ -63,19 +65,21 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
   onConvertToTool,
   onNavigate,
 }) => {
-  const [requests, setRequests] = useState<ToolRequest[]>(adminStore.getToolRequests());
-  const [isLoading, setIsLoading] = useState(false);
+  const [requests, setRequests] = useState<ToolRequest[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedRequest, setSelectedRequest] = useState<ToolRequest | null>(null);
 
-  // Load latest requests from Supabase public.tool_requests on mount
+  // Load latest requests directly from Supabase public.tool_requests on mount
   useEffect(() => {
     loadRequestsFromSupabase();
   }, []);
 
   const loadRequestsFromSupabase = async () => {
     setIsLoading(true);
+    setFetchError(null);
     try {
       const data = await adminStore.fetchToolRequestsFromSupabase();
       setRequests(data);
@@ -83,6 +87,8 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
         const fresh = data.find((r) => r.id === selectedRequest.id);
         if (fresh) setSelectedRequest(fresh);
       }
+    } catch (err: any) {
+      setFetchError(err.message || 'Failed to connect to Supabase public.tool_requests');
     } finally {
       setIsLoading(false);
     }
@@ -113,7 +119,12 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
   }, [requests, searchQuery, statusFilter]);
 
   const handleStatusChange = async (req: ToolRequest, newStatus: string) => {
-    const updated: ToolRequest = { ...req, status: newStatus as ToolRequestStatus };
+    const updated: ToolRequest = {
+      ...req,
+      status: newStatus as ToolRequestStatus,
+      updated_at: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
     // Update local state immediately for instant feedback
     setRequests((prev) => prev.map((r) => (r.id === req.id ? updated : r)));
     if (selectedRequest?.id === req.id) {
@@ -140,19 +151,38 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
             <Inbox className="w-5 h-5 text-purple-500" /> Tool Requests & Demand Center
           </h1>
           <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-            Review citizen calculator submissions directly from Supabase, update development status, and convert into live utilities.
+            Live citizen calculator submissions from Supabase public.tool_requests.
           </p>
         </div>
 
         <button
           onClick={loadRequestsFromSupabase}
           disabled={isLoading}
-          className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-xs font-semibold text-neutral-700 dark:text-neutral-200 transition-colors inline-flex items-center gap-1.5 self-start sm:self-auto"
+          className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-xs font-semibold text-neutral-700 dark:text-neutral-200 transition-colors inline-flex items-center gap-1.5 self-start sm:self-auto disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
           <span>{isLoading ? 'Syncing...' : 'Refresh from Supabase'}</span>
         </button>
       </div>
+
+      {/* Error Alert State */}
+      {fetchError && (
+        <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800/60 text-rose-800 dark:text-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-start gap-2.5">
+            <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-xs font-bold">Failed to load requests from Supabase</h3>
+              <p className="text-[11px] text-rose-600 dark:text-rose-400 mt-0.5">{fetchError}</p>
+            </div>
+          </div>
+          <button
+            onClick={loadRequestsFromSupabase}
+            className="px-3 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-semibold hover:bg-rose-700 transition-colors self-start sm:self-auto"
+          >
+            Retry Connection
+          </button>
+        </div>
+      )}
 
       {/* Filter and Search Bar */}
       <div className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs flex flex-col sm:flex-row items-center gap-3">
@@ -198,10 +228,19 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
               </thead>
 
               <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800/60">
-                {filteredRequests.length === 0 ? (
+                {isLoading ? (
                   <tr>
-                    <td colSpan={4} className="p-8 text-center text-neutral-400">
-                      No tool requests found matching query.
+                    <td colSpan={4} className="p-10 text-center text-neutral-400">
+                      <div className="inline-flex items-center gap-2">
+                        <RefreshCw className="w-4 h-4 animate-spin text-accent" />
+                        <span>Loading live tool requests from Supabase...</span>
+                      </div>
+                    </td>
+                  </tr>
+                ) : filteredRequests.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="p-10 text-center text-neutral-400 font-medium">
+                      {requests.length === 0 ? 'No tool requests yet.' : 'No tool requests matching query.'}
                     </td>
                   </tr>
                 ) : (
@@ -299,12 +338,27 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
                   <span>•</span>
                   <span className="flex items-center gap-1">
                     <Calendar className="w-3 h-3" />
+                    Submitted{' '}
                     {new Date(selectedRequest.created_at || selectedRequest.createdAt).toLocaleDateString('en-IN', {
                       day: 'numeric',
                       month: 'short',
                       year: 'numeric',
                     })}
                   </span>
+                  {(selectedRequest.updated_at || selectedRequest.updatedAt) && (
+                    <>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        Updated{' '}
+                        {new Date(selectedRequest.updated_at || selectedRequest.updatedAt!).toLocaleDateString('en-IN', {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                        })}
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
 
