@@ -106,10 +106,10 @@ export const RequestToolView: React.FC = () => {
       const response = await submitToolRequest(formData);
       if (response.success) {
         setIsSubmitted(true);
-        showToast('Tool request submitted successfully!', 'success');
+        showToast('Thanks! Your tool request has been submitted.', 'success');
       }
     } catch (err: any) {
-      showToast(err.message || 'Failed to submit tool request.', 'error');
+      showToast(err.message || 'Something went wrong while submitting your request. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -166,10 +166,10 @@ export const RequestToolView: React.FC = () => {
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 dark:text-white">
-                    Tool request submitted!
+                    Thanks! Your tool request has been submitted.
                   </h2>
                   <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-md mx-auto leading-relaxed">
-                    Thanks for helping us improve BharatUtility. Your suggestion has been received.
+                    Our team reviews citizen suggestions regularly. If this utility is approved, it will be designed and published to BharatUtility.
                   </p>
                 </div>
 

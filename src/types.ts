@@ -106,21 +106,37 @@ export type ViewMode =
   | { type: 'admin'; section?: AdminSection; subParam?: string }
   | { type: 'legal'; page: 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact' };
 
-export type ToolRequestStatus = 'New' | 'Reviewing' | 'Planned' | 'In Development' | 'Completed';
+export type ToolRequestStatus =
+  | 'new'
+  | 'reviewing'
+  | 'planned'
+  | 'in_development'
+  | 'completed'
+  | 'rejected'
+  | 'New'
+  | 'Reviewing'
+  | 'Planned'
+  | 'In Development'
+  | 'Completed'
+  | 'Declined';
 
 export interface ToolRequest {
   id: string;
   name?: string;
   email?: string;
+  requested_tool?: string;
   toolName: string;
   title?: string;
   category: string;
   description: string;
+  status: ToolRequestStatus;
+  createdAt: string;
+  created_at?: string;
+  updatedAt?: string;
+  updated_at?: string;
   usefulness?: string;
   useCase?: string;
   referenceUrl?: string;
-  createdAt: string;
-  status: ToolRequestStatus;
   upvotes?: number;
   votes?: number;
 }

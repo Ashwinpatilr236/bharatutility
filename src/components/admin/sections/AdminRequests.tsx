@@ -1,22 +1,16 @@
-import React, { useState, useMemo } from 'react';
-import { ToolRequest } from '../../../types';
+import React, { useState, useEffect, useMemo } from 'react';
+import { ToolRequest, ToolRequestStatus } from '../../../types';
 import { adminStore } from '../../../services/adminStore';
 import {
   Inbox,
   Search,
-  Filter,
-  Plus,
-  Wrench,
   Trash2,
-  CheckCircle2,
-  Clock,
-  Code2,
-  XCircle,
-  MessageSquare,
   Sparkles,
-  ArrowRight
+  RefreshCw,
+  User,
+  Mail,
+  Calendar
 } from 'lucide-react';
-
 import { AdminSection } from '../../../types/admin';
 
 interface AdminRequestsProps {
@@ -24,49 +18,116 @@ interface AdminRequestsProps {
   onNavigate?: (section: AdminSection) => void;
 }
 
+const STATUS_CONFIG: Record<string, { label: string; badgeClass: string; optionLabel: string }> = {
+  new: {
+    label: 'New',
+    badgeClass: 'bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300',
+    optionLabel: '🟣 New',
+  },
+  reviewing: {
+    label: 'Reviewing',
+    badgeClass: 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300',
+    optionLabel: '🟡 Reviewing',
+  },
+  planned: {
+    label: 'Planned',
+    badgeClass: 'bg-sky-100 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300',
+    optionLabel: '🔵 Planned',
+  },
+  in_development: {
+    label: 'In Development',
+    badgeClass: 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300',
+    optionLabel: '🔷 In Development',
+  },
+  completed: {
+    label: 'Completed',
+    badgeClass: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300',
+    optionLabel: '🟢 Completed',
+  },
+  rejected: {
+    label: 'Rejected',
+    badgeClass: 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300',
+    optionLabel: '🔴 Rejected',
+  },
+};
+
+function normalizeStatus(status?: string): string {
+  if (!status) return 'new';
+  const s = status.toLowerCase().replace(/\s+/g, '_');
+  if (s === 'under_review') return 'reviewing';
+  if (s === 'declined') return 'rejected';
+  return STATUS_CONFIG[s] ? s : 'new';
+}
+
 export const AdminRequests: React.FC<AdminRequestsProps> = ({
   onConvertToTool,
   onNavigate,
 }) => {
   const [requests, setRequests] = useState<ToolRequest[]>(adminStore.getToolRequests());
+  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedRequest, setSelectedRequest] = useState<ToolRequest | null>(null);
 
-  const handleRefresh = () => {
-    setRequests([...adminStore.getToolRequests()]);
+  // Load latest requests from Supabase public.tool_requests on mount
+  useEffect(() => {
+    loadRequestsFromSupabase();
+  }, []);
+
+  const loadRequestsFromSupabase = async () => {
+    setIsLoading(true);
+    try {
+      const data = await adminStore.fetchToolRequestsFromSupabase();
+      setRequests(data);
+      if (selectedRequest) {
+        const fresh = data.find((r) => r.id === selectedRequest.id);
+        if (fresh) setSelectedRequest(fresh);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const filteredRequests = useMemo(() => {
     return requests.filter((req) => {
+      const toolTitle = req.requested_tool || req.toolName || '';
+      const desc = req.description || '';
+      const cat = req.category || '';
+      const reqName = req.name || '';
+      const reqEmail = req.email || '';
+
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
-        const matchesName = req.toolName.toLowerCase().includes(q);
-        const matchesDesc = req.description.toLowerCase().includes(q);
-        const matchesCat = req.category.toLowerCase().includes(q);
-        if (!matchesName && !matchesDesc && !matchesCat) return false;
+        const matchesName = toolTitle.toLowerCase().includes(q);
+        const matchesDesc = desc.toLowerCase().includes(q);
+        const matchesCat = cat.toLowerCase().includes(q);
+        const matchesUser = reqName.toLowerCase().includes(q) || reqEmail.toLowerCase().includes(q);
+        if (!matchesName && !matchesDesc && !matchesCat && !matchesUser) return false;
       }
 
-      if (statusFilter !== 'all' && req.status !== statusFilter) return false;
+      const norm = normalizeStatus(req.status);
+      if (statusFilter !== 'all' && norm !== statusFilter) return false;
 
       return true;
     });
   }, [requests, searchQuery, statusFilter]);
 
-  const handleStatusChange = (req: ToolRequest, newStatus: ToolRequest['status']) => {
-    const updated = { ...req, status: newStatus };
-    adminStore.updateToolRequest(updated);
-    handleRefresh();
+  const handleStatusChange = async (req: ToolRequest, newStatus: string) => {
+    const updated: ToolRequest = { ...req, status: newStatus as ToolRequestStatus };
+    // Update local state immediately for instant feedback
+    setRequests((prev) => prev.map((r) => (r.id === req.id ? updated : r)));
     if (selectedRequest?.id === req.id) {
       setSelectedRequest(updated);
     }
+    // Persist to Supabase public.tool_requests
+    await adminStore.updateToolRequest(updated);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Delete this tool request?')) {
-      adminStore.deleteToolRequest(id);
-      handleRefresh();
+      setRequests((prev) => prev.filter((r) => r.id !== id));
       if (selectedRequest?.id === id) setSelectedRequest(null);
+      await adminStore.deleteToolRequest(id);
     }
   };
 
@@ -79,9 +140,18 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
             <Inbox className="w-5 h-5 text-purple-500" /> Tool Requests & Demand Center
           </h1>
           <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-            Review citizen calculator submissions, update development status, and convert popular ideas into live utilities.
+            Review citizen calculator submissions directly from Supabase, update development status, and convert into live utilities.
           </p>
         </div>
+
+        <button
+          onClick={loadRequestsFromSupabase}
+          disabled={isLoading}
+          className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-xs font-semibold text-neutral-700 dark:text-neutral-200 transition-colors inline-flex items-center gap-1.5 self-start sm:self-auto"
+        >
+          <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+          <span>{isLoading ? 'Syncing...' : 'Refresh from Supabase'}</span>
+        </button>
       </div>
 
       {/* Filter and Search Bar */}
@@ -92,7 +162,7 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search tool requests by title, keyword, or problem description..."
+            placeholder="Search tool requests by title, problem, name, or email..."
             className="w-full pl-9 pr-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-hidden"
           />
         </div>
@@ -103,12 +173,12 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
           className="w-full sm:w-48 px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium outline-hidden"
         >
           <option value="all">All Statuses ({requests.length})</option>
-          <option value="New">New ({requests.filter((r) => r.status === 'New').length})</option>
-          <option value="Under Review">Under Review</option>
-          <option value="Planned">Planned</option>
-          <option value="In Development">In Development</option>
-          <option value="Completed">Completed</option>
-          <option value="Declined">Declined</option>
+          <option value="new">🟣 New ({requests.filter((r) => normalizeStatus(r.status) === 'new').length})</option>
+          <option value="reviewing">🟡 Reviewing ({requests.filter((r) => normalizeStatus(r.status) === 'reviewing').length})</option>
+          <option value="planned">🔵 Planned ({requests.filter((r) => normalizeStatus(r.status) === 'planned').length})</option>
+          <option value="in_development">🔷 In Development ({requests.filter((r) => normalizeStatus(r.status) === 'in_development').length})</option>
+          <option value="completed">🟢 Completed ({requests.filter((r) => normalizeStatus(r.status) === 'completed').length})</option>
+          <option value="rejected">🔴 Rejected ({requests.filter((r) => normalizeStatus(r.status) === 'rejected').length})</option>
         </select>
       </div>
 
@@ -137,6 +207,10 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
                 ) : (
                   filteredRequests.map((req) => {
                     const isSelected = selectedRequest?.id === req.id;
+                    const norm = normalizeStatus(req.status);
+                    const cfg = STATUS_CONFIG[norm] || STATUS_CONFIG.new;
+                    const toolTitle = req.requested_tool || req.toolName || 'Untitled Tool';
+
                     return (
                       <tr
                         key={req.id}
@@ -148,7 +222,7 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
                         <td className="p-3.5">
                           <div className="flex flex-col">
                             <span className="font-bold text-neutral-900 dark:text-neutral-100">
-                              {req.toolName}
+                              {toolTitle}
                             </span>
                             <span className="text-[10.5px] text-neutral-400 line-clamp-1">
                               {req.description}
@@ -158,25 +232,15 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
 
                         <td className="p-3.5">
                           <span className="px-2 py-0.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 text-[10.5px] capitalize">
-                            {req.category}
+                            {req.category || 'General'}
                           </span>
                         </td>
 
                         <td className="p-3.5">
                           <span
-                            className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase inline-flex items-center gap-1 ${
-                              req.status === 'New'
-                                ? 'bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300'
-                                : req.status === 'In Development'
-                                ? 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300'
-                                : req.status === 'Completed'
-                                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300'
-                                : req.status === 'Declined'
-                                ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300'
-                                : 'bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300'
-                            }`}
+                            className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase inline-flex items-center gap-1 ${cfg.badgeClass}`}
                           >
-                            {req.status}
+                            {cfg.label}
                           </span>
                         </td>
 
@@ -186,16 +250,16 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
                               e.stopPropagation();
                               if (onConvertToTool) {
                                 onConvertToTool({
-                                  name: req.toolName,
-                                  category: req.category,
-                                  description: req.description,
+                                  name: toolTitle,
+                                  category: req.category || 'General',
+                                  description: req.description || '',
                                 });
                               } else if (onNavigate) {
                                 onNavigate('tools');
                               }
                             }}
                             className="px-2.5 py-1 rounded-lg bg-accent/10 hover:bg-accent text-accent hover:text-white text-[11px] font-bold transition-colors inline-flex items-center gap-1"
-                            title="Convert into a live tool"
+                            title="Convert into a live tool draft"
                           >
                             <Sparkles className="w-3 h-3" /> Build
                           </button>
@@ -215,7 +279,7 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-neutral-100 dark:border-neutral-800">
                 <span className="text-xs font-bold text-neutral-400 font-mono">
-                  REQUEST #{selectedRequest.id}
+                  REQUEST #{selectedRequest.id?.slice(0, 8)}
                 </span>
                 <button
                   onClick={() => handleDelete(selectedRequest.id)}
@@ -228,40 +292,51 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
 
               <div>
                 <h3 className="text-base font-bold text-neutral-900 dark:text-white">
-                  {selectedRequest.toolName}
+                  {selectedRequest.requested_tool || selectedRequest.toolName}
                 </h3>
-                <span className="text-xs text-neutral-400 mt-0.5 block">
-                  Category: {selectedRequest.category} • Submitted{' '}
-                  {new Date(selectedRequest.createdAt).toLocaleDateString('en-IN', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                  })}
-                </span>
+                <div className="flex flex-wrap items-center gap-3 text-xs text-neutral-400 mt-1">
+                  <span>Category: {selectedRequest.category || 'General'}</span>
+                  <span>•</span>
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-3 h-3" />
+                    {new Date(selectedRequest.created_at || selectedRequest.createdAt).toLocaleDateString('en-IN', {
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric',
+                    })}
+                  </span>
+                </div>
               </div>
 
+              {/* Requester Information */}
+              {(selectedRequest.name || selectedRequest.email) && (
+                <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200 dark:border-neutral-700 space-y-1.5 text-xs">
+                  {selectedRequest.name && (
+                    <div className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300">
+                      <User className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                      <span className="font-semibold">{selectedRequest.name}</span>
+                    </div>
+                  )}
+                  {selectedRequest.email && (
+                    <div className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300">
+                      <Mail className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                      <a href={`mailto:${selectedRequest.email}`} className="text-accent hover:underline font-mono">
+                        {selectedRequest.email}
+                      </a>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Description */}
               <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700">
                 <span className="text-[11px] font-bold text-neutral-500 block mb-1">
                   User Description / Problem Statement:
                 </span>
-                <p className="text-xs text-neutral-800 dark:text-neutral-200 whitespace-pre-wrap">
+                <p className="text-xs text-neutral-800 dark:text-neutral-200 whitespace-pre-wrap leading-relaxed">
                   {selectedRequest.description}
                 </p>
               </div>
-
-              {selectedRequest.email && (
-                <div className="text-xs text-neutral-500">
-                  <span className="font-semibold text-neutral-700 dark:text-neutral-300">
-                    Contact Email:{' '}
-                  </span>
-                  <a
-                    href={`mailto:${selectedRequest.email}`}
-                    className="text-accent hover:underline font-mono"
-                  >
-                    {selectedRequest.email}
-                  </a>
-                </div>
-              )}
 
               {/* Status Update Control */}
               <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
@@ -269,29 +344,28 @@ export const AdminRequests: React.FC<AdminRequestsProps> = ({
                   Update Development Status
                 </label>
                 <select
-                  value={selectedRequest.status}
-                  onChange={(e) =>
-                    handleStatusChange(selectedRequest, e.target.value as any)
-                  }
-                  className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold outline-hidden"
+                  value={normalizeStatus(selectedRequest.status)}
+                  onChange={(e) => handleStatusChange(selectedRequest, e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold outline-hidden cursor-pointer"
                 >
-                  <option value="New">🟣 New</option>
-                  <option value="Under Review">🟡 Under Review</option>
-                  <option value="Planned">🔵 Planned</option>
-                  <option value="In Development">🔷 In Development</option>
-                  <option value="Completed">🟢 Completed</option>
-                  <option value="Declined">🔴 Declined</option>
+                  <option value="new">🟣 New</option>
+                  <option value="reviewing">🟡 Reviewing</option>
+                  <option value="planned">🔵 Planned</option>
+                  <option value="in_development">🔷 In Development</option>
+                  <option value="completed">🟢 Completed</option>
+                  <option value="rejected">🔴 Rejected</option>
                 </select>
               </div>
 
               {/* Convert to Tool Button */}
               <button
                 onClick={() => {
+                  const toolTitle = selectedRequest.requested_tool || selectedRequest.toolName || 'New Tool';
                   if (onConvertToTool) {
                     onConvertToTool({
-                      name: selectedRequest.toolName,
-                      category: selectedRequest.category,
-                      description: selectedRequest.description,
+                      name: toolTitle,
+                      category: selectedRequest.category || 'General',
+                      description: selectedRequest.description || '',
                     });
                   } else if (onNavigate) {
                     onNavigate('tools');

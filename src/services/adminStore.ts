@@ -24,6 +24,7 @@ import {
   ExperimentVariant,
 } from '../types/admin';
 import { adminAuth } from './adminAuthService';
+import { getSupabase, isSupabaseConfigured } from './supabaseClient';
 import { TOOLS_REGISTRY } from '../data/toolsRegistry';
 import { CATEGORIES } from '../data/categories';
 
@@ -1009,7 +1010,53 @@ class AdminStore {
     localStorage.setItem(CATEGORIES_STORAGE_KEY, JSON.stringify(this.categories));
   }
 
-  // ── REQUESTS MANAGEMENT ──
+  // ── REQUESTS MANAGEMENT (Supabase-backed with local fallback) ──
+  public async fetchToolRequestsFromSupabase(): Promise<ToolRequest[]> {
+    try {
+      const supabase = getSupabase();
+      if (!supabase || !isSupabaseConfigured()) {
+        return this.getToolRequests();
+      }
+
+      const { data, error } = await supabase
+        .from('tool_requests')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.warn('Could not fetch tool requests from Supabase:', error.message);
+        return this.getToolRequests();
+      }
+
+      if (data) {
+        const mapped: ToolRequest[] = data.map((r: any) => ({
+          id: r.id,
+          requested_tool: r.requested_tool,
+          toolName: r.requested_tool || 'Untitled Tool',
+          category: r.category || 'General',
+          description: r.description || '',
+          name: r.name || undefined,
+          email: r.email || undefined,
+          status: r.status || 'new',
+          createdAt: r.created_at || new Date().toISOString(),
+          created_at: r.created_at,
+          updatedAt: r.updated_at,
+          updated_at: r.updated_at,
+        }));
+
+        try {
+          localStorage.setItem(REQUESTS_STORAGE_KEY, JSON.stringify(mapped));
+        } catch {}
+
+        this.notify();
+        return mapped;
+      }
+    } catch (err) {
+      console.warn('Error fetching tool requests from Supabase:', err);
+    }
+    return this.getToolRequests();
+  }
+
   public getToolRequests(): ToolRequest[] {
     try {
       const stored = localStorage.getItem(REQUESTS_STORAGE_KEY);
@@ -1020,7 +1067,8 @@ class AdminStore {
     }
   }
 
-  public updateToolRequest(request: ToolRequest): void {
+  public async updateToolRequest(request: ToolRequest): Promise<void> {
+    // 1. Update local cache immediately
     const list = this.getToolRequests();
     const index = list.findIndex(r => r.id === request.id);
     if (index >= 0) {
@@ -1029,14 +1077,45 @@ class AdminStore {
       list.unshift(request);
     }
     localStorage.setItem(REQUESTS_STORAGE_KEY, JSON.stringify(list));
-    this.logActivity('Tool Request Updated', 'tool', request.toolName, `Status: ${request.status}`);
+    this.logActivity('Tool Request Updated', 'tool', request.toolName || request.requested_tool || 'Tool Request', `Status: ${request.status}`);
     this.notify();
+
+    // 2. Persist directly to Supabase public.tool_requests
+    try {
+      const supabase = getSupabase();
+      if (supabase && isSupabaseConfigured()) {
+        const dbStatus = String(request.status).toLowerCase().replace(/\s+/g, '_');
+        await supabase
+          .from('tool_requests')
+          .update({
+            status: dbStatus,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', request.id);
+      }
+    } catch (err) {
+      console.error('Failed to sync tool request update to Supabase:', err);
+    }
   }
 
-  public deleteToolRequest(id: string): void {
+  public async deleteToolRequest(id: string): Promise<void> {
+    // 1. Update local cache immediately
     const list = this.getToolRequests().filter(r => r.id !== id);
     localStorage.setItem(REQUESTS_STORAGE_KEY, JSON.stringify(list));
     this.notify();
+
+    // 2. Persist deletion directly to Supabase
+    try {
+      const supabase = getSupabase();
+      if (supabase && isSupabaseConfigured()) {
+        await supabase
+          .from('tool_requests')
+          .delete()
+          .eq('id', id);
+      }
+    } catch (err) {
+      console.error('Failed to sync tool request deletion to Supabase:', err);
+    }
   }
 
   // ── CONTACT MESSAGES MANAGEMENT ──

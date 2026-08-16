@@ -57,7 +57,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     return tools.filter((t) => t.status === 'inactive' || t.status === 'unpublished' || t.status === 'archived');
   }, [tools]);
 
-  const newRequestsCount = requests.filter((r) => r.status === 'New').length;
+  const newRequestsCount = requests.filter((r) => r.status === 'New' || r.status === 'new').length;
 
   const handleToggleToolActive = (toolId: string) => {
     adminStore.toggleToolActive(toolId);
