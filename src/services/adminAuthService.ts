@@ -151,11 +151,28 @@ class AdminAuthService {
     // 1. Check server-side admin_profiles table if Supabase is connected
     if (supabase && isSupabaseConfigured()) {
       try {
-        const { data: profile, error } = await supabase
+        let { data: profile, error } = await supabase
           .from('admin_profiles')
           .select('*')
           .eq('user_id', userId)
           .maybeSingle();
+
+        if (!profile && email) {
+          const { data: profileByEmail } = await supabase
+            .from('admin_profiles')
+            .select('*')
+            .ilike('email', email)
+            .maybeSingle();
+
+          if (profileByEmail) {
+            profile = profileByEmail;
+            // Link user_id so future checks match instantly
+            await supabase
+              .from('admin_profiles')
+              .update({ user_id: userId, updated_at: new Date().toISOString() })
+              .eq('id', profileByEmail.id);
+          }
+        }
 
         if (profile && !error) {
           role = (profile.role as AdminRole) || role;
