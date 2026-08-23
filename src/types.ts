@@ -46,6 +46,13 @@ export interface ToolSEO {
   indexEnabled?: boolean;
 }
 
+export interface SEOSection {
+  h2: string;
+  paragraphs?: string[];
+  bullets?: string[];
+  steps?: string[];
+}
+
 export interface Tool {
   id: string;
   slug: string;
@@ -82,6 +89,7 @@ export interface Tool {
   faqs: FAQItem[];
   relatedToolSlugs: string[];
   relatedTools?: string[];
+  seoSections?: SEOSection[];
   disclaimer?: string;
 }
 

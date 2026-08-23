@@ -5,51 +5,168 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'emi-calculator',
     slug: 'emi-calculator',
-    name: 'Home & Personal Loan EMI Calculator',
+    name: 'EMI Calculator',
     shortName: 'EMI Calculator',
-    tagline: 'Calculate monthly loan EMI, interest payout, and amortization schedule',
-    description: 'Calculate your exact monthly Equated Monthly Installment (EMI) for Home, Car, or Personal Loans in India. Includes principal vs interest breakdown and yearly schedule.',
+    tagline: 'Calculate monthly loan EMI, interest payout, and total repayment for home, personal, and car loans',
+    description: "Use BharatUtility's free EMI Calculator to estimate your monthly loan payment, total interest and total repayment. Enter your loan amount, interest rate and tenure to instantly calculate your EMI.",
     category: 'money',
     icon: 'Calculator',
-    keywords: ['emi', 'loan', 'home loan emi', 'car loan', 'personal loan', 'interest', 'sbi emi', 'hdfc emi', 'amortization'],
+    keywords: [
+      'EMI calculator',
+      'loan EMI calculator',
+      'home loan EMI calculator',
+      'personal loan EMI calculator',
+      'car loan EMI calculator',
+      'monthly EMI calculator',
+      'loan repayment calculator',
+      'EMI calculation',
+      'EMI calculator India'
+    ],
     popular: true,
     trending: true,
     featured: true,
     badge: 'Top Tool',
     views: 48200,
     seo: {
-      title: 'Loan EMI Calculator India — Home, Personal & Car Loan EMI',
-      description: 'Accurate and fast Indian Loan EMI Calculator with monthly breakdown, total interest payable, loan amortization table, and prepayment impact.',
-      keywords: ['loan emi calculator', 'home loan emi calculator india', 'calculate monthly emi', 'personal loan emi'],
-      canonicalSlug: 'emi-calculator',
-    },
-    formulaDescription: 'EMI is calculated using the reducing balance method formula: E = P × r × (1 + r)^n / ((1 + r)^n - 1)',
-    formulaLatex: 'E = \\frac{P \\times r \\times (1 + r)^n}{(1 + r)^n - 1}',
-    workedExample: {
-      inputSummary: 'Loan of ₹25,00,000 at 8.5% p.a. for 20 years (240 months)',
-      calculationSteps: [
-        'Monthly interest rate r = 8.5 / (12 × 100) = 0.007083',
-        'Tenure in months n = 20 × 12 = 240',
-        'EMI = 25,00,000 × 0.007083 × (1.007083)^240 / ((1.007083)^240 - 1)',
-        'Total Interest = (EMI × 240) - Principal'
+      title: 'EMI Calculator – Home, Personal & Car Loan EMI | BharatUtility',
+      description: 'Calculate your monthly EMI, total interest and total repayment for home, personal and car loans. Free EMI calculator for India with instant results.',
+      keywords: [
+        'EMI calculator',
+        'loan EMI calculator',
+        'home loan EMI calculator',
+        'personal loan EMI calculator',
+        'car loan EMI calculator',
+        'monthly EMI calculator',
+        'loan repayment calculator',
+        'EMI calculation',
+        'EMI calculator India'
       ],
-      finalResult: 'Monthly EMI: ₹21,696 | Total Interest: ₹27,07,080 | Total Payable: ₹52,07,080',
+      canonicalSlug: 'emi-calculator',
+      h1: 'EMI Calculator',
     },
-    faqs: [
+    formulaDescription: 'Standard EMI calculation using the reducing balance method formula: EMI = P × R × (1 + R)^N / ((1 + R)^N − 1)',
+    formulaLatex: 'E = \\frac{P \\times R \\times (1 + R)^N}{(1 + R)^N - 1}',
+    workedExample: {
+      inputSummary: 'Loan Amount: ₹10,00,000 (₹10 Lakhs) | Annual Interest Rate: 8.5% p.a. | Tenure: 20 Years (240 Months)',
+      calculationSteps: [
+        'Monthly Interest Rate (R) = 8.5 / (12 × 100) = 0.0070833',
+        'Total Tenure in Months (N) = 20 × 12 = 240 months',
+        'Apply Formula: EMI = 10,00,000 × 0.0070833 × (1.0070833)^240 / ((1.0070833)^240 - 1)',
+        'Monthly EMI = ₹8,678',
+        'Total Repayment = ₹8,678.23 × 240 = ₹20,82,776',
+        'Total Interest Payable = ₹20,82,776 - ₹10,00,000 = ₹10,82,776'
+      ],
+      finalResult: 'Monthly EMI: ₹8,678 | Total Interest: ₹10,82,776 | Total Repayment: ₹20,82,776',
+    },
+    seoSections: [
       {
-        question: 'How is Home Loan EMI calculated in India?',
-        answer: 'Home loan EMIs are calculated on a monthly reducing balance method where your principal reduces each month with every payment, reducing the interest charged on subsequent months.'
+        h2: 'What is an EMI Calculator?',
+        paragraphs: [
+          'An EMI Calculator is an automated financial tool that helps you calculate the Equated Monthly Installment (EMI) required to repay a loan over a chosen duration. Whether you are planning to take a home loan, personal loan, or car loan in India, an EMI calculator gives you an immediate breakdown of your monthly outflow, cumulative interest, and overall loan repayment amount before you borrow from a bank or financial institution.'
+        ]
       },
       {
-        question: 'Does making part-prepayment reduce EMI or tenure?',
-        answer: 'Most Indian banks give you the choice to either reduce your monthly EMI amount or reduce the total loan tenure (which saves significantly more interest).'
+        h2: 'How to Calculate EMI',
+        paragraphs: [
+          'Equated Monthly Installment (EMI) is computed using the standard reducing balance mathematical formula used by major Indian lenders:',
+          'EMI = P × R × (1 + R)^N / ((1 + R)^N − 1)'
+        ],
+        bullets: [
+          'P = Principal loan amount (the total sum borrowed in ₹ / INR)',
+          'R = Monthly interest rate (annual interest rate divided by 12 and then divided by 100)',
+          'N = Number of monthly instalments (loan duration in years multiplied by 12)'
+        ],
+        steps: [
+          'Annual to Monthly Interest Rate Conversion: Annual interest rates offered by banks must be converted into a monthly interest rate. For instance, an annual interest rate of 8.5% translates to R = 8.5 / (12 × 100) = 0.0070833 per month.'
+        ]
       },
       {
-        question: 'Are there tax benefits on Home Loan EMI?',
-        answer: 'Under the Old Tax Regime, you can claim up to ₹1.5 Lakh on principal repayment under Section 80C and up to ₹2 Lakh on interest paid under Section 24(b).'
+        h2: 'How to Use This EMI Calculator',
+        steps: [
+          '1. Enter Loan Amount (P): Input or slide the total loan principal amount in Rupees (₹).',
+          '2. Set Annual Interest Rate (%): Type the interest rate offered by your bank (e.g., 8.5% p.a.).',
+          '3. Choose Loan Tenure: Select your repayment duration in years or months.',
+          '4. View Instant Results: Review your monthly EMI payment, total interest payable, and complete loan breakdown instantly.'
+        ]
+      },
+      {
+        h2: 'EMI Calculation Example',
+        paragraphs: [
+          'Consider a practical Indian loan example with the following parameters:',
+          'Loan Amount (P): ₹10,00,000 (₹10 Lakhs) | Annual Interest Rate: 8.5% | Tenure: 20 Years (240 Months)',
+          '1. Monthly Interest Rate (R) = 8.5 / (12 × 100) = 0.0070833',
+          '2. Total Months (N) = 20 × 12 = 240',
+          '3. Monthly EMI = ₹8,678',
+          '4. Total Interest Payable = ₹10,82,776',
+          '5. Total Repayment (Principal + Interest) = ₹20,82,776'
+        ]
+      },
+      {
+        h2: 'What Affects Your EMI?',
+        paragraphs: [
+          'Three main factors determine your monthly EMI amount and total loan interest:'
+        ],
+        bullets: [
+          'Loan Amount: Borrowing a higher principal amount increases both your monthly EMI and total interest burden.',
+          'Interest Rate: Securing a lower interest rate directly lowers your monthly EMI and reduces cumulative interest paid.',
+          'Loan Tenure: Selecting a longer loan tenure spreads repayment over more months, which lowers your monthly EMI. However, a longer tenure increases the duration interest is charged, resulting in a higher total interest payout. Conversely, a shorter tenure increases monthly EMI but significantly reduces total interest.'
+        ]
+      },
+      {
+        h2: 'Home Loan EMI Calculator',
+        paragraphs: [
+          'Home loans in India typically involve substantial capital (e.g., ₹20 Lakhs to ₹1 Crore+) and long tenures ranging from 15 to 30 years. Using this EMI calculator for home loans enables homebuyers to test different down payment options, loan amounts, and floating interest rates to maintain a balanced family budget.'
+        ]
+      },
+      {
+        h2: 'Personal Loan EMI Calculator',
+        paragraphs: [
+          'Personal loans are unsecured credit facilities with shorter tenures (1 to 5 years) and higher interest rates (10.5% to 24% p.a.). Calculating your exact monthly EMI in advance ensures your total monthly debt payments remain within a comfortable 30–40% limit of your net monthly salary.'
+        ]
+      },
+      {
+        h2: 'Car Loan EMI Calculator',
+        paragraphs: [
+          'Vehicle and auto loans in India generally feature tenures of 3 to 7 years. Use this car loan EMI calculator to balance down payment amounts against monthly vehicle EMI instalments so you can purchase a car that comfortably fits your budget.'
+        ]
       }
     ],
-    relatedToolSlugs: ['sip-calculator', 'salary-calculator', 'fd-calculator', 'gst-calculator']
+    faqs: [
+      {
+        question: 'What is EMI?',
+        answer: 'EMI stands for Equated Monthly Installment. It is a fixed payment made by a borrower to a bank or lender on a set date each month until the loan is fully repaid.'
+      },
+      {
+        question: 'How is EMI calculated?',
+        answer: 'EMI is calculated using the reducing balance formula: EMI = P × R × (1 + R)^N / ((1 + R)^N − 1), where P is principal loan amount, R is monthly interest rate, and N is total tenure in months.'
+      },
+      {
+        question: 'Does a higher loan tenure reduce EMI?',
+        answer: 'Yes, increasing your loan tenure spreads repayment over more months, which reduces your required monthly EMI payment.'
+      },
+      {
+        question: 'Does a longer tenure increase total interest?',
+        answer: 'Yes, while a longer tenure lowers monthly EMI, interest is charged for more months, resulting in significantly higher total interest paid over the life of the loan.'
+      },
+      {
+        question: 'Can I use this for a home loan?',
+        answer: 'Yes, this calculator is fully compatible with home loans. Simply enter your home loan amount, interest rate, and tenure in years.'
+      },
+      {
+        question: 'Can I use this for a personal loan?',
+        answer: 'Yes, enter your personal loan principal, interest rate, and tenure (1 to 5 years) to calculate personal loan EMIs.'
+      },
+      {
+        question: 'Can I use this for a car loan?',
+        answer: 'Yes, enter your net vehicle loan amount after down payment, annual interest rate, and tenure (3 to 7 years) to calculate car loan EMIs.'
+      },
+      {
+        question: 'Is this EMI calculator free?',
+        answer: 'Yes, BharatUtility’s EMI calculator is 100% free to use with instant calculation results and zero registration requirements.'
+      }
+    ],
+    relatedToolSlugs: ['sip-calculator', 'gst-calculator', 'salary-calculator', 'fd-calculator', 'percentage-calculator'],
+    disclaimer: 'Disclaimer: This EMI calculator provides estimates for informational purposes based on standard Indian banking reducing balance formulas. Actual loan terms, processing fees, and interest rates may vary by bank.'
   },
 
   // 2. SIP Calculator

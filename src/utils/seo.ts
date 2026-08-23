@@ -111,7 +111,7 @@ export function updateSeoMetadata(view: ViewMode): void {
   if (view.type === 'tool') {
     const tool = getToolBySlug(view.slug);
     if (tool) {
-      title = `${tool.seo?.title || tool.name} | ${SITE_NAME}`;
+      title = tool.seo?.title ? tool.seo.title : `${tool.name} | ${SITE_NAME}`;
       description = tool.seo?.description || tool.description;
 
       const toolSchema: any = {
@@ -130,27 +130,51 @@ export function updateSeoMetadata(view: ViewMode): void {
         },
       };
 
+      const breadcrumbSchema: any = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: `${CANONICAL_BASE}/`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Tools',
+            item: `${CANONICAL_BASE}/tools`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: tool.shortName || tool.name,
+            item: canonicalUrl,
+          },
+        ],
+      };
+
+      const graphNodes: any[] = [toolSchema, breadcrumbSchema];
+
       if (tool.faqs && tool.faqs.length > 0) {
-        jsonLdData = {
-          '@context': 'https://schema.org',
-          '@graph': [
-            toolSchema,
-            {
-              '@type': 'FAQPage',
-              mainEntity: tool.faqs.map((faq) => ({
-                '@type': 'Question',
-                name: faq.question,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: faq.answer,
-                },
-              })),
+        graphNodes.push({
+          '@type': 'FAQPage',
+          mainEntity: tool.faqs.map((faq) => ({
+            '@type': 'Question',
+            name: faq.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: faq.answer,
             },
-          ],
-        };
-      } else {
-        jsonLdData = toolSchema;
+          })),
+        });
       }
+
+      jsonLdData = {
+        '@context': 'https://schema.org',
+        '@graph': graphNodes,
+      };
     }
   } else if (view.type === 'category') {
     const category = getCategoryById(view.categoryId);

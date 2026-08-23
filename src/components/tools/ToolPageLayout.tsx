@@ -334,8 +334,48 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       {/* Bookmark BharatUtility Prompt */}
       <BookmarkPrompt variant="card" />
 
-      {/* Ad Slot Banner between Calculator and Formula */}
+      {/* Ad Slot Banner between Calculator and Content */}
       <AdSlot format="horizontal" />
+
+      {/* Dynamic Extended SEO Content Sections */}
+      {tool.seoSections && tool.seoSections.length > 0 && (
+        <div className="space-y-6">
+          {tool.seoSections.map((sec, idx) => (
+            <div
+              key={idx}
+              className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-3"
+            >
+              <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white font-display">
+                {sec.h2}
+              </h2>
+              {sec.paragraphs && sec.paragraphs.map((p, pIdx) => (
+                <p key={pIdx} className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  {p}
+                </p>
+              ))}
+              {sec.bullets && (
+                <ul className="space-y-2 pt-1 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300">
+                  {sec.bullets.map((b, bIdx) => (
+                    <li key={bIdx} className="flex items-start gap-2">
+                      <span className="text-accent font-bold">•</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {sec.steps && (
+                <div className="space-y-2 pt-1 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300">
+                  {sec.steps.map((st, stIdx) => (
+                    <div key={stIdx} className="p-3.5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200/60 dark:border-neutral-700/50 leading-relaxed font-medium">
+                      {st}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Formula & Explanation Section */}
       {tool.formulaDescription && (
@@ -473,6 +513,13 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Request a Tool CTA Card */}
       <RequestToolCta initialToolName={tool.name} variant="card" />
+
+      {/* Informational Disclaimer Banner */}
+      {tool.disclaimer && (
+        <div className="p-4 rounded-2xl bg-neutral-100/70 dark:bg-neutral-900/70 border border-neutral-200/80 dark:border-neutral-800 text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed">
+          {tool.disclaimer}
+        </div>
+      )}
 
       {/* Share Modal Dialog */}
       <ShareModal
