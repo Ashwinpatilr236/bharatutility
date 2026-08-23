@@ -100,11 +100,11 @@ export const CommandPalette: React.FC = () => {
   return (
     <div
       onClick={() => setCommandPaletteOpen(false)}
-      className="fixed inset-0 z-[100] flex items-start justify-center pt-14 sm:pt-20 px-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-150"
+      className="fixed inset-0 z-[100] flex items-start justify-center pt-12 sm:pt-16 px-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150"
     >
       <div
         onClick={e => e.stopPropagation()}
-        className="bg-white dark:bg-neutral-900 w-full max-w-2xl rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.7)] border-2 border-accent/40 overflow-hidden flex flex-col animate-in zoom-in-95 duration-150"
+        className="bg-white dark:bg-neutral-900 w-full max-w-3xl rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.8)] border-2 border-accent/40 overflow-hidden flex flex-col animate-in zoom-in-95 duration-150"
         onKeyDown={handleKeyDown}
       >
         {/* Search Input Bar */}
