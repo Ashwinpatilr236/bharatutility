@@ -112,7 +112,7 @@ const DEFAULT_ADS_CONFIG: AdsManagementConfig = {
 const DEFAULT_SEO_CONFIG: GlobalSEOConfig = {
   defaultTitle: 'BharatUtility — Free Everyday Calculators & Utilities for India',
   defaultDescription: 'Fast, privacy-friendly, 100% free everyday calculators, EMI, GST, land conversion, and document generators built specifically for Indian citizens.',
-  defaultKeywords: ['india calculators', 'emi calculator india', 'gst calculator', 'land converter', 'bharat utility'],
+  defaultKeywords: ['india calculators', 'emi calculator india', 'gst calculator', 'land converter', 'bharatutility'],
   defaultOgImage: 'https://bharatutility.tech/og-image.png',
   siteName: 'BharatUtility',
   canonicalDomain: 'https://bharatutility.tech',
@@ -842,7 +842,7 @@ class AdminStore {
       id: 'log_' + Math.random().toString(36).substring(2, 9),
       adminId: user?.id || 'sys',
       adminName: user?.name || 'System / Admin',
-      adminEmail: user?.email || 'admin@bharatutility.in',
+      adminEmail: user?.email || 'admin@bharatutility.tech',
       action,
       entityType,
       entityId,

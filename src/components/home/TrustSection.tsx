@@ -29,7 +29,7 @@ export const TrustSection: React.FC = () => {
     <section className="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-2xl mx-auto mb-10">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display">
-          Why Millions of Indians Choose BharatUtility
+          Why People Across India Use BharatUtility
         </h2>
         <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
           Designed from the ground up for speed, mathematical accuracy, and effortless utility.

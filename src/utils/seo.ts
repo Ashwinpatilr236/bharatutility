@@ -123,6 +123,12 @@ export function updateSeoMetadata(view: ViewMode): void {
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'All',
         browserRequirements: 'Requires JavaScript. Requires HTML5.',
+        publisher: {
+          '@type': 'Organization',
+          '@id': `${CANONICAL_BASE}/#organization`,
+          name: SITE_NAME,
+          url: `${CANONICAL_BASE}/`,
+        },
         offers: {
           '@type': 'Offer',
           price: '0',
@@ -266,6 +272,7 @@ export function updateSeoMetadata(view: ViewMode): void {
           '@id': `${CANONICAL_BASE}/#website`,
           url: `${CANONICAL_BASE}/`,
           name: SITE_NAME,
+          alternateName: ['BharatUtility India', 'BharatUtility Tools'],
           description: DEFAULT_DESCRIPTION,
           publisher: {
             '@id': `${CANONICAL_BASE}/#organization`,
@@ -277,6 +284,7 @@ export function updateSeoMetadata(view: ViewMode): void {
           name: SITE_NAME,
           url: `${CANONICAL_BASE}/`,
           logo: `${CANONICAL_BASE}/icons/icon-512.png`,
+          description: 'An independent Indian web platform offering free online calculators and practical digital utility tools.',
         },
       ],
     };

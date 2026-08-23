@@ -55,21 +55,25 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
               About BharatUtility
             </h1>
             <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              <strong>BharatUtility</strong> is India's dedicated everyday calculation and productivity super-app. Our mission is to provide lightning-fast, visually modern, and mathematically rigorous utilities built specifically for the Indian ecosystem.
+              <strong>BharatUtility</strong> is an independent Indian web platform providing free online calculators and practical everyday digital utilities. Designed specifically for India, BharatUtility offers fast, private, client-side tools across finance, daily life, home planning, education, travel, business, technology, and formal documentation — requiring zero sign-up or user account registration.
             </p>
-            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">Why BharatUtility?</h3>
+            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">What We Offer</h3>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Our utility collection includes loan EMI calculators, mutual fund SIP planners, GST invoice tools, CTC to in-hand salary converters, bank FD maturity calculators, age calculators, multi-unit converters, fuel trip cost estimators, CGPA-to-percentage converters, paint & tile estimators, and formal letter generators.
+            </p>
+            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">Why People Choose BharatUtility</h3>
             <ul className="space-y-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span><strong>Indian Financial Accuracy:</strong> Updated with FY 2024-25 / FY 2025-26 New Tax Regime slabs, enhanced ₹75,000 standard deduction, and accurate Indian bank compounding logic.</span>
+                <span><strong>Indian Financial Accuracy:</strong> Aligned with FY 2024-25 / FY 2025-26 New Tax Regime slabs, the ₹75,000 standard deduction, and Indian commercial bank compounding conventions.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span><strong>Regional Land Units:</strong> Native conversion support for Gaj, Bigha, Guntha, Cent, Biswa, Ground, and Acres across different Indian states.</span>
+                <span><strong>Regional Land Metrics:</strong> Native unit conversion support for Gaj, Bigha, Guntha, Cent, Biswa, Ground, and Acres used across Indian states.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span><strong>Privacy-First Architecture:</strong> All calculations execute 100% on your device without transmitting personal financial inputs to external servers.</span>
+                <span><strong>Privacy-First & Free:</strong> All calculations run 100% locally on your browser with zero data storage, zero paywalls, and zero account registration required.</span>
               </li>
             </ul>
           </div>
