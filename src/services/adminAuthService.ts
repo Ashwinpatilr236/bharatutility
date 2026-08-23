@@ -13,7 +13,7 @@ const getAuthRedirectUrl = (): string => {
     ? envAppUrl.replace(/\/+$/, '')
     : typeof window !== 'undefined' && window.location.origin
       ? window.location.origin
-      : 'https://bharatutility.tech';
+      : 'https://bharatutility.tools';
 
   return baseUrl.replace(/\/+$/, '');
 };

@@ -62,8 +62,8 @@ export const SOCIAL_CONFIG: SocialConfig = {
     {
       id: 'instagram',
       name: 'Instagram',
-      url: 'https://instagram.com/bharatutility.tech',
-      handle: '@bharatutility.tech',
+      url: 'https://instagram.com/bharatutility.tools',
+      handle: '@bharatutility.tools',
       icon: 'Instagram',
       color: '#E4405F',
       enabled: true,

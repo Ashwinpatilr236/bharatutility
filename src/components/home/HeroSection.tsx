@@ -78,20 +78,20 @@ export const HeroSection: React.FC = () => {
         {/* Top Mini Pill */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent-subtle border border-accent/20 text-accent text-xs font-semibold mb-6 shadow-xs animate-in fade-in slide-in-from-bottom-2 duration-300">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>India's Fast Everyday Utility Platform • Free & No Sign-up</span>
+          <span>India's Utility Super-Site • Free & No Sign-up</span>
         </div>
 
         {/* Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-[1.15] mb-4">
-          Useful tools for <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
-            everyday India.
-          </span>
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-[1.15] mb-2">
+          BharatUtility
         </h1>
+        <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent mb-4">
+          India's Utility Super-Site
+        </p>
 
         {/* Subhead */}
         <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-          Calculate, convert, compare and create — all in one place. Accurate tax slabs, Indian land units, loan EMIs, and daily utilities.
+          Free calculators, finance tools, document tools and everyday online utilities — built for India.
         </p>
 
         {/* Large Smart Search Box */}

@@ -468,7 +468,7 @@ export const AdminUsers: React.FC = () => {
                 <input
                   type="email"
                   required
-                  placeholder="admin@bharatutility.tech"
+                  placeholder="admin@bharatutility.tools"
                   value={formEmail}
                   onChange={e => setFormEmail(e.target.value)}
                   className="w-full px-3.5 py-2 text-sm bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"

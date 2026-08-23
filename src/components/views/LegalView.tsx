@@ -55,7 +55,7 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
               About BharatUtility
             </h1>
             <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              <strong>BharatUtility</strong> is an independent Indian web platform providing free online calculators and practical everyday digital utilities. Designed specifically for India, BharatUtility offers fast, private, client-side tools across finance, daily life, home planning, education, travel, business, technology, and formal documentation — requiring zero sign-up or user account registration.
+              <strong>BharatUtility</strong> is an India-focused utility platform that brings together practical online calculators, finance tools, document tools and everyday utilities in one place. Designed specifically for Indian users, BharatUtility offers fast, private, client-side tools — requiring zero sign-up or user account registration.
             </p>
             <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">What We Offer</h3>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -129,7 +129,7 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
             <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-2 text-xs">
               <div className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200 font-semibold">
                 <Mail className="w-4 h-4 text-accent" />
-                <span>support@bharatutility.tech</span>
+                <span>support@bharatutility.tools</span>
               </div>
               <p className="text-neutral-500">We typically respond to community feature requests and formula inquiries within 24–48 hours.</p>
             </div>

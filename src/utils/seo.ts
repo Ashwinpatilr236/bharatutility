@@ -3,10 +3,10 @@ import { getToolBySlug } from '../data/toolsRegistry';
 import { getCategoryById } from '../data/categories';
 
 const SITE_NAME = 'BharatUtility';
-const CANONICAL_BASE = 'https://bharatutility.tech';
-const DEFAULT_TITLE = 'BharatUtility — Useful Tools for Everyday India';
+const CANONICAL_BASE = 'https://bharatutility.tools';
+const DEFAULT_TITLE = "BharatUtility – India's Utility Super-Site | Free Online Tools";
 const DEFAULT_DESCRIPTION =
-  'Free, fast, and modern everyday calculators and utilities built for India. EMI, GST, SIP, Salary In-Hand, Age, Unit Converter, Paint, and more.';
+  "BharatUtility is India's utility super-site with free calculators, finance tools, document tools and everyday online utilities.";
 const DEFAULT_OG_IMAGE = `${CANONICAL_BASE}/icons/icon-512.png`;
 
 /**
@@ -284,7 +284,7 @@ export function updateSeoMetadata(view: ViewMode): void {
           name: SITE_NAME,
           url: `${CANONICAL_BASE}/`,
           logo: `${CANONICAL_BASE}/icons/icon-512.png`,
-          description: 'An independent Indian web platform offering free online calculators and practical digital utility tools.',
+          description: DEFAULT_DESCRIPTION,
         },
       ],
     };
@@ -300,9 +300,11 @@ export function updateSeoMetadata(view: ViewMode): void {
     setMetaTag('meta[name="robots"]', 'name', 'robots', 'index, follow');
   }
 
+  const socialTitle = view.type === 'home' ? "BharatUtility – India's Utility Super-Site" : title;
+
   // Update Meta Tags
   setMetaTag('meta[name="description"]', 'name', 'description', description);
-  setMetaTag('meta[property="og:title"]', 'property', 'og:title', title);
+  setMetaTag('meta[property="og:title"]', 'property', 'og:title', socialTitle);
   setMetaTag('meta[property="og:description"]', 'property', 'og:description', description);
   setMetaTag('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
   setMetaTag('meta[property="og:type"]', 'property', 'og:type', ogType);
@@ -310,7 +312,7 @@ export function updateSeoMetadata(view: ViewMode): void {
   setMetaTag('meta[property="og:image"]', 'property', 'og:image', DEFAULT_OG_IMAGE);
 
   setMetaTag('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image');
-  setMetaTag('meta[name="twitter:title"]', 'name', 'twitter:title', title);
+  setMetaTag('meta[name="twitter:title"]', 'name', 'twitter:title', socialTitle);
   setMetaTag('meta[name="twitter:description"]', 'name', 'twitter:description', description);
   setMetaTag('meta[name="twitter:image"]', 'name', 'twitter:image', DEFAULT_OG_IMAGE);
 
