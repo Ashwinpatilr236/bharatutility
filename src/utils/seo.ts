@@ -4,9 +4,9 @@ import { getCategoryById } from '../data/categories';
 
 const SITE_NAME = 'BharatUtility';
 const CANONICAL_BASE = 'https://bharatutility.tech';
-const DEFAULT_TITLE = "BharatUtility – India's Utility Super-Site | Free Online Tools";
+const DEFAULT_TITLE = 'BharatUtility — Free Online Tools for Everyday India';
 const DEFAULT_DESCRIPTION =
-  "BharatUtility is India's Utility Super-Site with free calculators, finance tools, document tools and everyday online utilities built for India.";
+  'BharatUtility provides free, fast and easy-to-use online calculators and utility tools for everyday India.';
 const DEFAULT_OG_IMAGE = `${CANONICAL_BASE}/icons/icon-512.png`;
 
 /**
@@ -284,7 +284,7 @@ export function updateSeoMetadata(view: ViewMode): void {
           name: SITE_NAME,
           url: `${CANONICAL_BASE}/`,
           logo: `${CANONICAL_BASE}/icons/icon-512.png`,
-          description: "BharatUtility is India's Utility Super-Site offering free online calculators, finance tools, document tools and everyday digital utilities for users in India.",
+          description: DEFAULT_DESCRIPTION,
         },
       ],
     };
@@ -300,7 +300,7 @@ export function updateSeoMetadata(view: ViewMode): void {
     setMetaTag('meta[name="robots"]', 'name', 'robots', 'index, follow');
   }
 
-  const socialTitle = view.type === 'home' ? "BharatUtility – India's Utility Super-Site" : title;
+  const socialTitle = view.type === 'home' ? 'BharatUtility — Free Online Tools for Everyday India' : title;
 
   // Update Meta Tags
   setMetaTag('meta[name="description"]', 'name', 'description', description);

@@ -91,7 +91,7 @@ export const HeroSection: React.FC = () => {
 
         {/* Subhead */}
         <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-          Free calculators, finance tools, document tools and everyday online utilities — built for India.
+          Free, fast and modern online calculators and utility tools for everyday India.
         </p>
 
         {/* Large Smart Search Box */}
