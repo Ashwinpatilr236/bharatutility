@@ -91,7 +91,16 @@ export const Footer: React.FC = () => {
               Popular Tools
             </h4>
             <ul className="space-y-2 text-xs">
-              {['emi-calculator', 'salary-calculator', 'gst-calculator', 'sip-calculator', 'age-calculator'].map(slug => {
+              {[
+                'emi-calculator',
+                'sip-calculator',
+                'gst-calculator',
+                'salary-calculator',
+                'fd-calculator',
+                'age-calculator',
+                'percentage-calculator',
+                'unit-converter'
+              ].map(slug => {
                 const tool = TOOLS_REGISTRY.find(t => t.slug === slug);
                 if (!tool) return null;
                 return (
