@@ -53,7 +53,7 @@ export const Header: React.FC = () => {
                   </span>
                 </div>
                 <span className="text-[10px] text-neutral-400 dark:text-neutral-500 -mt-1 font-medium hidden sm:inline">
-                  Everyday Tools for India
+                  ARRJS Ecosystem • Everyday Tools
                 </span>
               </div>
             </Link>

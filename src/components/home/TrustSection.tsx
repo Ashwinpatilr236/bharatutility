@@ -54,6 +54,27 @@ export const TrustSection: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Parent Company Ecosystem Callout Banner */}
+      <div className="mt-10 p-5 rounded-2xl bg-neutral-900 text-white border border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-500/40 text-indigo-400 flex items-center justify-center font-bold text-base shrink-0">
+            🏢
+          </div>
+          <div>
+            <h4 className="text-sm font-bold text-white font-display">An ARRJS Technologies Ecosystem Product</h4>
+            <p className="text-xs text-neutral-400">BharatUtility is engineered and operated under the ARRJS Technologies digital software division.</p>
+          </div>
+        </div>
+        <a
+          href="https://arrjs-technologies.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-all shrink-0 inline-flex items-center gap-1.5 shadow-xs"
+        >
+          <span>Explore Parent Website ↗</span>
+        </a>
+      </div>
     </section>
   );
 };

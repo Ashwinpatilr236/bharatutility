@@ -76,6 +76,30 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
                 <span><strong>Privacy-First & Free:</strong> All calculations run 100% locally on your browser with zero data storage, zero paywalls, and zero account registration required.</span>
               </li>
             </ul>
+
+            {/* Parent Company Callout Banner */}
+            <div className="mt-6 p-5 rounded-2xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-indigo-500/15 border border-indigo-500/30 space-y-3">
+              <div className="flex items-center gap-2 text-sm font-bold text-indigo-600 dark:text-indigo-400 font-display">
+                <span className="text-lg">🏢</span>
+                <span>Parent Company & Technology Ecosystem</span>
+              </div>
+              <p className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                <strong>BharatUtility</strong> is developed, operated, and maintained as a flagship public utility platform under <strong>ARRJS Technologies</strong>.
+              </p>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                ARRJS Technologies is a modern technology software house engineering consumer digital products, healthcare operational software (Clinical Hub), custom full-stack web applications, and enterprise IT infrastructure.
+              </p>
+              <div className="pt-1">
+                <a
+                  href="https://arrjs-technologies.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-white font-bold text-xs shadow-xs hover:scale-102 transition-all"
+                >
+                  <span>Visit Parent Website: ARRJS Technologies ↗</span>
+                </a>
+              </div>
+            </div>
           </div>
         )}
 

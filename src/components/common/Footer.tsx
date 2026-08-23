@@ -167,8 +167,29 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
+        {/* Parent Company Ecosystem Attribution Banner */}
+        <div className="mt-10 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-900/90 border border-neutral-200/80 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-3">
+            <span className="text-xl">🏢</span>
+            <div>
+              <span className="font-bold text-neutral-900 dark:text-white font-display">Part of the ARRJS Technologies Ecosystem</span>
+              <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
+                BharatUtility is an India-focused public utility platform developed & operated by <strong>ARRJS Technologies</strong>.
+              </p>
+            </div>
+          </div>
+          <a
+            href="https://arrjs-technologies.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-1.5 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-all shrink-0 inline-flex items-center gap-1 shadow-xs"
+          >
+            <span>Visit Parent Site (ARRJS Tech) ↗</span>
+          </a>
+        </div>
+
         {/* Disclaimer Notice */}
-        <div className="mt-10 pt-6 border-t border-neutral-100 dark:border-neutral-900 text-[11px] text-neutral-400 dark:text-neutral-500 leading-normal">
+        <div className="mt-6 pt-6 border-t border-neutral-100 dark:border-neutral-900 text-[11px] text-neutral-400 dark:text-neutral-500 leading-normal">
           <p>
             <strong>Disclaimer:</strong> BharatUtility calculators and generators provide estimates for general informational purposes based on Indian standard financial, mathematical, and tax formulas. Actual loan interest, income tax assessments, and material estimates may vary depending on state policies, bank guidelines, and specific vendor parameters.
           </p>
@@ -176,7 +197,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
-          <p>© {new Date().getFullYear()} BharatUtility. Built for everyday India.</p>
+          <p>© {new Date().getFullYear()} BharatUtility • A Flagship Division of <a href="https://arrjs-technologies.netlify.app/" target="_blank" rel="noopener noreferrer" className="font-bold text-neutral-800 dark:text-neutral-200 hover:text-accent underline">ARRJS Technologies</a>. Built for everyday India.</p>
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-300 transition-colors"
