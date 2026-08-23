@@ -20,8 +20,11 @@ export function getPathForView(view: ViewMode): string {
       return '/tools';
     case 'category':
       return `/category/${view.categoryId}`;
-    case 'tool':
-      return `/tool/${view.slug}`;
+    case 'tool': {
+      const tool = getToolBySlug(view.slug);
+      const canonicalSlug = tool?.seo?.canonicalSlug || view.slug;
+      return `/tool/${canonicalSlug}`;
+    }
     case 'favorites':
       return '/favorites';
     case 'contact':
@@ -63,19 +66,14 @@ function setMetaTag(selector: string, attrName: string, attrValue: string, conte
  * Helper to update or create canonical link tag
  */
 function setCanonicalUrl(url: string): void {
-  // Remove duplicate canonical links if any
+  // Remove ALL existing canonical link elements to guarantee exactly 1 canonical tag exists
   const existingLinks = document.querySelectorAll('link[rel="canonical"]');
-  existingLinks.forEach((el, index) => {
-    if (index > 0) el.remove();
-  });
+  existingLinks.forEach(el => el.remove());
 
-  let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-  if (!canonicalLink) {
-    canonicalLink = document.createElement('link');
-    canonicalLink.setAttribute('rel', 'canonical');
-    document.head.appendChild(canonicalLink);
-  }
+  const canonicalLink = document.createElement('link');
+  canonicalLink.setAttribute('rel', 'canonical');
   canonicalLink.setAttribute('href', url);
+  document.head.appendChild(canonicalLink);
 }
 
 /**
