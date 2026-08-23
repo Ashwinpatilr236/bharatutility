@@ -49,7 +49,7 @@ export const Header: React.FC = () => {
                     Bharat<span className="text-accent">Utility</span>
                   </span>
                   <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
-                    IN
+                    TECH
                   </span>
                 </div>
                 <span className="text-[10px] text-neutral-400 dark:text-neutral-500 -mt-1 font-medium hidden sm:inline">
