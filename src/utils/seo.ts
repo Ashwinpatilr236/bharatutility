@@ -19,6 +19,10 @@ export function getPathForView(view: ViewMode): string {
     case 'all-tools':
       return '/tools';
     case 'category':
+      if (view.categoryId === 'india-services') return '/india-services';
+      if (view.categoryId === 'document-tools') return '/document-tools';
+      if (view.categoryId === 'vehicle-utility') return '/vehicle-utility';
+      if (view.categoryId === 'travel-utility') return '/travel-utility';
       return `/category/${view.categoryId}`;
     case 'tool': {
       const tool = getToolBySlug(view.slug);

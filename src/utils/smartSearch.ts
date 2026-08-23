@@ -31,6 +31,10 @@ const SYNONYM_MAP: Record<string, string[]> = {
   letter: ['resignation', 'leave application', 'sick leave', 'casual leave', 'wfh', 'notice period', 'email format', 'resignation letter'],
   date: ['date difference', 'days between', 'working days', 'tenure', 'age diff', 'calendar days'],
   percentage: ['percent', 'prcnt', 'ratio', 'fraction', 'discount', 'markup', 'change percentage'],
+  ifsc: ['bank code', 'micr', 'neft', 'rtgs', 'branch finder', 'bank lookup', 'pin code', 'rto code', 'gstin', 'pan card'],
+  pdf: ['merge pdf', 'split pdf', 'compress pdf', 'pdf to jpg', 'jpg to pdf', 'image to pdf', 'combine pdf', 'passport photo', 'signature resizer', 'qr code'],
+  ev: ['electric vehicle', 'ev charging', 'ev range', 'nexon ev', 'charging cost', 'ev vs petrol', 'car loan', 'bike loan', 'tyre size'],
+  trip: ['travel', 'trip cost', 'road trip', 'hotel cost', 'group split', 'travel budget', 'currency converter', 'packing list', 'time zone'],
 };
 
 // Common Indian / Search Typo Normalization Dictionary

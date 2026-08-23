@@ -9,7 +9,11 @@ export type CategoryId =
   | 'education'
   | 'travel'
   | 'business'
-  | 'date-time';
+  | 'date-time'
+  | 'india-services'
+  | 'document-tools'
+  | 'vehicle-utility'
+  | 'travel-utility';
 
 export interface Category {
   id: CategoryId;

@@ -33,6 +33,10 @@ const TechnologySuiteCalculator = React.lazy(() => import('../calculators/Techno
 const ConstructionSuiteCalculator = React.lazy(() => import('../calculators/ConstructionSuiteCalculator').then(m => ({ default: m.ConstructionSuiteCalculator })));
 const EducationSuiteCalculator = React.lazy(() => import('../calculators/EducationSuiteCalculator').then(m => ({ default: m.EducationSuiteCalculator })));
 const DateTimeSuiteCalculator = React.lazy(() => import('../calculators/DateTimeSuiteCalculator').then(m => ({ default: m.DateTimeSuiteCalculator })));
+const IndiaServicesSuiteCalculator = React.lazy(() => import('../calculators/IndiaServicesSuiteCalculator').then(m => ({ default: m.IndiaServicesSuiteCalculator })));
+const DocumentToolsSuiteCalculator = React.lazy(() => import('../calculators/DocumentToolsSuiteCalculator').then(m => ({ default: m.DocumentToolsSuiteCalculator })));
+const VehicleUtilitySuiteCalculator = React.lazy(() => import('../calculators/VehicleUtilitySuiteCalculator').then(m => ({ default: m.VehicleUtilitySuiteCalculator })));
+const TravelUtilitySuiteCalculator = React.lazy(() => import('../calculators/TravelUtilitySuiteCalculator').then(m => ({ default: m.TravelUtilitySuiteCalculator })));
 
 import {
   Star,
@@ -101,7 +105,6 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
     switch (tool.id) {
       case 'emi-calculator':
       case 'home-loan-emi-calculator':
-      case 'car-loan-emi-calculator':
       case 'personal-loan-emi-calculator':
       case 'loan-prepayment-calculator':
       case 'loan-eligibility-calculator':
@@ -219,6 +222,88 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <DateTimeSuiteCalculator initialMode="timezone" onResultChange={handleResultChange} />;
       case 'date-to-day-finder':
         return <DateTimeSuiteCalculator initialMode="date-to-day" onResultChange={handleResultChange} />;
+
+      // India Services Hub
+      case 'ifsc-code-finder':
+        return <IndiaServicesSuiteCalculator initialMode="ifsc-finder" onResultChange={handleResultChange} />;
+      case 'micr-code-finder':
+        return <IndiaServicesSuiteCalculator initialMode="ifsc-finder" onResultChange={handleResultChange} />;
+      case 'pin-code-finder':
+        return <IndiaServicesSuiteCalculator initialMode="pin-finder" onResultChange={handleResultChange} />;
+      case 'rto-code-finder':
+        return <IndiaServicesSuiteCalculator initialMode="rto-finder" onResultChange={handleResultChange} />;
+      case 'gstin-validator':
+        return <IndiaServicesSuiteCalculator initialMode="gstin-validator" onResultChange={handleResultChange} />;
+      case 'pan-format-validator':
+        return <IndiaServicesSuiteCalculator initialMode="pan-validator" onResultChange={handleResultChange} />;
+      case 'indian-bank-holidays':
+        return <IndiaServicesSuiteCalculator initialMode="bank-holidays" onResultChange={handleResultChange} />;
+      case 'government-services-directory':
+        return <IndiaServicesSuiteCalculator initialMode="gov-directory" onResultChange={handleResultChange} />;
+
+      // Document Tools
+      case 'pdf-merge':
+        return <DocumentToolsSuiteCalculator initialMode="pdf-merge" onResultChange={handleResultChange} />;
+      case 'pdf-split':
+        return <DocumentToolsSuiteCalculator initialMode="pdf-merge" onResultChange={handleResultChange} />;
+      case 'pdf-compress':
+        return <DocumentToolsSuiteCalculator initialMode="image-compressor-resizer" onResultChange={handleResultChange} />;
+      case 'pdf-to-jpg':
+        return <DocumentToolsSuiteCalculator initialMode="jpg-to-pdf" onResultChange={handleResultChange} />;
+      case 'jpg-to-pdf':
+        return <DocumentToolsSuiteCalculator initialMode="jpg-to-pdf" onResultChange={handleResultChange} />;
+      case 'pdf-page-organizer':
+        return <DocumentToolsSuiteCalculator initialMode="pdf-merge" onResultChange={handleResultChange} />;
+      case 'image-compressor-resizer':
+        return <DocumentToolsSuiteCalculator initialMode="image-compressor-resizer" onResultChange={handleResultChange} />;
+      case 'passport-photo-maker':
+        return <DocumentToolsSuiteCalculator initialMode="signature-resizer" onResultChange={handleResultChange} />;
+      case 'signature-resizer':
+        return <DocumentToolsSuiteCalculator initialMode="signature-resizer" onResultChange={handleResultChange} />;
+      case 'qr-code-generator':
+        return <DocumentToolsSuiteCalculator initialMode="qr-generator" onResultChange={handleResultChange} />;
+      case 'barcode-generator':
+        return <DocumentToolsSuiteCalculator initialMode="qr-generator" onResultChange={handleResultChange} />;
+      case 'file-size-calculator':
+        return <DocumentToolsSuiteCalculator initialMode="file-size-calc" onResultChange={handleResultChange} />;
+
+      // Vehicle Utility
+      case 'vehicle-fuel-cost-calculator':
+        return <VehicleUtilitySuiteCalculator initialMode="fuel-cost" onResultChange={handleResultChange} />;
+      case 'vehicle-mileage-calculator':
+        return <VehicleUtilitySuiteCalculator initialMode="fuel-cost" onResultChange={handleResultChange} />;
+      case 'ev-cost-calculator':
+        return <VehicleUtilitySuiteCalculator initialMode="ev-charging" onResultChange={handleResultChange} />;
+      case 'ev-vs-petrol-calculator':
+        return <VehicleUtilitySuiteCalculator initialMode="ev-vs-petrol" onResultChange={handleResultChange} />;
+      case 'ev-charging-time-calculator':
+        return <VehicleUtilitySuiteCalculator initialMode="ev-charging" onResultChange={handleResultChange} />;
+      case 'vehicle-depreciation-calculator':
+        return <VehicleUtilitySuiteCalculator initialMode="vehicle-depreciation" onResultChange={handleResultChange} />;
+      case 'car-loan-emi-calculator':
+        return <VehicleUtilitySuiteCalculator initialMode="car-loan-emi" onResultChange={handleResultChange} />;
+      case 'bike-loan-emi-calculator':
+        return <VehicleUtilitySuiteCalculator initialMode="car-loan-emi" onResultChange={handleResultChange} />;
+      case 'tyre-size-calculator':
+        return <VehicleUtilitySuiteCalculator initialMode="tyre-size" onResultChange={handleResultChange} />;
+
+      // Travel Utility
+      case 'trip-cost-calculator':
+        return <TravelUtilitySuiteCalculator initialMode="trip-cost" onResultChange={handleResultChange} />;
+      case 'road-trip-planner':
+        return <TravelUtilitySuiteCalculator initialMode="road-trip" onResultChange={handleResultChange} />;
+      case 'nearby-places-finder':
+        return <TravelUtilitySuiteCalculator initialMode="nearby-places" onResultChange={handleResultChange} />;
+      case 'group-expense-split':
+        return <TravelUtilitySuiteCalculator initialMode="group-split" onResultChange={handleResultChange} />;
+      case 'travel-budget-calculator':
+        return <TravelUtilitySuiteCalculator initialMode="travel-budget" onResultChange={handleResultChange} />;
+      case 'currency-converter-tool':
+        return <TravelUtilitySuiteCalculator initialMode="currency-converter" onResultChange={handleResultChange} />;
+      case 'time-zone-converter-tool':
+        return <TravelUtilitySuiteCalculator initialMode="timezone-converter" onResultChange={handleResultChange} />;
+      case 'travel-checklist-generator':
+        return <TravelUtilitySuiteCalculator initialMode="packing-checklist" onResultChange={handleResultChange} />;
 
       default:
         return <EmiCalculator onResultChange={handleResultChange} />;

@@ -2040,6 +2040,665 @@ export const TOOLS_REGISTRY: Tool[] = [
     ],
     relatedToolSlugs: ['salary-calculator', 'date-difference-calculator', 'marks-percentage-calculator', 'cgpa-calculator', 'age-calculator'],
     disclaimer: 'Disclaimer: Generated letters serve as standard formal templates. Customize personal details, dates, and terms before sending.'
+  },
+
+  // 🇮🇳 INDIA SERVICES HUB
+  {
+    id: 'ifsc-code-finder',
+    slug: 'ifsc-code-finder',
+    name: 'IFSC Code Finder',
+    shortName: 'IFSC Finder',
+    tagline: 'Search Indian bank branch IFSC codes, MICR codes, and branch addresses',
+    description: 'Find official IFSC codes and branch addresses for SBI, HDFC, ICICI, PNB, Axis, and all major Indian commercial banks for NEFT, RTGS, and IMPS money transfers.',
+    category: 'india-services',
+    icon: 'Landmark',
+    keywords: ['IFSC code finder', 'SBI IFSC code', 'HDFC IFSC code', 'NEFT code', 'RTGS code', 'MICR code finder'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'India Hub',
+    seo: {
+      title: 'IFSC Code Finder – Bank Branch IFSC & MICR Lookup | BharatUtility',
+      description: 'Search bank branch IFSC codes for NEFT, RTGS & IMPS transfers across India.',
+      keywords: ['IFSC code', 'bank branch IFSC', 'MICR code', 'NEFT IFSC'],
+      canonicalSlug: 'ifsc-code-finder',
+      h1: 'IFSC Code Finder'
+    },
+    faqs: [
+      { question: 'What is an IFSC Code?', answer: 'IFSC (Indian Financial System Code) is an 11-character alphanumeric code that uniquely identifies a bank branch participating in online money transfers.' }
+    ],
+    relatedToolSlugs: ['micr-code-finder', 'gstin-validator', 'pan-format-validator']
+  },
+  {
+    id: 'micr-code-finder',
+    slug: 'micr-code-finder',
+    name: 'MICR Code Finder',
+    shortName: 'MICR Finder',
+    tagline: 'Look up 9-digit MICR codes for bank cheque processing in India',
+    description: 'Search 9-digit Magnetic Ink Character Recognition (MICR) codes for cheque clearing across Indian bank branches.',
+    category: 'india-services',
+    icon: 'Building',
+    keywords: ['MICR code finder', 'cheque MICR code', 'bank MICR lookup'],
+    seo: {
+      title: 'MICR Code Finder – Bank Cheque MICR Lookup | BharatUtility',
+      description: 'Find 9-digit MICR codes for Indian bank cheque processing.',
+      keywords: ['MICR code', 'cheque clearance MICR'],
+      canonicalSlug: 'micr-code-finder',
+      h1: 'MICR Code Finder'
+    },
+    faqs: [
+      { question: 'What is a MICR Code?', answer: 'MICR is a 9-digit code printed on cheque leaves used for automated cheque clearing.' }
+    ],
+    relatedToolSlugs: ['ifsc-code-finder', 'gstin-validator']
+  },
+  {
+    id: 'pin-code-finder',
+    slug: 'pin-code-finder',
+    name: 'PIN Code Finder',
+    shortName: 'PIN Code Finder',
+    tagline: 'Search 6-digit postal index number (PIN) codes for Indian cities and post offices',
+    description: 'Find official 6-digit postal PIN codes for any city, town, or post office region in India.',
+    category: 'india-services',
+    icon: 'MapPin',
+    keywords: ['PIN code finder', 'postal code India', 'Pincode lookup'],
+    popular: true,
+    seo: {
+      title: 'PIN Code Finder – Indian Postal PIN Code Lookup | BharatUtility',
+      description: 'Find 6-digit postal index numbers (PIN codes) across all Indian states and districts.',
+      keywords: ['PIN code', 'postal code', 'Pincode search'],
+      canonicalSlug: 'pin-code-finder',
+      h1: 'PIN Code Finder'
+    },
+    faqs: [
+      { question: 'What does PIN code stand for?', answer: 'PIN stands for Postal Index Number, a 6-digit code used by India Post.' }
+    ],
+    relatedToolSlugs: ['rto-code-finder', 'government-services-directory']
+  },
+  {
+    id: 'rto-code-finder',
+    slug: 'rto-code-finder',
+    name: 'RTO Code Finder',
+    shortName: 'RTO Finder',
+    tagline: 'Identify Regional Transport Office (RTO) vehicle registration codes in India',
+    description: 'Look up state vehicle registration RTO codes (e.g. MH01, DL01, KA03, TN01) and office locations across Indian states.',
+    category: 'india-services',
+    icon: 'Hash',
+    keywords: ['RTO code finder', 'vehicle registration code', 'state RTO list'],
+    seo: {
+      title: 'RTO Code Finder – Indian Vehicle Registration RTO Lookup | BharatUtility',
+      description: 'Search RTO vehicle registration codes across Maharashtra, Delhi, Karnataka, Tamil Nadu, and all Indian states.',
+      keywords: ['RTO code', 'vehicle number state code', 'RTO list'],
+      canonicalSlug: 'rto-code-finder',
+      h1: 'RTO Code Finder'
+    },
+    faqs: [
+      { question: 'What is an RTO code?', answer: 'An RTO code is a 4-character code assigned to each Regional Transport Office for vehicle registration.' }
+    ],
+    relatedToolSlugs: ['pin-code-finder', 'government-services-directory']
+  },
+  {
+    id: 'gstin-validator',
+    slug: 'gstin-validator',
+    name: 'GSTIN Format Validator',
+    shortName: 'GSTIN Validator',
+    tagline: 'Validate 15-digit GSTIN structure, state code, and PAN association',
+    description: 'Check if a Goods and Services Tax Identification Number (GSTIN) follows valid 15-digit Indian GST formatting rules.',
+    category: 'india-services',
+    icon: 'ShieldCheck',
+    keywords: ['GSTIN validator', 'GST number check', 'valid GST format'],
+    popular: true,
+    trending: true,
+    seo: {
+      title: 'GSTIN Validator – Check GST Number Structure Online | BharatUtility',
+      description: 'Validate 15-digit GSTIN format, state code, and entity structure online.',
+      keywords: ['GSTIN validator', 'GST format check', 'GSTIN lookup'],
+      canonicalSlug: 'gstin-validator',
+      h1: 'GSTIN Format Validator'
+    },
+    faqs: [
+      { question: 'What is the structure of a GSTIN?', answer: 'GSTIN has 15 digits: 2-digit state code + 10-char PAN + 1-digit entity code + Z + 1 check digit.' }
+    ],
+    relatedToolSlugs: ['gst-calculator', 'pan-format-validator']
+  },
+  {
+    id: 'pan-format-validator',
+    slug: 'pan-format-validator',
+    name: 'PAN Format Validator',
+    shortName: 'PAN Validator',
+    tagline: 'Verify Permanent Account Number (PAN) 10-character structure & holder entity type',
+    description: 'Check 10-character PAN card format validity and identify holder type (Individual, Company, HUF, Firm, Trust).',
+    category: 'india-services',
+    icon: 'CreditCard',
+    keywords: ['PAN format validator', 'PAN card structure', 'PAN holder type'],
+    seo: {
+      title: 'PAN Format Validator – Check PAN Structure Online | BharatUtility',
+      description: 'Validate 10-character PAN card formatting and identify holder category.',
+      keywords: ['PAN validator', 'PAN format', 'PAN card check'],
+      canonicalSlug: 'pan-format-validator',
+      h1: 'PAN Format Validator'
+    },
+    faqs: [
+      { question: 'What does the 4th character in PAN mean?', answer: 'The 4th letter indicates holder type: P for Individual, C for Company, H for HUF, F for Firm.' }
+    ],
+    relatedToolSlugs: ['gstin-validator', 'salary-calculator']
+  },
+  {
+    id: 'indian-bank-holidays',
+    slug: 'indian-bank-holidays',
+    name: 'Indian Bank Holidays 2026',
+    shortName: 'Bank Holidays',
+    tagline: 'Check upcoming national, gazetted, and regional bank holidays in India',
+    description: 'View complete list of 2026 Indian bank holidays including Republic Day, Diwali, Holi, Good Friday, and 2nd/4th Saturdays.',
+    category: 'india-services',
+    icon: 'Calendar',
+    keywords: ['bank holidays 2026', 'SBI bank holiday', 'RBI bank holiday list'],
+    seo: {
+      title: 'Indian Bank Holidays 2026 – State & National Bank Calendar | BharatUtility',
+      description: 'Check bank holidays in India for 2026 including gazetted holidays and weekend closures.',
+      keywords: ['bank holidays 2026', 'Indian bank holidays', 'SBI holiday list'],
+      canonicalSlug: 'indian-bank-holidays',
+      h1: 'Indian Bank Holidays 2026'
+    },
+    faqs: [
+      { question: 'Are banks closed on 2nd and 4th Saturdays?', answer: 'Yes, scheduled commercial banks in India remain closed on all 2nd and 4th Saturdays.' }
+    ],
+    relatedToolSlugs: ['ifsc-code-finder', 'working-days-calculator']
+  },
+  {
+    id: 'government-services-directory',
+    slug: 'government-services-directory',
+    name: 'Official Government Service Directory',
+    shortName: 'Govt Services',
+    tagline: 'Direct navigation to official portals for Aadhaar, Income Tax, Passport, Parivahan & EPFO',
+    description: 'Access verified direct navigation links to official Indian government portals including UIDAI, e-Filing, Passport Seva, Parivahan, and DigiLocker.',
+    category: 'india-services',
+    icon: 'ExternalLink',
+    keywords: ['official government portals', 'Aadhaar official site', 'Passport Seva portal'],
+    popular: true,
+    seo: {
+      title: 'Official Government Services Directory – Trusted Portal Links | BharatUtility',
+      description: 'Directory of official Indian government portals for Aadhaar, Tax, Passport, RTO, Voter ID & EPFO.',
+      keywords: ['government service links', 'official portals India', 'UIDAI portal'],
+      canonicalSlug: 'government-services-directory',
+      h1: 'Official Government Services Directory'
+    },
+    faqs: [
+      { question: 'Is BharatUtility affiliated with government portals?', answer: 'No, BharatUtility is an independent platform that provides curated direct links to official government websites.' }
+    ],
+    relatedToolSlugs: ['ifsc-code-finder', 'pin-code-finder']
+  },
+
+  // 📄 DOCUMENT TOOLS
+  {
+    id: 'pdf-merge',
+    slug: 'pdf-merge',
+    name: 'Merge PDF Files',
+    shortName: 'Merge PDF',
+    tagline: 'Combine multiple PDF documents into a single PDF 100% locally in your browser',
+    description: 'Merge multiple PDF files into one organized PDF document directly inside your web browser. No server uploads, total privacy.',
+    category: 'document-tools',
+    icon: 'FileText',
+    keywords: ['merge PDF', 'combine PDF', 'PDF merger online', 'client side PDF merge'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Client-Side',
+    seo: {
+      title: 'Merge PDF Online – Combine PDF Files Free & Private | BharatUtility',
+      description: 'Merge multiple PDF files into one PDF document client-side without uploading to external servers.',
+      keywords: ['merge PDF', 'combine PDF online', 'PDF joiner free'],
+      canonicalSlug: 'pdf-merge',
+      h1: 'Merge PDF Files Online'
+    },
+    faqs: [
+      { question: 'Is my PDF uploaded to a server?', answer: 'No, BharatUtility processes your PDF files 100% locally inside your web browser.' }
+    ],
+    relatedToolSlugs: ['jpg-to-pdf', 'image-compressor-resizer', 'qr-code-generator']
+  },
+  {
+    id: 'jpg-to-pdf',
+    slug: 'jpg-to-pdf',
+    name: 'Images to PDF Converter',
+    shortName: 'JPG to PDF',
+    tagline: 'Convert JPG, PNG, and WebP images into a clean single PDF file',
+    description: 'Convert multiple photo files (JPG, PNG) into a single downloadable PDF document locally in your browser.',
+    category: 'document-tools',
+    icon: 'Image',
+    keywords: ['JPG to PDF', 'PNG to PDF', 'convert image to PDF', 'photo to PDF'],
+    popular: true,
+    seo: {
+      title: 'JPG to PDF Converter – Convert Images to PDF Online | BharatUtility',
+      description: 'Convert JPG and PNG photos into a clean PDF file with local browser-side processing.',
+      keywords: ['JPG to PDF', 'images to PDF', 'photo converter PDF'],
+      canonicalSlug: 'jpg-to-pdf',
+      h1: 'Images to PDF Converter'
+    },
+    faqs: [
+      { question: 'Can I convert multiple images into one PDF?', answer: 'Yes, select multiple images and click convert to create a single merged PDF.' }
+    ],
+    relatedToolSlugs: ['pdf-merge', 'image-compressor-resizer', 'signature-resizer']
+  },
+  {
+    id: 'image-compressor-resizer',
+    slug: 'image-compressor-resizer',
+    name: 'Image Compressor & Resizer',
+    shortName: 'Image Resizer',
+    tagline: 'Reduce image file size and adjust dimensions without quality loss',
+    description: 'Compress image size (KB / MB) and resize width/height dimensions for web uploads, forms, and documents.',
+    category: 'document-tools',
+    icon: 'Sliders',
+    keywords: ['image compressor', 'resize image online', 'reduce photo size KB'],
+    popular: true,
+    seo: {
+      title: 'Image Compressor & Resizer – Reduce Photo Size in KB | BharatUtility',
+      description: 'Compress image file size in KB and resize dimensions client-side.',
+      keywords: ['image compressor', 'resize photo', 'compress image KB'],
+      canonicalSlug: 'image-compressor-resizer',
+      h1: 'Image Compressor & Resizer'
+    },
+    faqs: [
+      { question: 'How much can I reduce photo file size?', answer: 'You can adjust quality and width sliders to compress photos down to under 50KB or 100KB.' }
+    ],
+    relatedToolSlugs: ['signature-resizer', 'jpg-to-pdf']
+  },
+  {
+    id: 'signature-resizer',
+    slug: 'signature-resizer',
+    name: 'Exam Signature & Photo Resizer',
+    shortName: 'Signature Resizer',
+    tagline: 'Format photos and signatures for SSC, UPSC, IBPS, and Govt exam portals',
+    description: 'Resize signature and passport photo files down to exact 10KB, 20KB, 50KB limits required by Indian government application portals.',
+    category: 'document-tools',
+    icon: 'Scissors',
+    keywords: ['signature resizer', 'SSC photo resizer', 'UPSC signature size 20kb', 'IBPS signature 10kb'],
+    popular: true,
+    trending: true,
+    badge: 'Govt Exams',
+    seo: {
+      title: 'Exam Signature & Photo Resizer – 10KB/20KB/50KB Converter | BharatUtility',
+      description: 'Resize signature and passport photo files for SSC, UPSC, IBPS, and NTA entrance exam portals.',
+      keywords: ['signature resizer 20kb', 'SSC photo resizer', 'UPSC signature format'],
+      canonicalSlug: 'signature-resizer',
+      h1: 'Exam Signature & Photo Resizer'
+    },
+    faqs: [
+      { question: 'What is the signature file size limit for UPSC?', answer: 'UPSC portals typically require signature files between 20KB and 300KB in JPG format.' }
+    ],
+    relatedToolSlugs: ['image-compressor-resizer', 'jpg-to-pdf']
+  },
+  {
+    id: 'qr-code-generator',
+    slug: 'qr-code-generator',
+    name: 'QR Code Generator',
+    shortName: 'QR Generator',
+    tagline: 'Generate high-resolution custom QR codes for URLs, text, and UPI links',
+    description: 'Create custom downloadable QR code images instantly for websites, text payloads, Wi-Fi credentials, or UPI payments.',
+    category: 'document-tools',
+    icon: 'QrCode',
+    keywords: ['QR code generator', 'free QR maker', 'UPI QR generator', 'download QR PNG'],
+    popular: true,
+    seo: {
+      title: 'QR Code Generator – Create Free High-Res QR Codes | BharatUtility',
+      description: 'Generate high-resolution QR codes for links, text, and payments with instant PNG download.',
+      keywords: ['QR code generator', 'create QR code', 'free QR code maker'],
+      canonicalSlug: 'qr-code-generator',
+      h1: 'QR Code Generator'
+    },
+    faqs: [
+      { question: 'Do these QR codes expire?', answer: 'No, static QR codes generated on BharatUtility never expire and contain direct embedded data.' }
+    ],
+    relatedToolSlugs: ['file-size-calculator', 'pdf-merge']
+  },
+  {
+    id: 'file-size-calculator',
+    slug: 'file-size-calculator',
+    name: 'File Size & Converter Calculator',
+    shortName: 'File Size Calc',
+    tagline: 'Convert bytes to KB, MB, GB, and estimate upload/download transfer times',
+    description: 'Convert file byte sizes between KB, MB, GB, TB and estimate upload duration across 4G, 5G, and broadband internet speeds.',
+    category: 'document-tools',
+    icon: 'HardDrive',
+    keywords: ['file size calculator', 'bytes to MB', 'KB to MB converter', 'download time estimator'],
+    seo: {
+      title: 'File Size Calculator – Bytes to KB, MB & GB Converter | BharatUtility',
+      description: 'Convert file sizes between Bytes, KB, MB, and GB with transfer duration estimates.',
+      keywords: ['file size converter', 'bytes to MB', 'KB to MB'],
+      canonicalSlug: 'file-size-calculator',
+      h1: 'File Size & Converter Calculator'
+    },
+    faqs: [
+      { question: 'How many bytes are in 1 MB?', answer: '1 MB (Megabyte) equals 1,048,576 bytes in binary notation.' }
+    ],
+    relatedToolSlugs: ['download-time-calculator', 'digital-storage-converter']
+  },
+
+  // 🚗 VEHICLE UTILITY
+  {
+    id: 'vehicle-fuel-cost-calculator',
+    slug: 'vehicle-fuel-cost-calculator',
+    name: 'Trip Fuel Cost & Passenger Split',
+    shortName: 'Fuel Cost Split',
+    tagline: 'Calculate petrol/diesel cost and split expenses among carpool passengers',
+    description: 'Calculate total fuel cost for road trips based on distance, vehicle mileage (km/L), and fuel price, with per-passenger expense splitting.',
+    category: 'vehicle-utility',
+    icon: 'Fuel',
+    keywords: ['fuel cost calculator', 'trip fuel cost', 'carpool fuel split', 'petrol cost per km'],
+    popular: true,
+    trending: true,
+    featured: true,
+    seo: {
+      title: 'Fuel Cost Calculator – Trip Fuel & Carpool Split | BharatUtility',
+      description: 'Calculate fuel cost and split travel expenses among passengers for road trips in India.',
+      keywords: ['fuel cost calculator', 'trip fuel cost', 'mileage calculation'],
+      canonicalSlug: 'vehicle-fuel-cost-calculator',
+      h1: 'Trip Fuel Cost & Passenger Split'
+    },
+    faqs: [
+      { question: 'How to calculate fuel cost for a trip?', answer: 'Multiply (Trip Distance ÷ Vehicle Mileage) by Fuel Price per Litre.' }
+    ],
+    relatedToolSlugs: ['ev-cost-calculator', 'ev-vs-petrol-calculator', 'trip-cost-calculator']
+  },
+  {
+    id: 'ev-cost-calculator',
+    slug: 'ev-cost-calculator',
+    name: 'EV Charging Cost & Range Calculator',
+    shortName: 'EV Charging',
+    tagline: 'Calculate electric vehicle full charge cost, cost per km, and charging time',
+    description: 'Estimate 0-100% charging cost, running cost per km, and charging duration for electric cars (Nexon EV, Punch EV, ZS EV) and e-scooters.',
+    category: 'vehicle-utility',
+    icon: 'Zap',
+    keywords: ['EV charging cost', 'electric vehicle cost per km', 'Nexon EV charging cost', 'EV charging time'],
+    popular: true,
+    trending: true,
+    badge: 'EV Special',
+    seo: {
+      title: 'EV Charging Cost & Range Calculator – Electric Vehicle Savings | BharatUtility',
+      description: 'Calculate EV charging cost, cost per kilometer, and charging duration for electric vehicles in India.',
+      keywords: ['EV charging cost', 'electric car cost per km', 'EV range calculator'],
+      canonicalSlug: 'ev-cost-calculator',
+      h1: 'EV Charging Cost & Range Calculator'
+    },
+    faqs: [
+      { question: 'How much does it cost to charge a Tata Nexon EV full?', answer: 'A full charge (approx 40 kWh @ ₹8/unit) costs around ₹320 for ~300 km range.' }
+    ],
+    relatedToolSlugs: ['ev-vs-petrol-calculator', 'vehicle-fuel-cost-calculator']
+  },
+  {
+    id: 'ev-vs-petrol-calculator',
+    slug: 'ev-vs-petrol-calculator',
+    name: 'EV vs Petrol / Diesel Cost Comparison',
+    shortName: 'EV vs Petrol',
+    tagline: 'Calculate 1-year and 5-year savings of buying an Electric Vehicle vs Petrol car',
+    description: 'Compare monthly running costs and 5-year total savings between electric vehicles and traditional petrol/diesel cars in India.',
+    category: 'vehicle-utility',
+    icon: 'Layers',
+    keywords: ['EV vs petrol calculator', 'electric car savings', 'EV vs diesel cost comparison'],
+    popular: true,
+    seo: {
+      title: 'EV vs Petrol Cost Calculator – 5-Year Electric Vehicle Savings | BharatUtility',
+      description: 'Compare running costs and project 5-year financial savings of Electric Vehicles vs Petrol cars.',
+      keywords: ['EV vs petrol cost', 'electric vehicle savings calculator'],
+      canonicalSlug: 'ev-vs-petrol-calculator',
+      h1: 'EV vs Petrol Cost Comparison'
+    },
+    faqs: [
+      { question: 'Is an EV cheaper to run than a petrol car?', answer: 'Yes, EV running costs (~₹1/km) are typically 80% lower than petrol cars (~₹6–7/km).' }
+    ],
+    relatedToolSlugs: ['ev-cost-calculator', 'vehicle-depreciation-calculator']
+  },
+  {
+    id: 'vehicle-depreciation-calculator',
+    slug: 'vehicle-depreciation-calculator',
+    name: 'Vehicle Age & Depreciation Calculator',
+    shortName: 'Depreciation',
+    tagline: 'Estimate used car and bike resale value based on vehicle age & WDV depreciation',
+    description: 'Calculate estimated market resale value and cumulative value loss of cars and motorcycles over 1 to 15 years.',
+    category: 'vehicle-utility',
+    icon: 'RefreshCw',
+    keywords: ['car depreciation calculator', 'used car resale value', 'vehicle age calculator'],
+    seo: {
+      title: 'Vehicle Depreciation Calculator – Car & Bike Resale Value | BharatUtility',
+      description: 'Calculate car and motorcycle market resale value based on age and depreciation rates.',
+      keywords: ['vehicle depreciation', 'car resale value calculator'],
+      canonicalSlug: 'vehicle-depreciation-calculator',
+      h1: 'Vehicle Age & Depreciation Calculator'
+    },
+    faqs: [
+      { question: 'What is the standard car depreciation rate in India?', answer: 'Cars typically lose 15% to 20% value per year in India using Written Down Value (WDV).' }
+    ],
+    relatedToolSlugs: ['car-loan-emi-calculator', 'vehicle-fuel-cost-calculator']
+  },
+  {
+    id: 'car-loan-emi-calculator',
+    slug: 'car-loan-emi-calculator',
+    name: 'Car & Bike Loan EMI Calculator',
+    shortName: 'Car Loan EMI',
+    tagline: 'Calculate monthly vehicle loan EMI, interest payout, and down payment schedule',
+    description: 'Compute exact monthly EMI and total interest for new/used car loans and two-wheeler loans across Indian lenders.',
+    category: 'vehicle-utility',
+    icon: 'DollarSign',
+    keywords: ['car loan EMI calculator', 'bike loan EMI', 'vehicle EMI India'],
+    popular: true,
+    seo: {
+      title: 'Car Loan EMI Calculator – Monthly Auto Loan Installments | BharatUtility',
+      description: 'Calculate car and bike loan EMIs with down payment and interest rate breakdown.',
+      keywords: ['car loan EMI', 'auto loan calculator', 'bike loan EMI'],
+      canonicalSlug: 'car-loan-emi-calculator',
+      h1: 'Car & Bike Loan EMI Calculator'
+    },
+    faqs: [
+      { question: 'What is the typical tenure for a car loan in India?', answer: 'Car loan tenures generally range from 3 to 7 years in India.' }
+    ],
+    relatedToolSlugs: ['emi-calculator', 'vehicle-depreciation-calculator']
+  },
+  {
+    id: 'tyre-size-calculator',
+    slug: 'tyre-size-calculator',
+    name: 'Tyre Size & Speedometer Calculator',
+    shortName: 'Tyre Size Calc',
+    tagline: 'Compare original vs upgraded tyre dimensions & speedometer variance percentage',
+    description: 'Compare tyre width, aspect ratio, rim size, overall diameter difference, and speedometer reading errors when upgrading car tires.',
+    category: 'vehicle-utility',
+    icon: 'Gauge',
+    keywords: ['tyre size calculator', 'tire upgrade comparison', 'speedometer error tyre'],
+    seo: {
+      title: 'Tyre Size Calculator – Tire Upgrade & Speedometer Error | BharatUtility',
+      description: 'Compare original vs new tyre sizes, diameter differences, and speedometer accuracy.',
+      keywords: ['tyre size comparison', 'speedometer error calculator'],
+      canonicalSlug: 'tyre-size-calculator',
+      h1: 'Tyre Size & Speedometer Calculator'
+    },
+    faqs: [
+      { question: 'What is the maximum safe tyre diameter difference?', answer: 'It is recommended to keep tyre diameter variance within ±2.5% of original factory specs.' }
+    ],
+    relatedToolSlugs: ['vehicle-fuel-cost-calculator', 'vehicle-depreciation-calculator']
+  },
+
+  // 🧳 TRAVEL UTILITY
+  {
+    id: 'trip-cost-calculator',
+    slug: 'trip-cost-calculator',
+    name: 'Comprehensive Trip Cost Planner',
+    shortName: 'Trip Cost Planner',
+    tagline: 'Calculate total holiday expense including stay, food, transport, and per-person cost',
+    description: 'Plan total trip budget combining hotel stay, food, toll, activities, and transport with instant per-person split.',
+    category: 'travel-utility',
+    icon: 'Compass',
+    keywords: ['trip cost calculator', 'vacation budget planner', 'holiday expense split'],
+    popular: true,
+    trending: true,
+    featured: true,
+    seo: {
+      title: 'Trip Cost Calculator – Holiday & Vacation Budget Planner | BharatUtility',
+      description: 'Calculate complete holiday expenses including hotel, food, flights, and per-person split.',
+      keywords: ['trip cost calculator', 'vacation planner', 'travel budget split'],
+      canonicalSlug: 'trip-cost-calculator',
+      h1: 'Comprehensive Trip Cost Planner'
+    },
+    faqs: [
+      { question: 'How to budget for a domestic holiday in India?', answer: 'Sum hotel room rates x nights + daily food allocation + transport tickets/fuel + 15% buffer.' }
+    ],
+    relatedToolSlugs: ['group-expense-split', 'travel-budget-calculator', 'vehicle-fuel-cost-calculator']
+  },
+  {
+    id: 'group-expense-split',
+    slug: 'group-expense-split',
+    name: 'Group Expense & Settlement Splitter',
+    shortName: 'Group Expense Split',
+    tagline: 'Split group bills, hotel tabs, and taxi fares with clear settlement summaries',
+    description: 'Calculate equal group expense shares for friends trips and display automated settlement balances (who owes whom).',
+    category: 'travel-utility',
+    icon: 'Users',
+    keywords: ['group expense split', 'split bill online', 'trip settlement calculator'],
+    popular: true,
+    seo: {
+      title: 'Group Expense Splitter – Split Trip Bills & Fares | BharatUtility',
+      description: 'Split trip bills and hotel expenses among friends with settlement breakdown.',
+      keywords: ['split group bill', 'trip expense splitter', 'who owes whom'],
+      canonicalSlug: 'group-expense-split',
+      h1: 'Group Expense & Settlement Splitter'
+    },
+    faqs: [
+      { question: 'Can I split unequal group expenses?', answer: 'Equal split is calculated instantly, while custom entries display clear individual balances.' }
+    ],
+    relatedToolSlugs: ['trip-cost-calculator', 'travel-budget-calculator']
+  },
+  {
+    id: 'travel-budget-calculator',
+    slug: 'travel-budget-calculator',
+    name: 'Travel Budget & Daily Outflow Planner',
+    shortName: 'Travel Budget',
+    tagline: 'Determine daily spending allowance limit to stay within your total trip budget',
+    description: 'Divide total travel savings into daily spending caps to prevent overspending during domestic or international trips.',
+    category: 'travel-utility',
+    icon: 'DollarSign',
+    keywords: ['travel budget calculator', 'daily spending cap', 'holiday daily budget'],
+    seo: {
+      title: 'Travel Budget Calculator – Daily Spending Allowance | BharatUtility',
+      description: 'Calculate max daily spending limit based on total trip duration and budget.',
+      keywords: ['travel budget planner', 'daily travel allowance'],
+      canonicalSlug: 'travel-budget-calculator',
+      h1: 'Travel Budget & Daily Outflow Planner'
+    },
+    faqs: [
+      { question: 'What is a good daily budget for traveling in India?', answer: 'A daily budget of ₹1,500 to ₹3,500 per person comfortably covers mid-range meals, local cabs, and entry fees.' }
+    ],
+    relatedToolSlugs: ['trip-cost-calculator', 'currency-converter-tool']
+  },
+  {
+    id: 'currency-converter-tool',
+    slug: 'currency-converter-tool',
+    name: 'Travel Currency Converter',
+    shortName: 'Currency Converter',
+    tagline: 'Convert Indian Rupees (INR) to USD, EUR, GBP, AED, THB, SGD, and JPY',
+    description: 'Convert INR to major international travel currencies (US Dollar, Euro, Dirham, Baht, Singapore Dollar) with offline reference rates.',
+    category: 'travel-utility',
+    icon: 'Globe',
+    keywords: ['currency converter', 'INR to USD', 'INR to AED', 'INR to THB Baht'],
+    popular: true,
+    seo: {
+      title: 'Travel Currency Converter – INR to USD, EUR, AED, THB | BharatUtility',
+      description: 'Convert Indian Rupees (INR) into major travel currencies for international trips.',
+      keywords: ['currency converter', 'INR to USD', 'rupee to dollar'],
+      canonicalSlug: 'currency-converter-tool',
+      h1: 'Travel Currency Converter'
+    },
+    faqs: [
+      { question: 'What is the exchange rate of INR to Thai Baht?', answer: '1 THB is approximately equal to ₹2.50 to ₹2.55 INR.' }
+    ],
+    relatedToolSlugs: ['travel-budget-calculator', 'time-zone-converter-tool']
+  },
+  {
+    id: 'time-zone-converter-tool',
+    slug: 'time-zone-converter-tool',
+    name: 'Travel Time Zone Converter',
+    shortName: 'Time Zone Converter',
+    tagline: 'Convert Indian Standard Time (IST) to London, Dubai, Singapore, and US time zones',
+    description: 'Convert IST time into global destinations (Dubai GST, London GMT/BST, Singapore SGT, New York EST) for flight schedules and calls.',
+    category: 'travel-utility',
+    icon: 'Clock',
+    keywords: ['time zone converter', 'IST to Dubai time', 'IST to London time', 'IST to EST'],
+    seo: {
+      title: 'Travel Time Zone Converter – IST to Global Time Zones | BharatUtility',
+      description: 'Convert Indian Standard Time (IST) to major travel destinations around the world.',
+      keywords: ['time zone converter', 'IST to London', 'IST to Dubai'],
+      canonicalSlug: 'time-zone-converter-tool',
+      h1: 'Travel Time Zone Converter'
+    },
+    faqs: [
+      { question: 'What is the time difference between IST and Dubai?', answer: 'Dubai (GST) is 1.5 hours behind Indian Standard Time (IST).' }
+    ],
+    relatedToolSlugs: ['currency-converter-tool', 'date-difference-calculator']
+  },
+  {
+    id: 'travel-checklist-generator',
+    slug: 'travel-checklist-generator',
+    name: 'Interactive Travel Packing Checklist',
+    shortName: 'Packing Checklist',
+    tagline: 'Checklist for documents, clothes, electronics, and medical items for your trip',
+    description: 'Interactive, checkable, and printable packing checklist categorized by ID documents, clothing, chargers, and travel medicines.',
+    category: 'travel-utility',
+    icon: 'Luggage',
+    keywords: ['packing checklist', 'travel checklist India', 'luggage checklist'],
+    popular: true,
+    seo: {
+      title: 'Interactive Travel Packing Checklist – India Trip Prep | BharatUtility',
+      description: 'Check off essential travel documents, clothes, electronics, and medicines before your trip.',
+      keywords: ['packing checklist', 'travel packing list'],
+      canonicalSlug: 'travel-checklist-generator',
+      h1: 'Interactive Travel Packing Checklist'
+    },
+    faqs: [
+      { question: 'What documents are essential for domestic travel in India?', answer: 'Valid original photo ID (Aadhaar, DL, Passport, Voter ID) + hotel/flight booking slips.' }
+    ],
+    relatedToolSlugs: ['trip-cost-calculator', 'travel-budget-calculator']
+  },
+  {
+    id: 'road-trip-planner',
+    slug: 'road-trip-planner',
+    name: 'Multi-Stop Road Trip Planner',
+    shortName: 'Road Trip Planner',
+    tagline: 'Plan multi-destination road trips with Google Maps route distance, travel time, and fuel cost',
+    description: 'Calculate multi-destination road trip routes with interactive Google Maps waypoints, estimated travel duration, and total fuel expense.',
+    category: 'travel-utility',
+    icon: 'Navigation',
+    badge: 'New',
+    keywords: ['road trip planner', 'multi stop route calculator', 'road trip fuel cost'],
+    popular: true,
+    seo: {
+      title: 'Multi-Stop Road Trip Planner & Fuel Expense Calculator | BharatUtility',
+      description: 'Plan multi-destination Indian road trips with Google Maps route distance, travel duration, and fuel expense estimator.',
+      keywords: ['road trip planner', 'multi stop route calculator', 'road trip fuel cost'],
+      canonicalSlug: 'road-trip-planner',
+      h1: 'Multi-Stop Road Trip Planner'
+    },
+    faqs: [
+      { question: 'How are multi-stop routes calculated?', answer: 'Routes and distances are fetched via Google Maps Directions Service between your start location, waypoints, and final destination.' }
+    ],
+    relatedToolSlugs: ['vehicle-fuel-cost-calculator', 'trip-cost-calculator']
+  },
+  {
+    id: 'nearby-places-finder',
+    slug: 'nearby-places-finder',
+    name: 'Nearby Amenities & Places Finder',
+    shortName: 'Nearby Places',
+    tagline: 'Find Petrol Pumps, EV Chargers, Hospitals, Hotels, ATMs, and Restaurants near any location',
+    description: 'Locate essential amenities such as Petrol Pumps, EV Charging Stations, Hospitals, Hotels, ATMs, and Restaurants around any Indian city or area.',
+    category: 'travel-utility',
+    icon: 'MapPin',
+    badge: 'New',
+    keywords: ['nearby petrol pumps', 'nearby EV charging', 'nearby hospitals', 'nearby ATMs'],
+    seo: {
+      title: 'Nearby Amenities & Places Finder – Petrol Pumps, EV, Hospitals | BharatUtility',
+      description: 'Search nearby Petrol Pumps, EV Chargers, Hospitals, Hotels, ATMs, and Restaurants near any city or area.',
+      keywords: ['nearby petrol pumps', 'nearby EV charging', 'nearby hospitals', 'nearby ATMs'],
+      canonicalSlug: 'nearby-places-finder',
+      h1: 'Nearby Amenities & Places Finder'
+    },
+    faqs: [
+      { question: 'What categories can I search?', answer: 'Search Petrol Pumps, EV Charging Stations, Hospitals & Clinics, Hotels, ATMs & Banks, and Restaurants.' }
+    ],
+    relatedToolSlugs: ['road-trip-planner', 'ev-cost-calculator']
   }
 ];
 

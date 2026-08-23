@@ -119,6 +119,18 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     const categoryId = path.replace('/category/', '').split('?')[0] as CategoryId;
     return { view: { type: 'category', categoryId } };
   }
+  if (path === '/india-services') {
+    return { view: { type: 'category', categoryId: 'india-services' } };
+  }
+  if (path === '/document-tools') {
+    return { view: { type: 'category', categoryId: 'document-tools' } };
+  }
+  if (path === '/vehicle-utility') {
+    return { view: { type: 'category', categoryId: 'vehicle-utility' } };
+  }
+  if (path === '/travel-utility') {
+    return { view: { type: 'category', categoryId: 'travel-utility' } };
+  }
   if (path === '/tools' || path === '/all-tools' || path === '/categories') {
     return { view: { type: 'all-tools' } };
   }
