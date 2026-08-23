@@ -100,11 +100,11 @@ export const CommandPalette: React.FC = () => {
   return (
     <div
       onClick={() => setCommandPaletteOpen(false)}
-      className="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-20 px-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-[100] flex items-start justify-center pt-14 sm:pt-20 px-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-150"
     >
       <div
         onClick={e => e.stopPropagation()}
-        className="bg-white dark:bg-neutral-900 w-full max-w-2xl rounded-3xl shadow-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden flex flex-col animate-in zoom-in-95 duration-150"
+        className="bg-white dark:bg-neutral-900 w-full max-w-2xl rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.7)] border-2 border-accent/40 overflow-hidden flex flex-col animate-in zoom-in-95 duration-150"
         onKeyDown={handleKeyDown}
       >
         {/* Search Input Bar */}
@@ -433,7 +433,7 @@ export const CommandPalette: React.FC = () => {
             }}
             className="text-accent hover:underline font-semibold"
           >
-            Browse All 24+ Utilities →
+            Browse All 35+ Utilities →
           </button>
         </div>
       </div>

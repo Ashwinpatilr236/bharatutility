@@ -133,78 +133,85 @@ export const HeroSection: React.FC = () => {
 
           {/* Real-time Inline Dropdown Matching */}
           {isFocused && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-800 p-2 z-30 animate-in fade-in zoom-in-95 duration-150 max-h-[420px] overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 mt-2.5 bg-white/98 dark:bg-neutral-900/98 backdrop-blur-2xl rounded-2xl shadow-[0_25px_70px_rgba(0,0,0,0.55)] border-2 border-accent/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[460px] overflow-y-auto space-y-2">
               {/* Natural Language Intent suggestion card */}
               {naturalLanguageIntent && (
                 <div
                   onMouseDown={() => handleToolSelect(naturalLanguageIntent.toolSlug, naturalLanguageIntent.params)}
-                  className="mb-2 p-3 rounded-xl bg-gradient-to-r from-accent/10 via-purple-500/10 to-indigo-500/10 border border-accent/30 hover:border-accent cursor-pointer transition-all flex items-center justify-between gap-3 group"
+                  className="p-3.5 rounded-xl bg-gradient-to-r from-accent/15 via-purple-500/15 to-indigo-500/15 border border-accent/40 hover:border-accent cursor-pointer transition-all flex items-center justify-between gap-3 group shadow-xs"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-lg bg-accent text-white shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-accent text-white shrink-0 group-hover:scale-105 transition-transform shadow-xs">
                       <Zap className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-accent uppercase tracking-wider">
-                          Smart Suggestion
+                        <span className="text-[11px] font-bold text-accent uppercase tracking-wider">
+                          Smart Intent Suggestion
                         </span>
-                        <span className="text-[10px] px-2 py-0.2 rounded-full bg-accent/20 text-accent font-semibold">
+                        <span className="text-[10px] px-2 py-0.2 rounded-full bg-accent/20 text-accent font-bold">
                           Prefilled
                         </span>
                       </div>
-                      <p className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-white mt-0.5">
+                      <p className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white mt-0.5">
                         {naturalLanguageIntent.explanation}
                       </p>
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform shrink-0" />
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-accent shrink-0">
+                    <span className="hidden sm:inline">Launch Tool</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
               )}
 
-              {/* Matched Tools */}
+              {/* Matched Tools List */}
               {exactAndKeywordMatches.length > 0 && (
                 <div className="space-y-1">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-3 py-1">
-                    Matching Utilities ({exactAndKeywordMatches.length})
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-3 py-1 flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-1.5 mb-1">
+                    <span>Matching Utilities ({exactAndKeywordMatches.length})</span>
+                    <span className="text-[10px] text-accent font-mono font-medium">1-Click Launch</span>
                   </div>
-                  {exactAndKeywordMatches.slice(0, 5).map(tool => (
+                  {exactAndKeywordMatches.slice(0, 6).map(tool => (
                     <div
                       key={tool.id}
                       onMouseDown={() => handleToolSelect(tool.slug)}
-                      className="flex items-center justify-between p-2.5 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer transition-colors group"
+                      className="flex items-center justify-between p-3 rounded-xl bg-neutral-50/80 dark:bg-neutral-800/60 hover:bg-accent-subtle hover:border-accent/30 border border-neutral-200/60 dark:border-neutral-700/60 cursor-pointer transition-all group"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="p-2 rounded-lg bg-accent-subtle text-accent shrink-0">
+                        <div className="p-2 rounded-lg bg-white dark:bg-neutral-800 text-accent shadow-xs border border-neutral-200/50 dark:border-neutral-700 shrink-0 group-hover:scale-105 transition-transform">
                           <DynamicIcon name={tool.icon} className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-accent transition-colors truncate">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
                               {tool.name}
                             </span>
                             {tool.badge === 'New' && (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-bold">
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
                                 New
                               </span>
                             )}
                             {tool.trending && (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-rose-50 dark:bg-rose-950 text-rose-600 dark:text-rose-400 font-bold">
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold border border-rose-500/20">
                                 Trending
                               </span>
                             )}
                             {tool.popular && (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400 font-bold">
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20">
                                 Popular
                               </span>
                             )}
                           </div>
-                          <span className="text-xs text-neutral-500 dark:text-neutral-400 truncate block">
+                          <span className="text-xs text-neutral-500 dark:text-neutral-400 truncate block mt-0.5">
                             {tool.tagline}
                           </span>
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                      <div className="flex items-center gap-1.5 text-neutral-400 group-hover:text-accent shrink-0 ml-2">
+                        <span className="text-[10px] font-mono font-medium hidden sm:inline opacity-0 group-hover:opacity-100 transition-opacity">Open</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -212,27 +219,27 @@ export const HeroSection: React.FC = () => {
 
               {/* Zero-Result Search Experience */}
               {searchQuery.trim().length >= 2 && !hasMatches && (
-                <div className="p-4 text-center space-y-3">
+                <div className="p-5 text-center space-y-3 bg-neutral-50/50 dark:bg-neutral-900/50 rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700">
                   <p className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
-                    We couldn't find that tool
+                    No matching utility found for "{searchQuery}"
                   </p>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto">
-                    Try another search or request a tool.
+                    Try another keyword like EMI, GST, SIP, PIN code, or request a custom tool.
                   </p>
                   <div className="flex items-center justify-center gap-2 pt-1">
                     <button
                       onMouseDown={handleRequestTool}
-                      className="px-3.5 py-2 rounded-xl bg-accent text-white text-xs font-bold inline-flex items-center gap-1.5 hover:bg-accent/90 transition-all hover:scale-105 active:scale-95"
+                      className="px-4 py-2 rounded-xl bg-accent text-white text-xs font-bold inline-flex items-center gap-1.5 hover:bg-accent/90 transition-all hover:scale-105 active:scale-95 shadow-xs"
                     >
                       <MessageSquarePlus className="w-3.5 h-3.5" />
                       <span>Request a Tool</span>
                     </button>
                     <button
                       onMouseDown={navigateToAllTools}
-                      className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-xs font-semibold inline-flex items-center gap-1.5 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+                      className="px-4 py-2 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold inline-flex items-center gap-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                     >
                       <Compass className="w-3.5 h-3.5" />
-                      <span>Browse All Tools</span>
+                      <span>Browse All 35+ Tools</span>
                     </button>
                   </div>
                 </div>
@@ -240,20 +247,20 @@ export const HeroSection: React.FC = () => {
 
               {/* Search History / Recent searches when input is empty */}
               {!searchQuery && recentSearches.length > 0 && (
-                <div className="p-2 space-y-1">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1 flex items-center gap-1.5">
-                    <Clock className="w-3 h-3" />
+                <div className="p-2 space-y-1.5">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-1 flex items-center gap-1.5">
+                    <Clock className="w-3 h-3 text-accent" />
                     <span>Recent Searches</span>
                   </div>
-                  <div className="flex flex-wrap gap-1.5 px-2 py-1">
+                  <div className="flex flex-wrap gap-1.5">
                     {recentSearches.map(term => (
-                      <span
+                      <button
                         key={term}
                         onMouseDown={() => handleRecentClick(term)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-accent-subtle hover:text-accent text-xs text-neutral-700 dark:text-neutral-300 cursor-pointer transition-colors"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-accent hover:text-accent text-xs font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer transition-all hover:scale-102"
                       >
                         <span>{term}</span>
-                      </span>
+                      </button>
                     ))}
                   </div>
                 </div>
