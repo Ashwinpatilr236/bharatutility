@@ -29,7 +29,6 @@ const FavoritesView = React.lazy(() => import('./components/views/FavoritesView'
 const LegalView = React.lazy(() => import('./components/views/LegalView').then(m => ({ default: m.LegalView })));
 const ContactView = React.lazy(() => import('./components/views/ContactView').then(m => ({ default: m.ContactView })));
 const RequestToolView = React.lazy(() => import('./components/views/RequestToolView').then(m => ({ default: m.RequestToolView })));
-const AdminView = React.lazy(() => import('./components/admin/AdminView').then(m => ({ default: m.AdminView })));
 
 const ViewLoadingFallback: React.FC = () => (
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-pulse space-y-6">
@@ -43,25 +42,7 @@ const ViewLoadingFallback: React.FC = () => (
 );
 
 const AppContent: React.FC = () => {
-  const { view, navigateToHome, toast, theme, setTheme } = useApp();
-
-  // If in Master Admin portal, render dedicated dense admin interface in isolated bundle
-  if (view.type === 'admin') {
-    return (
-      <div className="min-h-screen bg-neutral-100/70 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans transition-colors">
-        <OfflineStatusIndicator />
-        <React.Suspense fallback={<ViewLoadingFallback />}>
-          <AdminView
-            initialSection={view.section || 'dashboard'}
-            onReturnToPublic={navigateToHome}
-            isDarkMode={theme === 'dark'}
-            onToggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          />
-        </React.Suspense>
-        {toast && <Toast message={toast.message} type={toast.type} />}
-      </div>
-    );
-  }
+  const { view, navigateToHome, toast } = useApp();
 
   return (
     <div className="min-h-screen flex flex-col bg-neutral-50/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white">

@@ -23,7 +23,6 @@ import {
   ExperimentItem,
   ExperimentVariant,
 } from '../types/admin';
-import { adminAuth } from './adminAuthService';
 import { getSupabase, isSupabaseConfigured } from './supabaseClient';
 import { TOOLS_REGISTRY } from '../data/toolsRegistry';
 import { CATEGORIES } from '../data/categories';
@@ -837,12 +836,11 @@ class AdminStore {
 
   // ── AUDIT LOGGING HELPER ──
   public logActivity(action: string, entityType: AdminActivityLogItem['entityType'], entityName?: string, details?: string, entityId?: string): void {
-    const user = adminAuth.getCurrentUser();
     const newLog: AdminActivityLogItem = {
       id: 'log_' + Math.random().toString(36).substring(2, 9),
-      adminId: user?.id || 'sys',
-      adminName: user?.name || 'System / Admin',
-      adminEmail: user?.email || 'admin@bharatutility.tech',
+      adminId: 'sys',
+      adminName: 'System / User',
+      adminEmail: 'support@bharatutility.tech',
       action,
       entityType,
       entityId,

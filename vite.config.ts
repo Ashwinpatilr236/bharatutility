@@ -5,6 +5,11 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => {
   return {
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './src/setupTests.ts',
+    },
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

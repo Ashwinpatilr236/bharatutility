@@ -64,8 +64,7 @@ export const Link: React.FC<LinkProps> = ({ to, children, className = '', onClic
         const categoryId = to.replace('/category/', '') as any;
         navigateToCategory(categoryId);
       } else if (to.startsWith('/admin')) {
-        const parts = to.replace(/^\/admin\/?/, '').split('/');
-        navigateToAdmin((parts[0] || 'dashboard') as any, parts[1]);
+        navigateToAdmin();
       } else {
         // Fallback
         window.history.pushState({}, '', to);

@@ -163,15 +163,6 @@ export const Footer: React.FC = () => {
                   Contact Support
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/admin"
-                  className="hover:text-accent dark:hover:text-white transition-colors text-neutral-400 dark:text-neutral-500 text-[11px] flex items-center gap-1 mt-1 font-semibold"
-                  title="Super Admin Master Control Center"
-                >
-                  ⚙️ Master Admin Portal
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

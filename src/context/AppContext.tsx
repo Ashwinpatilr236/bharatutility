@@ -104,25 +104,7 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'legal', page }, redirectPath: `${targetPath}${search}` };
   }
   if (hash.startsWith('#/admin') || hash.startsWith('#admin')) {
-    const cleanHash = hash.replace(/^#\/?/, '');
-    const parts = cleanHash.split('/');
-    const section = (parts[1] && !parts[1].includes('=') ? parts[1] : 'dashboard') as AdminSection;
-    const subParam = parts[2];
-    const adminPath = `/admin${section && section !== 'dashboard' ? '/' + section : ''}${subParam ? '/' + subParam : ''}`;
-    return { view: { type: 'admin', section, subParam }, redirectPath: `${adminPath}${search}` };
-  }
-
-  // Preserve Supabase Auth Hash Callbacks & Magic Links
-  if (
-    hash.includes('access_token=') ||
-    hash.includes('type=magiclink') ||
-    hash.includes('type=recovery') ||
-    hash.includes('type=invite') ||
-    search.includes('type=magiclink') ||
-    search.includes('type=recovery') ||
-    search.includes('code=')
-  ) {
-    return { view: { type: 'admin', section: 'dashboard' } };
+    return { view: { type: 'home' }, redirectPath: '/' };
   }
 
   // 2. Parse Clean Pathname
@@ -169,10 +151,7 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'legal', page } };
   }
   if (path.startsWith('/admin')) {
-    const parts = path.replace(/^\/admin\/?/, '').split('?')[0].split('/');
-    const section = (parts[0] ? parts[0] : 'dashboard') as AdminSection;
-    const subParam = parts[1];
-    return { view: { type: 'admin', section, subParam } };
+    return { view: { type: 'home' }, redirectPath: '/' };
   }
 
   // Root or unhandled paths -> home
@@ -331,8 +310,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const navigateToAdmin = (section: AdminSection = 'dashboard', subParam?: string) => {
-    setView({ type: 'admin', section, subParam });
+  const navigateToAdmin = () => {
+    window.location.href = 'https://arrjs-central-admin.netlify.app/';
   };
 
   const navigateToTool = (slug: string, params?: Record<string, any>) => {

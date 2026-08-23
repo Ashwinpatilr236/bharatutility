@@ -34,16 +34,8 @@ export function getPathForView(view: ViewMode): string {
     case 'legal':
       if (view.page === 'about') return '/about';
       return `/legal/${view.page}`;
-    case 'admin': {
-      let path = '/admin';
-      if (view.section && view.section !== 'dashboard') {
-        path += `/${view.section}`;
-        if (view.subParam) {
-          path += `/${view.subParam}`;
-        }
-      }
-      return path;
-    }
+    case 'admin':
+      return '/';
     default:
       return '/';
   }
@@ -259,9 +251,6 @@ export function updateSeoMetadata(view: ViewMode): void {
       title = `Financial & Calculation Disclaimer | ${SITE_NAME}`;
       description = 'Calculation disclaimer for financial, tax, and estimation tools on BharatUtility.';
     }
-  } else if (view.type === 'admin') {
-    title = `Master Admin Control | ${SITE_NAME}`;
-    description = 'BharatUtility Master Administration Portal.';
   } else {
     // Home view structured data
     jsonLdData = {
@@ -293,12 +282,8 @@ export function updateSeoMetadata(view: ViewMode): void {
   // Update Page Title
   document.title = title;
 
-  // Update Robots Meta Tag (Excludes admin from indexing while keeping all public tools indexed)
-  if (view.type === 'admin') {
-    setMetaTag('meta[name="robots"]', 'name', 'robots', 'noindex, nofollow');
-  } else {
-    setMetaTag('meta[name="robots"]', 'name', 'robots', 'index, follow');
-  }
+  // Update Robots Meta Tag
+  setMetaTag('meta[name="robots"]', 'name', 'robots', 'index, follow');
 
   const socialTitle = view.type === 'home' ? 'BharatUtility — Free Online Tools for Everyday India' : title;
 
