@@ -3,10 +3,10 @@ import { getToolBySlug } from '../data/toolsRegistry';
 import { getCategoryById } from '../data/categories';
 
 const SITE_NAME = 'BharatUtility';
-const CANONICAL_BASE = 'https://bharatutility.tools';
+const CANONICAL_BASE = 'https://bharatutility.tech';
 const DEFAULT_TITLE = "BharatUtility – India's Utility Super-Site | Free Online Tools";
 const DEFAULT_DESCRIPTION =
-  "BharatUtility is India's utility super-site with free calculators, finance tools, document tools and everyday online utilities.";
+  "BharatUtility is India's Utility Super-Site with free calculators, finance tools, document tools and everyday online utilities built for India.";
 const DEFAULT_OG_IMAGE = `${CANONICAL_BASE}/icons/icon-512.png`;
 
 /**
@@ -284,7 +284,7 @@ export function updateSeoMetadata(view: ViewMode): void {
           name: SITE_NAME,
           url: `${CANONICAL_BASE}/`,
           logo: `${CANONICAL_BASE}/icons/icon-512.png`,
-          description: DEFAULT_DESCRIPTION,
+          description: "BharatUtility is India's Utility Super-Site offering free online calculators, finance tools, document tools and everyday digital utilities for users in India.",
         },
       ],
     };

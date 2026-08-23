@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const DOMAIN = 'https://bharatutility.tools';
+const DOMAIN = 'https://bharatutility.tech';
 
 const staticRoutes = [
   { path: '/', priority: '1.0', changefreq: 'daily' },

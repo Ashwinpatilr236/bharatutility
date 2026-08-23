@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 
-Sitemap: https://bharatutility.tools/sitemap.xml
+Sitemap: https://bharatutility.tech/sitemap.xml

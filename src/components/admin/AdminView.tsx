@@ -265,7 +265,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
                   <input
                     type="email"
                     required
-                    placeholder="admin@bharatutility.tools"
+                    placeholder="admin@bharatutility.tech"
                     value={loginIdentifier}
                     onChange={e => setLoginIdentifier(e.target.value)}
                     className="w-full pl-10 pr-4 py-2.5 text-sm bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
