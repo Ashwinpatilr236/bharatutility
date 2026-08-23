@@ -52,7 +52,7 @@ export const AllToolsView: React.FC = () => {
           All-in-One Utility Suite
         </span>
         <h1 className="text-2xl sm:text-4xl font-extrabold font-display text-neutral-900 dark:text-white tracking-tight">
-          Browse All 16+ Everyday Indian Calculators
+          Browse All Free Everyday Indian Calculators
         </h1>
         <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
           From Loan EMIs, SIPs, and GST to Land Measurement, Wall Paint, and Resignation Letters — 100% free, fast, and secure.
