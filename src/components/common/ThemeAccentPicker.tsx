@@ -33,13 +33,21 @@ export const ThemeAccentPicker: React.FC = () => {
         id="theme-accent-button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Customize appearance and theme"
-        className="flex items-center gap-1.5 p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+        className="flex items-center gap-2 px-2.5 py-1.5 rounded-full border border-neutral-200/90 dark:border-neutral-800 bg-neutral-100/80 dark:bg-neutral-900/80 hover:bg-neutral-200/70 dark:hover:bg-neutral-800 transition-all shadow-xs group"
       >
         <div
-          className="w-4 h-4 rounded-full border border-neutral-300 dark:border-neutral-700 shadow-xs"
+          className="w-3.5 h-3.5 rounded-full border border-black/10 dark:border-white/20 shadow-xs shrink-0 transition-transform group-hover:scale-110"
           style={{ backgroundColor: ACCENT_OPTIONS.find(a => a.id === accent)?.hex }}
         />
-        {theme === 'dark' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+        <div className="relative w-4 h-4 flex items-center justify-center text-neutral-700 dark:text-neutral-300">
+          {theme === 'dark' ? (
+            <Moon className="w-4 h-4 text-indigo-400 transition-all duration-300 transform rotate-0 scale-100" />
+          ) : theme === 'light' ? (
+            <Sun className="w-4 h-4 text-amber-500 transition-all duration-300 transform rotate-0 scale-100" />
+          ) : (
+            <Laptop className="w-4 h-4 text-neutral-400 transition-all duration-300 transform rotate-0 scale-100" />
+          )}
+        </div>
       </button>
 
       {isOpen && (

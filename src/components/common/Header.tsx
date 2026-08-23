@@ -60,9 +60,10 @@ export const Header: React.FC = () => {
 
             {/* Desktop Navigation Links */}
             <nav className="hidden md:flex items-center gap-1">
+              {/* 1. All Tools */}
               <Link
                 to="/tools"
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                   view.type === 'all-tools'
                     ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
                     : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900'
@@ -71,9 +72,120 @@ export const Header: React.FC = () => {
                 All Tools
               </Link>
 
+              {/* 2. Categories Dropdown */}
+              <div className="relative group">
+                <button
+                  onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
+                  onMouseEnter={() => setIsCategoriesOpen(true)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                  Categories
+                  <ChevronDown className="w-3 h-3 text-neutral-400 group-hover:rotate-180 transition-transform duration-200" />
+                </button>
+
+                {isCategoriesOpen && (
+                  <div
+                    onMouseLeave={() => setIsCategoriesOpen(false)}
+                    className="absolute top-full left-0 mt-1.5 w-[520px] sm:w-[560px] max-h-[75vh] overflow-y-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-200/90 dark:border-neutral-800 p-3.5 z-50 animate-in fade-in zoom-in-95 duration-150 space-y-3"
+                  >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Column 1: Core & Everyday Utilities */}
+                      <div className="space-y-1">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-2 py-1 border-b border-neutral-100 dark:border-neutral-800 mb-1 flex items-center justify-between">
+                          <span>Core & Everyday Utilities</span>
+                          <span className="text-[9px] text-accent font-semibold">7 Suites</span>
+                        </div>
+                        {CATEGORIES.filter(c => ['money', 'daily-life', 'construction', 'education', 'business', 'technology', 'datetime'].includes(c.id)).map(cat => (
+                          <Link
+                            key={cat.id}
+                            to={`/category/${cat.id}`}
+                            onClick={() => setIsCategoriesOpen(false)}
+                            className="w-full flex items-center justify-between p-2 rounded-xl text-left hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-colors group"
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <div className="p-1.5 rounded-lg bg-accent-subtle text-accent shrink-0">
+                                <DynamicIcon name={cat.icon} className="w-3.5 h-3.5" />
+                              </div>
+                              <div className="min-w-0">
+                                <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200 block truncate group-hover:text-accent">
+                                  {cat.name}
+                                </span>
+                                <span className="text-[10px] text-neutral-400 block truncate leading-tight">
+                                  {cat.description}
+                                </span>
+                              </div>
+                            </div>
+                            <span className="text-[10px] font-mono font-bold text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded ml-2 shrink-0">
+                              {cat.toolCount}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+
+                      {/* Column 2: Civic & Specialty Hubs */}
+                      <div className="space-y-1">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-2 py-1 border-b border-neutral-100 dark:border-neutral-800 mb-1 flex items-center justify-between">
+                          <span>Civic & Specialty Hubs</span>
+                          <span className="text-[9px] text-emerald-500 font-semibold">6 Suites</span>
+                        </div>
+                        {CATEGORIES.filter(c => ['india-services', 'document-tools', 'documents', 'vehicle-utility', 'travel-utility', 'travel'].includes(c.id)).map(cat => (
+                          <Link
+                            key={cat.id}
+                            to={`/category/${cat.id}`}
+                            onClick={() => setIsCategoriesOpen(false)}
+                            className="w-full flex items-center justify-between p-2 rounded-xl text-left hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-colors group"
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+                                <DynamicIcon name={cat.icon} className="w-3.5 h-3.5" />
+                              </div>
+                              <div className="min-w-0">
+                                <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200 block truncate group-hover:text-emerald-500">
+                                  {cat.name}
+                                </span>
+                                <span className="text-[10px] text-neutral-400 block truncate leading-tight">
+                                  {cat.id === 'document-tools' ? '100% Client-side PDF Merge, Split & Compress' : cat.description}
+                                </span>
+                              </div>
+                            </div>
+                            <span className="text-[10px] font-mono font-bold text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded ml-2 shrink-0">
+                              {cat.toolCount}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* 3. Finance & Tax */}
+              <Link
+                to="/category/money"
+                className="hidden xl:flex px-2.5 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors items-center gap-1"
+              >
+                <Flame className="w-3.5 h-3.5 text-amber-500" />
+                <span>Finance & Tax</span>
+              </Link>
+
+              {/* 4. Request a Tool */}
+              <Link
+                to="/request-tool"
+                className={`hidden lg:flex px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors items-center gap-1.5 ${
+                  view.type === 'request-tool'
+                    ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
+                    : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-accent" />
+                <span>Request a Tool</span>
+              </Link>
+
+              {/* 5. Favorites */}
               <Link
                 to="/favorites"
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   view.type === 'favorites'
                     ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
                     : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900'
@@ -87,94 +199,22 @@ export const Header: React.FC = () => {
                   </span>
                 )}
               </Link>
-
-              {/* Categories Dropdown */}
-              <div className="relative group">
-                <button
-                  onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-                  onMouseEnter={() => setIsCategoriesOpen(true)}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
-                >
-                  <Layers className="w-3.5 h-3.5" />
-                  Categories
-                  <ChevronDown className="w-3 h-3 text-neutral-400 group-hover:rotate-180 transition-transform duration-200" />
-                </button>
-
-                {isCategoriesOpen && (
-                  <div
-                    onMouseLeave={() => setIsCategoriesOpen(false)}
-                    className="absolute top-full left-0 mt-1 w-72 bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-800 p-2.5 z-50 animate-in fade-in zoom-in-95 duration-150"
-                  >
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1">
-                      Tool Categories
-                    </div>
-                    <div className="space-y-1 mt-1">
-                      {CATEGORIES.map(cat => (
-                        <Link
-                          key={cat.id}
-                          to={`/category/${cat.id}`}
-                          onClick={() => setIsCategoriesOpen(false)}
-                          className="w-full flex items-center justify-between p-2 rounded-xl text-left hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors group"
-                        >
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            <div className="p-1.5 rounded-lg bg-accent-subtle text-accent">
-                              <DynamicIcon name={cat.icon} className="w-4 h-4" />
-                            </div>
-                            <div className="min-w-0">
-                              <span className="text-xs font-semibold text-neutral-800 dark:text-neutral-200 block truncate group-hover:text-accent">
-                                {cat.name}
-                              </span>
-                              <span className="text-[10px] text-neutral-400 block truncate">
-                                {cat.description}
-                              </span>
-                            </div>
-                          </div>
-                          <span className="text-[10px] font-medium text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded ml-2 shrink-0">
-                            {cat.toolCount}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Request a Tool Link */}
-              <Link
-                to="/request-tool"
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
-                  view.type === 'request-tool'
-                    ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900'
-                }`}
-              >
-                <Sparkles className="w-3.5 h-3.5 text-accent" />
-                <span>Request a Tool</span>
-              </Link>
-
-              <Link
-                to="/category/money"
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors flex items-center gap-1"
-              >
-                <Flame className="w-3.5 h-3.5 text-amber-500" />
-                Finance & Tax
-              </Link>
             </nav>
           </div>
 
           {/* Search Trigger, Favorites & Settings */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Quick Search Button */}
+            {/* Quick Search Spotlight Button */}
             <button
               id="global-search-trigger"
               onClick={() => setCommandPaletteOpen(true)}
-              className="flex items-center gap-2 px-3 py-2 sm:py-1.5 bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200/70 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 rounded-xl border border-neutral-200/80 dark:border-neutral-800 transition-all text-xs font-medium"
+              className="flex items-center gap-2 px-3 py-1.5 bg-neutral-100/90 dark:bg-neutral-900/90 hover:bg-neutral-200/80 dark:hover:bg-neutral-800/90 text-neutral-500 dark:text-neutral-400 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs hover:shadow-xs transition-all text-xs font-medium focus:ring-2 focus:ring-accent"
             >
-              <Search className="w-4 h-4 text-neutral-400" />
-              <span className="hidden sm:inline">Search Indian utilities...</span>
-              <span className="sm:hidden">Search</span>
-              <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.2 text-[10px] font-mono text-neutral-400 bg-white dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 shadow-2xs">
-                ⌘K
+              <Search className="w-3.5 h-3.5 text-accent shrink-0" />
+              <span className="hidden sm:inline text-xs">Search Indian utilities...</span>
+              <span className="sm:hidden text-xs">Search</span>
+              <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-800 rounded-md border border-neutral-200/90 dark:border-neutral-700 shadow-2xs">
+                {typeof window !== 'undefined' && navigator.platform?.toUpperCase().indexOf('MAC') >= 0 ? '⌘K' : 'Ctrl+K'}
               </kbd>
             </button>
 

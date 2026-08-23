@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { formatINR } from '../../utils/formatters';
-import { Compass, DollarSign, Users, Calendar, Globe, CheckSquare, MapPin, Clock, Luggage, Navigation, Map, Search } from 'lucide-react';
-import { calculateRoute, searchNearbyPlaces, NearbyPlaceItem, RouteResult } from '../../services/googleMapsService';
-import { GoogleMapView } from '../common/GoogleMapView';
+import { Compass, DollarSign, Users, Calendar, Globe, CheckSquare, MapPin, Clock, Luggage, Navigation } from 'lucide-react';
 
 export type TravelMode =
   | 'trip-cost'
   | 'road-trip'
-  | 'nearby-places'
   | 'group-split'
   | 'travel-budget'
   | 'currency-converter'
@@ -58,33 +55,9 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
 
   // 1b. Road Trip Planner State
   const [stops, setStops] = useState<string[]>(['Vadodara', 'Ahmedabad', 'Udaipur', 'Jaipur']);
+  const [roadTripDistanceKm, setRoadTripDistanceKm] = useState<number>(850);
   const [roadTripMileage, setRoadTripMileage] = useState<number>(16);
   const [roadTripFuelPrice, setRoadTripFuelPrice] = useState<number>(105);
-  const [roadTripRouteLoading, setRoadTripRouteLoading] = useState<boolean>(false);
-  const [roadTripRouteResult, setRoadTripRouteResult] = useState<RouteResult | null>(null);
-
-  // 1c. Nearby Places State
-  const [nearbyQuery, setNearbyQuery] = useState<string>('Ahmedabad');
-  const [nearbyCategory, setNearbyCategory] = useState<string>('petrol_pump');
-  const [nearbyPlaces, setNearbyPlaces] = useState<NearbyPlaceItem[]>([]);
-  const [nearbyLoading, setNearbyLoading] = useState<boolean>(false);
-  const mapElementRef = useRef<HTMLDivElement>(null);
-
-  const handleCalculateRoadTrip = async () => {
-    const validStops = stops.filter(s => s.trim().length > 0);
-    if (validStops.length < 2) return;
-
-    const origin = validStops[0];
-    const destination = validStops[validStops.length - 1];
-    const waypoints = validStops.slice(1, validStops.length - 1);
-
-    setRoadTripRouteLoading(true);
-    const res = await calculateRoute(origin, destination, 'DRIVING', waypoints);
-    setRoadTripRouteLoading(false);
-    if (res) {
-      setRoadTripRouteResult(res);
-    }
-  };
 
   const handleAddStop = () => {
     if (stops.length < 8) {
@@ -203,7 +176,6 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
         {[
           { id: 'trip-cost', label: 'Trip Cost Calculator', icon: Compass },
           { id: 'road-trip', label: 'Road Trip Planner', icon: Navigation },
-          { id: 'nearby-places', label: 'Nearby Places', icon: MapPin },
           { id: 'group-split', label: 'Group Expense Split', icon: Users },
           { id: 'travel-budget', label: 'Travel Budget Planner', icon: DollarSign },
           { id: 'currency-converter', label: 'Currency Converter', icon: Globe },
@@ -233,7 +205,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
         <div className="space-y-6">
           <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/80 dark:border-neutral-700/60 space-y-4">
             <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 flex items-center justify-between">
-              <span>Road Trip Waypoints & Stops</span>
+              <span>Road Trip Waypoints & Destinations</span>
               <button
                 onClick={handleAddStop}
                 disabled={stops.length >= 8}
@@ -268,14 +240,23 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
               ))}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+              <div>
+                <label className="block text-[11px] font-bold text-neutral-400 mb-1">Total Distance (km)</label>
+                <input
+                  type="number"
+                  value={roadTripDistanceKm}
+                  onChange={e => setRoadTripDistanceKm(Number(e.target.value))}
+                  className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-bold text-neutral-900 dark:text-white font-mono"
+                />
+              </div>
               <div>
                 <label className="block text-[11px] font-bold text-neutral-400 mb-1">Mileage (km / L)</label>
                 <input
                   type="number"
                   value={roadTripMileage}
                   onChange={e => setRoadTripMileage(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-bold text-neutral-900 dark:text-white"
+                  className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-bold text-neutral-900 dark:text-white font-mono"
                 />
               </div>
               <div>
@@ -284,93 +265,33 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                   type="number"
                   value={roadTripFuelPrice}
                   onChange={e => setRoadTripFuelPrice(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-bold text-neutral-900 dark:text-white"
+                  className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-bold text-neutral-900 dark:text-white font-mono"
                 />
-              </div>
-            </div>
-
-            <button
-              onClick={handleCalculateRoadTrip}
-              disabled={roadTripRouteLoading}
-              className="w-full py-3 rounded-xl bg-accent text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-accent/90 transition-colors shadow-xs"
-            >
-              <Compass className="w-4 h-4" />
-              <span>{roadTripRouteLoading ? 'Calculating Road Trip Route...' : 'Calculate Multi-Stop Route & Fuel Expense'}</span>
-            </button>
-          </div>
-
-          {roadTripRouteResult && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 space-y-4">
-                <div className="text-xs font-bold uppercase tracking-wider text-neutral-500">Road Trip Summary</div>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-neutral-500">Total Distance:</span>
-                    <span className="font-bold text-neutral-900 dark:text-white">{roadTripRouteResult.formattedDistance}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-neutral-500">Est. Driving Duration:</span>
-                    <span className="font-bold text-neutral-900 dark:text-white">{roadTripRouteResult.formattedDuration}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-neutral-500">Fuel Needed:</span>
-                    <span className="font-bold text-neutral-900 dark:text-white">{(roadTripRouteResult.distanceKm / roadTripMileage).toFixed(1)} L</span>
-                  </div>
-                  <div className="pt-3 border-t border-neutral-200 dark:border-neutral-700 flex justify-between items-center">
-                    <span className="text-base font-extrabold text-neutral-900 dark:text-white">Est. Fuel Cost:</span>
-                    <span className="text-xl font-black text-accent">{formatINR(Math.round((roadTripRouteResult.distanceKm / roadTripMileage) * roadTripFuelPrice))}</span>
-                  </div>
-                </div>
-              </div>
-
-              <GoogleMapView
-                fallbackTitle={`Road Trip: ${stops.filter(Boolean).join(' → ')}`}
-                directionsResult={roadTripRouteResult.directionsResult}
-                height="280px"
-              />
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Mode: Nearby Places */}
-      {mode === 'nearby-places' && (
-        <div className="space-y-6">
-          <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/80 dark:border-neutral-700/60 space-y-4">
-            <div className="text-xs font-bold uppercase tracking-wider text-neutral-500">Search Nearby Amenities via Google Maps</div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[11px] font-bold text-neutral-400 mb-1">City or Area</label>
-                <input
-                  type="text"
-                  value={nearbyQuery}
-                  onChange={e => setNearbyQuery(e.target.value)}
-                  placeholder="e.g. Ahmedabad, Connaught Place"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-neutral-400 mb-1">Category</label>
-                <select
-                  value={nearbyCategory}
-                  onChange={e => setNearbyCategory(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white"
-                >
-                  <option value="petrol_pump">Petrol Pumps</option>
-                  <option value="ev_charging">EV Charging Stations</option>
-                  <option value="hospital">Hospitals & Clinics</option>
-                  <option value="hotel">Hotels & Lodges</option>
-                  <option value="atm">ATMs & Banks</option>
-                  <option value="restaurant">Restaurants & Food</option>
-                </select>
               </div>
             </div>
           </div>
 
-          <GoogleMapView
-            fallbackTitle={`Nearby ${nearbyCategory.replace('_', ' ')} in ${nearbyQuery}`}
-            height="320px"
-          />
+          <div className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 space-y-4">
+            <div className="text-xs font-bold uppercase tracking-wider text-neutral-500">Road Trip Summary</div>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-neutral-500">Route Waypoints ({stops.length}):</span>
+                <span className="font-bold text-neutral-900 dark:text-white">{stops.filter(Boolean).join(' → ')}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-neutral-500">Total Distance:</span>
+                <span className="font-bold text-neutral-900 dark:text-white font-mono">{roadTripDistanceKm} km</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-neutral-500">Estimated Fuel Needed:</span>
+                <span className="font-bold text-neutral-900 dark:text-white font-mono">{(roadTripMileage > 0 ? roadTripDistanceKm / roadTripMileage : 0).toFixed(1)} L</span>
+              </div>
+              <div className="pt-3 border-t border-neutral-200 dark:border-neutral-700 flex justify-between items-center">
+                <span className="text-base font-extrabold text-neutral-900 dark:text-white">Estimated Fuel Cost:</span>
+                <span className="text-xl font-black text-accent">{formatINR(Math.round((roadTripMileage > 0 ? roadTripDistanceKm / roadTripMileage : 0) * roadTripFuelPrice))}</span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

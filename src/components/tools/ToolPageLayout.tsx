@@ -292,8 +292,6 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <TravelUtilitySuiteCalculator initialMode="trip-cost" onResultChange={handleResultChange} />;
       case 'road-trip-planner':
         return <TravelUtilitySuiteCalculator initialMode="road-trip" onResultChange={handleResultChange} />;
-      case 'nearby-places-finder':
-        return <TravelUtilitySuiteCalculator initialMode="nearby-places" onResultChange={handleResultChange} />;
       case 'group-expense-split':
         return <TravelUtilitySuiteCalculator initialMode="group-split" onResultChange={handleResultChange} />;
       case 'travel-budget-calculator':

@@ -2673,32 +2673,9 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Multi-Stop Road Trip Planner'
     },
     faqs: [
-      { question: 'How are multi-stop routes calculated?', answer: 'Routes and distances are fetched via Google Maps Directions Service between your start location, waypoints, and final destination.' }
+      { question: 'How are multi-stop routes calculated?', answer: 'Calculates total fuel required and expense based on multi-stop trip distance, vehicle mileage, and fuel price.' }
     ],
     relatedToolSlugs: ['vehicle-fuel-cost-calculator', 'trip-cost-calculator']
-  },
-  {
-    id: 'nearby-places-finder',
-    slug: 'nearby-places-finder',
-    name: 'Nearby Amenities & Places Finder',
-    shortName: 'Nearby Places',
-    tagline: 'Find Petrol Pumps, EV Chargers, Hospitals, Hotels, ATMs, and Restaurants near any location',
-    description: 'Locate essential amenities such as Petrol Pumps, EV Charging Stations, Hospitals, Hotels, ATMs, and Restaurants around any Indian city or area.',
-    category: 'travel-utility',
-    icon: 'MapPin',
-    badge: 'New',
-    keywords: ['nearby petrol pumps', 'nearby EV charging', 'nearby hospitals', 'nearby ATMs'],
-    seo: {
-      title: 'Nearby Amenities & Places Finder – Petrol Pumps, EV, Hospitals | BharatUtility',
-      description: 'Search nearby Petrol Pumps, EV Chargers, Hospitals, Hotels, ATMs, and Restaurants near any city or area.',
-      keywords: ['nearby petrol pumps', 'nearby EV charging', 'nearby hospitals', 'nearby ATMs'],
-      canonicalSlug: 'nearby-places-finder',
-      h1: 'Nearby Amenities & Places Finder'
-    },
-    faqs: [
-      { question: 'What categories can I search?', answer: 'Search Petrol Pumps, EV Charging Stations, Hospitals & Clinics, Hotels, ATMs & Banks, and Restaurants.' }
-    ],
-    relatedToolSlugs: ['road-trip-planner', 'ev-cost-calculator']
   }
 ];
 

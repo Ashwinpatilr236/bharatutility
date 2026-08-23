@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Landmark, Search, CheckCircle, AlertCircle, ExternalLink, ShieldCheck, Calendar, MapPin, Building, CreditCard, Hash, Map } from 'lucide-react';
-import { GoogleMapView } from '../common/GoogleMapView';
+import { Landmark, Search, CheckCircle, AlertCircle, ExternalLink, ShieldCheck, Calendar, MapPin, Building, CreditCard, Hash, Map, Loader2 } from 'lucide-react';
+import { searchByPincode, searchByPostOffice, PostOfficeRecord } from '../../services/postalService';
 
 export type IndiaServicesMode =
   | 'ifsc-finder'
@@ -94,13 +94,46 @@ export const IndiaServicesSuiteCalculator: React.FC<IndiaServicesSuiteCalculator
 
   // Search queries
   const [ifscSearch, setIfscSearch] = useState('');
-  const [pinSearch, setPinSearch] = useState('');
+  const [pinSearch, setPinSearch] = useState('110001');
   const [rtoSearch, setRtoSearch] = useState('');
+  const [postalSearchType, setPostalSearchType] = useState<'pin' | 'office'>('pin');
+
+  // Live Supabase Postal Records State
+  const [livePostalRecords, setLivePostalRecords] = useState<PostOfficeRecord[]>([]);
+  const [postalLoading, setPostalLoading] = useState<boolean>(false);
 
   // GSTIN state
   const [gstin, setGstin] = useState('');
   // PAN state
   const [pan, setPan] = useState('');
+
+  // Live postal search effect
+  useEffect(() => {
+    if (mode !== 'pin-finder' || !pinSearch.trim()) return;
+
+    let isMounted = true;
+    const timer = setTimeout(async () => {
+      setPostalLoading(true);
+      let results: PostOfficeRecord[] = [];
+      const query = pinSearch.trim();
+
+      if (postalSearchType === 'pin' || /^\d+$/.test(query)) {
+        results = await searchByPincode(query);
+      } else {
+        results = await searchByPostOffice(query);
+      }
+
+      if (isMounted) {
+        setLivePostalRecords(results);
+        setPostalLoading(false);
+      }
+    }, 300);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
+  }, [mode, pinSearch, postalSearchType]);
 
   // IFSC Validation & Lookup
   const searchIfscResult = POPULAR_BANKS_IFSC.filter(
@@ -374,40 +407,92 @@ export const IndiaServicesSuiteCalculator: React.FC<IndiaServicesSuiteCalculator
       {/* Mode 4: PIN Code Finder */}
       {mode === 'pin-finder' && (
         <div className="space-y-6">
-          <div className="relative">
-            <Search className="w-5 h-5 absolute left-4 top-3.5 text-neutral-400" />
-            <input
-              type="text"
-              placeholder="Search by 6-digit PIN code (e.g. 110001) or City / Area..."
-              value={pinSearch}
-              onChange={e => setPinSearch(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-sm font-medium text-neutral-900 dark:text-white focus:ring-2 focus:ring-accent"
-            />
+          <div className="flex flex-col sm:flex-row gap-3 items-stretch">
+            <div className="relative flex-1">
+              <Search className="w-5 h-5 absolute left-4 top-3.5 text-neutral-400" />
+              <input
+                type="text"
+                placeholder={postalSearchType === 'pin' ? "Enter 6-digit PIN code (e.g. 110001, 400001, 390001)..." : "Enter Post Office Branch Name (e.g. Connaught Place, Baroda House)..."}
+                value={pinSearch}
+                onChange={e => setPinSearch(e.target.value)}
+                className="w-full pl-12 pr-10 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-sm font-medium text-neutral-900 dark:text-white focus:ring-2 focus:ring-accent"
+              />
+              {postalLoading && (
+                <Loader2 className="w-4 h-4 animate-spin absolute right-4 top-4 text-accent" />
+              )}
+            </div>
+
+            <div className="flex rounded-2xl bg-neutral-100 dark:bg-neutral-800 p-1 shrink-0">
+              <button
+                onClick={() => setPostalSearchType('pin')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
+                  postalSearchType === 'pin'
+                    ? 'bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-xs'
+                    : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
+                }`}
+              >
+                By PIN Code
+              </button>
+              <button
+                onClick={() => setPostalSearchType('office')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
+                  postalSearchType === 'office'
+                    ? 'bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-xs'
+                    : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
+                }`}
+              >
+                By Branch Name
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <div className="text-xs font-bold uppercase tracking-wider text-neutral-500">Matching Post Offices & Areas</div>
-              {searchPinResult.map((p, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 flex justify-between items-center">
-                  <div>
-                    <div className="font-bold text-sm text-neutral-900 dark:text-white">{p.area}</div>
-                    <div className="text-xs text-neutral-500">{p.city}, {p.state}</div>
-                  </div>
-                  <span className="font-mono text-sm font-black px-3 py-1 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
-                    {p.pin}
-                  </span>
-                </div>
-              ))}
+          <div className="space-y-3">
+            <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 flex items-center justify-between">
+              <span>Matching Post Offices ({livePostalRecords.length > 0 ? livePostalRecords.length : searchPinResult.length})</span>
+              <span className="text-[10px] text-neutral-400 font-normal">Database-backed</span>
             </div>
 
-            <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-3">Google Maps Postal Location</div>
-              <GoogleMapView
-                fallbackTitle={`Map for ${searchPinResult[0]?.area || 'PIN Code'}`}
-                height="320px"
-              />
-            </div>
+            {livePostalRecords.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[480px] overflow-y-auto pr-1">
+                {livePostalRecords.map((p, idx) => (
+                  <div key={idx} className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 space-y-2">
+                    <div className="flex justify-between items-start gap-2">
+                      <div>
+                        <div className="font-bold text-sm text-neutral-900 dark:text-white">{p.name}</div>
+                        <div className="text-xs text-neutral-500">{p.district}, {p.state} ({p.circle})</div>
+                      </div>
+                      <span className="font-mono text-sm font-black px-3 py-1 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shrink-0">
+                        {p.pincode}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2 pt-1 border-t border-neutral-100 dark:border-neutral-800/80 text-[11px]">
+                      <span className="px-2 py-0.5 rounded-md bg-neutral-200/70 dark:bg-neutral-700 font-semibold text-neutral-700 dark:text-neutral-300">
+                        {p.branchType}
+                      </span>
+                      <span className={`px-2 py-0.5 rounded-md font-semibold ${p.deliveryStatus === 'Delivery' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'}`}>
+                        {p.deliveryStatus}
+                      </span>
+                      <span className="text-neutral-400 ml-auto">{p.country}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {searchPinResult.map((p, idx) => (
+                  <div key={idx} className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 flex justify-between items-center">
+                    <div>
+                      <div className="font-bold text-sm text-neutral-900 dark:text-white">{p.area}</div>
+                      <div className="text-xs text-neutral-500">{p.city}, {p.state}</div>
+                    </div>
+                    <span className="font-mono text-sm font-black px-3 py-1 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+                      {p.pin}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -426,26 +511,16 @@ export const IndiaServicesSuiteCalculator: React.FC<IndiaServicesSuiteCalculator
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {searchRtoResult.map((r, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 space-y-1">
-                  <span className="font-mono text-xs font-black px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 inline-block">
-                    {r.code}
-                  </span>
-                  <div className="font-bold text-sm text-neutral-900 dark:text-white">{r.location}</div>
-                  <div className="text-xs text-neutral-500">{r.state}</div>
-                </div>
-              ))}
-            </div>
-
-            <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-3">RTO Location Map</div>
-              <GoogleMapView
-                fallbackTitle={`RTO Location: ${searchRtoResult[0]?.location || 'RTO Zone'}`}
-                height="320px"
-              />
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {searchRtoResult.map((r, idx) => (
+              <div key={idx} className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 space-y-1">
+                <span className="font-mono text-xs font-black px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 inline-block">
+                  {r.code}
+                </span>
+                <div className="font-bold text-sm text-neutral-900 dark:text-white">{r.location}</div>
+                <div className="text-xs text-neutral-500">{r.state}</div>
+              </div>
+            ))}
           </div>
         </div>
       )}

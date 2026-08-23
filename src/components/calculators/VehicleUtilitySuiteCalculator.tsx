@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { formatINR, formatIndianNumber } from '../../utils/formatters';
-import { Car, Zap, Fuel, DollarSign, Calculator, RefreshCw, Layers, Gauge, ShieldAlert, MapPin, Navigation, Compass } from 'lucide-react';
-import { calculateRoute, RouteResult } from '../../services/googleMapsService';
-import { GoogleMapView } from '../common/GoogleMapView';
+import { Car, Zap, Fuel, DollarSign, Calculator, RefreshCw, Layers, Gauge, ShieldAlert } from 'lucide-react';
 
 export type VehicleMode =
   | 'fuel-cost'
@@ -28,21 +26,6 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
   const [mileageKmpl, setMileageKmpl] = useState<number>(18);
   const [fuelPricePerLitre, setFuelPricePerLitre] = useState<number>(105);
   const [passengers, setPassengers] = useState<number>(4);
-  const [origin, setOrigin] = useState<string>('Mumbai');
-  const [destination, setDestination] = useState<string>('Pune');
-  const [routeLoading, setRouteLoading] = useState<boolean>(false);
-  const [routeResult, setRouteResult] = useState<RouteResult | null>(null);
-
-  const handleFetchRoute = async () => {
-    if (!origin.trim() || !destination.trim()) return;
-    setRouteLoading(true);
-    const res = await calculateRoute(origin.trim(), destination.trim(), 'DRIVING');
-    setRouteLoading(false);
-    if (res) {
-      setRouteResult(res);
-      setDistanceKm(res.distanceKm);
-    }
-  };
 
   // 2. EV Charging state
   const [batteryCapacityKwh, setBatteryCapacityKwh] = useState<number>(40.5); // Nexon EV
@@ -207,137 +190,74 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
 
       {/* Mode 1: Fuel Cost & Trip Split */}
       {mode === 'fuel-cost' && (
-        <div className="space-y-6">
-          {/* Route Distance Lookup via Google Maps */}
-          <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/80 dark:border-neutral-700/60 space-y-3">
-            <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
-              <Navigation className="w-3.5 h-3.5 text-accent" />
-              <span>Calculate Distance via Google Routes</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">
+                Trip Distance (km)
+              </label>
+              <input
+                type="number"
+                value={distanceKm || ''}
+                onChange={e => setDistanceKm(Number(e.target.value))}
+                className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
+              />
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[11px] font-bold text-neutral-400 mb-1">Origin City / Location</label>
-                <input
-                  type="text"
-                  value={origin}
-                  onChange={e => setOrigin(e.target.value)}
-                  placeholder="e.g. Mumbai"
-                  className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-neutral-400 mb-1">Destination City / Location</label>
-                <input
-                  type="text"
-                  value={destination}
-                  onChange={e => setDestination(e.target.value)}
-                  placeholder="e.g. Pune"
-                  className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white"
-                />
-              </div>
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">
+                Vehicle Mileage (km / Litre)
+              </label>
+              <input
+                type="number"
+                value={mileageKmpl || ''}
+                onChange={e => setMileageKmpl(Number(e.target.value))}
+                className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
+              />
             </div>
-
-            <button
-              onClick={handleFetchRoute}
-              disabled={routeLoading}
-              className="w-full py-2.5 rounded-xl bg-accent text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-accent/90 transition-colors shadow-xs"
-            >
-              <Compass className="w-4 h-4" />
-              <span>{routeLoading ? 'Calculating Google Route...' : 'Fetch Route Distance & Travel Duration'}</span>
-            </button>
-
-            {routeResult && (
-              <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex justify-between items-center text-xs">
-                <div>
-                  <span className="font-bold text-emerald-700 dark:text-emerald-300">Route Distance: {routeResult.formattedDistance}</span>
-                  <span className="text-neutral-500 block">Est. Duration: {routeResult.formattedDuration}</span>
-                </div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-md">
-                  Auto-Applied
-                </span>
-              </div>
-            )}
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">
+                Fuel Price (₹ / Litre)
+              </label>
+              <input
+                type="number"
+                value={fuelPricePerLitre || ''}
+                onChange={e => setFuelPricePerLitre(Number(e.target.value))}
+                className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">
+                Number of Passengers
+              </label>
+              <input
+                type="number"
+                min={1}
+                value={passengers || 1}
+                onChange={e => setPassengers(Number(e.target.value))}
+                className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
+              />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">
-                  Trip Distance (km)
-                </label>
-                <input
-                  type="number"
-                  value={distanceKm || ''}
-                  onChange={e => setDistanceKm(Number(e.target.value))}
-                  className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
-                />
+          <div className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 space-y-4">
+            <div className="text-xs font-bold uppercase tracking-wider text-neutral-500">Trip Expense Summary</div>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-neutral-500">Fuel Required:</span>
+                <span className="font-bold text-neutral-900 dark:text-white">{fuelRequiredLitres.toFixed(1)} L</span>
               </div>
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">
-                  Vehicle Mileage (km / Litre)
-                </label>
-                <input
-                  type="number"
-                  value={mileageKmpl || ''}
-                  onChange={e => setMileageKmpl(Number(e.target.value))}
-                  className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
-                />
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-neutral-500">Cost per km:</span>
+                <span className="font-bold text-neutral-900 dark:text-white">{formatINR(distanceKm > 0 ? totalFuelCost / distanceKm : 0)}</span>
               </div>
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">
-                  Fuel Price (₹ / Litre)
-                </label>
-                <input
-                  type="number"
-                  value={fuelPricePerLitre || ''}
-                  onChange={e => setFuelPricePerLitre(Number(e.target.value))}
-                  className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
-                />
+              <div className="pt-3 border-t border-neutral-200 dark:border-neutral-700 flex justify-between items-center">
+                <span className="text-base font-extrabold text-neutral-900 dark:text-white">Total Trip Cost:</span>
+                <span className="text-xl font-black text-accent">{formatINR(totalFuelCost)}</span>
               </div>
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">
-                  Number of Passengers
-                </label>
-                <input
-                  type="number"
-                  min={1}
-                  value={passengers || 1}
-                  onChange={e => setPassengers(Number(e.target.value))}
-                  className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
-                />
+              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 flex justify-between items-center text-xs">
+                <span className="font-bold text-amber-700 dark:text-amber-300">Cost Per Passenger ({passengers}):</span>
+                <span className="font-black text-amber-600 dark:text-amber-400 text-sm">{formatINR(costPerPassenger)}</span>
               </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 space-y-4">
-                <div className="text-xs font-bold uppercase tracking-wider text-neutral-500">Trip Expense Summary</div>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-neutral-500">Fuel Required:</span>
-                    <span className="font-bold text-neutral-900 dark:text-white">{fuelRequiredLitres.toFixed(1)} L</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-neutral-500">Cost per km:</span>
-                    <span className="font-bold text-neutral-900 dark:text-white">{formatINR(distanceKm > 0 ? totalFuelCost / distanceKm : 0)}</span>
-                  </div>
-                  <div className="pt-3 border-t border-neutral-200 dark:border-neutral-700 flex justify-between items-center">
-                    <span className="text-base font-extrabold text-neutral-900 dark:text-white">Total Trip Cost:</span>
-                    <span className="text-xl font-black text-accent">{formatINR(totalFuelCost)}</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 flex justify-between items-center text-xs">
-                    <span className="font-bold text-amber-700 dark:text-amber-300">Cost Per Passenger ({passengers}):</span>
-                    <span className="font-black text-amber-600 dark:text-amber-400 text-sm">{formatINR(costPerPassenger)}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Map Preview */}
-              <GoogleMapView
-                fallbackTitle={`Trip Route: ${origin} → ${destination}`}
-                directionsResult={routeResult?.directionsResult}
-                height="220px"
-              />
             </div>
           </div>
         </div>
