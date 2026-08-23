@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch, removeRecentSearch, TRENDING_SEARCH_KEYWORDS } from '../../utils/smartSearch';
@@ -9,6 +9,7 @@ export const HeroSection: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setRecentSearches(getRecentSearches());
@@ -32,10 +33,18 @@ export const HeroSection: React.FC = () => {
       saveRecentSearch(queryToSave || searchQuery);
     }
     navigateToTool(slug, params);
+    setIsFocused(false);
   };
 
   const handleRecentClick = (term: string) => {
     setSearchQuery(term);
+    setIsFocused(true);
+  };
+
+  const handleTrendingClick = (keyword: string) => {
+    setSearchQuery(keyword);
+    setIsFocused(true);
+    inputRef.current?.focus();
   };
 
   const handleRequestTool = () => {
@@ -45,6 +54,20 @@ export const HeroSection: React.FC = () => {
       } catch {}
     }
     navigateToRequestTool();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (naturalLanguageIntent) {
+        handleToolSelect(naturalLanguageIntent.toolSlug, naturalLanguageIntent.params);
+      } else if (exactAndKeywordMatches.length > 0) {
+        handleToolSelect(exactAndKeywordMatches[0].slug);
+      }
+    } else if (e.key === 'Escape') {
+      setIsFocused(false);
+      inputRef.current?.blur();
+    }
   };
 
   return (
@@ -94,43 +117,196 @@ export const HeroSection: React.FC = () => {
           Free, fast and modern online calculators and utility tools for everyday India.
         </p>
 
-        {/* Large Smart Search Box - Triggers Spotlight Command Palette */}
+        {/* Large Clean Native Inline Search Box */}
         <div className="relative max-w-2xl mx-auto mb-6 text-left">
           <div
-            onClick={() => setCommandPaletteOpen(true)}
-            className="flex items-center gap-3 px-4 py-3.5 bg-white dark:bg-neutral-900 rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 hover:border-accent dark:hover:border-accent transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/40 cursor-pointer group"
+            className={`flex items-center gap-3 px-4 py-3 sm:py-3.5 bg-white dark:bg-neutral-900 rounded-2xl border-2 transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/40 ${
+              isFocused
+                ? 'border-accent ring-4 ring-accent/15'
+                : 'border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700'
+            }`}
           >
-            <Search className="w-5 h-5 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
-            <div className="w-full text-sm sm:text-base text-neutral-400 dark:text-neutral-400 font-sans select-none flex items-center justify-between">
-              <span>Search e.g. EMI, 75000 salary ka in hand, GST, SIP, PIN code...</span>
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setCommandPaletteOpen(true);
-              }}
-              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 shrink-0 group-hover:border-accent/40 group-hover:text-accent transition-colors"
-            >
-              <kbd className="text-[10px]">Ctrl+K</kbd>
-            </button>
+            <Search className="w-5 h-5 text-accent shrink-0" />
+            <input
+              ref={inputRef}
+              id="hero-tool-search-input"
+              type="text"
+              placeholder="Search e.g. EMI, 75000 salary ka in hand, GST, SIP, PIN code..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setTimeout(() => setIsFocused(false), 250)}
+              onKeyDown={handleKeyDown}
+              className="w-full bg-transparent text-sm sm:text-base text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none"
+            />
+            {searchQuery ? (
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  inputRef.current?.focus();
+                }}
+                className="p-1 rounded-full text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-xs transition-colors shrink-0"
+                aria-label="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            ) : (
+              <button
+                onClick={() => setCommandPaletteOpen(true)}
+                className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 hover:border-accent/40 hover:text-accent transition-colors shrink-0"
+              >
+                <span>Spotlight</span>
+                <kbd className="text-[10px]">Ctrl+K</kbd>
+              </button>
+            )}
           </div>
 
+          {/* Clean Elevated Real-time Dropdown */}
+          {isFocused && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-neutral-900 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[420px] overflow-y-auto space-y-2">
+              {/* Natural Language Intent suggestion card */}
+              {naturalLanguageIntent && (
+                <div
+                  onMouseDown={() => handleToolSelect(naturalLanguageIntent.toolSlug, naturalLanguageIntent.params)}
+                  className="p-3.5 rounded-xl bg-gradient-to-r from-accent/15 via-purple-500/15 to-indigo-500/15 border border-accent/40 hover:border-accent cursor-pointer transition-all flex items-center justify-between gap-3 group shadow-xs"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-accent text-white shrink-0 group-hover:scale-105 transition-transform">
+                      <Zap className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[11px] font-bold text-accent uppercase tracking-wider">
+                          Smart Suggestion
+                        </span>
+                        <span className="text-[10px] px-2 py-0.2 rounded-full bg-accent/20 text-accent font-bold">
+                          Prefilled
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white mt-0.5">
+                        {naturalLanguageIntent.explanation}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs font-bold text-accent shrink-0">
+                    <span>Open</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              )}
+
+              {/* Matched Tools */}
+              {exactAndKeywordMatches.length > 0 && (
+                <div className="space-y-1">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-2 py-1 flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-1 mb-1">
+                    <span>Matching Utilities ({exactAndKeywordMatches.length})</span>
+                    <span className="text-[10px] text-accent font-mono">Press Enter ↵ to launch</span>
+                  </div>
+                  {exactAndKeywordMatches.slice(0, 6).map(tool => (
+                    <div
+                      key={tool.id}
+                      onMouseDown={() => handleToolSelect(tool.slug)}
+                      className="flex items-center justify-between p-2.5 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer transition-all group"
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="p-2 rounded-lg bg-accent-subtle text-accent shrink-0 group-hover:scale-105 transition-transform">
+                          <DynamicIcon name={tool.icon} className="w-4 h-4" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
+                              {tool.name}
+                            </span>
+                            {tool.badge === 'New' && (
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
+                                New
+                              </span>
+                            )}
+                            {tool.trending && (
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold border border-rose-500/20">
+                                Trending
+                              </span>
+                            )}
+                            {tool.popular && (
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20">
+                                Popular
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-xs text-neutral-500 dark:text-neutral-400 truncate block mt-0.5">
+                            {tool.tagline}
+                          </span>
+                        </div>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-accent group-hover:translate-x-1 transition-all shrink-0 ml-2" />
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Zero-Result Search Experience */}
+              {searchQuery.trim().length >= 2 && !hasMatches && (
+                <div className="p-4 text-center space-y-3 bg-neutral-50/50 dark:bg-neutral-900/50 rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700">
+                  <p className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
+                    No matching utility found for "{searchQuery}"
+                  </p>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto">
+                    Try searching EMI, GST, SIP, PIN code, or request a custom tool.
+                  </p>
+                  <div className="flex items-center justify-center gap-2 pt-1">
+                    <button
+                      onMouseDown={handleRequestTool}
+                      className="px-3.5 py-2 rounded-xl bg-accent text-white text-xs font-bold inline-flex items-center gap-1.5 hover:bg-accent/90 transition-all hover:scale-105 active:scale-95 shadow-xs"
+                    >
+                      <MessageSquarePlus className="w-3.5 h-3.5" />
+                      <span>Request a Tool</span>
+                    </button>
+                    <button
+                      onMouseDown={navigateToAllTools}
+                      className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold inline-flex items-center gap-1.5 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+                    >
+                      <Compass className="w-3.5 h-3.5" />
+                      <span>Browse All Tools</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Recent Searches */}
+              {!searchQuery && recentSearches.length > 0 && (
+                <div className="p-2 space-y-1">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-1 flex items-center gap-1.5">
+                    <Clock className="w-3 h-3 text-accent" />
+                    <span>Recent Searches</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {recentSearches.map(term => (
+                      <button
+                        key={term}
+                        onMouseDown={() => handleRecentClick(term)}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-accent hover:text-accent text-xs font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer transition-all hover:scale-102"
+                      >
+                        <span>{term}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Quick Search Shortcut Pills */}
+        {/* Quick Search Shortcut Pills (100% Working) */}
         <div className="flex flex-wrap items-center justify-center gap-2">
           <span className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 mr-1 flex items-center gap-1">
-            <TrendingUp className="w-3 h-3 text-rose-500" />
+            <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
             Trending:
           </span>
           {TRENDING_SEARCH_KEYWORDS.slice(0, 6).map(keyword => (
             <button
               key={keyword}
-              onClick={() => {
-                setSearchQuery(keyword);
-                setIsFocused(true);
-              }}
-              className="px-3 py-1 rounded-full text-xs font-medium bg-neutral-100 hover:bg-neutral-200/80 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 transition-all hover:scale-105 active:scale-95"
+              onClick={() => handleTrendingClick(keyword)}
+              className="px-3 py-1.5 rounded-full text-xs font-medium bg-neutral-100 hover:bg-accent-subtle hover:text-accent hover:border-accent/40 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-xs"
             >
               {keyword}
             </button>
