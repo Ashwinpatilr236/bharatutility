@@ -163,34 +163,34 @@ export const HeroSection: React.FC = () => {
 
           {/* Clean Elevated Real-time Dropdown */}
           {isFocused && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-neutral-900 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[420px] overflow-y-auto space-y-2">
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-neutral-900 rounded-2xl shadow-[0_25px_75px_rgba(0,0,0,0.6)] border-2 border-accent/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[580px] sm:max-h-[640px] overflow-y-auto space-y-2">
               {/* Natural Language Intent suggestion card */}
               {naturalLanguageIntent && (
                 <div
                   onMouseDown={() => handleToolSelect(naturalLanguageIntent.toolSlug, naturalLanguageIntent.params)}
-                  className="p-3.5 rounded-xl bg-gradient-to-r from-accent/15 via-purple-500/15 to-indigo-500/15 border border-accent/40 hover:border-accent cursor-pointer transition-all flex items-center justify-between gap-3 group shadow-xs"
+                  className="p-2.5 px-3.5 rounded-xl bg-gradient-to-r from-accent/15 via-purple-500/15 to-indigo-500/15 border border-accent/40 hover:border-accent cursor-pointer transition-all flex items-center justify-between gap-3 group shadow-xs"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-accent text-white shrink-0 group-hover:scale-105 transition-transform">
-                      <Zap className="w-4 h-4" />
+                    <div className="p-1.5 rounded-lg bg-accent text-white shrink-0 group-hover:scale-105 transition-transform">
+                      <Zap className="w-3.5 h-3.5" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[11px] font-bold text-accent uppercase tracking-wider">
-                          Smart Suggestion
+                        <span className="text-[10px] font-bold text-accent uppercase tracking-wider">
+                          Smart Intent Suggestion
                         </span>
-                        <span className="text-[10px] px-2 py-0.2 rounded-full bg-accent/20 text-accent font-bold">
+                        <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-accent/20 text-accent font-bold">
                           Prefilled
                         </span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white mt-0.5">
+                      <p className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white">
                         {naturalLanguageIntent.explanation}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-1 text-xs font-bold text-accent shrink-0">
-                    <span>Open</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <span>Launch</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               )}
@@ -202,7 +202,7 @@ export const HeroSection: React.FC = () => {
                     <span>Matching Utilities ({exactAndKeywordMatches.length})</span>
                     <span className="text-[10px] text-accent font-mono">Press Enter ↵ to launch</span>
                   </div>
-                  {exactAndKeywordMatches.slice(0, 6).map(tool => (
+                  {exactAndKeywordMatches.slice(0, 12).map(tool => (
                     <div
                       key={tool.id}
                       onMouseDown={() => handleToolSelect(tool.slug)}
@@ -238,7 +238,10 @@ export const HeroSection: React.FC = () => {
                           </span>
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-accent group-hover:translate-x-1 transition-all shrink-0 ml-2" />
+                      <div className="flex items-center gap-1 text-xs font-semibold text-neutral-400 group-hover:text-accent shrink-0 ml-2">
+                        <span className="hidden sm:inline text-[11px]">Open</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
+                      </div>
                     </div>
                   ))}
                 </div>
