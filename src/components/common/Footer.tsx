@@ -1,21 +1,9 @@
 import React from 'react';
-import { useApp } from '../../context/AppContext';
-import { CATEGORIES } from '../../data/categories';
 import { TOOLS_REGISTRY } from '../../data/toolsRegistry';
-import { ShieldCheck, Heart, Sparkles, ArrowUp } from 'lucide-react';
+import { ShieldCheck, ArrowUp } from 'lucide-react';
+import { Link } from './Link';
 
 export const Footer: React.FC = () => {
-  const {
-    navigateToTool,
-    navigateToCategory,
-    navigateToLegal,
-    navigateToAllTools,
-    navigateToFavorites,
-    navigateToContact,
-    navigateToRequestTool,
-    navigateToHome
-  } = useApp();
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -26,8 +14,8 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
-            <button
-              onClick={navigateToHome}
+            <Link
+              to="/"
               className="flex items-center gap-2.5 text-left group"
             >
               <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-900 flex items-center justify-center text-white font-bold text-sm shadow-xs">
@@ -36,7 +24,7 @@ export const Footer: React.FC = () => {
               <span className="font-extrabold text-xl font-display tracking-tight text-neutral-900 dark:text-white">
                 Bharat<span className="text-accent">Utility</span>
               </span>
-            </button>
+            </Link>
 
             <p className="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400 max-w-sm">
               Useful tools for everyday India. Fast, privacy-friendly, and 100% free calculations tailored for Indian tax slabs, land units, loan formats, and everyday utilities.
@@ -55,44 +43,44 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <button
-                  onClick={navigateToAllTools}
+                <Link
+                  to="/tools"
                   className="hover:text-accent dark:hover:text-white transition-colors text-left"
                 >
                   All Tools
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={navigateToFavorites}
+                <Link
+                  to="/favorites"
                   className="hover:text-accent dark:hover:text-white transition-colors text-left"
                 >
                   Favorites
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => navigateToCategory('money')}
+                <Link
+                  to="/categories"
                   className="hover:text-accent dark:hover:text-white transition-colors text-left"
                 >
                   Categories
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={navigateToRequestTool}
+                <Link
+                  to="/request-tool"
                   className="hover:text-accent dark:hover:text-white transition-colors text-left font-medium text-accent"
                 >
                   Request a Tool
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={navigateToContact}
+                <Link
+                  to="/contact"
                   className="hover:text-accent dark:hover:text-white transition-colors text-left"
                 >
                   Contact Us
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -108,12 +96,12 @@ export const Footer: React.FC = () => {
                 if (!tool) return null;
                 return (
                   <li key={slug}>
-                    <button
-                      onClick={() => navigateToTool(slug)}
+                    <Link
+                      to={`/tool/${slug}`}
                       className="hover:text-accent dark:hover:text-white transition-colors text-left"
                     >
                       {tool.shortName || tool.name}
-                    </button>
+                    </Link>
                   </li>
                 );
               })}
@@ -127,56 +115,53 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <button
-                  onClick={() => navigateToLegal('about')}
+                <Link
+                  to="/about"
                   className="hover:text-accent dark:hover:text-white transition-colors"
                 >
                   About BharatUtility
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => navigateToLegal('disclaimer')}
+                <Link
+                  to="/legal/disclaimer"
                   className="hover:text-accent dark:hover:text-white transition-colors"
                 >
                   Calculation Disclaimer
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => navigateToLegal('privacy')}
+                <Link
+                  to="/legal/privacy"
                   className="hover:text-accent dark:hover:text-white transition-colors"
                 >
                   Privacy Policy
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => navigateToLegal('terms')}
+                <Link
+                  to="/legal/terms"
                   className="hover:text-accent dark:hover:text-white transition-colors"
                 >
                   Terms & Conditions
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={navigateToContact}
+                <Link
+                  to="/contact"
                   className="hover:text-accent dark:hover:text-white transition-colors"
                 >
                   Contact Support
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    window.location.hash = '#/admin';
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
+                <Link
+                  to="/admin"
                   className="hover:text-accent dark:hover:text-white transition-colors text-neutral-400 dark:text-neutral-500 text-[11px] flex items-center gap-1 mt-1 font-semibold"
                   title="Super Admin Master Control Center"
                 >
                   ⚙️ Master Admin Portal
-                </button>
+                </Link>
               </li>
             </ul>
           </div>

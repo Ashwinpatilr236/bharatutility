@@ -3,12 +3,12 @@ import { useApp } from '../../context/AppContext';
 import { TOOLS_REGISTRY } from '../../data/toolsRegistry';
 import { CATEGORIES } from '../../data/categories';
 import { DynamicIcon } from '../common/DynamicIcon';
-import { CategoryId } from '../../types';
-import { Search, SlidersHorizontal, Sparkles, Star, TrendingUp, Filter } from 'lucide-react';
+import { Link } from '../common/Link';
+import { Search, Star } from 'lucide-react';
 import { RequestToolCta } from '../common/RequestToolCta';
 
 export const AllToolsView: React.FC = () => {
-  const { navigateToTool, isFavorite, toggleFavorite } = useApp();
+  const { isFavorite, toggleFavorite } = useApp();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -126,9 +126,9 @@ export const AllToolsView: React.FC = () => {
             const cat = CATEGORIES.find(c => c.id === tool.category);
 
             return (
-              <div
+              <Link
                 key={tool.id}
-                onClick={() => navigateToTool(tool.slug)}
+                to={`/tool/${tool.slug}`}
                 className="bg-white dark:bg-neutral-900 rounded-3xl p-5 border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:border-accent hover:shadow-md transition-all group flex flex-col justify-between cursor-pointer relative"
               >
                 <div className="space-y-3">
@@ -145,6 +145,7 @@ export const AllToolsView: React.FC = () => {
                       )}
                       <button
                         onClick={e => {
+                          e.preventDefault();
                           e.stopPropagation();
                           toggleFavorite(tool.slug);
                         }}
@@ -172,7 +173,7 @@ export const AllToolsView: React.FC = () => {
                     Open Tool →
                   </span>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

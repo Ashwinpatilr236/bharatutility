@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { AccentColor, CalculationHistoryItem, CategoryId, ThemeMode, ViewMode } from '../types';
 import { AdminSection } from '../types/admin';
 import { getToolBySlug } from '../data/toolsRegistry';
+import { updateSeoMetadata, getPathForView } from '../utils/seo';
 
 interface ToastState {
   id: string;
@@ -47,61 +48,145 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+/**
+ * Parses window.location to determine active ViewMode and handles old hash URL conversion
+ */
+function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
+  const path = window.location.pathname;
+  const hash = window.location.hash;
+  const search = window.location.search;
+
+  // 1. Check for old hash navigation for backward compatibility
+  if (hash.startsWith('#/tool/')) {
+    const slug = hash.replace('#/tool/', '').split('?')[0];
+    if (slug === 'electricity-calculator' || slug === 'electricity-bill-calculator') {
+      return { view: { type: 'all-tools' }, redirectPath: `/tools${search}` };
+    }
+    return { view: { type: 'tool', slug }, redirectPath: `/tool/${slug}${search}` };
+  }
+  if (hash.startsWith('#/category/')) {
+    const categoryId = hash.replace('#/category/', '') as CategoryId;
+    return { view: { type: 'category', categoryId }, redirectPath: `/category/${categoryId}${search}` };
+  }
+  if (hash === '#/all-tools' || hash === '#all-tools' || hash === '#/tools' || hash === '#tools') {
+    return { view: { type: 'all-tools' }, redirectPath: `/tools${search}` };
+  }
+  if (hash === '#/categories' || hash === '#categories') {
+    return { view: { type: 'all-tools' }, redirectPath: `/categories${search}` };
+  }
+  if (hash === '#/favorites' || hash === '#favorites' || hash === '#/saved' || hash === '#saved') {
+    return { view: { type: 'favorites' }, redirectPath: `/favorites${search}` };
+  }
+  if (hash === '#/contact' || hash === '#contact') {
+    return { view: { type: 'contact' }, redirectPath: `/contact${search}` };
+  }
+  if (hash === '#/request-tool' || hash === '#request-tool') {
+    return { view: { type: 'request-tool' }, redirectPath: `/request-tool${search}` };
+  }
+  if (hash === '#/about' || hash === '#about') {
+    return { view: { type: 'legal', page: 'about' }, redirectPath: `/about${search}` };
+  }
+  if (hash === '#/privacy' || hash === '#privacy') {
+    return { view: { type: 'legal', page: 'privacy' }, redirectPath: `/legal/privacy${search}` };
+  }
+  if (hash === '#/terms' || hash === '#terms') {
+    return { view: { type: 'legal', page: 'terms' }, redirectPath: `/legal/terms${search}` };
+  }
+  if (hash === '#/disclaimer' || hash === '#disclaimer') {
+    return { view: { type: 'legal', page: 'disclaimer' }, redirectPath: `/legal/disclaimer${search}` };
+  }
+  if (hash.startsWith('#/legal/')) {
+    const page = hash.replace('#/legal/', '') as any;
+    if (page === 'contact') {
+      return { view: { type: 'contact' }, redirectPath: `/contact${search}` };
+    }
+    const targetPath = page === 'about' ? '/about' : `/legal/${page}`;
+    return { view: { type: 'legal', page }, redirectPath: `${targetPath}${search}` };
+  }
+  if (hash.startsWith('#/admin') || hash.startsWith('#admin')) {
+    const cleanHash = hash.replace(/^#\/?/, '');
+    const parts = cleanHash.split('/');
+    const section = (parts[1] && !parts[1].includes('=') ? parts[1] : 'dashboard') as AdminSection;
+    const subParam = parts[2];
+    const adminPath = `/admin${section && section !== 'dashboard' ? '/' + section : ''}${subParam ? '/' + subParam : ''}`;
+    return { view: { type: 'admin', section, subParam }, redirectPath: `${adminPath}${search}` };
+  }
+
+  // Preserve Supabase Auth Hash Callbacks & Magic Links
+  if (
+    hash.includes('access_token=') ||
+    hash.includes('type=magiclink') ||
+    hash.includes('type=recovery') ||
+    hash.includes('type=invite') ||
+    search.includes('type=magiclink') ||
+    search.includes('type=recovery') ||
+    search.includes('code=')
+  ) {
+    return { view: { type: 'admin', section: 'dashboard' } };
+  }
+
+  // 2. Parse Clean Pathname
+  if (path.startsWith('/tool/')) {
+    const slug = path.replace('/tool/', '').split('?')[0];
+    if (slug === 'electricity-calculator' || slug === 'electricity-bill-calculator') {
+      return { view: { type: 'all-tools' }, redirectPath: `/tools${search}` };
+    }
+    return { view: { type: 'tool', slug } };
+  }
+  if (path.startsWith('/category/')) {
+    const categoryId = path.replace('/category/', '').split('?')[0] as CategoryId;
+    return { view: { type: 'category', categoryId } };
+  }
+  if (path === '/tools' || path === '/all-tools' || path === '/categories') {
+    return { view: { type: 'all-tools' } };
+  }
+  if (path === '/favorites' || path === '/saved') {
+    return { view: { type: 'favorites' } };
+  }
+  if (path === '/contact') {
+    return { view: { type: 'contact' } };
+  }
+  if (path === '/request-tool') {
+    return { view: { type: 'request-tool' } };
+  }
+  if (path === '/about') {
+    return { view: { type: 'legal', page: 'about' } };
+  }
+  if (path === '/privacy' || path === '/legal/privacy') {
+    return { view: { type: 'legal', page: 'privacy' } };
+  }
+  if (path === '/terms' || path === '/legal/terms') {
+    return { view: { type: 'legal', page: 'terms' } };
+  }
+  if (path === '/disclaimer' || path === '/legal/disclaimer') {
+    return { view: { type: 'legal', page: 'disclaimer' } };
+  }
+  if (path.startsWith('/legal/')) {
+    const page = path.replace('/legal/', '').split('?')[0] as any;
+    if (page === 'contact') {
+      return { view: { type: 'contact' } };
+    }
+    return { view: { type: 'legal', page } };
+  }
+  if (path.startsWith('/admin')) {
+    const parts = path.replace(/^\/admin\/?/, '').split('?')[0].split('/');
+    const section = (parts[0] ? parts[0] : 'dashboard') as AdminSection;
+    const subParam = parts[1];
+    return { view: { type: 'admin', section, subParam } };
+  }
+
+  // Root or unhandled paths -> home
+  return { view: { type: 'home' } };
+}
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Navigation View State
   const [view, setViewState] = useState<ViewMode>(() => {
-    // Parse URL on initial load
-    const path = window.location.pathname;
-    const hash = window.location.hash;
-    const search = window.location.search;
-
-    if (hash.startsWith('#/tool/')) {
-      const slug = hash.replace('#/tool/', '').split('?')[0];
-      return { type: 'tool', slug };
+    const { view: initialView, redirectPath } = parseCurrentLocation();
+    if (redirectPath) {
+      window.history.replaceState({}, '', redirectPath);
     }
-    if (hash.startsWith('#/category/')) {
-      const categoryId = hash.replace('#/category/', '') as CategoryId;
-      return { type: 'category', categoryId };
-    }
-    if (hash === '#/all-tools' || hash === '#all-tools') {
-      return { type: 'all-tools' };
-    }
-    if (hash === '#/favorites' || hash === '#favorites' || hash === '#/saved' || hash === '#saved' || path === '/favorites') {
-      return { type: 'favorites' };
-    }
-    if (hash === '#/contact' || hash === '#contact' || path === '/contact') {
-      return { type: 'contact' };
-    }
-    if (hash === '#/request-tool' || hash === '#request-tool' || path === '/request-tool') {
-      return { type: 'request-tool' };
-    }
-    if (
-      hash.startsWith('#/admin') ||
-      hash.startsWith('#admin') ||
-      path.startsWith('/admin') ||
-      hash.includes('access_token=') ||
-      hash.includes('type=magiclink') ||
-      hash.includes('type=recovery') ||
-      hash.includes('type=invite') ||
-      search.includes('type=magiclink') ||
-      search.includes('type=recovery') ||
-      search.includes('code=')
-    ) {
-      const cleanHash = hash.replace(/^#\/?/, '');
-      const parts = cleanHash.split('/');
-      // parts[0] === 'admin'
-      const section = (parts[1] && !parts[1].includes('=') ? parts[1] : 'dashboard') as AdminSection;
-      const subParam = parts[2];
-      return { type: 'admin', section, subParam };
-    }
-    if (hash.startsWith('#/legal/')) {
-      const page = hash.replace('#/legal/', '') as any;
-      if (page === 'contact') {
-        return { type: 'contact' };
-      }
-      return { type: 'legal', page };
-    }
-    return { type: 'home' };
+    return initialView;
   });
 
   const [currentToolParams, setCurrentToolParams] = useState<Record<string, any>>({});
@@ -204,118 +289,45 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isCommandPaletteOpen]);
 
-  // Hash & Popstate routing sync
+  // Sync browser popstate and hashchange to View State
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash.startsWith('#/tool/')) {
-        const slug = hash.replace('#/tool/', '').split('?')[0];
-        if (slug === 'electricity-calculator' || slug === 'electricity-bill-calculator') {
-          // Graceful redirect for old electricity routes
-          setViewState({ type: 'all-tools' });
-          window.location.hash = '#/all-tools';
-        } else {
-          setViewState({ type: 'tool', slug });
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash.startsWith('#/category/')) {
-        const categoryId = hash.replace('#/category/', '') as CategoryId;
-        setViewState({ type: 'category', categoryId });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash === '#/all-tools' || hash === '#all-tools') {
-        setViewState({ type: 'all-tools' });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash === '#/favorites' || hash === '#favorites' || hash === '#/saved' || hash === '#saved') {
-        setViewState({ type: 'favorites' });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash === '#/contact' || hash === '#contact') {
-        setViewState({ type: 'contact' });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash === '#/request-tool' || hash === '#request-tool') {
-        setViewState({ type: 'request-tool' });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (
-        hash.startsWith('#/admin') ||
-        hash.startsWith('#admin') ||
-        hash.includes('access_token=') ||
-        hash.includes('type=magiclink') ||
-        hash.includes('type=recovery') ||
-        hash.includes('type=invite')
-      ) {
-        const cleanHash = hash.replace(/^#\/?/, '');
-        const parts = cleanHash.split('/');
-        const section = (parts[1] && !parts[1].includes('=') ? parts[1] : 'dashboard') as AdminSection;
-        const subParam = parts[2];
-        setViewState({ type: 'admin', section, subParam });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash.startsWith('#/legal/')) {
-        const page = hash.replace('#/legal/', '') as any;
-        if (page === 'contact') {
-          setViewState({ type: 'contact' });
-        } else {
-          setViewState({ type: 'legal', page });
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash === '' || hash === '#' || hash === '#/') {
-        setViewState({ type: 'home' });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    const handlePopState = () => {
+      const { view: parsedView, redirectPath } = parseCurrentLocation();
+      if (redirectPath) {
+        window.history.replaceState({}, '', redirectPath);
       }
+      setViewState(parsedView);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
+    };
   }, []);
 
-  // Update Page Title and Meta on View changes
+  // Synchronize SEO Title, Canonical URL, Open Graph & Schema.org JSON-LD
   useEffect(() => {
-    if (view.type === 'tool') {
-      const tool = getToolBySlug(view.slug);
-      if (tool) {
-        document.title = `${tool.name} — BharatUtility`;
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) metaDesc.setAttribute('content', tool.seo.description);
-      }
-    } else if (view.type === 'category') {
-      document.title = `${view.categoryId.toUpperCase()} Tools & Calculators — BharatUtility`;
-    } else if (view.type === 'all-tools') {
-      document.title = `All Indian Calculators & Everyday Utilities — BharatUtility`;
-    } else if (view.type === 'favorites') {
-      document.title = `Saved Tools & Favorites — BharatUtility India`;
-    } else if (view.type === 'contact') {
-      document.title = `Contact Us & Feedback — BharatUtility`;
-    } else if (view.type === 'request-tool') {
-      document.title = `Request a Tool or Calculator — BharatUtility`;
-    } else if (view.type === 'legal') {
-      document.title = `${view.page.toUpperCase()} — BharatUtility India`;
-    } else {
-      document.title = `BharatUtility — Useful Tools for Everyday India`;
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) metaDesc.setAttribute('content', 'Free, fast, and modern everyday calculators and utilities built for India.');
-    }
+    updateSeoMetadata(view);
   }, [view]);
 
   const setView = (newView: ViewMode) => {
     setViewState(newView);
-    if (newView.type === 'tool') {
-      window.location.hash = `#/tool/${newView.slug}`;
-      addRecentTool(newView.slug);
-    } else if (newView.type === 'category') {
-      window.location.hash = `#/category/${newView.categoryId}`;
-    } else if (newView.type === 'all-tools') {
-      window.location.hash = `#/all-tools`;
-    } else if (newView.type === 'favorites') {
-      window.location.hash = `#/favorites`;
-    } else if (newView.type === 'contact') {
-      window.location.hash = `#/contact`;
-    } else if (newView.type === 'request-tool') {
-      window.location.hash = `#/request-tool`;
-    } else if (newView.type === 'admin') {
-      window.location.hash = newView.section ? `#/admin/${newView.section}` : `#/admin`;
-    } else if (newView.type === 'legal') {
-      window.location.hash = `#/legal/${newView.page}`;
-    } else {
-      window.location.hash = '#/';
+
+    const targetPath = getPathForView(newView);
+    const currentSearch = window.location.search || '';
+    const newUrl = targetPath + (targetPath.includes('?') ? '' : currentSearch);
+
+    if (window.location.pathname !== targetPath || window.location.hash) {
+      window.history.pushState({}, '', newUrl);
     }
+
+    if (newView.type === 'tool') {
+      addRecentTool(newView.slug);
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

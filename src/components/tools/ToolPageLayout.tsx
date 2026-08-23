@@ -10,6 +10,7 @@ import { AdSlot } from '../common/AdSlot';
 import { ToolFeedbackWidget } from '../common/ToolFeedbackWidget';
 import { RequestToolCta } from '../common/RequestToolCta';
 import { BookmarkPrompt } from '../common/BookmarkPrompt';
+import { Link } from '../common/Link';
 
 // Lazy-loaded Calculator Components for isolated bundle chunks & instant public loading
 const EmiCalculator = React.lazy(() => import('../calculators/EmiCalculator').then(m => ({ default: m.EmiCalculator })));
@@ -41,11 +42,6 @@ import {
   ChevronDown,
   ChevronUp,
   HelpCircle,
-  Calculator,
-  ArrowRight,
-  ShieldCheck,
-  CheckCircle,
-  Eye,
   Sparkles,
   Layers,
   BookOpen
@@ -61,7 +57,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
     toggleFavorite,
     addCalculationHistory,
     showToast,
-    navigateToTool,
+    navigateToHome,
     navigateToCategory
   } = useApp();
 
@@ -234,7 +230,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
-          { label: 'Home', onClick: () => window.location.hash = '#/' },
+          { label: 'Home', onClick: navigateToHome },
           {
             label: category ? category.name : 'Calculators',
             onClick: () => category && navigateToCategory(category.id)
@@ -452,10 +448,10 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {relatedTools.map(rt => (
-              <button
+              <Link
                 key={rt.id}
-                onClick={() => navigateToTool(rt.slug)}
-                className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-left hover:border-accent hover:shadow-md transition-all group"
+                to={`/tool/${rt.slug}`}
+                className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-left hover:border-accent hover:shadow-md transition-all group block"
               >
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform">
                   <DynamicIcon name={rt.icon} className="w-4 h-4" />
@@ -466,7 +462,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                 <p className="text-[11px] text-neutral-500 dark:text-neutral-400 line-clamp-2 mt-1">
                   {rt.tagline}
                 </p>
-              </button>
+              </Link>
             ))}
           </div>
         </div>

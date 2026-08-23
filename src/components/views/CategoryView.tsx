@@ -5,7 +5,8 @@ import { getToolsByCategory } from '../../data/toolsRegistry';
 import { CategoryId } from '../../types';
 import { Breadcrumbs } from '../common/Breadcrumbs';
 import { DynamicIcon } from '../common/DynamicIcon';
-import { Star, ArrowRight, Sparkles } from 'lucide-react';
+import { Link } from '../common/Link';
+import { Star } from 'lucide-react';
 import { RequestToolCta } from '../common/RequestToolCta';
 
 interface CategoryViewProps {
@@ -13,7 +14,7 @@ interface CategoryViewProps {
 }
 
 export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
-  const { navigateToTool, isFavorite, toggleFavorite } = useApp();
+  const { isFavorite, toggleFavorite, navigateToHome, navigateToAllTools } = useApp();
 
   const category = CATEGORIES.find(c => c.id === categoryId) || CATEGORIES[0];
   const tools = getToolsByCategory(categoryId);
@@ -23,8 +24,8 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
       {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
-          { label: 'Home', onClick: () => window.location.hash = '#/' },
-          { label: 'Categories', onClick: () => window.location.hash = '#/all-tools' },
+          { label: 'Home', onClick: navigateToHome },
+          { label: 'Categories', onClick: navigateToAllTools },
           { label: category.name, active: true }
         ]}
       />
@@ -63,9 +64,9 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
             const fav = isFavorite(tool.slug);
 
             return (
-              <div
+              <Link
                 key={tool.id}
-                onClick={() => navigateToTool(tool.slug)}
+                to={`/tool/${tool.slug}`}
                 className="bg-white dark:bg-neutral-900 rounded-3xl p-5 border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:border-accent hover:shadow-md transition-all group flex flex-col justify-between cursor-pointer"
               >
                 <div className="space-y-3">
@@ -82,6 +83,7 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
                       )}
                       <button
                         onClick={e => {
+                          e.preventDefault();
                           e.stopPropagation();
                           toggleFavorite(tool.slug);
                         }}
@@ -109,7 +111,7 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
                     Calculate Now →
                   </span>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

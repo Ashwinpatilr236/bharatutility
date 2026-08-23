@@ -209,7 +209,7 @@ export const AdminSEO: React.FC<AdminSEOProps> = ({ onEditToolSeo, onNavigate })
                     BharatUtility
                   </span>
                   <span className="text-[10px] text-neutral-400 font-mono">
-                    https://bharatutility.in › tool › {selectedPreviewTool.slug}
+                    https://bharatutility.tech › tool › {selectedPreviewTool.slug}
                   </span>
                 </div>
               </div>

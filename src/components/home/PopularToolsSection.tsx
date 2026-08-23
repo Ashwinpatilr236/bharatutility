@@ -2,10 +2,11 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { getPopularTools } from '../../data/toolsRegistry';
 import { DynamicIcon } from '../common/DynamicIcon';
-import { Star, ArrowRight, TrendingUp, Sparkles } from 'lucide-react';
+import { Link } from '../common/Link';
+import { Star, ArrowRight, Sparkles } from 'lucide-react';
 
 export const PopularToolsSection: React.FC = () => {
-  const { navigateToTool, toggleFavorite, isFavorite } = useApp();
+  const { toggleFavorite, isFavorite } = useApp();
   const popularTools = getPopularTools(8);
 
   return (
@@ -30,9 +31,9 @@ export const PopularToolsSection: React.FC = () => {
           const isFav = isFavorite(tool.slug);
 
           return (
-            <div
+            <Link
               key={tool.id}
-              onClick={() => navigateToTool(tool.slug)}
+              to={`/tool/${tool.slug}`}
               className="group relative flex flex-col justify-between p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800/90 hover:border-accent/50 dark:hover:border-accent/50 shadow-sm hover:shadow-xl hover:shadow-neutral-900/5 dark:hover:shadow-black/40 transition-all duration-200 cursor-pointer"
             >
               <div>
@@ -50,6 +51,7 @@ export const PopularToolsSection: React.FC = () => {
                     )}
                     <button
                       onClick={e => {
+                        e.preventDefault();
                         e.stopPropagation();
                         toggleFavorite(tool.slug);
                       }}
@@ -85,7 +87,7 @@ export const PopularToolsSection: React.FC = () => {
                   <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

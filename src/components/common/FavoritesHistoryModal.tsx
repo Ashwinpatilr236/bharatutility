@@ -15,7 +15,7 @@ export const FavoritesHistoryModal: React.FC<FavoritesHistoryModalProps> = ({
   onClose,
   initialTab = 'favorites',
 }) => {
-  const { favorites, toggleFavorite, calculationHistory, clearHistory, navigateToTool } = useApp();
+  const { favorites, toggleFavorite, calculationHistory, clearHistory, navigateToTool, navigateToFavorites } = useApp();
   const [activeTab, setActiveTab] = useState<'favorites' | 'history'>(initialTab);
 
   if (!isOpen) return null;
@@ -177,7 +177,7 @@ export const FavoritesHistoryModal: React.FC<FavoritesHistoryModalProps> = ({
           <button
             onClick={() => {
               onClose();
-              window.location.hash = '#/favorites';
+              navigateToFavorites();
             }}
             className="font-bold text-accent hover:underline flex items-center gap-1"
           >

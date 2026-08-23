@@ -4,6 +4,7 @@ import { CATEGORIES } from '../../data/categories';
 import { ThemeAccentPicker } from './ThemeAccentPicker';
 import { FavoritesHistoryModal } from './FavoritesHistoryModal';
 import { DynamicIcon } from './DynamicIcon';
+import { Link } from './Link';
 import {
   Search,
   Star,
@@ -13,24 +14,14 @@ import {
   X,
   ChevronDown,
   Flame,
-  FileCheck2,
-  HeartHandshake,
-  Download,
-  Smartphone
+  Download
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const {
-    navigateToHome,
     navigateToCategory,
-    navigateToAllTools,
-    navigateToFavorites,
-    navigateToLegal,
-    navigateToContact,
-    navigateToRequestTool,
     setCommandPaletteOpen,
     favorites,
-    calculationHistory,
     view
   } = useApp();
 
@@ -44,9 +35,9 @@ export const Header: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           {/* Logo & Brand */}
           <div className="flex items-center gap-6">
-            <button
+            <Link
               id="brand-logo-btn"
-              onClick={navigateToHome}
+              to="/"
               className="flex items-center gap-2.5 group text-left focus:outline-none"
             >
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 dark:from-indigo-500 dark:to-indigo-800 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
@@ -65,12 +56,12 @@ export const Header: React.FC = () => {
                   Everyday Tools for India
                 </span>
               </div>
-            </button>
+            </Link>
 
             {/* Desktop Navigation Links */}
             <nav className="hidden md:flex items-center gap-1">
-              <button
-                onClick={navigateToAllTools}
+              <Link
+                to="/tools"
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                   view.type === 'all-tools'
                     ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
@@ -78,10 +69,10 @@ export const Header: React.FC = () => {
                 }`}
               >
                 All Tools
-              </button>
+              </Link>
 
-              <button
-                onClick={navigateToFavorites}
+              <Link
+                to="/favorites"
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   view.type === 'favorites'
                     ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
@@ -95,7 +86,7 @@ export const Header: React.FC = () => {
                     {favorites.length}
                   </span>
                 )}
-              </button>
+              </Link>
 
               {/* Categories Dropdown */}
               <div className="relative group">
@@ -119,12 +110,10 @@ export const Header: React.FC = () => {
                     </div>
                     <div className="space-y-1 mt-1">
                       {CATEGORIES.map(cat => (
-                        <button
+                        <Link
                           key={cat.id}
-                          onClick={() => {
-                            navigateToCategory(cat.id);
-                            setIsCategoriesOpen(false);
-                          }}
+                          to={`/category/${cat.id}`}
+                          onClick={() => setIsCategoriesOpen(false)}
                           className="w-full flex items-center justify-between p-2 rounded-xl text-left hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors group"
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
@@ -143,7 +132,7 @@ export const Header: React.FC = () => {
                           <span className="text-[10px] font-medium text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded ml-2 shrink-0">
                             {cat.toolCount}
                           </span>
-                        </button>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -151,8 +140,8 @@ export const Header: React.FC = () => {
               </div>
 
               {/* Request a Tool Link */}
-              <button
-                onClick={navigateToRequestTool}
+              <Link
+                to="/request-tool"
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   view.type === 'request-tool'
                     ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
@@ -161,15 +150,15 @@ export const Header: React.FC = () => {
               >
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
                 <span>Request a Tool</span>
-              </button>
+              </Link>
 
-              <button
-                onClick={() => navigateToCategory('money')}
+              <Link
+                to="/category/money"
                 className="px-3 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors flex items-center gap-1"
               >
                 <Flame className="w-3.5 h-3.5 text-amber-500" />
                 Finance & Tax
-              </button>
+              </Link>
             </nav>
           </div>
 
@@ -220,16 +209,14 @@ export const Header: React.FC = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150">
             <div className="grid grid-cols-4 gap-2">
-              <button
-                onClick={() => {
-                  navigateToAllTools();
-                  setIsMobileMenuOpen(false);
-                }}
+              <Link
+                to="/tools"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
               >
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span>All Tools</span>
-              </button>
+              </Link>
               <button
                 onClick={() => {
                   setIsFavModalOpen(true);
@@ -240,16 +227,14 @@ export const Header: React.FC = () => {
                 <Star className="w-4 h-4 text-amber-500 fill-current" />
                 <span>Saved ({favorites.length})</span>
               </button>
-              <button
-                onClick={() => {
-                  navigateToRequestTool();
-                  setIsMobileMenuOpen(false);
-                }}
+              <Link
+                to="/request-tool"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
               >
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span>Request</span>
-              </button>
+              </Link>
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
@@ -272,49 +257,41 @@ export const Header: React.FC = () => {
               </div>
               <div className="grid grid-cols-2 gap-1.5">
                 {CATEGORIES.map(cat => (
-                  <button
+                  <Link
                     key={cat.id}
-                    onClick={() => {
-                      navigateToCategory(cat.id);
-                      setIsMobileMenuOpen(false);
-                    }}
+                    to={`/category/${cat.id}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="flex items-center gap-2 p-2 rounded-lg text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                   >
                     <DynamicIcon name={cat.icon} className="w-3.5 h-3.5 text-accent" />
                     <span className="truncate">{cat.name}</span>
-                  </button>
+                  </Link>
                 ))}
               </div>
             </div>
 
             <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800 flex flex-wrap justify-between items-center gap-2 text-xs text-neutral-500">
-              <button
-                onClick={() => {
-                  navigateToLegal('about');
-                  setIsMobileMenuOpen(false);
-                }}
+              <Link
+                to="/about"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="hover:underline"
               >
                 About BharatUtility
-              </button>
-              <button
-                onClick={() => {
-                  navigateToRequestTool();
-                  setIsMobileMenuOpen(false);
-                }}
+              </Link>
+              <Link
+                to="/request-tool"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="hover:underline text-accent font-medium"
               >
                 Request a Tool
-              </button>
-              <button
-                onClick={() => {
-                  navigateToContact();
-                  setIsMobileMenuOpen(false);
-                }}
+              </Link>
+              <Link
+                to="/contact"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="hover:underline"
               >
                 Contact Us
-              </button>
+              </Link>
             </div>
           </div>
         )}

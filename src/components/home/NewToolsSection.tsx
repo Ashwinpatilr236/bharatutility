@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { adminStore } from '../../services/adminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
+import { Link } from '../common/Link';
 import { Sparkles, ArrowRight, Star, Clock } from 'lucide-react';
 import { Tool } from '../../types';
 
@@ -10,17 +11,14 @@ interface NewToolsSectionProps {
 }
 
 export const NewToolsSection: React.FC<NewToolsSectionProps> = ({ itemCount = 4 }) => {
-  const { navigateToTool, navigateToAllTools, toggleFavorite, isFavorite } = useApp();
+  const { toggleFavorite, isFavorite } = useApp();
 
-  // Get tools from adminStore that are active and sort by updated/published or isNew flag
   const activeTools = adminStore.getActiveTools();
 
-  // Pick tools flagged as isNew or recently updated or in modern categories
   const newTools = [...activeTools]
     .filter(t => t.isNew || t.updatedAt || t.category === 'business' || t.category === 'technology')
     .slice(0, itemCount);
 
-  // Fallback to latest registered tools if empty
   const displayTools = newTools.length > 0 ? newTools : activeTools.slice(0, itemCount);
 
   if (displayTools.length === 0) return null;
@@ -41,13 +39,13 @@ export const NewToolsSection: React.FC<NewToolsSectionProps> = ({ itemCount = 4 
           </p>
         </div>
 
-        <button
-          onClick={navigateToAllTools}
+        <Link
+          to="/tools"
           className="self-start sm:self-center px-4 py-2 rounded-xl text-xs font-bold text-accent hover:bg-accent-subtle transition-colors inline-flex items-center gap-1.5"
         >
           <span>Explore All 24+ Tools</span>
           <ArrowRight className="w-4 h-4" />
-        </button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -55,9 +53,9 @@ export const NewToolsSection: React.FC<NewToolsSectionProps> = ({ itemCount = 4 
           const favorite = isFavorite(tool.slug);
 
           return (
-            <div
+            <Link
               key={tool.id}
-              onClick={() => navigateToTool(tool.slug)}
+              to={`/tool/${tool.slug}`}
               className="group relative flex flex-col justify-between p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800/90 hover:border-accent/60 shadow-xs hover:shadow-lg transition-all duration-200 cursor-pointer"
             >
               <div>
@@ -73,6 +71,7 @@ export const NewToolsSection: React.FC<NewToolsSectionProps> = ({ itemCount = 4 
                     </span>
                     <button
                       onClick={e => {
+                        e.preventDefault();
                         e.stopPropagation();
                         toggleFavorite(tool.slug);
                       }}
@@ -102,7 +101,7 @@ export const NewToolsSection: React.FC<NewToolsSectionProps> = ({ itemCount = 4 
                   <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

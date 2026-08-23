@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { adminStore } from '../../services/adminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
-import { Flame, ArrowRight, Star, Sparkles, TrendingUp } from 'lucide-react';
+import { Link } from '../common/Link';
+import { Flame, ArrowRight, Star, TrendingUp } from 'lucide-react';
 import { Tool } from '../../types';
 import { formatIndianCompact } from '../../utils/formatters';
 
@@ -11,7 +12,7 @@ interface TrendingToolsSectionProps {
 }
 
 export const TrendingToolsSection: React.FC<TrendingToolsSectionProps> = ({ itemCount = 6 }) => {
-  const { navigateToTool, navigateToAllTools, isFavorite, toggleFavorite } = useApp();
+  const { isFavorite, toggleFavorite } = useApp();
   const [tools, setTools] = useState<Tool[]>(() => {
     return adminStore.getTrendingTools().slice(0, itemCount);
   });
@@ -41,13 +42,13 @@ export const TrendingToolsSection: React.FC<TrendingToolsSectionProps> = ({ item
           </p>
         </div>
 
-        <button
-          onClick={navigateToAllTools}
+        <Link
+          to="/tools"
           className="self-start sm:self-center px-4 py-2 rounded-xl text-xs font-bold text-accent hover:bg-accent-subtle transition-colors inline-flex items-center gap-1.5"
         >
           <span>View All Tools</span>
           <ArrowRight className="w-4 h-4" />
-        </button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -56,9 +57,9 @@ export const TrendingToolsSection: React.FC<TrendingToolsSectionProps> = ({ item
           const views = tool.views || 18500;
 
           return (
-            <div
+            <Link
               key={tool.id}
-              onClick={() => navigateToTool(tool.slug)}
+              to={`/tool/${tool.slug}`}
               className="flex items-center justify-between p-4 sm:p-4.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800/90 hover:border-rose-300 dark:hover:border-rose-900/60 shadow-xs hover:shadow-md cursor-pointer transition-all group relative"
             >
               <div className="flex items-center gap-3.5 min-w-0">
@@ -86,6 +87,7 @@ export const TrendingToolsSection: React.FC<TrendingToolsSectionProps> = ({ item
               <div className="flex items-center gap-2 shrink-0 pl-3">
                 <button
                   onClick={e => {
+                    e.preventDefault();
                     e.stopPropagation();
                     toggleFavorite(tool.slug);
                   }}
@@ -100,7 +102,7 @@ export const TrendingToolsSection: React.FC<TrendingToolsSectionProps> = ({ item
                 </button>
                 <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-accent group-hover:translate-x-1 transition-all" />
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

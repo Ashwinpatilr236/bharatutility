@@ -8,13 +8,13 @@ interface LegalViewProps {
 }
 
 export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
-  const { navigateToLegal, navigateToContact, navigateToRequestTool } = useApp();
+  const { navigateToLegal, navigateToContact, navigateToRequestTool, navigateToHome } = useApp();
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-200">
       <Breadcrumbs
         items={[
-          { label: 'Home', onClick: () => window.location.hash = '#/' },
+          { label: 'Home', onClick: navigateToHome },
           { label: 'Legal & Info', active: true }
         ]}
       />
@@ -125,7 +125,7 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
             <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-2 text-xs">
               <div className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200 font-semibold">
                 <Mail className="w-4 h-4 text-accent" />
-                <span>support@bharatutility.in</span>
+                <span>support@bharatutility.tech</span>
               </div>
               <p className="text-neutral-500">We typically respond to community feature requests and formula inquiries within 24–48 hours.</p>
             </div>
