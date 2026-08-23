@@ -230,9 +230,9 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
-          { label: 'Home', onClick: navigateToHome },
           {
             label: category ? category.name : 'Calculators',
+            href: category ? `/category/${category.id}` : '/tools',
             onClick: () => category && navigateToCategory(category.id)
           },
           { label: tool.shortName || tool.name, active: true }

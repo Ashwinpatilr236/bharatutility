@@ -181,6 +181,30 @@ export function updateSeoMetadata(view: ViewMode): void {
     if (category) {
       title = `${category.name} Tools & Calculators | ${SITE_NAME}`;
       description = category.description;
+      jsonLdData = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: `${CANONICAL_BASE}/`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Categories',
+            item: `${CANONICAL_BASE}/categories`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: category.name,
+            item: canonicalUrl,
+          },
+        ],
+      };
     } else {
       title = `Category Tools | ${SITE_NAME}`;
     }
@@ -188,6 +212,24 @@ export function updateSeoMetadata(view: ViewMode): void {
     title = `All Indian Calculators & Everyday Utilities | ${SITE_NAME}`;
     description =
       'Explore all free, fast everyday calculators and utilities for loan EMI, GST, SIP, salary in-hand, age, unit conversion, and document generation in India.';
+    jsonLdData = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${CANONICAL_BASE}/`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Tools',
+          item: canonicalUrl,
+        },
+      ],
+    };
   } else if (view.type === 'favorites') {
     title = `Saved Tools & Favorites | ${SITE_NAME}`;
     description = 'Access your saved favorite calculators and quick utilities on BharatUtility.';
@@ -242,6 +284,13 @@ export function updateSeoMetadata(view: ViewMode): void {
 
   // Update Page Title
   document.title = title;
+
+  // Update Robots Meta Tag (Excludes admin from indexing while keeping all public tools indexed)
+  if (view.type === 'admin') {
+    setMetaTag('meta[name="robots"]', 'name', 'robots', 'noindex, nofollow');
+  } else {
+    setMetaTag('meta[name="robots"]', 'name', 'robots', 'index, follow');
+  }
 
   // Update Meta Tags
   setMetaTag('meta[name="description"]', 'name', 'description', description);

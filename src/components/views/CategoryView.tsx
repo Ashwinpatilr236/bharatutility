@@ -24,8 +24,7 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
       {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
-          { label: 'Home', onClick: navigateToHome },
-          { label: 'Categories', onClick: navigateToAllTools },
+          { label: 'Categories', href: '/categories', onClick: navigateToAllTools },
           { label: category.name, active: true }
         ]}
       />
