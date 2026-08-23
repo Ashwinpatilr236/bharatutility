@@ -107,62 +107,64 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'home' }, redirectPath: '/' };
   }
 
-  // 2. Parse Clean Pathname
-  if (path.startsWith('/tool/')) {
-    const slug = path.replace('/tool/', '').split('?')[0];
+  // 2. Parse Clean Pathname (normalized without trailing slash)
+  const cleanPath = (path.length > 1 && path.endsWith('/')) ? path.slice(0, -1) : path;
+
+  if (cleanPath.startsWith('/tool/')) {
+    const slug = cleanPath.replace('/tool/', '').split('?')[0];
     if (slug === 'electricity-calculator' || slug === 'electricity-bill-calculator') {
       return { view: { type: 'all-tools' }, redirectPath: `/tools${search}` };
     }
     return { view: { type: 'tool', slug } };
   }
-  if (path.startsWith('/category/')) {
-    const categoryId = path.replace('/category/', '').split('?')[0] as CategoryId;
+  if (cleanPath.startsWith('/category/')) {
+    const categoryId = cleanPath.replace('/category/', '').split('?')[0] as CategoryId;
     return { view: { type: 'category', categoryId } };
   }
-  if (path === '/india-services') {
+  if (cleanPath === '/india-services') {
     return { view: { type: 'category', categoryId: 'india-services' } };
   }
-  if (path === '/document-tools') {
+  if (cleanPath === '/document-tools') {
     return { view: { type: 'category', categoryId: 'document-tools' } };
   }
-  if (path === '/vehicle-utility') {
+  if (cleanPath === '/vehicle-utility') {
     return { view: { type: 'category', categoryId: 'vehicle-utility' } };
   }
-  if (path === '/travel-utility') {
+  if (cleanPath === '/travel-utility') {
     return { view: { type: 'category', categoryId: 'travel-utility' } };
   }
-  if (path === '/tools' || path === '/all-tools' || path === '/categories') {
+  if (cleanPath === '/tools' || cleanPath === '/all-tools' || cleanPath === '/categories') {
     return { view: { type: 'all-tools' } };
   }
-  if (path === '/favorites' || path === '/saved') {
+  if (cleanPath === '/favorites' || cleanPath === '/saved') {
     return { view: { type: 'favorites' } };
   }
-  if (path === '/contact') {
+  if (cleanPath === '/contact') {
     return { view: { type: 'contact' } };
   }
-  if (path === '/request-tool') {
+  if (cleanPath === '/request-tool') {
     return { view: { type: 'request-tool' } };
   }
-  if (path === '/about') {
+  if (cleanPath === '/about' || cleanPath === '/about-us' || cleanPath === '/info') {
     return { view: { type: 'legal', page: 'about' } };
   }
-  if (path === '/privacy' || path === '/legal/privacy') {
+  if (cleanPath === '/privacy' || cleanPath === '/legal/privacy') {
     return { view: { type: 'legal', page: 'privacy' } };
   }
-  if (path === '/terms' || path === '/legal/terms') {
+  if (cleanPath === '/terms' || cleanPath === '/legal/terms') {
     return { view: { type: 'legal', page: 'terms' } };
   }
-  if (path === '/disclaimer' || path === '/legal/disclaimer') {
+  if (cleanPath === '/disclaimer' || cleanPath === '/legal/disclaimer') {
     return { view: { type: 'legal', page: 'disclaimer' } };
   }
-  if (path.startsWith('/legal/')) {
-    const page = path.replace('/legal/', '').split('?')[0] as any;
+  if (cleanPath.startsWith('/legal/')) {
+    const page = cleanPath.replace('/legal/', '').split('?')[0] as any;
     if (page === 'contact') {
       return { view: { type: 'contact' } };
     }
     return { view: { type: 'legal', page } };
   }
-  if (path.startsWith('/admin')) {
+  if (cleanPath.startsWith('/admin')) {
     return { view: { type: 'home' }, redirectPath: '/' };
   }
 

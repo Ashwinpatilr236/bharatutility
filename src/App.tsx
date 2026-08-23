@@ -21,13 +21,14 @@ import { SocialFollow } from './components/common/SocialFollow';
 import { getToolBySlug } from './data/toolsRegistry';
 import { ArrowLeft } from 'lucide-react';
 
-// Code-split Lazy Loaded Views (Loaded only on route navigation)
+import { LegalView } from './components/views/LegalView';
+import { ContactView } from './components/views/ContactView';
+
+// Code-split Lazy Loaded Views
 const ToolPageLayout = React.lazy(() => import('./components/tools/ToolPageLayout').then(m => ({ default: m.ToolPageLayout })));
 const CategoryView = React.lazy(() => import('./components/views/CategoryView').then(m => ({ default: m.CategoryView })));
 const AllToolsView = React.lazy(() => import('./components/views/AllToolsView').then(m => ({ default: m.AllToolsView })));
 const FavoritesView = React.lazy(() => import('./components/views/FavoritesView').then(m => ({ default: m.FavoritesView })));
-const LegalView = React.lazy(() => import('./components/views/LegalView').then(m => ({ default: m.LegalView })));
-const ContactView = React.lazy(() => import('./components/views/ContactView').then(m => ({ default: m.ContactView })));
 const RequestToolView = React.lazy(() => import('./components/views/RequestToolView').then(m => ({ default: m.RequestToolView })));
 
 const ViewLoadingFallback: React.FC = () => (
