@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useAdminStore } from '../../hooks/useAdminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch, removeRecentSearch, TRENDING_SEARCH_KEYWORDS } from '../../utils/smartSearch';
 import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
+  useAdminStore();
   const { navigateToTool, navigateToAllTools, navigateToRequestTool, setCommandPaletteOpen } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);

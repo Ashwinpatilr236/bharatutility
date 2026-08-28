@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useAdminStore } from '../../hooks/useAdminStore';
 import { CATEGORIES } from '../../data/categories';
 import { ThemeAccentPicker } from './ThemeAccentPicker';
 import { FavoritesHistoryModal } from './FavoritesHistoryModal';
@@ -14,10 +15,13 @@ import {
   X,
   ChevronDown,
   Flame,
-  Download
+  Download,
+  Megaphone
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
+  const adminStore = useAdminStore();
+  const announcements = adminStore.getAnnouncements().filter(a => a.enabled);
   const {
     navigateToCategory,
     setCommandPaletteOpen,
@@ -31,6 +35,17 @@ export const Header: React.FC = () => {
 
   return (
     <>
+      {announcements.length > 0 && (
+        <div className="bg-gradient-to-r from-accent via-indigo-600 to-purple-600 text-white text-xs py-2 px-4 text-center font-medium shadow-xs flex items-center justify-center gap-2">
+          <Megaphone className="w-4 h-4 animate-pulse shrink-0" />
+          <span><strong>{announcements[0].title}:</strong> {announcements[0].message}</span>
+          {announcements[0].ctaText && announcements[0].ctaUrl && (
+            <a href={announcements[0].ctaUrl} className="underline font-bold hover:text-amber-200 ml-1">
+              {announcements[0].ctaText} →
+            </a>
+          )}
+        </div>
+      )}
       <header className="sticky top-0 z-40 w-full border-b border-neutral-200/80 dark:border-neutral-800/80 bg-white/85 dark:bg-neutral-950/85 backdrop-blur-md transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           {/* Logo & Brand */}

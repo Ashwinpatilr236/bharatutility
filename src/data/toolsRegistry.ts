@@ -1,4 +1,5 @@
 import { Tool } from '../types';
+import { adminStore } from '../services/adminStore';
 
 export const TOOLS_REGISTRY: Tool[] = [
   // 1. EMI Calculator
@@ -2679,18 +2680,40 @@ export const TOOLS_REGISTRY: Tool[] = [
   }
 ];
 
+export function getActiveTools(): Tool[] {
+  try {
+    const tools = adminStore.getTools();
+    if (tools && tools.length > 0) {
+      return tools.filter(t => t.status === 'published' || !t.status);
+    }
+  } catch {}
+  return TOOLS_REGISTRY.filter(t => t.status === 'published' || !t.status);
+}
+
 export function getToolBySlug(slug: string): Tool | undefined {
+  try {
+    const liveTool = adminStore.getToolByIdOrSlug(slug);
+    if (liveTool) return liveTool;
+  } catch {}
   return TOOLS_REGISTRY.find(t => t.slug === slug || t.id === slug);
 }
 
 export function getToolsByCategory(categoryId: string): Tool[] {
-  return TOOLS_REGISTRY.filter(t => t.category === categoryId);
+  const active = getActiveTools();
+  return active.filter(t => t.category === categoryId);
 }
 
 export function getPopularTools(limit: number = 8): Tool[] {
-  return TOOLS_REGISTRY.filter(t => t.popular).slice(0, limit);
+  const active = getActiveTools();
+  return active.filter(t => t.popular).slice(0, limit);
 }
 
 export function getTrendingTools(limit: number = 6): Tool[] {
-  return TOOLS_REGISTRY.filter(t => t.trending || t.popular).slice(0, limit);
+  const active = getActiveTools();
+  return active.filter(t => t.trending || t.popular).slice(0, limit);
+}
+
+export function getNewTools(limit: number = 6): Tool[] {
+  const active = getActiveTools();
+  return active.filter(t => t.badge === 'New' || t.badge === 'Beta' || t.badge === 'Latest').slice(0, limit);
 }

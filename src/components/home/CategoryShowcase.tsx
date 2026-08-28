@@ -1,11 +1,14 @@
 import React from 'react';
-import { CATEGORIES } from '../../data/categories';
+import { useAdminStore } from '../../hooks/useAdminStore';
+import { adminStore } from '../../services/adminStore';
 import { getToolsByCategory } from '../../data/toolsRegistry';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Link } from '../common/Link';
 import { Layers, ArrowRight } from 'lucide-react';
 
 export const CategoryShowcase: React.FC = () => {
+  useAdminStore();
+  const categories = adminStore.getCategories().filter(c => c.active ?? true);
   return (
     <section className="py-12 bg-neutral-100/50 dark:bg-neutral-900/30 border-y border-neutral-200/80 dark:border-neutral-800/80 my-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,7 +28,7 @@ export const CategoryShowcase: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {CATEGORIES.map(cat => {
+          {categories.map(cat => {
             const categoryTools = getToolsByCategory(cat.id).slice(0, 3);
 
             return (

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
-import { TOOLS_REGISTRY } from '../../data/toolsRegistry';
+import { useAdminStore } from '../../hooks/useAdminStore';
+import { getActiveTools } from '../../data/toolsRegistry';
 import { CATEGORIES } from '../../data/categories';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Link } from '../common/Link';
@@ -8,6 +9,7 @@ import { Search, Star } from 'lucide-react';
 import { RequestToolCta } from '../common/RequestToolCta';
 
 export const AllToolsView: React.FC = () => {
+  useAdminStore();
   const { isFavorite, toggleFavorite } = useApp();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,7 +17,8 @@ export const AllToolsView: React.FC = () => {
   const [sortBy, setSortBy] = useState<'popular' | 'name' | 'trending'>('popular');
 
   const filteredTools = useMemo(() => {
-    return TOOLS_REGISTRY.filter(tool => {
+    const activeTools = getActiveTools();
+    return activeTools.filter(tool => {
       // Category filter
       if (selectedCategory !== 'all' && tool.category !== selectedCategory) {
         return false;
@@ -97,10 +100,10 @@ export const AllToolsView: React.FC = () => {
                 : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
             }`}
           >
-            All Tools ({TOOLS_REGISTRY.length})
+            All Tools ({getActiveTools().length})
           </button>
           {CATEGORIES.map(cat => {
-            const count = TOOLS_REGISTRY.filter(t => t.category === cat.id).length;
+            const count = getActiveTools().filter(t => t.category === cat.id).length;
             return (
               <button
                 key={cat.id}

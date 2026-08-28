@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
+import { useAdminStore } from '../../hooks/useAdminStore';
 import { CATEGORIES } from '../../data/categories';
 import { getToolsByCategory } from '../../data/toolsRegistry';
 import { CategoryId } from '../../types';
@@ -14,6 +15,7 @@ interface CategoryViewProps {
 }
 
 export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
+  useAdminStore();
   const { isFavorite, toggleFavorite, navigateToHome, navigateToAllTools } = useApp();
 
   const category = CATEGORIES.find(c => c.id === categoryId) || CATEGORIES[0];

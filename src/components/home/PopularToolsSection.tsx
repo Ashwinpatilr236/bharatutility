@@ -1,11 +1,13 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
+import { useAdminStore } from '../../hooks/useAdminStore';
 import { getPopularTools } from '../../data/toolsRegistry';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Link } from '../common/Link';
 import { Star, ArrowRight, Sparkles } from 'lucide-react';
 
 export const PopularToolsSection: React.FC = () => {
+  useAdminStore();
   const { toggleFavorite, isFavorite } = useApp();
   const popularTools = getPopularTools(8);
 

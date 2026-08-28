@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
+import { useAdminStore } from '../../hooks/useAdminStore';
 import { adminStore } from '../../services/adminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Link } from '../common/Link';
@@ -11,6 +12,7 @@ interface NewToolsSectionProps {
 }
 
 export const NewToolsSection: React.FC<NewToolsSectionProps> = ({ itemCount = 4 }) => {
+  useAdminStore();
   const { toggleFavorite, isFavorite } = useApp();
 
   const activeTools = adminStore.getActiveTools();

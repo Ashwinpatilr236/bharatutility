@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useAdminStore } from '../../hooks/useAdminStore';
 import { adminStore } from '../../services/adminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Link } from '../common/Link';
@@ -12,6 +13,7 @@ interface TrendingToolsSectionProps {
 }
 
 export const TrendingToolsSection: React.FC<TrendingToolsSectionProps> = ({ itemCount = 6 }) => {
+  useAdminStore();
   const { isFavorite, toggleFavorite } = useApp();
   const [tools, setTools] = useState<Tool[]>(() => {
     return adminStore.getTrendingTools().slice(0, itemCount);
