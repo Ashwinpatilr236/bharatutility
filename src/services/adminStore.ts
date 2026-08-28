@@ -667,6 +667,17 @@ class AdminStore {
   constructor() {
     this.loadAll();
     this.syncFromSupabase().catch(() => {});
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('focus', () => {
+        this.syncFromSupabase().catch(() => {});
+      });
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          this.syncFromSupabase().catch(() => {});
+        }
+      });
+    }
   }
 
   public async syncFromSupabase(): Promise<void> {
