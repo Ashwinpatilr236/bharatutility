@@ -666,6 +666,84 @@ class AdminStore {
 
   constructor() {
     this.loadAll();
+    this.syncFromSupabase().catch(() => {});
+  }
+
+  public async syncFromSupabase(): Promise<void> {
+    try {
+      const supabase = getSupabase();
+      if (!supabase || !isSupabaseConfigured()) return;
+
+      // 1. Fetch site_config
+      const { data: configData } = await supabase
+        .from('site_config')
+        .select('*')
+        .eq('id', 'default')
+        .maybeSingle();
+
+      if (configData && configData.config_json) {
+        const json = configData.config_json;
+        if (json.seoConfig) {
+          this.seoConfig = { ...this.seoConfig, ...json.seoConfig };
+          localStorage.setItem(SEO_STORAGE_KEY, JSON.stringify(this.seoConfig));
+        }
+        if (json.adsConfig) {
+          this.adsConfig = { ...this.adsConfig, ...json.adsConfig };
+          localStorage.setItem(ADS_STORAGE_KEY, JSON.stringify(this.adsConfig));
+        }
+        if (json.appearanceConfig) {
+          this.appearanceConfig = { ...this.appearanceConfig, ...json.appearanceConfig };
+          localStorage.setItem(APPEARANCE_STORAGE_KEY, JSON.stringify(this.appearanceConfig));
+        }
+      }
+
+      // 2. Fetch announcements
+      const { data: annData } = await supabase
+        .from('site_announcements')
+        .select('*')
+        .eq('is_active', true);
+
+      if (annData && annData.length > 0) {
+        const mappedAnn: SiteAnnouncement[] = annData.map((a: any) => ({
+          id: a.id,
+          title: a.title,
+          message: a.message,
+          ctaText: a.link_text || undefined,
+          ctaUrl: a.link_url || undefined,
+          style: (a.type || 'info') as any,
+          startDate: a.start_date || undefined,
+          endDate: a.end_date || undefined,
+          enabled: a.is_active ?? true,
+          createdAt: a.created_at || new Date().toISOString(),
+          updatedAt: a.updated_at || new Date().toISOString(),
+        }));
+        this.announcements = mappedAnn;
+        localStorage.setItem(ANNOUNCEMENTS_STORAGE_KEY, JSON.stringify(mappedAnn));
+      }
+
+      // 3. Fetch feature flags
+      const { data: flagData } = await supabase
+        .from('feature_flags')
+        .select('*');
+
+      if (flagData && flagData.length > 0) {
+        const mappedFlags: FeatureFlagItem[] = flagData.map((f: any) => ({
+          key: f.key,
+          name: f.name,
+          description: f.description,
+          enabled: f.enabled,
+          category: f.category || 'general',
+          rolloutPercentage: f.rollout_percentage || 100,
+          updatedAt: f.updated_at || new Date().toISOString(),
+        }));
+        this.featureFlags = mappedFlags;
+        localStorage.setItem(FEATURE_FLAGS_STORAGE_KEY, JSON.stringify(mappedFlags));
+      }
+
+      this.notify();
+    } catch (err) {
+      console.warn('Failed to sync config from Supabase:', err);
+    }
   }
 
   private loadAll(): void {
