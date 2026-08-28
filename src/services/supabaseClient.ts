@@ -1,8 +1,8 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// Read from environment if configured
-const rawSupabaseUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_URL ? import.meta.env.VITE_SUPABASE_URL : '').trim();
-const rawSupabaseAnonKey = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_ANON_KEY ? import.meta.env.VITE_SUPABASE_ANON_KEY : '').trim();
+// Read from environment if configured with default Central Admin database fallback
+const rawSupabaseUrl = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_URL) || 'https://nyqjcfutsqgxpnisvggv.supabase.co').trim();
+const rawSupabaseAnonKey = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_ANON_KEY) || 'sb_publishable_QisWrr_KQ1e88SxD__QcXw_uewssBzn').trim();
 
 let supabaseInstance: SupabaseClient | null = null;
 
