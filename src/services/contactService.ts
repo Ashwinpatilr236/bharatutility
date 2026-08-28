@@ -46,6 +46,27 @@ export async function submitContactMessage(data: ContactFormData): Promise<Conta
   const ticketNumber = `BU-${randomDigits}`;
   const subjectWithTicket = `[#${ticketNumber}] ${rawSubject}`;
 
+  // Instant Telegram Admin Phone Alert
+  const telegramMessage = `🇮🇳 <b>NEW BHARATUTILITY MESSAGE RECEIVED!</b>\n\n` +
+    `🎫 <b>Ticket Reference:</b> <code>#${ticketNumber}</code>\n` +
+    `👤 <b>Name:</b> ${name || 'Visitor'}\n` +
+    `✉️ <b>Email:</b> ${email}\n` +
+    `📌 <b>Subject:</b> ${rawSubject}\n\n` +
+    `💬 <b>Message:</b>\n${message}\n\n` +
+    `⚡ <i>Logged in Central Admin Workspace</i>`;
+
+  try {
+    fetch(`https://api.telegram.org/bot8276384400:AAF8BsimAlsOrsbx0w0PYJ9ymUBi9JVvOLI/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: '5892799474',
+        text: telegramMessage,
+        parse_mode: 'HTML',
+      }),
+    }).catch(() => {});
+  } catch {}
+
   // 2. Check Supabase Configuration
   const supabase = getSupabase();
   if (!supabase || !isSupabaseConfigured()) {
