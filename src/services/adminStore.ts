@@ -677,6 +677,9 @@ class AdminStore {
           this.syncFromSupabase().catch(() => {});
         }
       });
+      setInterval(() => {
+        this.syncFromSupabase().catch(() => {});
+      }, 10000);
     }
   }
 
@@ -705,6 +708,18 @@ class AdminStore {
         if (json.appearanceConfig) {
           this.appearanceConfig = { ...this.appearanceConfig, ...json.appearanceConfig };
           localStorage.setItem(APPEARANCE_STORAGE_KEY, JSON.stringify(this.appearanceConfig));
+        }
+        if (json.tools && Array.isArray(json.tools) && json.tools.length > 0) {
+          this.tools = json.tools;
+          localStorage.setItem(TOOLS_STORAGE_KEY, JSON.stringify(this.tools));
+        }
+        if (json.categories && Array.isArray(json.categories) && json.categories.length > 0) {
+          this.categories = json.categories;
+          localStorage.setItem(CATEGORIES_STORAGE_KEY, JSON.stringify(this.categories));
+        }
+        if (json.homepageBuilder) {
+          this.homepageBuilder = { ...this.homepageBuilder, ...json.homepageBuilder };
+          localStorage.setItem(HOMEPAGE_BUILDER_STORAGE_KEY, JSON.stringify(this.homepageBuilder));
         }
       }
 
