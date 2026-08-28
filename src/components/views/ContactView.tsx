@@ -75,6 +75,8 @@ export const ContactView: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const [submittedTicketId, setSubmittedTicketId] = useState('');
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -83,7 +85,6 @@ export const ContactView: React.FC = () => {
       return;
     }
 
-    // Prevent duplicate submission of identical content
     const currentPayload = JSON.stringify(formData);
     if (currentPayload === lastSubmittedPayload) {
       showToast('This message has already been submitted.', 'info');
@@ -95,6 +96,7 @@ export const ContactView: React.FC = () => {
       const response = await submitContactMessage(formData);
       if (response.success) {
         setIsSubmitted(true);
+        if (response.id) setSubmittedTicketId(response.id);
         setLastSubmittedPayload(currentPayload);
         showToast('Thanks! Your message has been sent successfully.', 'success');
       }
@@ -113,6 +115,7 @@ export const ContactView: React.FC = () => {
       subject: '',
       message: '',
     });
+    setSubmittedTicketId('');
     setErrors({});
     setIsSubmitted(false);
   };
@@ -159,6 +162,13 @@ export const ContactView: React.FC = () => {
                   <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-md mx-auto leading-relaxed">
                     Our team reviews all incoming inquiries and will respond to your email as soon as possible.
                   </p>
+
+                  {submittedTicketId && (
+                    <div className="p-3.5 rounded-2xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 max-w-xs mx-auto flex items-center justify-between text-xs font-mono">
+                      <span className="text-neutral-500 dark:text-neutral-400 font-sans">Ticket Reference:</span>
+                      <span className="font-black text-accent dark:text-accent tracking-wider font-mono">#{submittedTicketId}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">

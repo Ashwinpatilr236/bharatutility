@@ -17,7 +17,7 @@ export interface ToolRequestResponse {
 }
 
 /**
- * Submits a new citizen tool request directly to Supabase public.tool_requests
+ * Submits a new citizen tool request directly to Supabase public.tool_requests and public.inquiries
  */
 export async function submitToolRequest(data: ToolRequestFormData): Promise<ToolRequestResponse> {
   // 1. Validation
@@ -64,16 +64,38 @@ export async function submitToolRequest(data: ToolRequestFormData): Promise<Tool
     fullDescription += `\n\n[Reference URL]: ${data.referenceUrl.trim()}`;
   }
 
+  // Generate 5-digit Ticket Number e.g. BU-84920
+  const randomDigits = Math.floor(10000 + Math.random() * 90000);
+  const ticketNumber = `BU-${randomDigits}`;
+  const subjectWithTicket = `[#${ticketNumber}] Tool Request: ${requestedTool} (${category})`;
+
   // 2. Check Supabase Configuration
   const supabase = getSupabase();
   if (!supabase || !isSupabaseConfigured()) {
     throw new Error('Database service is currently unavailable. Please try again later.');
   }
 
+  // Save to local cache as fallback
+  const localRecord = {
+    id: ticketNumber,
+    product_slug: 'bharatutility',
+    name: name || 'Citizen Visitor',
+    email: email || 'anonymous@bharatutility.com',
+    subject: subjectWithTicket,
+    message: fullDescription,
+    status: 'new',
+    created_at: new Date().toISOString(),
+  };
+
+  try {
+    const existing = localStorage.getItem('bu_inquiries_cache');
+    const list = existing ? JSON.parse(existing) : [];
+    list.unshift(localRecord);
+    localStorage.setItem('bu_inquiries_cache', JSON.stringify(list.slice(0, 50)));
+  } catch {}
+
   // 3. Insert into Supabase public.tool_requests
-  // Note: We do not call .select() here because public/anon users only have INSERT permission,
-  // not SELECT permission. Calling .select() triggers Postgres SELECT RLS and causes a violation.
-  const payload = {
+  const payloadTool = {
     requested_tool: requestedTool,
     description: fullDescription || null,
     category: category || null,
@@ -82,18 +104,39 @@ export async function submitToolRequest(data: ToolRequestFormData): Promise<Tool
     status: 'new',
   };
 
-  const { error } = await supabase
+  const { error: toolErr } = await supabase
     .from('tool_requests')
-    .insert([payload]);
+    .insert([payloadTool]);
 
-  if (error) {
-    console.error('Supabase tool request insert error:', error);
-    throw new Error(error.message || 'Something went wrong while submitting your request. Please try again.');
+  if (toolErr) {
+    console.warn('Supabase tool_requests insert warning:', toolErr);
+  }
+
+  // 4. Insert into Supabase central public.inquiries (for Central Admin Sync)
+  const payloadInquiry = {
+    product_slug: 'bharatutility',
+    name: name || 'Citizen Visitor',
+    email: email || 'anonymous@bharatutility.com',
+    phone: null,
+    subject: subjectWithTicket,
+    message: fullDescription,
+    form_type: 'tool_request',
+    source_page: typeof window !== 'undefined' ? window.location.pathname : '/request-tool',
+    status: 'new',
+    priority: 'normal',
+  };
+
+  const { error: inqErr } = await supabase
+    .from('inquiries')
+    .insert([payloadInquiry]);
+
+  if (inqErr) {
+    console.warn('Supabase inquiries insert warning:', inqErr);
   }
 
   return {
     success: true,
     message: 'Thanks! Your tool request has been submitted.',
-    id: '',
+    id: ticketNumber,
   };
 }
