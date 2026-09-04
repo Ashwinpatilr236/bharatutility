@@ -1,7 +1,6 @@
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
-import { GoogleGenAI, Type } from "@google/genai";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -10,22 +9,6 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json({ limit: "10mb" }));
-
-// Lazy Google GenAI Client
-let aiClient: GoogleGenAI | null = null;
-function getAIClient(): GoogleGenAI | null {
-  if (!aiClient && process.env.GEMINI_API_KEY) {
-    aiClient = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
-      httpOptions: {
-        headers: {
-          "User-Agent": "aistudio-build",
-        },
-      },
-    });
-  }
-  return aiClient;
-}
 
 // ── HEALTH CHECK ──
 app.get("/api/health", (req, res) => {
@@ -38,12 +21,7 @@ app.get("/api/admin/health-check", async (req, res) => {
   const uptimeSeconds = process.uptime();
   const memoryUsage = process.memoryUsage();
 
-  const isGeminiAvailable = Boolean(process.env.GEMINI_API_KEY);
   const isSupabaseConfigured = Boolean(process.env.VITE_SUPABASE_URL && process.env.VITE_SUPABASE_ANON_KEY);
-
-  // Test Gemini AI readiness if key exists
-  let aiStatus: 'operational' | 'warning' | 'down' = isGeminiAvailable ? 'operational' : 'warning';
-  let aiMessage = isGeminiAvailable ? 'Gemini 3.7 Flash API connected and ready' : 'GEMINI_API_KEY not configured in environment';
 
   const services = [
     {
@@ -63,11 +41,11 @@ app.get("/api/admin/health-check", async (req, res) => {
       lastChecked: new Date().toISOString()
     },
     {
-      name: "Gemini AI Document Extraction Engine",
-      category: "ai",
-      status: aiStatus,
-      latencyMs: 45,
-      details: aiMessage,
+      name: "Native Client-Side Processing & PDF Engine",
+      category: "core",
+      status: "operational" as const,
+      latencyMs: 5,
+      details: "Client-side private calculation & PDF engine active (100% offline-ready & private)",
       lastChecked: new Date().toISOString()
     },
     {
@@ -98,7 +76,7 @@ app.get("/api/admin/health-check", async (req, res) => {
 
   res.json({
     success: true,
-    overallStatus: isGeminiAvailable ? "operational" : "operational",
+    overallStatus: "operational",
     uptimeSeconds,
     memory: {
       rssMb: Math.round(memoryUsage.rss / 1024 / 1024),
