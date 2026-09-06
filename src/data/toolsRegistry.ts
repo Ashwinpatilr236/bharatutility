@@ -2066,7 +2066,65 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'IFSC Code Finder'
     },
     faqs: [
-      { question: 'What is an IFSC Code?', answer: 'IFSC (Indian Financial System Code) is an 11-character alphanumeric code that uniquely identifies a bank branch participating in online money transfers.' }
+          {
+                "question": "What is an IFSC Code?",
+                "answer": "IFSC (Indian Financial System Code) is an 11-character alphanumeric code that uniquely identifies a bank branch participating in online money transfers."
+          },
+          {
+                "question": "Where can I find my bank branch IFSC code?",
+                "answer": "You can find your IFSC code on your bank passbook front page, printed cheque leaves, bank mobile app, or by using BharatUtility free IFSC finder."
+          },
+          {
+                "question": "Is IFSC code required for UPI transfers?",
+                "answer": "No, UPI transfers only require a UPI ID or linked mobile number, but standard NEFT, RTGS, and IMPS bank transfers mandate an IFSC code."
+          },
+          {
+                "question": "What happens if I enter the wrong IFSC code?",
+                "answer": "If the account number and IFSC mismatch, the transaction is rejected and money is reversed back to your account within 1 to 2 banking business days."
+          },
+          {
+                "question": "Does IFSC code change if branches merge?",
+                "answer": "Yes, when banks merge (like e-Vijaya or e-Dena merging into Bank of Baroda), old IFSC codes are replaced with new merged bank branch IFSC codes."
+          }
+    ],
+        formulaDescription: "IFSC format: 4 alphabetic characters (Bank Name) + 0 (Reserved) + 6 alphanumeric characters (Specific Branch Code). Example: SBIN0001234.",
+    workedExample: {
+          "inputSummary": "Bank: State Bank of India | State: Maharashtra | City: Mumbai | Branch: Nariman Point",
+          "calculationSteps": [
+                "1. Select Bank: State Bank of India (SBIN)",
+                "2. Select State: Maharashtra (MH)",
+                "3. Select District/City: Mumbai",
+                "4. Select Branch: Nariman Point",
+                "5. Result: SBIN0001552 with MICR 400002014 and address"
+          ],
+          "finalResult": "IFSC: SBIN0001552 | Branch: Nariman Point, Mumbai | Transfers: NEFT, RTGS, IMPS Enabled"
+    },
+    seoSections: [
+          {
+                "h2": "What is an IFSC Code?",
+                "paragraphs": [
+                      "An Indian Financial System Code (IFSC) is a unique 11-character alphanumeric code assigned by the Reserve Bank of India (RBI) to identify every bank branch participating in national electronic payment systems including NEFT (National Electronic Funds Transfer), RTGS (Real-Time Gross Settlement), and IMPS (Immediate Payment Service)."
+                ]
+          },
+          {
+                "h2": "Structure of an 11-Digit IFSC Code",
+                "paragraphs": [
+                      "The 11-digit IFSC code follows a strict RBI-mandated structural format across all public, private, rural, and cooperative banks in India:"
+                ],
+                "bullets": [
+                      "First 4 Characters: Represent the official bank name code (e.g. SBIN for State Bank of India, HDFC for HDFC Bank, ICIC for ICICI Bank).",
+                      "5th Character: Always the number 0 (zero), reserved for future technological extensions by RBI.",
+                      "Last 6 Characters: Alphanumeric characters representing the unique individual bank branch location code."
+                ]
+          },
+          {
+                "h2": "How to Find Any Bank Branch IFSC Code Online",
+                "steps": [
+                      "1. Select Bank Name: Choose your bank from the alphabetical dropdown (e.g. SBI, HDFC, ICICI, PNB, Bank of Baroda).",
+                      "2. Choose State & City: Select the state and district where the branch is located.",
+                      "3. Pick Branch Name: Select your locality or branch name to view the exact IFSC code, MICR code, and branch address."
+                ]
+          }
     ],
     relatedToolSlugs: ['micr-code-finder', 'gstin-validator', 'pan-format-validator']
   },
@@ -2088,7 +2146,49 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'MICR Code Finder'
     },
     faqs: [
-      { question: 'What is a MICR Code?', answer: 'MICR is a 9-digit code printed on cheque leaves used for automated cheque clearing.' }
+          {
+                "question": "What is a MICR Code?",
+                "answer": "MICR is a 9-digit code printed on cheque leaves used for automated cheque clearing."
+          },
+          {
+                "question": "Where is the MICR code located on a cheque?",
+                "answer": "The 9-digit MICR code is printed at the bottom center of your cheque leaf, immediately following the 6-digit cheque number."
+          },
+          {
+                "question": "Is MICR code required for mutual funds and SIPs?",
+                "answer": "Yes, many Indian mutual fund asset management companies (AMCs) and demat account brokers require the 9-digit MICR code for bank mandate verification."
+          },
+          {
+                "question": "What is the difference between IFSC and MICR?",
+                "answer": "IFSC is an 11-character alphanumeric code used for electronic transfers (NEFT/RTGS/IMPS), while MICR is a 9-digit numeric code used specifically for physical cheque clearing."
+          }
+    ],
+        formulaDescription: "MICR 9-digit format: First 3 digits (City/PIN code) + Middle 3 digits (Bank Code) + Last 3 digits (Branch Code). Example: 400002014.",
+    workedExample: {
+          "inputSummary": "Bank: HDFC Bank | City: New Delhi | Branch: Connaught Place",
+          "calculationSteps": [
+                "1. City Code (First 3 digits): 110 (Delhi postal code start)",
+                "2. Bank Code (Middle 3 digits): 240 (HDFC Bank code)",
+                "3. Branch Code (Last 3 digits): 001 (Connaught Place main branch)",
+                "4. Result: 110240001"
+          ],
+          "finalResult": "MICR: 110240001 | City: New Delhi | Bank: HDFC Bank | Status: CTS-2010 Cheque Clearing Enabled"
+    },
+    seoSections: [
+          {
+                "h2": "What is a MICR Code?",
+                "paragraphs": [
+                      "A Magnetic Ink Character Recognition (MICR) code is a 9-digit numeric code printed at the bottom of cheque leaves using specialized magnetic ink. It is used by the Reserve Bank of India and clearing houses to speed up Cheque Truncation System (CTS) clearing without manual processing errors."
+                ]
+          },
+          {
+                "h2": "Breakdown of 9-Digit MICR Code Structure",
+                "bullets": [
+                      "Digits 1 to 3: Represent the City Code matching the first 3 digits of the city postal PIN code (e.g., 400 for Mumbai, 110 for Delhi, 700 for Kolkata).",
+                      "Digits 4 to 6: Represent the unique 3-digit Bank Code assigned by the RBI.",
+                      "Digits 7 to 9: Represent the specific branch code location."
+                ]
+          }
     ],
     relatedToolSlugs: ['ifsc-code-finder', 'gstin-validator']
   },
@@ -2111,7 +2211,46 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'PIN Code Finder'
     },
     faqs: [
-      { question: 'What does PIN code stand for?', answer: 'PIN stands for Postal Index Number, a 6-digit code used by India Post.' }
+          {
+                "question": "What does PIN code stand for?",
+                "answer": "PIN stands for Postal Index Number, a 6-digit code used by India Post."
+          },
+          {
+                "question": "How many PIN codes are there in India?",
+                "answer": "India has over 19,000 unique postal PIN codes covering more than 155,000 post offices nationwide."
+          },
+          {
+                "question": "Why is an accurate PIN code important for e-commerce deliveries?",
+                "answer": "Online shopping sites (Amazon, Flipkart, Blinkit, Zepto) use PIN codes to automatically assign nearest delivery hubs and verify serviceability."
+          }
+    ],
+        formulaDescription: "PIN Code structure: Digit 1 (Zone) + Digit 2 (Sub-Zone/State) + Digit 3 (Sorting District) + Digits 4-6 (Individual Delivery Post Office).",
+    workedExample: {
+          "inputSummary": "State: Karnataka | District: Bengaluru Urban | Locality: Koramangala",
+          "calculationSteps": [
+                "1. Southern Postal Zone Digit: 5 (South India)",
+                "2. Sub-Zone & State Code: 56 (Karnataka)",
+                "3. Sorting District: 560 (Bengaluru Urban)",
+                "4. Delivery Post Office: 560034 (Koramangala Post Office)"
+          ],
+          "finalResult": "PIN Code: 560034 | Post Office: Koramangala Head Post Office | District: Bengaluru Urban, Karnataka"
+    },
+    seoSections: [
+          {
+                "h2": "What is a PIN Code in India?",
+                "paragraphs": [
+                      "A Postal Index Number (PIN or Pincode) is a 6-digit numeric code introduced by India Post on 15 August 1972 to streamline letter, parcel, and courier delivery across all 28 states and 8 union territories."
+                ]
+          },
+          {
+                "h2": "Understanding 6-Digit Indian PIN Code Numbering",
+                "bullets": [
+                      "1st Digit: Represents 1 of the 9 postal geographical regions in India (1 & 2: North, 3 & 4: West, 5 & 6: South, 7 & 8: East, 9: Army Postal Service).",
+                      "2nd Digit: Represents the specific state or postal sub-region.",
+                      "3rd Digit: Represents the revenue district or sorting hub.",
+                      "Last 3 Digits: Represent the individual delivery post office location."
+                ]
+          }
     ],
     relatedToolSlugs: ['rto-code-finder', 'government-services-directory']
   },
@@ -2133,7 +2272,43 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'RTO Code Finder'
     },
     faqs: [
-      { question: 'What is an RTO code?', answer: 'An RTO code is a 4-character code assigned to each Regional Transport Office for vehicle registration.' }
+          {
+                "question": "What is an RTO code?",
+                "answer": "An RTO code is a 4-character code assigned to each Regional Transport Office for vehicle registration."
+          },
+          {
+                "question": "What is the BH (Bharat) series registration number?",
+                "answer": "BH series is a non-localized vehicle registration plate designed for central government, defense, and private employees with offices across 4+ states, removing re-registration hassles during interstate transfers."
+          },
+          {
+                "question": "Can I find owner details from an RTO code?",
+                "answer": "RTO codes indicate the registration city and state. For complete owner name and vehicle fitness details, refer to the official Parivahan Sewa portal."
+          }
+    ],
+        formulaDescription: "RTO Code format: 2 letters (State/UT code) + 2 digits (Regional Transport Office district number). Example: MH-01 (Mumbai South), DL-01 (North Delhi).",
+    workedExample: {
+          "inputSummary": "State: Maharashtra | City: Pune | Office: Pune Central RTO",
+          "calculationSteps": [
+                "1. State Code: MH (Maharashtra)",
+                "2. District RTO Number: 12 (Pune)",
+                "3. Resulting Code: MH-12"
+          ],
+          "finalResult": "RTO Code: MH-12 | Location: Pune Central RTO, Maharashtra | State: Maharashtra"
+    },
+    seoSections: [
+          {
+                "h2": "What is an RTO Vehicle Registration Code?",
+                "paragraphs": [
+                      "In India, every motor vehicle number plate starts with a 4-character code indicating the state and regional transport office (RTO) where the vehicle was originally registered under the Motor Vehicles Act."
+                ]
+          },
+          {
+                "h2": "State-Wise RTO Code Prefixes",
+                "bullets": [
+                      "MH = Maharashtra, DL = Delhi, KA = Karnataka, TN = Tamil Nadu, UP = Uttar Pradesh, GJ = Gujarat, WB = West Bengal, TS = Telangana, AP = Andhra Pradesh, HR = Haryana, RJ = Rajasthan.",
+                      "BH Series: Introduced in 2021 for defense and private multi-state transferrable employees with national validity."
+                ]
+          }
     ],
     relatedToolSlugs: ['pin-code-finder', 'government-services-directory']
   },
@@ -2157,7 +2332,49 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'GSTIN Format Validator'
     },
     faqs: [
-      { question: 'What is the structure of a GSTIN?', answer: 'GSTIN has 15 digits: 2-digit state code + 10-char PAN + 1-digit entity code + Z + 1 check digit.' }
+          {
+                "question": "What is the structure of a GSTIN?",
+                "answer": "GSTIN has 15 digits: 2-digit state code + 10-char PAN + 1-digit entity code + Z + 1 check digit."
+          },
+          {
+                "question": "How can I check if a supplier GST number is real?",
+                "answer": "You can test the 15-digit structure with BharatUtility validator and cross-check real-time active filing status on the official GST portal (gst.gov.in)."
+          },
+          {
+                "question": "Is GSTIN required for claiming Input Tax Credit (ITC)?",
+                "answer": "Yes, a valid and active 15-digit GSTIN on tax invoices is mandatory to claim Input Tax Credit under GST laws."
+          }
+    ],
+        formulaDescription: "GSTIN structure: 2 digits (State Code) + 10 alphanumeric chars (PAN) + 1 char (Entity Number) + Z (Default) + 1 check digit. Total 15 characters.",
+    workedExample: {
+          "inputSummary": "GSTIN to verify: 27AAAAA0000A1Z5",
+          "calculationSteps": [
+                "1. Verify total length = 15 characters",
+                "2. State Code: 27 (Maharashtra)",
+                "3. Embedded PAN: AAAAA0000A (Valid 10-character PAN structure)",
+                "4. Entity Number: 1 (First registration of this PAN in state)",
+                "5. Default Character: Z (Mandatory in GSTIN)",
+                "6. Check Digit: 5"
+          ],
+          "finalResult": "Status: Valid GSTIN Format | State: Maharashtra (27) | Holder Type: Association/Company"
+    },
+    seoSections: [
+          {
+                "h2": "What is a GSTIN?",
+                "paragraphs": [
+                      "A Goods and Services Tax Identification Number (GSTIN) is a unique 15-digit alphanumeric tax identifier assigned to every registered business and enterprise in India under the Goods and Services Tax (GST) system."
+                ]
+          },
+          {
+                "h2": "15-Digit GSTIN Structural Breakdown",
+                "bullets": [
+                      "First 2 Digits: State code according to the Indian Census 2011 (e.g., 27 for Maharashtra, 07 for Delhi, 29 for Karnataka, 33 for Tamil Nadu, 09 for Uttar Pradesh).",
+                      "Next 10 Characters: The Permanent Account Number (PAN) of the business owner or legal entity.",
+                      "13th Digit: Entity number indicating the count of registrations the same PAN holder has within that state (1 through 9, then A through Z).",
+                      "14th Character: The letter Z by default.",
+                      "15th Character: Check digit for automated error detection."
+                ]
+          }
     ],
     relatedToolSlugs: ['gst-calculator', 'pan-format-validator']
   },
@@ -2179,7 +2396,53 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'PAN Format Validator'
     },
     faqs: [
-      { question: 'What does the 4th character in PAN mean?', answer: 'The 4th letter indicates holder type: P for Individual, C for Company, H for HUF, F for Firm.' }
+          {
+                "question": "What does the 4th character in PAN mean?",
+                "answer": "The 4th letter indicates holder type: P for Individual, C for Company, H for HUF, F for Firm."
+          },
+          {
+                "question": "Can an individual hold more than one PAN card?",
+                "answer": "No, holding more than one active PAN card is illegal under Section 272B of the Income Tax Act, 1961 and carries a penalty of ₹10,000."
+          },
+          {
+                "question": "Is PAN linking with Aadhaar mandatory in India?",
+                "answer": "Yes, linking your PAN with your Aadhaar number is legally mandatory for filing Income Tax Returns and avoiding PAN deactivation."
+          }
+    ],
+        formulaDescription: "PAN structure: 3 letters (Series) + 1 letter (Status of Holder) + 1 letter (Surname initial) + 4 digits (Sequential) + 1 letter (Check digit).",
+    workedExample: {
+          "inputSummary": "PAN: ABCDE1234F",
+          "calculationSteps": [
+                "1. Verify length = 10 characters",
+                "2. First 3 letters (ABC): Alphabetic series",
+                "3. 4th letter (D): Holder Category (D = Duplicate / Trust or P = Individual)",
+                "4. 5th letter (E): First character of taxpayer last name",
+                "5. Digits 6-9 (1234): Sequential numeric series",
+                "6. 10th letter (F): Alphabetic check character"
+          ],
+          "finalResult": "Format: Valid 10-Character Structure | Entity Status: Verified"
+    },
+    seoSections: [
+          {
+                "h2": "What is a Permanent Account Number (PAN)?",
+                "paragraphs": [
+                      "A Permanent Account Number (PAN) is a 10-character alphanumeric identifier issued by the Indian Income Tax Department to all legal entities, individuals, firms, and companies for financial tracking and tax filing."
+                ]
+          },
+          {
+                "h2": "Significance of the 4th Letter in PAN",
+                "bullets": [
+                      "P = Individual (Personal)",
+                      "C = Company",
+                      "H = Hindu Undivided Family (HUF)",
+                      "F = Partnership Firm / LLP",
+                      "A = Association of Persons (AOP)",
+                      "T = Trust",
+                      "B = Body of Individuals (BOI)",
+                      "G = Government Agency",
+                      "J = Artificial Juridical Person"
+                ]
+          }
     ],
     relatedToolSlugs: ['gstin-validator', 'salary-calculator']
   },
@@ -2201,7 +2464,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Indian Bank Holidays 2026'
     },
     faqs: [
-      { question: 'Are banks closed on 2nd and 4th Saturdays?', answer: 'Yes, scheduled commercial banks in India remain closed on all 2nd and 4th Saturdays.' }
+          {
+                "question": "Are banks closed on 2nd and 4th Saturdays?",
+                "answer": "Yes, scheduled commercial banks in India remain closed on all 2nd and 4th Saturdays."
+          },
+          {
+                "question": "Do UPI and ATM services work on bank holidays?",
+                "answer": "Yes, online banking, UPI (GPay, PhonePe, Paytm), IMPS, and ATM cash withdrawals function 24x7 even during bank holidays."
+          }
+    ],
+        formulaDescription: "Calendar database of national gazetted holidays, RBI Negotiable Instruments Act holidays, and 2nd/4th Saturday closures across Indian states.",
+    workedExample: {
+          "inputSummary": "State: Maharashtra | Year: 2026",
+          "calculationSteps": [
+                "1. Query National Gazetted Holidays (Republic Day, Independence Day, Gandhi Jayanti)",
+                "2. Query State Festival Holidays (Gudi Padwa, Ganesh Chaturthi, Maharashtra Day)",
+                "3. Map all 2nd and 4th Saturdays of every calendar month",
+                "4. Generate unified printable holiday schedule"
+          ],
+          "finalResult": "Total Bank Holidays: 24 Days (including 2nd/4th Saturdays) | State: Maharashtra (2026)"
+    },
+    seoSections: [
+          {
+                "h2": "Comprehensive Indian Bank Holiday Calendar 2026",
+                "paragraphs": [
+                      "Stay informed on scheduled bank closures across public and private sector banks (SBI, HDFC, ICICI, PNB, Bank of Baroda). Check national gazetted holidays, state festivals, and mandatory 2nd/4th Saturday closures."
+                ]
+          }
     ],
     relatedToolSlugs: ['ifsc-code-finder', 'working-days-calculator']
   },
@@ -2224,7 +2513,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Official Government Services Directory'
     },
     faqs: [
-      { question: 'Is BharatUtility affiliated with government portals?', answer: 'No, BharatUtility is an independent platform that provides curated direct links to official government websites.' }
+          {
+                "question": "Is BharatUtility affiliated with government portals?",
+                "answer": "No, BharatUtility is an independent platform that provides curated direct links to official government websites."
+          },
+          {
+                "question": "How can I identify genuine government websites in India?",
+                "answer": "Official Indian government portals always end with the domain extension .gov.in or .nic.in."
+          }
+    ],
+        formulaDescription: "Direct directory verification of official Indian government portals (.gov.in / .nic.in).",
+    workedExample: {
+          "inputSummary": "Service Category: Identity & Tax (Aadhaar & PAN)",
+          "calculationSteps": [
+                "1. Aadhaar Services: Direct link to official UIDAI portal (myaadhaar.uidai.gov.in)",
+                "2. Income Tax e-Filing: Direct link to official e-Filing portal (eportal.incometax.gov.in)",
+                "3. Driving License / Vehicle: Direct link to Parivahan portal (parivahan.gov.in)",
+                "4. EPFO Passbook: Direct link to official EPFO member portal (unifiedportal-mem.epfindia.gov.in)"
+          ],
+          "finalResult": "Official Secure Government Portal Navigation Verified (Zero phishing links)"
+    },
+    seoSections: [
+          {
+                "h2": "Official Directory of Verified Indian Government Portals",
+                "paragraphs": [
+                      "Direct navigation links to official central and state government digital portals for Aadhaar card updates, Income Tax e-Filing, Passport Seva, Parivahan driving license, DigiLocker, and EPFO PF balance checks."
+                ]
+          }
     ],
     relatedToolSlugs: ['ifsc-code-finder', 'pin-code-finder']
   },
@@ -2252,7 +2567,46 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Merge PDF Files Online'
     },
     faqs: [
-      { question: 'Is my PDF uploaded to a server?', answer: 'No, BharatUtility processes your PDF files 100% locally inside your web browser.' }
+          {
+                "question": "Is my PDF uploaded to a server?",
+                "answer": "No, BharatUtility processes your PDF files 100% locally inside your web browser."
+          },
+          {
+                "question": "Can I reorder pages before merging?",
+                "answer": "Yes, you can rearrange file order before clicking merge to ensure correct chronological sequence."
+          },
+          {
+                "question": "Is there a file size limit for merging PDFs?",
+                "answer": "You can merge standard PDF files up to 50MB+ smoothly depending on your device available browser memory."
+          }
+    ],
+        formulaDescription: "Client-side PDF byte stream concatenation using WebAssembly and modern PDFLib algorithms directly in browser RAM.",
+    workedExample: {
+          "inputSummary": "File 1: Aadhaar_Front.pdf (2 pages, 1.2 MB) | File 2: Address_Proof.pdf (1 page, 800 KB)",
+          "calculationSteps": [
+                "1. Read File 1 binary array buffer locally in browser memory",
+                "2. Read File 2 binary array buffer locally in browser memory",
+                "3. Merge page trees sequentially into a single document structure",
+                "4. Compile merged PDF bytes (3 pages total, 1.9 MB)",
+                "5. Trigger instant local download (Zero bytes sent over the internet)"
+          ],
+          "finalResult": "Output: Merged_Document.pdf (3 pages) | Privacy: 100% Client-Side Private"
+    },
+    seoSections: [
+          {
+                "h2": "How to Merge PDF Files Online Privately",
+                "paragraphs": [
+                      "BharatUtility Merge PDF tool combines multiple PDF documents into a single organized file completely inside your web browser. Unlike other online tools that upload your sensitive personal documents, tax files, and bank statements to remote cloud servers, our tool uses client-side JavaScript memory processing for 100% privacy."
+                ]
+          },
+          {
+                "h2": "Why Choose Client-Side Browser PDF Merging?",
+                "bullets": [
+                      "Zero Server Uploads: Your sensitive bank statements, Aadhaar cards, and business contracts never leave your device.",
+                      "Instant Processing: Merges large PDFs in milliseconds without waiting for slow upload/download queues.",
+                      "No File Limits: Combine multiple PDF files without paying subscriptions or entering email addresses."
+                ]
+          }
     ],
     relatedToolSlugs: ['jpg-to-pdf', 'image-compressor-resizer', 'qr-code-generator']
   },
@@ -2275,7 +2629,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Images to PDF Converter'
     },
     faqs: [
-      { question: 'Can I convert multiple images into one PDF?', answer: 'Yes, select multiple images and click convert to create a single merged PDF.' }
+          {
+                "question": "Can I convert multiple images into one PDF?",
+                "answer": "Yes, select multiple images and click convert to create a single merged PDF."
+          },
+          {
+                "question": "Does converting JPG to PDF reduce image quality?",
+                "answer": "No, our tool maintains original photo resolution and automatically scales images to standard A4 printable dimensions."
+          }
+    ],
+        formulaDescription: "Image raster conversion to vector PDF container with automated aspect ratio scaling and orientation fit.",
+    workedExample: {
+          "inputSummary": "3 Photo Scans (Marksheet_1.jpg, Marksheet_2.jpg, Certificate.png)",
+          "calculationSteps": [
+                "1. Load input images into local canvas buffer",
+                "2. Scale image dimensions to standard A4 (595 x 842 points) portrait layout",
+                "3. Embed image stream into multi-page PDF document",
+                "4. Generate downloadable PDF file"
+          ],
+          "finalResult": "Output: Consolidated_Marksheet.pdf (3 Pages, A4 Formatted) | Ready for official portal submission"
+    },
+    seoSections: [
+          {
+                "h2": "Convert JPG & PNG Images to PDF Online",
+                "paragraphs": [
+                      "Easily convert multiple photos, receipts, identity cards, and scanned documents from JPG, PNG, and WebP formats into a single, clean PDF file ready for government job portals, university admissions, and visa applications."
+                ]
+          }
     ],
     relatedToolSlugs: ['pdf-merge', 'image-compressor-resizer', 'signature-resizer']
   },
@@ -2298,7 +2678,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Image Compressor & Resizer'
     },
     faqs: [
-      { question: 'How much can I reduce photo file size?', answer: 'You can adjust quality and width sliders to compress photos down to under 50KB or 100KB.' }
+          {
+                "question": "How much can I reduce photo file size?",
+                "answer": "You can adjust quality and width sliders to compress photos down to under 50KB or 100KB."
+          },
+          {
+                "question": "Are my images stored on BharatUtility servers?",
+                "answer": "No, all compression and resizing happens locally inside your browser memory using HTML5 Canvas technology."
+          }
+    ],
+        formulaDescription: "Client-side HTML5 Canvas bilinear downsampling and compression quality adjustments (0.1 to 1.0).",
+    workedExample: {
+          "inputSummary": "Input Image: 5.2 MB (4000x3000 px) | Target: Under 200 KB for online job application",
+          "calculationSteps": [
+                "1. Load image into browser memory canvas",
+                "2. Resize dimensions to 1920x1440 px",
+                "3. Apply JPEG quality factor = 0.80",
+                "4. Compressed Output Size: 184 KB (96.5% reduction without visible blur)"
+          ],
+          "finalResult": "Original: 5.2 MB to Compressed: 184 KB (Saved 96.5% space) | Privacy: 100% Client-side"
+    },
+    seoSections: [
+          {
+                "h2": "Compress and Resize Images in KB / MB Online Privately",
+                "paragraphs": [
+                      "Reduce photo file sizes down to under 50KB, 100KB, or 200KB for government exam forms, email attachments, and web uploads without losing image sharpness."
+                ]
+          }
     ],
     relatedToolSlugs: ['signature-resizer', 'jpg-to-pdf']
   },
@@ -2323,7 +2729,37 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Exam Signature & Photo Resizer'
     },
     faqs: [
-      { question: 'What is the signature file size limit for UPSC?', answer: 'UPSC portals typically require signature files between 20KB and 300KB in JPG format.' }
+          {
+                "question": "What is the signature file size limit for UPSC?",
+                "answer": "UPSC portals typically require signature files between 20KB and 300KB in JPG format."
+          },
+          {
+                "question": "What is the signature file size limit for SSC?",
+                "answer": "SSC requires scanned signatures in JPEG format between 10KB and 20KB with dimensions of 4.0 cm (width) x 2.0 cm (height)."
+          },
+          {
+                "question": "How can I ensure my photo background is white for exams?",
+                "answer": "Ensure you shoot in good lighting against a plain white wall or use plain white paper for your signature before cropping."
+          }
+    ],
+        formulaDescription: "Bilinear canvas downsampling and iterative JPEG compression targeting exact KB bounds (10KB - 50KB).",
+    workedExample: {
+          "inputSummary": "Original Photo: 2.4 MB (4000x3000 px) | Target: SSC Exam Limit (20KB - 50KB, 200x230 px)",
+          "calculationSteps": [
+                "1. Resize pixel dimensions to 200 x 230 px",
+                "2. Apply iterative JPEG compression quality curve (0.75)",
+                "3. Measure resulting output byte size: 34.2 KB (Within 20KB-50KB range)",
+                "4. Save ready-to-upload exam file"
+          ],
+          "finalResult": "Output: photo_ssc_compliant.jpg (34.2 KB) | Dimension: 200x230 px | Status: 100% SSC/UPSC Portal Ready"
+    },
+    seoSections: [
+          {
+                "h2": "How to Resize Photos and Signatures for Govt Exams",
+                "paragraphs": [
+                      "Indian government exam portals like SSC (CGL, CHSL, MTS), UPSC, IBPS, SBI, RRB Railways, and NTA (NEET, JEE) require photograph and signature uploads to match exact pixel dimensions and strict file size limits (usually 10KB to 20KB for signatures and 20KB to 50KB for photos)."
+                ]
+          }
     ],
     relatedToolSlugs: ['image-compressor-resizer', 'jpg-to-pdf']
   },
@@ -2346,7 +2782,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'QR Code Generator'
     },
     faqs: [
-      { question: 'Do these QR codes expire?', answer: 'No, static QR codes generated on BharatUtility never expire and contain direct embedded data.' }
+          {
+                "question": "Do these QR codes expire?",
+                "answer": "No, static QR codes generated on BharatUtility never expire and contain direct embedded data."
+          },
+          {
+                "question": "Can I create a UPI QR code for my shop?",
+                "answer": "Yes, enter your UPI VPA address (e.g. yourname@okhdfcbank) to generate a payment QR code for Google Pay, PhonePe, and Paytm."
+          }
+    ],
+        formulaDescription: "QR matrix generation using Reed-Solomon Error Correction (ECC Level M / Q / H) up to 2048 characters.",
+    workedExample: {
+          "inputSummary": "UPI Payment Payload: upi://pay?pa=shopkeeper@upi&pn=BharatStore&cu=INR",
+          "calculationSteps": [
+                "1. Encode UPI string into alphanumeric QR matrix",
+                "2. Apply Error Correction Level (Medium - 15% recovery)",
+                "3. Render high-contrast scalable vector / PNG output",
+                "4. Instant download for printing on shop counters"
+          ],
+          "finalResult": "Output: BharatStore_UPI_QR.png (1024x1024 px, High Resolution) | Compatible with GPay, PhonePe, Paytm"
+    },
+    seoSections: [
+          {
+                "h2": "Create Free High-Resolution QR Codes Online",
+                "paragraphs": [
+                      "Generate clean, scannable QR codes for website URLs, UPI payment requests, Wi-Fi network credentials, contact vCards, and plain text payloads in seconds."
+                ]
+          }
     ],
     relatedToolSlugs: ['file-size-calculator', 'pdf-merge']
   },
@@ -2368,7 +2830,32 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'File Size & Converter Calculator'
     },
     faqs: [
-      { question: 'How many bytes are in 1 MB?', answer: '1 MB (Megabyte) equals 1,048,576 bytes in binary notation.' }
+          {
+                "question": "How many bytes are in 1 MB?",
+                "answer": "1 MB (Megabyte) equals 1,048,576 bytes in binary notation."
+          },
+          {
+                "question": "Why does a 100 Mbps connection download at 12.5 MB/s?",
+                "answer": "Internet speeds are measured in Megabits (Mbps), while file sizes are in Megabytes (MB). Since 1 Byte = 8 bits, divide your Mbps speed by 8 to get maximum real-world MB/s download speed (100 ÷ 8 = 12.5 MB/s)."
+          }
+    ],
+        formulaDescription: "Binary Byte Conversion: 1 KB = 1024 Bytes, 1 MB = 1024 KB, 1 GB = 1024 MB. Transfer Time = (File Size in Mbits) ÷ (Internet Speed in Mbps).",
+    workedExample: {
+          "inputSummary": "File Size: 4.5 GB Video | Internet Speed: 100 Mbps Fiber Broadband",
+          "calculationSteps": [
+                "1. Convert GB to Megabits: 4.5 GB × 1024 × 8 = 36,864 Megabits",
+                "2. Transfer Time in Seconds = 36,864 Mbits ÷ 100 Mbps = 368.64 seconds",
+                "3. Convert to Minutes: 368.64 ÷ 60 ≈ 6 minutes and 8 seconds"
+          ],
+          "finalResult": "File Size: 4.5 GB (4,608 MB) | Estimated Download Time @ 100 Mbps: 6 mins 8 secs"
+    },
+    seoSections: [
+          {
+                "h2": "Convert File Storage Units and Estimate Download Durations",
+                "paragraphs": [
+                      "Convert file sizes accurately between Bytes, Kilobytes (KB), Megabytes (MB), Gigabytes (GB), and Terabytes (TB), and estimate exact upload/download transfer times across 4G, 5G, and broadband speeds."
+                ]
+          }
     ],
     relatedToolSlugs: ['download-time-calculator', 'digital-storage-converter']
   },
@@ -2395,7 +2882,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Trip Fuel Cost & Passenger Split'
     },
     faqs: [
-      { question: 'How to calculate fuel cost for a trip?', answer: 'Multiply (Trip Distance ÷ Vehicle Mileage) by Fuel Price per Litre.' }
+          {
+                "question": "How to calculate fuel cost for a trip?",
+                "answer": "Multiply (Trip Distance ÷ Vehicle Mileage) by Fuel Price per Litre."
+          },
+          {
+                "question": "How can I calculate mileage (km/L) of my vehicle?",
+                "answer": "Fill tank full, note odometer (Trip A), drive 200+ km, refill tank full. Divide km driven by litres refilled (e.g. 250 km ÷ 16 L = 15.6 km/L)."
+          }
+    ],
+        formulaDescription: "Fuel Cost = (Trip Distance in km ÷ Mileage in km/L) × Fuel Price per Litre. Per Person = Fuel Cost ÷ Passenger Count.",
+    formulaLatex: "Cost = left(\frac{Distance}{Mileage}\right) \times Price",
+    workedExample: {
+          "inputSummary": "Trip Distance: 300 km | Car Mileage: 15 km/L | Petrol Price: ₹105/L | Passengers: 4 Friends",
+          "calculationSteps": [
+                "1. Fuel Required = 300 ÷ 15 = 20 Litres",
+                "2. Total Fuel Cost = 20 × ₹105 = ₹2,100",
+                "3. Cost per Passenger = ₹2,100 ÷ 4 = ₹525 per person"
+          ],
+          "finalResult": "Total Fuel: 20 Litres | Total Cost: ₹2,100 | Per Passenger Share: ₹525"
+    },
+    seoSections: [
+          {
+                "h2": "Calculate Road Trip Fuel Cost & Carpool Split",
+                "paragraphs": [
+                      "Calculate accurate fuel costs for road trips and daily office commutes across India. Input your one-way or round-trip distance, vehicle mileage (km/L), and current city petrol/diesel price to get total fuel required and equal per-person carpool split."
+                ]
+          }
     ],
     relatedToolSlugs: ['ev-cost-calculator', 'ev-vs-petrol-calculator', 'trip-cost-calculator']
   },
@@ -2420,7 +2933,34 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'EV Charging Cost & Range Calculator'
     },
     faqs: [
-      { question: 'How much does it cost to charge a Tata Nexon EV full?', answer: 'A full charge (approx 40 kWh @ ₹8/unit) costs around ₹320 for ~300 km range.' }
+          {
+                "question": "How much does it cost to charge a Tata Nexon EV full?",
+                "answer": "A full charge (approx 40 kWh @ ₹8/unit) costs around ₹320 for ~300 km range."
+          },
+          {
+                "question": "How does EV cost per km compare to petrol in India?",
+                "answer": "EVs cost ₹1.00 to ₹1.30 per km for home charging, compared to ₹6.50 to ₹8.00 per km for petrol cars, saving over 80% on fuel bills."
+          }
+    ],
+        formulaDescription: "Full Charge Cost = Battery Capacity (kWh) × Electricity Tariff (₹/unit). Cost per km = Full Charge Cost ÷ Real-world Range (km).",
+    formulaLatex: "Cost/km = \frac{Battery (kWh) \times Rate}{Range (km)}",
+    workedExample: {
+          "inputSummary": "EV Model: Tata Nexon EV (40.5 kWh battery) | Real Range: 300 km | Electricity Tariff: ₹8.00 per unit (kWh)",
+          "calculationSteps": [
+                "1. Full Charge Energy = 40.5 kWh",
+                "2. Full Charge Cost = 40.5 × ₹8 = ₹324",
+                "3. Running Cost per km = ₹324 ÷ 300 km = ₹1.08 per km",
+                "4. Monthly Running (1,000 km) = 1,000 × ₹1.08 = ₹1,080"
+          ],
+          "finalResult": "Full Charge Cost: ₹324 | Running Cost: ₹1.08 / km | Monthly Cost (1000 km): ₹1,080"
+    },
+    seoSections: [
+          {
+                "h2": "Calculate EV Charging Cost and Cost Per Km in India",
+                "paragraphs": [
+                      "Estimate exact home charging and public fast-charging costs for electric cars (Tata Nexon EV, Punch EV, MG ZS EV, Mahindra XUV400) and electric scooters (Ola S1, Ather 450X, TVS iQube)."
+                ]
+          }
     ],
     relatedToolSlugs: ['ev-vs-petrol-calculator', 'vehicle-fuel-cost-calculator']
   },
@@ -2443,7 +2983,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'EV vs Petrol Cost Comparison'
     },
     faqs: [
-      { question: 'Is an EV cheaper to run than a petrol car?', answer: 'Yes, EV running costs (~₹1/km) are typically 80% lower than petrol cars (~₹6–7/km).' }
+          {
+                "question": "Is an EV cheaper to run than a petrol car?",
+                "answer": "Yes, EV running costs (~₹1/km) are typically 80% lower than petrol cars (~₹6–7/km)."
+          },
+          {
+                "question": "How many years does it take to recover EV price premium?",
+                "answer": "For motorists driving 1,200+ km monthly, the ₹3–4 Lakh initial EV purchase premium is typically recovered in 3 to 4 years through fuel and service savings."
+          }
+    ],
+        formulaDescription: "Annual Fuel Savings = (Annual km ÷ Petrol Mileage × Petrol Price) − (Annual km ÷ EV Range × EV Charge Cost).",
+    workedExample: {
+          "inputSummary": "Annual Driving: 15,000 km | Petrol Car: 15 km/L @ ₹105/L | Electric Car: ₹1.10/km",
+          "calculationSteps": [
+                "1. Annual Petrol Cost = (15,000 ÷ 15) × ₹105 = ₹1,05,000 per year",
+                "2. Annual EV Electricity Cost = 15,000 × ₹1.10 = ₹16,500 per year",
+                "3. 1-Year Fuel Savings = ₹1,05,000 - ₹16,500 = ₹88,500",
+                "4. 5-Year Cumulative Savings = ₹88,500 × 5 = ₹4,42,500"
+          ],
+          "finalResult": "1-Year Fuel Savings: ₹88,500 | 5-Year Cumulative Savings: ₹4,42,500"
+    },
+    seoSections: [
+          {
+                "h2": "Compare EV vs Petrol Car 5-Year Ownership Savings",
+                "paragraphs": [
+                      "Calculate if buying an electric car pays back its upfront price premium through lower running and maintenance expenses over a 3-year or 5-year ownership tenure in India."
+                ]
+          }
     ],
     relatedToolSlugs: ['ev-cost-calculator', 'vehicle-depreciation-calculator']
   },
@@ -2465,7 +3031,35 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Vehicle Age & Depreciation Calculator'
     },
     faqs: [
-      { question: 'What is the standard car depreciation rate in India?', answer: 'Cars typically lose 15% to 20% value per year in India using Written Down Value (WDV).' }
+          {
+                "question": "What is the standard car depreciation rate in India?",
+                "answer": "Cars typically lose 15% to 20% value per year in India using Written Down Value (WDV)."
+          },
+          {
+                "question": "How much value does a new car lose in the first year?",
+                "answer": "A brand new vehicle loses approximately 15% to 20% of its on-road value the moment it is registered and driven out of the showroom."
+          }
+    ],
+        formulaDescription: "Written Down Value (WDV) Depreciation: Value = Original Price × (1 − r)^Age, where r is annual depreciation rate (typically 15%-20%).",
+    formulaLatex: "V = P \times (1 - r)^t",
+    workedExample: {
+          "inputSummary": "Original Car Price: ₹12,00,000 | Vehicle Age: 4 Years | Depreciation Rate: 15% per annum (WDV)",
+          "calculationSteps": [
+                "1. Year 1 Value = 12,00,000 × (1 - 0.15) = ₹10,20,000",
+                "2. Year 2 Value = 10,20,000 × 0.85 = ₹8,67,000",
+                "3. Year 3 Value = 8,67,000 × 0.85 = ₹7,36,950",
+                "4. Year 4 Value = 7,36,950 × 0.85 = ₹6,26,408",
+                "5. Total Depreciation Loss = ₹12,00,000 - ₹6,26,408 = ₹5,73,592"
+          ],
+          "finalResult": "Current Estimated Resale Value: ₹6,26,408 | Total Depreciation Loss: ₹5,73,592 (47.8%)"
+    },
+    seoSections: [
+          {
+                "h2": "Estimate Used Car and Bike Resale Value in India",
+                "paragraphs": [
+                      "Calculate realistic fair market resale value and cumulative value erosion of used cars (Maruti, Hyundai, Tata, Mahindra, Honda) and motorcycles across 1 to 15 years."
+                ]
+          }
     ],
     relatedToolSlugs: ['car-loan-emi-calculator', 'vehicle-fuel-cost-calculator']
   },
@@ -2488,7 +3082,36 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Car & Bike Loan EMI Calculator'
     },
     faqs: [
-      { question: 'What is the typical tenure for a car loan in India?', answer: 'Car loan tenures generally range from 3 to 7 years in India.' }
+          {
+                "question": "What is the typical tenure for a car loan in India?",
+                "answer": "Car loan tenures generally range from 3 to 7 years in India."
+          },
+          {
+                "question": "What is the ideal down payment percentage for a car loan?",
+                "answer": "Financial advisors recommend putting down at least 20% to 25% of the vehicle on-road price to keep interest burden low."
+          }
+    ],
+        formulaDescription: "Standard auto loan reducing balance formula with down payment deduction: Principal P = On-Road Price − Down Payment.",
+    formulaLatex: "EMI = \frac{P \times R \times (1 + R)^N}{(1 + R)^N - 1}",
+    workedExample: {
+          "inputSummary": "Car On-Road Price: ₹10,00,000 | Down Payment: ₹2,00,000 (20%) | Loan Amount: ₹8,00,000 | Interest Rate: 9.0% p.a. | Tenure: 5 Years (60 Months)",
+          "calculationSteps": [
+                "1. Loan Principal (P) = ₹10,00,000 - ₹2,00,000 = ₹8,00,000",
+                "2. Monthly Interest Rate (R) = 9.0 / (12 × 100) = 0.0075",
+                "3. Tenure (N) = 5 × 12 = 60 months",
+                "4. Monthly EMI = ₹16,607",
+                "5. Total Repayment = ₹16,607 × 60 = ₹9,96,420",
+                "6. Total Interest = ₹9,96,420 - ₹8,00,000 = ₹1,96,420"
+          ],
+          "finalResult": "Monthly EMI: ₹16,607 | Total Interest: ₹1,96,420 | Total Cost: ₹11,96,420"
+    },
+    seoSections: [
+          {
+                "h2": "Calculate Car and Two-Wheeler Loan EMI Online",
+                "paragraphs": [
+                      "Plan your vehicle purchase with BharatUtility Car & Bike Loan EMI Calculator. Enter your on-road vehicle price, down payment budget, bank interest rate, and loan tenure to calculate monthly installments and interest payout."
+                ]
+          }
     ],
     relatedToolSlugs: ['emi-calculator', 'vehicle-depreciation-calculator']
   },
@@ -2510,7 +3133,34 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Tyre Size & Speedometer Calculator'
     },
     faqs: [
-      { question: 'What is the maximum safe tyre diameter difference?', answer: 'It is recommended to keep tyre diameter variance within ±2.5% of original factory specs.' }
+          {
+                "question": "What is the maximum safe tyre diameter difference?",
+                "answer": "It is recommended to keep tyre diameter variance within ±2.5% of original factory specs."
+          },
+          {
+                "question": "Does a wider tyre reduce car mileage?",
+                "answer": "Yes, wider tyres increase road contact friction (rolling resistance), which can slightly reduce fuel efficiency by 0.5 to 1.5 km/L while improving cornering grip."
+          }
+    ],
+        formulaDescription: "Tyre Diameter = (Rim Diameter × 25.4) + 2 × (Tyre Width × Aspect Ratio / 100). Speed Variance % = ((New Diameter - Old Diameter) ÷ Old Diameter) × 100.",
+    formulaLatex: "D = (Rim \times 25.4) + 2 \times left(\frac{Width \times Ratio}{100}\right)",
+    workedExample: {
+          "inputSummary": "Original Tyre: 185/65 R15 | Upgraded Tyre: 195/60 R15",
+          "calculationSteps": [
+                "1. Original Diameter = (15 × 25.4) + 2 × (185 × 0.65) = 381 + 240.5 = 621.5 mm",
+                "2. New Diameter = (15 × 25.4) + 2 × (195 × 0.60) = 381 + 234.0 = 615.0 mm",
+                "3. Difference = 615.0 - 621.5 = -6.5 mm (-1.05%)",
+                "4. Speedometer Reading @ 100 km/h: Shows 100 km/h, Actual Speed = 98.95 km/h"
+          ],
+          "finalResult": "Diameter Variance: -1.05% (Safe: Within ±2.5% safe limit) | Speedometer Difference: -1.05 km/h @ 100 km/h"
+    },
+    seoSections: [
+          {
+                "h2": "Compare Tyre Upgrade Sizes and Speedometer Error",
+                "paragraphs": [
+                      "Thinking of upgrading car or SUV tyres? Use our Tyre Size Comparison Calculator to check changes in overall rolling diameter, sidewall height, ground clearance impact, and speedometer reading errors."
+                ]
+          }
     ],
     relatedToolSlugs: ['vehicle-fuel-cost-calculator', 'vehicle-depreciation-calculator']
   },
@@ -2537,7 +3187,35 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Comprehensive Trip Cost Planner'
     },
     faqs: [
-      { question: 'How to budget for a domestic holiday in India?', answer: 'Sum hotel room rates x nights + daily food allocation + transport tickets/fuel + 15% buffer.' }
+          {
+                "question": "How to budget for a domestic holiday in India?",
+                "answer": "Sum hotel room rates x nights + daily food allocation + transport tickets/fuel + 15% buffer."
+          },
+          {
+                "question": "How much emergency buffer should I keep while traveling?",
+                "answer": "Always maintain a 10% to 15% emergency contingency fund over your core travel budget."
+          }
+    ],
+        formulaDescription: "Total Budget = (Hotel Tariff × Nights × Rooms) + (Daily Food × Days × Heads) + Transport + Tolls/Activities + Buffer.",
+    workedExample: {
+          "inputSummary": "Destination: Goa (4 Days / 3 Nights) | Group: 4 Friends | Hotel: ₹4,000/night (2 rooms) | Food: ₹1,000/person/day | Transport/Flight: ₹5,000/person",
+          "calculationSteps": [
+                "1. Hotel Stay = ₹4,000 × 3 nights × 2 rooms = ₹24,000",
+                "2. Food & Dining = ₹1,000 × 4 days × 4 persons = ₹16,000",
+                "3. Transport & Flights = ₹5,000 × 4 = ₹20,000",
+                "4. Activities & Sightseeing = ₹8,000",
+                "5. Total Budget = ₹68,000",
+                "6. Per Person Share = ₹68,000 ÷ 4 = ₹17,000 per person"
+          ],
+          "finalResult": "Total Trip Budget: ₹68,000 | Per Person Share: ₹17,000"
+    },
+    seoSections: [
+          {
+                "h2": "Plan Complete Vacation & Road Trip Budgets in India",
+                "paragraphs": [
+                      "Calculate accurate travel budgets for domestic holidays (Goa, Manali, Kerala, Rajasthan) and international getaways. Factor in hotel rooms, daily meals, flights, cab rentals, local activities, and emergency buffers."
+                ]
+          }
     ],
     relatedToolSlugs: ['group-expense-split', 'travel-budget-calculator', 'vehicle-fuel-cost-calculator']
   },
@@ -2560,7 +3238,34 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Group Expense & Settlement Splitter'
     },
     faqs: [
-      { question: 'Can I split unequal group expenses?', answer: 'Equal split is calculated instantly, while custom entries display clear individual balances.' }
+          {
+                "question": "Can I split unequal group expenses?",
+                "answer": "Equal split is calculated instantly, while custom entries display clear individual balances."
+          },
+          {
+                "question": "How does the settlement calculation work?",
+                "answer": "The tool calculates each person total spend versus fair share to show the minimum number of UPI transfers needed to settle all dues."
+          }
+    ],
+        formulaDescription: "Equal Share = Total Expenses ÷ Total Members. Net Balance = Amount Paid − Equal Share. Positive = Collects from group, Negative = Owes group.",
+    workedExample: {
+          "inputSummary": "Trip Bill: ₹12,000 across 3 Friends (Rahul paid ₹8,000, Amit paid ₹4,000, Priya paid ₹0)",
+          "calculationSteps": [
+                "1. Equal Share per person = ₹12,000 ÷ 3 = ₹4,000",
+                "2. Rahul Net Balance = ₹8,000 − ₹4,000 = +₹4,000 (Receives)",
+                "3. Amit Net Balance = ₹4,000 − ₹4,000 = ₹0 (Settled)",
+                "4. Priya Net Balance = ₹0 − ₹4,000 = −₹4,000 (Owes)",
+                "5. Settlement: Priya transfers ₹4,000 to Rahul"
+          ],
+          "finalResult": "Settlement: Priya pays ₹4,000 to Rahul | Amit is fully settled"
+    },
+    seoSections: [
+          {
+                "h2": "Split Trip Bills & Expenses Among Friends",
+                "paragraphs": [
+                      "Effortlessly calculate who owes whom after a weekend road trip, restaurant dinner, or shared room rent without complex spreadsheets or manual calculations."
+                ]
+          }
     ],
     relatedToolSlugs: ['trip-cost-calculator', 'travel-budget-calculator']
   },
@@ -2582,7 +3287,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Travel Budget & Daily Outflow Planner'
     },
     faqs: [
-      { question: 'What is a good daily budget for traveling in India?', answer: 'A daily budget of ₹1,500 to ₹3,500 per person comfortably covers mid-range meals, local cabs, and entry fees.' }
+          {
+                "question": "What is a good daily budget for traveling in India?",
+                "answer": "A daily budget of ₹1,500 to ₹3,500 per person comfortably covers mid-range meals, local cabs, and entry fees."
+          },
+          {
+                "question": "How can I save money on domestic travel in India?",
+                "answer": "Book train or flight tickets 4–6 weeks in advance, choose homestays with breakfast included, and use public metro or local bus networks."
+          }
+    ],
+        formulaDescription: "Daily Spending Allowance = (Total Trip Budget − Fixed Costs for Flights/Hotels) ÷ Total Trip Days.",
+    workedExample: {
+          "inputSummary": "Total Savings: ₹50,000 | Trip Duration: 7 Days | Fixed Flight & Hotel Cost: ₹29,000",
+          "calculationSteps": [
+                "1. Discretionary Balance = ₹50,000 − ₹29,000 = ₹21,000",
+                "2. Emergency Buffer (10%) = ₹2,100",
+                "3. Usable Spending Pool = ₹21,000 − ₹2,100 = ₹18,900",
+                "4. Daily Max Spending Cap = ₹18,900 ÷ 7 Days = ₹2,700 per day"
+          ],
+          "finalResult": "Daily Spending Allowance: ₹2,700 / day | Emergency Buffer: ₹2,100 | Trip Budget: ₹50,000"
+    },
+    seoSections: [
+          {
+                "h2": "Calculate Daily Travel Outflow and Spending Allowance",
+                "paragraphs": [
+                      "Prevent vacation overspending by calculating a strict daily allowance after accounting for fixed accommodation and flight tickets."
+                ]
+          }
     ],
     relatedToolSlugs: ['trip-cost-calculator', 'currency-converter-tool']
   },
@@ -2605,7 +3336,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Travel Currency Converter'
     },
     faqs: [
-      { question: 'What is the exchange rate of INR to Thai Baht?', answer: '1 THB is approximately equal to ₹2.50 to ₹2.55 INR.' }
+          {
+                "question": "What is the exchange rate of INR to Thai Baht?",
+                "answer": "1 THB is approximately equal to ₹2.40 to ₹2.55 INR depending on current forex markets."
+          },
+          {
+                "question": "What is the best way to carry money abroad from India?",
+                "answer": "Travel experts recommend carrying a combination of a multi-currency Forex Card (80%) and local cash (20%) for taxis and street vendors."
+          }
+    ],
+        formulaDescription: "Target Amount = Base Amount in INR × Exchange Rate. Example: 10,000 INR @ 0.012 USD/INR = 120 USD.",
+    workedExample: {
+          "inputSummary": "Base Amount: ₹50,000 INR | Target Currency: Thai Baht (THB) | Reference Rate: 1 THB = ₹2.40 INR",
+          "calculationSteps": [
+                "1. Input INR Amount: ₹50,000",
+                "2. Target Exchange Rate: 1 THB = ₹2.40",
+                "3. Converted Amount = ₹50,000 ÷ 2.40 = 20,833.33 THB",
+                "4. Display converted international currency budget"
+          ],
+          "finalResult": "₹50,000 INR = 20,833.33 THB (Thai Baht) | Reference Exchange Rate: 1 THB ≈ ₹2.40"
+    },
+    seoSections: [
+          {
+                "h2": "Convert Indian Rupees (INR) to Global Currencies Online",
+                "paragraphs": [
+                      "Planning an international holiday or foreign transaction? Convert Indian Rupees (INR) into major travel currencies including US Dollars (USD), Euros (EUR), UAE Dirhams (AED), British Pounds (GBP), Thai Baht (THB), Singapore Dollars (SGD), and Japanese Yen (JPY) with clear reference conversion rates."
+                ]
+          }
     ],
     relatedToolSlugs: ['travel-budget-calculator', 'time-zone-converter-tool']
   },
@@ -2627,7 +3384,33 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Travel Time Zone Converter'
     },
     faqs: [
-      { question: 'What is the time difference between IST and Dubai?', answer: 'Dubai (GST) is 1.5 hours behind Indian Standard Time (IST).' }
+          {
+                "question": "What is the time difference between IST and Dubai?",
+                "answer": "Dubai (GST) is 1.5 hours behind Indian Standard Time (IST)."
+          },
+          {
+                "question": "What is the time difference between IST and London?",
+                "answer": "London is 5.5 hours behind India during GMT (Winter) and 4.5 hours behind during British Summer Time (BST)."
+          }
+    ],
+        formulaDescription: "Target Local Time = Indian Standard Time (UTC +05:30) ± Target Offset Difference.",
+    workedExample: {
+          "inputSummary": "Time in India (IST): 04:30 PM (16:30) | Target Destination: Dubai, UAE (GST, UTC +04:00)",
+          "calculationSteps": [
+                "1. India IST Offset: UTC +05:30",
+                "2. Dubai GST Offset: UTC +04:00",
+                "3. Time Difference: Dubai is 1 hour and 30 minutes behind India",
+                "4. Target Time = 16:30 − 01:30 = 15:00 (03:00 PM)"
+          ],
+          "finalResult": "04:30 PM IST in India = 03:00 PM GST in Dubai (1 hr 30 mins behind)"
+    },
+    seoSections: [
+          {
+                "h2": "Convert Indian Standard Time (IST) to Global Time Zones",
+                "paragraphs": [
+                      "Quickly convert Indian Standard Time (IST, UTC+5:30) to major international business and travel destinations like Dubai (GST), London (GMT/BST), Singapore (SGT), Tokyo (JST), New York (EST), and San Francisco (PST)."
+                ]
+          }
     ],
     relatedToolSlugs: ['currency-converter-tool', 'date-difference-calculator']
   },
@@ -2650,7 +3433,34 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Interactive Travel Packing Checklist'
     },
     faqs: [
-      { question: 'What documents are essential for domestic travel in India?', answer: 'Valid original photo ID (Aadhaar, DL, Passport, Voter ID) + hotel/flight booking slips.' }
+          {
+                "question": "What documents are essential for domestic travel in India?",
+                "answer": "Valid original photo ID (Aadhaar, DL, Passport, Voter ID) + hotel/flight booking slips."
+          },
+          {
+                "question": "Can I carry a power bank in check-in luggage in Indian flights?",
+                "answer": "No, DGCA rules strictly mandate that power banks and spare lithium-ion batteries must only be carried in cabin baggage, not check-in luggage."
+          }
+    ],
+        formulaDescription: "Categorized checklist engine covering Identity Documents, Electronics, Clothing, Toiletries, and First Aid Medical essentials.",
+    workedExample: {
+          "inputSummary": "Trip Type: 5-Day Domestic Flight Vacation (Goa)",
+          "calculationSteps": [
+                "1. Essential Documents: Aadhaar Card, Boarding Pass, Hotel Booking Voucher",
+                "2. Electronics: Phone Charger, 20,000mAh Power Bank, Earphones",
+                "3. Clothing: 5 Casual Outfits, Swimwear, Sunglasses, Flip-flops",
+                "4. Travel Medicine: Paracetamol, Motion Sickness Tablets, Band-aids",
+                "5. Track checkmarks and print clean checklist"
+          ],
+          "finalResult": "24 Essential Items Checklist Generated | Category: Domestic Vacation | Printable: Yes"
+    },
+    seoSections: [
+          {
+                "h2": "Ultimate Indian Travel Packing Checklist",
+                "paragraphs": [
+                      "Never forget essential documents, chargers, or medicines before boarding your flight or starting a long road trip. Our interactive travel checklist lets you mark completed items, add custom luggage essentials, and save or print your personalized packing list."
+                ]
+          }
     ],
     relatedToolSlugs: ['trip-cost-calculator', 'travel-budget-calculator']
   },
@@ -2674,7 +3484,35 @@ export const TOOLS_REGISTRY: Tool[] = [
       h1: 'Multi-Stop Road Trip Planner'
     },
     faqs: [
-      { question: 'How are multi-stop routes calculated?', answer: 'Calculates total fuel required and expense based on multi-stop trip distance, vehicle mileage, and fuel price.' }
+          {
+                "question": "How are multi-stop routes calculated?",
+                "answer": "Calculates total fuel required and expense based on multi-stop trip distance, vehicle mileage, and fuel price."
+          },
+          {
+                "question": "Are toll charges included in fuel calculations?",
+                "answer": "Tolls vary by expressway and FASTag category; we recommend adding a separate toll allocation based on NHAI toll plaza rates."
+          }
+    ],
+        formulaDescription: "Multi-Leg Total Fuel = Sum of leg distances in km ÷ Vehicle Mileage × Fuel Price per Litre.",
+    workedExample: {
+          "inputSummary": "Route: Delhi → Agra (230 km) → Jaipur (240 km) → Delhi (280 km) | Mileage: 16 km/L @ ₹96/L",
+          "calculationSteps": [
+                "1. Leg 1 (Delhi to Agra via Yamuna Expressway): 230 km",
+                "2. Leg 2 (Agra to Jaipur via NH21): 240 km",
+                "3. Leg 3 (Jaipur to Delhi via Delhi-Mumbai Expressway): 280 km",
+                "4. Total Route Distance = 230 + 240 + 280 = 750 km",
+                "5. Total Fuel Required = 750 ÷ 16 = 46.875 Litres",
+                "6. Total Fuel Expense = 46.875 × ₹96 = ₹4,500"
+          ],
+          "finalResult": "Total Circuit Distance: 750 km | Fuel Required: 46.9 Litres | Total Fuel Expense: ₹4,500"
+    },
+    seoSections: [
+          {
+                "h2": "Plan Multi-Stop Indian Road Trips with Fuel Cost Estimates",
+                "paragraphs": [
+                      "Calculate total travel distances, driving durations, and fuel expenses across popular Indian road trip circuits (Delhi-Agra-Jaipur Golden Triangle, Mumbai-Pune-Goa, Bengaluru-Mysuru-Coorg)."
+                ]
+          }
     ],
     relatedToolSlugs: ['vehicle-fuel-cost-calculator', 'trip-cost-calculator']
   }
