@@ -107,6 +107,10 @@ export function updateSeoMetadata(view: ViewMode): void {
   if (view.type === 'tool') {
     const tool = getToolBySlug(view.slug);
     if (tool) {
+      title = tool.seo?.title || `${tool.name} – Free Online Calculator | ${SITE_NAME}`;
+      description = tool.seo?.description || tool.description || DEFAULT_DESCRIPTION;
+      ogType = 'article';
+
       const reviewCount = Math.max(140, Math.floor((tool.views || 3500) / 18));
       const ratingValue = (4.85 + (tool.name.length % 10) * 0.01).toFixed(1);
 
@@ -132,6 +136,7 @@ export function updateSeoMetadata(view: ViewMode): void {
           '@id': `${CANONICAL_BASE}/#organization`,
           name: SITE_NAME,
           url: `${CANONICAL_BASE}/`,
+          logo: `${CANONICAL_BASE}/icons/icon-512.png`,
         },
         offers: {
           '@type': 'Offer',
@@ -166,6 +171,19 @@ export function updateSeoMetadata(view: ViewMode): void {
       };
 
       const graphNodes: any[] = [toolSchema, breadcrumbSchema];
+
+      if (tool.workedExample && tool.workedExample.calculationSteps) {
+        graphNodes.push({
+          '@type': 'HowTo',
+          name: `How to calculate using ${tool.name}`,
+          description: tool.workedExample.inputSummary,
+          step: tool.workedExample.calculationSteps.map((stepStr, idx) => ({
+            '@type': 'HowToStep',
+            position: idx + 1,
+            text: stepStr,
+          })),
+        });
+      }
 
       if (tool.faqs && tool.faqs.length > 0) {
         graphNodes.push({
@@ -273,11 +291,19 @@ export function updateSeoMetadata(view: ViewMode): void {
           '@id': `${CANONICAL_BASE}/#website`,
           url: `${CANONICAL_BASE}/`,
           name: SITE_NAME,
-          alternateName: ['BharatUtility India', 'BharatUtility Tools'],
+          alternateName: ['BharatUtility India', 'BharatUtility Tools', 'Bharat Utility'],
           description: DEFAULT_DESCRIPTION,
           publisher: {
             '@id': `${CANONICAL_BASE}/#organization`,
           },
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: {
+              '@type': 'EntryPoint',
+              urlTemplate: `${CANONICAL_BASE}/tools?q={search_term_string}`
+            },
+            'query-input': 'required name=search_term_string'
+          }
         },
         {
           '@type': 'Organization',

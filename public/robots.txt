@@ -1,4 +1,32 @@
+# https://www.robotstxt.org/robotstxt.html
+# BharatUtility (https://bharatutility.tech)
+
 User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+User-agent: Applebot
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+User-agent: YandexBot
 Allow: /
 Disallow: /admin
 Disallow: /admin/

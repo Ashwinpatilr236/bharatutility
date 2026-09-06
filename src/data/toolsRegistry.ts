@@ -3515,6 +3515,3224 @@ export const TOOLS_REGISTRY: Tool[] = [
           }
     ],
     relatedToolSlugs: ['vehicle-fuel-cost-calculator', 'trip-cost-calculator']
+  },
+
+  {
+    id: 'ppf-calculator',
+    slug: 'ppf-calculator',
+    name: 'PPF Calculator',
+    shortName: 'PPF Calculator',
+    tagline: 'Calculate Public Provident Fund maturity amount, yearly compounding interest, and tax savings under Section 80C',
+    description: "Calculate your Public Provident Fund (PPF) returns with BharatUtility's free PPF Calculator. Estimate your 15-year tax-free maturity amount, total interest earned, and annual breakdown under the sovereign guaranteed scheme.",
+    category: 'money',
+    icon: 'ShieldCheck',
+    keywords: [
+      'PPF calculator',
+      'public provident fund calculator',
+      'PPF interest rate 2026',
+      'PPF maturity calculator',
+      'PPF 15 years calculation',
+      'PPF tax free returns',
+      'post office PPF calculator',
+      'SBI PPF calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 38400,
+    seo: {
+      title: 'PPF Calculator – Public Provident Fund Maturity & Interest | BharatUtility',
+      description: 'Calculate 15-year PPF maturity amount and tax-free compounding interest with the latest 7.1% p.a. government rate. Sovereign guaranteed returns.',
+      keywords: [
+        'PPF calculator',
+        'public provident fund calculator',
+        'PPF interest rate 2026',
+        'PPF maturity calculator',
+        'PPF tax free returns'
+      ],
+      canonicalSlug: 'ppf-calculator',
+      h1: 'PPF Calculator (Public Provident Fund)',
+    },
+    formulaDescription: 'PPF computes interest annually using compounding formula F = P × [({(1 + i)^n} - 1) / i] × (1 + i) where i is annual interest rate / 100, and n is tenure in years.',
+    formulaLatex: 'F = P \times \left[\frac{(1 + i)^n - 1}{i}\right] \times (1 + i)',
+    workedExample: {
+      inputSummary: 'Annual Deposit: ₹1,50,000 | Tenure: 15 Years | Interest Rate: 7.1% p.a.',
+      calculationSteps: [
+        'Total Principal Deposited = ₹1,50,000 × 15 = ₹22,50,000',
+        'Compounded Interest Earned over 15 Years = ₹18,18,209',
+        'Total Guaranteed Tax-Free Maturity Value = ₹40,68,209'
+      ],
+      finalResult: 'Total Invested: ₹22,50,000 | Total Interest: ₹18,18,209 | Maturity Amount: ₹40,68,209 (100% Tax-Free under EEE)'
+    },
+    seoSections: [
+      {
+        h2: 'What is Public Provident Fund (PPF)?',
+        paragraphs: [
+          'Public Provident Fund (PPF) is a premier government-backed, long-term small savings scheme in India designed to provide financial security during retirement while offering attractive tax benefits under Section 80C of the Income Tax Act.',
+          'PPF qualifies under the EEE (Exempt-Exempt-Exempt) tax status, meaning the invested amount, the interest earned, and the maturity proceeds are entirely exempt from Indian income tax.'
+        ]
+      },
+      {
+        h2: 'PPF Rules, Eligibility & Extension Guidelines',
+        paragraphs: [
+          'The minimum annual deposit is ₹500, and the maximum allowed deposit is ₹1,50,000 per financial year.',
+          'The standard lock-in period is 15 complete financial years. After 15 years, you can extend your PPF account in blocks of 5 years with or without fresh contributions.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the current PPF interest rate in India?',
+        answer: 'As announced by the Ministry of Finance, the PPF interest rate is 7.1% per annum, compounded annually and backed by a sovereign sovereign guarantee.'
+      },
+      {
+        question: 'Is PPF maturity amount taxable?',
+        answer: 'No. PPF enjoys complete EEE (Exempt-Exempt-Exempt) status. Neither the annual interest nor the final maturity amount attracts any income tax.'
+      },
+      {
+        question: 'When should I deposit money in PPF each month to get maximum interest?',
+        answer: 'Interest is calculated on the minimum balance between the 5th and the last day of each calendar month. Depositing on or before the 5th of every month maximizes your interest payout.'
+      }
+    ],
+    relatedToolSlugs: ['sukanya-samriddhi-calculator', 'epf-calculator', 'nps-calculator', 'fd-calculator']
+  },
+
+  {
+    id: 'sukanya-samriddhi-calculator',
+    slug: 'sukanya-samriddhi-calculator',
+    name: 'Sukanya Samriddhi Yojana (SSY) Calculator',
+    shortName: 'SSY Calculator',
+    tagline: 'Calculate Sukanya Samriddhi Yojana maturity corpus and highest government interest for girl child education and marriage',
+    description: "Plan your daughter's future education and marriage expenses with BharatUtility's Sukanya Samriddhi Yojana Calculator. Calculate maturity value with the highest small savings interest rate of 8.2% p.a.",
+    category: 'money',
+    icon: 'Sparkles',
+    keywords: [
+      'SSY calculator',
+      'sukanya samriddhi yojana calculator',
+      'sukanya samriddhi calculator 2026',
+      'girl child scheme calculator',
+      'SSY interest rate 8.2',
+      'post office SSY maturity calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 31200,
+    seo: {
+      title: 'Sukanya Samriddhi Calculator (SSY) – 8.2% Interest & Maturity | BharatUtility',
+      description: 'Calculate Sukanya Samriddhi Yojana (SSY) maturity value with the latest 8.2% interest rate. Free government savings calculator for girl child future.',
+      keywords: [
+        'sukanya samriddhi calculator',
+        'SSY calculator',
+        'SSY maturity calculator',
+        'girl child savings scheme'
+      ],
+      canonicalSlug: 'sukanya-samriddhi-calculator',
+      h1: 'Sukanya Samriddhi Yojana (SSY) Calculator',
+    },
+    formulaDescription: 'SSY calculates annual compounding for 21 years from account opening, with contributions made for the initial 15 years.',
+    formulaLatex: 'A = P \times \left[\frac{(1 + r)^n - 1}{r}\right] \times (1 + r)',
+    workedExample: {
+      inputSummary: 'Annual Deposit: ₹1,00,000 | Girl Age at Opening: 3 Years | Interest Rate: 8.2% p.a.',
+      calculationSteps: [
+        'Deposit Period = 15 Years | Total Principal Deposited = ₹15,00,000',
+        'Growth & Compounding continues until 21 years from opening (Girl age 24)',
+        'Total Interest Accumulated = ₹31,90,564',
+        'Maturity Corpus for Higher Education/Marriage = ₹46,90,564'
+      ],
+      finalResult: 'Total Invested: ₹15,00,000 | Total Interest: ₹31,90,564 | Maturity Corpus: ₹46,90,564 (100% Tax-Free)'
+    },
+    seoSections: [
+      {
+        h2: 'Benefits of Sukanya Samriddhi Yojana (SSY)',
+        paragraphs: [
+          'Sukanya Samriddhi Yojana (Beti Bachao, Beti Padhao initiative) offers the highest interest rate among all Indian sovereign retail schemes at 8.2% p.a.',
+          'Deposits can be made from the birth of a girl child up to 10 years of age. Contributions are required for 15 years, while the account matures after 21 years.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Who is eligible to open an SSY account?',
+        answer: 'Parents or legal guardians of a resident Indian girl child who is below 10 years of age can open one account per girl child (maximum 2 accounts per family).'
+      },
+      {
+        question: 'What is the deposit limit in Sukanya Samriddhi Yojana?',
+        answer: 'The minimum annual deposit is ₹250, and the maximum ceiling is ₹1,50,000 per financial year under Section 80C.'
+      }
+    ],
+    relatedToolSlugs: ['ppf-calculator', 'nps-calculator', 'sip-calculator']
+  },
+
+  {
+    id: 'gratuity-calculator',
+    slug: 'gratuity-calculator',
+    name: 'Gratuity Calculator',
+    shortName: 'Gratuity Calculator',
+    tagline: 'Calculate gratuity payout under the Payment of Gratuity Act 1972 for private and government employees in India',
+    description: "Calculate your exact statutory gratuity amount on job resignation or retirement with BharatUtility's Gratuity Calculator. Fully compliant with Payment of Gratuity Act (15/26 formula) and ₹20 Lakh tax exemption limit.",
+    category: 'money',
+    icon: 'IndianRupee',
+    keywords: [
+      'gratuity calculator',
+      'gratuity calculation formula',
+      'gratuity act 1972 calculator',
+      'gratuity exemption limit 20 lakh',
+      'gratuity on resignation calculator',
+      'private sector gratuity calculator'
+    ],
+    popular: true,
+    trending: false,
+    featured: true,
+    badge: 'Popular',
+    views: 29500,
+    seo: {
+      title: 'Gratuity Calculator India – Payment of Gratuity Act 1972 | BharatUtility',
+      description: 'Calculate your gratuity payout upon resignation or retirement using the official 15/26 formula under the Payment of Gratuity Act 1972.',
+      keywords: [
+        'gratuity calculator',
+        'gratuity calculation India',
+        'gratuity act 1972',
+        'gratuity tax exemption'
+      ],
+      canonicalSlug: 'gratuity-calculator',
+      h1: 'Gratuity Calculator (Payment of Gratuity Act)',
+    },
+    formulaDescription: 'Gratuity = (15 × Last Drawn Basic Salary & DA × Completed Years of Service) ÷ 26',
+    formulaLatex: '\text{Gratuity} = \frac{15 \times (\text{Basic} + \text{DA}) \times \text{Tenure}}{26}',
+    workedExample: {
+      inputSummary: 'Last Drawn Monthly Basic + DA: ₹50,000 | Tenure: 7 Years (Covered under Gratuity Act)',
+      calculationSteps: [
+        '15 Days Salary Component = (15 × ₹50,000) ÷ 26 = ₹28,846.15',
+        'Gratuity Payout = ₹28,846.15 × 7 Years = ₹2,01,923',
+        'Tax Status: Fully Tax-Free (Well below ₹20,00,000 statutory limit)'
+      ],
+      finalResult: 'Total Gratuity Payable: ₹2,01,923 (100% Tax-Exempt)'
+    },
+    seoSections: [
+      {
+        h2: 'When are you eligible to receive Gratuity?',
+        paragraphs: [
+          'Under the Payment of Gratuity Act, 1972, an employee is eligible for gratuity after completing at least 5 years of continuous service in an organization with 10 or more employees.',
+          'The 5-year requirement is waived in case of death or permanent disability of an employee.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Is gratuity calculated on CTC or Basic Salary?',
+        answer: 'Gratuity is calculated strictly on your Last Drawn Basic Salary plus Dearness Allowance (DA), not on gross CTC or variable allowances.'
+      },
+      {
+        question: 'What is the maximum tax-free gratuity limit in India?',
+        answer: 'Under Section 10(10) of the Income Tax Act, non-government private employees enjoy tax exemption up to ₹20,00,000 (20 Lakhs).'
+      }
+    ],
+    relatedToolSlugs: ['epf-calculator', 'salary-calculator', 'nps-calculator']
+  },
+
+  {
+    id: 'nps-calculator',
+    slug: 'nps-calculator',
+    name: 'NPS Calculator (National Pension System)',
+    shortName: 'NPS Calculator',
+    tagline: 'Calculate National Pension Scheme retirement corpus, monthly pension annuity, and tax-free lump sum withdrawal',
+    description: "Plan your retirement pension with BharatUtility's National Pension System (NPS) Calculator. Estimate your accumulated wealth at age 60, monthly pension, and Section 80CCD(1B) extra tax savings.",
+    category: 'money',
+    icon: 'TrendingUp',
+    keywords: [
+      'NPS calculator',
+      'national pension system calculator',
+      'NPS pension calculator',
+      'NPS monthly pension estimator',
+      'NPS tier 1 calculator',
+      'section 80CCD 1B calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: false,
+    badge: 'Retirement',
+    views: 24100,
+    seo: {
+      title: 'NPS Calculator – National Pension System Monthly Pension & Corpus | BharatUtility',
+      description: 'Calculate your NPS retirement corpus, tax-free 60% lump sum withdrawal, and monthly annuity pension with expected market returns.',
+      keywords: [
+        'NPS calculator',
+        'national pension scheme calculator',
+        'pension calculator India',
+        'NPS monthly annuity'
+      ],
+      canonicalSlug: 'nps-calculator',
+      h1: 'NPS Calculator (National Pension System)',
+    },
+    formulaDescription: 'Calculates monthly compounding contributions from current age to 60 years, with 60% lump sum and 40% annuity split.',
+    formulaLatex: 'M = P \times \left[\frac{(1 + r)^n - 1}{r}\right] \times (1 + r)',
+    workedExample: {
+      inputSummary: 'Monthly Contribution: ₹10,000 | Current Age: 28 Years | Expected Return: 10% p.a. | Annuity: 40% @ 6%',
+      calculationSteps: [
+        'Investment Horizon = 32 Years (384 Months) | Total Invested = ₹38,40,000',
+        'Total Accumulated Corpus at Age 60 = ₹2,82,45,417 (~₹2.82 Crore)',
+        '60% Tax-Free Lump Sum Withdrawal = ₹1,69,47,250',
+        '40% Annuity Investment = ₹1,12,98,167',
+        'Expected Monthly Pension = ₹56,491 / month for life'
+      ],
+      finalResult: 'Total Corpus: ₹2.82 Crore | Lump Sum: ₹1.69 Crore | Monthly Pension: ₹56,491/month'
+    },
+    seoSections: [
+      {
+        h2: 'Why Invest in National Pension System (NPS)?',
+        paragraphs: [
+          'NPS is a voluntary retirement savings scheme regulated by PFRDA. It provides an additional exclusive tax deduction of up to ₹50,000 under Section 80CCD(1B), over and above the ₹1.5 Lakh 80C limit.',
+          'At age 60, up to 60% of the corpus can be withdrawn completely tax-free, while the remaining 40% is converted into a monthly pension via IRDAI-approved life insurers.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Can I withdraw 100% of my NPS corpus?',
+        answer: 'If your total accumulated corpus at retirement is ₹5 Lakhs or less, you can withdraw 100% as a lump sum without purchasing an annuity.'
+      }
+    ],
+    relatedToolSlugs: ['epf-calculator', 'ppf-calculator', 'sip-calculator']
+  },
+
+  {
+    id: 'epf-calculator',
+    slug: 'epf-calculator',
+    name: 'EPF Calculator (Employees Provident Fund)',
+    shortName: 'EPF Calculator',
+    tagline: 'Calculate PF maturity corpus with employee (12%) and employer (3.67% EPF + 8.33% EPS) contributions and annual salary hike',
+    description: "Estimate your Provident Fund retirement corpus with BharatUtility's EPF Calculator. Accurately calculates monthly employee and employer EPF split at 8.25% interest with yearly salary increments.",
+    category: 'money',
+    icon: 'ShieldCheck',
+    keywords: [
+      'EPF calculator',
+      'provident fund calculator',
+      'PF maturity calculator',
+      'EPFO interest rate 8.25',
+      'employee provident fund calculation',
+      'PF balance calculator'
+    ],
+    popular: true,
+    trending: false,
+    featured: true,
+    badge: 'Popular',
+    views: 35600,
+    seo: {
+      title: 'EPF Calculator – Employees Provident Fund Balance & Maturity | BharatUtility',
+      description: 'Calculate your retirement EPF balance with 12% employee contribution, employer share, and latest 8.25% EPFO interest rate.',
+      keywords: [
+        'EPF calculator',
+        'PF calculator',
+        'provident fund balance calculator',
+        'EPFO interest rate 2026'
+      ],
+      canonicalSlug: 'epf-calculator',
+      h1: 'EPF Calculator (Employees Provident Fund)',
+    },
+    formulaDescription: 'Monthly Employee contribution (12% of Basic) + Employer EPF contribution (3.67%) compounded annually at 8.25% p.a.',
+    formulaLatex: 'A = P(1 + r/n)^{nt}',
+    workedExample: {
+      inputSummary: 'Monthly Basic Salary: ₹40,000 | Age: 25 to 58 (33 Years) | Initial Balance: ₹50,000 | Annual Increment: 5% | Rate: 8.25%',
+      calculationSteps: [
+        'Employee Monthly Share (12%) = ₹4,800 | Employer EPF Share (3.67%) = ₹1,468',
+        'Total Monthly PF Inflow = ₹6,268 (escalates 5% annually)',
+        'Total Cumulative Contributions = ₹68,43,120',
+        'Total Interest Compounded = ₹1,29,54,320',
+        'Total Retirement PF Corpus at Age 58 = ₹1,98,47,440 (~₹1.98 Crore)'
+      ],
+      finalResult: 'Total Contributions: ₹68.4 Lakhs | Interest Earned: ₹1.30 Crore | Maturity Corpus: ₹1.98 Crore'
+    },
+    seoSections: [
+      {
+        h2: 'How Employee and Employer EPF Split Works in India',
+        paragraphs: [
+          'Under EPFO rules, the employee contributes 12% of Basic Salary + DA directly to EPF.',
+          'The employer also contributes 12%, which is split into 3.67% to the EPF account and 8.33% to the EPS (Employees Pension Scheme, capped at ₹15,000 wage ceiling).'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Is EPF interest taxable?',
+        answer: 'Employee contributions up to ₹2.5 Lakhs per financial year are tax-free. Interest earned on employee contributions exceeding ₹2.5 Lakhs is taxable under Section 10(11).'
+      }
+    ],
+    relatedToolSlugs: ['gratuity-calculator', 'nps-calculator', 'ppf-calculator', 'salary-calculator']
+  },
+
+  {
+    id: 'home-loan-prepayment-calculator',
+    slug: 'home-loan-prepayment-calculator',
+    name: 'Home Loan Prepayment & Interest Saver Calculator',
+    shortName: 'Loan Prepayment Calculator',
+    tagline: 'Calculate how making extra monthly payments or annual part-prepayments slashes your loan tenure and saves lakhs in interest',
+    description: "Save lakhs of rupees on your home loan interest with BharatUtility's Home Loan Prepayment Calculator. See how adding just ₹5,000 extra per month can reduce your 20-year loan tenure by 5+ years.",
+    category: 'money',
+    icon: 'TrendingUp',
+    keywords: [
+      'home loan prepayment calculator',
+      'loan tenure reduction calculator',
+      'home loan interest saver',
+      'part prepayment calculator',
+      'save home loan interest',
+      'prepayment benefit calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Save Money',
+    views: 28900,
+    seo: {
+      title: 'Home Loan Prepayment Calculator – Save Interest & Cut Tenure | BharatUtility',
+      description: 'Calculate how extra monthly payments or part-prepayment reduces your home loan tenure and saves lakhs in bank interest.',
+      keywords: [
+        'home loan prepayment calculator',
+        'loan part payment calculator',
+        'home loan tenure saver'
+      ],
+      canonicalSlug: 'home-loan-prepayment-calculator',
+      h1: 'Home Loan Prepayment & Interest Saver Calculator',
+    },
+    formulaDescription: 'Recalculates reducing principal balance amortisation schedule with additional monthly cash flows to determine months saved.',
+    formulaLatex: '\text{Balance}_{m} = \text{Balance}_{m-1} \times (1 + r) - (\text{EMI} + \text{Extra})',
+    workedExample: {
+      inputSummary: 'Principal: ₹50,00,000 (50 Lakhs) | Rate: 8.5% p.a. | Original Tenure: 20 Years | Extra Monthly: ₹5,000',
+      calculationSteps: [
+        'Original Monthly EMI = ₹43,391 | Total Original Interest = ₹54,13,879',
+        'New Monthly Payment with Prepayment = ₹48,391',
+        'Revised Tenure with Extra Payment = ~15.2 Years (Saved 4.8 Years / 58 Months)',
+        'Revised Total Interest = ₹38,72,140',
+        'Total Direct Interest Saved = ₹15,41,739'
+      ],
+      finalResult: 'Interest Saved: ₹15.41 Lakhs | Tenure Reduced by: 4 Years 10 Months'
+    },
+    seoSections: [
+      {
+        h2: 'Why Home Loan Prepayment is the Smartest Financial Move',
+        paragraphs: [
+          'In the early years of a home loan, up to 70% of your EMI goes toward bank interest rather than principal reduction.',
+          'Making small, regular prepayments directly reduces the principal balance, creating a massive compounding interest savings effect.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Are there any prepayment penalty charges on floating rate home loans in India?',
+        answer: 'No. As per RBI guidelines, commercial banks and Housing Finance Companies (HFCs) cannot levy any prepayment or foreclosure penalty on floating rate home loans for individual borrowers.'
+      }
+    ],
+    relatedToolSlugs: ['emi-calculator', 'sip-calculator']
+  },
+
+  {
+    id: 'number-to-words-converter',
+    slug: 'number-to-words-converter',
+    name: 'Number to Words Converter (Indian Rupees)',
+    shortName: 'Number to Words',
+    tagline: 'Convert numerical figures into words in Indian numbering system (Lakhs, Crores, Rupees & Paise) for bank cheques, invoices, and RTGS',
+    description: "Convert numbers to words instantly with BharatUtility's Indian Rupees Number to Words Converter. Formats amounts specifically for bank cheques, RTGS/NEFT slips, and GST tax invoices with one-click copy.",
+    category: 'daily-life',
+    icon: 'Type',
+    keywords: [
+      'number to words converter',
+      'rupees in words',
+      'cheque amount in words',
+      'indian number to words',
+      'lakh crore to words',
+      'amount in words converter India'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 42100,
+    seo: {
+      title: 'Number to Words Converter – Indian Rupees for Cheques & Invoices | BharatUtility',
+      description: 'Convert numeric amounts into Indian Rupees words (Crores, Lakhs, Thousands, Paise) formatted for bank cheques, tax invoices, and legal documents.',
+      keywords: [
+        'number to words',
+        'rupees in words converter',
+        'cheque writer words',
+        'amount in words India'
+      ],
+      canonicalSlug: 'number-to-words-converter',
+      h1: 'Number to Words Converter (Indian Rupees & Cheque Format)',
+    },
+    formulaDescription: 'Parses digits according to Indian numbering grouping: 1,00,00,000 (Crores), 1,00,000 (Lakhs), 1,000 (Thousands), and decimal Paise.',
+    workedExample: {
+      inputSummary: 'Input Number: ₹24,50,000.50',
+      calculationSteps: [
+        'Crores: 0',
+        'Lakhs: 24 (Twenty-Four Lakh)',
+        'Thousands: 50 (Fifty Thousand)',
+        'Hundreds & Units: 0',
+        'Paise: 50 (Fifty Paise)'
+      ],
+      finalResult: 'Rupees Twenty-Four Lakh Fifty Thousand and Fifty Paise Only'
+    },
+    seoSections: [
+      {
+        h2: 'How Indian Numbering System Differs from International System',
+        paragraphs: [
+          'In the Indian numbering system, values are grouped in twos after the initial three digits: Hundreds (100), Thousands (1,000), Lakhs (1,00,000), and Crores (1,00,00,000).',
+          'This tool automatically follows Indian banking standards for cheque writing and statutory invoice documentation.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Why should I write "Only" at the end of cheque amounts?',
+        answer: 'Adding "Only" at the end of the amount in words prevents unauthorized alterations or additions of words on signed bank cheques.'
+      }
+    ],
+    relatedToolSlugs: ['word-character-counter', 'text-case-converter', 'gst-calculator']
+  },
+
+  {
+    id: 'word-character-counter',
+    slug: 'word-character-counter',
+    name: 'Word & Character Counter',
+    shortName: 'Word Counter',
+    tagline: 'Count words, characters, sentences, paragraphs, keyword density, and estimated reading time in real-time',
+    description: "Count words, characters with/without spaces, sentences, and paragraphs in real-time with BharatUtility's free Word & Character Counter. Includes reading speed estimates and keyword density analysis without uploading your text to any server.",
+    category: 'documents',
+    icon: 'FileText',
+    keywords: [
+      'word counter',
+      'character counter',
+      'essay word count',
+      'character counter with spaces',
+      'word count tool online',
+      'reading time calculator'
+    ],
+    popular: true,
+    trending: false,
+    featured: true,
+    badge: 'Writing',
+    views: 33400,
+    seo: {
+      title: 'Word & Character Counter – Free Online Text Statistics | BharatUtility',
+      description: 'Count words, characters, spaces, sentences, and paragraphs online. Fast, 100% private in-browser text tool for essays, blogs, and social posts.',
+      keywords: [
+        'word counter',
+        'character counter',
+        'text statistics',
+        'word count online'
+      ],
+      canonicalSlug: 'word-character-counter',
+      h1: 'Word & Character Counter',
+    },
+    formulaDescription: 'Word Count = matched non-whitespace token sequences; Characters = total string length; Reading Time = Words ÷ 200 WPM.',
+    workedExample: {
+      inputSummary: 'Sample text with 400 words and 2,400 characters',
+      calculationSteps: [
+        'Words: 400',
+        'Characters (with spaces): 2,400',
+        'Characters (no spaces): 1,980',
+        'Reading Time @ 200 WPM: 2 minutes'
+      ],
+      finalResult: 'Total Words: 400 | Characters: 2,400 | Est. Reading Time: 2 min'
+    },
+    seoSections: [
+      {
+        h2: '100% Client-Side Privacy for Writers & Students',
+        paragraphs: [
+          'All text processing happens directly inside your web browser using modern JavaScript string parsing. Your essays, articles, and sensitive documents are never uploaded to any remote server or database.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the average reading speed used in the calculator?',
+        answer: 'We use the standard silent reading average of 200 words per minute (WPM) and a speaking presentation speed of 130 WPM.'
+      }
+    ],
+    relatedToolSlugs: ['text-case-converter', 'number-to-words-converter']
+  },
+
+  {
+    id: 'text-case-converter',
+    slug: 'text-case-converter',
+    name: 'Text Case Converter',
+    shortName: 'Case Converter',
+    tagline: 'Convert text between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case instantly',
+    description: "Transform your text case online with BharatUtility's free Text Case Converter. Convert strings to UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case with one-click copy.",
+    category: 'technology',
+    icon: 'ArrowRightLeft',
+    keywords: [
+      'text case converter',
+      'uppercase converter',
+      'lowercase converter',
+      'title case converter',
+      'camelcase converter',
+      'snake case converter',
+      'sentence case converter'
+    ],
+    popular: false,
+    trending: true,
+    featured: false,
+    badge: 'Developer Tool',
+    views: 21900,
+    seo: {
+      title: 'Text Case Converter – UPPERCASE, lowercase, Title Case & camelCase | BharatUtility',
+      description: 'Convert text instantly into UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case. Free online developer & writer utility.',
+      keywords: [
+        'case converter',
+        'text case converter',
+        'title case',
+        'camelcase tool'
+      ],
+      canonicalSlug: 'text-case-converter',
+      h1: 'Text Case Converter',
+    },
+    formulaDescription: 'Applies programmatic character transformers across whitespace, word boundaries, and punctuation tokens.',
+    workedExample: {
+      inputSummary: 'Input: "bharat utility tools for india"',
+      calculationSteps: [
+        'UPPERCASE: "BHARAT UTILITY TOOLS FOR INDIA"',
+        'Title Case: "Bharat Utility Tools For India"',
+        'camelCase: "bharatUtilityToolsForIndia"',
+        'snake_case: "bharat_utility_tools_for_india"'
+      ],
+      finalResult: 'Instant conversion across 10 common casing conventions.'
+    },
+    seoSections: [
+      {
+        h2: 'Supported Text Case Formats',
+        paragraphs: [
+          'Easily switch between standard grammatical casing formats (Sentence case, Title Case, ALL CAPS) and programming identifiers (camelCase for JS, snake_case for Python/SQL, kebab-case for CSS/URLs, and CONSTANT_CASE for environment variables).'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Is my text sent to any server?',
+        answer: 'No. All case conversions run 100% locally in your browser memory.'
+      }
+    ],
+    relatedToolSlugs: ['word-character-counter', 'number-to-words-converter']
+  },
+
+  {
+    id: 'attendance-calculator',
+    slug: 'attendance-calculator',
+    name: 'College Attendance & 75% Rule Calculator',
+    shortName: 'Attendance Calculator',
+    tagline: 'Calculate attendance percentage, safe classes to bunk, or consecutive lectures to attend to meet the 75% criteria',
+    description: "Never get debarred from semester exams. Use BharatUtility's College Attendance Calculator to check your current percentage, how many upcoming classes you can safely skip, or how many you must attend to reach 75%.",
+    category: 'education',
+    icon: 'GraduationCap',
+    keywords: [
+      'attendance calculator',
+      '75 percentage attendance calculator',
+      'bunk calculator college',
+      'how many classes to attend for 75',
+      'college attendance bunk margin',
+      'attendance shortage calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Student Essential',
+    views: 46800,
+    seo: {
+      title: 'College Attendance Calculator – 75% Rule & Bunk Planner | BharatUtility',
+      description: 'Calculate your college attendance percentage, how many classes you must attend for 75%, or how many lectures you can safely bunk without getting debarred.',
+      keywords: [
+        'attendance calculator',
+        '75 attendance calculator',
+        'college bunk calculator',
+        'attendance percentage'
+      ],
+      canonicalSlug: 'attendance-calculator',
+      h1: 'College Attendance & 75% Rule Calculator',
+    },
+    formulaDescription: 'Classes to attend = ceil((Target × Held - 100 × Attended) / (100 - Target)); Classes to skip = floor((100 × Attended - Target × Held) / Target).',
+    formulaLatex: 'X = \left\lceil \frac{T \times H - 100 \times A}{100 - T} \right\rceil',
+    workedExample: {
+      inputSummary: 'Classes Held: 60 | Classes Attended: 42 | Target: 75%',
+      calculationSteps: [
+        'Current Attendance = (42 ÷ 60) × 100 = 70.0% (Deficit: 5.0%)',
+        'Formula: X = (75 × 60 - 100 × 42) ÷ (100 - 75)',
+        'X = (4,500 - 4,200) ÷ 25 = 300 ÷ 25 = 12 Classes',
+        'Recommendation: Attend next 12 consecutive lectures without missing any.'
+      ],
+      finalResult: 'Current: 70.0% | Required: Attend next 12 consecutive classes to achieve 75%'
+    },
+    seoSections: [
+      {
+        h2: 'Understanding the 75% Mandatory Attendance Rule in Indian Universities',
+        paragraphs: [
+          'Regulatory bodies like UGC, AICTE, and state technical universities (such as AKTU, VTU, Mumbai University, Anna University) mandate a minimum of 75% attendance in theory and practical courses to be eligible for end-semester examinations.',
+          'Medical condonation usually permits relaxation down to 65% with approved certified documentation.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What happens if attendance drops below 75% in college?',
+        answer: 'Colleges may debar students from taking end-term exams, assign repeat coursework, or require formal condonation approval from the Dean / Academic Council.'
+      }
+    ],
+    relatedToolSlugs: ['cgpa-calculator', 'marks-percentage-calculator', 'percentage-calculator']
+  },
+
+  {
+    id: 'land-area-converter',
+    slug: 'land-area-converter',
+    name: 'Indian Land Area Converter (Bigha, Guntha, Gaj, Cent)',
+    shortName: 'Land Area Converter',
+    tagline: 'Convert land measurements across all Indian regional units: Bigha, Guntha, Gaj, Cent, Ground, Biswa, Acre, and Sq Ft',
+    description: "Convert land and plot sizes across India with BharatUtility's Indian Land Area Converter. Converts between Bigha (UP/Bihar/Bengal), Guntha (Maharashtra/Karnataka), Gaj/Sq Yard, Cent (South India), Ground, Biswa, and Acres.",
+    category: 'home',
+    icon: 'MapPin',
+    keywords: [
+      'land area converter',
+      'bigha to sq ft',
+      'guntha to sq ft',
+      'gaj to sq ft converter',
+      'cent to sq ft',
+      'indian land measurement units',
+      'ground to sq ft'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 49500,
+    seo: {
+      title: 'Indian Land Area Converter – Bigha, Guntha, Gaj, Cent, Sq Ft | BharatUtility',
+      description: 'Convert land & plot areas across Bigha, Guntha, Square Gaj, Cent, Ground, Biswa, Acres, and Square Feet for all Indian states.',
+      keywords: [
+        'land area converter',
+        'bigha converter',
+        'guntha converter',
+        'gaj to sq ft',
+        'cent to sq ft'
+      ],
+      canonicalSlug: 'land-area-converter',
+      h1: 'Indian Land Area Converter (Bigha, Guntha, Gaj, Cent)',
+    },
+    formulaDescription: 'Converts source unit to base Square Feet using state-specific gazetted factors, then maps to target regional units.',
+    workedExample: {
+      inputSummary: 'Input: 1,000 Square Gaj (Square Yards)',
+      calculationSteps: [
+        '1 Square Gaj = 9 Square Feet',
+        'Total Square Feet = 1,000 × 9 = 9,000 sq ft',
+        'Guntha (1,089 sq ft) = 9,000 ÷ 1,089 = 8.264 Guntha',
+        'Cent (435.6 sq ft) = 9,000 ÷ 435.6 = 20.66 Cents',
+        'Acre (43,560 sq ft) = 9,000 ÷ 43,560 = 0.2066 Acre'
+      ],
+      finalResult: '1,000 Gaj = 9,000 Sq Ft = 8.26 Guntha = 20.66 Cents = 0.207 Acres'
+    },
+    seoSections: [
+      {
+        h2: 'State-wise Regional Land Units in India',
+        paragraphs: [
+          'North & Central India (UP, Haryana, Punjab, Rajasthan, MP) predominantly use Square Gaj, Biswa, and Bigha.',
+          'Western India (Maharashtra, Gujarat, Karnataka) measures rural and NA plots in Gunthas (1 Guntha = 1,089 sq ft; 40 Gunthas = 1 Acre).',
+          'South India (Kerala, Tamil Nadu, Andhra Pradesh, Telangana) measures land in Cents (1 Cent = 435.6 sq ft) and Grounds (Chennai standard = 2,400 sq ft).'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How many square feet are in 1 Guntha?',
+        answer: '1 Guntha equals exactly 1,089 square feet (approx 121 square yards or 101.17 square meters).'
+      },
+      {
+        question: 'How many square feet are in 1 Gaj?',
+        answer: '1 Gaj (Square Yard) equals exactly 9 square feet (3 feet × 3 feet).'
+      }
+    ],
+    relatedToolSlugs: ['concrete-cement-sand-calculator', 'tile-calculator', 'paint-calculator']
+  },
+
+  {
+    id: 'concrete-cement-sand-calculator',
+    slug: 'concrete-cement-sand-calculator',
+    name: 'Concrete, Cement & Sand Calculator (Roof Slab RCC)',
+    shortName: 'Cement & Sand Calculator',
+    tagline: 'Estimate cement bags (50kg), sand (cu ft/brass), and aggregate (gitti) needed for house roof slab casting and RCC construction',
+    description: "Calculate exact building materials for your house roof slab (chhat) with BharatUtility's Concrete, Cement & Sand Calculator. Estimates 50kg cement bags, sand in brass/cu ft, coarse aggregate, and total estimated budget.",
+    category: 'home',
+    icon: 'Building',
+    keywords: [
+      'cement sand calculator',
+      'concrete slab calculator',
+      'roof slab material calculator',
+      'cement bags for 1000 sq ft slab',
+      'sand and aggregate calculator',
+      'chhat casting cement calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Construction',
+    views: 37800,
+    seo: {
+      title: 'Concrete Cement & Sand Calculator – Roof Slab (Chhat) Material Estimator | BharatUtility',
+      description: 'Calculate 50kg cement bags, sand (reti), and aggregate (gitti) required for house roof slab casting with M20/M25 mix ratios and budget estimate.',
+      keywords: [
+        'cement sand calculator',
+        'concrete calculator India',
+        'roof slab cement calculator',
+        'chhat material calculator'
+      ],
+      canonicalSlug: 'concrete-cement-sand-calculator',
+      h1: 'Concrete, Cement & Sand Calculator (Roof Slab Estimator)',
+    },
+    formulaDescription: 'Dry Volume = Wet Volume (L × W × Thickness) × 1.54 bulking factor; Material quantities determined by IS 456 mix proportions (M20 = 1:1.5:3).',
+    workedExample: {
+      inputSummary: 'House Slab: 40 ft × 30 ft (1,200 sq ft) | Thickness: 5 inches | Mix Grade: M20 (1:1.5:3)',
+      calculationSteps: [
+        'Wet Volume = 40 × 30 × (5 ÷ 12) = 500 Cubic Feet (14.16 m³)',
+        'Dry Volume (+54% void factor) = 14.16 × 1.54 = 21.80 m³',
+        'Cement (1 part of 5.5) = (1 ÷ 5.5) × 21.80 × 28.8 bags/m³ = 115 Bags (50kg)',
+        'Sand Reti (1.5 parts) = 209 Cu Ft (~2.09 Brass / 94 Quintals)',
+        'Coarse Aggregate Gitti (3 parts) = 418 Cu Ft (~4.18 Brass / 200 Quintals)',
+        'Water Required = 115 × 28 Litres = 3,220 Litres'
+      ],
+      finalResult: 'Cement: 115 Bags | Sand: 209 Cu Ft (2.1 Brass) | Aggregate: 418 Cu Ft (4.2 Brass) | Water: 3,220 L'
+    },
+    seoSections: [
+      {
+        h2: 'Standard Concrete Mix Grades for House Construction in India',
+        paragraphs: [
+          'M20 Grade (1 Cement : 1.5 Sand : 3 Aggregate) is the Bureau of Indian Standards (BIS IS 456:2000) recommended mix for residential RCC roof slabs, beams, and stairs.',
+          'M15 Grade (1:2:4) is used for plain cement concrete (PCC) flooring, while M25 Grade (1:1:2) is used for heavy load-bearing pillars and foundations.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How many cement bags are needed for a 1,000 sq ft 5-inch roof slab?',
+        answer: 'For a standard 1,000 sq ft slab with 5-inch thickness using M20 mix, approximately 95 to 100 bags of 50kg cement are required.'
+      },
+      {
+        question: 'What is 1 Brass of sand or aggregate in India?',
+        answer: 'In the Indian construction trade, 1 Brass equals exactly 100 cubic feet (cu ft) of loose material.'
+      }
+    ],
+    relatedToolSlugs: ['land-area-converter', 'tile-calculator', 'paint-calculator']
+  },
+
+  {
+    id: 'electricity-bill-calculator',
+    slug: 'electricity-bill-calculator',
+    name: 'Electricity Bill & Unit Calculator (Indian Discoms)',
+    shortName: 'Electricity Bill Calculator',
+    tagline: 'Calculate electricity meter power units (kWh), state DISCOM slab rates, fixed charges, and appliance consumption',
+    description: "Estimate your monthly electricity bill with BharatUtility's Electricity Bill Calculator. Supports Indian tiered slab rates, AC/appliance power consumption, FPPPA fuel surcharges, and state electricity duties.",
+    category: 'home',
+    icon: 'Zap',
+    keywords: [
+      'electricity bill calculator',
+      'bijli bill calculator',
+      'power unit calculator',
+      'AC power consumption calculator',
+      'state discom electricity tariff',
+      'kwh to rupees calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 41200,
+    seo: {
+      title: 'Electricity Bill & Unit Calculator – Indian DISCOM Slab Rates | BharatUtility',
+      description: 'Calculate monthly electricity bill from meter units (kWh) with tiered slab rates, fixed charges, fuel surcharges (FPPPA), and appliance power estimator.',
+      keywords: [
+        'electricity bill calculator',
+        'bijli bill calculator',
+        'power unit calculator',
+        'electricity slab calculator'
+      ],
+      canonicalSlug: 'electricity-bill-calculator',
+      h1: 'Electricity Bill & Unit Calculator',
+    },
+    formulaDescription: 'Total Bill = Energy Charges (Slab 1 + Slab 2 + Slab 3) + Fixed Charges + Fuel Adjustment (FAC) + Electricity Duty (%).',
+    workedExample: {
+      inputSummary: 'Consumption: 240 Units (kWh) | Fixed Charge: ₹110 | Duty: 5%',
+      calculationSteps: [
+        'Slab 1 (0-100 U @ ₹3.50) = ₹350',
+        'Slab 2 (101-200 U @ ₹5.50) = ₹550',
+        'Slab 3 (201-240 U @ ₹7.50) = ₹300',
+        'Total Energy Charges = ₹1,200',
+        'Fixed + Fuel Adjustment (₹108) = ₹218',
+        'Electricity Duty (5%) = ₹71',
+        'Total Monthly Bill = ₹1,489'
+      ],
+      finalResult: 'Total Units: 240 kWh | Monthly Estimated Bill: ₹1,489'
+    },
+    seoSections: [
+      {
+        h2: 'How Electricity Slab Rates Work in India',
+        paragraphs: [
+          'State electricity boards (such as MSEDCL in Maharashtra, UPPCL in UP, BESCOM in Karnataka, TANGEDCO in Tamil Nadu, and BSES in Delhi) charge tiered rates where higher unit consumption incurs higher per-unit costs.',
+          'Using energy-efficient inverter ACs and BLDC ceiling fans can reduce monthly unit consumption by up to 35%.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How many units does a 1.5 Ton AC consume per day in India?',
+        answer: 'A 3-star or 5-star 1.5 Ton inverter AC consumes approximately 1.2 to 1.5 units (kWh) per hour of compressor operation (approx 8 to 10 units for an 8-hour night).'
+      }
+    ],
+    relatedToolSlugs: ['solar-rooftop-calculator', 'concrete-cement-sand-calculator']
+  },
+
+  {
+    id: 'solar-rooftop-calculator',
+    slug: 'solar-rooftop-calculator',
+    name: 'Solar Rooftop Subsidy & Savings Calculator (PM Surya Ghar)',
+    shortName: 'Solar Rooftop Calculator',
+    tagline: 'Calculate 1kW, 2kW, 3kW solar panel generation, PM Surya Ghar central subsidy (up to ₹78,000), and 25-year bill savings',
+    description: "Calculate solar rooftop installation costs, government subsidies under PM Surya Ghar Muft Bijli Yojana, monthly bill savings, and ROI with BharatUtility's Solar Rooftop Calculator.",
+    category: 'home',
+    icon: 'Sun',
+    keywords: [
+      'solar rooftop calculator',
+      'pm surya ghar subsidy calculator',
+      'solar panel cost in india',
+      '3kw solar subsidy',
+      'solar panel savings calculator',
+      'rooftop solar net metering'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'PM Surya Ghar',
+    views: 39800,
+    seo: {
+      title: 'Solar Rooftop Calculator – PM Surya Ghar Subsidy & Savings | BharatUtility',
+      description: 'Calculate PM Surya Ghar Muft Bijli Yojana solar subsidy (upto ₹78,000), 1kW/2kW/3kW installation costs, net customer investment, and 25-year power bill savings.',
+      keywords: [
+        'solar rooftop calculator',
+        'pm surya ghar calculator',
+        'solar subsidy calculator',
+        'solar panel roi'
+      ],
+      canonicalSlug: 'solar-rooftop-calculator',
+      h1: 'Solar Rooftop Subsidy & Savings Calculator',
+    },
+    formulaDescription: 'Net Cost = Gross System Cost - PM Surya Ghar Subsidy; Monthly Savings = Capacity (kW) × 120 Units × Avg Grid Tariff.',
+    workedExample: {
+      inputSummary: 'System: 3 kW Solar | Monthly Bill: ₹3,500 | Benchmark Cost: ₹1,80,000',
+      calculationSteps: [
+        'Gross 3kW System Cost = ₹1,80,000',
+        'PM Surya Ghar Central Subsidy = ₹78,000 (Direct DBT)',
+        'Net Out-of-Pocket Customer Cost = ₹1,02,000',
+        'Monthly Power Generation = 360 Units (Saves ~₹2,700/mo)',
+        'Estimated Payback Period = 3.1 Years (Free Electricity for next 22+ years)'
+      ],
+      finalResult: 'Net Cost: ₹1.02 Lakhs | Subsidy: ₹78,000 | Payback: 3.1 Years'
+    },
+    seoSections: [
+      {
+        h2: 'PM Surya Ghar: Muft Bijli Yojana Subsidy Structure (2024-2026)',
+        paragraphs: [
+          'Under the PM Surya Ghar scheme, residential households receive direct benefit transfer (DBT) subsidy: ₹30,000 for 1 kW systems, ₹60,000 for 2 kW systems, and ₹78,000 for 3 kW and higher systems.',
+          'Surplus electricity produced by rooftop panels is fed back into the state grid via bi-directional Net Metering.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How much roof area is needed for a 3 kW solar plant?',
+        answer: 'A 3 kW residential rooftop solar plant requires approximately 300 square feet of shadow-free rooftop area.'
+      }
+    ],
+    relatedToolSlugs: ['electricity-bill-calculator', 'land-area-converter']
+  },
+
+  {
+    id: 'gold-jewellery-price-calculator',
+    slug: 'gold-jewellery-price-calculator',
+    name: 'Gold Jewellery Price & Making Charges Calculator',
+    shortName: 'Gold Price Calculator',
+    tagline: 'Calculate gold jewellery final retail price with 22K (916 Hallmark), 18K purity, jeweler making charges (8-15%), and 3% GST',
+    description: "Don't get overcharged at the jewellery shop. Calculate the exact breakdown of your gold necklace, ring, or chain with BharatUtility's Gold Jewellery Price Calculator. Includes 22K 916 purity conversion, making charges, and statutory 3% GST.",
+    category: 'money',
+    icon: 'Coins',
+    keywords: [
+      'gold jewellery price calculator',
+      '22k 916 gold rate calculator',
+      'gold making charges calculator',
+      'gold price with 3 percent gst',
+      'jewellery bill calculator India',
+      'gold price breakdown'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 45300,
+    seo: {
+      title: 'Gold Jewellery Price Calculator – 22K 916, Making Charges & 3% GST | BharatUtility',
+      description: 'Calculate final gold jewellery price with 22K (916 BIS Hallmark) / 18K purity conversion, jeweler making charges, hallmarking fee, and 3% GST.',
+      keywords: [
+        'gold calculator',
+        'gold jewellery calculator',
+        '22k gold price calculator',
+        'making charges calculator'
+      ],
+      canonicalSlug: 'gold-jewellery-price-calculator',
+      h1: 'Gold Jewellery Price & Making Charges Calculator',
+    },
+    formulaDescription: 'Final Price = [Raw Gold Value (Weight × Purity Rate) + Making Charges + ₹45 Hallmarking] × 1.03 (3% GST).',
+    workedExample: {
+      inputSummary: 'Gold: 10 Grams | Purity: 22K (916 Hallmark) | 24K Rate: ₹7,250/g | Making: 12%',
+      calculationSteps: [
+        '22K Rate = (22 ÷ 24) × ₹7,250 = ₹6,646 / gram',
+        'Raw Gold Value = 10g × ₹6,646 = ₹66,460',
+        'Making Charges (12%) = ₹7,975',
+        'Hallmarking Charge = ₹45',
+        'Taxable Amount = ₹74,480',
+        'GST (3%) = ₹2,234',
+        'Total Jewellery Invoice Price = ₹76,714'
+      ],
+      finalResult: 'Raw Gold: ₹66,460 | Making: ₹7,975 | 3% GST: ₹2,234 | Total: ₹76,714'
+    },
+    seoSections: [
+      {
+        h2: 'How Indian Jewellers Calculate Gold Bill',
+        paragraphs: [
+          'Jewellery in India is primarily crafted in 22 Karat (91.6% purity with BIS 916 HUID hallmark) or 18 Karat (75% purity for diamond studded jewellery).',
+          'Making charges vary between 8% to 18% depending on the complexity of the craftsmanship. GST of 3% is applied on the total sum of gold value plus making charges.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is BIS 916 Hallmarking on gold?',
+        answer: 'BIS 916 indicates 22 Karat gold purity (916 parts pure gold out of 1000) certified with a 6-digit alphanumeric HUID (Hallmark Unique Identification) code by the Bureau of Indian Standards.'
+      }
+    ],
+    relatedToolSlugs: ['gst-calculator', 'cash-denomination-tally-calculator']
+  },
+
+  {
+    id: 'cash-denomination-tally-calculator',
+    slug: 'cash-denomination-tally-calculator',
+    name: 'Cash Denomination Tally Counter (Galla / Cash Counter)',
+    shortName: 'Cash Tally Counter',
+    tagline: 'Count cash note denominations (₹500, ₹200, ₹100, ₹50, ₹20, ₹10) with instant totals and deposit slip formatting',
+    description: "Tally your daily business cash and bank deposit slips with BharatUtility's Cash Denomination Counter. Enter note counts for ₹500, ₹200, ₹100, ₹50, ₹20, and ₹10 notes to get instant grand totals and cash in words.",
+    category: 'business',
+    icon: 'Banknote',
+    keywords: [
+      'cash denomination counter',
+      'cash counter tool',
+      'currency note tally machine online',
+      'bank deposit slip cash calculator',
+      'cash tally sheet India',
+      'galla cash counter'
+    ],
+    popular: true,
+    trending: true,
+    featured: false,
+    badge: 'Business',
+    views: 36200,
+    seo: {
+      title: 'Cash Denomination Counter – Currency Note Tally for Banks & Shops | BharatUtility',
+      description: 'Count Indian currency note denominations (₹500, ₹200, ₹100, ₹50, ₹20, ₹10) with total note count, cash in figures, and bank deposit slip format.',
+      keywords: [
+        'cash denomination calculator',
+        'currency counter online',
+        'cash tally counter',
+        'note counter India'
+      ],
+      canonicalSlug: 'cash-denomination-tally-calculator',
+      h1: 'Cash Denomination Tally Counter',
+    },
+    formulaDescription: 'Grand Total = (Count 500 × 500) + (Count 200 × 200) + (Count 100 × 100) + (Count 50 × 50) + (Count 20 × 20) + (Count 10 × 10).',
+    workedExample: {
+      inputSummary: '₹500: 10 notes | ₹200: 15 notes | ₹100: 25 notes | ₹50: 20 notes',
+      calculationSteps: [
+        '₹500 × 10 = ₹5,000',
+        '₹200 × 15 = ₹3,000',
+        '₹100 × 25 = ₹2,500',
+        '₹50 × 20 = ₹1,000',
+        'Total Note Count = 70 Notes',
+        'Grand Total Cash = ₹11,500'
+      ],
+      finalResult: 'Total Notes: 70 | Grand Total: ₹11,500 (Rupees Eleven Thousand Five Hundred Only)'
+    },
+    seoSections: [
+      {
+        h2: 'Perfect Cash Tally Sheet for Retailers & Bank Cashiers',
+        paragraphs: [
+          'Eliminate manual counting errors when preparing daily cash logs or filling bank deposit pay-in slips at SBI, HDFC, ICICI, PNB, or Axis Bank.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Can I print or copy the cash tally summary?',
+        answer: 'Yes. You can copy the complete tally breakdown with one click to paste into Excel, WhatsApp, or accounting ledgers.'
+      }
+    ],
+    relatedToolSlugs: ['number-to-words-converter', 'gst-calculator']
+  },
+
+  {
+    id: 'rent-vs-buy-calculator',
+    slug: 'rent-vs-buy-calculator',
+    name: 'Rent vs Buy Property Calculator (India)',
+    shortName: 'Rent vs Buy',
+    tagline: 'Compare 20-year net wealth between buying a home with loan EMI vs living on rent and investing the difference in equity SIP',
+    description: "Decide whether to buy a home or live on rent with BharatUtility's Rent vs Buy Calculator. Compares 20-year home loan EMI, property appreciation, down payment opportunity cost, and equity SIP compounding.",
+    category: 'money',
+    icon: 'Home',
+    keywords: [
+      'rent vs buy calculator',
+      'buy home or rent in india',
+      'real estate vs mutual fund sip',
+      'rent vs emi calculator',
+      'property investment comparison'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Wealth Decision',
+    views: 38900,
+    seo: {
+      title: 'Rent vs Buy Calculator India – Compare 20-Year Home Loan vs Rent + SIP | BharatUtility',
+      description: 'Compare 20-year net wealth of buying a home with loan EMI versus renting and investing the difference in equity mutual fund SIP.',
+      keywords: [
+        'rent vs buy calculator',
+        'rent vs buy india',
+        'home loan vs rent',
+        'real estate vs sip'
+      ],
+      canonicalSlug: 'rent-vs-buy-calculator',
+      h1: 'Rent vs Buy Property Calculator',
+    },
+    formulaDescription: 'Compares future property value against compounding growth of down payment + monthly cash flow difference (EMI - Rent) at SIP CAGR.',
+    workedExample: {
+      inputSummary: 'Flat Price: ₹75 Lakhs | Rent: ₹25,000/mo | Loan: 8.5% (20 Yrs) | SIP Return: 12% | Appreciation: 6%',
+      calculationSteps: [
+        'Monthly EMI on ₹60 Lakh Loan = ₹52,069 / month',
+        'BUY Side Net Wealth (Property Value at 20 Yrs) = ₹2.40 Crore',
+        'RENT Side: Invest ₹15L Down Payment + ₹27,069 Monthly Difference @ 12% SIP',
+        'RENT Side Net Wealth = ₹4.14 Crore',
+        'Verdict: Renting and disciplined SIP creates ₹1.74 Crore additional wealth.'
+      ],
+      finalResult: 'Buy Net Wealth: ₹2.40 Cr | Rent + SIP Net Wealth: ₹4.14 Cr (Rent + SIP Wins by ₹1.74 Cr)'
+    },
+    seoSections: [
+      {
+        h2: 'The Mathematical Reality of Rent vs Buy in Indian Metros',
+        paragraphs: [
+          'In major Indian cities like Mumbai, Bengaluru, Delhi NCR, and Pune, residential rental yields are low (2.5% to 3.5%), while home loan interest is 8.5% to 9%.',
+          'Renting a home and investing the difference between EMI and rent into diversified equity index funds historically produces substantially higher net worth over 15-20 years.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'When does buying make more sense than renting?',
+        answer: 'Buying provides emotional security, pride of ownership, freedom from landlord restrictions, and a forced savings mechanism for individuals who may not otherwise invest consistently.'
+      }
+    ],
+    relatedToolSlugs: ['rental-yield-calculator', 'home-loan-prepayment-calculator', 'crorepati-sip-goal-calculator']
+  },
+
+  {
+    id: 'rental-yield-calculator',
+    slug: 'rental-yield-calculator',
+    name: 'Rental Yield & Real Estate ROI Calculator',
+    shortName: 'Rental Yield Calculator',
+    tagline: 'Calculate Gross and Net Rental Yield, annual ROI, and cash-on-cash return for Indian residential and commercial properties',
+    description: "Evaluate property investment profitability with BharatUtility's Rental Yield Calculator. Calculates Gross and Net Rental Yield after deducting society maintenance, property tax, and vacancy loss.",
+    category: 'money',
+    icon: 'TrendingUp',
+    keywords: [
+      'rental yield calculator',
+      'gross rental yield calculator',
+      'net rental yield india',
+      'property roi calculator',
+      'commercial property yield calculator'
+    ],
+    popular: false,
+    trending: true,
+    featured: false,
+    badge: 'Real Estate',
+    views: 22800,
+    seo: {
+      title: 'Rental Yield Calculator – Gross & Net Real Estate ROI in India | BharatUtility',
+      description: 'Calculate Gross & Net Rental Yield for Indian flats, villas, and commercial shops after deducting maintenance, taxes, and vacancy costs.',
+      keywords: [
+        'rental yield calculator',
+        'property yield calculator',
+        'rental roi calculator',
+        'real estate return calculator'
+      ],
+      canonicalSlug: 'rental-yield-calculator',
+      h1: 'Rental Yield & Real Estate ROI Calculator',
+    },
+    formulaDescription: 'Gross Yield = (Annual Rent / Property Cost) × 100; Net Yield = ((Annual Rent - Maintenance - Tax) / Property Cost) × 100.',
+    workedExample: {
+      inputSummary: 'Property Cost: ₹60,00,000 | Rent: ₹18,000/mo (₹2,16,000/yr) | Maintenance & Tax: ₹30,000/yr',
+      calculationSteps: [
+        'Gross Rental Yield = (₹2,16,000 ÷ ₹60,00,000) × 100 = 3.60%',
+        'Net Annual Rental Income = ₹2,16,000 - ₹30,000 = ₹1,86,000',
+        'Net Rental Yield = (₹1,86,000 ÷ ₹60,00,000) × 100 = 3.10%',
+        'Capital Payback Period = 32.2 Years'
+      ],
+      finalResult: 'Gross Yield: 3.60% | Net Yield: 3.10% | Net Income: ₹1,86,000 / year'
+    },
+    seoSections: [
+      {
+        h2: 'Average Rental Yields Across Indian Cities',
+        paragraphs: [
+          'Residential properties in Bengaluru, Pune, and Hyderabad average 3.2% to 4.2% rental yields. Mumbai averages 2.5% to 3.0%. Commercial office spaces and retail shops command higher yields of 7% to 9%.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is a good rental yield in India?',
+        answer: 'For residential real estate in India, a net rental yield of 3.5% to 4.5% is considered healthy. For commercial properties, 7% to 9% is the benchmark.'
+      }
+    ],
+    relatedToolSlugs: ['rent-vs-buy-calculator', 'land-area-converter']
+  },
+
+  {
+    id: 'crorepati-sip-goal-calculator',
+    slug: 'crorepati-sip-goal-calculator',
+    name: '₹1 Crore Crorepati SIP Goal Planner',
+    shortName: 'Crorepati SIP Planner',
+    tagline: 'Calculate exact monthly mutual fund SIP required to create a ₹1 Crore corpus in 5, 10, 15, or 20 years with power of compounding',
+    description: "Find out how much monthly SIP you need to become a Crorepati with BharatUtility's ₹1 Crore SIP Goal Planner. Simulates 12% to 15% equity returns across multiple time horizons.",
+    category: 'money',
+    icon: 'Target',
+    keywords: [
+      'crorepati sip calculator',
+      '1 crore in 10 years sip',
+      'sip required for 1 crore',
+      'target sip calculator',
+      'mutual fund goal planner 1 crore',
+      'how to make 1 crore in mutual funds'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 48600,
+    seo: {
+      title: '₹1 Crore Crorepati SIP Calculator – Monthly Investment for ₹1 Cr | BharatUtility',
+      description: 'Calculate how much monthly mutual fund SIP you need to accumulate a ₹1 Crore corpus in 5, 10, 15, or 20 years with 12-15% returns.',
+      keywords: [
+        '1 crore sip calculator',
+        'crorepati sip calculator',
+        'target sip planner',
+        '1 crore mutual fund calculator'
+      ],
+      canonicalSlug: 'crorepati-sip-goal-calculator',
+      h1: '₹1 Crore Crorepati SIP Goal Planner',
+    },
+    formulaDescription: 'Reverse annuity formula solving for monthly installment P given target future value FV, monthly rate i, and periods n.',
+    formulaLatex: 'P = \frac{\text{FV}}{\left[\frac{(1 + i)^n - 1}{i}\right] \times (1 + i)}',
+    workedExample: {
+      inputSummary: 'Target Goal: ₹1,00,00,000 (1 Crore) | Expected Return: 12% p.a.',
+      calculationSteps: [
+        'In 5 Years: Monthly SIP of ₹1,22,444 (Invested: ₹73.5L | Gain: ₹26.5L)',
+        'In 10 Years: Monthly SIP of ₹43,041 (Invested: ₹51.6L | Gain: ₹48.4L)',
+        'In 15 Years: Monthly SIP of ₹19,819 (Invested: ₹35.7L | Gain: ₹64.3L)',
+        'In 20 Years: Monthly SIP of ₹10,009 (Invested: ₹24.0L | Gain: ₹76.0L)'
+      ],
+      finalResult: 'Starting early slashes required monthly investment from ₹43k/mo (10 yrs) down to just ₹10k/mo (20 yrs)!'
+    },
+    seoSections: [
+      {
+        h2: 'The Power of Compounding in Reaching ₹1 Crore',
+        paragraphs: [
+          'Starting a ₹10,000/month SIP at age 25 creates ₹1 Crore by age 45 at 12% CAGR, where your actual investment is only ₹24 Lakhs and wealth gain is ₹76 Lakhs.',
+          'Delaying by just 5 years doubles the required monthly installment.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What expected CAGR is realistic for Indian mutual funds over 10+ years?',
+        answer: 'Nifty 50 and Nifty 500 index funds have historically delivered 12% to 14% annualized CAGR over 10+ year rolling periods in India.'
+      }
+    ],
+    relatedToolSlugs: ['sip-calculator', 'fire-retirement-calculator', 'nps-calculator']
+  },
+
+  {
+    id: 'fire-retirement-calculator',
+    slug: 'fire-retirement-calculator',
+    name: 'FIRE Calculator (Financial Independence Retire Early - India)',
+    shortName: 'FIRE Calculator',
+    tagline: 'Calculate your FIRE number, required retirement corpus, and Lean/Fat FIRE goals adjusted for Indian inflation and living expenses',
+    description: "Achieve financial independence and early retirement with BharatUtility's Indian FIRE Calculator. Calculates your target corpus based on monthly expenses, 6% Indian inflation, and safe withdrawal rates (SWR).",
+    category: 'money',
+    icon: 'Flame',
+    keywords: [
+      'FIRE calculator India',
+      'financial independence retire early calculator',
+      'early retirement corpus calculator',
+      'lean fire fat fire calculator',
+      'safe withdrawal rate india',
+      'retire at 40 calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Retire Early',
+    views: 31400,
+    seo: {
+      title: 'FIRE Calculator India – Financial Independence Retire Early Corpus | BharatUtility',
+      description: 'Calculate your target retirement corpus for early retirement in India. Features inflation adjustment, Lean FIRE, and Fat FIRE targets.',
+      keywords: [
+        'fire calculator india',
+        'retire early calculator',
+        'fire number calculator',
+        'financial independence calculator'
+      ],
+      canonicalSlug: 'fire-retirement-calculator',
+      h1: 'FIRE Calculator (Financial Independence Retire Early - India)',
+    },
+    formulaDescription: 'FIRE Corpus = Future Annual Expenses (Today Expense × (1 + Inflation)^Years) ÷ Safe Withdrawal Rate (3.5%).',
+    workedExample: {
+      inputSummary: 'Current Age: 30 | Target Age: 45 (15 Years) | Monthly Expenses: ₹60,000 | Inflation: 6% | SWR: 3.5%',
+      calculationSteps: [
+        'Future Monthly Expense at Age 45 = ₹60,000 × (1.06)^15 = ₹1,43,793 / month',
+        'Future Annual Expenses = ₹17,25,520 / year',
+        'Safe Withdrawal Multiplier (3.5% SWR) = ~28.6x Annual Expenses',
+        'Target FIRE Corpus = ₹17,25,520 ÷ 0.035 = ₹4.93 Crore'
+      ],
+      finalResult: 'Target FIRE Corpus at Age 45: ₹4.93 Crore | Lean FIRE: ₹3.70 Cr | Fat FIRE: ₹7.40 Cr'
+    },
+    seoSections: [
+      {
+        h2: 'Why 3.5% Safe Withdrawal Rate (SWR) is Recommended for India',
+        paragraphs: [
+          'While the US Trinity Study suggests a 4% rule, Indian retirees face higher healthcare and lifestyle inflation (6-7%). A conservative 3.3% to 3.5% Safe Withdrawal Rate ensures a retirement portfolio lasts 40+ years without depleting.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the difference between Lean FIRE and Fat FIRE?',
+        answer: 'Lean FIRE covers only essential basic expenses (food, utilities, rent), while Fat FIRE provides a generous cushion for luxury travel, premium healthcare, and lifestyle upgrades.'
+      }
+    ],
+    relatedToolSlugs: ['crorepati-sip-goal-calculator', 'nps-calculator', 'ppf-calculator']
+  },
+
+  {
+    id: 'json-formatter-validator',
+    slug: 'json-formatter-validator',
+    name: 'JSON Formatter, Validator & Minifier (100% In-Browser)',
+    shortName: 'JSON Formatter',
+    tagline: 'Format, beautify, validate, and minify JSON data with 2/4 spaces and instant error highlighting in real-time',
+    description: "Format and validate JSON payloads with BharatUtility's free in-browser JSON Formatter. Beautifies messy JSON with custom indentations, minifies for production, and highlights syntax errors with zero tracking.",
+    category: 'technology',
+    icon: 'Code',
+    keywords: [
+      'json formatter',
+      'json validator',
+      'json beautifier online',
+      'json minifier',
+      'format json online free',
+      'json parser tool'
+    ],
+    popular: true,
+    trending: true,
+    featured: false,
+    badge: 'Developer Tool',
+    views: 38200,
+    seo: {
+      title: 'JSON Formatter & Validator – Beautify, Validate & Minify Online | BharatUtility',
+      description: 'Format, beautify, minify, and validate JSON online. Fast, 100% private in-browser developer tool with instant syntax error detection.',
+      keywords: [
+        'json formatter',
+        'json validator',
+        'json beautifier',
+        'json parser'
+      ],
+      canonicalSlug: 'json-formatter-validator',
+      h1: 'JSON Formatter, Validator & Minifier',
+    },
+    formulaDescription: 'Parses and serializes JSON AST tokens in-memory using browser JavaScript engine.',
+    workedExample: {
+      inputSummary: 'Messy unindented JSON string',
+      calculationSteps: [
+        '1. Syntax verification against RFC 8259 specifications',
+        '2. Recursive key-value formatting with 2-space indentation',
+        '3. One-click clipboard copy of validated payload'
+      ],
+      finalResult: 'Clean, beautiful, readable JSON format.'
+    },
+    seoSections: [
+      {
+        h2: '100% Private Client-Side Developer Tool',
+        paragraphs: [
+          'Your API responses, database dumps, and configuration payloads never leave your browser. Processing runs entirely in local client memory.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does this tool support large JSON files?',
+        answer: 'Yes, it can parse and format multi-megabyte JSON payloads instantly using browser V8 optimizations.'
+      }
+    ],
+    relatedToolSlugs: ['base64-encoder-decoder', 'text-case-converter', 'diff-checker-tool']
+  },
+
+  {
+    id: 'base64-encoder-decoder',
+    slug: 'base64-encoder-decoder',
+    name: 'Base64 Encoder & Decoder (UTF-8 Safe)',
+    shortName: 'Base64 Tool',
+    tagline: 'Encode plain text and strings to Base64 format or decode Base64 data with full UTF-8 character support',
+    description: "Encode and decode Base64 strings online with BharatUtility's free Base64 Tool. Supports UTF-8 strings, special characters, and one-click copy with 100% client-side security.",
+    category: 'technology',
+    icon: 'ArrowRightLeft',
+    keywords: [
+      'base64 encode',
+      'base64 decode',
+      'base64 converter online',
+      'string to base64',
+      'base64 to text',
+      'utf8 base64 tool'
+    ],
+    popular: false,
+    trending: true,
+    featured: false,
+    badge: 'Developer Tool',
+    views: 26400,
+    seo: {
+      title: 'Base64 Encoder & Decoder – Convert Text to Base64 Online | BharatUtility',
+      description: 'Encode text into Base64 format or decode Base64 back to text with full UTF-8 and special character support. 100% free & private in-browser.',
+      keywords: [
+        'base64 encoder',
+        'base64 decoder',
+        'base64 converter',
+        'text to base64'
+      ],
+      canonicalSlug: 'base64-encoder-decoder',
+      h1: 'Base64 Encoder & Decoder',
+    },
+    formulaDescription: 'Converts 8-bit binary octets into 6-bit Base64 index representations (A-Z, a-z, 0-9, +, /).',
+    workedExample: {
+      inputSummary: 'Input: "BharatUtility"',
+      calculationSteps: [
+        'UTF-8 URI encoding transformation',
+        'Binary ASCII to Base64 mapping: "QmhhcmF0VXRpbGl0eQ=="'
+      ],
+      finalResult: 'Base64: QmhhcmF0VXRpbGl0eQ=='
+    },
+    seoSections: [
+      {
+        h2: 'Why Base64 Encoding is Used',
+        paragraphs: [
+          'Base64 encoding is used in HTTP headers, Basic Auth tokens, data URIs, and email transfer to safely transmit binary or arbitrary text over text-only protocols.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Is Base64 encryption?',
+        answer: 'No. Base64 is an encoding scheme, not encryption. It is used for data formatting and transmission, not data security.'
+      }
+    ],
+    relatedToolSlugs: ['json-formatter-validator', 'secure-password-generator']
+  },
+
+  {
+    id: 'secure-password-generator',
+    slug: 'secure-password-generator',
+    name: 'Secure Password Generator & Strength Checker',
+    shortName: 'Password Generator',
+    tagline: 'Generate cryptographically strong randomized passwords with customizable length, symbols, digits, and entropy score',
+    description: "Protect your online bank accounts, Gmail, and portals with BharatUtility's Secure Password Generator. Uses browser window.crypto for military-grade randomness and calculates entropy bit strength.",
+    category: 'technology',
+    icon: 'Lock',
+    keywords: [
+      'password generator',
+      'secure password generator',
+      'strong password maker',
+      'random password generator online',
+      'password strength checker',
+      'entropy password generator'
+    ],
+    popular: true,
+    trending: false,
+    featured: true,
+    badge: 'Security',
+    views: 34100,
+    seo: {
+      title: 'Secure Password Generator – Strong Randomized Passwords Online | BharatUtility',
+      description: 'Generate strong, unbreakable passwords using browser-based cryptographic randomness. Includes symbols, numbers, and entropy strength score.',
+      keywords: [
+        'password generator',
+        'strong password generator',
+        'random password generator',
+        'password maker'
+      ],
+      canonicalSlug: 'secure-password-generator',
+      h1: 'Secure Password Generator & Strength Checker',
+    },
+    formulaDescription: 'Uses Web Cryptography API (window.crypto.getRandomValues) with Shannon entropy bit metric (H = Length × log2(Pool Size)).',
+    workedExample: {
+      inputSummary: 'Length: 16 Characters | Character Pool: 72 (Uppercase, Lowercase, Numbers, Symbols)',
+      calculationSteps: [
+        'Entropy = 16 × log2(72) = 16 × 6.17 = 98.7 Bits',
+        'Strength: Very Strong (Takes trillions of years to crack with brute-force)'
+      ],
+      finalResult: 'Generates secure 16+ character password with 98+ bits entropy.'
+    },
+    seoSections: [
+      {
+        h2: 'Cryptographically Secure Randomness',
+        paragraphs: [
+          'Unlike basic generators that use Math.random(), BharatUtility uses Web Crypto API ensuring hardware-backed cryptographically secure pseudo-random number generation (CSPRNG).'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Are generated passwords saved anywhere?',
+        answer: 'Never. Passwords are generated exclusively inside your device memory and erased the moment you leave or refresh the page.'
+      }
+    ],
+    relatedToolSlugs: ['json-formatter-validator', 'base64-encoder-decoder']
+  },
+
+  {
+    id: 'diff-checker-tool',
+    slug: 'diff-checker-tool',
+    name: 'Text Difference Checker (Diff Tool)',
+    shortName: 'Diff Checker',
+    tagline: 'Compare two text documents, code snippets, or essays side-by-side to highlight additions, deletions, and line changes',
+    description: "Compare two text versions side-by-side with BharatUtility's free Text Difference Checker. Instantly highlights changed, added, or modified lines with 100% browser privacy.",
+    category: 'documents',
+    icon: 'FileCode',
+    keywords: [
+      'diff checker',
+      'text comparison tool',
+      'compare text online',
+      'find differences in text',
+      'file diff tool free'
+    ],
+    popular: false,
+    trending: true,
+    featured: false,
+    badge: 'Writing & Code',
+    views: 19500,
+    seo: {
+      title: 'Text Difference Checker – Compare Two Texts Side-by-Side | BharatUtility',
+      description: 'Compare two text documents or code files side-by-side online. Free in-browser diff tool highlights added, removed, and modified lines.',
+      keywords: [
+        'diff checker',
+        'text diff',
+        'compare text online',
+        'file compare tool'
+      ],
+      canonicalSlug: 'diff-checker-tool',
+      h1: 'Text Difference Checker (Diff Tool)',
+    },
+    formulaDescription: 'Performs line-by-line sequence alignment comparison in local memory.',
+    workedExample: {
+      inputSummary: 'Original vs Modified document comparison',
+      calculationSteps: [
+        'Identifies matching lines vs altered segments',
+        'Visual highlight of inserted and removed tokens'
+      ],
+      finalResult: 'Side-by-side synchronized diff comparison.'
+    },
+    seoSections: [
+      {
+        h2: 'Fast & Private Document Comparison',
+        paragraphs: [
+          'Compare contract drafts, essay revisions, or code changes without uploading confidential documents to third-party cloud servers.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Can I compare large documents?',
+        answer: 'Yes, the client-side line comparator handles large essays and documents smoothly in memory.'
+      }
+    ],
+    relatedToolSlugs: ['word-character-counter', 'text-case-converter']
+  },
+
+  {
+    id: 'aspect-ratio-calculator',
+    slug: 'aspect-ratio-calculator',
+    name: 'Aspect Ratio Calculator & Image Dimension Scaler',
+    shortName: 'Aspect Ratio Calculator',
+    tagline: 'Calculate image and video aspect ratios (16:9, 9:16, 4:3, 1:1) and scale pixel dimensions without distortion',
+    description: "Calculate and scale image and video dimensions with BharatUtility's Aspect Ratio Calculator. Resize YouTube thumbnails, Instagram Reels, and web photos while preserving exact proportions.",
+    category: 'technology',
+    icon: 'Sparkles',
+    keywords: [
+      'aspect ratio calculator',
+      '16 9 ratio calculator',
+      'image dimension scaler',
+      'youtube thumbnail aspect ratio',
+      'instagram reel aspect ratio calculator',
+      'aspect ratio multiplier'
+    ],
+    popular: false,
+    trending: true,
+    featured: false,
+    badge: 'Media Tool',
+    views: 24700,
+    seo: {
+      title: 'Aspect Ratio Calculator – Scale 16:9, 9:16, 4:3 & 1:1 Dimensions | BharatUtility',
+      description: 'Calculate and scale aspect ratios for images and videos. Scale pixel dimensions for YouTube (16:9), Reels (9:16), and Instagram posts without distortion.',
+      keywords: [
+        'aspect ratio calculator',
+        'image aspect ratio',
+        '16:9 calculator',
+        'dimension scaler'
+      ],
+      canonicalSlug: 'aspect-ratio-calculator',
+      h1: 'Aspect Ratio Calculator & Image Dimension Scaler',
+    },
+    formulaDescription: 'New Height = (New Width × Original Height) ÷ Original Width; Ratio simplified via Greatest Common Divisor (GCD).',
+    workedExample: {
+      inputSummary: 'Original: 1920 × 1080 (16:9) | Target Width: 1080 px',
+      calculationSteps: [
+        'GCD of 1920 & 1080 = 120 -> Aspect Ratio is 16:9',
+        'Target Height = (1080 × 1080) ÷ 1920 = 608 px'
+      ],
+      finalResult: 'Target Dimension: 1080 × 608 px (Maintains exact 16:9 proportion)'
+    },
+    seoSections: [
+      {
+        h2: 'Standard Social Media Aspect Ratios',
+        paragraphs: [
+          'YouTube Landscape Videos & Thumbnails: 16:9 (1920×1080 / 1280×720).',
+          'Instagram Reels, YouTube Shorts, TikTok: 9:16 (1080×1920).',
+          'Square Posts: 1:1 (1080×1080).'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How do I find the aspect ratio of my custom image?',
+        answer: 'Simply enter your image width and height in pixels; the tool will find the greatest common divisor and output the simplified ratio (e.g. 16:9, 4:3).'
+      }
+    ],
+    relatedToolSlugs: ['image-compressor-resizer', 'signature-resizer']
+  },
+
+  {
+    id: 'water-tank-filling-time-calculator',
+    slug: 'water-tank-filling-time-calculator',
+    name: 'Water Tank Motor Filling Time Calculator',
+    shortName: 'Water Tank Time Calculator',
+    tagline: 'Calculate how long a 0.5 HP, 1 HP, 1.5 HP motor pump takes to fill a 500L, 1000L, 2000L overhead water tank',
+    description: "Find out how many minutes your water motor pump takes to fill your overhead Sintex tank with BharatUtility's Water Tank Filling Time Calculator. Calculates discharge rate, delivery head height, and power units per fill.",
+    category: 'home',
+    icon: 'Droplet',
+    keywords: [
+      'water tank filling time calculator',
+      'motor pump tank time calculator',
+      '1 hp motor tank fill time',
+      '1000 litre water tank motor time',
+      'submersible pump discharge calculator',
+      'overhead tank filling calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: false,
+    badge: 'Home Utility',
+    views: 31800,
+    seo: {
+      title: 'Water Tank Motor Filling Time Calculator – 500L, 1000L, 2000L Tank | BharatUtility',
+      description: 'Calculate exact time required for 0.5 HP, 1 HP, 1.5 HP motor pump to fill 500L to 2000L overhead water tank, flow rate (LPM), and electricity cost per fill.',
+      keywords: [
+        'water tank calculator',
+        'motor fill time calculator',
+        '1000L tank filling time',
+        'submersible pump calculator'
+      ],
+      canonicalSlug: 'water-tank-filling-time-calculator',
+      h1: 'Water Tank Motor Filling Time Calculator',
+    },
+    formulaDescription: 'Filling Time (Minutes) = Tank Capacity (Litres) ÷ [Motor HP × 50 LPM × Height Head Factor × Pipe Factor].',
+    workedExample: {
+      inputSummary: 'Tank: 1,000 Litres | Motor: 1.0 HP | Delivery Height: 30 Feet (2nd Floor)',
+      calculationSteps: [
+        'Effective Flow Discharge = ~46 Litres / minute',
+        'Filling Time = 1,000 Litres ÷ 46 LPM = ~22 Minutes',
+        'Electricity Consumption = 0.746 kW × (22 ÷ 60) = 0.27 Units (~₹2 per fill)'
+      ],
+      finalResult: 'Filling Duration: 22 Minutes | Power Used: 0.27 Units (₹2.00)'
+    },
+    seoSections: [
+      {
+        h2: 'Optimizing Overhead Water Tank Filling',
+        paragraphs: [
+          'Using a 1.0 HP monoblock or submersible pump with standard 1-inch CPVC/PVC delivery pipes fills a 1000-litre tank in approximately 20 to 25 minutes on average 2-3 storey buildings in India.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How much electricity does a 1 HP motor use per tank fill?',
+        answer: 'A 1 HP motor running for 22 minutes consumes only about 0.27 units (kWh) of electricity, costing less than ₹2.50 per fill.'
+      }
+    ],
+    relatedToolSlugs: ['electricity-bill-calculator', 'concrete-cement-sand-calculator']
+  },
+
+  {
+    id: 'lpg-cylinder-price-calculator',
+    slug: 'lpg-cylinder-price-calculator',
+    name: 'LPG Gas Cylinder Price & Subsidy Calculator',
+    shortName: 'LPG Cylinder Calculator',
+    tagline: 'Calculate domestic 14.2 kg vs commercial 19 kg gas refill costs, annual budget, and PM Ujjwala Yojana subsidies',
+    description: "Calculate your annual cooking gas expenses with BharatUtility's LPG Cylinder Price Calculator. Features domestic 14.2kg and commercial 19kg refill rates with ₹300 PM Ujjwala subsidy deductions.",
+    category: 'home',
+    icon: 'Flame',
+    keywords: [
+      'LPG cylinder price calculator',
+      'gas cylinder subsidy calculator',
+      '14.2 kg domestic gas price',
+      '19 kg commercial cylinder price',
+      'PM ujjwala subsidy calculator',
+      'annual cooking gas expenses'
+    ],
+    popular: true,
+    trending: false,
+    featured: false,
+    badge: 'Household',
+    views: 27900,
+    seo: {
+      title: 'LPG Gas Cylinder Price & Subsidy Calculator – Domestic & Commercial | BharatUtility',
+      description: 'Calculate domestic 14.2 kg and commercial 19 kg LPG refill prices, annual cooking gas budget, and PM Ujjwala Yojana ₹300 subsidy savings.',
+      keywords: [
+        'lpg price calculator',
+        'gas cylinder calculator',
+        'ujjwala subsidy calculator',
+        'cooking gas cost'
+      ],
+      canonicalSlug: 'lpg-cylinder-price-calculator',
+      h1: 'LPG Gas Cylinder Price & Subsidy Calculator',
+    },
+    formulaDescription: 'Net Refill Cost = Base Price - Ujjwala Subsidy (₹300); Annual Cost = Net Price × Annual Cylinders Used.',
+    workedExample: {
+      inputSummary: 'Domestic 14.2 kg | 10 Cylinders/year | PM Ujjwala Beneficiary @ ₹300 subsidy',
+      calculationSteps: [
+        'Market Base Price = ₹850 / refill',
+        'Government Subsidy = ₹300 / refill',
+        'Effective Net Cost = ₹550 / refill',
+        'Annual Kitchen Cooking Budget = 10 × ₹550 = ₹5,500'
+      ],
+      finalResult: 'Net Price: ₹550 / cylinder | Annual Budget: ₹5,500 | Subsidy Saved: ₹3,000'
+    },
+    seoSections: [
+      {
+        h2: 'Indian LPG Cylinders: Domestic vs Commercial',
+        paragraphs: [
+          'Domestic LPG cylinders (14.2 kg) are subsidized for household kitchens, whereas commercial cylinders (19 kg and 47.5 kg) are non-subsidized for restaurants, tea stalls, and industrial caterers.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How many subsidized cylinders are allowed per year in India?',
+        answer: 'Households can book up to 12 domestic cylinders per financial year at subsidized / standard rates.'
+      }
+    ],
+    relatedToolSlugs: ['electricity-bill-calculator', 'vehicle-fuel-cost-calculator']
+  },
+
+  {
+    id: 'bmi-indian-health-calculator',
+    slug: 'bmi-indian-health-calculator',
+    name: 'BMI Calculator (Indian ICMR & South Asian Standards)',
+    shortName: 'Indian BMI Calculator',
+    tagline: 'Calculate Body Mass Index (BMI) and ideal body weight specifically calibrated for Indian body types by ICMR and WHO South Asia',
+    description: "Check your true health status with BharatUtility's Indian BMI Calculator. Unlike generic western calculators, this tool applies ICMR / WHO South Asian cutoffs where 23+ is overweight and 25+ is obese.",
+    category: 'daily-life',
+    icon: 'HeartPulse',
+    keywords: [
+      'bmi calculator india',
+      'icmr bmi calculator',
+      'south asian bmi cutoffs',
+      'ideal weight for indian height',
+      'asian bmi standard calculator',
+      'healthy weight calculator india'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Health',
+    views: 47200,
+    seo: {
+      title: 'Indian BMI Calculator – ICMR & South Asian Health Standards | BharatUtility',
+      description: 'Calculate BMI and ideal body weight calibrated specifically for Indian body types using official ICMR and WHO South Asian health cutoffs.',
+      keywords: [
+        'bmi calculator india',
+        'indian bmi calculator',
+        'icmr bmi',
+        'ideal weight calculator'
+      ],
+      canonicalSlug: 'bmi-indian-health-calculator',
+      h1: 'BMI Calculator (Indian ICMR & South Asian Standards)',
+    },
+    formulaDescription: 'BMI = Weight (kg) ÷ (Height in meters)². Indian ICMR Normal: 18.5 - 22.9 | Overweight: 23.0 - 24.9 | Obese: >= 25.0.',
+    workedExample: {
+      inputSummary: 'Height: 172 cm (1.72 m) | Weight: 68 kg',
+      calculationSteps: [
+        'BMI = 68 ÷ (1.72 × 1.72) = 68 ÷ 2.9584 = 23.0 kg/m²',
+        'Category: Overweight (Indian Cutoff is 23.0, compared to Western 25.0)',
+        'Ideal Healthy Weight Range = 54.7 kg to 67.7 kg'
+      ],
+      finalResult: 'BMI: 23.0 kg/m² | Category: Overweight (Indian standard) | Ideal Weight: 55-68 kg'
+    },
+    seoSections: [
+      {
+        h2: 'Why India Uses Lower BMI Cutoffs than Western Countries',
+        paragraphs: [
+          'Research by the Indian Council of Medical Research (ICMR) and WHO shows that South Asians tend to have higher visceral fat percentage and abdominal adiposity at lower BMI levels, increasing diabetes and cardiovascular risks at 23+ BMI.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the healthy BMI range for Indians?',
+        answer: 'For Indian adults, a BMI between 18.5 and 22.9 kg/m² is classified as normal healthy weight by ICMR and the Ministry of Health.'
+      }
+    ],
+    relatedToolSlugs: ['age-calculator', 'speed-distance-time-calculator']
+  },
+
+  {
+    id: 'markdown-to-html-converter',
+    slug: 'markdown-to-html-converter',
+    name: 'Markdown to HTML Converter (Live Preview)',
+    shortName: 'Markdown to HTML',
+    tagline: 'Convert Markdown syntax (Headings, bold, links, lists) into clean HTML code with instant live preview and copy',
+    description: "Convert Markdown to clean, semantic HTML code with BharatUtility's free Markdown to HTML Converter. Instant in-browser conversion for developers, content writers, and bloggers with zero server transmission.",
+    category: 'technology',
+    icon: 'FileText',
+    keywords: [
+      'markdown to html converter',
+      'md to html online',
+      'convert markdown to html',
+      'markdown parser free',
+      'markdown live html preview'
+    ],
+    popular: false,
+    trending: true,
+    featured: false,
+    badge: 'Developer Tool',
+    views: 23100,
+    seo: {
+      title: 'Markdown to HTML Converter – Clean HTML Generator Online | BharatUtility',
+      description: 'Convert Markdown syntax to clean semantic HTML code with real-time preview and one-click copy. 100% free, fast, in-browser developer utility.',
+      keywords: [
+        'markdown to html',
+        'md to html',
+        'markdown converter',
+        'markdown tool'
+      ],
+      canonicalSlug: 'markdown-to-html-converter',
+      h1: 'Markdown to HTML Converter',
+    },
+    formulaDescription: 'Transforms Markdown tokens (hashes, asterisks, brackets) into standard HTML tags (h1-h6, strong, em, a, li, p).',
+    workedExample: {
+      inputSummary: '# Title followed by **bold text** and [Link](url)',
+      calculationSteps: [
+        '# Title -> <h1>Title</h1>',
+        '**bold text** -> <strong>bold text</strong>',
+        '[Link](url) -> <a href="url">Link</a>'
+      ],
+      finalResult: 'Generates clean semantic HTML5 markup.'
+    },
+    seoSections: [
+      {
+        h2: 'Fast Client-Side Markdown Parser',
+        paragraphs: [
+          'Paste GitHub README files, technical notes, or blog drafts to produce HTML ready for CMS platforms like WordPress, Ghost, or static websites.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does this converter preserve links and lists?',
+        answer: 'Yes, it formats headers, bullet lists, bold/italic typography, and external hyperlinks.'
+      }
+    ],
+    relatedToolSlugs: ['json-formatter-validator', 'text-case-converter', 'diff-checker-tool']
+  },
+
+  {
+    id: 'speed-distance-time-calculator',
+    slug: 'speed-distance-time-calculator',
+    name: 'Speed, Distance & Train Travel Time Calculator',
+    shortName: 'Speed Distance Calculator',
+    tagline: 'Calculate travel duration in hours and minutes from distance (km) and vehicle/train speed (km/h) with m/s and mph conversions',
+    description: "Calculate journey travel time from road distance and average speed with BharatUtility's Speed Distance Time Calculator. Features Indian Railway Vande Bharat and expressway speed presets.",
+    category: 'travel',
+    icon: 'Gauge',
+    keywords: [
+      'speed distance time calculator',
+      'travel time calculator',
+      'train travel time calculator',
+      'km to travel hours calculator',
+      'speed kmh to ms converter',
+      'driving time calculator india'
+    ],
+    popular: true,
+    trending: false,
+    featured: false,
+    badge: 'Travel Tool',
+    views: 32600,
+    seo: {
+      title: 'Speed, Distance & Travel Time Calculator – Hours & Minutes | BharatUtility',
+      description: 'Calculate travel duration in hours and minutes from distance (km) and vehicle speed (km/h). Includes Vande Bharat, expressway car, and train presets.',
+      keywords: [
+        'speed distance calculator',
+        'travel time calculator',
+        'speed calculator',
+        'train journey time'
+      ],
+      canonicalSlug: 'speed-distance-time-calculator',
+      h1: 'Speed, Distance & Train Travel Time Calculator',
+    },
+    formulaDescription: 'Time = Distance (km) ÷ Speed (km/h); Converted to hours and minutes (Hours = floor(T), Minutes = (T - Hours) × 60).',
+    workedExample: {
+      inputSummary: 'Distance: 450 km (Delhi to Lucknow) | Speed: 80 km/h (Expressway)',
+      calculationSteps: [
+        'Total Duration = 450 ÷ 80 = 5.625 Hours',
+        'Hours = 5 Hours',
+        'Minutes = 0.625 × 60 = ~38 Minutes',
+        'Speed in m/s = 80 × (5 ÷ 18) = 22.2 m/s'
+      ],
+      finalResult: 'Travel Time: 5 Hours 38 Minutes | Velocity: 22.2 m/s (49.7 mph)'
+    },
+    seoSections: [
+      {
+        h2: 'Estimate Driving & Rail Travel Durations',
+        paragraphs: [
+          'Calculate realistic travel durations across Indian national highways, expressways (Delhi-Mumbai, Samruddhi Mahamarg, Purvanchal), and Indian Railways routes.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How do you convert km/h to meters per second (m/s)?',
+        answer: 'Multiply the speed in km/h by 5/18 (or 0.2778) to get speed in meters per second.'
+      }
+    ],
+    relatedToolSlugs: ['fuel-cost-calculator', 'road-trip-planner']
+  },
+
+  {
+    id: 'wifi-qr-code-generator',
+    slug: 'wifi-qr-code-generator',
+    name: 'Wi-Fi QR Code Generator (Scan to Connect)',
+    shortName: 'Wi-Fi QR Generator',
+    tagline: 'Create instant Scan-to-Connect QR codes for home and office Wi-Fi networks without sharing passwords manually',
+    description: "Generate scan-to-connect Wi-Fi QR codes with BharatUtility's free Wi-Fi QR Generator. Guests can simply point their smartphone camera to connect to your home or cafe broadband instantly without typing long passwords.",
+    category: 'technology',
+    icon: 'Wifi',
+    keywords: [
+      'wifi qr code generator',
+      'scan to connect wifi qr',
+      'wifi password qr maker',
+      'wifi qr code for guests',
+      'free wifi qr generator online',
+      'home wifi qr code'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 43900,
+    seo: {
+      title: 'Wi-Fi QR Code Generator – Scan to Connect Wi-Fi Online | BharatUtility',
+      description: 'Generate scan-to-connect QR codes for home, office, and cafe Wi-Fi networks. Guests connect instantly with phone camera without typing passwords.',
+      keywords: [
+        'wifi qr generator',
+        'wifi qr code',
+        'scan wifi qr',
+        'wifi password qr'
+      ],
+      canonicalSlug: 'wifi-qr-code-generator',
+      h1: 'Wi-Fi QR Code Generator (Scan to Connect)',
+    },
+    formulaDescription: 'Generates standardized Wi-Fi connection payload URI (WIFI:T:WPA;S:SSID;P:PASSWORD;H:false;;) encoded into QR matrix.',
+    workedExample: {
+      inputSummary: 'SSID: "MyHomeFiber_5G" | Auth: WPA2 | Password: "SecurePassword123"',
+      calculationSteps: [
+        '1. Format payload according to Wi-Fi Alliance QR specification',
+        '2. Generate scan-to-connect QR matrix image'
+      ],
+      finalResult: 'Point iOS or Android camera at QR code -> Instant "Join Network" prompt.'
+    },
+    seoSections: [
+      {
+        h2: 'How Wi-Fi QR Codes Work on Android & iPhone',
+        paragraphs: [
+          'Modern Android and Apple iOS camera apps automatically detect Wi-Fi QR payloads and show a one-tap "Join Wi-Fi Network" prompt without requiring third-party apps.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Is my Wi-Fi password sent to your servers?',
+        answer: 'No. The QR code format string is constructed entirely in your browser.'
+      }
+    ],
+    relatedToolSlugs: ['qr-code-generator', 'secure-password-generator']
+  },
+
+  {
+    id: 'cibil-score-simulator',
+    slug: 'cibil-score-simulator',
+    name: 'CIBIL / Credit Score Simulator & Loan Eligibility',
+    shortName: 'CIBIL Score Simulator',
+    tagline: 'Simulate how on-time payments, credit card 30% limit utilization, and hard inquiries impact your CIBIL score (300-900)',
+    description: "Improve your loan approval chances with BharatUtility's CIBIL Score Simulator. Simulate the impact of credit utilization, payment history, and loan inquiries on your credit score with zero impact on your actual bureau report.",
+    category: 'money',
+    icon: 'Gauge',
+    keywords: [
+      'cibil score simulator',
+      'credit score calculator',
+      'improve cibil score',
+      'credit card utilization 30 percent',
+      'cibil score loan eligibility',
+      'cibil score check online'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 46100,
+    seo: {
+      title: 'CIBIL Score Simulator – Check Credit Score & Loan Eligibility | BharatUtility',
+      description: 'Simulate how payment history, credit card utilization (30% rule), and inquiries affect your CIBIL score. Free educational credit simulator for India.',
+      keywords: [
+        'cibil score simulator',
+        'credit score calculator',
+        'cibil score',
+        'loan eligibility calculator'
+      ],
+      canonicalSlug: 'cibil-score-simulator',
+      h1: 'CIBIL / Credit Score Simulator & Loan Eligibility',
+    },
+    formulaDescription: 'Weighted credit score simulation: Payment History (35%) + Credit Utilization (30%) + Credit Age (15%) + Inquiries (10%) + Credit Mix (10%).',
+    workedExample: {
+      inputSummary: 'Baseline Score: 720 | 100% On-Time Payments (+25) | Utilization <30% (+20) | Inquiries: 1',
+      calculationSteps: [
+        'Payment History Boost = +25 Points',
+        'Healthy Credit Utilization (<30%) = +20 Points',
+        'Healthy Credit History = +15 Points',
+        'Simulated Project Score = 720 + 25 + 20 + 15 = 780 (Excellent)'
+      ],
+      finalResult: 'Simulated Score: 780 / 900 (Excellent | 98% Loan Approval Likelihood)'
+    },
+    seoSections: [
+      {
+        h2: 'The 5 Core Pillars of Indian CIBIL Score Calculation',
+        paragraphs: [
+          'TransUnion CIBIL, Experian, CRIF High Mark, and Equifax calculate Indian credit scores based on Payment Track Record (35%), Credit Utilization Ratio (30%), Length of Credit History (15%), Credit Mix (10%), and Recent Hard Inquiries (10%).',
+          'Keeping credit card spending below 30% of your total assigned credit limit is the fastest way to boost your credit score above 750.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is a good CIBIL score for Home Loan approval in India?',
+        answer: 'A CIBIL score of 750 and above is considered excellent by Indian banks (SBI, HDFC, ICICI), qualifying you for the lowest home loan interest rates and instant approval.'
+      }
+    ],
+    relatedToolSlugs: ['emi-calculator', 'salary-calculator']
+  },
+
+  {
+    id: 'gst-tax-invoice-generator',
+    slug: 'gst-tax-invoice-generator',
+    name: 'GST Tax Invoice Generator & PDF Maker',
+    shortName: 'GST Invoice Generator',
+    tagline: 'Create professional Indian GST tax invoices with B2B/B2C details, HSN codes, CGST/SGST/IGST breakdown, and print to PDF',
+    description: "Create professional GST tax invoices online with BharatUtility's free GST Tax Invoice Generator. Add items, HSN codes, 5%/12%/18%/28% tax rates, and print or download clean PDF invoices instantly with zero watermarks.",
+    category: 'business',
+    icon: 'Receipt',
+    keywords: [
+      'gst tax invoice generator',
+      'gst invoice maker online free',
+      'b2b gst invoice generator',
+      'print gst bill online',
+      'gst billing software free',
+      'hsn code invoice generator'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Business',
+    views: 49200,
+    seo: {
+      title: 'GST Tax Invoice Generator – Create Free B2B & B2C GST Invoices | BharatUtility',
+      description: 'Generate professional Indian GST tax invoices with HSN codes, CGST/SGST tax split, and one-click PDF printing. 100% free with zero watermarks.',
+      keywords: [
+        'gst invoice generator',
+        'gst bill maker',
+        'free gst invoice',
+        'tax invoice online'
+      ],
+      canonicalSlug: 'gst-tax-invoice-generator',
+      h1: 'GST Tax Invoice Generator & PDF Maker',
+    },
+    formulaDescription: 'Calculates Taxable Line Item Value (Qty × Rate) + CGST (Rate ÷ 2) + SGST (Rate ÷ 2) = Total Invoice Amount.',
+    workedExample: {
+      inputSummary: 'Item: Web Consulting (₹25,000 @ 18% GST) + Hardware Service (₹10,000 @ 18% GST)',
+      calculationSteps: [
+        'Taxable Subtotal = ₹35,000',
+        'CGST (9%) = ₹3,150 | SGST (9%) = ₹3,150 (Total GST: ₹6,300)',
+        'Grand Total Invoice Value = ₹41,300'
+      ],
+      finalResult: 'Taxable Value: ₹35,000 | GST: ₹6,300 | Invoice Total: ₹41,300'
+    },
+    seoSections: [
+      {
+        h2: 'Statutory GST Invoice Rules in India',
+        paragraphs: [
+          'Under the Central Goods and Services Tax Act 2017, a valid tax invoice must contain the Supplier GSTIN, Consecutive Invoice Number, Date of Issue, Buyer GSTIN (for B2B), HSN/SAC Code, Taxable Value, and Rate of Tax (CGST + SGST or IGST).'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Can I print this GST invoice for my business tax filing?',
+        answer: 'Yes. The generated invoice adheres to standard Indian GST compliance and can be saved as a PDF or printed for clients and CA filing.'
+      }
+    ],
+    relatedToolSlugs: ['gst-calculator', 'number-to-words-converter', 'cash-denomination-tally-calculator']
+  },
+
+  {
+    id: 'sip-step-up-calculator',
+    slug: 'sip-step-up-calculator',
+    name: 'Step-Up SIP Calculator (Annual Top-Up)',
+    shortName: 'Step-Up SIP Calculator',
+    tagline: 'Calculate compounding mutual fund wealth when you increase your SIP amount by 5%, 10%, or 15% every year with salary increments',
+    description: "Accelerate your wealth creation with BharatUtility's Step-Up SIP Calculator. See how increasing your monthly SIP by just 10% each year creates 70%+ more wealth compared to a fixed flat SIP.",
+    category: 'money',
+    icon: 'TrendingUp',
+    keywords: [
+      'step up sip calculator',
+      'sip top up calculator',
+      'annual increment sip calculator',
+      'step up mutual fund calculator',
+      'groww step up sip',
+      '10 percent step up sip'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 43800,
+    seo: {
+      title: 'Step-Up SIP Calculator – Annual Top-Up Mutual Fund Returns | BharatUtility',
+      description: 'Calculate your mutual fund returns with yearly step-up SIP increments (5%, 10%, 15%). Compares step-up wealth against standard flat SIP.',
+      keywords: [
+        'step up sip calculator',
+        'top up sip calculator',
+        'sip calculator with increment',
+        'mutual fund step up'
+      ],
+      canonicalSlug: 'sip-step-up-calculator',
+      h1: 'Step-Up SIP Calculator (Annual Top-Up)',
+    },
+    formulaDescription: 'Iteratively compounds monthly investments where monthly installment increases by Step-Up Hike % at the end of each 12-month period.',
+    workedExample: {
+      inputSummary: 'Initial SIP: ₹10,000/mo | Step-Up: +10% every year | Tenure: 15 Years | Expected Return: 12% p.a.',
+      calculationSteps: [
+        'Standard Flat SIP Corpus (₹10k/mo flat) = ₹50,45,760 (Invested: ₹18.0L)',
+        'Step-Up SIP Corpus (+10% yearly) = ₹87,14,350 (Invested: ₹38.1L)',
+        'Extra Wealth Created by Step-Up = +₹36,68,590 (+72.7% more wealth!)'
+      ],
+      finalResult: 'Step-Up Corpus: ₹87.14 Lakhs vs Flat SIP: ₹50.46 Lakhs (Extra ₹36.7 Lakhs created)'
+    },
+    seoSections: [
+      {
+        h2: 'Why Step-Up SIP is the Best Strategy for Salaried Professionals',
+        paragraphs: [
+          'As your annual salary increases with appraisals (typically 8% to 12%), stepping up your SIP contributions prevents lifestyle inflation and dramatically shortens your journey to financial freedom.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How do I activate Step-Up SIP in my mutual fund app?',
+        answer: 'Most Indian platforms (Zerodha Coin, Groww, Kuvera, MF Central, CAMS) offer an automated "Top-up SIP" or "Step-Up SIP" toggle during mandate creation.'
+      }
+    ],
+    relatedToolSlugs: ['crorepati-sip-goal-calculator', 'sip-calculator', 'fire-retirement-calculator']
+  },
+
+  {
+    id: 'sleep-cycle-alarm-calculator',
+    slug: 'sleep-cycle-alarm-calculator',
+    name: 'Sleep Cycle & Smart Wake-Up Alarm Calculator',
+    shortName: 'Sleep Cycle Calculator',
+    tagline: 'Calculate optimal wake-up times based on 90-minute REM sleep cycles to wake up energized without morning grogginess',
+    description: "Wake up refreshed without sleep inertia. BharatUtility's Sleep Cycle Calculator computes natural 90-minute REM sleep cycles to tell you the exact time to wake up or go to bed.",
+    category: 'daily-life',
+    icon: 'Moon',
+    keywords: [
+      'sleep cycle calculator',
+      'sleep calculator',
+      'what time should i wake up',
+      '90 minute sleep cycle calculator',
+      'best time to sleep calculator',
+      'rem sleep alarm calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: false,
+    badge: 'Wellness',
+    views: 35100,
+    seo: {
+      title: 'Sleep Cycle Calculator – Optimal Wake-Up Times & 90-Min Cycles | BharatUtility',
+      description: 'Calculate natural 90-minute REM sleep cycle wake-up times and bedtimes. Wake up refreshed and energized without morning fatigue.',
+      keywords: [
+        'sleep cycle calculator',
+        'sleep calculator',
+        'rem sleep calculator',
+        'wake up time calculator'
+      ],
+      canonicalSlug: 'sleep-cycle-alarm-calculator',
+      h1: 'Sleep Cycle & Smart Wake-Up Alarm Calculator',
+    },
+    formulaDescription: 'Wake Time = Bedtime + 15 min latency + (Cycle Count × 90 minutes). 5 to 6 cycles (7.5 to 9 hours) recommended for adults.',
+    workedExample: {
+      inputSummary: 'Going to bed now (e.g. 11:00 PM)',
+      calculationSteps: [
+        '15 min buffer to fall asleep -> Sleep begins at 11:15 PM',
+        '4 Cycles (6.0 Hours) -> Wake at 5:15 AM',
+        '5 Cycles (7.5 Hours) -> Wake at 6:45 AM (Optimal)',
+        '6 Cycles (9.0 Hours) -> Wake at 8:15 AM (Recommended)'
+      ],
+      finalResult: 'Set alarm for 6:45 AM or 8:15 AM to wake up at the end of a complete sleep cycle.'
+    },
+    seoSections: [
+      {
+        h2: 'The Science of 90-Minute REM Sleep Cycles',
+        paragraphs: [
+          'Human sleep consists of alternating cycles between light sleep, deep slow-wave sleep, and Rapid Eye Movement (REM) sleep, each lasting approximately 90 minutes.',
+          'Waking up in the middle of deep sleep causes "sleep inertia" (morning grogginess), while waking at the end of a cycle feels effortless and energizing.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How many sleep cycles are ideal for adults?',
+        answer: 'Adults function best on 5 complete sleep cycles (7.5 hours) or 6 complete cycles (9 hours) per night.'
+      }
+    ],
+    relatedToolSlugs: ['daily-calorie-water-calculator', 'bmi-indian-health-calculator']
+  },
+
+  {
+    id: 'daily-calorie-water-calculator',
+    slug: 'daily-calorie-water-calculator',
+    name: 'Daily Calorie, TDEE & Water Intake Calculator',
+    shortName: 'Calorie & Water Calculator',
+    tagline: 'Calculate your Basal Metabolic Rate (BMR), maintenance calories (TDEE), fat loss target, and daily hydration requirement',
+    description: "Calculate your daily calorie needs and optimal water intake with BharatUtility's Calorie & Water Calculator. Uses the gold-standard Mifflin-St Jeor equation calibrated for Indian lifestyles.",
+    category: 'daily-life',
+    icon: 'Utensils',
+    keywords: [
+      'calorie calculator india',
+      'tdee calculator',
+      'daily water intake calculator',
+      'bmr calculator',
+      'fat loss calorie deficit calculator',
+      'how much water to drink daily'
+    ],
+    popular: true,
+    trending: false,
+    featured: false,
+    badge: 'Health',
+    views: 31900,
+    seo: {
+      title: 'Daily Calorie & Water Intake Calculator – TDEE, BMR & Fat Loss | BharatUtility',
+      description: 'Calculate daily maintenance calories (TDEE), BMR, fat loss deficit, and daily water hydration targets (litres and glasses) for your body weight.',
+      keywords: [
+        'calorie calculator',
+        'water intake calculator',
+        'tdee calculator',
+        'bmr calculator'
+      ],
+      canonicalSlug: 'daily-calorie-water-calculator',
+      h1: 'Daily Calorie, TDEE & Water Intake Calculator',
+    },
+    formulaDescription: 'BMR (Mifflin-St Jeor) = 10W + 6.25H - 5A (+5 Male / -161 Female); TDEE = BMR × Activity Multiplier; Water = 35 ml per kg body weight.',
+    workedExample: {
+      inputSummary: 'Male | Age: 26 | Weight: 70 kg | Height: 172 cm | Light Activity',
+      calculationSteps: [
+        'BMR = 10(70) + 6.25(172) - 5(26) + 5 = 700 + 1,075 - 130 + 5 = 1,650 kcal',
+        'TDEE (Light Activity × 1.375) = 2,269 kcal / day',
+        'Weight Loss Target (-400 kcal) = 1,869 kcal / day',
+        'Daily Water Intake = 70 kg × 35 ml = 2.45 Litres (~10 glasses)'
+      ],
+      finalResult: 'Maintenance: 2,269 kcal/day | Fat Loss: 1,869 kcal/day | Water: 2.5 Litres/day'
+    },
+    seoSections: [
+      {
+        h2: 'Hydration Guidelines for the Indian Climate',
+        paragraphs: [
+          'In warm South Asian climates, staying hydrated requires consuming 35 ml of water per kilogram of body weight to support renal function, metabolic rate, and cognitive alertness.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How many calories should I cut for healthy weight loss?',
+        answer: 'A moderate deficit of 300 to 500 kcal below your TDEE produces sustainable, healthy fat loss of approximately 0.4 to 0.5 kg per week without slowing your metabolism.'
+      }
+    ],
+    relatedToolSlugs: ['bmi-indian-health-calculator', 'sleep-cycle-alarm-calculator']
+  },
+
+  {
+    id: 'vcard-qr-generator',
+    slug: 'vcard-qr-generator',
+    name: 'Digital Visiting Card (vCard) QR Code Generator',
+    shortName: 'vCard QR Generator',
+    tagline: 'Create digital contact QR codes that instantly save your name, phone number, email, and company into smartphone address books',
+    description: "Create your digital business card with BharatUtility's free vCard QR Code Generator. When someone scans your QR code with their phone camera, your contact is instantly saved to their contacts list.",
+    category: 'business',
+    icon: 'Contact',
+    keywords: [
+      'vcard qr code generator',
+      'digital visiting card qr maker',
+      'contact qr code generator free',
+      'business card qr code',
+      'save contact qr code',
+      'vcard 3.0 generator'
+    ],
+    popular: true,
+    trending: true,
+    featured: false,
+    badge: 'Networking',
+    views: 37400,
+    seo: {
+      title: 'vCard QR Code Generator – Create Digital Visiting Card QR Online | BharatUtility',
+      description: 'Generate digital visiting card QR codes (vCard 3.0). Smartphone cameras scan and save contact details directly to phonebook without typing.',
+      keywords: [
+        'vcard qr generator',
+        'contact qr code',
+        'digital business card qr',
+        'vcard generator'
+      ],
+      canonicalSlug: 'vcard-qr-generator',
+      h1: 'Digital Visiting Card (vCard) QR Code Generator',
+    },
+    formulaDescription: 'Encodes vCard standard format payload (BEGIN:VCARD ... END:VCARD) into scannable high-density QR matrix.',
+    workedExample: {
+      inputSummary: 'Name: Ashwin Patil | Phone: +91 9876543210 | Org: ARRJS Technologies',
+      calculationSteps: [
+        '1. Construct standard vCard 3.0 string buffer',
+        '2. Render scannable QR code matrix image'
+      ],
+      finalResult: 'Point iPhone or Android camera -> Instant "Add to Contacts" prompt.'
+    },
+    seoSections: [
+      {
+        h2: 'Modern Contact Sharing for Professionals',
+        paragraphs: [
+          'Add your vCard QR code to physical visiting cards, email signatures, presentations, and resume PDFs for seamless digital contact exchange.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does this work on both iPhone and Android?',
+        answer: 'Yes. The standard camera app on both iOS and Android automatically recognizes vCard QR codes and offers an "Add to Contacts" action.'
+      }
+    ],
+    relatedToolSlugs: ['qr-code-generator', 'wifi-qr-code-generator']
+  },
+
+  {
+    id: 'salary-hike-percentage-calculator',
+    slug: 'salary-hike-percentage-calculator',
+    name: 'Salary Hike & Increment Percentage Calculator',
+    shortName: 'Salary Hike Calculator',
+    tagline: 'Calculate your annual appraisal percentage hike (%), CTC difference, and monthly in-hand increase',
+    description: "Calculate your exact appraisal hike percentage with BharatUtility's Salary Hike Calculator. Enter old CTC and new offered CTC to calculate percentage increase, monthly gross increment, and estimated in-hand salary.",
+    category: 'money',
+    icon: 'TrendingUp',
+    keywords: [
+      'salary hike calculator',
+      'increment percentage calculator',
+      'ctc hike calculator',
+      'appraisal percentage calculator',
+      'salary hike in hand calculation',
+      'job switch hike calculator'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Career',
+    views: 48300,
+    seo: {
+      title: 'Salary Hike & Increment Percentage Calculator – CTC & In-Hand | BharatUtility',
+      description: 'Calculate salary hike percentage from old and new CTC. Computes appraisal percentage, annual increment, and estimated monthly in-hand increase.',
+      keywords: [
+        'salary hike calculator',
+        'increment calculator',
+        'ctc percentage hike',
+        'salary appraisal calculator'
+      ],
+      canonicalSlug: 'salary-hike-percentage-calculator',
+      h1: 'Salary Hike & Increment Percentage Calculator',
+    },
+    formulaDescription: 'Hike % = [(New CTC - Old CTC) ÷ Old CTC] × 100. Monthly Gross Increase = (New CTC - Old CTC) ÷ 12.',
+    workedExample: {
+      inputSummary: 'Old CTC: ₹8,00,000 (8 Lakhs) | New CTC: ₹11,00,000 (11 Lakhs)',
+      calculationSteps: [
+        'CTC Difference = ₹11,00,000 - ₹8,00,000 = ₹3,00,000',
+        'Percentage Hike = (₹3,00,000 ÷ ₹8,00,000) × 100 = 37.50%',
+        'Monthly Gross Increase = ₹3,00,000 ÷ 12 = ₹25,000 / month',
+        'Estimated Monthly In-Hand Increase = ~₹20,500 / month'
+      ],
+      finalResult: 'Hike: +37.50% | Annual Gain: ₹3,00,000 | In-Hand Gain: ~₹20,500 / mo'
+    },
+    seoSections: [
+      {
+        h2: 'Standard Salary Hike Benchmarks in India',
+        paragraphs: [
+          'Annual appraisal increments typically range from 8% to 15% in Indian corporate IT and services. External job switches command 25% to 45%+ hikes depending on skill specialization.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How do I calculate percentage hike on a job switch?',
+        answer: 'Subtract your current CTC from the offered CTC, divide the difference by your current CTC, and multiply by 100.'
+      }
+    ],
+    relatedToolSlugs: ['salary-calculator', 'cibil-score-simulator']
+  },
+
+  {
+    id: 'gst-late-fee-calculator',
+    slug: 'gst-late-fee-calculator',
+    name: 'GST Late Fee & Section 50 Interest Calculator',
+    shortName: 'GST Late Fee Calculator',
+    tagline: 'Calculate GSTR-3B & GSTR-1 daily late filing fees (₹50/day or ₹20/day) and 18% p.a. statutory interest',
+    description: "Calculate exact penalties for delayed GST return filing with BharatUtility's GST Late Fee Calculator. Computes ₹50/day regular (₹20/day for Nil) fees and Section 50 statutory interest on net tax payable.",
+    category: 'business',
+    icon: 'AlertCircle',
+    keywords: [
+      'gst late fee calculator',
+      'gstr 3b late fee calculator',
+      'gstr 1 late fee per day',
+      'section 50 gst interest calculator',
+      'gst late filing penalty',
+      'nil gst return late fee'
+    ],
+    popular: true,
+    trending: false,
+    featured: false,
+    badge: 'Tax Tool',
+    views: 33800,
+    seo: {
+      title: 'GST Late Fee Calculator – GSTR-3B & GSTR-1 Penalty & Interest | BharatUtility',
+      description: 'Calculate GST late filing fees (₹50/day regular, ₹20/day Nil) and Section 50 statutory 18% p.a. interest on net tax payable.',
+      keywords: [
+        'gst late fee calculator',
+        'gstr 3b late fee',
+        'gst penalty calculator',
+        'section 50 interest'
+      ],
+      canonicalSlug: 'gst-late-fee-calculator',
+      h1: 'GST Late Fee & Section 50 Interest Calculator',
+    },
+    formulaDescription: 'Late Fee = Min(Cap, Days × Rate per day); Section 50 Interest = Net Tax Payable × (18% ÷ 365) × Days Delayed.',
+    workedExample: {
+      inputSummary: 'Regular Return | 25 Days Delayed | Net Tax Payable: ₹25,000',
+      calculationSteps: [
+        'Late Fee (25 Days @ ₹50/day) = ₹1,250 (₹625 CGST + ₹625 SGST)',
+        'Section 50 Interest = ₹25,000 × (0.18 ÷ 365) × 25 = ₹308',
+        'Total Statutory Liability = ₹1,250 + ₹308 = ₹1,558'
+      ],
+      finalResult: 'Late Fee: ₹1,250 | Interest: ₹308 | Total Liability: ₹1,558'
+    },
+    seoSections: [
+      {
+        h2: 'Statutory GST Late Fee Limits',
+        paragraphs: [
+          'Under the GST amnesty framework, regular return late fee is ₹50 per day (₹25 CGST + ₹25 SGST, capped at ₹5,000 per return). For Nil returns with zero tax liability, late fee is ₹20 per day (capped at ₹500).'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Is interest charged on gross tax or net cash ledger liability?',
+        answer: 'As per Section 50(1) amendment, interest at 18% p.a. is payable only on the net tax liability paid through the electronic cash ledger after adjusting available ITC.'
+      }
+    ],
+    relatedToolSlugs: ['gst-calculator', 'gst-tax-invoice-generator']
+  },
+
+  {
+    id: 'compound-daily-interest-calculator',
+    slug: 'compound-daily-interest-calculator',
+    name: 'Compound Daily Interest Calculator',
+    shortName: 'Daily Interest Calculator',
+    tagline: 'Calculate daily, monthly, and quarterly compounding interest for business overdue invoices, personal loans, and deposits',
+    description: "Calculate exact compounding interest on overdue payments, trade debts, and investments with BharatUtility's Daily Compound Interest Calculator. Supports daily, monthly, and quarterly compounding frequencies.",
+    category: 'money',
+    icon: 'Percent',
+    keywords: [
+      'daily compound interest calculator',
+      'compound interest per day',
+      'invoice overdue interest calculator',
+      'daily compounding formula',
+      'interest calculator for days'
+    ],
+    popular: false,
+    trending: true,
+    featured: false,
+    badge: 'Finance',
+    views: 28400,
+    seo: {
+      title: 'Compound Daily Interest Calculator – Calculate Daily & Monthly Compounding | BharatUtility',
+      description: 'Calculate daily, monthly, and quarterly compounding interest on principal amounts. Free online daily compound interest calculator.',
+      keywords: [
+        'daily compound interest',
+        'daily interest calculator',
+        'overdue interest calculator',
+        'compound interest'
+      ],
+      canonicalSlug: 'compound-daily-interest-calculator',
+      h1: 'Compound Daily Interest Calculator',
+    },
+    formulaDescription: 'A = P × (1 + r/n)^(n × t) where n is compounding frequency (365 for daily) and t is duration in years.',
+    workedExample: {
+      inputSummary: 'Principal: ₹1,00,000 | Rate: 12% p.a. | Duration: 90 Days | Daily Compounding',
+      calculationSteps: [
+        'Daily Rate (r/365) = 12% ÷ 365 = 0.03287% per day',
+        'Maturity Balance after 90 Days = ₹1,03,003',
+        'Total Interest Accumulated = ₹3,003 (~₹33.37 / day)'
+      ],
+      finalResult: 'Principal: ₹1,00,000 | Total Interest: ₹3,003 | Final Balance: ₹1,03,003'
+    },
+    seoSections: [
+      {
+        h2: 'Daily Compounding in Trade Invoices & MSME Act',
+        paragraphs: [
+          'Under the MSME Development Act, 2006, delayed payments beyond 45 days attract compound interest with monthly rests at three times the RBI bank rate.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How is daily compound interest calculated?',
+        answer: 'Each day, interest is calculated on the principal plus previously accumulated interest, accelerating growth compared to simple interest.'
+      }
+    ],
+    relatedToolSlugs: ['fd-calculator', 'emi-calculator']
+  },
+
+  {
+    id: 'whatsapp-direct-link-generator',
+    slug: 'whatsapp-direct-link-generator',
+    name: 'WhatsApp Direct Chat Link & QR Generator',
+    shortName: 'WhatsApp Link Generator',
+    tagline: 'Create instant wa.me click-to-chat links and QR codes to message anyone without saving their phone number',
+    description: "Chat on WhatsApp without saving numbers. Use BharatUtility's WhatsApp Direct Link Generator to create instant wa.me click-to-chat links and scannable QR codes with pre-filled custom messages.",
+    category: 'daily-life',
+    icon: 'MessageSquare',
+    keywords: [
+      'whatsapp direct link generator',
+      'wa me link generator',
+      'chat without saving number',
+      'whatsapp qr code generator',
+      'click to chat whatsapp',
+      'whatsapp prefilled message link'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 49800,
+    seo: {
+      title: 'WhatsApp Direct Link Generator – Click-to-Chat & QR Code | BharatUtility',
+      description: 'Generate WhatsApp direct click-to-chat links (wa.me) and QR codes with custom messages. Start chats without saving phone numbers.',
+      keywords: [
+        'whatsapp link generator',
+        'wa me link',
+        'whatsapp click to chat',
+        'whatsapp qr code'
+      ],
+      canonicalSlug: 'whatsapp-direct-link-generator',
+      h1: 'WhatsApp Direct Chat Link & QR Generator',
+    },
+    formulaDescription: 'Formats URL schema: https://wa.me/[CountryCode][Phone]?text=[UrlEncodedMessage].',
+    workedExample: {
+      inputSummary: 'Country: 91 (India) | Mobile: 9876543210 | Message: "Inquiry regarding services"',
+      calculationSteps: [
+        'Clean non-digits -> 919876543210',
+        'URI encode message string -> Inquiry%20regarding%20services',
+        'Generate Link: https://wa.me/919876543210?text=Inquiry%20regarding%20services'
+      ],
+      finalResult: 'Click link -> Direct WhatsApp conversation opens immediately.'
+    },
+    seoSections: [
+      {
+        h2: 'Ideal for Customer Support & Instant Business Inquiries',
+        paragraphs: [
+          'Add your WhatsApp direct chat link to your Instagram bio, website contact buttons, and email signatures so clients can reach you with a single tap.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does this require any WhatsApp API or registration?',
+        answer: 'No. It utilizes WhatsApp official deep link protocol (wa.me) supported natively on all Android, iPhone, and Web browsers.'
+      }
+    ],
+    relatedToolSlugs: ['vcard-qr-generator', 'wifi-qr-code-generator']
+  },
+
+  {
+    id: 'pomodoro-focus-timer',
+    slug: 'pomodoro-focus-timer',
+    name: 'Pomodoro Focus Timer & Productivity Clock',
+    shortName: 'Pomodoro Timer',
+    tagline: 'Boost productivity with 25-minute focused work intervals, 5-minute short breaks, and session completion tracking',
+    description: "Stay focused and eliminate procrastination with BharatUtility's free in-browser Pomodoro Focus Timer. Features 25-minute study intervals, 5-minute restorative breaks, and daily streak tracking with zero ads.",
+    category: 'daily-life',
+    icon: 'Timer',
+    keywords: [
+      'pomodoro timer',
+      'pomodoro focus clock',
+      'study timer online',
+      '25 min study timer',
+      'productivity timer free',
+      'pomodoro technique online'
+    ],
+    popular: true,
+    trending: true,
+    featured: false,
+    badge: 'Productivity',
+    views: 41600,
+    seo: {
+      title: 'Pomodoro Focus Timer – 25-Minute Productivity Clock Online | BharatUtility',
+      description: 'Free online Pomodoro focus timer with 25-minute work intervals and 5-minute breaks. Boost study and coding productivity with zero distractions.',
+      keywords: [
+        'pomodoro timer',
+        'focus timer',
+        'study timer',
+        'productivity clock'
+      ],
+      canonicalSlug: 'pomodoro-focus-timer',
+      h1: 'Pomodoro Focus Timer & Productivity Clock',
+    },
+    formulaDescription: 'Implements Francesco Cirillo Pomodoro Technique: 25 min high focus + 5 min rest; 4 cycles = 15 min long break.',
+    workedExample: {
+      inputSummary: '25 Min Focus Session + 5 Min Short Break',
+      calculationSteps: [
+        '1. Set 25-minute uninterrupted work sprint',
+        '2. 5-minute mental recharge break',
+        '3. Track 4 completed sessions per study block'
+      ],
+      finalResult: 'Maximizes cognitive retention and prevents mental burnout.'
+    },
+    seoSections: [
+      {
+        h2: 'The Pomodoro Technique for Students & Programmers',
+        paragraphs: [
+          'Working in 25-minute sprints trains mental stamina and breaks large tasks into manageable micro-goals, dramatically reducing task resistance.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does the timer work in background browser tabs?',
+        answer: 'Yes. The timer continues counting down accurately in the background.'
+      }
+    ],
+    relatedToolSlugs: ['attendance-calculator', 'sleep-cycle-alarm-calculator']
+  },
+
+  {
+    id: 'upi-qr-payment-generator',
+    slug: 'upi-qr-payment-generator',
+    name: 'UPI Payment QR Code Generator (GPay / PhonePe / Paytm)',
+    shortName: 'UPI QR Generator',
+    tagline: 'Create instant Scan-to-Pay QR codes with custom amount and transaction note for GPay, PhonePe, Paytm, and BHIM',
+    description: "Collect payments faster with BharatUtility's UPI Payment QR Code Generator. Enter your VPA/UPI ID and amount to generate a custom Scan-to-Pay QR code compatible with all Indian banking apps.",
+    category: 'business',
+    icon: 'QrCode',
+    keywords: [
+      'upi qr code generator',
+      'bhim upi qr maker',
+      'gpay payment qr generator',
+      'phonepe qr code generator',
+      'custom amount upi qr',
+      'instant payment qr india'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Popular',
+    views: 47900,
+    seo: {
+      title: 'UPI Payment QR Code Generator – Custom Amount QR for GPay & PhonePe | BharatUtility',
+      description: 'Generate custom amount UPI Scan-to-Pay QR codes for your shop or freelancing. Works with Google Pay, PhonePe, Paytm, and all Indian UPI apps.',
+      keywords: [
+        'upi qr generator',
+        'payment qr code',
+        'bhim upi qr',
+        'upi qr code maker'
+      ],
+      canonicalSlug: 'upi-qr-payment-generator',
+      h1: 'UPI Payment QR Code Generator (GPay / PhonePe / Paytm)',
+    },
+    formulaDescription: 'NPCI UPI Specification: upi://pay?pa=[VPA]&pn=[Payee]&am=[Amount]&tn=[Note]&cu=INR.',
+    workedExample: {
+      inputSummary: 'UPI ID: ashwin@oksbi | Name: Ashwin Patil | Amount: ₹500 | Note: "Consulting"',
+      calculationSteps: [
+        '1. Encode NPCI deep link URI string',
+        '2. Render scannable QR code matrix image'
+      ],
+      finalResult: 'Scan with any UPI app -> Automatically pre-fills ₹500 and Payee UPI ID.'
+    },
+    seoSections: [
+      {
+        h2: 'Direct Bank-to-Bank Payments via NPCI Unified Payments Interface',
+        paragraphs: [
+          'Generate customized payment QR codes for invoices, bill settlements, or shop counters that prompt the exact billing amount when scanned by customers.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does BharatUtility charge any transaction commission or fee?',
+        answer: 'Zero fee. The QR code directly initiates a peer-to-peer or merchant transaction through your own bank without any intermediary.'
+      }
+    ],
+    relatedToolSlugs: ['gst-tax-invoice-generator', 'vcard-qr-generator']
+  },
+
+  // 86. Mutual Fund Capital Gains Tax Calculator (Budget 2024-2026)
+  {
+    id: 'mutual-fund-capital-gains-tax-calculator',
+    slug: 'mutual-fund-capital-gains-tax-calculator',
+    name: 'Mutual Fund Capital Gains Tax Calculator (Budget 2024-2026)',
+    shortName: 'MF Capital Gains Tax',
+    tagline: 'Calculate LTCG (12.5% above ₹1.25 Lakh exemption) & STCG (20%) on Equity & Debt Mutual Funds',
+    description: 'Updated with July 2024 Budget tax reforms. Calculate exact Long-Term (LTCG @ 12.5%) and Short-Term (STCG @ 20%) capital gains tax on equity and debt mutual funds in India.',
+    category: 'money',
+    icon: 'TrendingUp',
+    keywords: [
+      'mutual fund capital gains tax calculator',
+      'ltcg tax calculator budget 2024',
+      'stcg calculator mutual funds',
+      '12.5% ltcg calculator',
+      'equity mutual fund tax calculation',
+      'mutual fund redemption tax india'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Budget 2024',
+    views: 32400,
+    seo: {
+      title: 'Mutual Fund Capital Gains Tax Calculator (LTCG 12.5% & STCG 20%) | BharatUtility',
+      description: 'Calculate your mutual fund capital gains tax under new Budget 2024 rules. Free equity (12.5% LTCG with ₹1.25L exemption, 20% STCG) & debt fund tax calculator.',
+      keywords: [
+        'mutual fund capital gains tax calculator',
+        'ltcg tax calculator budget 2024',
+        'stcg calculator mutual funds',
+        '12.5% ltcg calculator',
+        'equity mutual fund tax calculation',
+        'mutual fund redemption tax india'
+      ],
+      canonicalSlug: 'mutual-fund-capital-gains-tax-calculator',
+      h1: 'Mutual Fund Capital Gains Tax Calculator (Budget 2024-2026)',
+    },
+    formulaDescription: 'Equity LTCG (>12 months) = 12.5% × (Total Capital Gain − ₹1,25,000 Annual Exemption) + 4% Cess. Equity STCG (≤12 months) = 20% × Total Capital Gain + 4% Cess.',
+    formulaLatex: 'Tax_{LTCG} = 1.04 \\times 0.125 \\times \\max(0, Gain - 1,25,000)',
+    workedExample: {
+      inputSummary: 'Purchase Amount: ₹3,00,000 | Sale Value: ₹5,50,000 | Holding: 24 Months (Equity LTCG)',
+      calculationSteps: [
+        '1. Total Capital Gain = ₹5,50,000 − ₹3,00,000 = ₹2,50,000',
+        '2. Exemption under Sec 112A = ₹1,25,000',
+        '3. Taxable Gain = ₹2,50,000 − ₹1,25,000 = ₹1,25,000',
+        '4. Base LTCG Tax @ 12.5% = ₹15,625',
+        '5. Health & Education Cess @ 4% = ₹625',
+        '6. Total Tax Liability = ₹16,250'
+      ],
+      finalResult: 'Gross Gain: ₹2,50,000 | Tax Payable: ₹16,250 | Net Post-Tax In-Hand: ₹5,33,750'
+    },
+    seoSections: [
+      {
+        h2: 'Union Budget 2024 Rules for Mutual Fund Capital Gains Tax',
+        paragraphs: [
+          'Effective July 23, 2024, the Indian Finance Ministry revised capital gains tax provisions for domestic equity and mutual funds. Long-Term Capital Gains (LTCG) on equity mutual funds held for more than 12 months are now taxed at 12.5% (increased from 10%), while the annual tax-free exemption threshold was increased from ₹1,00,000 to ₹1,25,000 per financial year.',
+          'Short-Term Capital Gains (STCG) on equity mutual funds redeemed within 12 months are now taxed at 20% flat (increased from 15%) plus 4% mandatory cess.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the ₹1.25 Lakh exemption limit for Mutual Funds?',
+        answer: 'Under Section 112A of the Income Tax Act, combined Long-Term Capital Gains (LTCG) from equity mutual funds and listed shares up to ₹1,25,000 per financial year are completely tax-exempt.'
+      },
+      {
+        question: 'How are Debt Mutual Funds taxed in India?',
+        answer: 'Debt mutual funds purchased on or after April 1, 2023 no longer enjoy indexation benefits and are taxed at the investor’s marginal income tax slab rate as Short-Term Capital Gains.'
+      }
+    ],
+    relatedToolSlugs: ['sip-calculator', 'crorepati-sip-goal-calculator', 'income-tax-calculator']
+  },
+
+  // 87. Gold Loan & Per Gram Loan Eligibility Calculator
+  {
+    id: 'gold-loan-eligibility-calculator',
+    slug: 'gold-loan-eligibility-calculator',
+    name: 'Gold Loan & Per Gram Loan Eligibility Calculator',
+    shortName: 'Gold Loan Calculator',
+    tagline: 'Calculate maximum bank loan sanction value per gram with RBI 75% LTV cap & monthly interest EMI',
+    description: 'Calculate maximum gold loan eligibility across 24K, 22K, 18K and 14K gold with RBI 75% Loan-to-Value (LTV) regulatory cap. Compare SBI, Muthoot, and HDFC interest EMIs.',
+    category: 'money',
+    icon: 'Coins',
+    keywords: [
+      'gold loan calculator',
+      'gold loan per gram rate',
+      'rbi 75 ltv gold loan',
+      'sbi gold loan emi calculator',
+      'muthoot gold loan eligibility',
+      '22k gold loan value'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'RBI 75% LTV',
+    views: 28900,
+    seo: {
+      title: 'Gold Loan & Per Gram Eligibility Calculator (RBI 75% LTV) | BharatUtility',
+      description: 'Check maximum gold loan sanction amount per gram for 22K/24K gold with RBI 75% LTV limit. Free gold loan EMI & interest calculator.',
+      keywords: [
+        'gold loan calculator',
+        'gold loan per gram rate',
+        'rbi 75 ltv gold loan',
+        'sbi gold loan emi calculator',
+        'muthoot gold loan eligibility',
+        '22k gold loan value'
+      ],
+      canonicalSlug: 'gold-loan-eligibility-calculator',
+      h1: 'Gold Loan & Per Gram Loan Eligibility Calculator (RBI 75% LTV)',
+    },
+    formulaDescription: 'Market Value = Gold Weight (g) × (Karat / 24) × 24K Rate. Maximum RBI Loan Eligibility = Market Value × 75% LTV.',
+    formulaLatex: 'Loan_{Eligible} = Weight \\times \\frac{Karat}{24} \\times Rate_{24K} \\times 0.75',
+    workedExample: {
+      inputSummary: 'Gold Weight: 35 Grams | Purity: 22 Karat (91.6%) | 24K Rate: ₹7,400/g | LTV: 75%',
+      calculationSteps: [
+        '1. Effective 22K Rate = ₹7,400 × (22 / 24) = ₹6,783.33/g',
+        '2. Total Gold Market Value = 35 × ₹6,783.33 = ₹2,37,417',
+        '3. RBI 75% LTV Sanction Cap = ₹2,37,417 × 0.75 = ₹1,78,063',
+        '4. Sanction Value Per Gram = ₹1,78,063 / 35 = ₹5,087.50/g',
+        '5. Monthly Interest @ 10.5% p.a. = (₹1,78,063 × 0.105) / 12 = ₹1,558/month'
+      ],
+      finalResult: 'Market Value: ₹2,37,417 | Max Loan Sanction: ₹1,78,063 (₹5,088/g) | Monthly Interest: ₹1,558'
+    },
+    seoSections: [
+      {
+        h2: 'Understanding RBI Guidelines on Gold Loan LTV Cap',
+        paragraphs: [
+          'The Reserve Bank of India (RBI) mandates a maximum Loan-to-Value (LTV) ratio of 75% on gold jewellery loans disbursed by scheduled commercial banks (SBI, HDFC, ICICI, PNB) and non-banking financial companies (Muthoot Finance, Manappuram).',
+          'Only the net gold weight is appraised—gemstones, diamonds, and wax weight are deducted prior to calculating the loan sanction value.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the maximum loan given per gram of 22K gold?',
+        answer: 'Depending on prevailing bullion rates and the 75% LTV limit, banks and NBFCs sanction between ₹4,800 to ₹5,400 per gram for 22 Karat hallmarked gold ornaments.'
+      },
+      {
+        question: 'What is the difference between Bullet Repayment and Regular EMI in Gold Loans?',
+        answer: 'In Bullet repayment, you only pay monthly interest during the loan tenure and repay the principal at the end. In regular EMI, each monthly installment reduces both principal and accrued interest.'
+      }
+    ],
+    relatedToolSlugs: ['gold-jewellery-price-calculator', 'emi-calculator', 'personal-loan-emi-calculator']
+  },
+
+  // 88. Section 44ADA Freelance & Tech Consultant Tax Calculator
+  {
+    id: 'section-44ada-freelance-tax-calculator',
+    slug: 'section-44ada-freelance-tax-calculator',
+    name: 'Section 44ADA Freelance & Tech Consultant Tax Calculator',
+    shortName: '44ADA Freelance Tax',
+    tagline: '50% Presumptive Taxation Scheme for Developers, Consultants, Doctors & Designers (Up to ₹75 Lakh limit)',
+    description: 'Calculate presumptive income tax under Section 44ADA of the Income Tax Act. Save tax with 50% flat deemed profit on gross receipts up to ₹75 Lakhs without book-keeping or tax audit.',
+    category: 'business',
+    icon: 'Building2',
+    keywords: [
+      'section 44ada calculator',
+      'freelance income tax calculator india',
+      'software consultant tax calculator',
+      '44ada presumptive tax 75 lakh',
+      'developer freelancer income tax',
+      'advance tax schedule 44ada'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Sec 44ADA',
+    views: 31200,
+    seo: {
+      title: 'Section 44ADA Freelance Tax Calculator (₹75 Lakh Limit) | BharatUtility',
+      description: 'Calculate presumptive income tax for tech freelancers, consultants, and doctors under Section 44ADA. 50% deemed profit and advance tax schedules.',
+      keywords: [
+        'section 44ada calculator',
+        'freelance income tax calculator india',
+        'software consultant tax calculator',
+        '44ada presumptive tax 75 lakh',
+        'developer freelancer income tax',
+        'advance tax schedule 44ada'
+      ],
+      canonicalSlug: 'section-44ada-freelance-tax-calculator',
+      h1: 'Section 44ADA Freelance & Tech Consultant Tax Calculator',
+    },
+    formulaDescription: 'Deemed Taxable Profit = 50% × Gross Professional Receipts. Net Tax = Income Tax Slabs on Deemed Profit + 4% Cess.',
+    formulaLatex: 'Taxable\\_Income = 0.50 \\times Gross\\_Receipts',
+    workedExample: {
+      inputSummary: 'Gross Tech Consulting Invoiced: ₹24,00,000 | Tax Regime: New Regime',
+      calculationSteps: [
+        '1. Gross Receipts = ₹24,00,000',
+        '2. 50% Presumptive Deemed Profit = ₹12,00,000 (₹12 Lakhs 50% expense allowance)',
+        '3. New Regime Tax on ₹12L = (4L × 5%) + (3L × 10%) + (2L × 15%) = ₹20,000 + ₹30,000 + ₹30,000 = ₹80,000',
+        '4. 4% Health & Education Cess = ₹3,200',
+        '5. Total Annual Tax Liability = ₹83,200 (Effective tax rate: 3.47% on gross)'
+      ],
+      finalResult: 'Gross: ₹24,00,000 | Tax Payable: ₹83,200 | Net Post-Tax Take-Home: ₹23,16,800'
+    },
+    seoSections: [
+      {
+        h2: 'How Section 44ADA Benefits Indian Tech Freelancers & Professionals',
+        paragraphs: [
+          'Section 44ADA of the Income Tax Act provides a simplified presumptive taxation scheme for specified professionals including software developers, IT consultants, designers, doctors, chartered accountants, and lawyers.',
+          'Under this scheme, 50% of your gross professional receipts are deemed as your taxable profit, and the remaining 50% is treated as business expenditure without requiring any receipts, bills, accounting books, or mandatory tax audit.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the gross receipt turnover limit for Section 44ADA?',
+        answer: 'The Finance Act increased the gross receipt limit for Section 44ADA to ₹75 Lakhs per financial year (provided cash receipts do not exceed 5% of total receipts; otherwise the limit is ₹50 Lakhs).'
+      },
+      {
+        question: 'Do Section 44ADA professionals need to pay Advance Tax?',
+        answer: 'Yes. Professionals opting for Section 44ADA must pay their advance tax in four installments (15% by June 15, 45% by Sept 15, 75% by Dec 15, and 100% by March 15) or pay the entire 100% on or before March 15.'
+      }
+    ],
+    relatedToolSlugs: ['income-tax-calculator', 'gst-tax-invoice-generator', 'salary-calculator']
+  },
+
+  // 89. Post Office Monthly Income Scheme (MIS) Calculator
+  {
+    id: 'post-office-mis-calculator',
+    slug: 'post-office-mis-calculator',
+    name: 'Post Office Monthly Income Scheme (MIS) Calculator',
+    shortName: 'Post Office MIS',
+    tagline: 'Calculate guaranteed monthly income at 7.4% p.a. for Single (₹9 Lakh) and Joint (₹15 Lakh) deposits',
+    description: 'Calculate guaranteed monthly interest payouts from the Government of India Post Office Monthly Income Scheme (POMIS) at 7.4% per annum for 5-year deposit tenures.',
+    category: 'money',
+    icon: 'ShieldCheck',
+    keywords: [
+      'post office mis calculator',
+      'pomis monthly income calculator',
+      'post office monthly scheme 7.4%',
+      'post office mis joint account 15 lakh',
+      'guaranteed monthly pension post office',
+      'national savings mis scheme'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Govt 7.4% Guaranteed',
+    views: 33800,
+    seo: {
+      title: 'Post Office MIS Calculator (7.4% Monthly Guaranteed Income) | BharatUtility',
+      description: 'Calculate monthly guaranteed interest payout on Post Office MIS deposits. Single (up to ₹9L) and Joint (up to ₹15L) account calculations @ 7.4% p.a.',
+      keywords: [
+        'post office mis calculator',
+        'pomis monthly income calculator',
+        'post office monthly scheme 7.4%',
+        'post office mis joint account 15 lakh',
+        'guaranteed monthly pension post office',
+        'national savings mis scheme'
+      ],
+      canonicalSlug: 'post-office-mis-calculator',
+      h1: 'Post Office Monthly Income Scheme (MIS) Calculator',
+    },
+    formulaDescription: 'Monthly Guaranteed Interest Payout = (Deposit Amount × 7.4%) / 12. 100% Sovereign Principal Return after 5 Years.',
+    formulaLatex: 'Monthly\\_Payout = \\frac{Deposit \\times 0.074}{12}',
+    workedExample: {
+      inputSummary: 'Deposit Amount: ₹9,00,000 (Maximum Single Account Limit) | Interest Rate: 7.4% p.a. | Tenure: 5 Years',
+      calculationSteps: [
+        '1. Annual Interest = ₹9,00,000 × 7.4% = ₹66,600',
+        '2. Monthly Guaranteed Income = ₹66,600 / 12 = ₹5,550/month',
+        '3. 5-Year Cumulative Interest Earned = ₹5,550 × 60 = ₹3,33,000',
+        '4. Principal Returned at Maturity (Year 5) = ₹9,00,000'
+      ],
+      finalResult: 'Guaranteed Monthly Income: ₹5,550/mo | 5-Yr Total Interest: ₹3,33,000 | Principal Returned: ₹9,00,000'
+    },
+    seoSections: [
+      {
+        h2: 'Features & Limits of Post Office Monthly Income Scheme (POMIS)',
+        paragraphs: [
+          'The Post Office Monthly Income Scheme is a flagship sovereign savings instrument backed by the Ministry of Finance, Government of India. It offers guaranteed monthly interest income directly credited to your post office or linked bank savings account.',
+          'The maximum deposit ceiling is ₹9,00,000 for single accounts and ₹15,00,000 for joint accounts (held jointly by up to 3 adults). The scheme has a 5-year lock-in with premature closure facilities after 1 year.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the maximum monthly income from Post Office MIS for a Joint Account?',
+        answer: 'With the maximum joint deposit of ₹15,00,000 at 7.4% p.a., you receive a guaranteed monthly income of ₹9,250 every month for 5 years.'
+      },
+      {
+        question: 'Is Post Office MIS interest tax-free?',
+        answer: 'Interest earned is taxable as per your income tax slab, but no TDS is deducted at source by the Post Office.'
+      }
+    ],
+    relatedToolSlugs: ['senior-citizens-savings-scheme-calculator', 'fd-calculator', 'ppf-calculator']
+  },
+
+  // 90. Overtime & Hourly Salary Wage Calculator
+  {
+    id: 'overtime-salary-wage-calculator',
+    slug: 'overtime-salary-wage-calculator',
+    name: 'Overtime & Hourly Salary Wage Calculator',
+    shortName: 'Overtime Calculator',
+    tagline: 'Calculate standard per-hour wage and 2x double overtime rate under Indian Factories Act 1948',
+    description: 'Calculate your hourly wage rate and overtime earnings based on monthly CTC, standard working hours, and Section 59 double rate provisions of the Indian Factories Act.',
+    category: 'business',
+    icon: 'Clock',
+    keywords: [
+      'overtime salary calculator',
+      'hourly wage calculator india',
+      'indian factories act section 59 overtime',
+      'double overtime rate calculator',
+      'per hour rate from monthly ctc',
+      'overtime pay calculation'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Factories Act 2x',
+    views: 24500,
+    seo: {
+      title: 'Overtime & Hourly Salary Wage Calculator (Factories Act 2x) | BharatUtility',
+      description: 'Calculate standard hourly pay and 2x double overtime rates under the Indian Factories Act. Free overtime wage and bonus calculator.',
+      keywords: [
+        'overtime salary calculator',
+        'hourly wage calculator india',
+        'indian factories act section 59 overtime',
+        'double overtime rate calculator',
+        'per hour rate from monthly ctc',
+        'overtime pay calculation'
+      ],
+      canonicalSlug: 'overtime-salary-wage-calculator',
+      h1: 'Overtime & Hourly Salary Wage Calculator (Indian Factories Act)',
+    },
+    formulaDescription: 'Standard Hourly Rate = Monthly Basic Gross / (Working Days × Daily Hours). Overtime Pay = Overtime Hours × (Hourly Rate × Multiplier).',
+    formulaLatex: 'Hourly\\_Rate = \\frac{Gross\\_Salary}{Days \\times Hours}, \\quad OT\\_Pay = OT\\_Hours \\times (2.0 \\times Hourly\\_Rate)',
+    workedExample: {
+      inputSummary: 'Monthly Gross: ₹45,000 | 26 Working Days | 8 Hours/Day | 18 Overtime Hours | 2x Multiplier',
+      calculationSteps: [
+        '1. Total Regular Working Hours = 26 × 8 = 208 hours/month',
+        '2. Standard Hourly Rate = ₹45,000 / 208 = ₹216.35/hour',
+        '3. 2x Overtime Hourly Rate = ₹216.35 × 2.0 = ₹432.69/hour',
+        '4. Overtime Earnings = 18 × ₹432.69 = ₹7,788.46',
+        '5. Total Monthly Salary with Overtime = ₹45,000 + ₹7,788 = ₹52,788'
+      ],
+      finalResult: 'Standard Rate: ₹216/hr | 2x OT Rate: ₹433/hr | OT Bonus: +₹7,788 | Total Pay: ₹52,788'
+    },
+    seoSections: [
+      {
+        h2: 'Section 59 of the Indian Factories Act 1948 on Overtime Wages',
+        paragraphs: [
+          'Under Section 59 of the Factories Act 1948, where a worker works in a factory for more than 9 hours in any day or for more than 48 hours in any week, they are entitled to wages at the rate of twice their ordinary rate of wages (2.0x multiplier).',
+          'Ordinary rate of wages includes basic salary plus dearness allowances (DA) and cash value of food concessions, excluding bonus.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the standard overtime multiplier in India?',
+        answer: 'The statutory multiplier for factory and manufacturing workers under the Factories Act is 2.0x (double rate). Corporate or IT firms typically offer 1.0x to 1.5x based on their internal employment contracts.'
+      },
+      {
+        question: 'How do you calculate per-hour rate from monthly salary?',
+        answer: 'Divide your monthly gross salary by the total standard working hours in the month (e.g. 26 working days × 8 hours = 208 hours).'
+      }
+    ],
+    relatedToolSlugs: ['salary-calculator', 'salary-hike-percentage-calculator', 'salary-cost-to-company-calculator']
+  },
+
+  // 91. Habit Streak & Daily Routine Tracker (100% Local Browser Storage)
+  {
+    id: 'habit-streak-routine-tracker',
+    slug: 'habit-streak-routine-tracker',
+    name: 'Habit Streak & Daily Routine Tracker',
+    shortName: 'Habit Streak Tracker',
+    tagline: 'Track daily habits, streak days & completion percentage (100% Private Local Browser Storage)',
+    description: 'Build powerful daily routines with local browser storage. Track streak counts, daily progress percentages, and weekly habits with zero data tracking or signups.',
+    category: 'daily-life',
+    icon: 'CheckCircle2',
+    keywords: [
+      'habit tracker browser',
+      'daily streak counter online',
+      'habit streak tracker free',
+      'localstorage habit tracker',
+      'daily routine checklist',
+      'private productivity tracker'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: '100% Local & Private',
+    views: 35600,
+    seo: {
+      title: 'Habit Streak & Daily Routine Tracker (100% Private LocalStorage) | BharatUtility',
+      description: 'Track daily habits and streak days with 100% private browser localStorage. Zero signups, zero servers, instant daily routine tracker.',
+      keywords: [
+        'habit tracker browser',
+        'daily streak counter online',
+        'habit streak tracker free',
+        'localstorage habit tracker',
+        'daily routine checklist',
+        'private productivity tracker'
+      ],
+      canonicalSlug: 'habit-streak-routine-tracker',
+      h1: 'Habit Streak & Daily Routine Tracker (100% Local Browser Storage)',
+    },
+    formulaDescription: 'Streak count is computed by tracking consecutive unbroken daily check-ins stored locally inside browser localStorage.',
+    workedExample: {
+      inputSummary: 'Habits: 30 min Coding, Drink 3L Water, Morning Run | Today: 3/3 checked',
+      calculationSteps: [
+        '1. Check off daily completed habits',
+        '2. LocalStorage increments active streak counter',
+        '3. Computes daily completion rate percentage'
+      ],
+      finalResult: 'Today: 100% Completed | Active Streak: 7 Days unbroken'
+    },
+    seoSections: [
+      {
+        h2: '100% Private Client-Side Habit Tracking',
+        paragraphs: [
+          'BharatUtility’s Habit Streak Tracker stores all your daily habits and routine completion logs 100% locally inside your browser’s localStorage.',
+          'No account creation, no sign-in, and zero analytics tracking—your daily personal routine never leaves your device.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Will my habit streaks be lost if I close the browser tab?',
+        answer: 'No. Habits and streak check-ins are saved in your browser’s permanent localStorage and will remain intact when you reopen the page.'
+      },
+      {
+        question: 'Is any of my habit data sent to a server?',
+        answer: 'Never. All data operations occur entirely on your local machine with zero external network requests.'
+      }
+    ],
+    relatedToolSlugs: ['pomodoro-focus-timer', 'study-hours-planner', 'sleep-cycle-alarm-calculator']
+  },
+
+  // 92. Chit Fund & Committee Dividend Profit Calculator
+  {
+    id: 'chit-fund-committee-calculator',
+    slug: 'chit-fund-committee-calculator',
+    name: 'Chit Fund & Committee Dividend Profit Calculator',
+    shortName: 'Chit Fund Calculator',
+    tagline: 'Calculate monthly auction discount, foreman commission, dividend distribution & net installment',
+    description: 'Calculate monthly chit fund (bishi/committee) auction bids, 5% foreman commission, dividend distribution per member, and net installment savings under the Chit Funds Act 1982.',
+    category: 'money',
+    icon: 'Users',
+    keywords: [
+      'chit fund calculator',
+      'committee bishi calculation',
+      'chit dividend calculator',
+      'chit fund auction discount formula',
+      'chit fund act 1982 rules',
+      'kuri calculation kerala'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Chit Funds Act',
+    views: 29800,
+    seo: {
+      title: 'Chit Fund & Committee Dividend Calculator (Chit Funds Act) | BharatUtility',
+      description: 'Calculate monthly auction discounts, dividend distribution per member, and actual installment payments for Chit Funds and Committee schemes.',
+      keywords: [
+        'chit fund calculator',
+        'committee bishi calculation',
+        'chit dividend calculator',
+        'chit fund auction discount formula',
+        'chit fund act 1982 rules',
+        'kuri calculation kerala'
+      ],
+      canonicalSlug: 'chit-fund-committee-calculator',
+      h1: 'Chit Fund & Committee Dividend Profit Calculator',
+    },
+    formulaDescription: 'Dividend Pool = Auction Discount − (5% Foreman Fee). Dividend Per Member = Dividend Pool / Total Members. Effective Installment = Base Installment − Dividend.',
+    formulaLatex: 'Dividend_{Member} = \\frac{Discount - (0.05 \\times Chit\\_Value)}{Members}',
+    workedExample: {
+      inputSummary: 'Chit Value: ₹5,00,000 | Members: 20 | Winning Auction Bid Discount: ₹60,000 (12%)',
+      calculationSteps: [
+        '1. Base Monthly Installment = ₹5,00,000 / 20 = ₹25,000',
+        '2. Foreman Commission (5%) = ₹5,00,000 × 0.05 = ₹25,000',
+        '3. Net Dividend Pool = ₹60,000 − ₹25,000 = ₹35,000',
+        '4. Dividend Per Member = ₹35,000 / 20 = ₹1,750',
+        '5. Effective Monthly Installment Paid = ₹25,000 − ₹1,750 = ₹23,250',
+        '6. Prize Money Received by Bidder = ₹5,00,000 − ₹60,000 = ₹4,40,000'
+      ],
+      finalResult: 'Prize Money In-Hand: ₹4,40,000 | Dividend Per Member: +₹1,750 | Installment to Pay: ₹23,250'
+    },
+    seoSections: [
+      {
+        h2: 'How Chit Fund (Committee / Bishi) Dividend Mechanism Works',
+        paragraphs: [
+          'A Chit Fund (also known as Committee, Bishi, or Kuri) is a traditional Indian peer-to-peer savings and credit mechanism governed by the Central Chit Funds Act 1982.',
+          'Each month, subscribers bid an auction discount to receive the pooled prize money. After the registered foreman deducts their statutory 5% organizing fee, the remaining discount is distributed equally as a cash dividend to reduce all members’ monthly contribution.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the maximum foreman commission allowed by the Chit Funds Act?',
+        answer: 'The Chit Funds Act 1982 caps the maximum organizer/foreman commission at 5% of the gross chit value.'
+      },
+      {
+        question: 'How does dividend reduce my monthly chit fund payment?',
+        answer: 'The discount foregone by the winning auction bidder is distributed equally among all members as dividend, so non-prized subscribers pay less than the nominal monthly installment.'
+      }
+    ],
+    relatedToolSlugs: ['compound-interest-calculator', 'fd-calculator', 'business-loan-calculator']
   }
 ];
 

@@ -37,6 +37,20 @@ const IndiaServicesSuiteCalculator = React.lazy(() => import('../calculators/Ind
 const DocumentToolsSuiteCalculator = React.lazy(() => import('../calculators/DocumentToolsSuiteCalculator').then(m => ({ default: m.DocumentToolsSuiteCalculator })));
 const VehicleUtilitySuiteCalculator = React.lazy(() => import('../calculators/VehicleUtilitySuiteCalculator').then(m => ({ default: m.VehicleUtilitySuiteCalculator })));
 const TravelUtilitySuiteCalculator = React.lazy(() => import('../calculators/TravelUtilitySuiteCalculator').then(m => ({ default: m.TravelUtilitySuiteCalculator })));
+const GovernmentSavingsSuiteCalculator = React.lazy(() => import('../calculators/GovernmentSavingsSuiteCalculator').then(m => ({ default: m.GovernmentSavingsSuiteCalculator })));
+const TextAndLanguageSuiteCalculator = React.lazy(() => import('../calculators/TextAndLanguageSuiteCalculator').then(m => ({ default: m.TextAndLanguageSuiteCalculator })));
+const StudentAndLandSuiteCalculator = React.lazy(() => import('../calculators/StudentAndLandSuiteCalculator').then(m => ({ default: m.StudentAndLandSuiteCalculator })));
+const EnergyAndJewelrySuiteCalculator = React.lazy(() => import('../calculators/EnergyAndJewelrySuiteCalculator').then(m => ({ default: m.EnergyAndJewelrySuiteCalculator })));
+const RealEstateAndRetirementSuiteCalculator = React.lazy(() => import('../calculators/RealEstateAndRetirementSuiteCalculator').then(m => ({ default: m.RealEstateAndRetirementSuiteCalculator })));
+const DevAndDailySuiteCalculator = React.lazy(() => import('../calculators/DevAndDailySuiteCalculator').then(m => ({ default: m.DevAndDailySuiteCalculator })));
+const HomeAndHealthSuiteCalculator = React.lazy(() => import('../calculators/HomeAndHealthSuiteCalculator').then(m => ({ default: m.HomeAndHealthSuiteCalculator })));
+const QuickToolsSuiteCalculator = React.lazy(() => import('../calculators/QuickToolsSuiteCalculator').then(m => ({ default: m.QuickToolsSuiteCalculator })));
+const FinanceAndInvoiceSuiteCalculator = React.lazy(() => import('../calculators/FinanceAndInvoiceSuiteCalculator').then(m => ({ default: m.FinanceAndInvoiceSuiteCalculator })));
+const LifestyleAndQRSuiteCalculator = React.lazy(() => import('../calculators/LifestyleAndQRSuiteCalculator').then(m => ({ default: m.LifestyleAndQRSuiteCalculator })));
+const SalaryAndGstSuiteCalculator = React.lazy(() => import('../calculators/SalaryAndGstSuiteCalculator').then(m => ({ default: m.SalaryAndGstSuiteCalculator })));
+const ProductivityAndUpiSuiteCalculator = React.lazy(() => import('../calculators/ProductivityAndUpiSuiteCalculator').then(m => ({ default: m.ProductivityAndUpiSuiteCalculator })));
+const SpecializedTaxAndLoanSuiteCalculator = React.lazy(() => import('../calculators/SpecializedTaxAndLoanSuiteCalculator').then(m => ({ default: m.SpecializedTaxAndLoanSuiteCalculator })));
+const WorkAndHabitSuiteCalculator = React.lazy(() => import('../calculators/WorkAndHabitSuiteCalculator').then(m => ({ default: m.WorkAndHabitSuiteCalculator })));
 
 import {
   Star,
@@ -117,12 +131,103 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       case 'fd-calculator':
       case 'rd-calculator':
-      case 'ppf-calculator':
-      case 'epf-calculator':
-      case 'gratuity-calculator':
       case 'compound-interest-calculator':
       case 'simple-interest-calculator':
         return <FdCalculator onResultChange={handleResultChange} />;
+
+      // Government Savings & Retirement Tools
+      case 'ppf-calculator':
+      case 'sukanya-samriddhi-calculator':
+      case 'gratuity-calculator':
+      case 'nps-calculator':
+      case 'epf-calculator':
+      case 'home-loan-prepayment-calculator':
+        return <GovernmentSavingsSuiteCalculator tool={tool} />;
+
+      // Text, Numbers & Language Tools
+      case 'number-to-words-converter':
+      case 'word-character-counter':
+      case 'text-case-converter':
+        return <TextAndLanguageSuiteCalculator tool={tool} />;
+
+      // Student, Attendance & Land Tools
+      case 'attendance-calculator':
+      case 'land-area-converter':
+      case 'indian-land-area-converter':
+      case 'concrete-cement-sand-calculator':
+      case 'construction-material-estimator':
+        return <StudentAndLandSuiteCalculator tool={tool} />;
+
+      // Energy, Solar, Gold & Cash Tally Tools
+      case 'electricity-bill-calculator':
+      case 'solar-rooftop-calculator':
+      case 'gold-jewellery-price-calculator':
+      case 'cash-denomination-tally-calculator':
+        return <EnergyAndJewelrySuiteCalculator tool={tool} />;
+
+      // Real Estate, Rent vs Buy, Crorepati SIP & FIRE Tools
+      case 'rent-vs-buy-calculator':
+      case 'rental-yield-calculator':
+      case 'crorepati-sip-goal-calculator':
+      case 'fire-retirement-calculator':
+        return <RealEstateAndRetirementSuiteCalculator tool={tool} />;
+
+      // Developer, Encoding, Security & Media Tools
+      case 'json-formatter-validator':
+      case 'base64-encoder-decoder':
+      case 'secure-password-generator':
+      case 'diff-checker-tool':
+      case 'aspect-ratio-calculator':
+        return <DevAndDailySuiteCalculator tool={tool} />;
+
+      // Home Utilities & Indian Health Tools
+      case 'water-tank-filling-time-calculator':
+      case 'lpg-cylinder-price-calculator':
+      case 'bmi-indian-health-calculator':
+        return <HomeAndHealthSuiteCalculator tool={tool} />;
+
+      // Quick Tools, Markdown, Speed & Wi-Fi Tools
+      case 'markdown-to-html-converter':
+      case 'speed-distance-time-calculator':
+      case 'wifi-qr-code-generator':
+        return <QuickToolsSuiteCalculator tool={tool} />;
+
+      // Credit, Step-Up SIP & GST Invoice Tools
+      case 'cibil-score-simulator':
+      case 'gst-tax-invoice-generator':
+      case 'sip-step-up-calculator':
+        return <FinanceAndInvoiceSuiteCalculator tool={tool} />;
+
+      // Lifestyle, REM Sleep, Calorie & vCard QR Tools
+      case 'sleep-cycle-alarm-calculator':
+      case 'daily-calorie-water-calculator':
+      case 'vcard-qr-generator':
+        return <LifestyleAndQRSuiteCalculator tool={tool} />;
+
+      // Salary Hike, GST Late Fee & Daily Compound Interest Tools
+      case 'salary-hike-percentage-calculator':
+      case 'gst-late-fee-calculator':
+      case 'compound-daily-interest-calculator':
+        return <SalaryAndGstSuiteCalculator tool={tool} />;
+
+      // WhatsApp Direct Link, Pomodoro Timer & UPI Payment QR Tools
+      case 'whatsapp-direct-link-generator':
+      case 'pomodoro-focus-timer':
+      case 'upi-qr-payment-generator':
+        return <ProductivityAndUpiSuiteCalculator tool={tool} />;
+
+      // Specialized Indian Finance & Tax Tools
+      case 'mutual-fund-capital-gains-tax-calculator':
+      case 'gold-loan-eligibility-calculator':
+      case 'section-44ada-freelance-tax-calculator':
+      case 'post-office-mis-calculator':
+        return <SpecializedTaxAndLoanSuiteCalculator tool={tool} />;
+
+      // Work & Habit Productivity Tools
+      case 'overtime-salary-wage-calculator':
+      case 'habit-streak-routine-tracker':
+      case 'chit-fund-committee-calculator':
+        return <WorkAndHabitSuiteCalculator tool={tool} />;
 
       case 'gst-calculator':
       case 'discount-calculator':
@@ -200,16 +305,10 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <TechnologySuiteCalculator initialMode="dth" onResultChange={handleResultChange} />;
 
       // Construction & Land Tools
-      case 'construction-material-estimator':
-        return <ConstructionSuiteCalculator initialMode="materials" onResultChange={handleResultChange} />;
-      case 'indian-land-area-converter':
-        return <ConstructionSuiteCalculator initialMode="land-area" onResultChange={handleResultChange} />;
       case 'water-tank-capacity-calculator':
         return <ConstructionSuiteCalculator initialMode="water-tank" onResultChange={handleResultChange} />;
 
       // Education Tools
-      case 'attendance-calculator':
-        return <EducationSuiteCalculator initialMode="attendance" onResultChange={handleResultChange} />;
       case 'study-hours-planner':
         return <EducationSuiteCalculator initialMode="study-time" onResultChange={handleResultChange} />;
 
