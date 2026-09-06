@@ -118,6 +118,64 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
         </div>
       </div>
 
+      {/* Category In-Depth Guide & SEO Overview */}
+      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+        <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white font-display">
+          Why Use BharatUtility for {category.name}?
+        </h2>
+        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          {category.description} All calculators and digital utilities on BharatUtility are tailored for Indian currency notation (₹ Lakhs and Crores), state regulations, tax structures, and standard daily life measurements. Best of all, 100% of calculations run privately in your browser with zero data sharing.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200/60 dark:border-neutral-700/50 space-y-1">
+            <span className="text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-1.5 font-display">
+              ⚡ Instant & Accurate
+            </span>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              Formulas built following standard banking, regulatory, and Indian educational benchmarks.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200/60 dark:border-neutral-700/50 space-y-1">
+            <span className="text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-1.5 font-display">
+              🔒 100% Client-Side Privacy
+            </span>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              Your inputs, financial numbers, and document files never leave your device.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200/60 dark:border-neutral-700/50 space-y-1">
+            <span className="text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-1.5 font-display">
+              📱 Mobile & Offline Ready
+            </span>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              Progressive Web App support enables offline access on mobile and desktop anytime.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Cross-Category Explorer Bar */}
+      <div className="space-y-3 pt-2">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+          Explore Other Popular Categories
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {CATEGORIES.filter(c => c.id !== categoryId).map(otherCat => (
+            <Link
+              key={otherCat.id}
+              to={`/category/${otherCat.id}`}
+              className="px-3.5 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 hover:border-accent text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:text-accent transition-colors flex items-center gap-2 shadow-2xs"
+            >
+              <DynamicIcon name={otherCat.icon} className="w-3.5 h-3.5 text-accent" />
+              <span>{otherCat.name}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* Community Request CTA */}
       <RequestToolCta initialToolName={`New ${category.name} Tool`} className="mt-8" />
     </div>
