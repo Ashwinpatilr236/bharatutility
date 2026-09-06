@@ -35,6 +35,12 @@ const SYNONYM_MAP: Record<string, string[]> = {
   pdf: ['merge pdf', 'split pdf', 'compress pdf', 'pdf to jpg', 'jpg to pdf', 'image to pdf', 'combine pdf', 'passport photo', 'signature resizer', 'qr code'],
   ev: ['electric vehicle', 'ev charging', 'ev range', 'nexon ev', 'charging cost', 'ev vs petrol', 'car loan', 'bike loan', 'tyre size'],
   trip: ['travel', 'trip cost', 'road trip', 'hotel cost', 'group split', 'travel budget', 'currency converter', 'packing list', 'time zone'],
+  gold: ['gold loan', 'jewellery', '22k', '24k', 'gold price', 'gold valuation', 'muthoot', 'manappuram', 'ltv', 'gold rate'],
+  tax: ['44ada', 'presumptive tax', 'freelance tax', 'capital gains', 'ltcg', 'stcg', 'mutual fund tax', 'new regime', 'old regime', 'itr', 'income tax'],
+  habit: ['routine', 'streak', 'habit tracker', 'daily routine', 'todo', 'discipline', 'daily habits', 'streak tracker'],
+  chit: ['chit fund', 'committee', 'bishi', 'kuri', 'auction discount', 'dividend', 'foreman', 'chitfund'],
+  overtime: ['ot', 'hourly wage', 'factories act', 'double rate', 'over time pay', 'shift pay', 'ot calculator'],
+  mis: ['pomis', 'post office mis', 'monthly income scheme', 'post office scheme', 'guaranteed monthly income'],
 };
 
 // Common Indian / Search Typo Normalization Dictionary

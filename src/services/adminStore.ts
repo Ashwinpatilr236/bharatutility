@@ -710,7 +710,17 @@ class AdminStore {
           localStorage.setItem(APPEARANCE_STORAGE_KEY, JSON.stringify(this.appearanceConfig));
         }
         if (json.tools && Array.isArray(json.tools) && json.tools.length > 0) {
-          this.tools = json.tools;
+          const remoteMap = new Map((json.tools as any[]).map(t => [t.id, t]));
+          const mergedWithRemote: Tool[] = TOOLS_REGISTRY.map(regTool => {
+            const existing = remoteMap.get(regTool.id) || (json.tools as any[]).find(p => p.slug === regTool.slug);
+            return existing ? { ...regTool, ...existing, status: existing.status || 'published' } : regTool;
+          });
+          for (const item of json.tools) {
+            if (!TOOLS_REGISTRY.some(r => r.id === item.id || r.slug === item.slug)) {
+              mergedWithRemote.push(item);
+            }
+          }
+          this.tools = mergedWithRemote;
           localStorage.setItem(TOOLS_STORAGE_KEY, JSON.stringify(this.tools));
         }
         if (json.categories && Array.isArray(json.categories) && json.categories.length > 0) {
@@ -777,7 +787,58 @@ class AdminStore {
       // 1. Tools
       const storedTools = localStorage.getItem(TOOLS_STORAGE_KEY);
       if (storedTools) {
-        this.tools = JSON.parse(storedTools);
+        try {
+          const parsed = JSON.parse(storedTools) as Tool[];
+          const storedMap = new Map(parsed.map(t => [t.id, t]));
+          
+          // Guarantee all tools from TOOLS_REGISTRY are present and up to date
+          const merged: Tool[] = TOOLS_REGISTRY.map(regTool => {
+            const existing = storedMap.get(regTool.id) || parsed.find(p => p.slug === regTool.slug);
+            if (existing) {
+              return {
+                ...regTool,
+                ...existing,
+                // Preserve core properties from registry while keeping view counts
+                category: regTool.category,
+                name: regTool.name,
+                tagline: regTool.tagline,
+                description: regTool.description,
+                icon: regTool.icon,
+                status: existing.status || 'published',
+              };
+            }
+            return {
+              ...regTool,
+              status: (regTool.status || 'published') as any,
+              views: regTool.views || 0,
+              calculationCount: 0,
+              favoritesCount: 0,
+              sharesCount: 0,
+              updatedAt: new Date().toISOString(),
+            };
+          });
+
+          // Add any custom tools added via admin panel
+          for (const item of parsed) {
+            if (!TOOLS_REGISTRY.some(r => r.id === item.id || r.slug === item.slug)) {
+              merged.push(item);
+            }
+          }
+
+          this.tools = merged;
+          this.saveTools();
+        } catch {
+          this.tools = TOOLS_REGISTRY.map(t => ({
+            ...t,
+            status: (t.status || 'published') as any,
+            views: t.views || 0,
+            calculationCount: 0,
+            favoritesCount: 0,
+            sharesCount: 0,
+            updatedAt: new Date().toISOString(),
+          }));
+          this.saveTools();
+        }
       } else {
         this.tools = TOOLS_REGISTRY.map(t => ({
           ...t,
@@ -794,7 +855,30 @@ class AdminStore {
       // 2. Categories
       const storedCats = localStorage.getItem(CATEGORIES_STORAGE_KEY);
       if (storedCats) {
-        this.categories = JSON.parse(storedCats);
+        try {
+          const parsedCats = JSON.parse(storedCats) as Category[];
+          const catMap = new Map(parsedCats.map(c => [c.id, c]));
+          const mergedCats = CATEGORIES.map((c, idx) => {
+            const existing = catMap.get(c.id);
+            return {
+              ...c,
+              ...(existing || {}),
+              order: existing?.order ?? (idx + 1),
+              active: existing?.active ?? true,
+            };
+          });
+          this.categories = mergedCats;
+          this.saveCategories();
+        } catch {
+          this.categories = CATEGORIES.map((c, idx) => ({
+            ...c,
+            order: idx + 1,
+            active: true,
+            seoTitle: `${c.name} Calculators & Everyday Utilities — BharatUtility`,
+            metaDescription: c.description,
+          }));
+          this.saveCategories();
+        }
       } else {
         this.categories = CATEGORIES.map((c, idx) => ({
           ...c,
