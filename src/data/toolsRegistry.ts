@@ -1808,7 +1808,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Date Difference',
     tagline: 'Calculate duration, calendar days, weeks, and months between two dates',
     description: "Use BharatUtility's free Date Difference Calculator to find the exact duration between any two dates. Calculate total days, working days, weeks, and months between a start date and end date.",
-    category: 'daily-life',
+    category: 'date-time',
     icon: 'Calendar',
     keywords: [
       'Date difference calculator',
@@ -6733,6 +6733,258 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: ['compound-interest-calculator', 'fd-calculator', 'business-loan-calculator']
+  },
+
+  // 93. Add / Subtract Days Calculator
+  {
+    id: 'add-subtract-days-calculator',
+    slug: 'add-subtract-days-calculator',
+    name: 'Add or Subtract Days Calculator',
+    shortName: 'Add/Subtract Days',
+    tagline: 'Add or subtract days, weeks, months, or years from any given date',
+    description: 'Calculate future or past target dates by adding or subtracting calendar days, business weeks, or months from today or any chosen start date.',
+    category: 'date-time',
+    icon: 'Calendar',
+    keywords: [
+      'add days to date calculator',
+      'subtract days from date',
+      'date addition calculator',
+      'future date calculator',
+      'calendar day offset tool'
+    ],
+    popular: true,
+    trending: true,
+    featured: false,
+    badge: 'Date & Time',
+    views: 26400,
+    seo: {
+      title: 'Add or Subtract Days to Date Calculator | BharatUtility',
+      description: 'Calculate past or future dates by adding or subtracting days, weeks, or months. Free online date calculator.',
+      keywords: [
+        'add days to date calculator',
+        'subtract days from date',
+        'date addition calculator',
+        'future date calculator',
+        'calendar day offset tool'
+      ],
+      canonicalSlug: 'add-subtract-days-calculator',
+      h1: 'Add or Subtract Days Calculator',
+    },
+    formulaDescription: 'Target Date = Base Date ± Offset Days. Automatically adjusts for leap years and month lengths.',
+    workedExample: {
+      inputSummary: 'Base Date: 15 August 2026 | Operation: Add 45 Days',
+      calculationSteps: [
+        '1. Add 45 calendar days to August 15, 2026',
+        '2. Remaining days in August = 16 days (till 31 August)',
+        '3. Remaining 29 days fall in September',
+        '4. Resulting Target Date = 29 September 2026 (Tuesday)'
+      ],
+      finalResult: 'Target Date: 29 September 2026 | Day of Week: Tuesday'
+    },
+    seoSections: [
+      {
+        h2: 'Calculate Future and Past Dates Effortlessly',
+        paragraphs: [
+          'Whether calculating invoice payment due dates, project deadlines, pregnancy due dates, visa validity periods, or notice period end dates, this tool provides instant calendar date additions and subtractions.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does this calculator account for Leap Years?',
+        answer: 'Yes, leap years (February 29) and varying month lengths (28, 30, 31 days) are automatically accounted for.'
+      }
+    ],
+    relatedToolSlugs: ['date-difference-calculator', 'working-days-calculator', 'date-to-day-finder']
+  },
+
+  // 94. Working Days & Business Days Calculator
+  {
+    id: 'working-days-calculator',
+    slug: 'working-days-calculator',
+    name: 'Working Days & Business Days Calculator',
+    shortName: 'Working Days Calculator',
+    tagline: 'Calculate net business working days between dates excluding Saturdays, Sundays & holidays',
+    description: 'Calculate net office working days and business days between any two dates. Customize weekend exclusions (Sunday only or Saturday + Sunday) and Indian national holidays.',
+    category: 'date-time',
+    icon: 'Clock',
+    keywords: [
+      'working days calculator india',
+      'business days calculator',
+      'calculate office days between dates',
+      'exclude weekend days calculator',
+      'working days between two dates'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Business Days',
+    views: 29100,
+    seo: {
+      title: 'Working Days & Business Days Calculator (Exclude Weekends) | BharatUtility',
+      description: 'Calculate net working days and business days between any two dates. Exclude Saturdays, Sundays, and holidays with instant results.',
+      keywords: [
+        'working days calculator india',
+        'business days calculator',
+        'calculate office days between dates',
+        'exclude weekend days calculator',
+        'working days between two dates'
+      ],
+      canonicalSlug: 'working-days-calculator',
+      h1: 'Working Days & Business Days Calculator',
+    },
+    formulaDescription: 'Net Working Days = Total Calendar Days − (Excluded Saturdays + Excluded Sundays + Gazetted Holidays).',
+    workedExample: {
+      inputSummary: 'Start Date: 1 Sep 2026 | End Date: 30 Sep 2026 | Exclude Sat & Sun',
+      calculationSteps: [
+        '1. Total Calendar Days in September = 30 Days',
+        '2. Saturday & Sunday Weekend Days = 8 Days',
+        '3. Net Working Days = 30 − 8 = 22 Working Days'
+      ],
+      finalResult: 'Total Calendar Days: 30 | Weekend Days: 8 | Net Working Days: 22 Days'
+    },
+    seoSections: [
+      {
+        h2: 'Calculate Accurate Business Working Days in India',
+        paragraphs: [
+          'Planning sprints, notice period tracking, payroll attendance calculations, and project deliverables require calculating net business days rather than raw calendar days. This calculator allows toggling 5-day or 6-day Indian work weeks.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Can I calculate for a 6-day work week (Sunday only off)?',
+        answer: 'Yes! Simply uncheck the "Exclude Saturdays" option to compute working days for standard 6-day work weeks.'
+      }
+    ],
+    relatedToolSlugs: ['date-difference-calculator', 'add-subtract-days-calculator', 'attendance-calculator']
+  },
+
+  // 95. IST to Global Time Zone Converter
+  {
+    id: 'ist-time-zone-converter',
+    slug: 'ist-time-zone-converter',
+    name: 'IST to Global Time Zone Converter',
+    shortName: 'IST Time Converter',
+    tagline: 'Convert Indian Standard Time (IST) to US (EST/PST), UK (GMT), Dubai (GST), Singapore (SGT) & Sydney (AEST)',
+    description: 'Convert IST (UTC+5:30) to major global business time zones including US Eastern (EST), US Pacific (PST), UK GMT/BST, Dubai Gulf (GST), Singapore (SGT), and Australia (AEST).',
+    category: 'date-time',
+    icon: 'Globe',
+    keywords: [
+      'ist to est converter',
+      'ist to pst time converter',
+      'ist to gmt time india',
+      'ist to dubai time converter',
+      'indian standard time to world clock',
+      'ist to singapore time'
+    ],
+    popular: true,
+    trending: true,
+    featured: false,
+    badge: 'IST World Clock',
+    views: 31800,
+    seo: {
+      title: 'IST to Global Time Zone Converter (US, UK, Dubai, SG) | BharatUtility',
+      description: 'Convert Indian Standard Time (IST) to US EST/PST, UK GMT, Dubai GST, Singapore SGT, and Sydney AEST. Free meeting time converter.',
+      keywords: [
+        'ist to est converter',
+        'ist to pst time converter',
+        'ist to gmt time india',
+        'ist to dubai time converter',
+        'indian standard time to world clock',
+        'ist to singapore time'
+      ],
+      canonicalSlug: 'ist-time-zone-converter',
+      h1: 'IST to Global Time Zone Converter',
+    },
+    formulaDescription: 'Local Time = IST (UTC+5:30) + (Target Timezone Offset in Hours/Minutes).',
+    workedExample: {
+      inputSummary: 'IST Time: 02:30 PM (14:30 IST)',
+      calculationSteps: [
+        '1. UK (GMT/BST UTC+1): 10:00 AM (4.5 hours behind IST)',
+        '2. Dubai (GST UTC+4): 01:00 PM (1.5 hours behind IST)',
+        '3. US Eastern (EDT UTC-4): 05:00 AM (9.5 hours behind IST)',
+        '4. Singapore (SGT UTC+8): 05:00 PM (2.5 hours ahead of IST)'
+      ],
+      finalResult: '14:30 IST = 05:00 AM New York (EST) | 10:00 AM London (GMT) | 01:00 PM Dubai | 05:00 PM Singapore'
+    },
+    seoSections: [
+      {
+        h2: 'Schedule International Meetings from India with Confidence',
+        paragraphs: [
+          'Indian tech professionals, remote freelancers, and businesses frequently coordinate with clients in the US, Europe, UAE, and APAC. This tool provides instant side-by-side time comparisons with day indicator.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the exact time difference between India (IST) and US Eastern (EST)?',
+        answer: 'India is 9 hours and 30 minutes ahead of US Eastern Daylight Time (EDT) and 10 hours and 30 minutes ahead of US Standard Time (EST).'
+      }
+    ],
+    relatedToolSlugs: ['time-zone-converter-tool', 'pomodoro-focus-timer', 'speed-distance-time-calculator']
+  },
+
+  // 96. Date to Day of Week Finder
+  {
+    id: 'date-to-day-finder',
+    slug: 'date-to-day-finder',
+    name: 'Date to Day of Week Finder',
+    shortName: 'Date to Day Finder',
+    tagline: 'Find what day of the week (Monday–Sunday) any past or future date falls on',
+    description: 'Find out the exact day of the week (Monday to Sunday) for any past historical date or future date in calendar history. Discover leap years and day numbers instantly.',
+    category: 'date-time',
+    icon: 'Calendar',
+    keywords: [
+      'date to day finder',
+      'what day was on date calculator',
+      'day of the week finder online',
+      'find day from date india',
+      'historical date day finder'
+    ],
+    popular: false,
+    trending: false,
+    featured: false,
+    badge: 'Quick Finder',
+    views: 21200,
+    seo: {
+      title: 'Date to Day of the Week Finder (What Day Was It?) | BharatUtility',
+      description: 'Find what day of the week any past or future date falls on. Check historical birth dates, anniversaries, and future event days instantly.',
+      keywords: [
+        'date to day finder',
+        'what day was on date calculator',
+        'day of the week finder online',
+        'find day from date india',
+        'historical date day finder'
+      ],
+      canonicalSlug: 'date-to-day-finder',
+      h1: 'Date to Day of Week Finder',
+    },
+    formulaDescription: 'Calculated using Gregorian & Julian calendar algorithms: Zeller’s congruence algorithm.',
+    workedExample: {
+      inputSummary: 'Date: 15 August 1947 (Indian Independence Day)',
+      calculationSteps: [
+        '1. Month: August | Year: 1947 | Day: 15',
+        '2. Apply calendar congruence algorithm',
+        '3. Day of the Week = Friday'
+      ],
+      finalResult: '15 August 1947 was a Friday 🇮🇳'
+    },
+    seoSections: [
+      {
+        h2: 'Find Exact Day of the Week for Any Calendar Date',
+        paragraphs: [
+          'Instantly discover what day of the week you were born on, check historical dates (e.g. 15 August 1947 was a Friday, 26 January 1950 was a Thursday), or plan future festival dates.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What day of the week was India’s Independence Day (15 Aug 1947)?',
+        answer: 'August 15, 1947 was a Friday.'
+      }
+    ],
+    relatedToolSlugs: ['age-calculator', 'add-subtract-days-calculator', 'date-difference-calculator']
   }
 ];
 
