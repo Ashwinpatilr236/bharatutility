@@ -402,7 +402,7 @@ export const StudentAndLandSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 >
                   {Object.entries(LAND_UNITS).map(([key, config]) => (
                     <option key={key} value={key}>
-                      {config.label} — ({config.region})
+                      {config.label} - ({config.region})
                     </option>
                   ))}
                 </select>

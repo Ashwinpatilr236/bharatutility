@@ -46,7 +46,7 @@ ${managerName}
 Reporting Manager / Department Head
 ${companyName}
 
-Subject: Resignation Letter — ${employeeName} (${designation})
+Subject: Resignation Letter - ${employeeName} (${designation})
 
 Dear ${managerName},
 
@@ -96,7 +96,7 @@ To,
 ${managerName}
 ${companyName}
 
-Subject: Sick Leave Application — ${employeeName} (${designation})
+Subject: Sick Leave Application - ${employeeName} (${designation})
 
 Dear ${managerName},
 

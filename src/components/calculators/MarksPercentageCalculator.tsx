@@ -80,7 +80,7 @@ export const MarksPercentageCalculator: React.FC<MarksPercentageCalculatorProps>
 
   useEffect(() => {
     if (onResultChange) {
-      const summary = `Scored ${totalObtained}/${totalMaxMarks} (${percentage.toFixed(2)}%) — Grade ${gradeInfo.grade} (${division})`;
+      const summary = `Scored ${totalObtained}/${totalMaxMarks} (${percentage.toFixed(2)}%) - Grade ${gradeInfo.grade} (${division})`;
       onResultChange(summary, {
         totalObtained,
         totalMaxMarks,

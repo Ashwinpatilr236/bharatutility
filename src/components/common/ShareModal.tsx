@@ -18,7 +18,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ tool, calculationSummary
   if (!isOpen) return null;
 
   const currentUrl = window.location.href;
-  const shareTitle = `${tool.name} — BharatUtility`;
+  const shareTitle = `${tool.name} - BharatUtility`;
   const shareText = calculationSummary
     ? `Calculated on BharatUtility: ${calculationSummary}\nTry this free tool:`
     : `Check out the free ${tool.name} on BharatUtility:`;

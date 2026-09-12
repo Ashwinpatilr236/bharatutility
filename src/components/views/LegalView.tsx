@@ -55,7 +55,7 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
               About BharatUtility
             </h1>
             <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              <strong>BharatUtility</strong> is India's Utility Super-Site — an independent online platform bringing together practical calculators, finance tools, document tools and everyday digital utilities in one place. Designed specifically for Indian users, BharatUtility offers fast, private, client-side tools — requiring zero sign-up or user account registration.
+              <strong>BharatUtility</strong> is India's Utility Super-Site - an independent online platform bringing together practical calculators, finance tools, document tools and everyday digital utilities in one place. Designed specifically for Indian users, BharatUtility offers fast, private, client-side tools - requiring zero sign-up or user account registration.
             </p>
             <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">What We Offer</h3>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">

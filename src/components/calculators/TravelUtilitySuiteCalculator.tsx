@@ -508,7 +508,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
               >
                 {CURRENCIES.map(c => (
                   <option key={c.code} value={c.code}>
-                    {c.name} ({c.code}) — approx ₹{c.rateToInr}
+                    {c.name} ({c.code}) - approx ₹{c.rateToInr}
                   </option>
                 ))}
               </select>

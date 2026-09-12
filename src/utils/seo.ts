@@ -4,7 +4,7 @@ import { getCategoryById } from '../data/categories';
 
 const SITE_NAME = 'BharatUtility';
 const CANONICAL_BASE = 'https://bharatutility.tech';
-const DEFAULT_TITLE = 'BharatUtility — Free Online Tools for Everyday India';
+const DEFAULT_TITLE = 'BharatUtility - Free Online Tools for Everyday India';
 const DEFAULT_DESCRIPTION =
   'BharatUtility provides free, fast and easy-to-use online calculators and utility tools for everyday India.';
 const DEFAULT_OG_IMAGE = `${CANONICAL_BASE}/icons/icon-512.png`;
@@ -272,11 +272,11 @@ export function updateSeoMetadata(view: ViewMode): void {
     description = 'BharatUtility administrative control panel and live audience telemetry dashboard.';
   } else if (view.type === 'legal') {
     if (view.page === 'about') {
-      title = `About Us — Everyday Tools for India | ${SITE_NAME}`;
+      title = `About Us - Everyday Tools for India | ${SITE_NAME}`;
       description = 'Learn about BharatUtility, India’s fast, privacy-focused everyday calculation super-app.';
     } else if (view.page === 'privacy') {
       title = `Privacy Policy | ${SITE_NAME}`;
-      description = 'BharatUtility Privacy Policy — Client-side private calculations with zero data selling.';
+      description = 'BharatUtility Privacy Policy - Client-side private calculations with zero data selling.';
     } else if (view.page === 'terms') {
       title = `Terms & Conditions | ${SITE_NAME}`;
       description = 'Terms of Service and usage conditions for BharatUtility.';
@@ -326,7 +326,7 @@ export function updateSeoMetadata(view: ViewMode): void {
   // Update Robots Meta Tag
   setMetaTag('meta[name="robots"]', 'name', 'robots', 'index, follow');
 
-  const socialTitle = view.type === 'home' ? 'BharatUtility — Free Online Tools for Everyday India' : title;
+  const socialTitle = view.type === 'home' ? 'BharatUtility - Free Online Tools for Everyday India' : title;
 
   // Update Meta Tags
   setMetaTag('meta[name="description"]', 'name', 'description', description);

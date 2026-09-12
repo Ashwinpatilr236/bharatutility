@@ -6361,7 +6361,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         h2: 'Understanding RBI Guidelines on Gold Loan LTV Cap',
         paragraphs: [
           'The Reserve Bank of India (RBI) mandates a maximum Loan-to-Value (LTV) ratio of 75% on gold jewellery loans disbursed by scheduled commercial banks (SBI, HDFC, ICICI, PNB) and non-banking financial companies (Muthoot Finance, Manappuram).',
-          'Only the net gold weight is appraised—gemstones, diamonds, and wax weight are deducted prior to calculating the loan sanction value.'
+          'Only the net gold weight is appraised - gemstones, diamonds, and wax weight are deducted prior to calculating the loan sanction value.'
         ]
       }
     ],
@@ -6645,7 +6645,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         h2: '100% Private Client-Side Habit Tracking',
         paragraphs: [
           'BharatUtility’s Habit Streak Tracker stores all your daily habits and routine completion logs 100% locally inside your browser’s localStorage.',
-          'No account creation, no sign-in, and zero analytics tracking—your daily personal routine never leaves your device.'
+          'No account creation, no sign-in, and zero analytics tracking - your daily personal routine never leaves your device.'
         ]
       }
     ],

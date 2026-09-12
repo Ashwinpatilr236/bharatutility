@@ -66,7 +66,7 @@ export const FuelCostCalculator: React.FC<FuelCostCalculatorProps> = ({ onResult
 
   useEffect(() => {
     if (onResultChange) {
-      const summary = `${totalDistance} km road trip: ${fuelRequired.toFixed(1)}L fuel (${formatINR(Math.round(grandTripCost))}) — ${formatINR(Math.round(perPersonTotal))} / person`;
+      const summary = `${totalDistance} km road trip: ${fuelRequired.toFixed(1)}L fuel (${formatINR(Math.round(grandTripCost))}) - ${formatINR(Math.round(perPersonTotal))} / person`;
       onResultChange(summary, {
         distanceKm: totalDistance,
         fuelType,

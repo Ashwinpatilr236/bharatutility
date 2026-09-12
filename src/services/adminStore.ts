@@ -109,7 +109,7 @@ const DEFAULT_ADS_CONFIG: AdsManagementConfig = {
 
 // Initial Global SEO Configuration
 const DEFAULT_SEO_CONFIG: GlobalSEOConfig = {
-  defaultTitle: 'BharatUtility — Free Everyday Calculators & Utilities for India',
+  defaultTitle: 'BharatUtility - Free Everyday Calculators & Utilities for India',
   defaultDescription: 'Fast, privacy-friendly, 100% free everyday calculators, EMI, GST, land conversion, and document generators built specifically for Indian citizens.',
   defaultKeywords: ['india calculators', 'emi calculator india', 'gst calculator', 'land converter', 'bharatutility'],
   defaultOgImage: 'https://bharatutility.tech/og-image.png',
@@ -129,7 +129,7 @@ const DEFAULT_APPEARANCE_CONFIG: AppearanceConfig = {
   logoText: 'BharatUtility',
   logoBadge: 'INDIA',
   heroHeading: 'Useful Tools for Everyday India.',
-  heroSubheading: 'Free, fast, and modern everyday calculators and utilities built specifically for India — without ads clutter or signups.',
+  heroSubheading: 'Free, fast, and modern everyday calculators and utilities built specifically for India - without ads clutter or signups.',
   footerCopyright: '© 2026 BharatUtility. Built with pride for India.',
   footerTagline: 'Fast, lightweight, privacy-focused calculators & everyday digital utilities.',
   primaryAccent: 'indigo',
@@ -874,7 +874,7 @@ class AdminStore {
             ...c,
             order: idx + 1,
             active: true,
-            seoTitle: `${c.name} Calculators & Everyday Utilities — BharatUtility`,
+            seoTitle: `${c.name} Calculators & Everyday Utilities - BharatUtility`,
             metaDescription: c.description,
           }));
           this.saveCategories();
@@ -884,7 +884,7 @@ class AdminStore {
           ...c,
           order: idx + 1,
           active: true,
-          seoTitle: `${c.name} Calculators & Everyday Utilities — BharatUtility`,
+          seoTitle: `${c.name} Calculators & Everyday Utilities - BharatUtility`,
           metaDescription: c.description,
         }));
         this.saveCategories();
