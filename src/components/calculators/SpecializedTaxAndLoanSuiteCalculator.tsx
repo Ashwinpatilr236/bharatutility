@@ -400,7 +400,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
               <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                 <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Tax Assessment</span>
                 <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                  Budget 2024–2026 Compliant
+                  Budget 2024-2026 Compliant
                 </span>
               </div>
 

@@ -107,7 +107,7 @@ export function updateSeoMetadata(view: ViewMode): void {
   if (view.type === 'tool') {
     const tool = getToolBySlug(view.slug);
     if (tool) {
-      title = tool.seo?.title || `${tool.name} – Free Online Calculator | ${SITE_NAME}`;
+      title = tool.seo?.title || `${tool.name} - Free Online Calculator | ${SITE_NAME}`;
       description = tool.seo?.description || tool.description || DEFAULT_DESCRIPTION;
       ogType = 'article';
 

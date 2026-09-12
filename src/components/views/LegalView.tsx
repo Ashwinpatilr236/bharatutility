@@ -155,7 +155,7 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
                 <Mail className="w-4 h-4 text-accent" />
                 <span>support@bharatutility.tech</span>
               </div>
-              <p className="text-neutral-500">We typically respond to community feature requests and formula inquiries within 24–48 hours.</p>
+              <p className="text-neutral-500">We typically respond to community feature requests and formula inquiries within 24-48 hours.</p>
             </div>
           </div>
         )}

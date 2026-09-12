@@ -239,7 +239,7 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
             <div className="lg:col-span-6 space-y-5">
               <div>
                 <div className="flex justify-between text-xs font-semibold mb-2">
-                  <span className="text-neutral-700 dark:text-neutral-300">Yearly Deposit (₹500 – ₹1,50,000)</span>
+                  <span className="text-neutral-700 dark:text-neutral-300">Yearly Deposit (₹500 - ₹1,50,000)</span>
                   <span className="text-accent font-bold">{formatINR(ppfYearlyDeposit)}</span>
                 </div>
                 <input
@@ -345,7 +345,7 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
 
               <div>
                 <div className="flex justify-between text-xs font-semibold mb-2">
-                  <span className="text-neutral-700 dark:text-neutral-300">Girl Child Age (0 – 10 Years)</span>
+                  <span className="text-neutral-700 dark:text-neutral-300">Girl Child Age (0 - 10 Years)</span>
                   <span className="text-accent font-bold">{ssyGirlAge} Years</span>
                 </div>
                 <input

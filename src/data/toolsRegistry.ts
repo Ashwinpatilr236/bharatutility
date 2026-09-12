@@ -29,7 +29,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Top Tool',
     views: 48200,
     seo: {
-      title: 'EMI Calculator – Home, Personal & Car Loan EMI | BharatUtility',
+      title: 'EMI Calculator - Home, Personal & Car Loan EMI | BharatUtility',
       description: 'Calculate your monthly EMI, total interest and total repayment for home, personal and car loans. Free EMI calculator for India with instant results.',
       keywords: [
         'EMI calculator',
@@ -122,7 +122,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       {
         h2: 'Personal Loan EMI Calculator',
         paragraphs: [
-          'Personal loans are unsecured credit facilities with shorter tenures (1 to 5 years) and higher interest rates (10.5% to 24% p.a.). Calculating your exact monthly EMI in advance ensures your total monthly debt payments remain within a comfortable 30–40% limit of your net monthly salary.'
+          'Personal loans are unsecured credit facilities with shorter tenures (1 to 5 years) and higher interest rates (10.5% to 24% p.a.). Calculating your exact monthly EMI in advance ensures your total monthly debt payments remain within a comfortable 30-40% limit of your net monthly salary.'
         ]
       },
       {
@@ -196,7 +196,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 42100,
     seo: {
-      title: 'SIP Calculator – Mutual Fund SIP Return Calculator | BharatUtility',
+      title: 'SIP Calculator - Mutual Fund SIP Return Calculator | BharatUtility',
       description: 'Calculate monthly mutual fund SIP returns, total investment and wealth accumulated in India. Free online SIP calculator with year-wise growth breakdown.',
       keywords: [
         'SIP calculator',
@@ -302,7 +302,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       },
       {
         question: 'What is a realistic expected return for equity SIPs in India?',
-        answer: 'For long-term equity mutual fund SIPs (7–10+ years), an expected annual return rate of 11% to 14% p.a. is commonly used based on historical market trends.'
+        answer: 'For long-term equity mutual fund SIPs (7-10+ years), an expected annual return rate of 11% to 14% p.a. is commonly used based on historical market trends.'
       },
       {
         question: 'Can I change my monthly SIP amount later?',
@@ -349,7 +349,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     featured: true,
     views: 46000,
     seo: {
-      title: 'GST Calculator India – Calculate GST Inclusive & Exclusive | BharatUtility',
+      title: 'GST Calculator India - Calculate GST Inclusive & Exclusive | BharatUtility',
       description: 'Calculate Goods and Services Tax (GST) inclusive and exclusive amounts online in India. Instant CGST, SGST, and IGST breakdown for 5%, 12%, 18%, and 28% GST rates.',
       keywords: [
         'GST calculator',
@@ -505,7 +505,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Updated FY 24-26',
     views: 52000,
     seo: {
-      title: 'In-Hand Salary Calculator India – CTC to Take-Home | BharatUtility',
+      title: 'In-Hand Salary Calculator India - CTC to Take-Home | BharatUtility',
       description: 'Calculate your net in-hand monthly salary from annual CTC in India. Detailed breakdown of basic pay, HRA, Provident Fund (PF), Professional Tax, and Income Tax deductions.',
       keywords: [
         'Salary calculator India',
@@ -648,7 +648,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: true,
     views: 31500,
     seo: {
-      title: 'FD Calculator – Fixed Deposit Interest & Maturity | BharatUtility',
+      title: 'FD Calculator - Fixed Deposit Interest & Maturity | BharatUtility',
       description: 'Calculate Fixed Deposit (FD) interest payout and maturity value for Indian banks. Supports cumulative and non-cumulative interest compounding monthly, quarterly, or yearly.',
       keywords: [
         'FD calculator',
@@ -791,7 +791,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     views: 49000,
     seo: {
-      title: 'Age Calculator – Calculate Exact Age in Years, Months & Days | BharatUtility',
+      title: 'Age Calculator - Calculate Exact Age in Years, Months & Days | BharatUtility',
       description: 'Calculate your exact age in years, months, weeks, days, hours, and minutes from your date of birth. Find your next birthday countdown with our free online age calculator.',
       keywords: [
         'Age calculator',
@@ -918,7 +918,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: true,
     views: 39000,
     seo: {
-      title: 'Percentage Calculator – Free Online Percent Calculator | BharatUtility',
+      title: 'Percentage Calculator - Free Online Percent Calculator | BharatUtility',
       description: 'Calculate percentages, percentage change, percentage difference, and percent of a number easily. Fast and free percentage calculator with step-by-step math formulas.',
       keywords: [
         'Percentage calculator',
@@ -1056,7 +1056,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     featured: true,
     views: 37800,
     seo: {
-      title: 'Unit Converter – Convert Length, Weight, Area & Temp | BharatUtility',
+      title: 'Unit Converter - Convert Length, Weight, Area & Temp | BharatUtility',
       description: 'Convert units of measurement online instantly. Free multi-category unit converter for length (km, m, ft), weight (kg, g, lbs), area (sq ft, acres), and temperature (°C, °F).',
       keywords: [
         'Unit converter',
@@ -1187,7 +1187,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     views: 28300,
     seo: {
-      title: 'Fuel Cost Calculator – Petrol & Diesel Trip Cost | BharatUtility',
+      title: 'Fuel Cost Calculator - Petrol & Diesel Trip Cost | BharatUtility',
       description: 'Calculate fuel cost, petrol/diesel consumption, and per-person trip expenses for car or bike road trips in India. Enter distance, vehicle mileage, and fuel price.',
       keywords: [
         'Fuel cost calculator',
@@ -1445,7 +1445,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: true,
     views: 34000,
     seo: {
-      title: 'Marks Percentage Calculator – Exam Percentage | BharatUtility',
+      title: 'Marks Percentage Calculator - Exam Percentage | BharatUtility',
       description: 'Calculate your exam percentage from total marks and obtained marks. Free online marks percentage calculator for school, college, and competitive exams in India.',
       keywords: [
         'Marks percentage calculator',
@@ -1570,7 +1570,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: false,
     views: 18500,
     seo: {
-      title: 'Paint Calculator – Calculate Wall Paint Quantity (Litres) | BharatUtility',
+      title: 'Paint Calculator - Calculate Wall Paint Quantity (Litres) | BharatUtility',
       description: 'Calculate exact paint quantity required in litres for painting walls, rooms, and house interiors/exteriors in India. Estimates paint coverage, coats, and cost.',
       keywords: [
         'Paint calculator',
@@ -1644,7 +1644,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     faqs: [
       {
         question: 'How much area does 1 litre of paint cover in India?',
-        answer: '1 litre of standard interior wall emulsion covers about 120–140 sq ft for a single coat (or 60–70 sq ft for two coats).'
+        answer: '1 litre of standard interior wall emulsion covers about 120-140 sq ft for a single coat (or 60-70 sq ft for two coats).'
       },
       {
         question: 'How do I calculate paint required for a room?',
@@ -1700,7 +1700,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: false,
     views: 16900,
     seo: {
-      title: 'Tile Calculator – Calculate Floor & Wall Tiles Required | BharatUtility',
+      title: 'Tile Calculator - Calculate Floor & Wall Tiles Required | BharatUtility',
       description: 'Calculate the exact number of floor or wall tiles and tile boxes needed for your room in India. Includes tile dimensions, room area, and wastage allowance.',
       keywords: [
         'Tile calculator',
@@ -1820,7 +1820,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: false,
     views: 22400,
     seo: {
-      title: 'Date Difference Calculator – Calculate Days Between Dates | BharatUtility',
+      title: 'Date Difference Calculator - Calculate Days Between Dates | BharatUtility',
       description: 'Calculate the exact number of days, weeks, months, and years between two dates. Free online date duration calculator with inclusive and exclusive date counting.',
       keywords: [
         'Date difference calculator',
@@ -1940,7 +1940,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Utility',
     views: 31000,
     seo: {
-      title: 'Formal Letter Generator – Professional Applications | BharatUtility',
+      title: 'Formal Letter Generator - Professional Applications | BharatUtility',
       description: 'Generate formal letters, leave applications, job resignations, and official request letters online in India. Instant professional letter templates with quick download.',
       keywords: [
         'Letter generator',
@@ -2024,7 +2024,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       },
       {
         question: 'Is a subject line necessary in formal letters?',
-        answer: 'Yes, a concise subject line (e.g., "Resignation Statement – [Your Name]") allows HR and managers to quickly process your request.'
+        answer: 'Yes, a concise subject line (e.g., "Resignation Statement - [Your Name]") allows HR and managers to quickly process your request.'
       },
       {
         question: 'Can I use this for school or college leave applications?',
@@ -2059,7 +2059,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     featured: true,
     badge: 'India Hub',
     seo: {
-      title: 'IFSC Code Finder – Bank Branch IFSC & MICR Lookup | BharatUtility',
+      title: 'IFSC Code Finder - Bank Branch IFSC & MICR Lookup | BharatUtility',
       description: 'Search bank branch IFSC codes for NEFT, RTGS & IMPS transfers across India.',
       keywords: ['IFSC code', 'bank branch IFSC', 'MICR code', 'NEFT IFSC'],
       canonicalSlug: 'ifsc-code-finder',
@@ -2139,7 +2139,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'Building',
     keywords: ['MICR code finder', 'cheque MICR code', 'bank MICR lookup'],
     seo: {
-      title: 'MICR Code Finder – Bank Cheque MICR Lookup | BharatUtility',
+      title: 'MICR Code Finder - Bank Cheque MICR Lookup | BharatUtility',
       description: 'Find 9-digit MICR codes for Indian bank cheque processing.',
       keywords: ['MICR code', 'cheque clearance MICR'],
       canonicalSlug: 'micr-code-finder',
@@ -2204,7 +2204,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['PIN code finder', 'postal code India', 'Pincode lookup'],
     popular: true,
     seo: {
-      title: 'PIN Code Finder – Indian Postal PIN Code Lookup | BharatUtility',
+      title: 'PIN Code Finder - Indian Postal PIN Code Lookup | BharatUtility',
       description: 'Find 6-digit postal index numbers (PIN codes) across all Indian states and districts.',
       keywords: ['PIN code', 'postal code', 'Pincode search'],
       canonicalSlug: 'pin-code-finder',
@@ -2265,7 +2265,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'Hash',
     keywords: ['RTO code finder', 'vehicle registration code', 'state RTO list'],
     seo: {
-      title: 'RTO Code Finder – Indian Vehicle Registration RTO Lookup | BharatUtility',
+      title: 'RTO Code Finder - Indian Vehicle Registration RTO Lookup | BharatUtility',
       description: 'Search RTO vehicle registration codes across Maharashtra, Delhi, Karnataka, Tamil Nadu, and all Indian states.',
       keywords: ['RTO code', 'vehicle number state code', 'RTO list'],
       canonicalSlug: 'rto-code-finder',
@@ -2325,7 +2325,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: true,
     trending: true,
     seo: {
-      title: 'GSTIN Validator – Check GST Number Structure Online | BharatUtility',
+      title: 'GSTIN Validator - Check GST Number Structure Online | BharatUtility',
       description: 'Validate 15-digit GSTIN format, state code, and entity structure online.',
       keywords: ['GSTIN validator', 'GST format check', 'GSTIN lookup'],
       canonicalSlug: 'gstin-validator',
@@ -2389,7 +2389,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'CreditCard',
     keywords: ['PAN format validator', 'PAN card structure', 'PAN holder type'],
     seo: {
-      title: 'PAN Format Validator – Check PAN Structure Online | BharatUtility',
+      title: 'PAN Format Validator - Check PAN Structure Online | BharatUtility',
       description: 'Validate 10-character PAN card formatting and identify holder category.',
       keywords: ['PAN validator', 'PAN format', 'PAN card check'],
       canonicalSlug: 'pan-format-validator',
@@ -2457,7 +2457,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'Calendar',
     keywords: ['bank holidays 2026', 'SBI bank holiday', 'RBI bank holiday list'],
     seo: {
-      title: 'Indian Bank Holidays 2026 – State & National Bank Calendar | BharatUtility',
+      title: 'Indian Bank Holidays 2026 - State & National Bank Calendar | BharatUtility',
       description: 'Check bank holidays in India for 2026 including gazetted holidays and weekend closures.',
       keywords: ['bank holidays 2026', 'Indian bank holidays', 'SBI holiday list'],
       canonicalSlug: 'indian-bank-holidays',
@@ -2506,7 +2506,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['official government portals', 'Aadhaar official site', 'Passport Seva portal'],
     popular: true,
     seo: {
-      title: 'Official Government Services Directory – Trusted Portal Links | BharatUtility',
+      title: 'Official Government Services Directory - Trusted Portal Links | BharatUtility',
       description: 'Directory of official Indian government portals for Aadhaar, Tax, Passport, RTO, Voter ID & EPFO.',
       keywords: ['government service links', 'official portals India', 'UIDAI portal'],
       canonicalSlug: 'government-services-directory',
@@ -2560,7 +2560,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     featured: true,
     badge: 'Client-Side',
     seo: {
-      title: 'Merge PDF Online – Combine PDF Files Free & Private | BharatUtility',
+      title: 'Merge PDF Online - Combine PDF Files Free & Private | BharatUtility',
       description: 'Merge multiple PDF files into one PDF document client-side without uploading to external servers.',
       keywords: ['merge PDF', 'combine PDF online', 'PDF joiner free'],
       canonicalSlug: 'pdf-merge',
@@ -2622,7 +2622,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['JPG to PDF', 'PNG to PDF', 'convert image to PDF', 'photo to PDF'],
     popular: true,
     seo: {
-      title: 'JPG to PDF Converter – Convert Images to PDF Online | BharatUtility',
+      title: 'JPG to PDF Converter - Convert Images to PDF Online | BharatUtility',
       description: 'Convert JPG and PNG photos into a clean PDF file with local browser-side processing.',
       keywords: ['JPG to PDF', 'images to PDF', 'photo converter PDF'],
       canonicalSlug: 'jpg-to-pdf',
@@ -2671,7 +2671,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['image compressor', 'resize image online', 'reduce photo size KB'],
     popular: true,
     seo: {
-      title: 'Image Compressor & Resizer – Reduce Photo Size in KB | BharatUtility',
+      title: 'Image Compressor & Resizer - Reduce Photo Size in KB | BharatUtility',
       description: 'Compress image file size in KB and resize dimensions client-side.',
       keywords: ['image compressor', 'resize photo', 'compress image KB'],
       canonicalSlug: 'image-compressor-resizer',
@@ -2722,7 +2722,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     badge: 'Govt Exams',
     seo: {
-      title: 'Exam Signature & Photo Resizer – 10KB/20KB/50KB Converter | BharatUtility',
+      title: 'Exam Signature & Photo Resizer - 10KB/20KB/50KB Converter | BharatUtility',
       description: 'Resize signature and passport photo files for SSC, UPSC, IBPS, and NTA entrance exam portals.',
       keywords: ['signature resizer 20kb', 'SSC photo resizer', 'UPSC signature format'],
       canonicalSlug: 'signature-resizer',
@@ -2775,7 +2775,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['QR code generator', 'free QR maker', 'UPI QR generator', 'download QR PNG'],
     popular: true,
     seo: {
-      title: 'QR Code Generator – Create Free High-Res QR Codes | BharatUtility',
+      title: 'QR Code Generator - Create Free High-Res QR Codes | BharatUtility',
       description: 'Generate high-resolution QR codes for links, text, and payments with instant PNG download.',
       keywords: ['QR code generator', 'create QR code', 'free QR code maker'],
       canonicalSlug: 'qr-code-generator',
@@ -2823,7 +2823,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'HardDrive',
     keywords: ['file size calculator', 'bytes to MB', 'KB to MB converter', 'download time estimator'],
     seo: {
-      title: 'File Size Calculator – Bytes to KB, MB & GB Converter | BharatUtility',
+      title: 'File Size Calculator - Bytes to KB, MB & GB Converter | BharatUtility',
       description: 'Convert file sizes between Bytes, KB, MB, and GB with transfer duration estimates.',
       keywords: ['file size converter', 'bytes to MB', 'KB to MB'],
       canonicalSlug: 'file-size-calculator',
@@ -2875,7 +2875,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     featured: true,
     seo: {
-      title: 'Fuel Cost Calculator – Trip Fuel & Carpool Split | BharatUtility',
+      title: 'Fuel Cost Calculator - Trip Fuel & Carpool Split | BharatUtility',
       description: 'Calculate fuel cost and split travel expenses among passengers for road trips in India.',
       keywords: ['fuel cost calculator', 'trip fuel cost', 'mileage calculation'],
       canonicalSlug: 'vehicle-fuel-cost-calculator',
@@ -2926,7 +2926,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     badge: 'EV Special',
     seo: {
-      title: 'EV Charging Cost & Range Calculator – Electric Vehicle Savings | BharatUtility',
+      title: 'EV Charging Cost & Range Calculator - Electric Vehicle Savings | BharatUtility',
       description: 'Calculate EV charging cost, cost per kilometer, and charging duration for electric vehicles in India.',
       keywords: ['EV charging cost', 'electric car cost per km', 'EV range calculator'],
       canonicalSlug: 'ev-cost-calculator',
@@ -2976,7 +2976,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['EV vs petrol calculator', 'electric car savings', 'EV vs diesel cost comparison'],
     popular: true,
     seo: {
-      title: 'EV vs Petrol Cost Calculator – 5-Year Electric Vehicle Savings | BharatUtility',
+      title: 'EV vs Petrol Cost Calculator - 5-Year Electric Vehicle Savings | BharatUtility',
       description: 'Compare running costs and project 5-year financial savings of Electric Vehicles vs Petrol cars.',
       keywords: ['EV vs petrol cost', 'electric vehicle savings calculator'],
       canonicalSlug: 'ev-vs-petrol-calculator',
@@ -2985,11 +2985,11 @@ export const TOOLS_REGISTRY: Tool[] = [
     faqs: [
           {
                 "question": "Is an EV cheaper to run than a petrol car?",
-                "answer": "Yes, EV running costs (~₹1/km) are typically 80% lower than petrol cars (~₹6–7/km)."
+                "answer": "Yes, EV running costs (~₹1/km) are typically 80% lower than petrol cars (~₹6-7/km)."
           },
           {
                 "question": "How many years does it take to recover EV price premium?",
-                "answer": "For motorists driving 1,200+ km monthly, the ₹3–4 Lakh initial EV purchase premium is typically recovered in 3 to 4 years through fuel and service savings."
+                "answer": "For motorists driving 1,200+ km monthly, the ₹3-4 Lakh initial EV purchase premium is typically recovered in 3 to 4 years through fuel and service savings."
           }
     ],
         formulaDescription: "Annual Fuel Savings = (Annual km ÷ Petrol Mileage × Petrol Price) − (Annual km ÷ EV Range × EV Charge Cost).",
@@ -3024,7 +3024,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'RefreshCw',
     keywords: ['car depreciation calculator', 'used car resale value', 'vehicle age calculator'],
     seo: {
-      title: 'Vehicle Depreciation Calculator – Car & Bike Resale Value | BharatUtility',
+      title: 'Vehicle Depreciation Calculator - Car & Bike Resale Value | BharatUtility',
       description: 'Calculate car and motorcycle market resale value based on age and depreciation rates.',
       keywords: ['vehicle depreciation', 'car resale value calculator'],
       canonicalSlug: 'vehicle-depreciation-calculator',
@@ -3075,7 +3075,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['car loan EMI calculator', 'bike loan EMI', 'vehicle EMI India'],
     popular: true,
     seo: {
-      title: 'Car Loan EMI Calculator – Monthly Auto Loan Installments | BharatUtility',
+      title: 'Car Loan EMI Calculator - Monthly Auto Loan Installments | BharatUtility',
       description: 'Calculate car and bike loan EMIs with down payment and interest rate breakdown.',
       keywords: ['car loan EMI', 'auto loan calculator', 'bike loan EMI'],
       canonicalSlug: 'car-loan-emi-calculator',
@@ -3126,7 +3126,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'Gauge',
     keywords: ['tyre size calculator', 'tire upgrade comparison', 'speedometer error tyre'],
     seo: {
-      title: 'Tyre Size Calculator – Tire Upgrade & Speedometer Error | BharatUtility',
+      title: 'Tyre Size Calculator - Tire Upgrade & Speedometer Error | BharatUtility',
       description: 'Compare original vs new tyre sizes, diameter differences, and speedometer accuracy.',
       keywords: ['tyre size comparison', 'speedometer error calculator'],
       canonicalSlug: 'tyre-size-calculator',
@@ -3180,7 +3180,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     featured: true,
     seo: {
-      title: 'Trip Cost Calculator – Holiday & Vacation Budget Planner | BharatUtility',
+      title: 'Trip Cost Calculator - Holiday & Vacation Budget Planner | BharatUtility',
       description: 'Calculate complete holiday expenses including hotel, food, flights, and per-person split.',
       keywords: ['trip cost calculator', 'vacation planner', 'travel budget split'],
       canonicalSlug: 'trip-cost-calculator',
@@ -3231,7 +3231,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['group expense split', 'split bill online', 'trip settlement calculator'],
     popular: true,
     seo: {
-      title: 'Group Expense Splitter – Split Trip Bills & Fares | BharatUtility',
+      title: 'Group Expense Splitter - Split Trip Bills & Fares | BharatUtility',
       description: 'Split trip bills and hotel expenses among friends with settlement breakdown.',
       keywords: ['split group bill', 'trip expense splitter', 'who owes whom'],
       canonicalSlug: 'group-expense-split',
@@ -3280,7 +3280,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'DollarSign',
     keywords: ['travel budget calculator', 'daily spending cap', 'holiday daily budget'],
     seo: {
-      title: 'Travel Budget Calculator – Daily Spending Allowance | BharatUtility',
+      title: 'Travel Budget Calculator - Daily Spending Allowance | BharatUtility',
       description: 'Calculate max daily spending limit based on total trip duration and budget.',
       keywords: ['travel budget planner', 'daily travel allowance'],
       canonicalSlug: 'travel-budget-calculator',
@@ -3293,7 +3293,7 @@ export const TOOLS_REGISTRY: Tool[] = [
           },
           {
                 "question": "How can I save money on domestic travel in India?",
-                "answer": "Book train or flight tickets 4–6 weeks in advance, choose homestays with breakfast included, and use public metro or local bus networks."
+                "answer": "Book train or flight tickets 4-6 weeks in advance, choose homestays with breakfast included, and use public metro or local bus networks."
           }
     ],
         formulaDescription: "Daily Spending Allowance = (Total Trip Budget − Fixed Costs for Flights/Hotels) ÷ Total Trip Days.",
@@ -3329,7 +3329,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['currency converter', 'INR to USD', 'INR to AED', 'INR to THB Baht'],
     popular: true,
     seo: {
-      title: 'Travel Currency Converter – INR to USD, EUR, AED, THB | BharatUtility',
+      title: 'Travel Currency Converter - INR to USD, EUR, AED, THB | BharatUtility',
       description: 'Convert Indian Rupees (INR) into major travel currencies for international trips.',
       keywords: ['currency converter', 'INR to USD', 'rupee to dollar'],
       canonicalSlug: 'currency-converter-tool',
@@ -3377,7 +3377,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'Clock',
     keywords: ['time zone converter', 'IST to Dubai time', 'IST to London time', 'IST to EST'],
     seo: {
-      title: 'Travel Time Zone Converter – IST to Global Time Zones | BharatUtility',
+      title: 'Travel Time Zone Converter - IST to Global Time Zones | BharatUtility',
       description: 'Convert Indian Standard Time (IST) to major travel destinations around the world.',
       keywords: ['time zone converter', 'IST to London', 'IST to Dubai'],
       canonicalSlug: 'time-zone-converter-tool',
@@ -3426,7 +3426,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['packing checklist', 'travel checklist India', 'luggage checklist'],
     popular: true,
     seo: {
-      title: 'Interactive Travel Packing Checklist – India Trip Prep | BharatUtility',
+      title: 'Interactive Travel Packing Checklist - India Trip Prep | BharatUtility',
       description: 'Check off essential travel documents, clothes, electronics, and medicines before your trip.',
       keywords: ['packing checklist', 'travel packing list'],
       canonicalSlug: 'travel-checklist-generator',
@@ -3542,7 +3542,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 38400,
     seo: {
-      title: 'PPF Calculator – Public Provident Fund Maturity & Interest | BharatUtility',
+      title: 'PPF Calculator - Public Provident Fund Maturity & Interest | BharatUtility',
       description: 'Calculate 15-year PPF maturity amount and tax-free compounding interest with the latest 7.1% p.a. government rate. Sovereign guaranteed returns.',
       keywords: [
         'PPF calculator',
@@ -3621,7 +3621,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 31200,
     seo: {
-      title: 'Sukanya Samriddhi Calculator (SSY) – 8.2% Interest & Maturity | BharatUtility',
+      title: 'Sukanya Samriddhi Calculator (SSY) - 8.2% Interest & Maturity | BharatUtility',
       description: 'Calculate Sukanya Samriddhi Yojana (SSY) maturity value with the latest 8.2% interest rate. Free government savings calculator for girl child future.',
       keywords: [
         'sukanya samriddhi calculator',
@@ -3689,7 +3689,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 29500,
     seo: {
-      title: 'Gratuity Calculator India – Payment of Gratuity Act 1972 | BharatUtility',
+      title: 'Gratuity Calculator India - Payment of Gratuity Act 1972 | BharatUtility',
       description: 'Calculate your gratuity payout upon resignation or retirement using the official 15/26 formula under the Payment of Gratuity Act 1972.',
       keywords: [
         'gratuity calculator',
@@ -3756,7 +3756,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Retirement',
     views: 24100,
     seo: {
-      title: 'NPS Calculator – National Pension System Monthly Pension & Corpus | BharatUtility',
+      title: 'NPS Calculator - National Pension System Monthly Pension & Corpus | BharatUtility',
       description: 'Calculate your NPS retirement corpus, tax-free 60% lump sum withdrawal, and monthly annuity pension with expected market returns.',
       keywords: [
         'NPS calculator',
@@ -3821,7 +3821,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 35600,
     seo: {
-      title: 'EPF Calculator – Employees Provident Fund Balance & Maturity | BharatUtility',
+      title: 'EPF Calculator - Employees Provident Fund Balance & Maturity | BharatUtility',
       description: 'Calculate your retirement EPF balance with 12% employee contribution, employer share, and latest 8.25% EPFO interest rate.',
       keywords: [
         'EPF calculator',
@@ -3886,7 +3886,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Save Money',
     views: 28900,
     seo: {
-      title: 'Home Loan Prepayment Calculator – Save Interest & Cut Tenure | BharatUtility',
+      title: 'Home Loan Prepayment Calculator - Save Interest & Cut Tenure | BharatUtility',
       description: 'Calculate how extra monthly payments or part-prepayment reduces your home loan tenure and saves lakhs in bank interest.',
       keywords: [
         'home loan prepayment calculator',
@@ -3950,7 +3950,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 42100,
     seo: {
-      title: 'Number to Words Converter – Indian Rupees for Cheques & Invoices | BharatUtility',
+      title: 'Number to Words Converter - Indian Rupees for Cheques & Invoices | BharatUtility',
       description: 'Convert numeric amounts into Indian Rupees words (Crores, Lakhs, Thousands, Paise) formatted for bank cheques, tax invoices, and legal documents.',
       keywords: [
         'number to words',
@@ -4014,7 +4014,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Writing',
     views: 33400,
     seo: {
-      title: 'Word & Character Counter – Free Online Text Statistics | BharatUtility',
+      title: 'Word & Character Counter - Free Online Text Statistics | BharatUtility',
       description: 'Count words, characters, spaces, sentences, and paragraphs online. Fast, 100% private in-browser text tool for essays, blogs, and social posts.',
       keywords: [
         'word counter',
@@ -4077,7 +4077,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Developer Tool',
     views: 21900,
     seo: {
-      title: 'Text Case Converter – UPPERCASE, lowercase, Title Case & camelCase | BharatUtility',
+      title: 'Text Case Converter - UPPERCASE, lowercase, Title Case & camelCase | BharatUtility',
       description: 'Convert text instantly into UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case. Free online developer & writer utility.',
       keywords: [
         'case converter',
@@ -4139,7 +4139,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Student Essential',
     views: 46800,
     seo: {
-      title: 'College Attendance Calculator – 75% Rule & Bunk Planner | BharatUtility',
+      title: 'College Attendance Calculator - 75% Rule & Bunk Planner | BharatUtility',
       description: 'Calculate your college attendance percentage, how many classes you must attend for 75%, or how many lectures you can safely bunk without getting debarred.',
       keywords: [
         'attendance calculator',
@@ -4204,7 +4204,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 49500,
     seo: {
-      title: 'Indian Land Area Converter – Bigha, Guntha, Gaj, Cent, Sq Ft | BharatUtility',
+      title: 'Indian Land Area Converter - Bigha, Guntha, Gaj, Cent, Sq Ft | BharatUtility',
       description: 'Convert land & plot areas across Bigha, Guntha, Square Gaj, Cent, Ground, Biswa, Acres, and Square Feet for all Indian states.',
       keywords: [
         'land area converter',
@@ -4274,7 +4274,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Construction',
     views: 37800,
     seo: {
-      title: 'Concrete Cement & Sand Calculator – Roof Slab (Chhat) Material Estimator | BharatUtility',
+      title: 'Concrete Cement & Sand Calculator - Roof Slab (Chhat) Material Estimator | BharatUtility',
       description: 'Calculate 50kg cement bags, sand (reti), and aggregate (gitti) required for house roof slab casting with M20/M25 mix ratios and budget estimate.',
       keywords: [
         'cement sand calculator',
@@ -4343,7 +4343,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 41200,
     seo: {
-      title: 'Electricity Bill & Unit Calculator – Indian DISCOM Slab Rates | BharatUtility',
+      title: 'Electricity Bill & Unit Calculator - Indian DISCOM Slab Rates | BharatUtility',
       description: 'Calculate monthly electricity bill from meter units (kWh) with tiered slab rates, fixed charges, fuel surcharges (FPPPA), and appliance power estimator.',
       keywords: [
         'electricity bill calculator',
@@ -4409,7 +4409,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'PM Surya Ghar',
     views: 39800,
     seo: {
-      title: 'Solar Rooftop Calculator – PM Surya Ghar Subsidy & Savings | BharatUtility',
+      title: 'Solar Rooftop Calculator - PM Surya Ghar Subsidy & Savings | BharatUtility',
       description: 'Calculate PM Surya Ghar Muft Bijli Yojana solar subsidy (upto ₹78,000), 1kW/2kW/3kW installation costs, net customer investment, and 25-year power bill savings.',
       keywords: [
         'solar rooftop calculator',
@@ -4473,7 +4473,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 45300,
     seo: {
-      title: 'Gold Jewellery Price Calculator – 22K 916, Making Charges & 3% GST | BharatUtility',
+      title: 'Gold Jewellery Price Calculator - 22K 916, Making Charges & 3% GST | BharatUtility',
       description: 'Calculate final gold jewellery price with 22K (916 BIS Hallmark) / 18K purity conversion, jeweler making charges, hallmarking fee, and 3% GST.',
       keywords: [
         'gold calculator',
@@ -4539,7 +4539,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Business',
     views: 36200,
     seo: {
-      title: 'Cash Denomination Counter – Currency Note Tally for Banks & Shops | BharatUtility',
+      title: 'Cash Denomination Counter - Currency Note Tally for Banks & Shops | BharatUtility',
       description: 'Count Indian currency note denominations (₹500, ₹200, ₹100, ₹50, ₹20, ₹10) with total note count, cash in figures, and bank deposit slip format.',
       keywords: [
         'cash denomination calculator',
@@ -4602,7 +4602,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Wealth Decision',
     views: 38900,
     seo: {
-      title: 'Rent vs Buy Calculator India – Compare 20-Year Home Loan vs Rent + SIP | BharatUtility',
+      title: 'Rent vs Buy Calculator India - Compare 20-Year Home Loan vs Rent + SIP | BharatUtility',
       description: 'Compare 20-year net wealth of buying a home with loan EMI versus renting and investing the difference in equity mutual fund SIP.',
       keywords: [
         'rent vs buy calculator',
@@ -4665,7 +4665,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Real Estate',
     views: 22800,
     seo: {
-      title: 'Rental Yield Calculator – Gross & Net Real Estate ROI in India | BharatUtility',
+      title: 'Rental Yield Calculator - Gross & Net Real Estate ROI in India | BharatUtility',
       description: 'Calculate Gross & Net Rental Yield for Indian flats, villas, and commercial shops after deducting maintenance, taxes, and vacancy costs.',
       keywords: [
         'rental yield calculator',
@@ -4727,7 +4727,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 48600,
     seo: {
-      title: '₹1 Crore Crorepati SIP Calculator – Monthly Investment for ₹1 Cr | BharatUtility',
+      title: '₹1 Crore Crorepati SIP Calculator - Monthly Investment for ₹1 Cr | BharatUtility',
       description: 'Calculate how much monthly mutual fund SIP you need to accumulate a ₹1 Crore corpus in 5, 10, 15, or 20 years with 12-15% returns.',
       keywords: [
         '1 crore sip calculator',
@@ -4791,7 +4791,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Retire Early',
     views: 31400,
     seo: {
-      title: 'FIRE Calculator India – Financial Independence Retire Early Corpus | BharatUtility',
+      title: 'FIRE Calculator India - Financial Independence Retire Early Corpus | BharatUtility',
       description: 'Calculate your target retirement corpus for early retirement in India. Features inflation adjustment, Lean FIRE, and Fat FIRE targets.',
       keywords: [
         'fire calculator india',
@@ -4853,7 +4853,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Developer Tool',
     views: 38200,
     seo: {
-      title: 'JSON Formatter & Validator – Beautify, Validate & Minify Online | BharatUtility',
+      title: 'JSON Formatter & Validator - Beautify, Validate & Minify Online | BharatUtility',
       description: 'Format, beautify, minify, and validate JSON online. Fast, 100% private in-browser developer tool with instant syntax error detection.',
       keywords: [
         'json formatter',
@@ -4914,7 +4914,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Developer Tool',
     views: 26400,
     seo: {
-      title: 'Base64 Encoder & Decoder – Convert Text to Base64 Online | BharatUtility',
+      title: 'Base64 Encoder & Decoder - Convert Text to Base64 Online | BharatUtility',
       description: 'Encode text into Base64 format or decode Base64 back to text with full UTF-8 and special character support. 100% free & private in-browser.',
       keywords: [
         'base64 encoder',
@@ -4974,7 +4974,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Security',
     views: 34100,
     seo: {
-      title: 'Secure Password Generator – Strong Randomized Passwords Online | BharatUtility',
+      title: 'Secure Password Generator - Strong Randomized Passwords Online | BharatUtility',
       description: 'Generate strong, unbreakable passwords using browser-based cryptographic randomness. Includes symbols, numbers, and entropy strength score.',
       keywords: [
         'password generator',
@@ -5033,7 +5033,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Writing & Code',
     views: 19500,
     seo: {
-      title: 'Text Difference Checker – Compare Two Texts Side-by-Side | BharatUtility',
+      title: 'Text Difference Checker - Compare Two Texts Side-by-Side | BharatUtility',
       description: 'Compare two text documents or code files side-by-side online. Free in-browser diff tool highlights added, removed, and modified lines.',
       keywords: [
         'diff checker',
@@ -5093,7 +5093,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Media Tool',
     views: 24700,
     seo: {
-      title: 'Aspect Ratio Calculator – Scale 16:9, 9:16, 4:3 & 1:1 Dimensions | BharatUtility',
+      title: 'Aspect Ratio Calculator - Scale 16:9, 9:16, 4:3 & 1:1 Dimensions | BharatUtility',
       description: 'Calculate and scale aspect ratios for images and videos. Scale pixel dimensions for YouTube (16:9), Reels (9:16), and Instagram posts without distortion.',
       keywords: [
         'aspect ratio calculator',
@@ -5155,7 +5155,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Home Utility',
     views: 31800,
     seo: {
-      title: 'Water Tank Motor Filling Time Calculator – 500L, 1000L, 2000L Tank | BharatUtility',
+      title: 'Water Tank Motor Filling Time Calculator - 500L, 1000L, 2000L Tank | BharatUtility',
       description: 'Calculate exact time required for 0.5 HP, 1 HP, 1.5 HP motor pump to fill 500L to 2000L overhead water tank, flow rate (LPM), and electricity cost per fill.',
       keywords: [
         'water tank calculator',
@@ -5216,7 +5216,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Household',
     views: 27900,
     seo: {
-      title: 'LPG Gas Cylinder Price & Subsidy Calculator – Domestic & Commercial | BharatUtility',
+      title: 'LPG Gas Cylinder Price & Subsidy Calculator - Domestic & Commercial | BharatUtility',
       description: 'Calculate domestic 14.2 kg and commercial 19 kg LPG refill prices, annual cooking gas budget, and PM Ujjwala Yojana ₹300 subsidy savings.',
       keywords: [
         'lpg price calculator',
@@ -5278,7 +5278,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Health',
     views: 47200,
     seo: {
-      title: 'Indian BMI Calculator – ICMR & South Asian Health Standards | BharatUtility',
+      title: 'Indian BMI Calculator - ICMR & South Asian Health Standards | BharatUtility',
       description: 'Calculate BMI and ideal body weight calibrated specifically for Indian body types using official ICMR and WHO South Asian health cutoffs.',
       keywords: [
         'bmi calculator india',
@@ -5338,7 +5338,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Developer Tool',
     views: 23100,
     seo: {
-      title: 'Markdown to HTML Converter – Clean HTML Generator Online | BharatUtility',
+      title: 'Markdown to HTML Converter - Clean HTML Generator Online | BharatUtility',
       description: 'Convert Markdown syntax to clean semantic HTML code with real-time preview and one-click copy. 100% free, fast, in-browser developer utility.',
       keywords: [
         'markdown to html',
@@ -5399,7 +5399,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Travel Tool',
     views: 32600,
     seo: {
-      title: 'Speed, Distance & Travel Time Calculator – Hours & Minutes | BharatUtility',
+      title: 'Speed, Distance & Travel Time Calculator - Hours & Minutes | BharatUtility',
       description: 'Calculate travel duration in hours and minutes from distance (km) and vehicle speed (km/h). Includes Vande Bharat, expressway car, and train presets.',
       keywords: [
         'speed distance calculator',
@@ -5461,7 +5461,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 43900,
     seo: {
-      title: 'Wi-Fi QR Code Generator – Scan to Connect Wi-Fi Online | BharatUtility',
+      title: 'Wi-Fi QR Code Generator - Scan to Connect Wi-Fi Online | BharatUtility',
       description: 'Generate scan-to-connect QR codes for home, office, and cafe Wi-Fi networks. Guests connect instantly with phone camera without typing passwords.',
       keywords: [
         'wifi qr generator',
@@ -5521,7 +5521,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 46100,
     seo: {
-      title: 'CIBIL Score Simulator – Check Credit Score & Loan Eligibility | BharatUtility',
+      title: 'CIBIL Score Simulator - Check Credit Score & Loan Eligibility | BharatUtility',
       description: 'Simulate how payment history, credit card utilization (30% rule), and inquiries affect your CIBIL score. Free educational credit simulator for India.',
       keywords: [
         'cibil score simulator',
@@ -5584,7 +5584,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Business',
     views: 49200,
     seo: {
-      title: 'GST Tax Invoice Generator – Create Free B2B & B2C GST Invoices | BharatUtility',
+      title: 'GST Tax Invoice Generator - Create Free B2B & B2C GST Invoices | BharatUtility',
       description: 'Generate professional Indian GST tax invoices with HSN codes, CGST/SGST tax split, and one-click PDF printing. 100% free with zero watermarks.',
       keywords: [
         'gst invoice generator',
@@ -5645,7 +5645,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 43800,
     seo: {
-      title: 'Step-Up SIP Calculator – Annual Top-Up Mutual Fund Returns | BharatUtility',
+      title: 'Step-Up SIP Calculator - Annual Top-Up Mutual Fund Returns | BharatUtility',
       description: 'Calculate your mutual fund returns with yearly step-up SIP increments (5%, 10%, 15%). Compares step-up wealth against standard flat SIP.',
       keywords: [
         'step up sip calculator',
@@ -5706,7 +5706,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Wellness',
     views: 35100,
     seo: {
-      title: 'Sleep Cycle Calculator – Optimal Wake-Up Times & 90-Min Cycles | BharatUtility',
+      title: 'Sleep Cycle Calculator - Optimal Wake-Up Times & 90-Min Cycles | BharatUtility',
       description: 'Calculate natural 90-minute REM sleep cycle wake-up times and bedtimes. Wake up refreshed and energized without morning fatigue.',
       keywords: [
         'sleep cycle calculator',
@@ -5769,7 +5769,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Health',
     views: 31900,
     seo: {
-      title: 'Daily Calorie & Water Intake Calculator – TDEE, BMR & Fat Loss | BharatUtility',
+      title: 'Daily Calorie & Water Intake Calculator - TDEE, BMR & Fat Loss | BharatUtility',
       description: 'Calculate daily maintenance calories (TDEE), BMR, fat loss deficit, and daily water hydration targets (litres and glasses) for your body weight.',
       keywords: [
         'calorie calculator',
@@ -5831,7 +5831,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Networking',
     views: 37400,
     seo: {
-      title: 'vCard QR Code Generator – Create Digital Visiting Card QR Online | BharatUtility',
+      title: 'vCard QR Code Generator - Create Digital Visiting Card QR Online | BharatUtility',
       description: 'Generate digital visiting card QR codes (vCard 3.0). Smartphone cameras scan and save contact details directly to phonebook without typing.',
       keywords: [
         'vcard qr generator',
@@ -5891,7 +5891,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Career',
     views: 48300,
     seo: {
-      title: 'Salary Hike & Increment Percentage Calculator – CTC & In-Hand | BharatUtility',
+      title: 'Salary Hike & Increment Percentage Calculator - CTC & In-Hand | BharatUtility',
       description: 'Calculate salary hike percentage from old and new CTC. Computes appraisal percentage, annual increment, and estimated monthly in-hand increase.',
       keywords: [
         'salary hike calculator',
@@ -5953,7 +5953,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Tax Tool',
     views: 33800,
     seo: {
-      title: 'GST Late Fee Calculator – GSTR-3B & GSTR-1 Penalty & Interest | BharatUtility',
+      title: 'GST Late Fee Calculator - GSTR-3B & GSTR-1 Penalty & Interest | BharatUtility',
       description: 'Calculate GST late filing fees (₹50/day regular, ₹20/day Nil) and Section 50 statutory 18% p.a. interest on net tax payable.',
       keywords: [
         'gst late fee calculator',
@@ -6013,7 +6013,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Finance',
     views: 28400,
     seo: {
-      title: 'Compound Daily Interest Calculator – Calculate Daily & Monthly Compounding | BharatUtility',
+      title: 'Compound Daily Interest Calculator - Calculate Daily & Monthly Compounding | BharatUtility',
       description: 'Calculate daily, monthly, and quarterly compounding interest on principal amounts. Free online daily compound interest calculator.',
       keywords: [
         'daily compound interest',
@@ -6074,7 +6074,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 49800,
     seo: {
-      title: 'WhatsApp Direct Link Generator – Click-to-Chat & QR Code | BharatUtility',
+      title: 'WhatsApp Direct Link Generator - Click-to-Chat & QR Code | BharatUtility',
       description: 'Generate WhatsApp direct click-to-chat links (wa.me) and QR codes with custom messages. Start chats without saving phone numbers.',
       keywords: [
         'whatsapp link generator',
@@ -6135,7 +6135,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Productivity',
     views: 41600,
     seo: {
-      title: 'Pomodoro Focus Timer – 25-Minute Productivity Clock Online | BharatUtility',
+      title: 'Pomodoro Focus Timer - 25-Minute Productivity Clock Online | BharatUtility',
       description: 'Free online Pomodoro focus timer with 25-minute work intervals and 5-minute breaks. Boost study and coding productivity with zero distractions.',
       keywords: [
         'pomodoro timer',
@@ -6196,7 +6196,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 47900,
     seo: {
-      title: 'UPI Payment QR Code Generator – Custom Amount QR for GPay & PhonePe | BharatUtility',
+      title: 'UPI Payment QR Code Generator - Custom Amount QR for GPay & PhonePe | BharatUtility',
       description: 'Generate custom amount UPI Scan-to-Pay QR codes for your shop or freelancing. Works with Google Pay, PhonePe, Paytm, and all Indian UPI apps.',
       keywords: [
         'upi qr generator',
@@ -6931,7 +6931,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     slug: 'date-to-day-finder',
     name: 'Date to Day of Week Finder',
     shortName: 'Date to Day Finder',
-    tagline: 'Find what day of the week (Monday–Sunday) any past or future date falls on',
+    tagline: 'Find what day of the week (Monday-Sunday) any past or future date falls on',
     description: 'Find out the exact day of the week (Monday to Sunday) for any past historical date or future date in calendar history. Discover leap years and day numbers instantly.',
     category: 'date-time',
     icon: 'Calendar',

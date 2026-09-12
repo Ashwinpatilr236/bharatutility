@@ -259,7 +259,7 @@ export const TechnologySuiteCalculator: React.FC<TechnologySuiteCalculatorProps>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
                 <span className="text-xs text-neutral-600 dark:text-neutral-400">Recommended Range:</span>
-                <span className="text-xl font-black text-indigo-600 dark:text-indigo-400">{minDistanceFeet} – {maxDistanceFeet} Feet</span>
+                <span className="text-xl font-black text-indigo-600 dark:text-indigo-400">{minDistanceFeet} - {maxDistanceFeet} Feet</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-xs text-neutral-600 dark:text-neutral-400">In Meters:</span>
