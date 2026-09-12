@@ -6,9 +6,22 @@ interface Props {
   tool: Tool;
 }
 
-// Indian Number to Words Helper
+// Indian Number to Words Helper (English)
 const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
 const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+const HINDI_0_TO_99 = [
+  'शून्य', 'एक', 'दो', 'तीन', 'चार', 'पाँच', 'छह', 'सात', 'आठ', 'नौ', 'दस',
+  'ग्यारह', 'बारह', 'तेरह', 'चौदह', 'पंद्रह', 'सोलह', 'सत्रह', 'अठारह', 'उन्नीस', 'बीस',
+  'इक्कीस', 'बाईस', 'तेईस', 'चौबीस', 'पच्चीस', 'छब्बीस', 'सत्ताईस', 'अट्ठाईस', 'उनतीस', 'तीस',
+  'इकतीस', 'बत्तीस', 'तैंतीस', 'चौंतीस', 'पैंतीस', 'छत्तीस', 'सैंतीस', 'अड़तीस', 'उनतालीस', 'चालीस',
+  'इकतालीस', 'बयालीस', 'तैंतालीस', 'चौवालीस', 'पैंतालीस', 'छियालीस', 'सैंतालीस', 'अड़तालीस', 'उनचास', 'पचास',
+  'इक्यावन', 'बावन', 'तिरेपन', 'चौवन', 'पचपन', 'छप्पन', 'सत्तावन', 'अट्ठावन', 'उनसठ', 'साठ',
+  'इकसठ', 'बासठ', 'तिरेसठ', 'चौंसठ', 'पैंसठ', 'छियासठ', 'सरसठ', 'अड़सठ', 'उनहत्तर', 'सत्तर',
+  'इकहत्तर', 'बहत्तर', 'तिहत्तर', 'चौहत्तर', 'पचहत्तर', 'छिहत्तर', 'सतहत्तर', 'अठहत्तर', 'उन्नासी', 'अस्सी',
+  'इक्यासी', 'बयासी', 'तिरासी', 'चौरासी', 'पचासी', 'छियासी', 'सत्तासी', 'अट्ठासी', 'नवासी', 'नब्बे',
+  'इक्यानवे', 'बानवे', 'तिरानवे', 'चौरानवे', 'पंचानवे', 'छियानवे', 'सत्तानवे', 'अट्ठानवे', 'निन्यानवे'
+];
 
 function convertTwoDigits(n: number): string {
   if (n === 0) return '';
@@ -78,6 +91,59 @@ function convertIndianNumberToWords(num: number): { words: string; paiseWords: s
     paiseWords,
     breakdown,
   };
+}
+
+// Convert Number to Hindi Words (हिन्दी शब्दों में)
+function convertIndianNumberToHindiWords(num: number): string {
+  if (isNaN(num) || num < 0) return 'शून्य';
+  if (num === 0) return 'शून्य';
+
+  const intPart = Math.floor(num);
+  const fracPart = Math.round((num - intPart) * 100);
+
+  const crores = Math.floor(intPart / 10000000);
+  let rem = intPart % 10000000;
+  const lakhs = Math.floor(rem / 100000);
+  rem = rem % 100000;
+  const thousands = Math.floor(rem / 1000);
+  rem = rem % 1000;
+  const hundreds = Math.floor(rem / 100);
+  const units = rem % 100;
+
+  const parts: string[] = [];
+
+  if (crores > 0) {
+    const crHund = Math.floor(crores / 100);
+    const crRem = crores % 100;
+    let crStr = '';
+    if (crHund > 0) crStr += (HINDI_0_TO_99[crHund] || '') + ' सौ ';
+    if (crRem > 0) crStr += (HINDI_0_TO_99[crRem] || '');
+    parts.push(crStr.trim() + ' करोड़');
+  }
+
+  if (lakhs > 0) {
+    parts.push((HINDI_0_TO_99[lakhs] || '') + ' लाख');
+  }
+
+  if (thousands > 0) {
+    parts.push((HINDI_0_TO_99[thousands] || '') + ' हज़ार');
+  }
+
+  if (hundreds > 0) {
+    parts.push((HINDI_0_TO_99[hundreds] || '') + ' सौ');
+  }
+
+  if (units > 0) {
+    parts.push(HINDI_0_TO_99[units] || '');
+  }
+
+  let hindiText = parts.join(' ').trim() || 'शून्य';
+
+  if (fracPart > 0) {
+    hindiText += ` और ${HINDI_0_TO_99[fracPart] || ''} पैसे`;
+  }
+
+  return hindiText;
 }
 
 export const TextAndLanguageSuiteCalculator: React.FC<Props> = ({ tool }) => {
@@ -212,6 +278,18 @@ export const TextAndLanguageSuiteCalculator: React.FC<Props> = ({ tool }) => {
     ];
   }, [caseInputText]);
 
+  const hindiChequeSentence = useMemo(() => {
+    const hindiWords = convertIndianNumberToHindiWords(numParsed);
+    let base = hindiWords;
+    if (currencyPrefix === 'Rupees') {
+      base = `रुपये ${base}`;
+    }
+    if (includeOnly) {
+      base += ' मात्र';
+    }
+    return base;
+  }, [numParsed, currencyPrefix, includeOnly]);
+
   return (
     <div className="space-y-8">
       {/* ----------------- 1. NUMBER TO WORDS CONVERTER ----------------- */}
@@ -260,7 +338,7 @@ export const TextAndLanguageSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <select
                   value={currencyPrefix}
                   onChange={(e) => setCurrencyPrefix(e.target.value as any)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-slate-200 text-sm focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-slate-200 text-sm focus:outline-none focus:border-emerald-500 cursor-pointer"
                 >
                   <option value="Rupees">Rupees ...</option>
                   <option value="USD">US Dollars ...</option>
@@ -268,15 +346,15 @@ export const TextAndLanguageSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-2">Suffix Suffix</label>
+                <label className="block text-xs font-medium text-slate-400 mb-2">Suffix</label>
                 <label className="flex items-center gap-2 mt-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={includeOnly}
                     onChange={(e) => setIncludeOnly(e.target.checked)}
-                    className="rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500 w-4 h-4"
+                    className="rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500 w-4 h-4 cursor-pointer"
                   />
-                  <span className="text-sm text-slate-300">Add &apos;Only&apos; at end</span>
+                  <span className="text-sm text-slate-300">Add &apos;Only&apos; / &apos;मात्र&apos;</span>
                 </label>
               </div>
             </div>
@@ -300,60 +378,80 @@ export const TextAndLanguageSuiteCalculator: React.FC<Props> = ({ tool }) => {
           </div>
 
           {/* Results Display */}
-          <div className="lg:col-span-6 space-y-6">
-            {/* Primary Cheque Card */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950/30 border-2 border-emerald-500/30 rounded-2xl p-6 relative overflow-hidden shadow-xl">
-              <div className="flex justify-between items-start mb-4">
+          <div className="lg:col-span-6 space-y-5">
+            {/* Primary English Cheque Card */}
+            <div className="bg-gradient-to-br from-slate-900 to-emerald-950/30 border-2 border-emerald-500/30 rounded-2xl p-5 relative overflow-hidden shadow-xl">
+              <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-emerald-400" />
+                  <Sparkles className="w-4 h-4 text-emerald-400" />
                   <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                    Bank Cheque / RTGS Words
+                    Bank Cheque / RTGS (English)
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => copyToClipboard(chequeSentence, 'cheque')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-semibold rounded-lg text-xs transition-all shadow-md active:scale-95"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-semibold rounded-lg text-xs transition-all shadow-md active:scale-95 cursor-pointer"
                 >
                   {copiedId === 'cheque' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                  {copiedId === 'cheque' ? 'Copied!' : 'Copy For Cheque'}
+                  {copiedId === 'cheque' ? 'Copied!' : 'Copy English'}
                 </button>
               </div>
 
-              <div className="p-4 bg-slate-950/70 border border-slate-800 rounded-xl">
-                <p className="text-lg md:text-xl font-serif font-medium text-white leading-relaxed select-all">
+              <div className="p-3.5 bg-slate-950/70 border border-slate-800 rounded-xl">
+                <p className="text-base md:text-lg font-serif font-medium text-white leading-relaxed select-all">
                   &quot;{chequeSentence}&quot;
                 </p>
               </div>
+            </div>
 
-              <div className="mt-4 flex flex-wrap items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-800/80 gap-2">
-                <span>Digits: <strong className="text-slate-200">₹{numParsed.toLocaleString('en-IN')}</strong></span>
-                <span>System: <strong className="text-emerald-400">Indian Lakh / Crore</strong></span>
+            {/* Hindi Cheque Card */}
+            <div className="bg-gradient-to-br from-slate-900 to-orange-950/30 border-2 border-orange-500/30 rounded-2xl p-5 relative overflow-hidden shadow-xl">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-orange-400" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-orange-400">
+                    हिन्दी शब्दों में (Cheque & Invoice)
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(hindiChequeSentence, 'hindi-cheque')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-slate-950 font-semibold rounded-lg text-xs transition-all shadow-md active:scale-95 cursor-pointer"
+                >
+                  {copiedId === 'hindi-cheque' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedId === 'hindi-cheque' ? 'Copied!' : 'Copy Hindi'}
+                </button>
+              </div>
+
+              <div className="p-3.5 bg-slate-950/70 border border-slate-800 rounded-xl">
+                <p className="text-base md:text-lg font-serif font-medium text-amber-200 leading-relaxed select-all">
+                  &quot;{hindiChequeSentence}&quot;
+                </p>
               </div>
             </div>
 
             {/* Quick Copy Variations */}
-            <div className="bg-slate-900/60 backdrop-blur-md p-6 rounded-2xl border border-slate-800 space-y-3">
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Alternative Casing Formats</h4>
+            <div className="bg-slate-900/60 backdrop-blur-md p-5 rounded-2xl border border-slate-800 space-y-2.5">
+              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Alternative Formats</h4>
               
               <div className="space-y-2">
                 {[
-                  { label: 'Cheque Title Case', text: chequeSentence },
                   { label: 'ALL UPPERCASE (Legal / Invoice)', text: chequeSentence.toUpperCase() },
                   { label: 'all lowercase', text: chequeSentence.toLowerCase() },
                 ].map((format, i) => (
-                  <div key={i} className="flex items-center justify-between p-3 bg-slate-800/60 rounded-xl border border-slate-700/50 hover:border-slate-600 transition-colors">
+                  <div key={i} className="flex items-center justify-between p-2.5 bg-slate-800/60 rounded-xl border border-slate-700/50 hover:border-slate-600 transition-colors">
                     <div className="pr-4 overflow-hidden">
-                      <span className="block text-[11px] text-slate-400">{format.label}</span>
+                      <span className="block text-[10px] text-slate-400">{format.label}</span>
                       <span className="text-xs text-slate-200 truncate block font-mono mt-0.5">{format.text}</span>
                     </div>
                     <button
                       type="button"
                       onClick={() => copyToClipboard(format.text, `fmt-${i}`)}
-                      className="shrink-0 p-2 bg-slate-700/60 hover:bg-slate-600 text-slate-200 rounded-lg text-xs transition-colors"
+                      className="shrink-0 p-1.5 bg-slate-700/60 hover:bg-slate-600 text-slate-200 rounded-lg text-xs transition-colors cursor-pointer"
                       title="Copy"
                     >
-                      {copiedId === `fmt-${i}` ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                      {copiedId === `fmt-${i}` ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                   </div>
                 ))}

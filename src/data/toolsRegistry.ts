@@ -6985,6 +6985,263 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: ['age-calculator', 'add-subtract-days-calculator', 'date-difference-calculator']
+  },
+
+  // 97. Today's Choghadiya & Shubh Muhurat Calculator
+  {
+    id: 'choghadiya-calculator',
+    slug: 'choghadiya-calculator',
+    name: 'Today Choghadiya & Shubh Muhurat Calculator',
+    shortName: 'Choghadiya Calculator',
+    tagline: 'Live Indian Day & Night Choghadiya, Shubh Muhurat, Rahu Kaal & Abhijit timings across Indian cities',
+    description: 'Calculate live Day and Night Choghadiya slots (Amrit, Shubh, Labh, Char, Rog, Kaal, Udveg) with astrological Sunrise, Sunset, Rahu Kaal, and Abhijit Muhurat for Delhi, Mumbai, Bengaluru, and all Indian cities.',
+    category: 'date-time',
+    icon: 'Sun',
+    keywords: [
+      'today choghadiya calculator',
+      'choghadiya timings today india',
+      'day night choghadiya muhurat',
+      'shubh muhurat today',
+      'rahu kaal timings today',
+      'abhijit muhurat live'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Live Muhurat',
+    views: 45200,
+    seo: {
+      title: 'Today Choghadiya & Shubh Muhurat Calculator (Live Timings) | BharatUtility',
+      description: 'Check today Day and Night Choghadiya, Shubh Muhurat, Rahu Kaal, and Abhijit timings for all Indian cities. 100% free mathematical Vedic calculation.',
+      keywords: [
+        'choghadiya calculator',
+        'today choghadiya',
+        'shubh muhurat today',
+        'rahu kaal today',
+        'day choghadiya'
+      ],
+      canonicalSlug: 'choghadiya-calculator',
+      h1: 'Today Choghadiya & Shubh Muhurat Calculator',
+    },
+    formulaDescription: 'Calculated using solar sunrise/sunset coordinates, longitude adjustments relative to IST (82.5° E), and weekday planetary lord sequences (Horas/Choghadiya).',
+    workedExample: {
+      inputSummary: 'Location: New Delhi | Date: Today | Time: Live Clock',
+      calculationSteps: [
+        '1. Compute Solar Sunrise & Sunset based on Delhi coordinates (28.61° N, 77.20° E)',
+        '2. Divide daytime (Dinmaan) and nighttime (Ratrimaan) into 8 equal 1.5-hour Choghadiya segments',
+        '3. Map weekday ruler cycle to identify Amrit, Shubh, Labh, and Char auspicious periods'
+      ],
+      finalResult: 'Live active Choghadiya with countdown and Rahu Kaal protection window'
+    },
+    seoSections: [
+      {
+        h2: 'Find Auspicious Muhurat for Daily Tasks & New Ventures in India',
+        paragraphs: [
+          'Choghadiya is a traditional Vedic time division system widely used across India to determine auspicious moments for starting journeys, purchasing gold or vehicles, signing business agreements, or conducting housewarming prayers.',
+          'Day Choghadiya runs from Sunrise to Sunset, divided into 8 equal parts. Night Choghadiya runs from Sunset to the next Sunrise. Auspicious slots include Amrit (Supreme), Shubh (Good), Labh (Gains), and Char (Dynamic).'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Which Choghadiya slots are considered auspicious for starting work?',
+        answer: 'Amrit (अमृत), Shubh (शुभ), Labh (लाभ), and Char (चर) are auspicious Choghadiyas. Starting tasks during Amrit or Labh brings prosperity and positive outcomes.'
+      },
+      {
+        question: 'What is Rahu Kaal and why should it be avoided?',
+        answer: 'Rahu Kaal is an inauspicious 90-minute daily window governed by Rahu. It is traditionally avoided for commencing new business deals, travel, or buying high-value assets.'
+      }
+    ],
+    relatedToolSlugs: ['date-to-day-finder', 'ist-time-zone-converter', 'date-difference-calculator']
+  },
+
+  // 98. Govt Exam Speed Typing Test (English & Hindi)
+  {
+    id: 'speed-typing-test',
+    slug: 'speed-typing-test',
+    name: 'Govt Exam Speed Typing Test (English & Hindi)',
+    shortName: 'Speed Typing Test',
+    tagline: 'Practice SSC CHSL, CGL Tier 2, High Court & Banking exam typing tests with live WPM & accuracy',
+    description: 'Boost your typing speed and accuracy for SSC CGL, CHSL Tier 2, RRB NTPC, and High Court Clerk exams. Practice standard English passages and Hindi (Mangal/InScript layout) with live WPM, CPM, and error scoring.',
+    category: 'student',
+    icon: 'Keyboard',
+    keywords: [
+      'ssc typing test online free',
+      'speed typing test wpm',
+      'hindi typing test mangal inscript',
+      'chsl typing test practice',
+      'high court clerk typing test',
+      'typing speed calculator wpm'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'SSC & Govt Exam',
+    views: 52100,
+    seo: {
+      title: 'Govt Exam Speed Typing Test (SSC, High Court & Hindi) | BharatUtility',
+      description: 'Free online typing speed test with WPM and accuracy metrics. Practice for SSC CHSL, CGL Tier 2, RRB, and High Court recruitment exams in English and Hindi.',
+      keywords: [
+        'typing test online',
+        'ssc typing test',
+        'typing speed test wpm',
+        'hindi typing test'
+      ],
+      canonicalSlug: 'speed-typing-test',
+      h1: 'Govt Exam Speed Typing Test (English & Hindi)',
+    },
+    formulaDescription: 'Gross WPM = (Total Characters Typed ÷ 5) ÷ Minutes | Net WPM = Gross WPM − (Uncorrected Errors ÷ Minutes) | Accuracy % = (Correct Chars ÷ Total Chars) × 100.',
+    workedExample: {
+      inputSummary: 'Time: 60 Seconds | Total Typed: 250 Characters | Errors: 2 Characters',
+      calculationSteps: [
+        '1. Gross WPM = (250 ÷ 5) ÷ 1 = 50 WPM',
+        '2. Net WPM = 50 − 2 = 48 WPM',
+        '3. Accuracy = (248 ÷ 250) × 100 = 99.2%'
+      ],
+      finalResult: 'Net Speed: 48 WPM | Accuracy: 99.2% | Status: Qualified for SSC CHSL / CGL Tier 2'
+    },
+    seoSections: [
+      {
+        h2: 'Official Typing Speed Benchmarks for Indian Recruitment Exams',
+        paragraphs: [
+          'Most central and state government recruitment tests require a minimum typing speed: SSC CHSL requires 35 WPM in English (or 30 WPM in Hindi), SSC CGL Tier 2 requires ~27 WPM (2000 key depressions in 15 minutes with max 5%–7% errors), and High Court Clerk posts often require 35–40 WPM.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the minimum typing speed required for SSC CHSL & CGL?',
+        answer: 'SSC CHSL requires 35 WPM (English) or 30 WPM (Hindi). SSC CGL Tier 2 requires typing 2000 key depressions in 15 minutes with at least 93% accuracy for general candidates.'
+      }
+    ],
+    relatedToolSlugs: ['attendance-calculator', 'marks-percentage-calculator', 'cgpa-calculator']
+  },
+
+  // 99. SVG to PNG & WebP High-Resolution Converter
+  {
+    id: 'svg-to-png-converter',
+    slug: 'svg-to-png-converter',
+    name: 'SVG to PNG & WebP High-Resolution Converter',
+    shortName: 'SVG to PNG Converter',
+    tagline: 'Convert SVG vector code or files to high-resolution 16px to 1024px PNG & WebP with transparent background',
+    description: 'Convert SVG vector graphics and icons into lossless PNG or WebP images. Customize resolution from 16x16 to 1024x1024, set transparent or custom background colors, and download with zero server upload.',
+    category: 'developer',
+    icon: 'FileCode',
+    keywords: [
+      'svg to png converter',
+      'convert svg to png high resolution',
+      'svg to webp converter free',
+      'vector to png online transparent',
+      'svg icon exporter'
+    ],
+    popular: true,
+    trending: false,
+    featured: true,
+    badge: 'Vector Tool',
+    views: 38400,
+    seo: {
+      title: 'SVG to PNG & WebP Converter (High-Resolution & Transparent) | BharatUtility',
+      description: 'Convert SVG vector files or raw markup to high-res PNG and WebP images. 100% private, client-side converter with custom background and size presets.',
+      keywords: [
+        'svg to png',
+        'svg to webp',
+        'convert svg to png',
+        'svg vector converter'
+      ],
+      canonicalSlug: 'svg-to-png-converter',
+      h1: 'SVG to PNG & WebP High-Resolution Converter',
+    },
+    formulaDescription: 'Renders SVG XML DOM via Blob URL directly onto an in-browser HTML5 Canvas at target pixel dimensions and exports lossless data URI.',
+    workedExample: {
+      inputSummary: 'Input: SVG vector icon | Target Size: 512x512 px | Background: Transparent | Format: PNG',
+      calculationSteps: [
+        '1. Parse SVG XML tree and validate attributes',
+        '2. Instantiate offscreen Canvas at 512x512 pixels',
+        '3. Render vector paths with subpixel anti-aliasing and export PNG blob'
+      ],
+      finalResult: 'Lossless 512x512 PNG with crystal clear alpha transparency'
+    },
+    seoSections: [
+      {
+        h2: 'Why Convert SVG Vectors to High-Resolution Raster Images?',
+        paragraphs: [
+          'While SVG is the gold standard for web development, platforms like mobile apps, social media cards, email signatures, and Microsoft Office documents require standard PNG or WebP raster formats. This tool enables developers and designers to generate crisp, pixel-perfect raster graphics.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Are my SVG files uploaded to any server?',
+        answer: 'No. All SVG rendering and conversion happens strictly inside your web browser memory using HTML5 Canvas. Your designs never leave your device.'
+      }
+    ],
+    relatedToolSlugs: ['image-compressor-resizer', 'markdown-to-html-converter', 'qr-code-generator']
+  },
+
+  // 100. Govt Exam Photo & Date of Photo (DOP) Stamp Maker
+  {
+    id: 'exam-photo-date-stamp',
+    slug: 'exam-photo-date-stamp',
+    name: 'Govt Exam Photo & Date of Photo (DOP) Stamp Maker',
+    shortName: 'Exam Photo Date Stamp',
+    tagline: 'Add candidate name & Date of Photo (DOP) bottom banner strictly compliant with SSC, UPSC & IBPS guidelines (20KB–50KB)',
+    description: 'Add candidate name and Date of Photo (DOP/DOB) on a white bottom banner for SSC CGL, CHSL, UPSC CSE, IBPS Bank, and Railway recruitment portals. Automatically compresses photo strictly within the 20 KB to 50 KB requirement.',
+    category: 'document-pdf',
+    icon: 'Camera',
+    keywords: [
+      'ssc photo date maker',
+      'exam photo with name and date generator',
+      'upsc photo name date stamp',
+      'ibps photo size 20kb to 50kb',
+      'dop photo date stamp online'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'SSC / UPSC Ready',
+    views: 64500,
+    seo: {
+      title: 'Govt Exam Photo & Date Stamp Maker (SSC, UPSC, IBPS 20KB-50KB) | BharatUtility',
+      description: 'Add candidate name and Date of Photo (DOP) banner to your passport photo. Formatted specifically for SSC CGL/CHSL, UPSC, IBPS, and State PSC applications.',
+      keywords: [
+        'ssc photo date stamp',
+        'exam photo date of photo',
+        'upsc photo maker',
+        'photo resizer 20kb to 50kb'
+      ],
+      canonicalSlug: 'exam-photo-date-stamp',
+      h1: 'Govt Exam Photo & Date of Photo (DOP) Stamp Maker',
+    },
+    formulaDescription: 'Canvas raster overlay with candidate typography banner + iterative quality compression targeting 20 KB–50 KB standard limits.',
+    workedExample: {
+      inputSummary: 'Photo: Passport size | Name: RAHUL SHARMA | Date: 12-09-2026 | Target: 35 KB',
+      calculationSteps: [
+        '1. Crop uploaded image to 350x450 px (3.5 cm x 4.5 cm)',
+        '2. Add bottom white banner (18% height) with uppercase black text for Name and DOP',
+        '3. Iterative JPEG compression to achieve exactly ~35 KB file size'
+      ],
+      finalResult: 'Ready-to-upload 350x450 px JPEG photo (34.8 KB) compliant with SSC & UPSC portals'
+    },
+    seoSections: [
+      {
+        h2: 'Strict Rules for Photo with Name and Date on Indian Govt Job Portals',
+        paragraphs: [
+          'Staff Selection Commission (SSC), Union Public Service Commission (UPSC), and state recruitment boards strictly reject applications where the photograph does not have the candidate name and Date of Photo (DOP) clearly stamped on the bottom.',
+          'This utility automates the entire process in seconds without requiring Photoshop or photo studio visits.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is DOP in SSC recruitment forms?',
+        answer: 'DOP stands for Date of Photograph. According to official notifications, the date on which the photograph was taken must be clearly printed on the bottom of the photo.'
+      },
+      {
+        question: 'What is the allowed file size for SSC & UPSC photo upload?',
+        answer: 'SSC and UPSC portals require JPEG format photographs strictly between 20 KB and 50 KB with 3.5 cm x 4.5 cm dimensions (approx 350 x 450 pixels).'
+      }
+    ],
+    relatedToolSlugs: ['signature-resizer', 'image-compressor-resizer', 'jpg-to-pdf']
   }
 ];
 

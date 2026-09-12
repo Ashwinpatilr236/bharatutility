@@ -51,6 +51,10 @@ const SalaryAndGstSuiteCalculator = React.lazy(() => import('../calculators/Sala
 const ProductivityAndUpiSuiteCalculator = React.lazy(() => import('../calculators/ProductivityAndUpiSuiteCalculator').then(m => ({ default: m.ProductivityAndUpiSuiteCalculator })));
 const SpecializedTaxAndLoanSuiteCalculator = React.lazy(() => import('../calculators/SpecializedTaxAndLoanSuiteCalculator').then(m => ({ default: m.SpecializedTaxAndLoanSuiteCalculator })));
 const WorkAndHabitSuiteCalculator = React.lazy(() => import('../calculators/WorkAndHabitSuiteCalculator').then(m => ({ default: m.WorkAndHabitSuiteCalculator })));
+const ChoghadiyaSuiteCalculator = React.lazy(() => import('../calculators/ChoghadiyaSuiteCalculator').then(m => ({ default: m.ChoghadiyaSuiteCalculator })));
+const SpeedTypingSuiteCalculator = React.lazy(() => import('../calculators/SpeedTypingSuiteCalculator').then(m => ({ default: m.SpeedTypingSuiteCalculator })));
+const SvgConverterSuiteCalculator = React.lazy(() => import('../calculators/SvgConverterSuiteCalculator').then(m => ({ default: m.SvgConverterSuiteCalculator })));
+const ExamPhotoStampSuiteCalculator = React.lazy(() => import('../calculators/ExamPhotoStampSuiteCalculator').then(m => ({ default: m.ExamPhotoStampSuiteCalculator })));
 
 import {
   Star,
@@ -228,6 +232,26 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       case 'habit-streak-routine-tracker':
       case 'chit-fund-committee-calculator':
         return <WorkAndHabitSuiteCalculator tool={tool} />;
+
+      // Indian Choghadiya & Shubh Muhurat
+      case 'choghadiya-calculator':
+      case 'shubh-muhurat-calculator':
+        return <ChoghadiyaSuiteCalculator onResultChange={handleResultChange} />;
+
+      // Govt Exam Speed Typing Test
+      case 'speed-typing-test':
+      case 'hindi-typing-test':
+        return <SpeedTypingSuiteCalculator onResultChange={handleResultChange} />;
+
+      // SVG Vector to PNG / WebP Converter
+      case 'svg-to-png-converter':
+      case 'svg-to-webp-converter':
+        return <SvgConverterSuiteCalculator onResultChange={handleResultChange} />;
+
+      // Govt Exam Photo & Date of Photo (DOP) Stamp
+      case 'exam-photo-date-stamp':
+      case 'passport-photo-date-maker':
+        return <ExamPhotoStampSuiteCalculator onResultChange={handleResultChange} />;
 
       case 'gst-calculator':
       case 'discount-calculator':
