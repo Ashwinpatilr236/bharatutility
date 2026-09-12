@@ -730,6 +730,42 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://bharatutility.tech/tools/currency-converter</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/tools/aqi-weather-forecast</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/tools/ip-isp-inspector</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/tools/daily-fuel-price-tracker</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/tools/qr-code-scanner-reader</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/tools/long-weekend-holiday-planner</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://bharatutility.tech/about</loc>
     <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>

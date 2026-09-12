@@ -7571,6 +7571,309 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: ['image-compressor-resizer', 'svg-to-png-converter', 'exam-photo-date-stamp']
+  },
+  // 107. Live Currency Converter & NRI Remittance
+  {
+    id: 'currency-converter',
+    slug: 'currency-converter',
+    name: 'Live Currency Converter & Remittance',
+    shortName: 'Currency Converter',
+    tagline: 'Real-time exchange rates for USD, EUR, GBP, AED, SAR against INR with remittance estimates',
+    description: 'Convert 160+ world currencies to Indian Rupee (INR) with live mid-market exchange rates and bank remittance fee calculations.',
+    category: 'money',
+    icon: 'DollarSign',
+    keywords: ['currency converter', 'usd to inr', 'aed to inr', 'eur to inr', 'gbp to inr', 'live exchange rates inr', 'nri remittance calculator'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Live API',
+    views: 32400,
+    seo: {
+      title: 'Live Currency Converter - USD, EUR, AED to INR | BharatUtility',
+      description: 'Convert USD, EUR, GBP, AED, SAR to Indian Rupee with real-time open exchange rates and remittance in-hand estimates.',
+      keywords: ['currency converter inr', 'usd to inr live', 'aed to inr', 'forex converter india'],
+      canonicalSlug: 'currency-converter',
+      h1: 'Live Currency Converter & NRI Remittance Calculator',
+    },
+    formulaDescription: 'Mid-market currency conversion: Target Amount = Base Amount × (Target Rate / Base Rate)',
+    formulaLatex: 'A_{target} = A_{base} \times \frac{R_{target}}{R_{base}}',
+    workedExample: {
+      inputSummary: '100 USD to INR at exchange rate of 1 USD = 87.25 INR',
+      calculationSteps: [
+        'Mid-Market Total = $100 × 87.25 = ₹8,725',
+        'Estimated Bank Forex Spread (1.5%) = ₹130.88',
+        'Net Receivable in Indian Bank = ₹8,594.12'
+      ],
+      finalResult: '$100 = ₹8,725 (Net In-Hand ~₹8,594)',
+    },
+    seoSections: [
+      {
+        h2: 'How Live Currency Conversion Works',
+        paragraphs: [
+          'Our currency converter fetches real-time open exchange rate feeds. It provides both the true mid-market rate and an estimated net in-hand remittance amount after standard Indian bank spreads.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Are the exchange rates live?',
+        answer: 'Yes, rates are updated in real-time from open exchange rate APIs.'
+      }
+    ],
+    relatedToolSlugs: ['salary-calculator', 'gst-calculator', 'sip-calculator']
+  },
+  // 108. Live AQI & Weather Monitor
+  {
+    id: 'aqi-weather-forecast',
+    slug: 'aqi-weather-forecast',
+    name: 'Live AQI & Weather Monitor (Indian Cities)',
+    shortName: 'AQI & Weather',
+    tagline: 'Real-time Air Quality Index (PM2.5, PM10) and weather forecast across top Indian cities',
+    description: 'Check live AQI scores, PM2.5 levels, CPCB health advisories, temperature, and humidity for Delhi, Mumbai, Bengaluru, and 100+ Indian cities.',
+    category: 'daily-life',
+    icon: 'Wind',
+    keywords: ['aqi india', 'delhi aqi live', 'mumbai aqi', 'air quality index india', 'pm2.5 checker', 'weather forecast india'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Live API',
+    views: 41200,
+    seo: {
+      title: 'Live AQI & Weather Monitor - Air Quality in Indian Cities | BharatUtility',
+      description: 'Check real-time AQI, PM2.5 pollutant levels, and weather forecast for Delhi, Mumbai, Bengaluru, Kolkata and 100+ cities.',
+      keywords: ['aqi live india', 'air quality index', 'delhi pollution level', 'pm25 live monitor'],
+      canonicalSlug: 'aqi-weather-forecast',
+      h1: 'Live Air Quality Index (AQI) & Weather Monitor',
+    },
+    formulaDescription: 'AQI categorization follows Central Pollution Control Board (CPCB India) PM2.5 guidelines: 0-30 Good, 31-60 Satisfactory, 61-90 Moderate, 91-120 Poor, 121-250 Very Poor, 250+ Severe.',
+    formulaLatex: 'AQI_{CPCB} = f(PM_{2.5}, PM_{10}, NO_2, O_3)',
+    workedExample: {
+      inputSummary: 'Location: Delhi NCR | Current PM2.5: 84 µg/m³',
+      calculationSteps: [
+        'Pollutant PM2.5 Concentration: 84 µg/m³',
+        'CPCB India Bracket: 61 - 90 µg/m³',
+        'Resulting Category: Moderate AQI',
+        'Health Advisory: Breathing discomfort possible for sensitive individuals.'
+      ],
+      finalResult: 'Category: Moderate (84 µg/m³ PM2.5) | Wear mask during peak traffic',
+    },
+    seoSections: [
+      {
+        h2: 'Understanding Indian CPCB Air Quality Index',
+        paragraphs: [
+          'Air quality is monitored using real-time atmospheric sensor data measuring PM2.5, PM10, nitrogen dioxide, and ground-level ozone across major Indian metropolitan districts.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is a safe AQI level in India?',
+        answer: 'A PM2.5 concentration between 0 to 30 µg/m³ is considered Good, and 31 to 60 is Satisfactory according to Indian standards.'
+      }
+    ],
+    relatedToolSlugs: ['daily-calorie-water-calculator', 'sleep-cycle-alarm-calculator', 'speed-distance-time-calculator']
+  },
+  // 109. My IP & ISP Connection Inspector
+  {
+    id: 'ip-isp-inspector',
+    slug: 'ip-isp-inspector',
+    name: 'My IP & ISP Connection Inspector',
+    shortName: 'IP & ISP Inspector',
+    tagline: 'Instant Public IPv4 address, Jio/Airtel/Vi ISP detection, ping latency and network diagnostics',
+    description: 'Find your public IP address, ISP provider name, ASN, Indian city location, and test real-time latency for work-from-home diagnostics.',
+    category: 'technology',
+    icon: 'Wifi',
+    keywords: ['what is my ip', 'my ip address india', 'isp checker', 'jio ping test', 'airtel fiber ip test', 'network diagnostics'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Live API',
+    views: 29800,
+    seo: {
+      title: 'What is My IP - Public IP & ISP Network Inspector | BharatUtility',
+      description: 'Check your public IPv4 address, internet service provider (Jio, Airtel, BSNL), network latency ping, and location instantly.',
+      keywords: ['what is my ip india', 'my public ip', 'check isp provider', 'ping latency test'],
+      canonicalSlug: 'ip-isp-inspector',
+      h1: 'My Public IP & ISP Connection Inspector',
+    },
+    formulaDescription: 'Client IP identification and real-time HTTP ping duration: Ping = t_{response} - t_{request} (in milliseconds).',
+    formulaLatex: 'Latency_{ms} = T_{received} - T_{sent}',
+    workedExample: {
+      inputSummary: 'Client Network Check from Mumbai',
+      calculationSteps: [
+        'Detected IP: 103.24.120.45',
+        'Identified ISP: Reliance Jio Infocomm Ltd',
+        'Region: Mumbai, Maharashtra 400001',
+        'Edge Round-Trip Latency: 24 ms'
+      ],
+      finalResult: 'Status: Optimal Broadband Connection (24ms ping)',
+    },
+    seoSections: [
+      {
+        h2: 'Why Check Your Public IP & Network Latency?',
+        paragraphs: [
+          'Checking your public IP and ISP helps diagnose broadband connection issues, verify VPN masking, and troubleshoot work-from-home connectivity with Indian telecom networks.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does this tool show my exact home address?',
+        answer: 'No, public IP geolocation only identifies the city and telecom routing hub, preserving your personal privacy.'
+      }
+    ],
+    relatedToolSlugs: ['wifi-qr-code-generator', 'speed-typing-test', 'qr-code-generator']
+  },
+  // 110. Daily City-Wise Petrol, Diesel & CNG Price Tracker
+  {
+    id: 'daily-fuel-price-tracker',
+    slug: 'daily-fuel-price-tracker',
+    name: 'Daily Petrol, Diesel & CNG Price Tracker',
+    shortName: 'Fuel Price Tracker',
+    tagline: 'Today’s retail petrol, diesel, and CNG rates per litre across all Indian states and cities',
+    description: 'Check today’s live fuel rates in Delhi, Mumbai, Bengaluru, Chennai, Pune and calculate daily commute costs instantly.',
+    category: 'vehicle-utility',
+    icon: 'Fuel',
+    keywords: ['petrol price today', 'diesel price today', 'cng price india', 'petrol rate mumbai', 'delhi petrol price', 'fuel rate tracker'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Daily Live',
+    views: 38700,
+    seo: {
+      title: 'Petrol & Diesel Price Today - City Fuel Rates India | BharatUtility',
+      description: 'Check today’s petrol, diesel, and CNG rates in Delhi, Mumbai, Bengaluru and top Indian cities with daily commute savings calculator.',
+      keywords: ['petrol price today', 'diesel rate india', 'cng price today', 'fuel price tracker'],
+      canonicalSlug: 'daily-fuel-price-tracker',
+      h1: 'Daily Petrol, Diesel & CNG Fuel Price Tracker (India)',
+    },
+    formulaDescription: 'Daily Commute Cost = (Distance in km / Mileage in kmpl) × Fuel Price per Litre',
+    formulaLatex: 'Cost_{commute} = \frac{D}{M} \times P_{fuel}',
+    workedExample: {
+      inputSummary: 'City: Delhi | Fuel: Petrol (₹94.72/L) | Distance: 30 km | Mileage: 15 km/L',
+      calculationSteps: [
+        'Daily Litres Needed = 30 km / 15 km/L = 2.0 Litres',
+        'Daily Fuel Cost = 2.0 × ₹94.72 = ₹189.44',
+        'Monthly Commute Cost (26 Days) = ₹189.44 × 26 = ₹4,925'
+      ],
+      finalResult: 'Daily: ₹189.44 | Monthly Outflow: ₹4,925',
+    },
+    seoSections: [
+      {
+        h2: 'How Fuel Prices are Determined in India',
+        paragraphs: [
+          'State-run oil marketing companies revise petrol and diesel retail rates daily based on international crude oil benchmarks and foreign exchange valuations.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Why do fuel prices vary between Indian states?',
+        answer: 'Fuel prices differ due to varying State VAT (Value Added Tax), local freight charges, and municipal cess rates.'
+      }
+    ],
+    relatedToolSlugs: ['vehicle-fuel-cost-calculator', 'ev-vs-petrol-calculator', 'car-loan-emi-calculator']
+  },
+  // 111. Live Camera & File QR Code Scanner + Reader
+  {
+    id: 'qr-code-scanner-reader',
+    slug: 'qr-code-scanner-reader',
+    name: 'Live Camera & File QR Code Scanner',
+    shortName: 'QR Code Scanner',
+    tagline: 'Scan and decode QR codes from phone camera, gallery photos, and screenshot files',
+    description: 'Free online QR code scanner to decode UPI links, URLs, Wi-Fi credentials, and text without installing any mobile app.',
+    category: 'technology',
+    icon: 'QrCode',
+    keywords: ['qr code scanner online', 'scan qr code from image', 'camera qr scanner', 'upi qr scanner', 'decode qr screenshot'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Scanner',
+    views: 35600,
+    seo: {
+      title: 'Online QR Code Scanner - Camera & Image File Reader | BharatUtility',
+      description: 'Scan QR codes directly in your browser using camera or uploading screenshot files. Decode UPI, URLs, and text instantly.',
+      keywords: ['qr code scanner online', 'scan qr image', 'read qr code from gallery', 'browser qr scanner'],
+      canonicalSlug: 'qr-code-scanner-reader',
+      h1: 'Live Camera & File QR Code Scanner',
+    },
+    formulaDescription: 'Client-side matrix barcode pattern detection and Reed-Solomon error correction decoding.',
+    formulaLatex: 'QR_{decoded} = Decode(Pattern_{matrix})',
+    workedExample: {
+      inputSummary: 'Uploaded WhatsApp Screenshot of Payment QR Code',
+      calculationSteps: [
+        'Image loaded in local canvas memory',
+        'Finder patterns identified in 3 corners',
+        'Decoded Payload: upi://pay?pa=merchant@upi&pn=Store&cu=INR'
+      ],
+      finalResult: 'Decoded UPI payment link ready for instant app launch',
+    },
+    seoSections: [
+      {
+        h2: 'Scan QR Codes Privately in Your Browser',
+        paragraphs: [
+          'Unlike mobile apps filled with ads, BharatUtility’s QR Code scanner runs 100% locally inside your web browser. Your camera feed and images are never uploaded to any server.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Can I scan a QR code from a screenshot on my phone?',
+        answer: 'Yes! Select the Upload Image tab and choose the screenshot from your gallery.'
+      }
+    ],
+    relatedToolSlugs: ['qr-code-generator', 'upi-qr-payment-generator', 'wifi-qr-code-generator']
+  },
+  // 112. Indian Public Holidays & Smart Long Weekend Planner
+  {
+    id: 'long-weekend-holiday-planner',
+    slug: 'long-weekend-holiday-planner',
+    name: 'Indian Holidays & Long Weekend Planner (2026-2027)',
+    shortName: 'Long Weekend Planner',
+    tagline: 'Calendar of Gazetted holidays and curated 3-day & 4-day long weekend vacation suggestions',
+    description: 'Find all Indian national holidays and plan leaves with our smart long-weekend finder to get 3-5 days off with minimum leave days.',
+    category: 'travel-utility',
+    icon: 'Palmtree',
+    keywords: ['long weekends 2026 india', 'bank holidays 2026', 'public holidays india', 'vacation planner india', 'gazetted holidays list'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Planner',
+    views: 44100,
+    seo: {
+      title: 'Indian Public Holidays & Long Weekend Planner 2026 | BharatUtility',
+      description: 'Discover all 2026 Gazetted holidays in India and smart long-weekend vacation plans with bridge leave recommendations.',
+      keywords: ['long weekends 2026', 'indian holidays list', 'plan long weekend vacations', 'gazetted holidays 2026'],
+      canonicalSlug: 'long-weekend-holiday-planner',
+      h1: 'Indian Public Holidays & Smart Long Weekend Planner',
+    },
+    formulaDescription: 'Smart leave planning algorithm: Bridge Leave = Day_{gap} between Weekend (Sat/Sun) and Gazetted Holiday.',
+    formulaLatex: 'Vacation_{days} = Holiday + Bridge + Weekend',
+    workedExample: {
+      inputSummary: 'Holiday on Tuesday (14 April - Ambedkar Jayanti)',
+      calculationSteps: [
+        'Weekend: 11 Apr (Sat) + 12 Apr (Sun)',
+        'Bridge Day: 13 Apr (Monday) - Take 1 Day Paid Leave',
+        'Holiday: 14 Apr (Tue)',
+        'Total Vacation: 4 Continuous Days (Sat to Tue)'
+      ],
+      finalResult: '1 Day Leave = 4 Days Continuous Vacation!',
+    },
+    seoSections: [
+      {
+        h2: 'How to Maximize Your Annual Vacation in India',
+        paragraphs: [
+          'By strategically taking 1 or 2 bridge leaves adjoining Friday or Monday public holidays, you can enjoy multiple 3-day and 4-day mini-vacations throughout 2026.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'How many long weekends are there in India in 2026?',
+        answer: 'There are 7 prominent long weekends in 2026, including Republic Day, Eid, Good Friday, Janmashtami, Gandhi Jayanti, and Christmas.'
+      }
+    ],
+    relatedToolSlugs: ['travel-budget-calculator', 'group-expense-split', 'indian-bank-holidays']
   }
 ];
 

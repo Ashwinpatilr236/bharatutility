@@ -59,6 +59,12 @@ const ExamPhotoStampSuiteCalculator = React.lazy(() => import('../calculators/Ex
 const DocumentConvertersSuiteCalculator = React.lazy(() => import('../calculators/DocumentConvertersSuiteCalculator').then(m => ({ default: m.DocumentConvertersSuiteCalculator })));
 const DataConvertersSuiteCalculator = React.lazy(() => import('../calculators/DataConvertersSuiteCalculator').then(m => ({ default: m.DataConvertersSuiteCalculator })));
 const ImageConverterSuiteCalculator = React.lazy(() => import('../calculators/ImageConverterSuiteCalculator').then(m => ({ default: m.ImageConverterSuiteCalculator })));
+const CurrencyConverterSuite = React.lazy(() => import('../calculators/CurrencyConverterSuite').then(m => ({ default: m.CurrencyConverterSuite })));
+const AqiAndWeatherSuite = React.lazy(() => import('../calculators/AqiAndWeatherSuite').then(m => ({ default: m.AqiAndWeatherSuite })));
+const IpInspectorSuite = React.lazy(() => import('../calculators/IpInspectorSuite').then(m => ({ default: m.IpInspectorSuite })));
+const FuelPriceTrackerSuite = React.lazy(() => import('../calculators/FuelPriceTrackerSuite').then(m => ({ default: m.FuelPriceTrackerSuite })));
+const QrScannerSuite = React.lazy(() => import('../calculators/QrScannerSuite').then(m => ({ default: m.QrScannerSuite })));
+const LongWeekendPlannerSuite = React.lazy(() => import('../calculators/LongWeekendPlannerSuite').then(m => ({ default: m.LongWeekendPlannerSuite })));
 
 import {
   Star,
@@ -291,6 +297,25 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       case 'image-format-converter':
       case 'jpg-png-webp-converter':
         return <ImageConverterSuiteCalculator onResultChange={handleResultChange} />;
+
+      // 6 New Free API-Powered Utilities
+      case 'currency-converter':
+        return <CurrencyConverterSuite />;
+
+      case 'aqi-weather-forecast':
+        return <AqiAndWeatherSuite />;
+
+      case 'ip-isp-inspector':
+        return <IpInspectorSuite />;
+
+      case 'daily-fuel-price-tracker':
+        return <FuelPriceTrackerSuite />;
+
+      case 'qr-code-scanner-reader':
+        return <QrScannerSuite />;
+
+      case 'long-weekend-holiday-planner':
+        return <LongWeekendPlannerSuite />;
 
       case 'gst-calculator':
       case 'discount-calculator':
