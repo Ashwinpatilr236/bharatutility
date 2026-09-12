@@ -1,69 +1,48 @@
-# Testing, QA & Validation Strategy
+# Testing & Quality Assurance Workflows — BharatUtility
 
-**Application:** BharatUtility  
-**Test Harness:** Automated QA Runner (`scripts/qa-runner.ts`) & TypeScript Typecheck  
+## Quality Assurance Pipeline
+BharatUtility employs a 4-tier verification and regression pipeline prior to production builds:
+
+```
+Step 1: TypeScript Static Typecheck (tsc --noEmit)
+Step 2: Automated SEO & Schema Audit (scripts/validate-seo.ts)
+Step 3: Functional & Mathematical Unit Verification (scripts/qa-runner.ts)
+Step 4: Sitemap & Production Bundle Generation (scripts/generate-sitemap.ts + vite build)
+```
 
 ---
 
-## 1. Automated QA Test Suite (`scripts/qa-runner.ts`)
-
-BharatUtility includes a dedicated 19-point automated system and regression testing suite designed to prevent regressions and verify production readiness.
-
-### How to Run:
-```bash
-npx tsx scripts/qa-runner.ts
-```
-
-### Verified Test Areas:
-1. **Core Configuration & File Integrity:** Verifies `package.json`, `vite.config.ts`, `tsconfig.json`, `index.html`, `server.ts`, and `netlify.toml`.
-2. **Tools Registry Single Source of Truth:** Validates that all 112 tools have unique IDs, valid category IDs, paths, names, keywords, and formula descriptions.
-3. **Category Integrity:** Validates that all 13 categories are defined with valid names, colors, and Lucide icons.
-4. **Sitemap Synchronization:** Verifies that `public/sitemap.xml` contains all 133 canonical routes without broken links.
-5. **SEO & Metadata Health:** Ensures every tool provides a targeted `seoTitle` and `seoDescription` optimized for Indian search intent.
-6. **Homepage Discovery Loop:** Verifies presence of all 8 core homepage sections (Hero, Popular Tools, Categories, Why BharatUtility, Discovery CTA, FAQs).
-7. **Official ARRJS Social Media Links:** Ensures strict compliance with company social accounts (LinkedIn, X, Instagram, Facebook) and zero unapproved channels (e.g. Telegram / YouTube).
-8. **Server Health Endpoints:** Confirms `/api/health` and `/api/admin/health-check` endpoints are correctly mapped in `server.ts`.
+## 1. Typechecking (`npm run lint`)
+- **Command:** `npm run lint` -> `tsc --noEmit`
+- **Scope:** Verifies 100% of TypeScript source code, interface contracts, React component props, and imports across all 125 tools without emitting JavaScript.
 
 ---
 
-## 2. SEO Validation Suite (`scripts/validate-seo.ts`)
-
-### How to Run:
-```bash
-npm run test:seo
-```
-
-### Checks Performed:
-- Validates canonical URL structure (`https://bharatutility.tech/{toolPath}`).
-- Checks meta description character lengths (optimally between 120-160 characters).
-- Verifies OpenGraph (`og:title`, `og:description`, `og:image`, `og:url`) tags.
-- Verifies JSON-LD Structured Data schema syntax (`@type: "WebApplication"`).
+## 2. Dynamic SEO & Schema Validation (`npm run test:seo`)
+- **Command:** `npm run test:seo` -> `tsx scripts/validate-seo.ts`
+- **Validations Checked:**
+  - Dynamic loading of all 125 tools.
+  - 100% uniqueness of slugs and IDs.
+  - Verification of canonical production domain `https://bharatutility.tech` (with 0 `.com` regressions).
+  - Validation of `WebApplication`, `BreadcrumbList`, `FAQPage`, and `HowTo` structured JSON-LD schemas.
+  - Verification of `robots.txt` and `public/sitemap.xml` presence.
 
 ---
 
-## 3. Type Checking & Production Build Validation
-
-### TypeScript Dry-Run Linting:
-```bash
-npm run lint
-```
-Executes `tsc --noEmit` under strict TypeScript compiler options (`strict: true`, `noUnusedLocals: false`, `noUnusedParameters: false`).
-
-### Full Production Build Test:
-```bash
-npm run build
-```
-Executes the full 3-step pipeline:
-1. `tsx scripts/generate-sitemap.ts` (Generates XML sitemap)
-2. `vite build` (Compiles optimized client bundle to `dist/`)
-3. `esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs` (Bundles Express server)
+## 3. Mathematical & Functional QA Runner (`scripts/qa-runner.ts`)
+- **Command:** `npx tsx scripts/qa-runner.ts`
+- **Automated Mathematical Checks:**
+  - **EMI Calculator:** Validates standard reducing balance math (₹10L @ 8.5% for 20 yrs -> ₹8,678), 0% edge case, and large 100 Cr numbers.
+  - **GST Calculator:** Validates inclusive (₹11,800 -> ₹10,000 base) and exclusive (₹10,000 + 18% -> ₹1,800) calculations.
+  - **Fuel Cost & Mileage:** Tests 500 km @ 20 kmpl & ₹100/L -> ₹2,500 with divide-by-zero protections.
+  - **CGPA to Percentage:** Tests standard 9.5 multiplier (8.4 CGPA -> 79.8%).
+  - **SIP & Compound Interest:** Tests monthly compounding (₹5,000/mo @ 12% for 10 yrs -> ₹11.61 Lakhs).
+  - **Cash Tally & Denomination Counter:** Tests multi-currency note summation.
+  - **Land Area Conversion:** Tests state-wise Bigha, Gaj, Guntha conversions.
+  - **Discovery Loop Audit:** Tests that all tools have at least 3-4 working related tool fallback links.
 
 ---
 
-## 4. Manual QA Verification Checklist
-
-- [ ] **Mobile Navigation:** Test hamburger menu, drawer links, and category navigation on viewport widths < 640px.
-- [ ] **Sliders & Real-time Recalculation:** Verify instant responsiveness of EMI, SIP, Tile, and Paint sliders.
-- [ ] **Live APIs:** Verify fallback handling when network is throttled or offline for Currency, AQI, IP, and Holidays tools.
-- [ ] **Document Processing:** Test PDF merging and passport photo cropping with sample files up to 25MB.
-- [ ] **Copy & Share Links:** Verify clipboard copy toast triggers and copies the correct canonical URL.
+## 4. Sitemap Generation (`npm run sitemap`)
+- **Command:** `npm run sitemap` -> `tsx scripts/generate-sitemap.ts`
+- **Output:** Regenerates `public/sitemap.xml` with priority weights (`1.0` for home, `0.9` for top tools, `0.8` for categories, `0.6` for legal).

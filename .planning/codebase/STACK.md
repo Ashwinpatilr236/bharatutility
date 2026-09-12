@@ -1,64 +1,33 @@
-# Stack & Technologies
+# Technology Stack — BharatUtility
 
-**Application:** BharatUtility — India's Utility Super-Site  
-**Production Domain:** [https://bharatutility.tech](https://bharatutility.tech)  
-**Repository Path:** `c:\Users\USER\Desktop\bharatutility`  
+## Core Runtime & Frameworks
+- **Frontend Framework:** React 19 (`react` 19.0.0, `react-dom` 19.0.0)
+- **Language:** TypeScript 5.7+ (`typescript` ~5.7.2)
+- **Build Tool & Bundler:** Vite 6 (`vite` ^6.0.5) with `@vitejs/plugin-react`
+- **Styling Engine:** Tailwind CSS v4 (`tailwindcss` ^4.0.0, `@tailwindcss/vite` ^4.0.0)
+- **Backend Runtime:** Node.js (ESM / CommonJS dual support)
+- **Backend Server:** Express v4 (`express` ^4.21.2) compiled via `esbuild` to `dist/server.cjs`
+- **Database & Backend-as-a-Service:** Supabase (`@supabase/supabase-js` ^2.47.10)
 
----
+## UI & Visual Design Components
+- **Icons Library:** Lucide React (`lucide-react` ^0.468.0) with dynamic icon fallback resolution
+- **Animations & Micro-interactions:** Canvas Confetti (`canvas-confetti` ^1.9.4)
+- **Charts & Data Visualization:** Chart.js (`chart.js` ^4.4.7) & React ChartJS 2 (`react-chartjs-2` ^5.3.0)
 
-## 1. Core Framework & Runtime
+## Client-Side File Processing & Parsing
+- **PDF Generation & Manipulation:** `jspdf` (^2.5.2), `pdf-lib` (^1.17.9)
+- **Excel & Spreadsheet Processing:** `xlsx` (^0.18.5)
+- **Word Document Parsing:** `mammoth` (^1.9.0)
+- **Image Compression & Canvas Utilities:** Native Web Canvas API & `browser-image-compression`
 
-| Component | Technology | Version | Purpose |
-|:---|:---|:---|:---|
-| **Frontend Framework** | React | `^19.0.1` | Core UI library for component rendering & hooks |
-| **DOM Renderer** | React DOM | `^19.0.1` | React web rendering engine |
-| **Build Tool & Dev Server** | Vite | `^6.2.3` | Ultra-fast ESM bundler and HMR development server |
-| **Language** | TypeScript | `~5.8.2` | Static typing, strict mode, interfaces & types |
-| **Backend / SSR Server** | Express | `^4.21.2` | Lightweight Node.js server for static assets & health probes |
-| **Backend Execution** | TSX / Node.js | `tsx ^4.21.0` / Node `^22.x` | TypeScript execution in development and node runtime in production |
-| **Server Bundler** | esbuild | `^0.25.0` | Compiles `server.ts` into single CJS bundle `dist/server.cjs` |
+## Tooling & Verification Scripts
+- **TypeScript Runner:** `tsx` (^4.19.2)
+- **Production Bundling:** `esbuild` (^0.24.2)
+- **Linting & Typechecking:** `tsc --noEmit`
+- **Sitemap Generator:** Custom script (`scripts/generate-sitemap.ts`)
+- **Automated QA Runner:** Custom test suite (`scripts/qa-runner.ts`)
+- **SEO Validation:** Custom validator (`scripts/validate-seo.ts`)
 
----
-
-## 2. Styling & Design System
-
-| Library | Version | Role | Notes |
-|:---|:---|:---|:---|
-| **Tailwind CSS** | `^4.1.14` | Utility-first CSS engine | Integrated via `@tailwindcss/vite` plugin |
-| **Autoprefixer** | `^10.4.21` | Vendor prefix post-processing | Cross-browser CSS compatibility |
-| **Lucide Icons** | `lucide-react ^0.546.0` | Comprehensive iconography | Consistent Indian UI / utility icons |
-| **Framer Motion / Motion** | `motion ^12.23.24` | Animation primitives | Micro-animations, transitions, stagger effects |
-| **Canvas Confetti** | `canvas-confetti ^1.9.4` | Visual celebration feedback | Goal completion, calculations reward |
-
----
-
-## 3. Data Visualization & Client-side Utilities
-
-| Library | Version | Key Use Cases |
-|:---|:---|:---|
-| **Recharts** | `^3.10.1` | Interactive EMI loan amortization, SIP compound interest graphs, investment projections |
-| **PDF-Lib** | `^1.17.1` | 100% Client-side PDF merge, split, compress, page reordering, watermark insertion |
-| **QRCode** | `^1.5.4` | UPI QR code generator, dynamic Wi-Fi QR, vCard generation |
-| **HTML5 Canvas** | Native Web API | Live QR code scanning, camera frame analysis, passport photo maker & background cropping |
-
----
-
-## 4. Backend, Database & Cloud Services
-
-| Service / Tool | Version | Purpose |
-|:---|:---|:---|
-| **Supabase Client** | `@supabase/supabase-js ^2.112.3` | User feedback, contact messages, tool requests persistence |
-| **Dotenv** | `^17.2.3` | Environment variable management across server & build pipelines |
-| **Netlify Deploy Engine** | `netlify.toml` | Production edge deployment with static routing and header caching |
-
----
-
-## 5. Build Scripts & Automation
-
-Defined in `package.json`:
-- `npm run dev`: Starts local server via `tsx server.ts` (Vite middleware on port `3000` or fallback).
-- `npm run sitemap`: Executes `scripts/generate-sitemap.ts` to output `public/sitemap.xml` with all 133 canonical routes.
-- `npm run test:seo`: Runs `scripts/validate-seo.ts` verifying meta tags, OpenGraph, Twitter cards, and JSON-LD schema across all tools.
-- `npm run build`: Pipeline executing sitemap generation → `vite build` → `esbuild server.ts` outputting `dist/server.cjs`.
-- `npm run start`: Production server runner via `node dist/server.cjs`.
-- `npm run lint`: Strict TypeScript dry-run verification via `tsc --noEmit`.
+## Production Hosting & Environment
+- **Canonical Production Domain:** `https://bharatutility.tech`
+- **Deployment Strategy:** Node.js container or Static SPA + Express API server

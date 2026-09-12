@@ -1,100 +1,58 @@
-# Architecture & System Design
+# Architecture Patterns & Component Hierarchy — BharatUtility
 
-**Application:** BharatUtility — India's Utility Super-Site  
-**Repository:** `c:\Users\USER\Desktop\bharatutility`  
+## Architectural Philosophy
+BharatUtility is built as a **High-Performance Client-Side Utility Super-App** tailored specifically for Indian citizens, professionals, students, and businesses.
 
----
+Key design principles:
+1. **Zero-Latency Client-Side Computation:** Calculations, conversions, PDF processing, and image resizing occur locally in the browser with 0ms server roundtrips.
+2. **Aggressive Code-Splitting:** All 125 tool suites are lazy-loaded on-demand via `React.lazy()` and Vite dynamic imports, keeping the initial bundle size minimal (~160 kB gzipped).
+3. **Structured SEO Architecture:** Every tool includes canonical tags, OpenGraph metadata, JSON-LD Schema (`WebApplication`, `FAQPage`, `HowTo`, `BreadcrumbList`), and high-quality formula explanations.
+4. **Infinite Discovery Loop:** Every tool page guarantees 3-6 relevant related tools via dynamic fallback (`explicit` -> `category` -> `popular`), ensuring zero dead-ends.
 
-## 1. High-Level System Overview
+## Global State & Navigation (`src/context/AppContext.tsx`)
+- **Routing Engine:** Custom hash-based and path-aware SPA router supporting deep-linking (`#tool/emi-calculator`, `/category/money`, `/all-tools`, `/favorites`, `/contact`, `/legal`).
+- **Global Context Provider:**
+  - `activeView`: Current view (`home` | `tool` | `category` | `all-tools` | `favorites` | `contact` | `request-tool` | `legal`).
+  - `activeToolSlug` & `activeCategoryId`: Currently loaded tool and category.
+  - `searchQuery` & `commandPaletteOpen`: Global instant search (Cmd+K / Ctrl+K).
+  - `favorites`: Persistent list of favorited tools stored in `localStorage`.
+  - `calculationHistory`: Local snapshot of recent calculations.
+  - `theme`: Light, Dark, or System mode with smooth transitions.
 
-BharatUtility is built as an ultra-fast, high-performance, single-page application (SPA) optimized for zero-latency instant calculation, mobile responsiveness, and 100% client-side privacy.
-
-```mermaid
-graph TD
-    User([User Browser / Mobile]) -->|HTTP Request| Server[Express Server / Netlify Edge]
-    Server -->|Static Assets + SPA Fallback| ViteDist[Vite React 19 Bundle]
-    
-    subgraph Client Application [Client-Side Architecture]
-        AppRoot[App.tsx Root] --> AppProvider[AppContext Provider]
-        AppProvider --> NavState[Navigation & Router State]
-        AppProvider --> FavState[LocalStorage Favorites]
-        AppProvider --> SearchState[Live Search & Filter Engine]
-        
-        NavState --> ViewRouter{Active View Router}
-        ViewRouter -->|'home'| Home[HomePage 8-Section Redesign]
-        ViewRouter -->|'tool'| ToolLayout[ToolPageLayout Container]
-        ViewRouter -->|'category'| CatView[Category Hub Page]
-        ViewRouter -->|'all-tools'| AllTools[All 112 Tools Catalog]
-        ViewRouter -->|'favorites'| FavView[Saved Tools Drawer]
-        ViewRouter -->|'contact' / 'request'| FormViews[Feedback & Requests]
-        ViewRouter -->|'legal'| LegalViews[Terms, Privacy, Disclaimer]
-        
-        ToolLayout --> Registry[Tools Registry - 112 Tools]
-        ToolLayout --> LazyTool[Lazy Loaded Tool Component]
-        ToolLayout --> SEOEngine[Dynamic Meta & JSON-LD Sync]
-        ToolLayout --> CrossDiscovery[4-Tool Related Discovery Loop]
-    end
-    
-    subgraph External & Hardware Services
-        LazyTool -.->|Real-time Data| ExtAPIs[ExchangeRate / Open-Meteo / IP / Holidays]
-        LazyTool -.->|Hardware Media| WebAPIs[Canvas / Camera / BarcodeDetector]
-        FormViews -.->|Async Sync| Supabase[Supabase Database]
-    end
+## Component Tree Layout
 ```
-
----
-
-## 2. Core Architectural Pillars
-
-### A. Centralized Tool Registry Pattern
-The single source of truth for the entire ecosystem is `src/data/toolsRegistry.ts`. Every tool is registered with strict TypeScript typing:
-```typescript
-export interface Tool {
-  id: ToolId;
-  name: string;
-  category: CategoryId;
-  description: string;
-  shortDescription?: string;
-  icon: string;
-  path: string;
-  badge?: 'Popular' | 'New' | 'Essential' | 'Updated' | 'Trending';
-  keywords: string[];
-  featured?: boolean;
-  relatedTools?: ToolId[];
-  seoTitle?: string;
-  seoDescription?: string;
-  formula?: string;
-  formulaDescription?: string;
-}
+App.tsx
+├── Header.tsx (Logo, Navigation Links, Global Search Trigger, Theme Toggle)
+├── GlobalCommandPalette.tsx (Instant search across all 125 tools with keyboard navigation)
+│
+├── Views:
+│   ├── Home View:
+│   │   ├── HeroSection.tsx (Headline, Quick Category Pills, Quick Search Bar)
+│   │   ├── PopularToolsSection.tsx (Top 12 curated daily utility tools)
+│   │   ├── CategoryGridSection.tsx (13 Category Cards with live tool counters)
+│   │   ├── TrendingLiveSection.tsx (Live trending tools with real-time badges)
+│   │   ├── WhyBharatUtilitySection.tsx (Privacy-first, 100% free, Indian standards)
+│   │   ├── YouMayAlsoNeedSection.tsx (Cross-category discovery grid)
+│   │   ├── HomeFaqSection.tsx (Accordion FAQ with JSON-LD schema)
+│   │   └── FinalDiscoveryCtaSection.tsx (Full tool library CTA + Request tool trigger)
+│   │
+│   ├── Tool View:
+│   │   └── ToolPageLayout.tsx
+│   │       ├── Breadcrumbs.tsx
+│   │       ├── Tool Header Banner (Icon, Name, Tagline, Favorite, Share, Copy Result, Print)
+│   │       ├── Lazy-loaded Tool Component (e.g., GoldSilverRateCalculator, EmiCalculator)
+│   │       ├── Formula & Worked Example Box (Latex, step-by-step mathematical breakdown)
+│   │       ├── SEO Content Sections & Detailed Guidelines
+│   │       ├── FAQ Accordion
+│   │       ├── Discovery Loop: "You May Also Need" (4 Related Tools)
+│   │       ├── AdSlot.tsx & ToolFeedbackWidget.tsx
+│   │       └── RequestToolCta.tsx & BookmarkPrompt.tsx
+│   │
+│   ├── CategoryView.tsx (Filtered tool grid by category)
+│   ├── AllToolsView.tsx (A-Z searchable directory of all 125 tools)
+│   ├── FavoritesView.tsx (User's bookmarked tools)
+│   ├── ContactView.tsx & RequestToolView.tsx (Form submissions with Supabase integration)
+│   └── LegalPages.tsx (Privacy Policy, Terms of Service, Disclaimer)
+│
+└── Footer.tsx (Category Links, Legal Links, Social Links to ARRJS Technologies, Copyright)
 ```
-- **Benefits:** Guaranteed consistency across sitemap generators, SEO validators, homepage grids, category views, and internal recommendation engines.
-
-### B. Dynamic Tool Page Layout Engine (`ToolPageLayout.tsx`)
-Rather than duplicating layout boilerplate across 112 tools, `ToolPageLayout.tsx` acts as the universal host container:
-1. **Dynamic Header & Breadcrumb:** Category name, active tool title, short description, and badge.
-2. **Action Strip:** Quick favorite toggle, copy shareable URL with toast notification, print/export triggers.
-3. **Lazy-Loaded Tool Viewport:** Dynamically mounts the specific tool calculator or utility widget.
-4. **Formula & Calculation Logic Accordion:** Explains mathematical formulas (e.g., Reducing balance EMI formula, CPCB AQI sub-index equations) for high user trust.
-5. **Cross-Tool Discovery Loop:** Guarantees 4 high-relevance related tool recommendations with category fallbacks, ensuring zero dead-ends for visitors.
-
-### C. Client-Side Privacy Guarantee
-- All document manipulations (PDF merge/split/compress, Passport Photo cropping, QR generation/scanning) execute strictly in the client's V8 / JavaScript thread using WebAssembly and HTML5 Canvas.
-- No files, personal financial records, salary figures, or images are ever transmitted to external servers.
-
-### D. Real-Time SEO & Structured Data Synchronization
-Whenever navigation occurs in `AppContext.tsx`:
-- `document.title` is updated with high-converting, keyword-targeted Indian search terms.
-- `<meta name="description">`, OpenGraph (`og:title`, `og:description`, `og:url`), and Twitter cards are synchronized.
-- Injects rich **JSON-LD Schema** (`WebApplication` / `SoftwareApplication`) with rating, operating system compatibility, and pricing indicators.
-
----
-
-## 3. Server Architecture (`server.ts` & `dist/server.cjs`)
-
-- **Express v4 Application:**
-  - Serves static assets from `dist/` with immutable caching headers for hashed assets.
-  - Implements SPA wildcard fallback routing (`* -> index.html`).
-  - Exposes health probe endpoints:
-    - `GET /api/health` -> `{ status: "ok", uptime: ..., timestamp: ... }`
-    - `GET /api/admin/health-check` -> System diagnostic payload for ARRJS central admin dashboard.
-  - Development mode leverages `vite.createServer` with Vite middleware for fast HMR.

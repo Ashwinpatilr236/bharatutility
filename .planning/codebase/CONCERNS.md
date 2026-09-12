@@ -1,47 +1,40 @@
-# Technical Concerns, Roadmap & Risk Assessment
+# Security, Performance & Technical Considerations — BharatUtility
 
-**Application:** BharatUtility  
-**Status:** Production Ready (112 Tools, 13 Categories, 133 Routes)  
-
----
-
-## 1. Identified Technical Considerations & Debt
-
-### A. SPA Client-Side Rendering (CSR) vs Static Prerendering
-- **Current State:** The application is a React 19 Single Page Application. While `document.title`, `<meta>`, OpenGraph, and JSON-LD schema are dynamically injected on navigation, social media link preview bots (WhatsApp, Twitter/X scrapers, Telegram) that do not execute JavaScript may receive the default `index.html` fallback meta tags.
-- **Mitigation / Next Step:** Implement a lightweight build-time static prerender step (e.g., via Puppeteer or Vite SSG plugin) to emit static HTML snapshots for all 133 routes in `dist/`.
-
-### B. Third-Party Free API Rate Limiting & Network Caching
-- **Current State:** Tools like Live Currency Converter (`open.er-api.com`), Indian AQI (`open-meteo.com`), and IP Inspector (`ipapi.co`) make fresh fetch requests upon mounting.
-- **Risk:** High concurrent user spikes could trigger 429 Too Many Requests on free third-party endpoints.
-- **Current Mitigation:** Embedded offline fallback datasets prevent UI breakage.
-- **Recommended Enhancement:** Add `sessionStorage` caching with a 15-minute Time-To-Live (TTL) so repeated tool switches do not re-query external APIs.
-
-### C. Large File Memory Consumption in Browser (PDF & Image Tools)
-- **Current State:** `pdf-lib` and HTML5 Canvas operate directly on `ArrayBuffer` in browser memory.
-- **Risk:** Processing 50MB+ scanned PDFs or 4K RAW images on budget Android smartphones (2GB RAM) could cause browser tab memory exhaustion.
-- **Mitigation / Next Step:** Enforce a recommended max file size banner (e.g., 25MB) with client-side downsampling before memory allocation.
-
-### D. Progressive Web App (PWA) & Offline Capabilities
-- **Current State:** The site runs as a standard responsive web application.
-- **Opportunity:** Since 95% of BharatUtility tools (106 out of 112) require zero internet connection and run entirely in pure JavaScript, adding a Service Worker (`vite-plugin-pwa`) would enable 100% offline functionality for Indian users in low-connectivity rural zones.
+## 1. Security & Privacy Posture
+- **Zero Exposed Secret Tokens:**
+  - Hardcoded tokens (e.g. Telegram Bot tokens) have been completely eliminated.
+  - Supabase client operates exclusively via public anon keys (`VITE_SUPABASE_ANON_KEY`) with Row-Level Security (RLS) policies on the backend database.
+- **Client-Side Privacy Guarantee (k-Anonymity):**
+  - Features such as the **Password & Data Breach Exposure Checker** never send user credentials across the internet.
+  - Hashes are generated locally via the browser's native `crypto.subtle` API, and only the 5-character prefix is used to query public collision ranges.
+- **Client-Side Document & PDF Security:**
+  - All document processing (PDF merge, split, image compression, passport photo cropping) executes 100% locally in browser memory without transmitting user documents or images to external servers.
 
 ---
 
-## 2. Security & Compliance Posture
-
-| Area | Status | Notes |
-|:---|:---|:---|
-| **API Keys & Secrets** | ✅ Hardened | Zero exposed API secrets. All third-party endpoints are public or fallback-driven. |
-| **Client Privacy** | ✅ 100% Private | User financial numbers, salaries, documents, photos, and camera streams never leave the device. |
-| **Official Brand Links** | ✅ Compliant | Only verified ARRJS Technologies corporate social media profiles are linked. |
-| **XSS & Injection** | ✅ Protected | Controlled inputs with sanitized numeric coercions and React JSX auto-escaping. |
+## 2. Performance & Code-Splitting Architecture
+- **Lazy Chunk Loading:**
+  - Individual tool components are lazily evaluated via `React.lazy()`.
+  - Heavy chart and PDF libraries (`chart.js`, `jspdf`, `pdf-lib`) are isolated in independent vendor chunks, preventing initial page load bottlenecks.
+- **Vite Build Bundle Profile:**
+  - CSS Bundle: ~165 kB (~20 kB gzip).
+  - Main Framework: ~390 kB (~119 kB gzip).
+  - Individual Tool Chunks: 5 kB to 25 kB (1.5 kB to 6 kB gzip).
 
 ---
 
-## 3. High-Priority Next Enhancements
+## 3. Resilience & Fallback Mechanisms
+- **Offline & API Fallbacks:**
+  - Currency, Crypto, AQI, Weather, and Fuel price tools include hardcoded Indian benchmark rates that activate seamlessly if external network endpoints experience rate limits or downtime.
+- **Graceful Supabase Degradation:**
+  - If Supabase environment variables are missing in local dev or offline mode, contact and tool request forms safely store entries to browser `localStorage` with user notification rather than crashing.
 
-1. **PWA Service Worker:** Offline caching for instant loading on Indian 4G/5G and offline access.
-2. **Session Storage API Cache:** 15-minute TTL caching for Currency, AQI, and Fuel prices.
-3. **Static Prerenderer:** Build-time HTML prerender for Twitter/WhatsApp social link scrapers.
-4. **Dark Mode Toggle:** User-switchable light/dark theme preference with automatic OS sync.
+---
+
+## 4. Maintenance & Evolution Checklist
+- **Adding New Tools:**
+  1. Add entry to `src/data/toolsRegistry.ts`.
+  2. Update tool count in `src/data/categories.ts`.
+  3. Mount lazy import & case in `src/components/tools/ToolPageLayout.tsx`.
+  4. Run `npm run lint` and `npm run test:seo`.
+  5. Run `npm run sitemap` to refresh `public/sitemap.xml`.
