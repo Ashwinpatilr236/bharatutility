@@ -105,7 +105,10 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'legal', page }, redirectPath: `${targetPath}${search}` };
   }
   if (hash.startsWith('#/admin') || hash.startsWith('#admin')) {
-    return { view: { type: 'admin' }, redirectPath: `/admin${search}` };
+    if (typeof window !== 'undefined') {
+      window.location.href = 'https://arrjs-central-admin.netlify.app/';
+    }
+    return { view: { type: 'home' } };
   }
 
   // 2. Parse Clean Pathname (normalized without trailing slash)
@@ -166,7 +169,10 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'legal', page } };
   }
   if (cleanPath.startsWith('/admin')) {
-    return { view: { type: 'admin' } };
+    if (typeof window !== 'undefined') {
+      window.location.href = 'https://arrjs-central-admin.netlify.app/';
+    }
+    return { view: { type: 'home' } };
   }
 
   // Root or unhandled paths -> home
@@ -352,7 +358,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const navigateToAdmin = () => {
-    setView({ type: 'admin' });
+    window.location.href = 'https://arrjs-central-admin.netlify.app/';
   };
 
   const navigateToTool = (slug: string, params?: Record<string, any>) => {
