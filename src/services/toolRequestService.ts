@@ -69,27 +69,6 @@ export async function submitToolRequest(data: ToolRequestFormData): Promise<Tool
   const ticketNumber = `BU-${randomDigits}`;
   const subjectWithTicket = `[#${ticketNumber}] Tool Request: ${requestedTool} (${category})`;
 
-  // Instant Telegram Admin Phone Alert
-  const telegramMessage = `🛠️ <b>NEW CITIZEN TOOL REQUEST RECEIVED!</b>\n\n` +
-    `🎫 <b>Request ID:</b> <code>#${ticketNumber}</code>\n` +
-    `🔧 <b>Requested Tool:</b> ${requestedTool}\n` +
-    `📁 <b>Category:</b> ${category}\n` +
-    `👤 <b>Requested By:</b> ${name || 'Citizen Visitor'} (${email || 'No Email'})\n\n` +
-    `📝 <b>Description:</b>\n${fullDescription}\n\n` +
-    `⚡ <i>Logged in Central Admin Workspace</i>`;
-
-  try {
-    fetch(`https://api.telegram.org/bot8276384400:AAF8BsimAlsOrsbx0w0PYJ9ymUBi9JVvOLI/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: '5892799474',
-        text: telegramMessage,
-        parse_mode: 'HTML',
-      }),
-    }).catch(() => {});
-  } catch {}
-
   // 2. Check Supabase Configuration
   const supabase = getSupabase();
   if (!supabase || !isSupabaseConfigured()) {

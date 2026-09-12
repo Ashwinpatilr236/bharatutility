@@ -103,26 +103,23 @@ export const HeroSection: React.FC = () => {
         {/* Top Mini Pill */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent-subtle border border-accent/20 text-accent text-xs font-semibold mb-6 shadow-xs animate-in fade-in slide-in-from-bottom-2 duration-300">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>India's Utility Super-Site • Free & No Sign-up</span>
+          <span>BharatUtility • 100% Free & No Sign-up</span>
         </div>
 
         {/* Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-[1.15] mb-2">
-          BharatUtility
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-[1.15] mb-4">
+          Useful tools for everyday India
         </h1>
-        <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent mb-4">
-          India's Utility Super-Site
-        </p>
 
         {/* Subhead */}
         <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-          Free, fast and modern online calculators and utility tools for everyday India.
+          Quick, simple and practical online utilities — from PIN codes and IFSC to documents, travel, vehicles and more.
         </p>
 
         {/* Large Clean Native Inline Search Box */}
         <div className="relative max-w-2xl mx-auto mb-6 text-left">
           <div
-            className={`flex items-center gap-3 px-4 py-3 sm:py-3.5 bg-white dark:bg-neutral-900 rounded-2xl border-2 transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/40 ${
+            className={`flex items-center gap-3 px-4 py-3.5 sm:py-4 bg-white dark:bg-neutral-900 rounded-2xl border-2 transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/40 ${
               isFocused
                 ? 'border-accent ring-4 ring-accent/15'
                 : 'border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700'
@@ -133,7 +130,7 @@ export const HeroSection: React.FC = () => {
               ref={inputRef}
               id="hero-tool-search-input"
               type="text"
-              placeholder="Search e.g. EMI, 75000 salary ka in hand, GST, SIP, PIN code..."
+              placeholder="Search for a tool (e.g. PIN code, IFSC, EMI, GST, Salary, Fuel)..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
@@ -302,7 +299,7 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Quick Search Shortcut Pills (100% Working) */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
           <span className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 mr-1 flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
             Trending:
@@ -314,6 +311,87 @@ export const HeroSection: React.FC = () => {
               className="px-3 py-1.5 rounded-full text-xs font-medium bg-neutral-100 hover:bg-accent-subtle hover:text-accent hover:border-accent/40 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-xs"
             >
               {keyword}
+            </button>
+          ))}
+        </div>
+
+        {/* 6 Instant Quick-Access Tool Cards (Discovery Hero Cards) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2 text-left">
+          {[
+            {
+              slug: 'pin-code-finder',
+              name: 'PIN Code Finder',
+              tagline: 'All India Post Offices',
+              icon: 'MapPin',
+              badge: 'Fast',
+              color: 'text-amber-500 bg-amber-500/10'
+            },
+            {
+              slug: 'ifsc-code-finder',
+              name: 'IFSC Code Finder',
+              tagline: 'Bank & Branch Search',
+              icon: 'Building2',
+              badge: 'Verified',
+              color: 'text-blue-500 bg-blue-500/10'
+            },
+            {
+              slug: 'gst-calculator',
+              name: 'GST Calculator',
+              tagline: '5%, 12%, 18%, 28%',
+              icon: 'Receipt',
+              badge: 'Tax',
+              color: 'text-emerald-500 bg-emerald-500/10'
+            },
+            {
+              slug: 'age-calculator',
+              name: 'Age Calculator',
+              tagline: 'Exact Years, Months, Days',
+              icon: 'Calendar',
+              badge: 'Instant',
+              color: 'text-purple-500 bg-purple-500/10'
+            },
+            {
+              slug: 'emi-calculator',
+              name: 'EMI Calculator',
+              tagline: 'Home & Personal Loans',
+              icon: 'Calculator',
+              badge: 'Popular',
+              color: 'text-indigo-500 bg-indigo-500/10'
+            },
+            {
+              slug: 'vehicle-fuel-cost-calculator',
+              name: 'Vehicle Fuel Cost',
+              tagline: 'Trip & Commute Fuel',
+              icon: 'Fuel',
+              badge: 'Savings',
+              color: 'text-rose-500 bg-rose-500/10'
+            }
+          ].map(tool => (
+            <button
+              key={tool.slug}
+              onClick={() => navigateToTool(tool.slug)}
+              className="p-3.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-lg hover:shadow-neutral-900/5 dark:hover:shadow-black/30 transition-all group flex flex-col justify-between cursor-pointer"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-2.5">
+                  <div className={`p-2 rounded-xl ${tool.color} group-hover:scale-105 transition-transform`}>
+                    <DynamicIcon name={tool.icon} className="w-4 h-4" />
+                  </div>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                    {tool.badge}
+                  </span>
+                </div>
+                <h3 className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors line-clamp-1">
+                  {tool.name}
+                </h3>
+                <p className="text-[11px] text-neutral-500 dark:text-neutral-400 line-clamp-1 mt-0.5">
+                  {tool.tagline}
+                </p>
+              </div>
+              <div className="mt-3 pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-[11px] font-semibold text-accent">
+                <span>Use Tool</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+              </div>
             </button>
           ))}
         </div>

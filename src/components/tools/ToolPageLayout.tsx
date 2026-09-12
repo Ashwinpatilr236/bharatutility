@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Tool } from '../../types';
 import { useApp } from '../../context/AppContext';
-import { getToolBySlug } from '../../data/toolsRegistry';
+import { getToolBySlug, getToolsByCategory, getPopularTools } from '../../data/toolsRegistry';
 import { CATEGORIES } from '../../data/categories';
 import { Breadcrumbs } from '../common/Breadcrumbs';
 import { DynamicIcon } from '../common/DynamicIcon';
@@ -70,7 +70,10 @@ import {
   HelpCircle,
   Sparkles,
   Layers,
-  BookOpen
+  BookOpen,
+  Compass,
+  Search,
+  ArrowRight
 } from 'lucide-react';
 
 interface ToolPageLayoutProps {
@@ -84,7 +87,9 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
     addCalculationHistory,
     showToast,
     navigateToHome,
-    navigateToCategory
+    navigateToCategory,
+    navigateToAllTools,
+    setCommandPaletteOpen
   } = useApp();
 
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -118,9 +123,18 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
     window.print();
   };
 
-  const relatedTools = (tool.relatedToolSlugs || [])
+  // Dynamic 3-6 Related Tools (never empty, fallback to category/popular)
+  const explicitRelated = (tool.relatedToolSlugs || [])
     .map(slug => getToolBySlug(slug))
-    .filter((t): t is Tool => Boolean(t));
+    .filter((t): t is Tool => Boolean(t) && t.slug !== tool.slug);
+
+  const categoryFallback = getToolsByCategory(tool.category)
+    .filter(t => t.slug !== tool.slug && !explicitRelated.some(r => r.slug === t.slug));
+
+  const popularFallback = getPopularTools(6)
+    .filter(t => t.slug !== tool.slug && !explicitRelated.some(r => r.slug === t.slug) && !categoryFallback.some(c => c.slug === t.slug));
+
+  const relatedTools = [...explicitRelated, ...categoryFallback, ...popularFallback].slice(0, 4);
 
   // Render the matching calculator component
   const renderCalculatorComponent = () => {
@@ -711,32 +725,78 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         </div>
       )}
 
-      {/* Related Tools Recommendation Grid */}
+      {/* Related Tools Recommendation Grid (Cross-Tool Discovery Engine) */}
       {relatedTools.length > 0 && (
         <div className="space-y-4 pt-4">
-          <h3 className="text-base font-bold text-neutral-900 dark:text-white font-display flex items-center gap-2">
-            <Layers className="w-4 h-4 text-accent" />
-            Related Everyday Indian Tools
-          </h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white font-display flex items-center gap-2">
+              <Layers className="w-4 h-4 text-accent" />
+              More Useful Tools
+            </h3>
+            {category && (
+              <button
+                onClick={() => navigateToCategory(category.id)}
+                className="text-xs font-bold text-accent hover:underline inline-flex items-center gap-1 cursor-pointer"
+              >
+                <span>View all {category.name}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {relatedTools.map(rt => (
               <Link
                 key={rt.id}
                 to={`/tools/${rt.slug}`}
-                className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-left hover:border-accent hover:shadow-md transition-all group block"
+                className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-left hover:border-accent hover:shadow-lg transition-all group flex flex-col justify-between"
               >
-                <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform">
-                  <DynamicIcon name={rt.icon} className="w-4 h-4" />
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-accent-subtle text-accent flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-xs">
+                    <DynamicIcon name={rt.icon} className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-sm text-neutral-900 dark:text-white group-hover:text-accent transition-colors line-clamp-1">
+                    {rt.name}
+                  </h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mt-1 leading-relaxed">
+                    {rt.tagline}
+                  </p>
                 </div>
-                <h4 className="font-bold text-xs sm:text-sm text-neutral-900 dark:text-white group-hover:text-accent transition-colors line-clamp-1">
-                  {rt.name}
-                </h4>
-                <p className="text-[11px] text-neutral-500 dark:text-neutral-400 line-clamp-2 mt-1">
-                  {rt.tagline}
-                </p>
+
+                <div className="mt-4 pt-2.5 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs font-semibold text-accent">
+                  <span className="capitalize text-[11px] text-neutral-400 font-medium">
+                    {rt.category}
+                  </span>
+                  <span className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    Use Tool →
+                  </span>
+                </div>
               </Link>
             ))}
+          </div>
+
+          {/* Quick Discovery Navigation Bar */}
+          <div className="p-4 rounded-2xl bg-neutral-100/70 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-300 font-medium">
+              <Compass className="w-4 h-4 text-accent" />
+              <span>Looking for another utility?</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCommandPaletteOpen(true)}
+                className="px-3 py-1.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-accent font-semibold text-neutral-800 dark:text-neutral-200 inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+              >
+                <Search className="w-3.5 h-3.5 text-accent" />
+                <span>Search Tools (Ctrl+K)</span>
+              </button>
+              <button
+                onClick={navigateToAllTools}
+                className="px-3 py-1.5 rounded-xl bg-accent text-white font-bold hover:bg-accent/90 inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
+              >
+                <span>Browse All 100+ Tools</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         </div>
       )}

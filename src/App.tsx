@@ -11,12 +11,15 @@ import { RequestToolCta } from './components/common/RequestToolCta';
 // Home View Sections (kept eager for instantaneous public home landing)
 import { HeroSection } from './components/home/HeroSection';
 import { PopularToolsSection } from './components/home/PopularToolsSection';
-import { YourFavoritesSection } from './components/home/YourFavoritesSection';
-import { RecentlyUsedSection } from './components/home/RecentlyUsedSection';
+import { CategoryShowcase } from './components/home/CategoryShowcase';
+import { YouMayAlsoNeedSection } from './components/home/YouMayAlsoNeedSection';
 import { TrendingToolsSection } from './components/home/TrendingToolsSection';
 import { NewToolsSection } from './components/home/NewToolsSection';
-import { CategoryShowcase } from './components/home/CategoryShowcase';
+import { YourFavoritesSection } from './components/home/YourFavoritesSection';
+import { RecentlyUsedSection } from './components/home/RecentlyUsedSection';
 import { TrustSection } from './components/home/TrustSection';
+import { HomeFaqSection } from './components/home/HomeFaqSection';
+import { FinalDiscoveryCtaSection } from './components/home/FinalDiscoveryCtaSection';
 import { SocialFollow } from './components/common/SocialFollow';
 import { getToolBySlug } from './data/toolsRegistry';
 import { ArrowLeft } from 'lucide-react';
@@ -58,37 +61,37 @@ const AppContent: React.FC = () => {
       <main className="flex-1">
         {view.type === 'home' && (
           <div className="space-y-4 sm:space-y-8">
-            {/* 1. Hero & Smart Discovery Search */}
+            {/* 1. Hero & Smart Discovery Search with 6 Instant Tool Cards */}
             <HeroSection />
 
             {/* 2. PWA Install App Banner */}
             <PwaInstallBanner />
 
-            {/* 3. Popular Tools */}
+            {/* 3. Section 2: Popular Tools Grid */}
             <PopularToolsSection />
 
-            {/* 4. Your Favorites (rendered only when user has saved favorites) */}
-            <YourFavoritesSection />
-
-            {/* 5. Recently Used (rendered only when user has recent tools) */}
-            <RecentlyUsedSection />
-
-            {/* 6. Trending Today (🔥 high volume tools) */}
-            <TrendingToolsSection />
-
-            {/* 7. New on BharatUtility (✨ latest tools) */}
-            <NewToolsSection />
-
-            {/* 8. Categories Showcase */}
+            {/* 4. Section 3: Explore by Category */}
             <CategoryShowcase />
 
-            {/* 9. Request a Tool Community CTA */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-              <RequestToolCta />
-            </div>
+            {/* 5. Section 4: "You May Also Need" Workflow Discovery */}
+            <YouMayAlsoNeedSection />
 
-            {/* 10. Trust & Privacy Section */}
+            {/* 6. Section 5: New on BharatUtility & Trending Tools */}
+            <NewToolsSection />
+            <TrendingToolsSection />
+
+            {/* 7. Personalized Sections (Shown only when user has saved or used tools) */}
+            <YourFavoritesSection />
+            <RecentlyUsedSection />
+
+            {/* 8. Section 6: Why BharatUtility & Privacy Trust */}
             <TrustSection />
+
+            {/* 9. Section 7: Concise Indian User FAQ */}
+            <HomeFaqSection />
+
+            {/* 10. Section 8: Final Tool Discovery CTA */}
+            <FinalDiscoveryCtaSection />
           </div>
         )}
 

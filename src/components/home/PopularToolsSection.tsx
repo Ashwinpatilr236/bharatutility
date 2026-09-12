@@ -20,10 +20,10 @@ export const PopularToolsSection: React.FC = () => {
             <span>Essential Daily Utilities</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display">
-            Most Popular Tools
+            Popular Tools
           </h2>
           <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
-            Fast, mathematically accurate calculations built specifically for Indian users
+            Fast, mathematically accurate calculations built specifically for everyday Indian tasks
           </p>
         </div>
       </div>
@@ -85,8 +85,7 @@ export const PopularToolsSection: React.FC = () => {
                   {tool.category}
                 </span>
                 <span className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                  Open Tool
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  Use Tool →
                 </span>
               </div>
             </Link>
