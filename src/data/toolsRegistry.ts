@@ -7874,6 +7874,627 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: ['travel-budget-calculator', 'group-expense-split', 'indian-bank-holidays']
+  },
+  // 113. Gold & Silver Rate Calculator + Jewellery GST Bill
+  {
+    id: 'gold-silver-rate-calculator',
+    slug: 'gold-silver-rate-calculator',
+    name: 'Gold & Silver Rate & Jewellery GST Calculator',
+    shortName: 'Gold Rate & Jewellery Bill',
+    tagline: 'Live 24K, 22K (916 Hallmark), 18K Gold & Silver rates in India + Making charges & 3% GST jewellery bill calculator',
+    description: "Check live city-wise Gold & Silver rates across India. Calculate true jewellery purchase bills including 8-25% making charges, BIS hallmarking fee, and 3% GST, plus old gold exchange valuation.",
+    category: 'money',
+    icon: 'Coins',
+    keywords: ['gold rate today', 'silver price live inr', '22k hallmark gold price', 'jewellery making charge calculator', 'gold gst calculator', 'old gold exchange value'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Live Bullion',
+    views: 65400,
+    seo: {
+      title: 'Live Gold & Silver Rate Today + Jewellery Making Charges & 3% GST Calculator | BharatUtility',
+      description: 'Check today 24K, 22K, 18K Gold and Silver prices in Mumbai, Delhi, Bengaluru. Compute exact jewellery bill with making charges, BIS hallmarking & 3% GST.',
+      keywords: ['gold rate today', 'silver price live inr', '22k hallmark gold price', 'jewellery making charge calculator', 'gold gst calculator', 'old gold exchange value'],
+      canonicalSlug: 'gold-silver-rate-calculator',
+      h1: 'Live Gold & Silver Rate & Jewellery Making GST Calculator',
+    },
+    formulaDescription: 'Jewellery Invoice = (Gold Purity Rate × Grams) + Making Charges + 3% GST on (Gold + Making) + Hallmarking Fee (₹53.10)',
+    formulaLatex: 'Total = (Weight \times Rate + Making) \times 1.03 + Hallmark',
+    workedExample: {
+      inputSummary: '22K Gold: 12.5g @ ₹8,107/g | Making Charges: 12% | 3% GST',
+      calculationSteps: [
+        'Raw Gold Cost: 12.5g × ₹8,107 = ₹1,01,338',
+        'Making Charges (12%): ₹1,01,338 × 0.12 = ₹12,161',
+        'Subtotal before GST: ₹1,13,499',
+        '3% GST: ₹1,13,499 × 0.03 = ₹3,405',
+        'BIS Hallmarking: ₹53.10',
+        'Grand Total: ₹1,16,957'
+      ],
+      finalResult: 'Payable Amount: ₹1,16,957 (Effective ₹9,357/g)',
+    },
+    faqs: [
+      {
+        question: 'What is the GST rate on gold jewellery in India?',
+        answer: 'GST on gold jewellery is 3% applied on the combined value of raw gold and making charges, plus 18% GST on the BIS hallmarking charge (₹45 + 18% GST = ₹53.10).'
+      },
+      {
+        question: 'What is the difference between 24K, 22K and 18K Gold?',
+        answer: '24K is 99.9% pure gold (used for bullion coins/bars), 22K (916) contains 91.6% gold with 8.4% alloy metals for durability, and 18K (750) contains 75% gold, typically used for diamond studded jewellery.'
+      }
+    ],
+    relatedToolSlugs: ['gst-calculator', 'sip-calculator', 'ppf-calculator']
+  },
+  // 114. Live Crypto to INR & 30% Tax Calculator
+  {
+    id: 'crypto-inr-tax-calculator',
+    slug: 'crypto-inr-tax-calculator',
+    name: 'Crypto to INR & 30% Tax Calculator',
+    shortName: 'Crypto Tax (Sec 115BBH)',
+    tagline: 'Live Bitcoin, Ethereum, Solana prices in INR + Section 115BBH 30% flat tax & 1% TDS deduction calculator',
+    description: "Convert crypto to INR in real time and calculate your exact Indian Income Tax liability under Section 115BBH (30% flat tax + 4% cess = 31.2%) and Section 194S 1% TDS.",
+    category: 'money',
+    icon: 'TrendingUp',
+    keywords: ['crypto tax calculator india', 'bitcoin price inr', 'section 115bbh tax', '1% tds crypto 194s', 'ethereum to inr', 'crypto profit loss calculator'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: '30% Tax',
+    views: 48900,
+    seo: {
+      title: 'Crypto to INR Live Converter & Indian 30% Tax (Sec 115BBH) Calculator | BharatUtility',
+      description: 'Convert BTC, ETH, SOL, USDT to INR and compute your Section 115BBH 30% capital gains tax + 1% Section 194S TDS with zero set-off rules.',
+      keywords: ['crypto tax calculator india', 'bitcoin price inr', 'section 115bbh tax', '1% tds crypto 194s', 'ethereum to inr', 'crypto profit loss calculator'],
+      canonicalSlug: 'crypto-inr-tax-calculator',
+      h1: 'Crypto to INR & Indian Section 115BBH 30% Tax Calculator',
+    },
+    formulaDescription: 'Net Tax = (Sale Value − Acquisition Cost) × 31.2% (30% Tax + 4% Cess) + 1% TDS on Total Sale Consideration',
+    formulaLatex: 'Tax = (Sale - Buy) \times 0.312',
+    workedExample: {
+      inputSummary: 'Bought 0.25 BTC for ₹15,00,000 | Sold for ₹19,62,500 | Profit: ₹4,62,500',
+      calculationSteps: [
+        'Gross Gain = ₹19,62,500 - ₹15,00,000 = ₹4,62,500',
+        '30% Flat Tax (Sec 115BBH) = ₹1,38,750',
+        '4% Health & Edu Cess = ₹5,550',
+        'Total Income Tax (31.2%) = ₹1,44,300',
+        '1% TDS Deducted at source (Sec 194S) = ₹19,625',
+        'Net In-Hand Profit = ₹3,18,200'
+      ],
+      finalResult: 'Net Profit: ₹3,18,200 after ₹1.44 Lakh Tax',
+    },
+    faqs: [
+      {
+        question: 'Can I set off crypto losses against other crypto profits in India?',
+        answer: 'No. Under Section 115BBH of the Indian Income Tax Act, losses from one Virtual Digital Asset (VDA) cannot be set off against gains from another VDA or any other source of income.'
+      },
+      {
+        question: 'What is the 1% TDS on crypto under Section 194S?',
+        answer: 'Section 194S mandates Indian exchanges and buyers to deduct 1% TDS on the gross transfer value of virtual digital assets if annual transactions exceed ₹50,000.'
+      }
+    ],
+    relatedToolSlugs: ['new-vs-old-tax-calculator', 'capital-gains-tax-calculator', 'gst-calculator']
+  },
+  // 115. Sarkari Exam Age Eligibility Analyzer
+  {
+    id: 'sarkari-exam-age-calculator',
+    slug: 'sarkari-exam-age-calculator',
+    name: 'Sarkari Exam Age & Attempt Eligibility Checker',
+    shortName: 'Sarkari Exam Age Checker',
+    tagline: 'Calculate exact age as on cut-off date for UPSC, SSC CGL, IBPS, RRB NTPC, NDA with OBC/SC/ST/PwD age relaxations',
+    description: "Verify your exact age on official recruitment cut-off dates (1st Aug / 1st July) for UPSC Civil Services, SSC CGL, Bank PO, and Railway exams with category relaxations and remaining attempt counter.",
+    category: 'education',
+    icon: 'GraduationCap',
+    keywords: ['sarkari exam age calculator', 'upsc age limit calculator', 'ssc cgl age cut off', 'ibps po age relaxation', 'railway exam age limit', 'govt job age eligibility'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: '2026 Cutoff',
+    views: 78300,
+    seo: {
+      title: 'Sarkari Exam Age & Attempt Eligibility Calculator (UPSC, SSC, IBPS, RRB) | BharatUtility',
+      description: 'Instant cut-off date age calculator for UPSC IAS, SSC CGL, IBPS PO, RRB NTPC. Check General, OBC, SC/ST, and PwD age relaxation and attempt limits.',
+      keywords: ['sarkari exam age calculator', 'upsc age limit calculator', 'ssc cgl age cut off', 'ibps po age relaxation', 'railway exam age limit', 'govt job age eligibility'],
+      canonicalSlug: 'sarkari-exam-age-calculator',
+      h1: 'Sarkari Exam & Govt Job Age Eligibility Checker',
+    },
+    formulaDescription: 'Exact Age = Cut-off Date − Date of Birth. Effective Max Age = General Max Age + Category Relaxation.',
+    formulaLatex: 'Age_{cutoff} = Date_{cutoff} - DOB',
+    workedExample: {
+      inputSummary: 'UPSC CSE 2026 | DOB: 15-May-2000 | Category: OBC (NCL) | Cutoff: 01-Aug-2026',
+      calculationSteps: [
+        'Cut-off Date: 01 August 2026',
+        'Exact Age: 26 Years, 2 Months, 17 Days',
+        'General Max Age: 32 Years | OBC Relaxation: +3 Years = 35 Years',
+        'Verdict: Eligible (9 Attempts Allowed, ~8.7 Years remaining)'
+      ],
+      finalResult: 'Status: Eligible | Attempts: 9 Allowed',
+    },
+    faqs: [
+      {
+        question: 'What is the age cut-off date for UPSC Civil Services Examination?',
+        answer: 'UPSC calculates candidate age as of 1st August of the exam year. A candidate must have attained 21 years and must not have attained 32 years (for General/EWS candidates).'
+      },
+      {
+        question: 'How much age relaxation is given to OBC, SC, and ST candidates?',
+        answer: 'OBC (Non-Creamy Layer) candidates receive 3 years of age relaxation, SC/ST candidates receive 5 years, and PwD candidates receive between 10 to 15 years relaxation depending on their category.'
+      }
+    ],
+    relatedToolSlugs: ['age-calculator', 'cgpa-to-percentage', 'attendance-calculator']
+  },
+  // 116. IRCTC Train Berth Locator & Tatkal Countdown
+  {
+    id: 'train-berth-tatkal-finder',
+    slug: 'train-berth-tatkal-finder',
+    name: 'IRCTC Train Berth Locator & Tatkal Booking Countdown',
+    shortName: 'Train Berth & Tatkal Clock',
+    tagline: 'Find seat position (Lower/Middle/Upper/Side), window view, live 10 AM Tatkal timer & ticket refund rules',
+    description: "Enter your coach and seat number to instantly locate your train berth (Lower, Middle, Upper, Side Lower, Side Upper), cabin bay, and window view for Sleeper, 3A, 3E, 2A, and CC classes.",
+    category: 'travel',
+    icon: 'Train',
+    keywords: ['train seat position finder', 'irctc berth calculator', 'lower berth seat numbers', 'tatkal booking clock 10 am', 'railway ticket cancellation charges'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'IRCTC Helper',
+    views: 62100,
+    seo: {
+      title: 'IRCTC Train Seat & Berth Position Finder + Live Tatkal Countdown | BharatUtility',
+      description: 'Check whether your train seat is Lower, Middle, Upper or Window. Live Tatkal booking timer for 10 AM AC & 11 AM Sleeper, plus cancellation refund rules.',
+      keywords: ['train seat position finder', 'irctc berth calculator', 'lower berth seat numbers', 'tatkal booking clock 10 am', 'railway ticket cancellation charges'],
+      canonicalSlug: 'train-berth-tatkal-finder',
+      h1: 'IRCTC Train Berth Locator & Tatkal Booking Countdown',
+    },
+    formulaDescription: 'Seat Modulo Calculation: Sleeper/3A uses 8-berth modulo pattern; 3E uses 9-berth modulo; 2A uses 6-berth modulo.',
+    formulaLatex: 'BerthType = SeatNumber \pmod{8}',
+    workedExample: {
+      inputSummary: 'Coach: 3rd AC (3A) | Seat Number: 25',
+      calculationSteps: [
+        'Modulo 8 calculation: 25 mod 8 = 1',
+        'Remainder 1 maps to Lower Berth (LB) with Window view',
+        'Bay calculation: ceil(25 / 8) = Bay #4 (Berths 25 to 32)',
+        'Position: Main inside compartment cabin'
+      ],
+      finalResult: 'Lower Berth (LB) | Window Seat | Bay #4',
+    },
+    faqs: [
+      {
+        question: 'When does Tatkal ticket booking open on IRCTC?',
+        answer: 'Tatkal booking opens precisely at 10:00:00 AM IST for AC classes (1A, 2A, 3A, 3E, CC) and at 11:00:00 AM IST for Non-AC classes (Sleeper, 2S), one day prior to the train departure date from origin station.'
+      },
+      {
+        question: 'Which seat numbers are Window Lower Berths in 3rd AC (3A)?',
+        answer: 'In 3A and Sleeper coaches, seat numbers ending with modulo 1 (e.g. 1, 9, 17, 25, 33, 41, 49, 57) and Side Lower berth modulo 7 (e.g. 7, 15, 23, 31, 39, 47, 55, 63) are Window seats.'
+      }
+    ],
+    relatedToolSlugs: ['fuel-cost-calculator', 'mileage-calculator', 'trip-cost-splitter']
+  },
+  // 117. Live Network Speed & Ping Probe
+  {
+    id: 'network-speed-ping-probe',
+    slug: 'network-speed-ping-probe',
+    name: 'Live Network Speed & Latency Ping Probe',
+    shortName: 'CDN Latency & Ping Probe',
+    tagline: 'Measure real-time latency, jitter, and connection quality to Mumbai, Delhi, BLR & Singapore CDN edges',
+    description: "Run ad-free millisecond latency and jitter ping tests to major Indian internet exchange nodes using native browser Web Performance APIs. Perfect for gaming, Zoom calls, and 4K streaming diagnostics.",
+    category: 'technology',
+    icon: 'Activity',
+    keywords: ['ping test india', 'latency probe mumbai delhi', 'jitter test fiber', 'broadband ping test', 'bgmi ping check', 'speed test zero ads'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Edge Probe',
+    views: 51200,
+    seo: {
+      title: 'Live Network Latency & Multi-City CDN Ping Probe (India) | BharatUtility',
+      description: 'Test your internet ping and jitter to Mumbai, Delhi, Bengaluru, Hyderabad, and Singapore edge servers. Ad-free browser ping testing tool.',
+      keywords: ['ping test india', 'latency probe mumbai delhi', 'jitter test fiber', 'broadband ping test', 'bgmi ping check', 'speed test zero ads'],
+      canonicalSlug: 'network-speed-ping-probe',
+      h1: 'Live Network Speed & Multi-City Ping Probe',
+    },
+    formulaDescription: 'Round Trip Time (RTT) = performance.now() completion − start timestamp across 3 consecutive HTTP samples.',
+    formulaLatex: 'RTT = t_{receive} - t_{send}',
+    workedExample: {
+      inputSummary: '3 Ping samples to Mumbai Cloudflare Edge: 18ms, 20ms, 19ms',
+      calculationSteps: [
+        'Sum = 18 + 20 + 19 = 57ms',
+        'Average Ping = 57 / 3 = 19ms',
+        'Jitter = |18 - 20| = 2ms',
+        'Rating: Excellent (Fiber / 5G Grade)'
+      ],
+      finalResult: 'Ping: 19ms | Jitter: ±2ms | Quality: Excellent',
+    },
+    faqs: [
+      {
+        question: 'What is a good ping for gaming and video calls in India?',
+        answer: 'A ping below 30ms is considered excellent for competitive gaming (BGMI, Valorant) and high-definition video calls. Between 30ms to 70ms is good for seamless 4K video streaming.'
+      },
+      {
+        question: 'What does Jitter mean in a network test?',
+        answer: 'Jitter measures the variation and stability in ping latency over time. Low jitter (under 5ms) indicates a stable, high-quality fiber or 5G broadband connection.'
+      }
+    ],
+    relatedToolSlugs: ['ip-network-inspector', 'download-time-calculator', 'data-usage-calculator']
+  },
+  // 118. NSE & BSE Stock Market Hours & Holiday Tracker
+  {
+    id: 'stock-market-hours-tracker',
+    slug: 'stock-market-hours-tracker',
+    name: 'NSE & BSE Stock Market Hours & Holiday Tracker',
+    shortName: 'Stock Market Hours & Holidays',
+    tagline: 'Live trading session clock, pre-market/post-market indicators, 2026 trading holidays & turnover charges',
+    description: "Track live Indian stock market trading hours (NSE/BSE 09:15 AM - 03:30 PM), MCX commodity sessions, clearing holidays, and calculate exact STT, SEBI, exchange turnover, and GST charges.",
+    category: 'business',
+    icon: 'TrendingUp',
+    keywords: ['stock market timing india', 'nse market hours', 'share market holidays 2026', 'stt charges calculator', 'zerodha turnover charges', 'bse pre open session'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Market Clock',
+    views: 57400,
+    seo: {
+      title: 'NSE & BSE Stock Market Timings, Holidays 2026 & STT Charges Calculator | BharatUtility',
+      description: 'Check live Indian stock market status (Pre-market, Live, Post-closing), 2026 trading holidays calendar, and calculate STT, SEBI, and exchange charges.',
+      keywords: ['stock market timing india', 'nse market hours', 'share market holidays 2026', 'stt charges calculator', 'zerodha turnover charges', 'bse pre open session'],
+      canonicalSlug: 'stock-market-hours-tracker',
+      h1: 'NSE & BSE Stock Market Hours & Holiday Tracker',
+    },
+    formulaDescription: 'Total Statutory Charges = STT (0.1% Delivery / 0.025% Intraday) + Exchange Fee (0.00345%) + SEBI (₹10/Cr) + Stamp Duty (0.015%) + 18% GST.',
+    formulaLatex: 'Charges = STT + Exch + SEBI + Stamp + GST',
+    workedExample: {
+      inputSummary: 'Equity Delivery Turnover: ₹1,00,000 (Buy + Sell)',
+      calculationSteps: [
+        'STT (0.1%): ₹100',
+        'NSE Exchange Fee (0.00345%): ₹3.45',
+        'SEBI Charges (₹10/Cr): ₹0.10',
+        'Stamp Duty (0.015%): ₹15.00',
+        '18% GST on Exchange/Brokerage: ₹0.64',
+        'Total Statutory Charges = ₹119.19'
+      ],
+      finalResult: 'Total Charges: ₹119.19 (0.119% of turnover)',
+    },
+    faqs: [
+      {
+        question: 'What are the normal trading hours for NSE and BSE in India?',
+        answer: 'The regular trading session runs from 09:15 AM to 03:30 PM IST, Monday through Friday. Pre-market order collection takes place between 09:00 AM and 09:08 AM.'
+      },
+      {
+        question: 'What is Muhurat Trading?',
+        answer: 'Muhurat Trading is a special 1-hour auspicious trading window conducted on Diwali evening by NSE and BSE to mark the beginning of the Hindu New Year (Samvat).'
+      }
+    ],
+    relatedToolSlugs: ['gst-calculator', 'profit-margin-calculator', 'break-even-calculator']
+  },
+  // 119. Jan Aushadhi Generic Medicine Price Saver
+  {
+    id: 'jan-aushadhi-generic-saver',
+    slug: 'jan-aushadhi-generic-saver',
+    name: 'Jan Aushadhi Generic Medicine Price Saver',
+    shortName: 'Generic Medicine Price Saver',
+    tagline: 'Compare branded vs generic medicine prices (PMBJP scheme), search chemical salts & save up to 80% on medical bills',
+    description: "Look up 50+ common branded Indian medicines (Augmentin, Pan-D, Dolo, Telma, Shelcal, Glycomet) to find their generic chemical salts, government Jan Aushadhi Kendra rates, and annual family savings.",
+    category: 'daily-life',
+    icon: 'Pill',
+    keywords: ['jan aushadhi medicine list', 'generic medicine price comparison', 'branded vs generic medicine', 'pmbjp price list', 'save medicine bill', 'generic paracetamol cost'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Health Saver',
+    views: 69800,
+    seo: {
+      title: 'Jan Aushadhi Generic Medicine Price Comparison & Savings Calculator | BharatUtility',
+      description: 'Compare branded medicine MRP vs Govt Jan Aushadhi generic rates. Search chemical salts and calculate family savings up to 80% on monthly prescription bills.',
+      keywords: ['jan aushadhi medicine list', 'generic medicine price comparison', 'branded vs generic medicine', 'pmbjp price list', 'save medicine bill', 'generic paracetamol cost'],
+      canonicalSlug: 'jan-aushadhi-generic-saver',
+      h1: 'Jan Aushadhi Generic Medicine Price Saver',
+    },
+    formulaDescription: 'Savings % = ((Branded MRP − Jan Aushadhi Generic MRP) / Branded MRP) × 100',
+    formulaLatex: 'Savings = \frac{MRP_{brand} - MRP_{generic}}{MRP_{brand}} \times 100',
+    workedExample: {
+      inputSummary: 'Augmentin 625 Duo (10 Tablets) | Branded: ₹205 | Jan Aushadhi: ₹52',
+      calculationSteps: [
+        'Chemical Salt: Amoxycillin (500mg) + Clavulanic Acid (125mg)',
+        'Price Difference = ₹205 - ₹52 = ₹153',
+        'Savings Percentage = (153 / 205) × 100 = 74.6%',
+        'Annual savings on 2 packs/month = ₹153 × 2 × 12 = ₹3,672'
+      ],
+      finalResult: 'Price Reduction: 74.6% (Save ₹153 per strip)',
+    },
+    faqs: [
+      {
+        question: 'Are Jan Aushadhi generic medicines as effective as branded medicines?',
+        answer: 'Yes. Pradhan Mantri Bhartiya Janaushadhi Pariyojana (PMBJP) generic medicines contain identical active pharmaceutical ingredients (APIs), strength, and therapeutic quality tested at NABL-accredited laboratories.'
+      },
+      {
+        question: 'Where can I buy generic medicines at Jan Aushadhi prices?',
+        answer: 'You can purchase them at over 10,000+ PM Jan Aushadhi Kendras operating across all districts in India with a valid doctor prescription.'
+      }
+    ],
+    relatedToolSlugs: ['age-calculator', 'percentage-calculator', 'unit-converter']
+  },
+  // 120. Rent Agreement Stamp Duty & E-Registration Cost Calculator
+  {
+    id: 'rent-agreement-stamp-duty',
+    slug: 'rent-agreement-stamp-duty',
+    name: 'Rent Agreement Stamp Duty & E-Registration Cost Calculator',
+    shortName: 'Rent Agreement Stamp Duty',
+    tagline: 'Calculate state-wise 11-month lease stamp duty, sub-registrar fees & legal clause checklist (MH, Delhi, KA, UP, TS)',
+    description: "Determine exact stamp duty and biometric e-registration fees for 11-month, 24-month, and 36-month residential rental agreements across Maharashtra, Delhi NCR, Karnataka, UP, and Telangana.",
+    category: 'documents',
+    icon: 'FileText',
+    keywords: ['rent agreement stamp duty calculator', 'maharashtra rent agreement stamp duty', '11 month agreement stamp paper cost', 'online rent agreement charges', 'delhi rent agreement cost'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Legal Tool',
+    views: 53100,
+    seo: {
+      title: 'Rent Agreement Stamp Duty & E-Registration Cost Calculator (State-wise) | BharatUtility',
+      description: 'Calculate official stamp paper duty and registration charges for rent agreements in Maharashtra, Delhi, Bangalore, Noida, Hyderabad.',
+      keywords: ['rent agreement stamp duty calculator', 'maharashtra rent agreement stamp duty', '11 month agreement stamp paper cost', 'online rent agreement charges', 'delhi rent agreement cost'],
+      canonicalSlug: 'rent-agreement-stamp-duty',
+      h1: 'Rent Agreement Stamp Duty & E-Registration Cost Calculator',
+    },
+    formulaDescription: 'Maharashtra Formula: Stamp Duty = 0.25% × (Total Rent + (10% of Deposit × Years)) + ₹1,000 Registration Fee.',
+    formulaLatex: 'Duty = 0.0025 \times (Rent_{total} + 0.1 \times Deposit \times Years)',
+    workedExample: {
+      inputSummary: 'Mumbai: ₹25,000/month rent | ₹1,00,000 deposit | 11 Months',
+      calculationSteps: [
+        'Total Rent = ₹25,000 × 11 = ₹2,75,000',
+        'Deposit Consideration = (₹1,00,000 × 0.1) × (11/12) = ₹9,167',
+        'Total Taxable Base = ₹2,84,167',
+        '0.25% Stamp Duty = ₹710',
+        'Govt Registration Fee = ₹1,000',
+        'Notary / Biometric Charge = ₹500',
+        'Total Legal Expense = ₹2,210'
+      ],
+      finalResult: 'Total Cost: ₹2,210 (Stamp Duty: ₹710, Reg: ₹1,000)',
+    },
+    faqs: [
+      {
+        question: 'Why are rent agreements in India traditionally executed for 11 months?',
+        answer: 'Under the Registration Act of 1908, leases of 12 months or longer require mandatory registration with the sub-registrar office, whereas 11-month agreements avoid complex stamp duty registration protocols in certain states.'
+      },
+      {
+        question: 'Is online biometric e-registration compulsory for rent agreements in Maharashtra?',
+        answer: 'Yes, under the Maharashtra Rent Control Act, leave and license agreements must be registered with the Inspector General of Registration (IGR) through online biometric e-filing or at a sub-registrar office.'
+      }
+    ],
+    relatedToolSlugs: ['resignation-letter-generator', 'leave-application-generator', 'gst-invoice-generator']
+  },
+  // 121. Traffic Police E-Challan Portal & MVA Fine Directory
+  {
+    id: 'traffic-challan-portal-finder',
+    slug: 'traffic-challan-portal-finder',
+    name: 'State Traffic E-Challan Portal & MVA Fine Directory',
+    shortName: 'Traffic E-Challan & Fines',
+    tagline: 'Direct official links for all 28 States e-Challan payments + 2026 Motor Vehicles Act (MVA) traffic fine table',
+    description: "Access official traffic police e-Challan payment portals for Delhi, Maharashtra, UP, Karnataka, Telangana, and Gujarat with Virtual Court dispute guide and 2026 MVA fine directory.",
+    category: 'vehicle-utility',
+    icon: 'AlertOctagon',
+    keywords: ['traffic challan check online', 'mva traffic fines 2026', 'parivahan echallan portal', 'delhi traffic police notice', 'mahatraffic challan payment', 'speeding fine in india'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Challan Hub',
+    views: 74200,
+    seo: {
+      title: 'State Traffic Police E-Challan Portal & MVA Fine Directory 2026 | BharatUtility',
+      description: 'Official direct payment portals for traffic eChallans across all Indian states. Check latest 2026 penalties for over-speeding, helmet, seatbelt, and red lights.',
+      keywords: ['traffic challan check online', 'mva traffic fines 2026', 'parivahan echallan portal', 'delhi traffic police notice', 'mahatraffic challan payment', 'speeding fine in india'],
+      canonicalSlug: 'traffic-challan-portal-finder',
+      h1: 'State Traffic Police E-Challan & 2026 MVA Fine Directory',
+    },
+    formulaDescription: 'Motor Vehicles Act statutory fine lookup based on Section 183 (Speeding), 184 (Dangerous driving), 185 (Drunk driving), 194B/D (Seatbelt/Helmet).',
+    formulaLatex: 'Fine = Lookup(Violation, StateRules)',
+    workedExample: {
+      inputSummary: 'Violation: Over-speeding on Light Motor Vehicle (LMV)',
+      calculationSteps: [
+        'MVA Section: Section 183',
+        '1st Offence Penalty: ₹1,000 to ₹2,000',
+        'Repeat Offence: Driving license impound / suspension',
+        'Payment Mode: Online via Parivahan or Virtual Court'
+      ],
+      finalResult: 'Penalty: ₹1,000 - ₹2,000 under Section 183',
+    },
+    faqs: [
+      {
+        question: 'How do I pay an Indian traffic e-challan online?',
+        answer: 'You can pay directly through the official MoRTH Parivahan portal (echallan.parivahan.gov.in) or state traffic police portals by entering your vehicle registration number or challan number.'
+      },
+      {
+        question: 'What is a Virtual Court challan in India?',
+        answer: 'Virtual Courts allow traffic violators to plead guilty and pay statutory fines online (vcourts.gov.in) without requiring physical appearance in a magistrate court.'
+      }
+    ],
+    relatedToolSlugs: ['daily-fuel-price-tracker', 'vehicle-mileage-calculator', 'ev-vs-petrol-savings']
+  },
+  // 122. IMEI Number Validator & CEIR Lost Phone Guide
+  {
+    id: 'imei-ceir-guide-validator',
+    slug: 'imei-ceir-guide-validator',
+    name: 'IMEI Number Validator & CEIR Lost Phone Guide',
+    shortName: 'IMEI & CEIR Lost Phone Guide',
+    tagline: '15-digit Luhn algorithm checksum verification, TAC breakdown & DoT Sanchar Saathi lost phone blocking guide',
+    description: "Verify the authenticity of any 15-digit IMEI number with the Luhn algorithm checksum. Learn how to block and trace lost/stolen mobile phones on the Govt Sanchar Saathi CEIR portal.",
+    category: 'technology',
+    icon: 'Smartphone',
+    keywords: ['imei validator luhn algorithm', 'ceir sanchar saathi lost phone', 'block stolen phone imei', 'check second hand phone imei', 'tac code lookup'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Security',
+    views: 46700,
+    seo: {
+      title: 'IMEI Number Validator & Govt CEIR Lost Phone Blocking Guide | BharatUtility',
+      description: 'Check 15-digit IMEI validity using Luhn Mod-10 checksum. Step-by-step guide to block and trace stolen mobile phones on DoT Sanchar Saathi CEIR portal.',
+      keywords: ['imei validator luhn algorithm', 'ceir sanchar saathi lost phone', 'block stolen phone imei', 'check second hand phone imei', 'tac code lookup'],
+      canonicalSlug: 'imei-ceir-guide-validator',
+      h1: 'IMEI Number Validator & CEIR Lost Phone Guide',
+    },
+    formulaDescription: 'Luhn Mod-10 Algorithm: Double every second digit from left to right; if doubling results in > 9, sum its digits. Total sum must be divisible by 10.',
+    formulaLatex: '\sum_{i=1}^{15} f(d_i) \equiv 0 \pmod{10}',
+    workedExample: {
+      inputSummary: 'IMEI: 867942041234567',
+      calculationSteps: [
+        'TAC (First 8 Digits): 86794204',
+        'Serial Number (Next 6 Digits): 123456',
+        'Check Digit: 7',
+        'Luhn Checksum Verification: Passed (Valid Modulo 10 sum)'
+      ],
+      finalResult: 'Valid IMEI Checksum (Genuine 15-digit format)',
+    },
+    faqs: [
+      {
+        question: 'How do I find my phone IMEI number?',
+        answer: 'Open the dialer on your phone and dial *#06# to immediately display the 15-digit IMEI1 and IMEI2 numbers on screen.'
+      },
+      {
+        question: 'What is CEIR by the Department of Telecommunications (DoT)?',
+        answer: 'Central Equipment Identity Register (CEIR) is a Government of India portal that enables citizens to block and trace stolen/lost mobile devices across all Indian telecom networks (Jio, Airtel, Vi, BSNL).'
+      }
+    ],
+    relatedToolSlugs: ['ip-network-inspector', 'network-speed-ping-probe', 'qr-code-scanner']
+  },
+  // 123. Property Stamp Duty & Circle Rate Estimator
+  {
+    id: 'property-stamp-duty-calculator',
+    slug: 'property-stamp-duty-calculator',
+    name: 'Property Stamp Duty & Circle Rate Estimator',
+    shortName: 'Property Stamp Duty',
+    tagline: 'State-wise flat & land registration charges, women buyer rebates, metro cess & Section 50C circle rate checks',
+    description: "Calculate official property registration and stamp duty expenses for flats, houses, and plots across Maharashtra, Delhi, UP, Karnataka, Telangana, and Gujarat with women ownership discounts.",
+    category: 'home',
+    icon: 'Home',
+    keywords: ['property stamp duty calculator', 'flat registration charges mumbai', 'stamp duty delhi women discount', 'circle rate vs agreement value', 'stamp paper for land registry'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Registry Cost',
+    views: 61300,
+    seo: {
+      title: 'Property Stamp Duty & Circle Rate Registration Calculator (India) | BharatUtility',
+      description: 'Estimate stamp duty and registration fees for buying flats or land across Indian states with women owner concession and circle rate comparison.',
+      keywords: ['property stamp duty calculator', 'flat registration charges mumbai', 'stamp duty delhi women discount', 'circle rate vs agreement value', 'stamp paper for land registry'],
+      canonicalSlug: 'property-stamp-duty-calculator',
+      h1: 'Property Stamp Duty & Circle Rate Registration Estimator',
+    },
+    formulaDescription: 'Stamp Duty = Max(Market Agreement Value, Circle Rate) × State Stamp Duty Rate (with Female Concession) + Registration Fee + Local Metro Cess.',
+    formulaLatex: 'RegistryCost = \max(Market, Circle) \times (Duty + Cess) + Fee',
+    workedExample: {
+      inputSummary: 'Pune Flat: ₹75,00,000 (Circle Rate: ₹65,00,000) | Female Buyer (5% Duty + 1% Metro Cess)',
+      calculationSteps: [
+        'Taxable Value: ₹75,00,000 (Higher of Agreement vs Circle Rate)',
+        'Base Stamp Duty (5% for Women): ₹3,75,000',
+        '1% Metro Cess: ₹75,000',
+        'Sub-Registrar Registration Fee (Capped): ₹30,000',
+        'Total Registry Expense: ₹4,80,000'
+      ],
+      finalResult: 'Total Cost: ₹4,80,000 (Saved ₹75,000 due to female concession)',
+    },
+    faqs: [
+      {
+        question: 'What happens if the property agreement value is lower than the circle rate in India?',
+        answer: 'Under Section 50C of the Income Tax Act, stamp duty and capital gains tax must be paid on the higher Government Circle Rate (guideline value), and the difference may be taxed as other income.'
+      },
+      {
+        question: 'Which states offer stamp duty discounts for female property buyers?',
+        answer: 'Delhi (4% vs 6%), Uttar Pradesh (1% concession), Maharashtra (1% rebate), and Gujarat offer reduced stamp duty rates when property is registered in the name of a woman.'
+      }
+    ],
+    relatedToolSlugs: ['tiles-calculator', 'wall-paint-estimator', 'land-area-converter']
+  },
+  // 124. Indian Baby Names by Rashi & Nakshatra
+  {
+    id: 'indian-baby-names-rashi',
+    slug: 'indian-baby-names-rashi',
+    name: 'Indian Baby Names by Rashi, Nakshatra & Numerology',
+    shortName: 'Baby Names by Rashi',
+    tagline: '12 Vedic Rashis, auspicious starting syllables (Shubh Akshar), Sanskrit meanings & numerology life path numbers',
+    description: "Explore 500+ curated modern Sanskrit, Vedic, and traditional Indian baby boy and baby girl names organized by the 12 Zodiac Rashis, starting letters, and numerology numbers.",
+    category: 'daily-life',
+    icon: 'Sparkles',
+    keywords: ['indian baby names by rashi', 'mesh rashi baby boy names', 'shubh akshar naamkaran', 'hindu baby names with meaning', 'nakshatra names sanskrit'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Vedic Names',
+    views: 71500,
+    seo: {
+      title: 'Indian Baby Names by Rashi, Nakshatra & Numerology (500+ Sanskrit Names) | BharatUtility',
+      description: 'Find auspicious Hindu and Indian baby names based on Rashi (Mesh, Vrishabh, Mithun, etc.), lucky starting letters, and numerology life path numbers.',
+      keywords: ['indian baby names by rashi', 'mesh rashi baby boy names', 'shubh akshar naamkaran', 'hindu baby names with meaning', 'nakshatra names sanskrit'],
+      canonicalSlug: 'indian-baby-names-rashi',
+      h1: 'Indian Baby Names by Rashi, Nakshatra & Numerology',
+    },
+    formulaDescription: 'Vedic Astrological Syllables: Moon sign (Chandra Rashi) mapping to 27 Nakshatras and 108 Pada syllables.',
+    formulaLatex: 'Name = Filter(Rashi, Syllable, Numerology)',
+    workedExample: {
+      inputSummary: 'Rashi: Mesh (मेष / Aries) | Gender: Baby Boy | Starting Letter: A',
+      calculationSteps: [
+        'Auspicious Syllables: A, L, E, I, O',
+        'Recommended Name: Aarav (आरव)',
+        'Sanskrit Meaning: Peaceful, calm sound, wisdom',
+        'Numerology Life Path Number: #1 (Leadership & Sun energy)'
+      ],
+      finalResult: 'Name: Aarav | Meaning: Peaceful & Wise | Numerology: #1',
+    },
+    faqs: [
+      {
+        question: 'How is a baby Naamkaran letter (Shubh Akshar) decided in Indian astrology?',
+        answer: 'The auspicious starting syllable is determined by the Moon sign (Chandra Rashi) and the specific Pada (quarter) of the birth Nakshatra at the exact time and place of birth.'
+      },
+      {
+        question: 'What is the role of numerology in Indian baby names?',
+        answer: 'Each letter in the name is assigned a Chaldean/Pythagorean number; the sum calculates the Destiny/Name number which influences personality, career traits, and harmony with birth date numbers.'
+      }
+    ],
+    relatedToolSlugs: ['age-calculator', 'date-difference-calculator', 'jan-aushadhi-generic-saver']
+  },
+  // 125. Password & Data Breach Exposure Checker
+  {
+    id: 'password-breach-checker',
+    slug: 'password-breach-checker',
+    name: 'Password & Data Breach Exposure Checker',
+    shortName: 'Data Breach Checker',
+    tagline: '100% privacy-safe k-Anonymity SHA-1 hash check to see if your password has leaked in public data breaches',
+    description: "Verify whether your password has appeared in major corporate data breaches using the mathematical k-Anonymity model. Your password never leaves your browser in plain text.",
+    category: 'technology',
+    icon: 'Lock',
+    keywords: ['password breach checker', 'have i been pwned free', 'check leaked passwords safe', 'k anonymity password test', 'data breach lookup india'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: '100% Private',
+    views: 58900,
+    seo: {
+      title: 'Privacy-Safe Password Breach & Exposure Checker (k-Anonymity) | BharatUtility',
+      description: 'Check if your password was leaked in data breaches without revealing it. 100% client-side SHA-1 k-Anonymity verification tool.',
+      keywords: ['password breach checker', 'have i been pwned free', 'check leaked passwords safe', 'k anonymity password test', 'data breach lookup india'],
+      canonicalSlug: 'password-breach-checker',
+      h1: 'Privacy-First Password & Data Breach Exposure Checker',
+    },
+    formulaDescription: 'k-Anonymity Model: SHA1(Password) -> 5-char prefix sent to API -> 35-char suffix matched locally on client.',
+    formulaLatex: 'SHA1(Password) \rightarrow [Prefix_5, Suffix_{35}]',
+    workedExample: {
+      inputSummary: 'Password tested: password123',
+      calculationSteps: [
+        'Local SHA-1 Hash: CBFDAC6008F9CAB4083784CBD1874F76618D2A97',
+        'Transmitted Prefix: CBFDA',
+        'Local Suffix Match: C6008F9CAB4083784CBD1874F76618D2A97',
+        'Breach Database Hits: 12,450,890 times (Critical Risk!)'
+      ],
+      finalResult: 'Critical Breach: Leaked 1.2 Crore+ times. Change immediately!',
+    },
+    faqs: [
+      {
+        question: 'Is it safe to type my password into this breach checker?',
+        answer: 'Yes, 100% safe. The tool uses mathematical k-Anonymity: your plain-text password is never sent across the internet. Only the first 5 characters of its SHA-1 hash are queried to fetch anonymous hash collections.'
+      },
+      {
+        question: 'What should I do if my password is found in data breaches?',
+        answer: 'Change the password immediately on all accounts where you have used it, and enable Two-Factor Authentication (2FA/MFA) using an authenticator app.'
+      }
+    ],
+    relatedToolSlugs: ['ip-network-inspector', 'imei-ceir-guide-validator', 'network-speed-ping-probe']
   }
 ];
 

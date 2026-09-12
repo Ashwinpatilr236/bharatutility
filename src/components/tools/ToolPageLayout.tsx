@@ -66,6 +66,21 @@ const FuelPriceTrackerSuite = React.lazy(() => import('../calculators/FuelPriceT
 const QrScannerSuite = React.lazy(() => import('../calculators/QrScannerSuite').then(m => ({ default: m.QrScannerSuite })));
 const LongWeekendPlannerSuite = React.lazy(() => import('../calculators/LongWeekendPlannerSuite').then(m => ({ default: m.LongWeekendPlannerSuite })));
 
+// 13 New Power Utilities
+const GoldSilverRateCalculator = React.lazy(() => import('./money/GoldSilverRateCalculator').then(m => ({ default: m.GoldSilverRateCalculator })));
+const CryptoInrTaxCalculator = React.lazy(() => import('./money/CryptoInrTaxCalculator').then(m => ({ default: m.CryptoInrTaxCalculator })));
+const SarkariExamAgeCalculator = React.lazy(() => import('./education/SarkariExamAgeCalculator').then(m => ({ default: m.SarkariExamAgeCalculator })));
+const TrainBerthTatkalFinder = React.lazy(() => import('./travel/TrainBerthTatkalFinder').then(m => ({ default: m.TrainBerthTatkalFinder })));
+const NetworkSpeedPingProbe = React.lazy(() => import('./tech/NetworkSpeedPingProbe').then(m => ({ default: m.NetworkSpeedPingProbe })));
+const StockMarketHoursTracker = React.lazy(() => import('./business/StockMarketHoursTracker').then(m => ({ default: m.StockMarketHoursTracker })));
+const JanAushadhiGenericSaver = React.lazy(() => import('./daily/JanAushadhiGenericSaver').then(m => ({ default: m.JanAushadhiGenericSaver })));
+const RentAgreementStampDuty = React.lazy(() => import('./documents/RentAgreementStampDuty').then(m => ({ default: m.RentAgreementStampDuty })));
+const TrafficChallanPortalFinder = React.lazy(() => import('./vehicle/TrafficChallanPortalFinder').then(m => ({ default: m.TrafficChallanPortalFinder })));
+const ImeiCeirGuideValidator = React.lazy(() => import('./tech/ImeiCeirGuideValidator').then(m => ({ default: m.ImeiCeirGuideValidator })));
+const PropertyStampDutyCalculator = React.lazy(() => import('./home/PropertyStampDutyCalculator').then(m => ({ default: m.PropertyStampDutyCalculator })));
+const IndianBabyNamesRashi = React.lazy(() => import('./daily/IndianBabyNamesRashi').then(m => ({ default: m.IndianBabyNamesRashi })));
+const PasswordBreachChecker = React.lazy(() => import('./tech/PasswordBreachChecker').then(m => ({ default: m.PasswordBreachChecker })));
+
 import {
   Star,
   Share2,
@@ -489,6 +504,34 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <TravelUtilitySuiteCalculator initialMode="timezone-converter" onResultChange={handleResultChange} />;
       case 'travel-checklist-generator':
         return <TravelUtilitySuiteCalculator initialMode="packing-checklist" onResultChange={handleResultChange} />;
+
+      // 13 New Power Utilities
+      case 'gold-silver-rate-calculator':
+        return <GoldSilverRateCalculator />;
+      case 'crypto-inr-tax-calculator':
+        return <CryptoInrTaxCalculator />;
+      case 'sarkari-exam-age-calculator':
+        return <SarkariExamAgeCalculator />;
+      case 'train-berth-tatkal-finder':
+        return <TrainBerthTatkalFinder />;
+      case 'network-speed-ping-probe':
+        return <NetworkSpeedPingProbe />;
+      case 'stock-market-hours-tracker':
+        return <StockMarketHoursTracker />;
+      case 'jan-aushadhi-generic-saver':
+        return <JanAushadhiGenericSaver />;
+      case 'rent-agreement-stamp-duty':
+        return <RentAgreementStampDuty />;
+      case 'traffic-challan-portal-finder':
+        return <TrafficChallanPortalFinder />;
+      case 'imei-ceir-guide-validator':
+        return <ImeiCeirGuideValidator />;
+      case 'property-stamp-duty-calculator':
+        return <PropertyStampDutyCalculator />;
+      case 'indian-baby-names-rashi':
+        return <IndianBabyNamesRashi />;
+      case 'password-breach-checker':
+        return <PasswordBreachChecker />;
 
       default:
         return <EmiCalculator onResultChange={handleResultChange} />;

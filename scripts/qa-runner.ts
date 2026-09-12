@@ -21,7 +21,7 @@ console.log('🚀 RUNNING BHARATUTILITY COMPREHENSIVE QA TEST SUITE');
 console.log('====================================================\n');
 
 // 1. ROUTE & REGISTRY INTEGRITY
-assert('Route Integrity', 'Total tools is 112', TOOLS_REGISTRY.length === 112, `Found ${TOOLS_REGISTRY.length}`);
+assert('Route Integrity', 'Total tools is 125', TOOLS_REGISTRY.length === 125, `Found ${TOOLS_REGISTRY.length}`);
 assert('Route Integrity', 'Total categories is 13', CATEGORIES.length === 13, `Found ${CATEGORIES.length}`);
 
 // Check unique slugs
