@@ -182,8 +182,8 @@ export interface ContactSubmission {
 export interface SocialLinks {
   instagram: string;
   facebook: string;
-  youtube: string;
   x: string;
   linkedin: string;
-  telegram: string;
+  youtube?: string;
+  telegram?: string;
 }

@@ -17,66 +17,43 @@ export interface SocialConfig {
 
 export const SOCIAL_CONFIG: SocialConfig = {
   title: 'Follow BharatUtility',
-  subtitle: 'Get notified about new Indian utility calculators, tax updates, and productivity tips.',
+  subtitle: 'Stay updated with new tools, useful utilities and BharatUtility updates.',
   platforms: [
-    {
-      id: 'x',
-      name: 'X (Twitter)',
-      url: 'https://twitter.com/BharatUtility',
-      handle: '@BharatUtility',
-      icon: 'Twitter',
-      color: '#000000',
-      enabled: true,
-      followerCount: '12K+'
-    },
-    {
-      id: 'youtube',
-      name: 'YouTube',
-      url: 'https://youtube.com/@BharatUtility',
-      handle: 'BharatUtility India',
-      icon: 'Youtube',
-      color: '#FF0000',
-      enabled: true,
-      followerCount: '25K+'
-    },
-    {
-      id: 'telegram',
-      name: 'Telegram',
-      url: 'https://t.me/BharatUtility',
-      handle: 't.me/BharatUtility',
-      icon: 'Send',
-      color: '#229ED9',
-      enabled: true,
-      followerCount: '18K+'
-    },
     {
       id: 'linkedin',
       name: 'LinkedIn',
-      url: 'https://linkedin.com/company/bharatutility',
-      handle: 'BharatUtility India',
+      url: 'https://www.linkedin.com/company/arrjstechnologies',
+      handle: 'arrjstechnologies',
       icon: 'Linkedin',
       color: '#0A66C2',
       enabled: true,
-      followerCount: '8K+'
+    },
+    {
+      id: 'x',
+      name: 'X (Twitter)',
+      url: 'https://x.com/ARRJS_Tech',
+      handle: '@ARRJS_Tech',
+      icon: 'Twitter',
+      color: '#000000',
+      enabled: true,
     },
     {
       id: 'instagram',
       name: 'Instagram',
-      url: 'https://instagram.com/bharatutility.tech',
-      handle: '@bharatutility.tech',
+      url: 'https://www.instagram.com/arrjstechnologies/',
+      handle: '@arrjstechnologies',
       icon: 'Instagram',
       color: '#E4405F',
       enabled: true,
-      followerCount: '30K+'
     },
     {
       id: 'facebook',
       name: 'Facebook',
-      url: 'https://facebook.com/BharatUtility',
-      handle: 'BharatUtility',
+      url: 'https://www.facebook.com/arrjstechnologies',
+      handle: 'arrjstechnologies',
       icon: 'Facebook',
       color: '#1877F2',
-      enabled: false, // Disabled platforms are automatically hidden
+      enabled: true,
     }
   ]
 };
