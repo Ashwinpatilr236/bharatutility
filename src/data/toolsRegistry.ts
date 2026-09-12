@@ -7103,7 +7103,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       {
         h2: 'Official Typing Speed Benchmarks for Indian Recruitment Exams',
         paragraphs: [
-          'Most central and state government recruitment tests require a minimum typing speed: SSC CHSL requires 35 WPM in English (or 30 WPM in Hindi), SSC CGL Tier 2 requires ~27 WPM (2000 key depressions in 15 minutes with max 5%–7% errors), and High Court Clerk posts often require 35–40 WPM.'
+          'Most central and state government recruitment tests require a minimum typing speed: SSC CHSL requires 35 WPM in English (or 30 WPM in Hindi), SSC CGL Tier 2 requires ~27 WPM (2000 key depressions in 15 minutes with max 5%-7% errors), and High Court Clerk posts often require 35-40 WPM.'
         ]
       }
     ],
@@ -7183,7 +7183,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     slug: 'exam-photo-date-stamp',
     name: 'Govt Exam Photo & Date of Photo (DOP) Stamp Maker',
     shortName: 'Exam Photo Date Stamp',
-    tagline: 'Add candidate name & Date of Photo (DOP) bottom banner strictly compliant with SSC, UPSC & IBPS guidelines (20KB–50KB)',
+    tagline: 'Add candidate name & Date of Photo (DOP) bottom banner strictly compliant with SSC, UPSC & IBPS guidelines (20KB-50KB)',
     description: 'Add candidate name and Date of Photo (DOP/DOB) on a white bottom banner for SSC CGL, CHSL, UPSC CSE, IBPS Bank, and Railway recruitment portals. Automatically compresses photo strictly within the 20 KB to 50 KB requirement.',
     category: 'document-tools',
     icon: 'Camera',
@@ -7211,7 +7211,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       canonicalSlug: 'exam-photo-date-stamp',
       h1: 'Govt Exam Photo & Date of Photo (DOP) Stamp Maker',
     },
-    formulaDescription: 'Canvas raster overlay with candidate typography banner + iterative quality compression targeting 20 KB–50 KB standard limits.',
+    formulaDescription: 'Canvas raster overlay with candidate typography banner + iterative quality compression targeting 20 KB-50 KB standard limits.',
     workedExample: {
       inputSummary: 'Photo: Passport size | Name: RAHUL SHARMA | Date: 12-09-2026 | Target: 35 KB',
       calculationSteps: [

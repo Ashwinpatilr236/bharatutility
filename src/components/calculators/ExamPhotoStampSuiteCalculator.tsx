@@ -222,7 +222,7 @@ export const ExamPhotoStampSuiteCalculator: React.FC<ExamPhotoStampSuiteCalculat
               }`}
             >
               <div className="text-xs font-bold">{p.name}</div>
-              <div className="text-[11px] font-mono text-emerald-400 mt-0.5">{p.width}x{p.height}px ({p.minKb}–{p.maxKb}KB)</div>
+              <div className="text-[11px] font-mono text-emerald-400 mt-0.5">{p.width}x{p.height}px ({p.minKb}-{p.maxKb}KB)</div>
             </button>
           ))}
         </div>
