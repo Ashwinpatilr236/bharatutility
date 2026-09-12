@@ -88,15 +88,6 @@ export const Footer: React.FC = () => {
                   Contact Us
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/admin"
-                  className="hover:text-accent dark:hover:text-white transition-colors text-left text-neutral-400 dark:text-neutral-500 hover:underline flex items-center gap-1"
-                >
-                  <span>Admin Portal</span>
-                  <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-500/10 text-emerald-500 font-bold">Live</span>
-                </Link>
-              </li>
             </ul>
           </div>
 

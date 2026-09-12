@@ -39,7 +39,7 @@ export function getPathForView(view: ViewMode): string {
       if (view.page === 'about') return '/about';
       return `/legal/${view.page}`;
     case 'admin':
-      return '/admin';
+      return '/';
     default:
       return '/';
   }

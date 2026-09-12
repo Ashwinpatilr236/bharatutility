@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { analyticsService } from '../../services/analyticsService';
-import { useApp } from '../../context/AppContext';
 
 interface LiveVisitorsBadgeProps {
   variant?: 'header' | 'footer' | 'pill';
@@ -11,7 +10,6 @@ export const LiveVisitorsBadge: React.FC<LiveVisitorsBadgeProps> = ({
   variant = 'header',
   showLabel = true,
 }) => {
-  const { navigateToAdmin } = useApp();
   const [count, setCount] = useState<number>(analyticsService.getLiveVisitorsCount());
 
   useEffect(() => {
@@ -36,10 +34,9 @@ export const LiveVisitorsBadge: React.FC<LiveVisitorsBadgeProps> = ({
   }
 
   return (
-    <button
-      onClick={() => navigateToAdmin()}
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/50 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-[11px] font-bold transition-all shadow-xs group"
-      title="Live users active right now — click to view Admin Portal"
+    <div
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-950/40 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-[11px] font-bold shadow-xs select-none"
+      title="Live users active on BharatUtility right now"
     >
       <span className="relative flex h-2 w-2">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -48,6 +45,6 @@ export const LiveVisitorsBadge: React.FC<LiveVisitorsBadgeProps> = ({
       <span>
         {count} {showLabel && <span className="font-normal opacity-90 hidden sm:inline">Online</span>}
       </span>
-    </button>
+    </div>
   );
 };

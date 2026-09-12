@@ -105,7 +105,7 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'legal', page }, redirectPath: `${targetPath}${search}` };
   }
   if (hash.startsWith('#/admin') || hash.startsWith('#admin')) {
-    return { view: { type: 'admin' }, redirectPath: `/admin${search}` };
+    return { view: { type: 'home' }, redirectPath: '/' };
   }
 
   // 2. Parse Clean Pathname (normalized without trailing slash)
@@ -166,7 +166,7 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'legal', page } };
   }
   if (cleanPath.startsWith('/admin')) {
-    return { view: { type: 'admin' } };
+    return { view: { type: 'home' }, redirectPath: '/' };
   }
 
   // Root or unhandled paths -> home
@@ -352,7 +352,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const navigateToAdmin = () => {
-    setView({ type: 'admin' });
+    setView({ type: 'home' });
   };
 
   const navigateToTool = (slug: string, params?: Record<string, any>) => {
