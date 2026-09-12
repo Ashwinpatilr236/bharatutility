@@ -4,9 +4,7 @@ import { useAdminStore } from '../../hooks/useAdminStore';
 import { CATEGORIES } from '../../data/categories';
 import { ThemeAccentPicker } from './ThemeAccentPicker';
 import { FavoritesHistoryModal } from './FavoritesHistoryModal';
-import { DynamicIcon } from './DynamicIcon';
 import { Link } from './Link';
-import { LiveVisitorsBadge } from './LiveVisitorsBadge';
 import {
   Search,
   Star,
@@ -233,9 +231,6 @@ export const Header: React.FC = () => {
                 {typeof window !== 'undefined' && navigator.platform?.toUpperCase().indexOf('MAC') >= 0 ? '⌘K' : 'Ctrl+K'}
               </kbd>
             </button>
-
-            {/* Live Visitors Online Badge */}
-            <LiveVisitorsBadge variant="header" />
 
             {/* Saved & History Modal Trigger */}
             <button
