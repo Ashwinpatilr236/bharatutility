@@ -99,7 +99,7 @@ export const HeroSection: React.FC = () => {
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl rounded-full" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 text-center">
+      <div className="max-w-5xl mx-auto px-4 text-center">
         {/* Top Mini Pill */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent-subtle border border-accent/20 text-accent text-xs font-semibold mb-6 shadow-xs animate-in fade-in slide-in-from-bottom-2 duration-300">
           <Sparkles className="w-3.5 h-3.5" />
@@ -321,7 +321,7 @@ export const HeroSection: React.FC = () => {
             {
               slug: 'pin-code-finder',
               name: 'PIN Code Finder',
-              tagline: 'All India Post Offices',
+              tagline: '1.5L+ Post Offices',
               icon: 'MapPin',
               badge: 'Fast',
               color: 'text-amber-500 bg-amber-500/10'
@@ -329,7 +329,7 @@ export const HeroSection: React.FC = () => {
             {
               slug: 'ifsc-code-finder',
               name: 'IFSC Code Finder',
-              tagline: 'Bank & Branch Search',
+              tagline: 'Bank & Branch',
               icon: 'Building2',
               badge: 'Verified',
               color: 'text-blue-500 bg-blue-500/10'
@@ -345,7 +345,7 @@ export const HeroSection: React.FC = () => {
             {
               slug: 'age-calculator',
               name: 'Age Calculator',
-              tagline: 'Exact Years, Months, Days',
+              tagline: 'Exact DOB & Years',
               icon: 'Calendar',
               badge: 'Instant',
               color: 'text-purple-500 bg-purple-500/10'
@@ -353,7 +353,7 @@ export const HeroSection: React.FC = () => {
             {
               slug: 'emi-calculator',
               name: 'EMI Calculator',
-              tagline: 'Home & Personal Loans',
+              tagline: 'Home & Personal',
               icon: 'Calculator',
               badge: 'Popular',
               color: 'text-indigo-500 bg-indigo-500/10'
@@ -361,7 +361,7 @@ export const HeroSection: React.FC = () => {
             {
               slug: 'vehicle-fuel-cost-calculator',
               name: 'Vehicle Fuel Cost',
-              tagline: 'Trip & Commute Fuel',
+              tagline: 'Trip & Commute',
               icon: 'Fuel',
               badge: 'Savings',
               color: 'text-rose-500 bg-rose-500/10'
@@ -370,7 +370,7 @@ export const HeroSection: React.FC = () => {
             <button
               key={tool.slug}
               onClick={() => navigateToTool(tool.slug)}
-              className="p-3.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-lg hover:shadow-neutral-900/5 dark:hover:shadow-black/30 transition-all group flex flex-col justify-between cursor-pointer"
+              className="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-lg hover:shadow-neutral-900/5 dark:hover:shadow-black/30 transition-all group flex flex-col justify-between cursor-pointer"
             >
               <div>
                 <div className="flex items-center justify-between mb-2.5">
@@ -381,10 +381,10 @@ export const HeroSection: React.FC = () => {
                     {tool.badge}
                   </span>
                 </div>
-                <h3 className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors line-clamp-1">
+                <h3 className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors leading-snug line-clamp-2">
                   {tool.name}
                 </h3>
-                <p className="text-[11px] text-neutral-500 dark:text-neutral-400 line-clamp-1 mt-0.5">
+                <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-1 truncate">
                   {tool.tagline}
                 </p>
               </div>
