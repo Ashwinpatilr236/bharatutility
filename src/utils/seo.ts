@@ -1,16 +1,16 @@
 import { ViewMode } from '../types';
-import { getToolBySlug } from '../data/toolsRegistry';
+import { getToolBySlug, getToolsByCategory } from '../data/toolsRegistry';
 import { getCategoryById } from '../data/categories';
 
-const SITE_NAME = 'BharatUtility';
-const CANONICAL_BASE = 'https://bharatutility.tech';
-const DEFAULT_TITLE = 'BharatUtility - Free Online Tools for Everyday India';
-const DEFAULT_DESCRIPTION =
-  'BharatUtility provides free, fast and easy-to-use online calculators and utility tools for everyday India.';
-const DEFAULT_OG_IMAGE = `${CANONICAL_BASE}/icons/icon-512.png`;
+export const SITE_NAME = 'BharatUtility';
+export const CANONICAL_BASE = 'https://bharatutility.tech';
+export const DEFAULT_TITLE = 'BharatUtility - Free Online Tools for Everyday India';
+export const DEFAULT_DESCRIPTION =
+  'BharatUtility is a privacy-focused Indian utility platform providing 100% free online calculators, document tools, financial planners, and daily utilities for India.';
+export const DEFAULT_OG_IMAGE = `${CANONICAL_BASE}/icons/icon-512.png`;
 
 /**
- * Returns the clean path for a given ViewMode
+ * Returns the canonical clean path for a given ViewMode
  */
 export function getPathForView(view: ViewMode): string {
   switch (view.type) {
@@ -19,15 +19,11 @@ export function getPathForView(view: ViewMode): string {
     case 'all-tools':
       return '/tools';
     case 'category':
-      if (view.categoryId === 'india-services') return '/india-services';
-      if (view.categoryId === 'document-tools') return '/document-tools';
-      if (view.categoryId === 'vehicle-utility') return '/vehicle-utility';
-      if (view.categoryId === 'travel-utility') return '/travel-utility';
       return `/category/${view.categoryId}`;
     case 'tool': {
       const tool = getToolBySlug(view.slug);
       const canonicalSlug = tool?.seo?.canonicalSlug || view.slug;
-      return `/tool/${canonicalSlug}`;
+      return `/tools/${canonicalSlug}`;
     }
     case 'favorites':
       return '/favorites';
@@ -102,6 +98,7 @@ export function updateSeoMetadata(view: ViewMode): void {
   let title = DEFAULT_TITLE;
   let description = DEFAULT_DESCRIPTION;
   let ogType = 'website';
+  let isNoIndex = false;
   let jsonLdData: any = null;
 
   if (view.type === 'tool') {
@@ -111,11 +108,9 @@ export function updateSeoMetadata(view: ViewMode): void {
       description = tool.seo?.description || tool.description || DEFAULT_DESCRIPTION;
       ogType = 'article';
 
-      const reviewCount = Math.max(140, Math.floor((tool.views || 3500) / 18));
-      const ratingValue = (4.85 + (tool.name.length % 10) * 0.01).toFixed(1);
+      const toolCategory = getCategoryById(tool.category);
 
       const toolSchema: any = {
-        '@context': 'https://schema.org',
         '@type': 'WebApplication',
         name: tool.name,
         url: canonicalUrl,
@@ -124,13 +119,6 @@ export function updateSeoMetadata(view: ViewMode): void {
         operatingSystem: 'All',
         inLanguage: 'en-IN',
         browserRequirements: 'Requires JavaScript. Requires HTML5.',
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: ratingValue,
-          ratingCount: reviewCount,
-          bestRating: '5',
-          worstRating: '1',
-        },
         publisher: {
           '@type': 'Organization',
           '@id': `${CANONICAL_BASE}/#organization`,
@@ -146,7 +134,6 @@ export function updateSeoMetadata(view: ViewMode): void {
       };
 
       const breadcrumbSchema: any = {
-        '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
           {
@@ -158,8 +145,8 @@ export function updateSeoMetadata(view: ViewMode): void {
           {
             '@type': 'ListItem',
             position: 2,
-            name: 'Tools',
-            item: `${CANONICAL_BASE}/tools`,
+            name: toolCategory ? toolCategory.name : 'Tools',
+            item: toolCategory ? `${CANONICAL_BASE}/category/${toolCategory.id}` : `${CANONICAL_BASE}/tools`,
           },
           {
             '@type': 'ListItem',
@@ -172,7 +159,7 @@ export function updateSeoMetadata(view: ViewMode): void {
 
       const graphNodes: any[] = [toolSchema, breadcrumbSchema];
 
-      if (tool.workedExample && tool.workedExample.calculationSteps) {
+      if (tool.workedExample && tool.workedExample.calculationSteps && tool.workedExample.calculationSteps.length > 0) {
         graphNodes.push({
           '@type': 'HowTo',
           name: `How to calculate using ${tool.name}`,
@@ -208,33 +195,55 @@ export function updateSeoMetadata(view: ViewMode): void {
     const category = getCategoryById(view.categoryId);
     if (category) {
       title = `${category.name} Tools & Calculators | ${SITE_NAME}`;
-      description = category.description;
+      description = `${category.description} Free, fast, private online calculators and utilities tailored for India on BharatUtility.`;
+      const categoryTools = getToolsByCategory(view.categoryId);
+
       jsonLdData = {
         '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
+        '@graph': [
           {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: `${CANONICAL_BASE}/`,
+            '@type': 'CollectionPage',
+            name: `${category.name} Tools & Calculators`,
+            description: description,
+            url: canonicalUrl,
+            inLanguage: 'en-IN',
+            mainEntity: {
+              '@type': 'ItemList',
+              itemListElement: categoryTools.map((t, idx) => ({
+                '@type': 'ListItem',
+                position: idx + 1,
+                name: t.name,
+                url: `${CANONICAL_BASE}/tools/${t.seo?.canonicalSlug || t.slug}`,
+              })),
+            },
           },
           {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Categories',
-            item: `${CANONICAL_BASE}/categories`,
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: category.name,
-            item: canonicalUrl,
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: `${CANONICAL_BASE}/`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Categories',
+                item: `${CANONICAL_BASE}/tools`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: category.name,
+                item: canonicalUrl,
+              },
+            ],
           },
         ],
       };
     } else {
-      title = `Category Tools | ${SITE_NAME}`;
+      title = `Category Tools & Calculators | ${SITE_NAME}`;
     }
   } else if (view.type === 'all-tools') {
     title = `All Indian Calculators & Everyday Utilities | ${SITE_NAME}`;
@@ -253,7 +262,7 @@ export function updateSeoMetadata(view: ViewMode): void {
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Tools',
+          name: 'All Tools',
           item: canonicalUrl,
         },
       ],
@@ -261,25 +270,48 @@ export function updateSeoMetadata(view: ViewMode): void {
   } else if (view.type === 'favorites') {
     title = `Saved Tools & Favorites | ${SITE_NAME}`;
     description = 'Access your saved favorite calculators and quick utilities on BharatUtility.';
+    isNoIndex = true;
   } else if (view.type === 'contact') {
     title = `Contact Us & Support | ${SITE_NAME}`;
-    description = 'Get in touch with the BharatUtility team for inquiries, formula feedback, or support.';
+    description = 'Get in touch with the BharatUtility team for inquiries, formula feedback, tool suggestions, or support.';
+    jsonLdData = {
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      name: 'Contact BharatUtility',
+      url: canonicalUrl,
+      description: description,
+    };
   } else if (view.type === 'request-tool') {
     title = `Request a Tool or Calculator | ${SITE_NAME}`;
     description = 'Suggest a new everyday calculator or digital utility for India. Our team builds community-requested tools.';
+    jsonLdData = {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Request a Tool',
+      url: canonicalUrl,
+      description: description,
+    };
   } else if (view.type === 'admin') {
     title = `Admin Portal & Analytics | ${SITE_NAME}`;
     description = 'BharatUtility administrative control panel and live audience telemetry dashboard.';
+    isNoIndex = true;
   } else if (view.type === 'legal') {
     if (view.page === 'about') {
       title = `About Us - Everyday Tools for India | ${SITE_NAME}`;
-      description = 'Learn about BharatUtility, India’s fast, privacy-focused everyday calculation super-app.';
+      description = 'Learn about BharatUtility, India’s fast, privacy-focused everyday calculation super-app built with 100% client-side privacy.';
+      jsonLdData = {
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        name: 'About BharatUtility',
+        url: canonicalUrl,
+        description: description,
+      };
     } else if (view.page === 'privacy') {
       title = `Privacy Policy | ${SITE_NAME}`;
-      description = 'BharatUtility Privacy Policy - Client-side private calculations with zero data selling.';
+      description = 'BharatUtility Privacy Policy - 100% client-side private calculations with zero server tracking and zero data selling.';
     } else if (view.page === 'terms') {
       title = `Terms & Conditions | ${SITE_NAME}`;
-      description = 'Terms of Service and usage conditions for BharatUtility.';
+      description = 'Terms of Service and usage conditions for BharatUtility online calculators and utilities.';
     } else if (view.page === 'disclaimer') {
       title = `Financial & Calculation Disclaimer | ${SITE_NAME}`;
       description = 'Calculation disclaimer for financial, tax, and estimation tools on BharatUtility.';
@@ -303,10 +335,10 @@ export function updateSeoMetadata(view: ViewMode): void {
             '@type': 'SearchAction',
             target: {
               '@type': 'EntryPoint',
-              urlTemplate: `${CANONICAL_BASE}/tools?q={search_term_string}`
+              urlTemplate: `${CANONICAL_BASE}/tools?q={search_term_string}`,
             },
-            'query-input': 'required name=search_term_string'
-          }
+            'query-input': 'required name=search_term_string',
+          },
         },
         {
           '@type': 'Organization',
@@ -324,7 +356,8 @@ export function updateSeoMetadata(view: ViewMode): void {
   document.title = title;
 
   // Update Robots Meta Tag
-  setMetaTag('meta[name="robots"]', 'name', 'robots', 'index, follow');
+  const robotsDirective = isNoIndex ? 'noindex, nofollow' : 'index, follow';
+  setMetaTag('meta[name="robots"]', 'name', 'robots', robotsDirective);
 
   const socialTitle = view.type === 'home' ? 'BharatUtility - Free Online Tools for Everyday India' : title;
 
@@ -334,7 +367,10 @@ export function updateSeoMetadata(view: ViewMode): void {
     const tool = getToolBySlug(view.slug);
     const kw = tool?.seo?.keywords?.join(', ') || tool?.keywords?.join(', ') || 'online calculator, free tools India, BharatUtility';
     setMetaTag('meta[name="keywords"]', 'name', 'keywords', kw);
+  } else {
+    setMetaTag('meta[name="keywords"]', 'name', 'keywords', 'online calculators, Indian finance tools, utility tools India, free calculators, GST calculator, EMI calculator, SIP calculator, BharatUtility');
   }
+
   setMetaTag('meta[name="geo.region"]', 'name', 'geo.region', 'IN');
   setMetaTag('meta[name="geo.placename"]', 'name', 'geo.placename', 'India');
 

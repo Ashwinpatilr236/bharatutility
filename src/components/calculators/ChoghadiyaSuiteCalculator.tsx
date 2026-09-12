@@ -44,7 +44,7 @@ export const ChoghadiyaSuiteCalculator: React.FC<ChoghadiyaSuiteCalculatorProps>
       (data.currentSlot ? `⚡ Current Choghadiya: ${data.currentSlot.name} (${data.currentSlot.hindi}) [${data.currentSlot.startTimeStr} - ${data.currentSlot.endTimeStr}]\n` : '') +
       `✨ Abhijit Muhurat: ${data.abhijitMuhurat}\n` +
       `⚠️ Rahu Kaal: ${data.rahuKaal}\n\n` +
-      `Check live timings at BharatUtility: https://bharatutility.com/tools/choghadiya-calculator`;
+      `Check live timings at BharatUtility: https://bharatutility.tech/tools/choghadiya-calculator`;
     
     navigator.clipboard.writeText(text);
     setCopied(true);

@@ -61,7 +61,7 @@ export const TrendingToolsSection: React.FC<TrendingToolsSectionProps> = ({ item
           return (
             <Link
               key={tool.id}
-              to={`/tool/${tool.slug}`}
+              to={`/tools/${tool.slug}`}
               className="flex items-center justify-between p-4 sm:p-4.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800/90 hover:border-rose-300 dark:hover:border-rose-900/60 shadow-xs hover:shadow-md cursor-pointer transition-all group relative"
             >
               <div className="flex items-center gap-3.5 min-w-0">

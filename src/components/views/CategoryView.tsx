@@ -67,7 +67,7 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
             return (
               <Link
                 key={tool.id}
-                to={`/tool/${tool.slug}`}
+                to={`/tools/${tool.slug}`}
                 className="bg-white dark:bg-neutral-900 rounded-3xl p-5 border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:border-accent hover:shadow-md transition-all group flex flex-col justify-between cursor-pointer"
               >
                 <div className="space-y-3">

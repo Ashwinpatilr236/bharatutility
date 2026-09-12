@@ -83,8 +83,7 @@ export const SvgConverterSuiteCalculator: React.FC<SvgConverterSuiteCalculatorPr
       }
 
       const svgBlob = new Blob([svgCode], { type: 'image/svg+xml;charset=utf-8' });
-      const URL = window.URL || window.webkitURL || window;
-      const blobURL = URL.createObjectURL(svgBlob);
+      const blobURL = window.URL.createObjectURL(svgBlob);
 
       const img = new Image();
       img.onload = () => {
@@ -112,7 +111,7 @@ export const SvgConverterSuiteCalculator: React.FC<SvgConverterSuiteCalculatorPr
         const mime = outputFormat === 'webp' ? 'image/webp' : outputFormat === 'jpeg' ? 'image/jpeg' : 'image/png';
         const dataUrl = canvas.toDataURL(mime, 0.95);
         setPreviewDataUrl(dataUrl);
-        URL.revokeObjectURL(blobURL);
+        window.URL.revokeObjectURL(blobURL);
 
         if (onResultChange) {
           onResultChange(`SVG Converted: ${targetWidth}x${targetHeight}px (${outputFormat.toUpperCase()})`);
@@ -121,7 +120,7 @@ export const SvgConverterSuiteCalculator: React.FC<SvgConverterSuiteCalculatorPr
 
       img.onerror = () => {
         setErrorMsg('Could not render SVG. Please check for malformed tags or external resources.');
-        URL.revokeObjectURL(blobURL);
+        window.URL.revokeObjectURL(blobURL);
       };
 
       img.src = blobURL;

@@ -35,7 +35,7 @@ export const PopularToolsSection: React.FC = () => {
           return (
             <Link
               key={tool.id}
-              to={`/tool/${tool.slug}`}
+              to={`/tools/${tool.slug}`}
               className="group relative flex flex-col justify-between p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800/90 hover:border-accent/50 dark:hover:border-accent/50 shadow-sm hover:shadow-xl hover:shadow-neutral-900/5 dark:hover:shadow-black/40 transition-all duration-200 cursor-pointer"
             >
               <div>

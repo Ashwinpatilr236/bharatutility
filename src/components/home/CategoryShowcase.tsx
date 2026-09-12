@@ -64,7 +64,7 @@ export const CategoryShowcase: React.FC = () => {
                     {categoryTools.map(t => (
                       <Link
                         key={t.id}
-                        to={`/tool/${t.slug}`}
+                        to={`/tools/${t.slug}`}
                         className="w-full flex items-center justify-between text-left py-1 text-xs text-neutral-700 dark:text-neutral-300 hover:text-accent dark:hover:text-white font-medium group transition-colors"
                       >
                         <span className="truncate">• {t.shortName || t.name}</span>

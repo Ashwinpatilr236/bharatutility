@@ -684,6 +684,7 @@ class AdminStore {
   }
 
   public async syncFromSupabase(): Promise<void> {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') return;
     try {
       const supabase = getSupabase();
       if (!supabase || !isSupabaseConfigured()) return;
@@ -783,6 +784,10 @@ class AdminStore {
   }
 
   private loadAll(): void {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      this.tools = TOOLS_REGISTRY.map(t => ({ ...t, status: (t.status || 'published') as any, views: t.views || 0, calculationCount: 0, favoritesCount: 0, sharesCount: 0, updatedAt: new Date().toISOString() }));
+      return;
+    }
     try {
       // 1. Tools
       const storedTools = localStorage.getItem(TOOLS_STORAGE_KEY);

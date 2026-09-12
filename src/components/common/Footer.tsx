@@ -112,7 +112,7 @@ export const Footer: React.FC = () => {
                 return (
                   <li key={slug}>
                     <Link
-                      to={`/tool/${slug}`}
+                      to={`/tools/${slug}`}
                       className="hover:text-accent dark:hover:text-white transition-colors text-left"
                     >
                       {tool.shortName || tool.name}

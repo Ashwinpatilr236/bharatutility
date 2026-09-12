@@ -58,12 +58,13 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
   const search = window.location.search;
 
   // 1. Check for old hash navigation for backward compatibility
+  if (hash.startsWith('#/tools/')) {
+    const slug = hash.replace('#/tools/', '').split('?')[0];
+    return { view: { type: 'tool', slug }, redirectPath: `/tools/${slug}${search}` };
+  }
   if (hash.startsWith('#/tool/')) {
     const slug = hash.replace('#/tool/', '').split('?')[0];
-    if (slug === 'electricity-calculator' || slug === 'electricity-bill-calculator') {
-      return { view: { type: 'all-tools' }, redirectPath: `/tools${search}` };
-    }
-    return { view: { type: 'tool', slug }, redirectPath: `/tool/${slug}${search}` };
+    return { view: { type: 'tool', slug }, redirectPath: `/tools/${slug}${search}` };
   }
   if (hash.startsWith('#/category/')) {
     const categoryId = hash.replace('#/category/', '') as CategoryId;
@@ -73,7 +74,7 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'all-tools' }, redirectPath: `/tools${search}` };
   }
   if (hash === '#/categories' || hash === '#categories') {
-    return { view: { type: 'all-tools' }, redirectPath: `/categories${search}` };
+    return { view: { type: 'all-tools' }, redirectPath: `/tools${search}` };
   }
   if (hash === '#/favorites' || hash === '#favorites' || hash === '#/saved' || hash === '#saved') {
     return { view: { type: 'favorites' }, redirectPath: `/favorites${search}` };
@@ -111,28 +112,29 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
   // 2. Parse Clean Pathname (normalized without trailing slash)
   const cleanPath = (path.length > 1 && path.endsWith('/')) ? path.slice(0, -1) : path;
 
+  if (cleanPath.startsWith('/tools/')) {
+    const slug = cleanPath.replace('/tools/', '').split('?')[0];
+    return { view: { type: 'tool', slug } };
+  }
   if (cleanPath.startsWith('/tool/')) {
     const slug = cleanPath.replace('/tool/', '').split('?')[0];
-    if (slug === 'electricity-calculator' || slug === 'electricity-bill-calculator') {
-      return { view: { type: 'all-tools' }, redirectPath: `/tools${search}` };
-    }
-    return { view: { type: 'tool', slug } };
+    return { view: { type: 'tool', slug }, redirectPath: `/tools/${slug}${search}` };
   }
   if (cleanPath.startsWith('/category/')) {
     const categoryId = cleanPath.replace('/category/', '').split('?')[0] as CategoryId;
     return { view: { type: 'category', categoryId } };
   }
   if (cleanPath === '/india-services') {
-    return { view: { type: 'category', categoryId: 'india-services' } };
+    return { view: { type: 'category', categoryId: 'india-services' }, redirectPath: `/category/india-services${search}` };
   }
   if (cleanPath === '/document-tools') {
-    return { view: { type: 'category', categoryId: 'document-tools' } };
+    return { view: { type: 'category', categoryId: 'document-tools' }, redirectPath: `/category/document-tools${search}` };
   }
   if (cleanPath === '/vehicle-utility') {
-    return { view: { type: 'category', categoryId: 'vehicle-utility' } };
+    return { view: { type: 'category', categoryId: 'vehicle-utility' }, redirectPath: `/category/vehicle-utility${search}` };
   }
   if (cleanPath === '/travel-utility') {
-    return { view: { type: 'category', categoryId: 'travel-utility' } };
+    return { view: { type: 'category', categoryId: 'travel-utility' }, redirectPath: `/category/travel-utility${search}` };
   }
   if (cleanPath === '/tools' || cleanPath === '/all-tools' || cleanPath === '/categories') {
     return { view: { type: 'all-tools' } };

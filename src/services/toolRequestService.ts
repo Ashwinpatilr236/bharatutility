@@ -101,7 +101,7 @@ export async function submitToolRequest(data: ToolRequestFormData): Promise<Tool
     id: ticketNumber,
     product_slug: 'bharatutility',
     name: name || 'Citizen Visitor',
-    email: email || 'anonymous@bharatutility.com',
+    email: email || 'anonymous@bharatutility.tech',
     subject: subjectWithTicket,
     message: fullDescription,
     status: 'new',
@@ -137,7 +137,7 @@ export async function submitToolRequest(data: ToolRequestFormData): Promise<Tool
   const payloadInquiry = {
     product_slug: 'bharatutility',
     name: name || 'Citizen Visitor',
-    email: email || 'anonymous@bharatutility.com',
+    email: email || 'anonymous@bharatutility.tech',
     phone: null,
     subject: subjectWithTicket,
     message: fullDescription,

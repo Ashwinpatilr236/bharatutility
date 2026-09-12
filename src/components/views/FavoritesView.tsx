@@ -169,7 +169,7 @@ export const FavoritesView: React.FC = () => {
                       className="p-3 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/70 dark:border-neutral-700/60 flex items-center justify-between"
                     >
                       <Link
-                        to={`/tool/${tool.slug}`}
+                        to={`/tools/${tool.slug}`}
                         className="flex items-center gap-2.5 cursor-pointer min-w-0 flex-1"
                       >
                         <div className="p-2 rounded-xl bg-white dark:bg-neutral-800 text-accent">
@@ -203,7 +203,7 @@ export const FavoritesView: React.FC = () => {
                   className="px-5 py-2.5 rounded-xl bg-accent text-white font-bold text-xs inline-flex items-center gap-2 hover:bg-accent/90 transition-colors shadow-xs"
                 >
                   <Sparkles className="w-4 h-4" />
-                  Explore All 16+ Indian Utilities
+                  Explore All Indian Utilities
                 </Link>
               </div>
             </div>
@@ -225,7 +225,7 @@ export const FavoritesView: React.FC = () => {
                 return (
                   <Link
                     key={tool.id}
-                    to={`/tool/${tool.slug}`}
+                    to={`/tools/${tool.slug}`}
                     className="bg-white dark:bg-neutral-900 rounded-3xl p-5 border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:border-accent hover:shadow-md transition-all group flex flex-col justify-between cursor-pointer relative"
                   >
                     <div className="space-y-3">

@@ -182,7 +182,7 @@ export const SpeedTypingSuiteCalculator: React.FC<SpeedTypingSuiteCalculatorProp
       `⏱️ Duration: ${stats.timeElapsed}s / ${selectedDuration}s\n` +
       `⌨️ Characters: ${stats.totalChars} (Correct: ${stats.correctChars}, Errors: ${stats.incorrectChars})\n` +
       `📋 Govt Standard: ${stats.isPassed ? '✅ QUALIFIED (Govt Exam Benchmark Met)' : '⚠️ Needs Practice'}\n\n` +
-      `Practice for free on BharatUtility: https://bharatutility.com/tools/speed-typing-test`;
+      `Practice for free on BharatUtility: https://bharatutility.tech/tools/speed-typing-test`;
     
     navigator.clipboard.writeText(text);
     setCopied(true);

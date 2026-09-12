@@ -1,5 +1,4 @@
 import { Tool } from '../types';
-import { adminStore } from '../services/adminStore';
 
 export const TOOLS_REGISTRY: Tool[] = [
   // 1. EMI Calculator
@@ -7063,7 +7062,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Speed Typing Test',
     tagline: 'Practice SSC CHSL, CGL Tier 2, High Court & Banking exam typing tests with live WPM & accuracy',
     description: 'Boost your typing speed and accuracy for SSC CGL, CHSL Tier 2, RRB NTPC, and High Court Clerk exams. Practice standard English passages and Hindi (Mangal/InScript layout) with live WPM, CPM, and error scoring.',
-    category: 'student',
+    category: 'education',
     icon: 'Keyboard',
     keywords: [
       'ssc typing test online free',
@@ -7125,7 +7124,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'SVG to PNG Converter',
     tagline: 'Convert SVG vector code or files to high-resolution 16px to 1024px PNG & WebP with transparent background',
     description: 'Convert SVG vector graphics and icons into lossless PNG or WebP images. Customize resolution from 16x16 to 1024x1024, set transparent or custom background colors, and download with zero server upload.',
-    category: 'developer',
+    category: 'technology',
     icon: 'FileCode',
     keywords: [
       'svg to png converter',
@@ -7186,7 +7185,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Exam Photo Date Stamp',
     tagline: 'Add candidate name & Date of Photo (DOP) bottom banner strictly compliant with SSC, UPSC & IBPS guidelines (20KB–50KB)',
     description: 'Add candidate name and Date of Photo (DOP/DOB) on a white bottom banner for SSC CGL, CHSL, UPSC CSE, IBPS Bank, and Railway recruitment portals. Automatically compresses photo strictly within the 20 KB to 50 KB requirement.',
-    category: 'document-pdf',
+    category: 'document-tools',
     icon: 'Camera',
     keywords: [
       'ssc photo date maker',
@@ -7252,7 +7251,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'PDF to Text',
     tagline: 'Extract plain text, tables, and notes from multi-page PDF documents locally in your browser',
     description: 'Extract raw text, paragraphs, and contents from any PDF file with 100% privacy. Zero server upload, instant character and word counting, and 1-click TXT export.',
-    category: 'document-pdf',
+    category: 'document-tools',
     icon: 'FileText',
     keywords: [
       'pdf to text converter online',
@@ -7307,7 +7306,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Word to Text',
     tagline: 'Extract clean plain text from Microsoft Word (.docx) and Google Docs files instantly',
     description: 'Convert Microsoft Word (.docx) documents into clean plain text without opening MS Word or Office. Fast in-browser XML unbundler extracts paragraphs, headings, and lists.',
-    category: 'document-pdf',
+    category: 'document-tools',
     icon: 'FileCode',
     keywords: [
       'word to text converter',
@@ -7362,7 +7361,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Text to PDF',
     tagline: 'Convert typed notes, articles, and text into formatted multi-page PDF documents with A4 sizing',
     description: 'Format typed text, articles, legal notices, and notes into clean printable PDF documents. Customize page size (A4, Letter, Legal), font size, margins, and page numbers.',
-    category: 'document-pdf',
+    category: 'document-tools',
     icon: 'FileUp',
     keywords: [
       'text to pdf converter',
@@ -7417,7 +7416,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Word to PDF',
     tagline: 'Convert Microsoft Word (.docx) files to printable PDF documents locally in browser',
     description: 'Convert your Word (.docx) files into clean, shareable PDF documents. 100% private in-browser conversion without server uploads or watermarks.',
-    category: 'document-pdf',
+    category: 'document-tools',
     icon: 'Layers',
     keywords: [
       'word to pdf converter online',
@@ -7472,7 +7471,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'CSV <-> JSON Converter',
     tagline: 'Convert spreadsheets and datasets between CSV and JSON with live sorting table and custom delimiters',
     description: 'Transform spreadsheet data between CSV and JSON formats seamlessly. Includes live interactive data table preview, custom delimiters (comma, tab, semicolon, pipe), and JSON beautifier.',
-    category: 'developer',
+    category: 'technology',
     icon: 'FileSpreadsheet',
     keywords: [
       'csv to json converter',
@@ -7527,7 +7526,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Image Format Converter',
     tagline: 'Batch convert JPG, PNG, WebP, and BMP images with quality slider and instant download',
     description: 'Convert multiple images simultaneously between JPG, PNG, WebP, and BMP formats. Optimize file size, adjust compression quality, and download individual files or batch packages.',
-    category: 'document-pdf',
+    category: 'document-tools',
     icon: 'ImageIcon',
     keywords: [
       'image format converter online',
@@ -7576,20 +7575,10 @@ export const TOOLS_REGISTRY: Tool[] = [
 ];
 
 export function getActiveTools(): Tool[] {
-  try {
-    const tools = adminStore.getTools();
-    if (tools && tools.length > 0) {
-      return tools.filter(t => t.status === 'published' || !t.status);
-    }
-  } catch {}
   return TOOLS_REGISTRY.filter(t => t.status === 'published' || !t.status);
 }
 
 export function getToolBySlug(slug: string): Tool | undefined {
-  try {
-    const liveTool = adminStore.getToolByIdOrSlug(slug);
-    if (liveTool) return liveTool;
-  } catch {}
   return TOOLS_REGISTRY.find(t => t.slug === slug || t.id === slug);
 }
 

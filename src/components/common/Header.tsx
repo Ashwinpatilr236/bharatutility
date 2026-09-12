@@ -4,6 +4,7 @@ import { useAdminStore } from '../../hooks/useAdminStore';
 import { CATEGORIES } from '../../data/categories';
 import { ThemeAccentPicker } from './ThemeAccentPicker';
 import { FavoritesHistoryModal } from './FavoritesHistoryModal';
+import { DynamicIcon } from './DynamicIcon';
 import { Link } from './Link';
 import {
   Search,

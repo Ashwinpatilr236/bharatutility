@@ -57,6 +57,9 @@ export const Link: React.FC<LinkProps> = ({ to, children, className = '', onClic
         navigateToLegal('terms');
       } else if (to === '/legal/disclaimer' || to === '/disclaimer') {
         navigateToLegal('disclaimer');
+      } else if (to.startsWith('/tools/')) {
+        const slug = to.replace('/tools/', '').split('?')[0];
+        navigateToTool(slug);
       } else if (to.startsWith('/tool/')) {
         const slug = to.replace('/tool/', '').split('?')[0];
         navigateToTool(slug);

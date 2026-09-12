@@ -57,7 +57,7 @@ export const NewToolsSection: React.FC<NewToolsSectionProps> = ({ itemCount = 4 
           return (
             <Link
               key={tool.id}
-              to={`/tool/${tool.slug}`}
+              to={`/tools/${tool.slug}`}
               className="group relative flex flex-col justify-between p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800/90 hover:border-accent/60 shadow-xs hover:shadow-lg transition-all duration-200 cursor-pointer"
             >
               <div>

@@ -720,7 +720,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
             {relatedTools.map(rt => (
               <Link
                 key={rt.id}
-                to={`/tool/${rt.slug}`}
+                to={`/tools/${rt.slug}`}
                 className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-left hover:border-accent hover:shadow-md transition-all group block"
               >
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform">
