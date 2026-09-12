@@ -7242,6 +7242,336 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: ['signature-resizer', 'image-compressor-resizer', 'jpg-to-pdf']
+  },
+
+  // 101. PDF to Text Converter
+  {
+    id: 'pdf-to-text-converter',
+    slug: 'pdf-to-text-converter',
+    name: 'PDF to Text Converter (Extract Plain Text)',
+    shortName: 'PDF to Text',
+    tagline: 'Extract plain text, tables, and notes from multi-page PDF documents locally in your browser',
+    description: 'Extract raw text, paragraphs, and contents from any PDF file with 100% privacy. Zero server upload, instant character and word counting, and 1-click TXT export.',
+    category: 'document-pdf',
+    icon: 'FileText',
+    keywords: [
+      'pdf to text converter online',
+      'extract text from pdf free',
+      'convert pdf to txt file',
+      'pdf text extractor offline'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Privacy Tool',
+    views: 58200,
+    seo: {
+      title: 'PDF to Text Converter - Extract Plain Text Online | BharatUtility',
+      description: 'Extract plain text and paragraphs from PDF files instantly in browser. 100% free and secure client-side conversion with one-click copy.',
+      keywords: ['pdf to text', 'extract text from pdf', 'pdf to txt'],
+      canonicalSlug: 'pdf-to-text-converter',
+      h1: 'PDF to Text Converter',
+    },
+    formulaDescription: 'Parses PDF binary stream token operators (BT/ET/Tj/TJ) and decodes standard UTF-8 character mappings inside browser memory.',
+    workedExample: {
+      inputSummary: 'Input: 3-page PDF document | Output: Clean plain text with word & character metrics',
+      calculationSteps: [
+        '1. Stream binary chunks without memory bloat',
+        '2. Extract text operators and decode character matrices',
+        '3. Structure into clean paragraphs and export as .TXT'
+      ],
+      finalResult: 'Extracted full text with 1-click clipboard copy and TXT download'
+    },
+    seoSections: [
+      {
+        h2: 'Why Extract Text from PDF Documents Locally?',
+        paragraphs: [
+          'PDF documents containing contracts, resumes, legal briefs, and notes often contain sensitive personal or corporate data. BharatUtility extracts text entirely inside your device memory without sending any byte to external cloud servers.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Are my confidential PDF documents uploaded to your server?',
+        answer: 'Never. All PDF parsing runs 100% client-side inside your web browser. Your files never leave your device.'
+      }
+    ],
+    relatedToolSlugs: ['word-to-text-converter', 'text-to-pdf-converter', 'pdf-merge']
+  },
+
+  // 102. Word (.docx) to Text Converter
+  {
+    id: 'word-to-text-converter',
+    slug: 'word-to-text-converter',
+    name: 'Word (.docx) to Plain Text Converter',
+    shortName: 'Word to Text',
+    tagline: 'Extract clean plain text from Microsoft Word (.docx) and Google Docs files instantly',
+    description: 'Convert Microsoft Word (.docx) documents into clean plain text without opening MS Word or Office. Fast in-browser XML unbundler extracts paragraphs, headings, and lists.',
+    category: 'document-pdf',
+    icon: 'FileCode',
+    keywords: [
+      'word to text converter',
+      'docx to text extractor',
+      'convert docx to txt online',
+      'extract text from word document'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Office Utility',
+    views: 42100,
+    seo: {
+      title: 'Word (.docx) to Text Converter - Extract Text Online | BharatUtility',
+      description: 'Convert Microsoft Word .docx files to plain text instantly in browser. Fast, private, and free client-side converter.',
+      keywords: ['word to text', 'docx to text', 'convert word to txt'],
+      canonicalSlug: 'word-to-text-converter',
+      h1: 'Word (.docx) to Plain Text Converter',
+    },
+    formulaDescription: 'Unbundles .docx ZIP container in browser, parses word/document.xml with DOMParser, and maps paragraph nodes into structured text.',
+    workedExample: {
+      inputSummary: 'Input: Resume.docx (150 KB) | Output: Plain Text (2.4 KB)',
+      calculationSteps: [
+        '1. Decompress ZIP local headers to locate word/document.xml',
+        '2. Parse XML nodes <w:p> and <w:t>',
+        '3. Concatenate text into structured paragraphs'
+      ],
+      finalResult: 'Ready-to-copy clean text with zero boilerplate'
+    },
+    seoSections: [
+      {
+        h2: 'Quickly Extract Text from Word Files Without Office Software',
+        paragraphs: [
+          'If you do not have Microsoft Office or Word installed, this tool lets you instantly read and copy the text content from any .docx document directly in your browser.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does this tool support older .doc files?',
+        answer: 'This tool is optimized for modern XML-based .docx format used in MS Word 2007, 2010, 2016, 2021, and Google Docs.'
+      }
+    ],
+    relatedToolSlugs: ['pdf-to-text-converter', 'word-to-pdf-converter', 'text-to-pdf-converter']
+  },
+
+  // 103. Text to PDF Document Maker
+  {
+    id: 'text-to-pdf-converter',
+    slug: 'text-to-pdf-converter',
+    name: 'Text to PDF Converter (Custom Page Layout & Fonts)',
+    shortName: 'Text to PDF',
+    tagline: 'Convert typed notes, articles, and text into formatted multi-page PDF documents with A4 sizing',
+    description: 'Format typed text, articles, legal notices, and notes into clean printable PDF documents. Customize page size (A4, Letter, Legal), font size, margins, and page numbers.',
+    category: 'document-pdf',
+    icon: 'FileUp',
+    keywords: [
+      'text to pdf converter',
+      'txt to pdf online free',
+      'convert notes to pdf document',
+      'create pdf from text'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'PDF Maker',
+    views: 51300,
+    seo: {
+      title: 'Text to PDF Converter - Create Formatted PDF Online | BharatUtility',
+      description: 'Convert plain text and notes to professional PDF documents with custom fonts, margins, A4 sizing, and page numbers. 100% free client-side tool.',
+      keywords: ['text to pdf', 'convert txt to pdf', 'notes to pdf'],
+      canonicalSlug: 'text-to-pdf-converter',
+      h1: 'Text to PDF Converter',
+    },
+    formulaDescription: 'Renders text line-by-line onto multi-page vector PDF canvases using pdf-lib with automatic word wrapping and pagination calculation.',
+    workedExample: {
+      inputSummary: 'Input: 500-word article | Layout: A4, 11pt Helvetica, Page Numbers enabled',
+      calculationSteps: [
+        '1. Measure line widths against available content width',
+        '2. Wrap overflow words and paginate dynamically',
+        '3. Embed footer page numbers and serialize PDF blob'
+      ],
+      finalResult: 'Professional multi-page PDF ready for printing or sharing'
+    },
+    seoSections: [
+      {
+        h2: 'Create Crisp Printable PDF Documents from Plain Text',
+        paragraphs: [
+          'Easily transform lecture notes, meeting minutes, agreements, and articles into standardized A4 PDF documents ready for printing or official distribution.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Can I choose different font styles and sizes?',
+        answer: 'Yes! You can choose between Helvetica, Times Roman, and Courier fonts with customizable point sizes (10pt to 14pt).'
+      }
+    ],
+    relatedToolSlugs: ['word-to-pdf-converter', 'pdf-to-text-converter', 'letter-generator']
+  },
+
+  // 104. Word (.docx) to PDF Converter
+  {
+    id: 'word-to-pdf-converter',
+    slug: 'word-to-pdf-converter',
+    name: 'Word (.docx) to PDF Converter',
+    shortName: 'Word to PDF',
+    tagline: 'Convert Microsoft Word (.docx) files to printable PDF documents locally in browser',
+    description: 'Convert your Word (.docx) files into clean, shareable PDF documents. 100% private in-browser conversion without server uploads or watermarks.',
+    category: 'document-pdf',
+    icon: 'Layers',
+    keywords: [
+      'word to pdf converter online',
+      'docx to pdf free',
+      'convert word document to pdf',
+      'word to pdf without watermark'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Top Converter',
+    views: 71200,
+    seo: {
+      title: 'Word (.docx) to PDF Converter (Free & Private) | BharatUtility',
+      description: 'Convert Word .docx documents to PDF format instantly. Free client-side tool with zero server uploads and no watermarks.',
+      keywords: ['word to pdf', 'docx to pdf', 'convert word to pdf'],
+      canonicalSlug: 'word-to-pdf-converter',
+      h1: 'Word (.docx) to PDF Converter',
+    },
+    formulaDescription: 'Extracts paragraph and text XML structure from .docx ZIP bundle and compiles into a formatted PDF document.',
+    workedExample: {
+      inputSummary: 'Input: ProjectReport.docx | Output: ProjectReport.pdf (A4 Layout)',
+      calculationSteps: [
+        '1. Parse document structure from Word file',
+        '2. Flow contents into vector PDF layout engine',
+        '3. Output standardized PDF with header and page numbering'
+      ],
+      finalResult: 'Print-ready PDF document downloaded instantly'
+    },
+    seoSections: [
+      {
+        h2: 'Convert Word Documents to PDF with Complete Privacy',
+        paragraphs: [
+          'Unlike other online converters that upload your confidential Word documents to remote servers, BharatUtility converts your .docx files entirely inside your browser.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Is there any file size limit or watermark?',
+        answer: 'No limits and no watermarks! The tool runs directly on your device CPU/browser memory.'
+      }
+    ],
+    relatedToolSlugs: ['text-to-pdf-converter', 'word-to-text-converter', 'pdf-merge']
+  },
+
+  // 105. CSV to JSON & JSON to CSV Converter
+  {
+    id: 'csv-to-json-converter',
+    slug: 'csv-to-json-converter',
+    name: 'CSV to JSON & JSON to CSV Converter (Tabular Preview)',
+    shortName: 'CSV <-> JSON Converter',
+    tagline: 'Convert spreadsheets and datasets between CSV and JSON with live sorting table and custom delimiters',
+    description: 'Transform spreadsheet data between CSV and JSON formats seamlessly. Includes live interactive data table preview, custom delimiters (comma, tab, semicolon, pipe), and JSON beautifier.',
+    category: 'developer',
+    icon: 'FileSpreadsheet',
+    keywords: [
+      'csv to json converter',
+      'json to csv online',
+      'convert spreadsheet to json',
+      'csv parser online table'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Developer Tool',
+    views: 48900,
+    seo: {
+      title: 'CSV to JSON & JSON to CSV Converter (Live Table Preview) | BharatUtility',
+      description: 'Convert CSV to JSON and JSON to CSV online. Features live spreadsheet table preview, delimiter selection, and instant download.',
+      keywords: ['csv to json', 'json to csv', 'csv converter'],
+      canonicalSlug: 'csv-to-json-converter',
+      h1: 'CSV to JSON & JSON to CSV Converter',
+    },
+    formulaDescription: 'RFC 4180 compliant CSV parser with quote escaping, multi-row streaming, and JSON key-value mapper.',
+    workedExample: {
+      inputSummary: 'Input: 4 CSV rows with Name, Role, City, Salary | Output: Formatted JSON Array',
+      calculationSteps: [
+        '1. Parse CSV header line to extract object keys',
+        '2. Iterate data lines and auto-cast numerical/boolean primitives',
+        '3. Pretty print JSON output with 2-space indentation'
+      ],
+      finalResult: 'Clean JSON array with live table preview'
+    },
+    seoSections: [
+      {
+        h2: 'Convert Data Between Spreadsheets and Web APIs Seamlessly',
+        paragraphs: [
+          'Developers, data analysts, and Excel users frequently need to convert tabular CSV export files into JSON arrays for REST APIs or MongoDB, or vice versa.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does it support Tab-separated (TSV) or Semicolon CSV files?',
+        answer: 'Yes! You can select Comma, Semicolon, Tab (\t), or Pipe (|) as your delimiter in the toolbar.'
+      }
+    ],
+    relatedToolSlugs: ['svg-to-png-converter', 'markdown-to-html-converter', 'unit-converter']
+  },
+
+  // 106. Batch Image Format Multi-Converter
+  {
+    id: 'image-format-converter',
+    slug: 'image-format-converter',
+    name: 'Batch Image Format Multi-Converter (WebP, PNG, JPG)',
+    shortName: 'Image Format Converter',
+    tagline: 'Batch convert JPG, PNG, WebP, and BMP images with quality slider and instant download',
+    description: 'Convert multiple images simultaneously between JPG, PNG, WebP, and BMP formats. Optimize file size, adjust compression quality, and download individual files or batch packages.',
+    category: 'document-pdf',
+    icon: 'ImageIcon',
+    keywords: [
+      'image format converter online',
+      'batch convert images to webp',
+      'png to jpg converter',
+      'convert images online free batch'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Batch Tool',
+    views: 59100,
+    seo: {
+      title: 'Image Format Converter - Batch WebP, PNG, JPG Converter | BharatUtility',
+      description: 'Convert multiple images to WebP, PNG, or JPG format simultaneously. Fast in-browser batch converter with quality slider.',
+      keywords: ['image format converter', 'batch image converter', 'png to webp'],
+      canonicalSlug: 'image-format-converter',
+      h1: 'Batch Image Format Multi-Converter',
+    },
+    formulaDescription: 'Canvas offscreen multi-thread rasterization with lossy/lossless MIME encoder.',
+    workedExample: {
+      inputSummary: 'Input: 5 PNG photos (total 12 MB) | Target: WebP @ 85% Quality',
+      calculationSteps: [
+        '1. Load images into HTML5 Canvas objects',
+        '2. Re-encode into modern WebP compression format',
+        '3. Achieve ~70% file size reduction without visual quality degradation'
+      ],
+      finalResult: '5 WebP images generated (total 3.4 MB, 72% smaller)'
+    },
+    seoSections: [
+      {
+        h2: 'Convert Images to Next-Gen WebP for Faster Websites & Storage',
+        paragraphs: [
+          'WebP format delivers up to 3x smaller file sizes compared to PNG and JPEG without losing sharpness. This tool lets you batch convert all your images in seconds.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Is there a limit on how many images I can convert at once?',
+        answer: 'Since the tool runs locally in your browser, you can convert dozens of images simultaneously without queue delays.'
+      }
+    ],
+    relatedToolSlugs: ['image-compressor-resizer', 'svg-to-png-converter', 'exam-photo-date-stamp']
   }
 ];
 

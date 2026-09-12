@@ -55,6 +55,9 @@ const ChoghadiyaSuiteCalculator = React.lazy(() => import('../calculators/Chogha
 const SpeedTypingSuiteCalculator = React.lazy(() => import('../calculators/SpeedTypingSuiteCalculator').then(m => ({ default: m.SpeedTypingSuiteCalculator })));
 const SvgConverterSuiteCalculator = React.lazy(() => import('../calculators/SvgConverterSuiteCalculator').then(m => ({ default: m.SvgConverterSuiteCalculator })));
 const ExamPhotoStampSuiteCalculator = React.lazy(() => import('../calculators/ExamPhotoStampSuiteCalculator').then(m => ({ default: m.ExamPhotoStampSuiteCalculator })));
+const DocumentConvertersSuiteCalculator = React.lazy(() => import('../calculators/DocumentConvertersSuiteCalculator').then(m => ({ default: m.DocumentConvertersSuiteCalculator })));
+const DataConvertersSuiteCalculator = React.lazy(() => import('../calculators/DataConvertersSuiteCalculator').then(m => ({ default: m.DataConvertersSuiteCalculator })));
+const ImageConverterSuiteCalculator = React.lazy(() => import('../calculators/ImageConverterSuiteCalculator').then(m => ({ default: m.ImageConverterSuiteCalculator })));
 
 import {
   Star,
@@ -252,6 +255,27 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       case 'exam-photo-date-stamp':
       case 'passport-photo-date-maker':
         return <ExamPhotoStampSuiteCalculator onResultChange={handleResultChange} />;
+
+      // Document Converters (PDF to Text, Word to Text, Text to PDF, Word to PDF)
+      case 'pdf-to-text-converter':
+        return <DocumentConvertersSuiteCalculator initialMode="pdf-to-text" onResultChange={handleResultChange} />;
+      case 'word-to-text-converter':
+        return <DocumentConvertersSuiteCalculator initialMode="word-to-text" onResultChange={handleResultChange} />;
+      case 'text-to-pdf-converter':
+        return <DocumentConvertersSuiteCalculator initialMode="text-to-pdf" onResultChange={handleResultChange} />;
+      case 'word-to-pdf-converter':
+        return <DocumentConvertersSuiteCalculator initialMode="word-to-pdf" onResultChange={handleResultChange} />;
+
+      // Data Converters (CSV to JSON, JSON to CSV)
+      case 'csv-to-json-converter':
+        return <DataConvertersSuiteCalculator initialMode="csv-to-json" onResultChange={handleResultChange} />;
+      case 'json-to-csv-converter':
+        return <DataConvertersSuiteCalculator initialMode="json-to-csv" onResultChange={handleResultChange} />;
+
+      // Image Format Multi-Converter
+      case 'image-format-converter':
+      case 'jpg-png-webp-converter':
+        return <ImageConverterSuiteCalculator onResultChange={handleResultChange} />;
 
       case 'gst-calculator':
       case 'discount-calculator':
