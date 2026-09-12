@@ -11,6 +11,7 @@ import { ToolFeedbackWidget } from '../common/ToolFeedbackWidget';
 import { RequestToolCta } from '../common/RequestToolCta';
 import { BookmarkPrompt } from '../common/BookmarkPrompt';
 import { Link } from '../common/Link';
+import { ErrorBoundary } from '../common/ErrorBoundary';
 
 // Lazy-loaded Calculator Components for isolated bundle chunks & instant public loading
 const EmiCalculator = React.lazy(() => import('../calculators/EmiCalculator').then(m => ({ default: m.EmiCalculator })));
@@ -542,23 +543,25 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Main Interactive Calculator Area */}
       <div id="calculator-workbench">
-        <React.Suspense
-          fallback={
-            <div className="bg-white dark:bg-neutral-900 rounded-3xl p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm animate-pulse space-y-6">
-              <div className="h-8 bg-neutral-200 dark:bg-neutral-800 rounded-xl w-1/3"></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="h-12 bg-neutral-100 dark:bg-neutral-800/60 rounded-xl"></div>
-                  <div className="h-12 bg-neutral-100 dark:bg-neutral-800/60 rounded-xl"></div>
-                  <div className="h-12 bg-neutral-100 dark:bg-neutral-800/60 rounded-xl"></div>
+        <ErrorBoundary fallbackTitle={`${tool.name} Workbench`}>
+          <React.Suspense
+            fallback={
+              <div className="bg-white dark:bg-neutral-900 rounded-3xl p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm animate-pulse space-y-6">
+                <div className="h-8 bg-neutral-200 dark:bg-neutral-800 rounded-xl w-1/3"></div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="h-12 bg-neutral-100 dark:bg-neutral-800/60 rounded-xl"></div>
+                    <div className="h-12 bg-neutral-100 dark:bg-neutral-800/60 rounded-xl"></div>
+                    <div className="h-12 bg-neutral-100 dark:bg-neutral-800/60 rounded-xl"></div>
+                  </div>
+                  <div className="h-56 bg-neutral-100 dark:bg-neutral-800/60 rounded-2xl"></div>
                 </div>
-                <div className="h-56 bg-neutral-100 dark:bg-neutral-800/60 rounded-2xl"></div>
               </div>
-            </div>
-          }
-        >
-          {renderCalculatorComponent()}
-        </React.Suspense>
+            }
+          >
+            {renderCalculatorComponent()}
+          </React.Suspense>
+        </ErrorBoundary>
       </div>
 
       {/* Bookmark BharatUtility Prompt */}

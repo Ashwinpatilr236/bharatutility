@@ -30,6 +30,21 @@ export class ErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('Uncaught error inside ErrorBoundary:', error, errorInfo);
+
+    // Auto-heal on dynamic chunk loading errors caused by new deployments
+    const isChunkError =
+      error?.name === 'ChunkLoadError' ||
+      error?.message?.includes('Failed to fetch dynamically imported module') ||
+      error?.message?.includes('Loading chunk');
+
+    if (isChunkError) {
+      const reloadKey = 'bu_chunk_retry_' + window.location.pathname;
+      const lastAttempt = sessionStorage.getItem(reloadKey);
+      if (!lastAttempt || Date.now() - Number(lastAttempt) > 15000) {
+        sessionStorage.setItem(reloadKey, String(Date.now()));
+        window.location.reload();
+      }
+    }
   }
 
   handleRetry = () => {
