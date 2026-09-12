@@ -3,6 +3,7 @@ import { AccentColor, CalculationHistoryItem, CategoryId, ThemeMode, ViewMode } 
 import { AdminSection } from '../types/admin';
 import { getToolBySlug } from '../data/toolsRegistry';
 import { updateSeoMetadata, getPathForView } from '../utils/seo';
+import { analyticsService } from '../services/analyticsService';
 
 interface ToastState {
   id: string;
@@ -104,7 +105,7 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'legal', page }, redirectPath: `${targetPath}${search}` };
   }
   if (hash.startsWith('#/admin') || hash.startsWith('#admin')) {
-    return { view: { type: 'home' }, redirectPath: '/' };
+    return { view: { type: 'admin' }, redirectPath: `/admin${search}` };
   }
 
   // 2. Parse Clean Pathname (normalized without trailing slash)
@@ -165,7 +166,7 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
     return { view: { type: 'legal', page } };
   }
   if (cleanPath.startsWith('/admin')) {
-    return { view: { type: 'home' }, redirectPath: '/' };
+    return { view: { type: 'admin' } };
   }
 
   // Root or unhandled paths -> home
@@ -301,9 +302,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
   }, []);
 
-  // Synchronize SEO Title, Canonical URL, Open Graph & Schema.org JSON-LD
+  // Synchronize SEO Title, Canonical URL, Open Graph & Schema.org JSON-LD & Track Real-time Telemetry
   useEffect(() => {
     updateSeoMetadata(view);
+
+    // Track real-time telemetry
+    try {
+      if (view.type === 'tool') {
+        const tool = getToolBySlug(view.slug);
+        analyticsService.trackView(view.slug, tool?.name, tool?.category, 'tool_view');
+      } else if (view.type === 'category') {
+        analyticsService.trackView(`category-${view.categoryId}`, `${view.categoryId} Category`, view.categoryId, 'page_view');
+      } else if (view.type === 'home') {
+        analyticsService.trackView('home', 'BharatUtility Home', undefined, 'page_view');
+      } else if (view.type === 'all-tools') {
+        analyticsService.trackView('all-tools', 'All Tools Directory', undefined, 'page_view');
+      } else if (view.type === 'favorites') {
+        analyticsService.trackView('favorites', 'Favorites List', undefined, 'page_view');
+      } else if (view.type === 'request-tool') {
+        analyticsService.trackView('request-tool', 'Request a Tool', undefined, 'page_view');
+      } else if (view.type === 'contact') {
+        analyticsService.trackView('contact', 'Contact Support', undefined, 'page_view');
+      } else if (view.type === 'legal') {
+        analyticsService.trackView(`legal-${view.page}`, `Legal: ${view.page}`, undefined, 'page_view');
+      } else if (view.type === 'admin') {
+        analyticsService.trackView('admin', 'Admin Intelligence Portal', undefined, 'page_view');
+      }
+    } catch (e) {
+      console.warn('Telemetry tracking warning:', e);
+    }
   }, [view]);
 
   const setView = (newView: ViewMode) => {
@@ -325,7 +352,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const navigateToAdmin = () => {
-    window.location.href = 'https://arrjs-central-admin.netlify.app/';
+    setView({ type: 'admin' });
   };
 
   const navigateToTool = (slug: string, params?: Record<string, any>) => {
@@ -370,6 +397,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const exists = prev.includes(toolSlug);
       const updated = exists ? prev.filter(s => s !== toolSlug) : [...prev, toolSlug];
       showToast(exists ? 'Removed from favorites' : 'Saved to Favorites ⭐', exists ? 'info' : 'success');
+      if (!exists) {
+        analyticsService.trackAction('favorite', toolSlug);
+      }
       return updated;
     });
   };
@@ -425,6 +455,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       timestamp: Date.now()
     };
     setCalculationHistory(prev => [newItem, ...prev.filter(h => h.summary !== item.summary)].slice(0, 20));
+    try {
+      analyticsService.trackAction('calculation', item.toolSlug, item.toolName, undefined, item.summary);
+    } catch {}
   };
 
   const clearHistory = () => {

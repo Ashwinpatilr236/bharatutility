@@ -2,6 +2,7 @@ import React from 'react';
 import { TOOLS_REGISTRY } from '../../data/toolsRegistry';
 import { ShieldCheck, ArrowUp } from 'lucide-react';
 import { Link } from './Link';
+import { LiveVisitorsBadge } from './LiveVisitorsBadge';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -30,7 +31,12 @@ export const Footer: React.FC = () => {
               Useful tools for everyday India. Fast, privacy-friendly, and 100% free calculations tailored for Indian tax slabs, land units, loan formats, and everyday utilities.
             </p>
 
-            <div className="flex items-center gap-2 text-xs text-neutral-400 dark:text-neutral-500 pt-2">
+            {/* Live Visitors Counter in Footer */}
+            <div className="pt-1">
+              <LiveVisitorsBadge variant="footer" />
+            </div>
+
+            <div className="flex items-center gap-2 text-xs text-neutral-400 dark:text-neutral-500 pt-1">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
               <span>No login required • Client-side private calculations</span>
             </div>
@@ -80,6 +86,15 @@ export const Footer: React.FC = () => {
                   className="hover:text-accent dark:hover:text-white transition-colors text-left"
                 >
                   Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin"
+                  className="hover:text-accent dark:hover:text-white transition-colors text-left text-neutral-400 dark:text-neutral-500 hover:underline flex items-center gap-1"
+                >
+                  <span>Admin Portal</span>
+                  <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-500/10 text-emerald-500 font-bold">Live</span>
                 </Link>
               </li>
             </ul>

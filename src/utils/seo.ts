@@ -39,7 +39,7 @@ export function getPathForView(view: ViewMode): string {
       if (view.page === 'about') return '/about';
       return `/legal/${view.page}`;
     case 'admin':
-      return '/';
+      return '/admin';
     default:
       return '/';
   }
@@ -267,6 +267,9 @@ export function updateSeoMetadata(view: ViewMode): void {
   } else if (view.type === 'request-tool') {
     title = `Request a Tool or Calculator | ${SITE_NAME}`;
     description = 'Suggest a new everyday calculator or digital utility for India. Our team builds community-requested tools.';
+  } else if (view.type === 'admin') {
+    title = `Admin Portal & Analytics | ${SITE_NAME}`;
+    description = 'BharatUtility administrative control panel and live audience telemetry dashboard.';
   } else if (view.type === 'legal') {
     if (view.page === 'about') {
       title = `About Us — Everyday Tools for India | ${SITE_NAME}`;

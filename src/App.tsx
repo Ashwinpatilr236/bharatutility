@@ -30,6 +30,7 @@ const CategoryView = React.lazy(() => import('./components/views/CategoryView').
 const AllToolsView = React.lazy(() => import('./components/views/AllToolsView').then(m => ({ default: m.AllToolsView })));
 const FavoritesView = React.lazy(() => import('./components/views/FavoritesView').then(m => ({ default: m.FavoritesView })));
 const RequestToolView = React.lazy(() => import('./components/views/RequestToolView').then(m => ({ default: m.RequestToolView })));
+const AdminView = React.lazy(() => import('./components/views/AdminView').then(m => ({ default: m.AdminView })));
 
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 
@@ -139,6 +140,10 @@ const AppContent: React.FC = () => {
 
             {view.type === 'legal' && (
               <LegalView page={view.page} />
+            )}
+
+            {view.type === 'admin' && (
+              <AdminView />
             )}
           </React.Suspense>
         </ErrorBoundary>
