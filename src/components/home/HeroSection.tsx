@@ -317,7 +317,7 @@ export const HeroSection: React.FC = () => {
               color: 'text-amber-500 bg-amber-500/10'
             },
             {
-              slug: 'dairy-milk-fat-snf-rate-calculator',
+              slug: 'dairy-milk-fat-snf-calculator',
               name: 'Dairy Milk Fat & SNF Payout',
               tagline: 'Cow & Buffalo milk rate chart per litre',
               icon: 'Sparkles',
@@ -325,7 +325,7 @@ export const HeroSection: React.FC = () => {
               color: 'text-sky-500 bg-sky-500/10'
             },
             {
-              slug: 'used-car-bike-resale-valuation-calculator',
+              slug: 'old-vehicle-resale-valuation-calculator',
               name: 'Used Vehicle Valuation',
               tagline: 'Year, odometer & brand depreciation guide',
               icon: 'Car',
@@ -333,7 +333,7 @@ export const HeroSection: React.FC = () => {
               color: 'text-rose-500 bg-rose-500/10'
             },
             {
-              slug: 'generic-medicine-jan-aushadhi-saver',
+              slug: 'jan-aushadhi-generic-saver',
               name: 'Jan Aushadhi Medicine Saver',
               tagline: 'Find generic salt substitutes & save 50-90%',
               icon: 'Sparkles',
@@ -341,11 +341,11 @@ export const HeroSection: React.FC = () => {
               color: 'text-teal-500 bg-teal-500/10'
             },
             {
-              slug: 'pdf-merge-split-compress-tool',
-              name: 'PDF & Document Suite',
-              tagline: '100% private client-side merge, split & compress',
+              slug: 'exam-photo-date-stamp',
+              name: 'Exam Photo & Signature Stamping',
+              tagline: '100% private client-side name & date stamp generator',
               icon: 'FileText',
-              badge: 'Documents',
+              badge: 'Exam Prep',
               color: 'text-purple-500 bg-purple-500/10'
             },
             {

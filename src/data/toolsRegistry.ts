@@ -2856,7 +2856,7 @@ export const TOOLS_REGISTRY: Tool[] = [
                 ]
           }
     ],
-    relatedToolSlugs: ['download-time-calculator', 'digital-storage-converter']
+    relatedToolSlugs: ['file-size-calculator', 'file-size-calculator']
   },
 
   // 🚗 VEHICLE UTILITY
@@ -6302,7 +6302,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Debt mutual funds purchased on or after April 1, 2023 no longer enjoy indexation benefits and are taxed at the investor’s marginal income tax slab rate as Short-Term Capital Gains.'
       }
     ],
-    relatedToolSlugs: ['sip-calculator', 'crorepati-sip-goal-calculator', 'income-tax-calculator']
+    relatedToolSlugs: ['sip-calculator', 'crorepati-sip-goal-calculator', 'salary-calculator']
   },
 
   // 87. Gold Loan & Per Gram Loan Eligibility Calculator
@@ -6374,7 +6374,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'In Bullet repayment, you only pay monthly interest during the loan tenure and repay the principal at the end. In regular EMI, each monthly installment reduces both principal and accrued interest.'
       }
     ],
-    relatedToolSlugs: ['gold-jewellery-price-calculator', 'emi-calculator', 'personal-loan-emi-calculator']
+    relatedToolSlugs: ['gold-jewellery-price-calculator', 'emi-calculator', 'emi-calculator']
   },
 
   // 88. Section 44ADA Freelance & Tech Consultant Tax Calculator
@@ -6446,7 +6446,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Yes. Professionals opting for Section 44ADA must pay their advance tax in four installments (15% by June 15, 45% by Sept 15, 75% by Dec 15, and 100% by March 15) or pay the entire 100% on or before March 15.'
       }
     ],
-    relatedToolSlugs: ['income-tax-calculator', 'gst-tax-invoice-generator', 'salary-calculator']
+    relatedToolSlugs: ['salary-calculator', 'gst-tax-invoice-generator', 'salary-calculator']
   },
 
   // 89. Post Office Monthly Income Scheme (MIS) Calculator
@@ -6517,7 +6517,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Interest earned is taxable as per your income tax slab, but no TDS is deducted at source by the Post Office.'
       }
     ],
-    relatedToolSlugs: ['senior-citizens-savings-scheme-calculator', 'fd-calculator', 'ppf-calculator']
+    relatedToolSlugs: ['senior-citizen-fd-form15h-calculator', 'fd-calculator', 'ppf-calculator']
   },
 
   // 90. Overtime & Hourly Salary Wage Calculator
@@ -6589,7 +6589,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Divide your monthly gross salary by the total standard working hours in the month (e.g. 26 working days × 8 hours = 208 hours).'
       }
     ],
-    relatedToolSlugs: ['salary-calculator', 'salary-hike-percentage-calculator', 'salary-cost-to-company-calculator']
+    relatedToolSlugs: ['salary-calculator', 'salary-hike-percentage-calculator', 'salary-calculator']
   },
 
   // 91. Habit Streak & Daily Routine Tracker (100% Local Browser Storage)
@@ -6658,7 +6658,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Never. All data operations occur entirely on your local machine with zero external network requests.'
       }
     ],
-    relatedToolSlugs: ['pomodoro-focus-timer', 'study-hours-planner', 'sleep-cycle-alarm-calculator']
+    relatedToolSlugs: ['pomodoro-focus-timer', 'habit-streak-routine-tracker', 'sleep-cycle-alarm-calculator']
   },
 
   // 92. Chit Fund & Committee Dividend Profit Calculator
@@ -6731,7 +6731,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'The discount foregone by the winning auction bidder is distributed equally among all members as dividend, so non-prized subscribers pay less than the nominal monthly installment.'
       }
     ],
-    relatedToolSlugs: ['compound-interest-calculator', 'fd-calculator', 'business-loan-calculator']
+    relatedToolSlugs: ['sip-calculator', 'fd-calculator', 'pm-mudra-loan-eligibility-calculator']
   },
 
   // 93. Add / Subtract Days Calculator
@@ -7971,7 +7971,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Section 194S mandates Indian exchanges and buyers to deduct 1% TDS on the gross transfer value of virtual digital assets if annual transactions exceed ₹50,000.'
       }
     ],
-    relatedToolSlugs: ['new-vs-old-tax-calculator', 'capital-gains-tax-calculator', 'gst-calculator']
+    relatedToolSlugs: ['salary-calculator', 'mutual-fund-capital-gains-tax-calculator', 'gst-calculator']
   },
   // 115. Sarkari Exam Age Eligibility Analyzer
   {
@@ -8018,7 +8018,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'OBC (Non-Creamy Layer) candidates receive 3 years of age relaxation, SC/ST candidates receive 5 years, and PwD candidates receive between 10 to 15 years relaxation depending on their category.'
       }
     ],
-    relatedToolSlugs: ['age-calculator', 'cgpa-to-percentage', 'attendance-calculator']
+    relatedToolSlugs: ['age-calculator', 'cgpa-calculator', 'attendance-calculator']
   },
   // 116. IRCTC Train Berth Locator & Tatkal Countdown
   {
@@ -8065,7 +8065,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'In 3A and Sleeper coaches, seat numbers ending with modulo 1 (e.g. 1, 9, 17, 25, 33, 41, 49, 57) and Side Lower berth modulo 7 (e.g. 7, 15, 23, 31, 39, 47, 55, 63) are Window seats.'
       }
     ],
-    relatedToolSlugs: ['fuel-cost-calculator', 'mileage-calculator', 'trip-cost-splitter']
+    relatedToolSlugs: ['fuel-cost-calculator', 'fuel-cost-calculator', 'fuel-cost-calculator']
   },
   // 117. Live Network Speed & Ping Probe
   {
@@ -8112,7 +8112,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Jitter measures the variation and stability in ping latency over time. Low jitter (under 5ms) indicates a stable, high-quality fiber or 5G broadband connection.'
       }
     ],
-    relatedToolSlugs: ['ip-network-inspector', 'download-time-calculator', 'data-usage-calculator']
+    relatedToolSlugs: ['ip-isp-inspector', 'file-size-calculator', 'file-size-calculator']
   },
   // 118. NSE & BSE Stock Market Hours & Holiday Tracker
   {
@@ -8161,7 +8161,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Muhurat Trading is a special 1-hour auspicious trading window conducted on Diwali evening by NSE and BSE to mark the beginning of the Hindu New Year (Samvat).'
       }
     ],
-    relatedToolSlugs: ['gst-calculator', 'profit-margin-calculator', 'break-even-calculator']
+    relatedToolSlugs: ['gst-calculator', 'mrp-margin-gst-breakdown-calculator', 'mrp-margin-gst-breakdown-calculator']
   },
   // 119. Jan Aushadhi Generic Medicine Price Saver
   {
@@ -8258,7 +8258,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Yes, under the Maharashtra Rent Control Act, leave and license agreements must be registered with the Inspector General of Registration (IGR) through online biometric e-filing or at a sub-registrar office.'
       }
     ],
-    relatedToolSlugs: ['resignation-letter-generator', 'leave-application-generator', 'gst-invoice-generator']
+    relatedToolSlugs: ['letter-generator', 'letter-generator', 'gst-calculator']
   },
   // 121. Traffic Police E-Challan Portal & MVA Fine Directory
   {
@@ -8305,7 +8305,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Virtual Courts allow traffic violators to plead guilty and pay statutory fines online (vcourts.gov.in) without requiring physical appearance in a magistrate court.'
       }
     ],
-    relatedToolSlugs: ['daily-fuel-price-tracker', 'vehicle-mileage-calculator', 'ev-vs-petrol-savings']
+    relatedToolSlugs: ['daily-fuel-price-tracker', 'fuel-cost-calculator', 'ev-fast-charging-cost-matrix']
   },
   // 122. IMEI Number Validator & CEIR Lost Phone Guide
   {
@@ -8352,7 +8352,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Central Equipment Identity Register (CEIR) is a Government of India portal that enables citizens to block and trace stolen/lost mobile devices across all Indian telecom networks (Jio, Airtel, Vi, BSNL).'
       }
     ],
-    relatedToolSlugs: ['ip-network-inspector', 'network-speed-ping-probe', 'qr-code-scanner']
+    relatedToolSlugs: ['ip-isp-inspector', 'network-speed-ping-probe', 'qr-code-scanner-reader']
   },
   // 123. Property Stamp Duty & Circle Rate Estimator
   {
@@ -8400,7 +8400,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Delhi (4% vs 6%), Uttar Pradesh (1% concession), Maharashtra (1% rebate), and Gujarat offer reduced stamp duty rates when property is registered in the name of a woman.'
       }
     ],
-    relatedToolSlugs: ['tiles-calculator', 'wall-paint-estimator', 'land-area-converter']
+    relatedToolSlugs: ['tile-calculator', 'paint-calculator', 'land-area-converter']
   },
   // 124. Indian Baby Names by Rashi & Nakshatra
   {
@@ -8494,7 +8494,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Change the password immediately on all accounts where you have used it, and enable Two-Factor Authentication (2FA/MFA) using an authenticator app.'
       }
     ],
-    relatedToolSlugs: ['ip-network-inspector', 'imei-ceir-guide-validator', 'network-speed-ping-probe']
+    relatedToolSlugs: ['ip-isp-inspector', 'imei-ceir-guide-validator', 'network-speed-ping-probe']
   },
   // 126. Sukanya Samriddhi Yojana (SSY 2026) Calculator
   {
@@ -8584,7 +8584,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'The Government gives ₹30,000 for 1 kW, ₹60,000 for 2 kW, and a flat ₹78,000 for 3 kW or higher systems credited directly to the beneficiary bank account.'
       }
     ],
-    relatedToolSlugs: ['cooling-tonnage-calculator', 'electricity-bill-calculator', 'home-inverter-battery-backup-calculator']
+    relatedToolSlugs: ['state-electricity-slab-calculator', 'electricity-bill-calculator', 'home-inverter-battery-backup-calculator']
   },
   // 128. Ayushman Bharat Eligibility Checker
   {
@@ -8625,7 +8625,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Families listed in the Socio-Economic Caste Census (SECC 2011) database, NFSA ration card holders, and senior citizens aged 70+ under recent PM-JAY expansions.'
       }
     ],
-    relatedToolSlugs: ['blood-group-compatibility-eraktkosh', 'janaushadhi-generic-saver', 'food-adulteration-test-kit']
+    relatedToolSlugs: ['blood-group-compatibility-eraktkosh', 'jan-aushadhi-generic-saver', 'food-adulteration-test-kit']
   },
   // 129. Atal Pension Yojana (APY) Calculator
   {
@@ -8747,7 +8747,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'No collateral is required for loans under PM Mudra Yojana as they are backed by the Credit Guarantee Fund for Micro Units (CGFMU).'
       }
     ],
-    relatedToolSlugs: ['gst-calculator', 'business-break-even-calculator', 'profit-margin-calculator']
+    relatedToolSlugs: ['gst-calculator', 'mrp-margin-gst-breakdown-calculator', 'mrp-margin-gst-breakdown-calculator']
   },
   // 132. PM Awas Yojana Housing Subsidy Calculator
   {
@@ -8985,7 +8985,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'The first 2 hours after fraudulent fund transfer is called the Golden Window. Calling 1930 during this period gives the highest chance of freezing the money in the scammer bank account before ATM withdrawal.'
       }
     ],
-    relatedToolSlugs: ['password-breach-checker', 'imei-ceir-guide-validator', 'ip-network-inspector']
+    relatedToolSlugs: ['password-breach-checker', 'imei-ceir-guide-validator', 'ip-isp-inspector']
   },
   // 138. Indian Passport Visa-Free Country Explorer
   {
@@ -9025,7 +9025,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Popular destinations include Thailand (60 days), Malaysia (30 days), Sri Lanka (30 days ETA), Mauritius (90 days), Nepal, and Bhutan.'
       }
     ],
-    relatedToolSlugs: ['currency-converter-live', 'travel-budget-calculator', 'fuel-trip-cost-calculator']
+    relatedToolSlugs: ['currency-converter', 'travel-budget-calculator', 'fuel-cost-calculator']
   },
   // 139. Food Adulteration Test Kit (FSSAI DART)
   {
@@ -9142,7 +9142,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Yes! When the ISS passes overhead during early dawn or late dusk, it reflects sunlight and appears as a bright, fast-moving star traveling smoothly across the sky without any flashing lights.'
       }
     ],
-    relatedToolSlugs: ['isro-satellites-missions-directory', 'ip-network-inspector', 'live-aqi-weather-forecast']
+    relatedToolSlugs: ['isro-satellites-missions-directory', 'ip-isp-inspector', 'aqi-weather-forecast']
   },
   // 142. ISRO Satellites & Spacecraft Mission Directory
   {
@@ -9181,7 +9181,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'The Polar Satellite Launch Vehicle (PSLV) is known as the workhorse of ISRO with over 50+ successful orbital missions.'
       }
     ],
-    relatedToolSlugs: ['iss-tracker-india-pass', 'live-aqi-weather-forecast', 'network-speed-ping-probe']
+    relatedToolSlugs: ['iss-tracker-india-pass', 'aqi-weather-forecast', 'network-speed-ping-probe']
   },
   // 143. All-India APMC Mandi Bhav Tracker
   {
@@ -9301,7 +9301,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'No! Because the tool utilizes your browser’s native Web Speech API, there are zero subscription fees and zero character caps.'
       }
     ],
-    relatedToolSlugs: ['word-character-counter', 'speed-typing-test', 'case-converter']
+    relatedToolSlugs: ['word-character-counter', 'speed-typing-test', 'text-case-converter']
   },
   // 146. Live Room Noise & Decibel (dB) Sound Meter
   {
@@ -9339,7 +9339,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'A quiet bedroom or study room is typically 30-40 dB. Normal conversation is around 60 dB. Continuous exposure to noise above 85 dB can cause hearing fatigue and damage.'
       }
     ],
-    relatedToolSlugs: ['mobile-screen-hardware-tester', 'network-speed-ping-probe', 'cooling-tonnage-calculator']
+    relatedToolSlugs: ['mobile-screen-hardware-tester', 'network-speed-ping-probe', 'state-electricity-slab-calculator']
   },
   // 147. Vastu Shastra Digital Compass
   {
@@ -9418,7 +9418,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'To protect battery chemistry from overheating and extend battery lifespan, the Battery Management System (BMS) automatically throttles charging speed after reaching 80% state of charge.'
       }
     ],
-    relatedToolSlugs: ['fuel-price-tracker', 'fuel-trip-cost-calculator', 'mileage-calculator']
+    relatedToolSlugs: ['daily-fuel-price-tracker', 'fuel-cost-calculator', 'fuel-cost-calculator']
   },
   // 149. Home Inverter & Battery Backup Calculator
   {
@@ -9458,7 +9458,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Most residential inverters operate at a 0.8 power factor. To find required VA, divide total watts by 0.8 (e.g., 400 Watts / 0.8 = 500 VA).'
       }
     ],
-    relatedToolSlugs: ['pm-surya-ghar-solar-calculator', 'electricity-bill-calculator', 'cooling-tonnage-calculator']
+    relatedToolSlugs: ['pm-surya-ghar-solar-calculator', 'electricity-bill-calculator', 'state-electricity-slab-calculator']
   },
   // 150. IRCTC Tatkal Timing & Station Finder
   {
@@ -9498,7 +9498,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Tatkal opens 1 day prior to the train departure from the originating station — 10:00 AM IST for AC classes and 11:00 AM IST for Non-AC Sleeper classes.'
       }
     ],
-    relatedToolSlugs: ['train-berth-tatkal-finder', 'indian-passport-visa-free-countries', 'fuel-trip-cost-calculator']
+    relatedToolSlugs: ['train-berth-tatkal-finder', 'indian-passport-visa-free-countries', 'fuel-cost-calculator']
   },
   // 151. State-Wise Electricity Slab Calculator
   {
@@ -9539,7 +9539,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Karnataka (Gruha Jyothi up to 200 units), Delhi (100% subsidy up to 200 units), Punjab (up to 300 units free per month), and Tamil Nadu (first 100 units free for all domestic connections).'
       }
     ],
-    relatedToolSlugs: ['pm-surya-ghar-solar-calculator', 'home-inverter-battery-backup-calculator', 'cooling-tonnage-calculator']
+    relatedToolSlugs: ['pm-surya-ghar-solar-calculator', 'home-inverter-battery-backup-calculator', 'state-electricity-slab-calculator']
   },
   // 152. 7th to 8th CPC Salary Matrix
   {
@@ -9820,7 +9820,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'If alternate flight is arranged within 1 hour: No compensation. If alternate flight is within 24 hours: 200% of basic fare + fuel surcharge (up to ₹10,000). If >24 hours: 400% of basic fare (up to ₹20,000).'
       }
     ],
-    relatedToolSlugs: ['travel-budget-calculator', 'indian-passport-visa-free-countries', 'fuel-trip-cost-calculator']
+    relatedToolSlugs: ['travel-budget-calculator', 'indian-passport-visa-free-countries', 'fuel-cost-calculator']
   },
   // 159. Home Loan Prepayment & Tenure Reduction Calculator
   {
@@ -9903,7 +9903,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'No. Under the Legal Metrology (Packaged Commodities) Rules, charging above the Maximum Retail Price (MRP) is illegal and punishable with fines and prosecution.'
       }
     ],
-    relatedToolSlugs: ['gst-calculator', 'profit-margin-calculator', 'business-break-even-calculator']
+    relatedToolSlugs: ['gst-calculator', 'mrp-margin-gst-breakdown-calculator', 'mrp-margin-gst-breakdown-calculator']
   },
   // 161. Jewellery Gold Making Charges & GST Calculator
   {
@@ -10109,7 +10109,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Yes, all vaccines included in the Universal Immunization Programme (UIP) are provided 100% free of cost at all government hospitals, primary health centres (PHCs), and Anganwadis across India.'
       }
     ],
-    relatedToolSlugs: ['age-calculator', 'indian-baby-names-rashi-astrology', 'blood-group-compatibility-eraktkosh']
+    relatedToolSlugs: ['age-calculator', 'indian-baby-names-rashi', 'blood-group-compatibility-eraktkosh']
   },
   // 166. Non-Judicial Stamp Paper Value Guide
   {
@@ -10148,7 +10148,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Judicial stamp papers (Court Fee stamps) are used for court litigation and legal cases. Non-Judicial stamp papers are used for commercial agreements, affidavits, rent deeds, and contracts.'
       }
     ],
-    relatedToolSlugs: ['rent-agreement-stamp-duty', 'property-stamp-duty-calculator', 'formal-letter-generator']
+    relatedToolSlugs: ['rent-agreement-stamp-duty', 'property-stamp-duty-calculator', 'letter-generator']
   },
   // 167. Old Vehicle Resale Valuation & Depreciation
   {
@@ -10189,7 +10189,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'A new car loses approximately 15% value in year 1, 25% by year 2, 38-40% by year 3, and over 50% after 5 years, depending on brand resale demand.'
       }
     ],
-    relatedToolSlugs: ['vehicle-depreciation-calculator', 'ev-savings-calculator', 'fuel-cost-calculator']
+    relatedToolSlugs: ['vehicle-depreciation-calculator', 'ev-fast-charging-cost-matrix', 'fuel-cost-calculator']
   },
   // 168. Freelancer 44ADA Presumptive Tax Calculator
   {
@@ -10268,7 +10268,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'You can dial 1915 (National Consumer Helpline) or SMS to 8800001915, or register complaints online on consumerhelpline.gov.in.'
       }
     ],
-    relatedToolSlugs: ['rti-application-generator', 'cybercrime-1930-fraud-emergency-guide', 'formal-letter-generator']
+    relatedToolSlugs: ['rti-application-generator', 'cybercrime-1930-fraud-emergency-guide', 'letter-generator']
   },
   // 170. Branded vs PM Jan Aushadhi Generic Medicine Comparator
   {
@@ -10473,7 +10473,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       finalResult: 'Best of 5 Percentage: 85.20% (Aggregate all 6: 83.33%)'
     },
     faqs: [{ question: 'Does CBSE officially provide percentage on marksheets?', answer: 'No, CBSE only awards grades and marks. Universities compute Best of 5 using their respective admission criteria.' }],
-    relatedToolSlugs: ['sarkari-exam-age-calculator', 'college-75-percent-attendance-bunk-planner', 'ugc-university-recognition-verifier']
+    relatedToolSlugs: ['sarkari-exam-age-calculator', 'college-75-percent-attendance-bunk-planner', 'marks-percentage-calculator']
   },
   {
     id: 'commercial-rent-escalation-calculator',
@@ -10752,7 +10752,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       finalResult: '5-Year Net Savings: ₹85,000 | EV Extra Cost Recovered in ~19 Months'
     },
     faqs: [{ question: 'What is the real electricity cost per km for an EV scooter?', answer: 'An EV scooter consumes ~1 unit of power per 30 km, costing approximately 25 to 30 paise per km.' }],
-    relatedToolSlugs: ['fuel-price-tracker-tool', 'fuel-cost-calculator', 'ev-fast-charging-cost-matrix']
+    relatedToolSlugs: ['daily-fuel-price-tracker', 'fuel-cost-calculator', 'ev-fast-charging-cost-matrix']
   },
   {
     id: 'pm-fasal-bima-crop-insurance-calculator',
@@ -11099,7 +11099,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       finalResult: 'Tax Saved at 30% Slab: ₹18,720 (Zero tax on ₹60,000 travel fare)'
     },
     faqs: [{ question: 'Are hotel and food expenses covered under LTA?', answer: 'No, Section 10(5) strictly covers only actual transportation travel fare (airfare, train, bus).' }],
-    relatedToolSlugs: ['salary-calculator', 'salary-and-gst-suite-calculator', 'trip-cost-calculator']
+    relatedToolSlugs: ['salary-calculator', 'salary-calculator', 'trip-cost-calculator']
   },
   {
     id: 'car-tyre-size-upsize-speedometer-calculator',
@@ -11286,7 +11286,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       finalResult: 'Effective Cost per Cylinder: ₹503 (₹300 credited into bank account)'
     },
     faqs: [{ question: 'How do I check if my LPG subsidy is being credited?', answer: 'You can check your DBTL subsidy credit on mylpg.in or via the UMANG app.' }],
-    relatedToolSlugs: ['fuel-price-tracker-tool', 'state-electricity-slab-calculator', 'pm-surya-ghar-solar-calculator']
+    relatedToolSlugs: ['daily-fuel-price-tracker', 'state-electricity-slab-calculator', 'pm-surya-ghar-solar-calculator']
   },
   {
     id: 'ews-obc-ncl-income-asset-criteria-checker',
@@ -11318,7 +11318,7 @@ export const TOOLS_REGISTRY: Tool[] = [
       finalResult: '100% Eligible for Central Government 10% EWS Certificate'
     },
     faqs: [{ question: 'Does EWS income include agricultural income?', answer: 'Yes, for EWS, gross annual income includes salary, agriculture, business, profession, and all other sources.' }],
-    relatedToolSlugs: ['sarkari-exam-age-calculator', 'cbse-icse-best-of-five-percentage-calculator', 'ugc-university-recognition-verifier']
+    relatedToolSlugs: ['sarkari-exam-age-calculator', 'cbse-icse-best-of-five-percentage-calculator', 'marks-percentage-calculator']
   },
   {
     id: 'fastag-blacklist-double-toll-penalty-guide',
@@ -11964,6 +11964,21 @@ export const TOOLS_REGISTRY: Tool[] = [
 ];
 
 const TOOL_SLUG_ALIASES: Record<string, string> = {
+  // Direct screenshot & hero URL variants
+  'dairy-milk-fat-snf-rate-calculator': 'dairy-milk-fat-snf-calculator',
+  'dairy-milk-fat-snf-rate': 'dairy-milk-fat-snf-calculator',
+  'milk-fat-calculator': 'dairy-milk-fat-snf-calculator',
+  'dudh-dairy-fat-calculator': 'dairy-milk-fat-snf-calculator',
+  'used-car-bike-resale-valuation-calculator': 'old-vehicle-resale-valuation-calculator',
+  'used-car-valuation': 'old-vehicle-resale-valuation-calculator',
+  'vehicle-resale-valuation': 'old-vehicle-resale-valuation-calculator',
+  'generic-medicine-jan-aushadhi-saver': 'jan-aushadhi-generic-saver',
+  'jan-aushadhi-medicine-saver': 'jan-aushadhi-generic-saver',
+  'janaushadhi-generic-saver': 'jan-aushadhi-generic-saver',
+  'pdf-merge-split-compress-tool': 'exam-photo-date-stamp',
+  'pdf-merge-split-tool': 'exam-photo-date-stamp',
+
+  // Notepad & Drawing Canvas
   'online-notepad': 'free-online-notepad-scratchpad',
   'notepad': 'free-online-notepad-scratchpad',
   'scratchpad': 'free-online-notepad-scratchpad',
@@ -11971,21 +11986,77 @@ const TOOL_SLUG_ALIASES: Record<string, string> = {
   'paint': 'online-paint-canvas-drawing-tool',
   'paint-tool': 'online-paint-canvas-drawing-tool',
   'canvas-drawing': 'online-paint-canvas-drawing-tool',
+
+  // Finance, Loans & Tax Aliases
+  'income-tax-calculator': 'salary-calculator',
+  'personal-loan-emi-calculator': 'emi-calculator',
+  'home-loan-emi-calculator': 'emi-calculator',
+  'car-loan-emi-calculator': 'emi-calculator',
+  'gst-calc': 'gst-calculator',
+  'reverse-gst-calculator': 'gst-calculator',
+  'new-vs-old-tax-calculator': 'salary-calculator',
+  'capital-gains-tax-calculator': 'mutual-fund-capital-gains-tax-calculator',
+  'compound-interest-calculator': 'sip-calculator',
+  'business-loan-calculator': 'pm-mudra-loan-eligibility-calculator',
+  'senior-citizens-savings-scheme-calculator': 'senior-citizen-fd-form15h-calculator',
+  'salary-cost-to-company-calculator': 'salary-calculator',
+
+  // Currency & Forex
   'live-currency-converter-inr': 'currency-converter',
   'live-currency-converter': 'currency-converter',
   'inr-currency-converter': 'currency-converter',
+  'currency-converter-live': 'currency-converter',
+  'currency-converter-tool': 'currency-converter',
+
+  // Astrological & Panchang
   'choghadiya-rahu-kaal-panchang': 'panchang-choghadiya-muhurat-clock',
   'rahu-kaal-calculator': 'panchang-choghadiya-muhurat-clock',
   'panchang-calculator': 'panchang-choghadiya-muhurat-clock',
-  'live-aqi-weather-forecast': 'aqi-weather-forecast',
+
+  // Weather & AQI
+  'aqi-weather-forecast': 'aqi-weather-forecast',
   'aqi-forecast': 'aqi-weather-forecast',
+  'live-aqi-weather-forecast': 'aqi-weather-forecast',
+
+  // IP & Diagnostics
   'my-ip-inspector': 'ip-isp-inspector',
   'my-ip-address-inspector': 'ip-isp-inspector',
+  'ip-network-inspector': 'ip-isp-inspector',
+
+  // QR Code
   'camera-qr-scanner': 'qr-code-scanner-reader',
   'qr-scanner': 'qr-code-scanner-reader',
+  'qr-code-scanner': 'qr-code-scanner-reader',
+
+  // Holiday & Fuel
   'long-weekend-planner': 'long-weekend-holiday-planner',
-  'fuel-price-tracker': 'daily-fuel-price-tracker',
+  'daily-fuel-price-tracker': 'daily-fuel-price-tracker',
   'daily-petrol-diesel-price': 'daily-fuel-price-tracker',
+  'fuel-price-tracker': 'daily-fuel-price-tracker',
+  'fuel-price-tracker-tool': 'daily-fuel-price-tracker',
+  'fuel-trip-cost-calculator': 'fuel-cost-calculator',
+  'mileage-calculator': 'fuel-cost-calculator',
+  'vehicle-mileage-calculator': 'fuel-cost-calculator',
+  'trip-cost-splitter': 'fuel-cost-calculator',
+
+  // Education & Productivity
+  'cgpa-to-percentage': 'cgpa-calculator',
+  'study-hours-planner': 'habit-streak-routine-tracker',
+  'case-converter': 'text-case-converter',
+  'download-time-calculator': 'file-size-calculator',
+  'digital-storage-converter': 'file-size-calculator',
+  'data-usage-calculator': 'file-size-calculator',
+  'resignation-letter-generator': 'letter-generator',
+  'leave-application-generator': 'letter-generator',
+  'formal-letter-generator': 'letter-generator',
+
+  // Construction & Real Estate
+  'tiles-calculator': 'tile-calculator',
+  'wall-paint-estimator': 'paint-calculator',
+  'bigha-to-sqft-converter': 'land-area-converter',
+  'guntha-to-sqft-converter': 'land-area-converter',
+  'cooling-tonnage-calculator': 'state-electricity-slab-calculator',
+  'indian-baby-names-rashi-astrology': 'indian-baby-names-rashi'
 };
 
 export function getActiveTools(): Tool[] {
