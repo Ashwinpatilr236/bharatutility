@@ -3,7 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { useAdminStore } from '../../hooks/useAdminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch, TRENDING_SEARCH_KEYWORDS } from '../../utils/smartSearch';
-import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck } from 'lucide-react';
+import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass } from 'lucide-react';
 import { LiveCivicTicker } from './LiveCivicTicker';
 
 export const HeroSection: React.FC = () => {
@@ -74,13 +74,16 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-6 pb-12 sm:pt-10 sm:pb-16 overflow-hidden">
+    <section className="relative pt-3 pb-12 sm:pt-6 sm:pb-16 overflow-hidden">
+      {/* Background Floating Subtle Ambient Light */}
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full" />
+
       {/* Live Civic Status Bar */}
       <div className="mb-6 sm:mb-8">
         <LiveCivicTicker />
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 text-center">
+      <div className="max-w-6xl mx-auto px-4 text-center">
         {/* Top Mini Pill */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent-subtle border border-accent/20 text-accent text-xs font-semibold mb-5 shadow-2xs animate-in fade-in slide-in-from-bottom-2 duration-300">
           <Sparkles className="w-3.5 h-3.5" />
@@ -111,13 +114,13 @@ export const HeroSection: React.FC = () => {
               ref={inputRef}
               id="hero-tool-search-input"
               type="text"
-              placeholder="Search 220+ tools (e.g. PIN code, IFSC, EMI, GST, Fuel, Milk Fat, Used Car)..."
+              placeholder="Search 220+ tools (e.g. PIN, IFSC, EMI, GST, Salary)..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 250)}
               onKeyDown={handleKeyDown}
-              className="w-full bg-transparent text-sm sm:text-base text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none"
+              className="w-full bg-transparent text-sm sm:text-base text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none pr-2"
             />
             {searchQuery ? (
               <button
@@ -286,98 +289,98 @@ export const HeroSection: React.FC = () => {
           ))}
         </div>
 
-        {/* 8 Instant Quick-Access Bento Hero Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 pt-2 text-left">
+        {/* 8 Instant Quick-Access Bento Hero Cards (Spacious 4x2 Grid on Desktop) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2 text-left">
           {[
             {
               slug: 'emi-calculator',
-              name: 'Home Loan EMI',
-              tagline: 'Principal & Interest',
+              name: 'Home Loan EMI Calculator',
+              tagline: 'Principal, interest & monthly amortization schedule',
               icon: 'Calculator',
-              badge: 'Loan',
+              badge: 'Finance',
               color: 'text-indigo-500 bg-indigo-500/10'
             },
             {
               slug: 'gst-calculator',
-              name: 'GST Calculator',
-              tagline: '5%, 12%, 18%, 28%',
+              name: 'GST Rate Calculator',
+              tagline: '5%, 12%, 18%, 28% inclusive & exclusive tax',
               icon: 'Receipt',
-              badge: 'Tax',
+              badge: 'Tax & Bill',
               color: 'text-emerald-500 bg-emerald-500/10'
             },
             {
               slug: 'pin-code-finder',
-              name: 'PIN Code Finder',
-              tagline: '1.5L+ Post Offices',
+              name: 'PIN Code & Post Office',
+              tagline: 'Search 1.5L+ Indian Post Offices & delivery status',
               icon: 'MapPin',
-              badge: 'India',
+              badge: 'India Hub',
               color: 'text-amber-500 bg-amber-500/10'
             },
             {
               slug: 'dairy-milk-fat-snf-rate-calculator',
-              name: 'Milk Fat & SNF',
-              tagline: 'Cow & Buffalo Rate',
+              name: 'Dairy Milk Fat & SNF Payout',
+              tagline: 'Cow & Buffalo milk rate chart per litre',
               icon: 'Sparkles',
-              badge: 'Dairy',
+              badge: 'Daily Agro',
               color: 'text-sky-500 bg-sky-500/10'
             },
             {
               slug: 'used-car-bike-resale-valuation-calculator',
-              name: 'Used Vehicle Value',
-              tagline: 'Year & Odometer Depr.',
+              name: 'Used Vehicle Valuation',
+              tagline: 'Year, odometer & brand depreciation guide',
               icon: 'Car',
-              badge: 'Resale',
+              badge: 'Vehicle',
               color: 'text-rose-500 bg-rose-500/10'
             },
             {
               slug: 'generic-medicine-jan-aushadhi-saver',
-              name: 'Generic Medicine',
-              tagline: 'Save 50-90% on Bills',
+              name: 'Jan Aushadhi Medicine Saver',
+              tagline: 'Find generic salt substitutes & save 50-90%',
               icon: 'Sparkles',
-              badge: 'Health',
+              badge: 'Health Saver',
               color: 'text-teal-500 bg-teal-500/10'
             },
             {
               slug: 'pdf-merge-split-compress-tool',
-              name: 'PDF Tools Hub',
-              tagline: 'Merge, Split, Sign',
+              name: 'PDF & Document Suite',
+              tagline: '100% private client-side merge, split & compress',
               icon: 'FileText',
-              badge: 'Private',
+              badge: 'Documents',
               color: 'text-purple-500 bg-purple-500/10'
             },
             {
               slug: 'age-calculator',
-              name: 'Age Calculator',
-              tagline: 'Exact DOB & Sarkari',
+              name: 'Sarkari Exam Age Calculator',
+              tagline: 'Exact DOB, cutoff dates & eligibility analyzer',
               icon: 'Calendar',
-              badge: 'Instant',
+              badge: 'Education',
               color: 'text-blue-500 bg-blue-500/10'
             }
           ].map(tool => (
             <button
               key={tool.slug}
               onClick={() => navigateToTool(tool.slug)}
-              className="p-3 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-md transition-all group flex flex-col justify-between cursor-pointer"
+              className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-lg transition-all group flex flex-col justify-between cursor-pointer"
             >
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <div className={`p-1.5 rounded-xl ${tool.color} group-hover:scale-105 transition-transform`}>
-                    <DynamicIcon name={tool.icon} className="w-3.5 h-3.5" />
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`p-2 rounded-xl ${tool.color} group-hover:scale-105 transition-transform`}>
+                    <DynamicIcon name={tool.icon} className="w-4 h-4" />
                   </div>
-                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
                     {tool.badge}
                   </span>
                 </div>
-                <h3 className="text-xs font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors leading-tight line-clamp-1">
+                <h3 className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors leading-snug">
                   {tool.name}
                 </h3>
-                <p className="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5 line-clamp-1">
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2 leading-relaxed">
                   {tool.tagline}
                 </p>
               </div>
-              <div className="mt-2.5 pt-1.5 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-[10px] font-semibold text-accent">
-                <span>Use Tool</span>
-                <ArrowRight className="w-2.5 h-2.5 group-hover:translate-x-0.5 transition-transform" />
+              <div className="mt-3.5 pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs font-semibold text-accent">
+                <span>Open Calculator</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </button>
           ))}
