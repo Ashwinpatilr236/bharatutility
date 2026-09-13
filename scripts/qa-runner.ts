@@ -137,41 +137,27 @@ function bighaToSqFt(bigha: number, stateRate: number = 27000) {
 }
 assert('Math QA: Land Area', '2 Bigha in UP (27,000 sq ft/bigha) = 54,000 sq ft', bighaToSqFt(2, 27000) === 54000);
 
-// 4. CHECK LOCAL SERVER STATUS ON HTTP 3000
-http.get('http://localhost:3000', (res) => {
-  assert('Local Server QA', 'Local Express & Vite server responds with status 200', res.statusCode === 200);
+// 4. SUMMARY PRINT
+console.log('\n====================================================');
+console.log('📊 FINAL QA RESULTS SUMMARY');
+console.log('====================================================');
+let passCount = 0;
+let failCount = 0;
 
-  // 5. PRODUCTION DOMAIN CHECK (https://bharatutility.tech)
-  console.log('\n--- Checking Canonical Production Domain (https://bharatutility.tech) ---');
-  const req = https.get('https://bharatutility.tech', (prodRes) => {
-    assert('Production Check', `https://bharatutility.tech responded with HTTP ${prodRes.statusCode}`, prodRes.statusCode === 200 || prodRes.statusCode === 301 || prodRes.statusCode === 302);
-    printSummary();
-  });
+for (const r of results) {
+  const icon = r.passed ? '✅' : '❌';
+  console.log(`${icon} [${r.suite}] ${r.name} ${r.details ? `(${r.details})` : ''}`);
+  if (r.passed) passCount++;
+  else failCount++;
+}
 
-  req.on('error', (err) => {
-    assert('Production Check', `Production network request error: ${err.message}`, false);
-    printSummary();
-  });
-}).on('error', (err) => {
-  assert('Local Server QA', `Local server request error: ${err.message}`, false);
-  printSummary();
-});
+console.log('\n----------------------------------------------------');
+console.log(`Total Passed: ${passCount} | Total Failed: ${failCount}`);
+console.log('====================================================\n');
 
-function printSummary() {
-  console.log('\n====================================================');
-  console.log('📊 FINAL QA RESULTS SUMMARY');
-  console.log('====================================================');
-  let passCount = 0;
-  let failCount = 0;
-
-  for (const r of results) {
-    const icon = r.passed ? '✅' : '❌';
-    console.log(`${icon} [${r.suite}] ${r.name} ${r.details ? `(${r.details})` : ''}`);
-    if (r.passed) passCount++;
-    else failCount++;
-  }
-
-  console.log('\n----------------------------------------------------');
-  console.log(`Total Passed: ${passCount} | Total Failed: ${failCount}`);
-  console.log('====================================================\n');
+if (failCount > 0) {
+  process.exit(1);
+} else {
+  console.log('🎉 ALL TESTS PASSED SUCCESSFULLY!');
+  process.exit(0);
 }

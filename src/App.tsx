@@ -27,6 +27,9 @@ import { ArrowLeft } from 'lucide-react';
 import { LegalView } from './components/views/LegalView';
 import { ContactView } from './components/views/ContactView';
 
+import { InteractiveMiniTools } from './components/home/InteractiveMiniTools';
+import { MobileNavDock } from './components/common/MobileNavDock';
+
 // Code-split Lazy Loaded Views
 const ToolPageLayout = React.lazy(() => import('./components/tools/ToolPageLayout').then(m => ({ default: m.ToolPageLayout })));
 const CategoryView = React.lazy(() => import('./components/views/CategoryView').then(m => ({ default: m.CategoryView })));
@@ -51,7 +54,7 @@ const AppContent: React.FC = () => {
   const { view, navigateToHome, toast } = useApp();
 
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-50/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white">
+    <div className="min-h-screen flex flex-col bg-neutral-50/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white pb-14 md:pb-0">
       {/* Global Offline Banner */}
       <OfflineStatusIndicator />
 
@@ -61,7 +64,7 @@ const AppContent: React.FC = () => {
       <main className="flex-1">
         {view.type === 'home' && (
           <div className="space-y-4 sm:space-y-8">
-            {/* 1. Hero & Smart Discovery Search with 6 Instant Tool Cards */}
+            {/* 1. Hero & Smart Discovery Search with 8 Bento Tool Cards */}
             <HeroSection />
 
             {/* 2. PWA Install App Banner */}
@@ -70,27 +73,30 @@ const AppContent: React.FC = () => {
             {/* 3. Section 2: Popular Tools Grid */}
             <PopularToolsSection />
 
-            {/* 4. Section 3: Explore by Category */}
+            {/* 4. Section 3: Interactive Instant Mini-Calculators */}
+            <InteractiveMiniTools />
+
+            {/* 5. Section 4: Explore by Category */}
             <CategoryShowcase />
 
-            {/* 5. Section 4: "You May Also Need" Workflow Discovery */}
+            {/* 6. Section 5: "You May Also Need" Workflow Discovery */}
             <YouMayAlsoNeedSection />
 
-            {/* 6. Section 5: New on BharatUtility & Trending Tools */}
+            {/* 7. Section 6: New on BharatUtility & Trending Tools */}
             <NewToolsSection />
             <TrendingToolsSection />
 
-            {/* 7. Personalized Sections (Shown only when user has saved or used tools) */}
+            {/* 8. Personalized Sections (Shown only when user has saved or used tools) */}
             <YourFavoritesSection />
             <RecentlyUsedSection />
 
-            {/* 8. Section 6: Why BharatUtility & Privacy Trust */}
+            {/* 9. Section 7: Why BharatUtility & Privacy Trust */}
             <TrustSection />
 
-            {/* 9. Section 7: Concise Indian User FAQ */}
+            {/* 10. Section 8: Concise Indian User FAQ */}
             <HomeFaqSection />
 
-            {/* 10. Section 8: Final Tool Discovery CTA */}
+            {/* 11. Section 9: Final Tool Discovery CTA */}
             <FinalDiscoveryCtaSection />
           </div>
         )}
@@ -152,6 +158,9 @@ const AppContent: React.FC = () => {
 
       {/* Global Footer */}
       <Footer />
+
+      {/* Global Mobile Bottom Navigation Dock */}
+      <MobileNavDock />
 
       {/* Global Command Palette & Toast Notifications */}
       <CommandPalette />

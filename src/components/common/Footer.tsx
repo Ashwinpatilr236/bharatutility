@@ -3,6 +3,7 @@ import { TOOLS_REGISTRY } from '../../data/toolsRegistry';
 import { ShieldCheck, ArrowUp } from 'lucide-react';
 import { Link } from './Link';
 import { LiveVisitorsBadge } from './LiveVisitorsBadge';
+import { SocialFollow } from './SocialFollow';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -32,8 +33,9 @@ export const Footer: React.FC = () => {
             </p>
 
             {/* Live Visitors Counter in Footer */}
-            <div className="pt-1">
+            <div className="pt-1 flex flex-wrap items-center gap-3">
               <LiveVisitorsBadge variant="footer" />
+              <SocialFollow variant="compact" />
             </div>
 
             <div className="flex items-center gap-2 text-xs text-neutral-400 dark:text-neutral-500 pt-1">

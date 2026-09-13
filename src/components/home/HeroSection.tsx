@@ -2,8 +2,9 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { useAdminStore } from '../../hooks/useAdminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
-import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch, removeRecentSearch, TRENDING_SEARCH_KEYWORDS } from '../../utils/smartSearch';
-import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass } from 'lucide-react';
+import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch, TRENDING_SEARCH_KEYWORDS } from '../../utils/smartSearch';
+import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck } from 'lucide-react';
+import { LiveCivicTicker } from './LiveCivicTicker';
 
 export const HeroSection: React.FC = () => {
   useAdminStore();
@@ -73,37 +74,17 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-8 pb-12 sm:pt-14 sm:pb-18 overflow-hidden">
-      {/* Background Floating Math & Currency Glyphs */}
-      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden select-none opacity-30 dark:opacity-20">
-        <span className="absolute top-10 left-[8%] text-4xl sm:text-6xl font-display font-black text-indigo-500/30 animate-pulse">
-          ₹
-        </span>
-        <span className="absolute top-20 right-[12%] text-3xl sm:text-5xl font-mono font-bold text-emerald-500/25">
-          %
-        </span>
-        <span className="absolute bottom-12 left-[15%] text-4xl sm:text-5xl font-mono text-amber-500/25">
-          =
-        </span>
-        <span className="absolute bottom-16 right-[18%] text-3xl sm:text-5xl font-mono text-rose-500/25">
-          ×
-        </span>
-        <span className="absolute top-1/2 left-[3%] text-2xl font-bold text-neutral-400/20">
-          ㎡
-        </span>
-        <span className="absolute top-1/3 right-[5%] text-2xl font-bold text-neutral-400/20">
-          yr
-        </span>
-
-        {/* Ambient Subtle Radial Glow */}
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl rounded-full" />
+    <section className="relative pt-6 pb-12 sm:pt-10 sm:pb-16 overflow-hidden">
+      {/* Live Civic Status Bar */}
+      <div className="mb-6 sm:mb-8">
+        <LiveCivicTicker />
       </div>
 
       <div className="max-w-5xl mx-auto px-4 text-center">
         {/* Top Mini Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent-subtle border border-accent/20 text-accent text-xs font-semibold mb-6 shadow-xs animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent-subtle border border-accent/20 text-accent text-xs font-semibold mb-5 shadow-2xs animate-in fade-in slide-in-from-bottom-2 duration-300">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>BharatUtility • 100% Free & No Sign-up</span>
+          <span>BharatUtility • India's Practical Utility Super-Site</span>
         </div>
 
         {/* Headline */}
@@ -112,8 +93,8 @@ export const HeroSection: React.FC = () => {
         </h1>
 
         {/* Subhead */}
-        <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-          Quick, simple and practical online utilities — from PIN codes and IFSC to documents, travel, vehicles and more.
+        <p className="text-sm sm:text-base lg:text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed">
+          Fast, privacy-focused calculators, official citizen lookups, document converters, and financial utilities — 100% free with zero signups.
         </p>
 
         {/* Large Clean Native Inline Search Box */}
@@ -130,7 +111,7 @@ export const HeroSection: React.FC = () => {
               ref={inputRef}
               id="hero-tool-search-input"
               type="text"
-              placeholder="Search for a tool (e.g. PIN code, IFSC, EMI, GST, Salary, Fuel)..."
+              placeholder="Search 220+ tools (e.g. PIN code, IFSC, EMI, GST, Fuel, Milk Fat, Used Car)..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
@@ -162,7 +143,7 @@ export const HeroSection: React.FC = () => {
 
           {/* Clean Elevated Real-time Dropdown */}
           {isFocused && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-neutral-900 rounded-2xl shadow-[0_25px_75px_rgba(0,0,0,0.6)] border-2 border-accent/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[580px] sm:max-h-[640px] overflow-y-auto space-y-2">
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border-2 border-accent/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[580px] sm:max-h-[640px] overflow-y-auto space-y-2">
               {/* Natural Language Intent suggestion card */}
               {naturalLanguageIntent && (
                 <div
@@ -176,7 +157,7 @@ export const HeroSection: React.FC = () => {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] font-bold text-accent uppercase tracking-wider">
-                          Smart Intent Suggestion
+                          Smart Intent Match
                         </span>
                         <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-accent/20 text-accent font-bold">
                           Prefilled
@@ -216,19 +197,9 @@ export const HeroSection: React.FC = () => {
                             <span className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
                               {tool.name}
                             </span>
-                            {tool.badge === 'New' && (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
-                                New
-                              </span>
-                            )}
-                            {tool.trending && (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold border border-rose-500/20">
-                                Trending
-                              </span>
-                            )}
-                            {tool.popular && (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20">
-                                Popular
+                            {tool.badge && (
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-accent/10 text-accent font-bold border border-accent/20">
+                                {tool.badge}
                               </span>
                             )}
                           </div>
@@ -253,7 +224,7 @@ export const HeroSection: React.FC = () => {
                     No matching utility found for "{searchQuery}"
                   </p>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto">
-                    Try searching EMI, GST, SIP, PIN code, or request a custom tool.
+                    Try searching EMI, GST, SIP, PIN code, or submit a request for a custom utility.
                   </p>
                   <div className="flex items-center justify-center gap-2 pt-1">
                     <button
@@ -261,14 +232,14 @@ export const HeroSection: React.FC = () => {
                       className="px-3.5 py-2 rounded-xl bg-accent text-white text-xs font-bold inline-flex items-center gap-1.5 hover:bg-accent/90 transition-all hover:scale-105 active:scale-95 shadow-xs"
                     >
                       <MessageSquarePlus className="w-3.5 h-3.5" />
-                      <span>Request a Tool</span>
+                      <span>Request this Tool</span>
                     </button>
                     <button
                       onMouseDown={navigateToAllTools}
                       className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold inline-flex items-center gap-1.5 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
                     >
                       <Compass className="w-3.5 h-3.5" />
-                      <span>Browse All Tools</span>
+                      <span>Browse All 220 Tools</span>
                     </button>
                   </div>
                 </div>
@@ -298,41 +269,33 @@ export const HeroSection: React.FC = () => {
           )}
         </div>
 
-        {/* Quick Search Shortcut Pills (100% Working) */}
+        {/* Quick Search Shortcut Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
           <span className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 mr-1 flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
             Trending:
           </span>
-          {TRENDING_SEARCH_KEYWORDS.slice(0, 6).map(keyword => (
+          {TRENDING_SEARCH_KEYWORDS.slice(0, 7).map(keyword => (
             <button
               key={keyword}
               onClick={() => handleTrendingClick(keyword)}
-              className="px-3 py-1.5 rounded-full text-xs font-medium bg-neutral-100 hover:bg-accent-subtle hover:text-accent hover:border-accent/40 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-xs"
+              className="px-3 py-1.5 rounded-full text-xs font-medium bg-neutral-100 hover:bg-accent-subtle hover:text-accent hover:border-accent/40 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-2xs"
             >
               {keyword}
             </button>
           ))}
         </div>
 
-        {/* 6 Instant Quick-Access Tool Cards (Discovery Hero Cards) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2 text-left">
+        {/* 8 Instant Quick-Access Bento Hero Cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 pt-2 text-left">
           {[
             {
-              slug: 'pin-code-finder',
-              name: 'PIN Code Finder',
-              tagline: '1.5L+ Post Offices',
-              icon: 'MapPin',
-              badge: 'Fast',
-              color: 'text-amber-500 bg-amber-500/10'
-            },
-            {
-              slug: 'ifsc-code-finder',
-              name: 'IFSC Code Finder',
-              tagline: 'Bank & Branch',
-              icon: 'Building2',
-              badge: 'Verified',
-              color: 'text-blue-500 bg-blue-500/10'
+              slug: 'emi-calculator',
+              name: 'Home Loan EMI',
+              tagline: 'Principal & Interest',
+              icon: 'Calculator',
+              badge: 'Loan',
+              color: 'text-indigo-500 bg-indigo-500/10'
             },
             {
               slug: 'gst-calculator',
@@ -343,54 +306,78 @@ export const HeroSection: React.FC = () => {
               color: 'text-emerald-500 bg-emerald-500/10'
             },
             {
-              slug: 'age-calculator',
-              name: 'Age Calculator',
-              tagline: 'Exact DOB & Years',
-              icon: 'Calendar',
-              badge: 'Instant',
+              slug: 'pin-code-finder',
+              name: 'PIN Code Finder',
+              tagline: '1.5L+ Post Offices',
+              icon: 'MapPin',
+              badge: 'India',
+              color: 'text-amber-500 bg-amber-500/10'
+            },
+            {
+              slug: 'dairy-milk-fat-snf-rate-calculator',
+              name: 'Milk Fat & SNF',
+              tagline: 'Cow & Buffalo Rate',
+              icon: 'Sparkles',
+              badge: 'Dairy',
+              color: 'text-sky-500 bg-sky-500/10'
+            },
+            {
+              slug: 'used-car-bike-resale-valuation-calculator',
+              name: 'Used Vehicle Value',
+              tagline: 'Year & Odometer Depr.',
+              icon: 'Car',
+              badge: 'Resale',
+              color: 'text-rose-500 bg-rose-500/10'
+            },
+            {
+              slug: 'generic-medicine-jan-aushadhi-saver',
+              name: 'Generic Medicine',
+              tagline: 'Save 50-90% on Bills',
+              icon: 'Sparkles',
+              badge: 'Health',
+              color: 'text-teal-500 bg-teal-500/10'
+            },
+            {
+              slug: 'pdf-merge-split-compress-tool',
+              name: 'PDF Tools Hub',
+              tagline: 'Merge, Split, Sign',
+              icon: 'FileText',
+              badge: 'Private',
               color: 'text-purple-500 bg-purple-500/10'
             },
             {
-              slug: 'emi-calculator',
-              name: 'EMI Calculator',
-              tagline: 'Home & Personal',
-              icon: 'Calculator',
-              badge: 'Popular',
-              color: 'text-indigo-500 bg-indigo-500/10'
-            },
-            {
-              slug: 'vehicle-fuel-cost-calculator',
-              name: 'Vehicle Fuel Cost',
-              tagline: 'Trip & Commute',
-              icon: 'Fuel',
-              badge: 'Savings',
-              color: 'text-rose-500 bg-rose-500/10'
+              slug: 'age-calculator',
+              name: 'Age Calculator',
+              tagline: 'Exact DOB & Sarkari',
+              icon: 'Calendar',
+              badge: 'Instant',
+              color: 'text-blue-500 bg-blue-500/10'
             }
           ].map(tool => (
             <button
               key={tool.slug}
               onClick={() => navigateToTool(tool.slug)}
-              className="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-lg hover:shadow-neutral-900/5 dark:hover:shadow-black/30 transition-all group flex flex-col justify-between cursor-pointer"
+              className="p-3 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-md transition-all group flex flex-col justify-between cursor-pointer"
             >
               <div>
-                <div className="flex items-center justify-between mb-2.5">
-                  <div className={`p-2 rounded-xl ${tool.color} group-hover:scale-105 transition-transform`}>
-                    <DynamicIcon name={tool.icon} className="w-4 h-4" />
+                <div className="flex items-center justify-between mb-2">
+                  <div className={`p-1.5 rounded-xl ${tool.color} group-hover:scale-105 transition-transform`}>
+                    <DynamicIcon name={tool.icon} className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
                     {tool.badge}
                   </span>
                 </div>
-                <h3 className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors leading-snug line-clamp-2">
+                <h3 className="text-xs font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors leading-tight line-clamp-1">
                   {tool.name}
                 </h3>
-                <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-1 truncate">
+                <p className="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5 line-clamp-1">
                   {tool.tagline}
                 </p>
               </div>
-              <div className="mt-3 pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-[11px] font-semibold text-accent">
+              <div className="mt-2.5 pt-1.5 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-[10px] font-semibold text-accent">
                 <span>Use Tool</span>
-                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-2.5 h-2.5 group-hover:translate-x-0.5 transition-transform" />
               </div>
             </button>
           ))}
