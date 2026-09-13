@@ -1088,7 +1088,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                 onClick={navigateToAllTools}
                 className="px-3 py-1.5 rounded-xl bg-accent text-white font-bold hover:bg-accent/90 inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
               >
-                <span>Browse All 100+ Tools</span>
+                <span>Browse All 220+ Tools</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>

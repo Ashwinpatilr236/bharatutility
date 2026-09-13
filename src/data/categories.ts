@@ -9,7 +9,7 @@ export const CATEGORIES: Category[] = [
     icon: 'IndianRupee',
     color: 'emerald',
     badge: 'Popular',
-    toolCount: 35,
+    toolCount: 41,
   },
   {
     id: 'daily-life',
@@ -18,7 +18,7 @@ export const CATEGORIES: Category[] = [
     description: 'Dairy milk Fat & SNF payout, Baby vaccination UIP schedule, Branded vs Jan Aushadhi generic comparison, Indian diet macro & Asian-BMI.',
     icon: 'Sparkles',
     color: 'indigo',
-    toolCount: 20,
+    toolCount: 25,
   },
   {
     id: 'home',
@@ -28,7 +28,7 @@ export const CATEGORIES: Category[] = [
     icon: 'Home',
     color: 'amber',
     badge: 'Essential',
-    toolCount: 15,
+    toolCount: 17,
   },
   {
     id: 'education',
@@ -37,7 +37,7 @@ export const CATEGORIES: Category[] = [
     description: 'UGC & NAAC University verifier, Sarkari exam age eligibility analyzer, board marks percentage, CGPA to percentage, and attendance planner.',
     icon: 'GraduationCap',
     color: 'purple',
-    toolCount: 5,
+    toolCount: 7,
   },
   {
     id: 'travel',
@@ -56,7 +56,7 @@ export const CATEGORIES: Category[] = [
     icon: 'Briefcase',
     color: 'blue',
     badge: 'Business',
-    toolCount: 11,
+    toolCount: 16,
   },
   {
     id: 'technology',
@@ -65,7 +65,7 @@ export const CATEGORIES: Category[] = [
     description: 'Mobile screen & touch hardware tester, Live ISS space tracker, ISRO satellites directory, 1930 Cyber Fraud guide, Password breach checker, and Decibel meter.',
     icon: 'Laptop',
     color: 'teal',
-    toolCount: 19,
+    toolCount: 23,
   },
   {
     id: 'documents',
@@ -75,7 +75,7 @@ export const CATEGORIES: Category[] = [
     icon: 'FileText',
     color: 'cyan',
     badge: 'Formats',
-    toolCount: 8,
+    toolCount: 13,
   },
   {
     id: 'date-time',
@@ -94,7 +94,7 @@ export const CATEGORIES: Category[] = [
     icon: 'Landmark',
     color: 'orange',
     badge: 'Govt & Citizen 🇮🇳',
-    toolCount: 12,
+    toolCount: 24,
   },
   {
     id: 'document-tools',
@@ -114,7 +114,7 @@ export const CATEGORIES: Category[] = [
     icon: 'Car',
     color: 'emerald',
     badge: 'Vehicle 🚗',
-    toolCount: 11,
+    toolCount: 16,
   },
   {
     id: 'travel-utility',
@@ -124,7 +124,7 @@ export const CATEGORIES: Category[] = [
     icon: 'Compass',
     color: 'purple',
     badge: 'Travel Hub 🧳',
-    toolCount: 9,
+    toolCount: 13,
   },
 ];
 

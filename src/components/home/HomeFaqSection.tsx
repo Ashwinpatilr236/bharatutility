@@ -9,7 +9,7 @@ interface FaqItem {
 const HOME_FAQS: FaqItem[] = [
   {
     question: 'What is BharatUtility and what tools are available?',
-    answer: 'BharatUtility is a free, all-in-one Indian online utility platform. It features 100+ calculators and utilities covering personal finance (EMI, SIP, GST, Salary, SSY), citizen lookups (PIN Code, IFSC, MICR, RTO), document processing (PDF merge, signature resizing, JPG to PDF), vehicle trip calculators, unit converters, and educational grade conversions.'
+    answer: 'BharatUtility is a free, all-in-one Indian online utility platform. It features 220+ calculators and utilities covering personal finance (EMI, SIP, GST, Salary, SSY), citizen lookups (PIN Code, IFSC, MICR, RTO), document processing (PDF merge, signature resizing, JPG to PDF), vehicle trip calculators, unit converters, and educational grade conversions.'
   },
   {
     question: 'Are all BharatUtility tools completely free to use?',

@@ -25,7 +25,7 @@ export const FinalDiscoveryCtaSection: React.FC = () => {
         <div className="relative max-w-2xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-indigo-300 text-xs font-semibold backdrop-blur-xs">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>100+ Free Online Calculators & Converters</span>
+            <span>220+ Free Online Calculators & Converters</span>
           </div>
 
           <h2 className="text-2xl sm:text-4xl font-extrabold font-display tracking-tight text-white">
@@ -43,7 +43,7 @@ export const FinalDiscoveryCtaSection: React.FC = () => {
               className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white text-neutral-900 hover:bg-neutral-100 font-bold text-xs sm:text-sm inline-flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               <Search className="w-4 h-4 text-accent" />
-              <span>Search All 100+ Tools</span>
+              <span>Search All 220+ Tools</span>
               <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] bg-neutral-200 text-neutral-700 rounded font-mono font-bold">
                 Ctrl+K
               </kbd>
