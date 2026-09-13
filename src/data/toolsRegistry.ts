@@ -10310,6 +10310,1582 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: ['jan-aushadhi-generic-saver', 'ayushman-bharat-eligibility-checker', 'food-adulteration-test-kit']
+  },
+  // --- BATCH 3: TRAVEL, WEDDING & CITIZEN LIFE ---
+  {
+    id: 'irctc-pnr-quotas-confirmation-decoder',
+    slug: 'irctc-pnr-quotas-confirmation-decoder',
+    name: 'IRCTC PNR Quotas & Waiting Confirmation Decoder',
+    shortName: 'PNB Quota Decoder',
+    tagline: 'Understand GNWL, RLWL, PQWL, TQWL confirmation chances and chart rules',
+    description: 'Decode Indian Railways waiting list types (GNWL, RLWL, PQWL, TQWL), RAC boarding rules, and senior citizen lower berth quotas.',
+    category: 'travel-utility',
+    icon: 'Train',
+    popular: true,
+    trending: true,
+    badge: 'Popular',
+    keywords: ['IRCTC PNR status', 'GNWL confirmation', 'RLWL meaning', 'TQWL chart rules'],
+    seo: {
+      title: 'IRCTC PNR Quotas & Waiting Confirmation Decoder | BharatUtility',
+      description: 'Check IRCTC waiting list confirmation chances for GNWL, RLWL, PQWL, and RAC rules.',
+      keywords: ['IRCTC PNR', 'GNWL confirmation', 'RAC train rules'],
+      canonicalSlug: 'irctc-pnr-quotas-confirmation-decoder',
+      h1: 'IRCTC PNR Quotas & Waiting Confirmation Decoder'
+    },
+    formulaDescription: 'Waiting list confirmation priority: GNWL > RAC > RLWL > RSWL > PQWL > TQWL.',
+    workedExample: {
+      inputSummary: 'Ticket: 3A GNWL 12, Journey in 10 days',
+      calculationSteps: [
+        'GNWL pulls from master originating-to-destination quota pool',
+        'Average 3A cancellation rate: 15-20% before chart prep',
+        'Estimated confirmation chance: 85-95%'
+      ],
+      finalResult: 'High Probability of Confirmation to Confirmed / RAC berth'
+    },
+    faqs: [{ question: 'Can RAC passengers board the train?', answer: 'Yes, RAC passengers have guaranteed boarding rights with a dedicated side lower seat.' }],
+    relatedToolSlugs: ['train-berth-tatkal-finder', 'irctc-tatkal-timing-station-finder', 'irctc-luggage-weight-excess-baggage-rates']
+  },
+  {
+    id: 'indian-wedding-shaadi-budget-planner',
+    slug: 'indian-wedding-shaadi-budget-planner',
+    name: 'Indian Wedding & Shaadi 7-Category Budget Planner',
+    shortName: 'Shaadi Budget',
+    tagline: 'Plan catering, venue, jewellery, wardrobe & photography budget realistically',
+    description: 'Distribute your total marriage budget across 7 essential categories with guest plate cost sizing and emergency contingency buffer.',
+    category: 'daily-life',
+    icon: 'Heart',
+    popular: true,
+    badge: 'New',
+    keywords: ['wedding budget calculator India', 'shaadi budget planner', 'marriage catering cost'],
+    seo: {
+      title: 'Indian Wedding Budget Planner - 7-Category Shaadi Calculator | BharatUtility',
+      description: 'Realistic Indian wedding budget distribution across food, venue, gold jewellery, and photography.',
+      keywords: ['wedding budget India', 'shaadi cost planner'],
+      canonicalSlug: 'indian-wedding-shaadi-budget-planner',
+      h1: 'Indian Wedding & Shaadi 7-Category Budget Planner'
+    },
+    formulaDescription: 'Catering (30%) + Venue (20%) + Gold/Jewellery (20%) + Wardrobe (10%) + Photo (8%) + Decor (7%) + Buffer (5%).',
+    workedExample: {
+      inputSummary: 'Budget: ₹15,00,000 for 400 guests across 2 days',
+      calculationSteps: [
+        'Catering (30%): ₹4,50,000 (~₹1,125/plate)',
+        'Venue & Lawn (20%): ₹3,00,000',
+        'Jewellery & Gifts (20%): ₹3,00,000',
+        'Wardrobe & Makeup (10%): ₹1,50,000',
+        'Photo & Video (8%): ₹1,20,000',
+        'Decor & DJ (7%): ₹1,05,000',
+        'Buffer (5%): ₹75,000'
+      ],
+      finalResult: 'Total Planned: ₹15,00,000 with zero debt overspending'
+    },
+    faqs: [{ question: 'What is the biggest expense in an Indian wedding?', answer: 'Catering and food generally account for 30% to 35% of the total wedding expenditure.' }],
+    relatedToolSlugs: ['jewellery-gold-making-charge-calculator', 'gold-silver-rate-calculator', 'rbi-sovereign-gold-bond-sgb-calculator']
+  },
+  {
+    id: 'kisan-credit-card-4percent-calculator',
+    slug: 'kisan-credit-card-4percent-calculator',
+    name: 'Kisan Credit Card (KCC) 4% Subvention Interest Calculator',
+    shortName: 'KCC 4% Loan',
+    tagline: 'Calculate 3% prompt repayment incentive & net interest on crop loans',
+    description: 'Calculate interest on crop loans up to ₹3 Lakhs under the Central Government Interest Subvention Scheme (ISS) with 4% effective interest rate.',
+    category: 'india-services',
+    icon: 'Tractor',
+    badge: 'Govt Subsidy',
+    keywords: ['KCC loan interest calculator', 'Kisan credit card 4 percent', 'crop loan subsidy ISS'],
+    seo: {
+      title: 'Kisan Credit Card (KCC) 4% Interest Calculator | BharatUtility',
+      description: 'Calculate KCC crop loan repayment and 3% prompt repayment incentive subsidy.',
+      keywords: ['KCC 4 percent', 'crop loan interest', 'Kisan Credit Card'],
+      canonicalSlug: 'kisan-credit-card-4percent-calculator',
+      h1: 'Kisan Credit Card (KCC) 4% Subvention Interest Calculator'
+    },
+    formulaDescription: 'Normal 9% - 2% Central Subvention - 3% Prompt Repayment Incentive = 4% Effective Annual Interest.',
+    workedExample: {
+      inputSummary: 'Loan: ₹2,00,000 for 1 Year with prompt repayment',
+      calculationSteps: [
+        'Gross Bank Interest (7%): ₹14,000',
+        'Prompt Repayment Subsidy (3%): -₹6,000',
+        'Net Interest Payable: ₹8,000 (4% per annum)'
+      ],
+      finalResult: 'Total 1-Year Repayment: ₹2,08,000 (Saved ₹10,000 in Govt Subsidies)'
+    },
+    faqs: [{ question: 'What is the maximum KCC loan eligible for 4% interest?', answer: 'Crop loans up to ₹3,00,000 are eligible for the 3% Prompt Repayment Incentive.' }],
+    relatedToolSlugs: ['pm-kisan-eligibility-checker', 'pm-fasal-bima-crop-insurance-calculator', 'apmc-mandi-msp-procurement-calculator']
+  },
+  {
+    id: 'central-gazette-name-change-guide',
+    slug: 'central-gazette-name-change-guide',
+    name: 'Central Gazette Notification & Name Change Step-by-Step Guide',
+    shortName: 'Gazette Name Change',
+    tagline: 'Complete legal dossier, affidavit, newspaper ad & BharatKosh fee checklist',
+    description: 'Step-by-step guide to legally change your name in India via the Central Gazette of India (egazette.gov.in) with affidavit and newspaper proforma.',
+    category: 'documents',
+    icon: 'FileCheck',
+    badge: 'Legal Guide',
+    keywords: ['Gazette notification name change', 'egazette application process', 'name change affidavit'],
+    seo: {
+      title: 'Central Gazette Name Change Guide - Step-by-Step Process | BharatUtility',
+      description: 'How to publish name change in Central Gazette of India with affidavit format and newspaper ads.',
+      keywords: ['Gazette name change', 'egazette publication', 'name change legal process'],
+      canonicalSlug: 'central-gazette-name-change-guide',
+      h1: 'Central Gazette Notification & Name Change Step-by-Step Guide'
+    },
+    formulaDescription: '3 Legal Steps: 1. Notarized Affidavit -> 2. Two Newspaper Ads -> 3. egazette.gov.in Dossier Submission.',
+    workedExample: {
+      inputSummary: 'Name Change post marriage / spelling error',
+      calculationSteps: [
+        'Affidavit execution on ₹100 stamp paper before Notary',
+        'Publication in 1 National English + 1 Regional Daily',
+        'Payment of ₹1,100 - ₹1,400 via BharatKosh.gov.in'
+      ],
+      finalResult: 'Publication in Gazette Part IV within 15-30 working days'
+    },
+    faqs: [{ question: 'Is Gazette notification mandatory for passport name change?', answer: 'For major name changes, Gazette publication is the most authoritative proof accepted across Passports, Banks, and PAN.' }],
+    relatedToolSlugs: ['non-judicial-stamp-paper-guide', 'tatkaal-passport-checklist-and-timeline', 'rent-agreement-stamp-duty']
+  },
+  {
+    id: 'cbse-icse-best-of-five-percentage-calculator',
+    slug: 'cbse-icse-best-of-five-percentage-calculator',
+    name: 'CBSE / ICSE Board Marks to Percentage & Best-of-5 Calculator',
+    shortName: 'Best of 5 Calculator',
+    tagline: 'Calculate 10th & 12th college admission percentage with 6th skill subject replacement',
+    description: 'Calculate official CBSE/ICSE Board Best-of-5 percentage with automatic 6th skill/additional subject substitution rules.',
+    category: 'education',
+    icon: 'GraduationCap',
+    popular: true,
+    badge: 'Trending',
+    keywords: ['CBSE best of 5 calculator', '10th percentage calculator', 'ICSE best 5 calculation'],
+    seo: {
+      title: 'CBSE / ICSE Best of 5 Percentage Calculator | BharatUtility',
+      description: 'Calculate CBSE 10th & 12th Best of 5 percentage with skill subject replacement for college admissions.',
+      keywords: ['best of 5 calculator', 'CBSE percentage calculator', '10th board marks'],
+      canonicalSlug: 'cbse-icse-best-of-five-percentage-calculator',
+      h1: 'CBSE / ICSE Board Marks to Percentage & Best-of-5 Calculator'
+    },
+    formulaDescription: 'Best of 5 = (Language 1 + Top 4 Highest Scoring Subjects) / 500 * 100.',
+    workedExample: {
+      inputSummary: 'Marks: Eng 88, Hindi 82, Maths 74, Science 79, SST 85, IT/Skill 92',
+      calculationSteps: [
+        'Mandatory Language 1: English (88)',
+        'Top 4 from remaining: IT (92), SST (85), Hindi (82), Science (79) [Maths 74 dropped]',
+        'Best of 5 Total: 88 + 92 + 85 + 82 + 79 = 426 / 500'
+      ],
+      finalResult: 'Best of 5 Percentage: 85.20% (Aggregate all 6: 83.33%)'
+    },
+    faqs: [{ question: 'Does CBSE officially provide percentage on marksheets?', answer: 'No, CBSE only awards grades and marks. Universities compute Best of 5 using their respective admission criteria.' }],
+    relatedToolSlugs: ['sarkari-exam-age-calculator', 'college-75-percent-attendance-bunk-planner', 'ugc-university-recognition-verifier']
+  },
+  {
+    id: 'commercial-rent-escalation-calculator',
+    slug: 'commercial-rent-escalation-calculator',
+    name: 'Commercial Shop / Office Rent Escalation Calculator',
+    shortName: 'Rent Escalation',
+    tagline: 'Calculate 5%, 10% or 15% 3-year compound rent jumps & Section 194-I TDS',
+    description: 'Generate multi-year rent cashflow schedules for commercial shops, warehouses, and corporate offices with escalation percentage clauses.',
+    category: 'business',
+    icon: 'Building2',
+    keywords: ['commercial rent escalation', 'lease rental increase', 'office rent 15 percent 3 years'],
+    seo: {
+      title: 'Commercial Rent Escalation Calculator - 3/5/9 Year Lease | BharatUtility',
+      description: 'Calculate multi-year commercial rent escalation schedules with compounding rates and TDS 194-I.',
+      keywords: ['rent escalation calculator', 'commercial lease increase'],
+      canonicalSlug: 'commercial-rent-escalation-calculator',
+      h1: 'Commercial Shop / Office Rent Escalation Calculator'
+    },
+    formulaDescription: 'Yearly Rent = Base Rent * (1 + Escalation % / 100)^(Year - 1).',
+    workedExample: {
+      inputSummary: 'Starting Rent: ₹45,000/mo, 5% annual escalation, 5-year lease',
+      calculationSteps: [
+        'Year 1: ₹45,000/mo (₹5,40,000/yr)',
+        'Year 2: ₹47,250/mo (₹5,67,000/yr)',
+        'Year 3: ₹49,613/mo (₹5,95,350/yr)',
+        'Year 4: ₹52,093/mo (₹6,25,118/yr)',
+        'Year 5: ₹54,698/mo (₹6,56,373/yr)'
+      ],
+      finalResult: 'Total 5-Year Rent Payout: ₹29,83,841 | Tenant 10% TDS under 194-I applies'
+    },
+    faqs: [{ question: 'What is the standard commercial rent escalation rate in India?', answer: 'Standard commercial escalation is typically 5% annually or 15% every 3 years.' }],
+    relatedToolSlugs: ['tds-on-rent-194ib-calculator', 'housing-society-maintenance-sinking-fund-calculator', 'rent-agreement-stamp-duty']
+  },
+  {
+    id: 'ayurvedic-prakriti-dosha-analyzer',
+    slug: 'ayurvedic-prakriti-dosha-analyzer',
+    name: 'Ayurvedic Prakriti (Vata, Pitta, Kapha) Body Dosha Analyzer',
+    shortName: 'Prakriti Dosha',
+    tagline: 'Charaka Samhita questionnaire to discover your dominant physical & digestive constitution',
+    description: 'Determine your unique Vata-Pitta-Kapha Ayurvedic constitution (Prakriti) with personalized dietary and lifestyle recommendations.',
+    category: 'daily-life',
+    icon: 'Leaf',
+    badge: 'Ayurveda',
+    keywords: ['Ayurvedic prakriti test', 'Vata Pitta Kapha quiz', 'dosha analyzer online'],
+    seo: {
+      title: 'Ayurvedic Prakriti (Vata Pitta Kapha) Dosha Analyzer | BharatUtility',
+      description: 'Discover your dominant Ayurvedic body type (Vata, Pitta, Kapha) and balancing food guidelines.',
+      keywords: ['Ayurveda dosha test', 'prakriti analyzer', 'Vata Pitta Kapha'],
+      canonicalSlug: 'ayurvedic-prakriti-dosha-analyzer',
+      h1: 'Ayurvedic Prakriti (Vata, Pitta, Kapha) Body Dosha Analyzer'
+    },
+    formulaDescription: 'Tridosha analysis based on Charaka Samhita Sharira Sthana diagnostics.',
+    workedExample: {
+      inputSummary: 'Frame: Medium (Pitta) | Skin: Warm/Moles (Pitta) | Digestion: Fast (Pitta)',
+      calculationSteps: [
+        'Vata: 20% | Pitta: 65% | Kapha: 15%',
+        'Dominant Constitution: Pitta-Pradhan Prakriti'
+      ],
+      finalResult: 'Pitta Dominant: Focus on cooling foods (Ghee, coconut water, fennel) and avoid excessive spices'
+    },
+    faqs: [{ question: 'Does Ayurvedic Prakriti change over time?', answer: 'Prakriti is fixed at birth, while Vikriti represents temporary imbalances caused by diet and stress.' }],
+    relatedToolSlugs: ['indian-diet-macro-bmi-planner', 'indian-blood-pressure-dash-diet-analyzer', 'food-adulteration-test-kit']
+  },
+  {
+    id: 'rainwater-harvesting-tank-sizing-calculator',
+    slug: 'rainwater-harvesting-tank-sizing-calculator',
+    name: 'Rooftop Rainwater Harvesting & Tank Sizing Calculator (CGWB Rules)',
+    shortName: 'Rainwater Sizing',
+    tagline: 'Calculate annual harvestable rainwater & underground sump capacity',
+    description: 'Estimate annual rainwater harvesting potential from your terrace and size storage tanks under Central Ground Water Board (CGWB) norms.',
+    category: 'home',
+    icon: 'Droplets',
+    badge: 'Eco Utility',
+    keywords: ['rainwater harvesting calculator', 'rooftop tank sizing CGWB', 'harvestable rainwater India'],
+    seo: {
+      title: 'Rainwater Harvesting & Tank Sizing Calculator (CGWB) | BharatUtility',
+      description: 'Calculate rooftop rainwater yield in litres and underground storage sump capacity.',
+      keywords: ['rainwater harvesting calculator', 'sump tank size', 'CGWB rainwater'],
+      canonicalSlug: 'rainwater-harvesting-tank-sizing-calculator',
+      h1: 'Rooftop Rainwater Harvesting & Tank Sizing Calculator (CGWB Rules)'
+    },
+    formulaDescription: 'Harvestable Water (Litres) = Area (sq m) * Rainfall (mm) * Runoff Coefficient (0.80 - 0.90).',
+    workedExample: {
+      inputSummary: 'Terrace: 1,200 sq ft (~111.5 sq m), Rainfall: 950 mm, Concrete Roof (0.80)',
+      calculationSteps: [
+        'Total Harvest: 111.5 * 950 * 0.80 = 84,740 Litres / year',
+        'Recommended Storage Sump (20%): ~16,948 Litres'
+      ],
+      finalResult: 'Annual Yield: 84,740 Litres (~85 Water Tankers Saved)'
+    },
+    faqs: [{ question: 'Is rainwater harvesting mandatory in Indian cities?', answer: 'Yes, most municipal corporations mandate RWH for plot sizes above 100 to 300 sq metres.' }],
+    relatedToolSlugs: ['pm-surya-ghar-solar-calculator', 'housing-society-maintenance-sinking-fund-calculator', 'home-inverter-battery-backup-calculator']
+  },
+  {
+    id: 'mobile-sar-radiation-checker',
+    slug: 'mobile-sar-radiation-checker',
+    name: 'Mobile SAR Radiation Limit (*#07#) & Safe Distance Checker',
+    shortName: 'SAR Radiation Check',
+    tagline: 'Check DoT India 1.6 W/kg Specific Absorption Rate limits & safety habits',
+    description: 'Verify if your smartphone conforms to Department of Telecommunications (DoT) 1.6 W/kg SAR limits and learn radiation reduction protocols.',
+    category: 'technology',
+    icon: 'Radio',
+    badge: 'DoT Guide',
+    keywords: ['mobile SAR radiation limit', '*#07# code meaning', 'smartphone radiation India'],
+    seo: {
+      title: 'Mobile SAR Radiation Limit (*#07#) Checker | BharatUtility',
+      description: 'Check smartphone SAR radiation safety against Indian DoT 1.6 W/kg standard and safe distance tips.',
+      keywords: ['SAR radiation checker', 'mobile SAR value', 'phone radiation *#07#'],
+      canonicalSlug: 'mobile-sar-radiation-checker',
+      h1: 'Mobile SAR Radiation Limit (*#07#) & Safe Distance Checker'
+    },
+    formulaDescription: 'DoT India standard: Maximum 1.6 W/kg averaged over 1 gram of human body tissue.',
+    workedExample: {
+      inputSummary: 'Device Head SAR: 0.85 W/kg',
+      calculationSteps: [
+        'DoT Limit: 1.60 W/kg',
+        'Safety Margin: 53.1% of maximum legal threshold'
+      ],
+      finalResult: 'Safe & Compliant: Well below national ceiling limit'
+    },
+    faqs: [{ question: 'How do I check my phone SAR value?', answer: 'Open phone dialer and press *#07# to view official Head and Body SAR values.' }],
+    relatedToolSlugs: ['mobile-screen-hardware-tester', 'live-room-noise-decibel-meter', 'mobile-imei-luhn-validator-ceir-guide']
+  },
+  {
+    id: 'bank-locker-rent-and-liability-guide',
+    slug: 'bank-locker-rent-and-liability-guide',
+    name: 'Indian Bank Locker Rent & RBI 100x Liability Compensation Guide',
+    shortName: 'Bank Locker 100x',
+    tagline: 'Compare SBI, HDFC, ICICI locker rents & RBI fire/theft 100x compensation rules',
+    description: 'Compare annual locker charges across major Indian banks and understand mandatory 100x annual rent compensation under RBI Revised Locker Directions.',
+    category: 'money',
+    icon: 'Lock',
+    popular: true,
+    badge: 'RBI Rules',
+    keywords: ['bank locker charges India', 'RBI 100x locker compensation', 'SBI locker rent'],
+    seo: {
+      title: 'Bank Locker Charges & RBI 100x Liability Guide | BharatUtility',
+      description: 'Compare SBI, HDFC bank locker charges and understand RBI 100x rent compensation for theft or fire.',
+      keywords: ['bank locker rent', 'RBI locker rules', 'SBI locker charges'],
+      canonicalSlug: 'bank-locker-rent-and-liability-guide',
+      h1: 'Indian Bank Locker Rent & RBI 100x Liability Compensation Guide'
+    },
+    formulaDescription: 'RBI Mandatory Bank Compensation = Annual Locker Rent * 100.',
+    workedExample: {
+      inputSummary: 'SBI Medium Locker in Metro Branch (Rent: ₹4,000/yr)',
+      calculationSteps: [
+        'Annual Rent (+18% GST): ₹4,000 + ₹720 = ₹4,720/yr',
+        'RBI Statutory Liability (100x): ₹4,000 * 100 = ₹4,00,000'
+      ],
+      finalResult: 'Minimum Bank Compensation in case of fire/theft/building collapse: ₹4,00,000'
+    },
+    faqs: [{ question: 'Does the bank know what is stored in my locker?', answer: 'No, banks do not maintain an inventory of locker contents, which is why RBI mandates 100x rent compensation.' }],
+    relatedToolSlugs: ['jewellery-gold-making-charge-calculator', 'gold-silver-rate-calculator', 'rbi-sovereign-gold-bond-sgb-calculator']
+  },
+
+  // --- BATCH 4: DIGITAL FINANCE & MOBILITY ---
+  {
+    id: 'upi-daily-limits-and-cooloff-tracker',
+    slug: 'upi-daily-limits-and-cooloff-tracker',
+    name: 'UPI Daily Transaction Limits, Bank Cool-Off & ₹5L Hospital Rules',
+    shortName: 'UPI Daily Limits',
+    tagline: 'Check NPCI limits, bank daily caps & 24-hr ₹5,000 device reset cool-off',
+    description: 'Check bank-specific daily UPI transfer limits (SBI, HDFC, ICICI, Axis), ₹5 Lakh higher limits for hospitals/colleges, and 24-hour SIM swap safety limits.',
+    category: 'india-services',
+    icon: 'CreditCard',
+    popular: true,
+    trending: true,
+    badge: 'NPCI Rules',
+    keywords: ['UPI daily transaction limit', 'SBI UPI limit per day', 'UPI cool off limit 5000'],
+    seo: {
+      title: 'UPI Daily Transaction Limits & 24-Hour Cool-Off Tracker | BharatUtility',
+      description: 'Check bank-wise daily UPI limits and ₹5 Lakh rules for hospitals and IPO investments.',
+      keywords: ['UPI limits', 'UPI daily limit', 'NPCI UPI 5 lakh'],
+      canonicalSlug: 'upi-daily-limits-and-cooloff-tracker',
+      h1: 'UPI Daily Transaction Limits, Bank Cool-Off & ₹5L Hospital Rules'
+    },
+    formulaDescription: 'NPCI Standard: ₹1 Lakh/day (P2P) | ₹5 Lakhs/day (Hospitals/Institutes) | ₹5,000 for 24h SIM reset.',
+    workedExample: {
+      inputSummary: 'SBI Bank Account, Recent SIM card upgrade, Hospital payment',
+      calculationSteps: [
+        'Recent SIM reset triggers 24-hr safety cool-off: Max ₹5,000',
+        'Post 24 hours: Regular ₹1 Lakh (P2P) and ₹5 Lakhs (Verified Hospital)'
+      ],
+      finalResult: 'Immediate Cap: ₹5,000 (Safety Cool-Off) | Next Day: ₹5,00,000'
+    },
+    faqs: [{ question: 'Why is my UPI transaction failing with "limit exceeded"?', answer: 'You may have crossed your bank daily limit (₹1L or 10-20 transactions) or recently reset your SIM card.' }],
+    relatedToolSlugs: ['bhim-upi-offline-star99hash-guide', 'cybercrime-1930-fraud-emergency-guide', 'maadhaar-biometric-lock-unlock-fraud-protection']
+  },
+  {
+    id: 'sukanya-samriddhi-vs-ppf-comparator',
+    slug: 'sukanya-samriddhi-vs-ppf-comparator',
+    name: 'Sukanya Samriddhi Yojana (SSY 8.2%) vs PPF (7.1%) Wealth Comparator',
+    shortName: 'SSY vs PPF',
+    tagline: 'Compare sovereign compound growth & ₹70L+ tax-free corpus for girl child',
+    description: 'Compare maturity wealth between Sukanya Samriddhi Yojana (8.2% sovereign return) and Public Provident Fund (7.1%) with 100% tax-free EEE status.',
+    category: 'money',
+    icon: 'Sparkles',
+    popular: true,
+    badge: 'High Return',
+    keywords: ['SSY vs PPF comparison', 'Sukanya Samriddhi calculator', 'girl child wealth scheme'],
+    seo: {
+      title: 'Sukanya Samriddhi (SSY 8.2%) vs PPF (7.1%) Calculator | BharatUtility',
+      description: 'Compare 21-year tax-free wealth in Sukanya Samriddhi Yojana vs Public Provident Fund.',
+      keywords: ['SSY vs PPF', 'Sukanya Samriddhi calculator', 'PPF calculator'],
+      canonicalSlug: 'sukanya-samriddhi-vs-ppf-comparator',
+      h1: 'Sukanya Samriddhi Yojana (SSY 8.2%) vs PPF (7.1%) Wealth Comparator'
+    },
+    formulaDescription: 'SSY Compounding (8.2% sovereign p.a.) vs PPF Compounding (7.1% sovereign p.a.).',
+    workedExample: {
+      inputSummary: '₹1,50,000/year invested for 15 years for a 3-year-old girl child',
+      calculationSteps: [
+        'Total Invested: ₹22,50,000',
+        'PPF Maturity at 15 Yrs (7.1%): ~₹40.68 Lakhs',
+        'SSY Maturity at 21 Yrs (8.2%): ~₹71.82 Lakhs'
+      ],
+      finalResult: 'SSY Advantage: +₹31.14 Lakhs extra tax-free wealth at age 21'
+    },
+    faqs: [{ question: 'Can an SSY account be opened for an 11-year-old girl?', answer: 'No, SSY accounts can only be opened before the girl child turns 10 years old.' }],
+    relatedToolSlugs: ['sukanya-samriddhi-yojana-calculator', 'post-office-schemes-pomis-kvp-nsc-calculator', 'baby-vaccination-schedule-calculator']
+  },
+  {
+    id: 'tds-on-rent-194ib-calculator',
+    slug: 'tds-on-rent-194ib-calculator',
+    name: 'TDS on Rent (Section 194-IB) & Form 26QC Tenant Calculator',
+    shortName: 'Rent 194-IB TDS',
+    tagline: 'Deduct 5% TDS on rent > ₹50,000/month without TAN & generate Form 16C',
+    description: 'Calculate mandatory 5% TDS deduction for individual tenants paying house rent exceeding ₹50,000/month and file Form 26QC easily.',
+    category: 'business',
+    icon: 'Home',
+    badge: 'Tax Law',
+    keywords: ['TDS on rent section 194-IB', 'Form 26QC challan', 'rent above 50000 TDS'],
+    seo: {
+      title: 'TDS on Rent Section 194-IB & Form 26QC Calculator | BharatUtility',
+      description: 'Calculate 5% TDS on monthly house rent above ₹50,000 and avoid Section 271H penalty.',
+      keywords: ['TDS on rent', '194-IB calculator', 'Form 26QC'],
+      canonicalSlug: 'tds-on-rent-194ib-calculator',
+      h1: 'TDS on Rent (Section 194-IB) & Form 26QC Tenant Calculator'
+    },
+    formulaDescription: 'If monthly rent > ₹50,000: TDS = Annual Rent * 5% (or 20% if Landlord PAN missing).',
+    workedExample: {
+      inputSummary: 'Monthly Rent: ₹65,000 (Annual: ₹7,80,000)',
+      calculationSteps: [
+        'Annual TDS (5%): ₹39,000',
+        'Net Rent in March (Last Month): ₹65,000 - ₹39,000 = ₹26,000'
+      ],
+      finalResult: 'Deposit ₹39,000 via Form 26QC Challan and issue Form 16C to Landlord'
+    },
+    faqs: [{ question: 'Does the tenant need a TAN number for 194-IB?', answer: 'No, individual tenants only need the Landlord PAN and their own PAN to file Form 26QC.' }],
+    relatedToolSlugs: ['commercial-rent-escalation-calculator', 'rent-agreement-stamp-duty', 'housing-society-maintenance-sinking-fund-calculator']
+  },
+  {
+    id: 'ev-vs-petrol-scooter-tco-calculator',
+    slug: 'ev-vs-petrol-scooter-tco-calculator',
+    name: 'EV Scooter vs Petrol Activa 5-Year Total Cost of Ownership (TCO)',
+    shortName: 'EV vs Petrol TCO',
+    tagline: 'Compare Ola/Ather vs Honda Activa fuel, maintenance & break-even period',
+    description: 'Compare 5-year running costs between electric two-wheelers (Ola, Ather, TVS iQube) and petrol scooters (Activa, Jupiter) to see net savings.',
+    category: 'vehicle-utility',
+    icon: 'Zap',
+    badge: 'EV Saver',
+    keywords: ['EV vs petrol scooter cost', 'Ola S1 vs Activa running cost', 'electric scooter savings'],
+    seo: {
+      title: 'EV Scooter vs Petrol Activa 5-Year TCO Calculator | BharatUtility',
+      description: 'Calculate real 5-year running cost savings and break-even months of EV scooters vs petrol.',
+      keywords: ['EV scooter calculator', 'petrol vs EV cost', 'Activa vs Ola'],
+      canonicalSlug: 'ev-vs-petrol-scooter-tco-calculator',
+      h1: 'EV Scooter vs Petrol Activa 5-Year Total Cost of Ownership (TCO)'
+    },
+    formulaDescription: '5-Yr Petrol TCO = Cost + (Km / Mileage * Price) + Service vs EV TCO = Cost + (Km / 30 * Unit) + Service.',
+    workedExample: {
+      inputSummary: 'Daily Commute: 35 km/day, Petrol: ₹102/L @ 45 kmpl, Power: ₹8/unit',
+      calculationSteps: [
+        '5-Year Petrol Cost: ₹95,000 (Scooter) + ₹1,19,000 (Fuel) + ₹20,000 (Service) = ₹2,34,000',
+        '5-Year EV Cost: ₹1,30,000 (EV) + ₹14,000 (Electricity) + ₹5,000 (Service) = ₹1,49,000'
+      ],
+      finalResult: '5-Year Net Savings: ₹85,000 | EV Extra Cost Recovered in ~19 Months'
+    },
+    faqs: [{ question: 'What is the real electricity cost per km for an EV scooter?', answer: 'An EV scooter consumes ~1 unit of power per 30 km, costing approximately 25 to 30 paise per km.' }],
+    relatedToolSlugs: ['fuel-price-tracker-tool', 'fuel-cost-calculator', 'ev-fast-charging-cost-matrix']
+  },
+  {
+    id: 'pm-fasal-bima-crop-insurance-calculator',
+    slug: 'pm-fasal-bima-crop-insurance-calculator',
+    name: 'Pradhan Mantri Fasal Bima Yojana (PMFBY) Crop Insurance Calculator',
+    shortName: 'PM Fasal Bima',
+    tagline: 'Calculate 2% Kharif, 1.5% Rabi & 5% commercial crop insurance premiums',
+    description: 'Calculate farmer payable premium and government subsidy under PM Fasal Bima Yojana for drought, flood, and pest claim protection.',
+    category: 'india-services',
+    icon: 'Wheat',
+    badge: 'PM Scheme',
+    keywords: ['PMFBY premium calculator', 'crop insurance subsidy', 'PM fasal bima yojana'],
+    seo: {
+      title: 'PM Fasal Bima Yojana (PMFBY) Crop Insurance Calculator | BharatUtility',
+      description: 'Calculate farmer crop insurance premium share for Kharif, Rabi, and horticultural crops.',
+      keywords: ['PMFBY calculator', 'crop insurance', 'fasal bima'],
+      canonicalSlug: 'pm-fasal-bima-crop-insurance-calculator',
+      h1: 'Pradhan Mantri Fasal Bima Yojana (PMFBY) Crop Insurance Calculator'
+    },
+    formulaDescription: 'Farmer Share: Kharif (2.0%), Rabi (1.5%), Commercial/Horticulture (5.0%).',
+    workedExample: {
+      inputSummary: 'Kharif Paddy Crop, Sum Insured: ₹1,50,000',
+      calculationSteps: [
+        'Farmer Premium (2.0%): ₹3,000',
+        'Central + State Govt Subsidy (10.0%): ₹15,000'
+      ],
+      finalResult: 'Farmer Pays: ₹3,000 for Full ₹1,50,000 Comprehensive Crop Protection'
+    },
+    faqs: [{ question: 'Within how many hours must crop loss be reported for PMFBY?', answer: 'Localized crop loss (hailstorm, inundation) must be reported within 72 hours via the Crop Insurance App or helpline 14447.' }],
+    relatedToolSlugs: ['kisan-credit-card-4percent-calculator', 'pm-kisan-eligibility-checker', 'pm-kusum-solar-pump-subsidy-calculator']
+  },
+  {
+    id: 'rto-dl-test-traffic-signs-simulator',
+    slug: 'rto-dl-test-traffic-signs-simulator',
+    name: 'RTO Driving License (LL) Computer Test & Traffic Signs Simulator',
+    shortName: 'RTO Signs Quiz',
+    tagline: '50+ Sarathi Parivahan objective questions & mandatory traffic sign rules',
+    description: 'Interactive mock test simulator for Sarathi Parivahan Learner License (LL) test covering mandatory, cautionary, and informatory road signs.',
+    category: 'vehicle-utility',
+    icon: 'ShieldCheck',
+    popular: true,
+    badge: 'RTO Test',
+    keywords: ['RTO learner license test', 'traffic signs quiz India', 'Sarathi Parivahan LL mock test'],
+    seo: {
+      title: 'RTO Learner License (LL) Test & Traffic Signs Simulator | BharatUtility',
+      description: 'Practice official Sarathi Parivahan computer test questions and road traffic signs.',
+      keywords: ['RTO mock test', 'driving license test', 'traffic signs quiz'],
+      canonicalSlug: 'rto-dl-test-traffic-signs-simulator',
+      h1: 'RTO Driving License (LL) Computer Test & Traffic Signs Simulator'
+    },
+    formulaDescription: 'MVA 2019 Rules: Minimum 60% passing score in computer test for Learner License issuance.',
+    workedExample: {
+      inputSummary: 'Question: Inverted Triangle sign meaning',
+      calculationSteps: [
+        'Option 1: Stop | Option 2: Give Way | Option 3: No Entry',
+        'Correct Rule: Inverted Triangle = "Give Way"'
+      ],
+      finalResult: 'Score: 100% Correct on Road Safety Knowledge'
+    },
+    faqs: [{ question: 'What is the validity of a Learner License in India?', answer: 'A Learner License is valid for 6 months across India, and you can apply for a permanent DL after 30 days.' }],
+    relatedToolSlugs: ['mva-traffic-challan-fine-decoder', 'traffic-challan-portal-finder', 'mparivahan-virtual-rc-dl-portal-guide']
+  },
+  {
+    id: 'housing-society-maintenance-sinking-fund-calculator',
+    slug: 'housing-society-maintenance-sinking-fund-calculator',
+    name: 'Cooperative Housing Society Maintenance & Sinking Fund Sizing',
+    shortName: 'Society Maintenance',
+    tagline: 'State CHS bye-laws: 0.25% sinking fund, 0.75% repair fund & parking charges',
+    description: 'Calculate fair monthly maintenance bills for flats under State Cooperative Societies Act bye-laws with sinking, repair, and service charge breakups.',
+    category: 'home',
+    icon: 'Building',
+    badge: 'CHS Law',
+    keywords: ['housing society maintenance calculator', 'sinking fund calculation CHS', 'flat maintenance rules'],
+    seo: {
+      title: 'Housing Society Maintenance & Sinking Fund Calculator | BharatUtility',
+      description: 'Calculate fair cooperative housing society monthly maintenance based on state bye-laws.',
+      keywords: ['society maintenance calculator', 'sinking fund rules', 'CHS maintenance'],
+      canonicalSlug: 'housing-society-maintenance-sinking-fund-calculator',
+      h1: 'Cooperative Housing Society Maintenance & Sinking Fund Sizing'
+    },
+    formulaDescription: 'Sinking Fund = (Carpet Area * Rate * 0.25%) / 12 | Repair Fund = (Carpet Area * Rate * 0.75%) / 12.',
+    workedExample: {
+      inputSummary: '1,150 sq ft flat @ ₹3,000/sq ft construction cost',
+      calculationSteps: [
+        'Flat Cost: ₹34,50,000',
+        'Sinking Fund (0.25%): ₹719/month',
+        'Repair Fund (0.75%): ₹2,156/month',
+        'Common Lift/Security/Water: ₹1,800/month'
+      ],
+      finalResult: 'Fair Monthly Maintenance: ₹4,675 / month'
+    },
+    faqs: [{ question: 'Can a housing society charge extra maintenance from tenants?', answer: 'Under model bye-laws, societies can only charge a Non-Occupancy Charge capped at a maximum of 10% of the service charges.' }],
+    relatedToolSlugs: ['commercial-rent-escalation-calculator', 'tds-on-rent-194ib-calculator', 'property-stamp-duty-calculator']
+  },
+  {
+    id: 'tatkaal-passport-checklist-and-timeline',
+    slug: 'tatkaal-passport-checklist-and-timeline',
+    name: 'Tatkaal Passport Document Checklist & Police Verification Tracker',
+    shortName: 'Tatkaal Passport',
+    tagline: '3 mandatory documents, ₹3,500 fee & post-issuance police verification rules',
+    description: 'Official Passport Seva checklist for urgent Tatkaal passports (dispatch within 1-3 days) with 3 mandatory identity proofs and fee rules.',
+    category: 'travel-utility',
+    icon: 'Plane',
+    badge: 'Urgent Pass',
+    keywords: ['Tatkaal passport documents', 'passport urgent 3 days', 'Tatkaal police verification'],
+    seo: {
+      title: 'Tatkaal Passport Document Checklist & Timeline | BharatUtility',
+      description: 'Complete 3-document checklist and fees for 3-day Tatkaal passport issuance in India.',
+      keywords: ['Tatkaal passport', 'urgent passport documents', 'Passport Seva Tatkaal'],
+      canonicalSlug: 'tatkaal-passport-checklist-and-timeline',
+      h1: 'Tatkaal Passport Document Checklist & Police Verification Tracker'
+    },
+    formulaDescription: 'Tatkaal Fee = Normal Fee (₹1,500) + Urgent Surcharge (₹2,000) = ₹3,500.',
+    workedExample: {
+      inputSummary: 'Adult Tatkaal Passport Application',
+      calculationSteps: [
+        'Mandatory Proof 1: Aadhaar Card (with complete DOB)',
+        'Mandatory Proof 2: PAN Card',
+        'Mandatory Proof 3: Voter ID / Driving License / Bank Passbook'
+      ],
+      finalResult: 'Dispatch within 1-3 working days on Post-Police Verification basis'
+    },
+    faqs: [{ question: 'Is police verification done before or after Tatkaal passport dispatch?', answer: 'In Tatkaal scheme, the passport is printed and dispatched first, and police verification is completed afterwards.' }],
+    relatedToolSlugs: ['central-gazette-name-change-guide', 'indian-passport-visa-free-countries', 'irctc-pnr-quotas-confirmation-decoder']
+  },
+  {
+    id: 'senior-citizen-fd-form15h-calculator',
+    slug: 'senior-citizen-fd-form15h-calculator',
+    name: 'Senior Citizen FD 0.50% Extra Rate & Form 15H TDS Saver',
+    shortName: 'Senior FD 15H',
+    tagline: 'Calculate +0.50% extra interest, Section 80TTB ₹50,000 deduction & Form 15H',
+    description: 'Calculate higher returns for seniors (60+) and super-seniors (80+) on bank fixed deposits with Section 80TTB ₹50,000 tax exemption rules.',
+    category: 'money',
+    icon: 'Award',
+    popular: true,
+    badge: 'Senior 60+',
+    keywords: ['senior citizen FD interest rate', 'Form 15H for senior citizens', 'section 80TTB exemption'],
+    seo: {
+      title: 'Senior Citizen FD 0.50% Extra Rate & Form 15H Calculator | BharatUtility',
+      description: 'Calculate senior citizen fixed deposit interest with ₹50,000 Section 80TTB tax deduction.',
+      keywords: ['senior citizen FD', 'Form 15H calculator', '80TTB exemption'],
+      canonicalSlug: 'senior-citizen-fd-form15h-calculator',
+      h1: 'Senior Citizen FD 0.50% Extra Rate & Form 15H TDS Saver'
+    },
+    formulaDescription: 'Senior Rate = Base Bank Rate + 0.50% (Age 60-79) or +0.75% (Super Senior 80+).',
+    workedExample: {
+      inputSummary: '₹5,00,000 FD for 1 Year @ 7.50% (Senior Citizen)',
+      calculationSteps: [
+        'Annual Interest: ₹37,500',
+        'Section 80TTB Exemption Limit: ₹50,000'
+      ],
+      finalResult: 'Zero Tax / Zero TDS: Interest is 100% tax-free under Section 80TTB'
+    },
+    faqs: [{ question: 'When should Form 15H be submitted to the bank?', answer: 'Form 15H should be submitted in the first week of April (beginning of the financial year) to prevent 10% TDS deduction.' }],
+    relatedToolSlugs: ['post-office-schemes-pomis-kvp-nsc-calculator', 'nps-tier1-80ccd1b-pension-calculator', 'fd-calculator']
+  },
+  {
+    id: 'ayushman-abha-digital-health-id-guide',
+    slug: 'ayushman-abha-digital-health-id-guide',
+    name: 'Ayushman ABHA 14-Digit Health Card & PMJAY Cashless Guide',
+    shortName: 'ABHA Health Card',
+    tagline: 'Create 14-digit digital health ID, link hospital records & zero-line OPD registration',
+    description: 'Create and manage your 14-digit Ayushman Bharat Health Account (ABHA) number to store prescriptions, scan QR for hospital OPD, and check PMJAY ₹5L benefits.',
+    category: 'india-services',
+    icon: 'HeartPulse',
+    popular: true,
+    badge: 'Digital India',
+    keywords: ['ABHA card create online', 'Ayushman Bharat health account', 'PMJAY 5 lakh cashless'],
+    seo: {
+      title: 'Ayushman ABHA Health Card (14-Digit) Guide | BharatUtility',
+      description: 'Create 14-digit ABHA health ID card via Aadhaar OTP and link digital hospital records.',
+      keywords: ['ABHA card', 'Ayushman health ID', 'ABDM health card'],
+      canonicalSlug: 'ayushman-abha-digital-health-id-guide',
+      h1: 'Ayushman ABHA 14-Digit Health Card & PMJAY Cashless Guide'
+    },
+    formulaDescription: '14-Digit unique health identifier linked with Aadhaar and National Health Authority (NHA).',
+    workedExample: {
+      inputSummary: 'Instant Creation via Aadhaar OTP',
+      calculationSteps: [
+        'Verify 12-digit Aadhaar on healthid.abdm.gov.in',
+        'Enter OTP sent on Aadhaar-linked mobile',
+        'Instant download of 14-digit ABHA Card with QR'
+      ],
+      finalResult: 'Zero-Waiting OPD: Scan QR at AIIMS and Govt Hospitals for Instant Token'
+    },
+    faqs: [{ question: 'Is the ABHA card free of cost?', answer: 'Yes, ABHA card creation is 100% free under the Ayushman Bharat Digital Mission.' }],
+    relatedToolSlugs: ['ayushman-bharat-eligibility-checker', 'body-surface-area-clinical-dosage-calculator', 'jan-aushadhi-generic-saver']
+  },
+
+  // --- BATCH 5: WEALTH, RIGHTS & COLLEGE ---
+  {
+    id: 'rbi-sovereign-gold-bond-sgb-calculator',
+    slug: 'rbi-sovereign-gold-bond-sgb-calculator',
+    name: 'RBI Sovereign Gold Bond (SGB) 2.5% + 100% Tax-Free Maturity Calculator',
+    shortName: 'SGB Gold 2.5%',
+    tagline: 'Calculate semi-annual 2.5% interest & 8-year tax-free capital gains',
+    description: 'Calculate returns on RBI Sovereign Gold Bonds (SGB) including 2.5% annual simple interest paid directly to your bank and 100% tax-free capital gains under Section 47(viic).',
+    category: 'money',
+    icon: 'Coins',
+    popular: true,
+    trending: true,
+    badge: 'Tax-Free Gold',
+    keywords: ['SGB calculator RBI', 'Sovereign gold bond interest', 'SGB tax free capital gains'],
+    seo: {
+      title: 'RBI Sovereign Gold Bond (SGB) 2.5% Calculator | BharatUtility',
+      description: 'Calculate 2.5% semi-annual interest and 100% tax-free 8-year maturity returns on SGB.',
+      keywords: ['SGB calculator', 'Sovereign Gold Bond', 'RBI gold bond'],
+      canonicalSlug: 'rbi-sovereign-gold-bond-sgb-calculator',
+      h1: 'RBI Sovereign Gold Bond (SGB) 2.5% + 100% Tax-Free Maturity Calculator'
+    },
+    formulaDescription: 'SGB Return = (Gold Quantity * Maturity Price) + (8 Years * 2.5% Annual Interest).',
+    workedExample: {
+      inputSummary: '50 Grams SGB @ Issue Price ₹6,500/g, Expected 8-Yr Gold Rate ₹12,000/g',
+      calculationSteps: [
+        'Invested: ₹3,25,000',
+        'Total 2.5% Interest (8 Yrs): ₹65,000 (₹8,125/year direct to bank)',
+        'Maturity Gold Value: ₹6,00,000',
+        'Capital Gains: ₹2,75,000 (100% Tax-Free)'
+      ],
+      finalResult: 'Total 8-Year Payout: ₹6,65,000 (104.6% Total Profit, Zero Tax)'
+    },
+    faqs: [{ question: 'Is premature exit allowed in SGB before 8 years?', answer: 'Yes, RBI allows premature encashment after the 5th year on interest payment dates.' }],
+    relatedToolSlugs: ['jewellery-gold-making-charge-calculator', 'gold-silver-rate-calculator', 'bank-locker-rent-and-liability-guide']
+  },
+  {
+    id: 'family-gift-deed-vs-will-stamp-duty-guide',
+    slug: 'family-gift-deed-vs-will-stamp-duty-guide',
+    name: 'Family Gift Deed vs Will (Vasiyat) Stamp Duty & Tax Exemption Guide',
+    shortName: 'Family Gift Deed',
+    tagline: 'Section 56(2)(x) zero tax for blood relatives & state-wise token stamp duty',
+    description: 'Compare legal differences, state-wise concessional stamp duties (e.g. UP ₹5,000, MH ₹200), and Income Tax Section 56(2)(x) exemptions between Gift Deeds and Wills.',
+    category: 'documents',
+    icon: 'FileCheck2',
+    badge: 'Property Law',
+    keywords: ['gift deed to blood relatives stamp duty', 'gift deed vs will India', 'section 56 2 x tax exemption'],
+    seo: {
+      title: 'Family Gift Deed vs Will Stamp Duty & Tax Exemption Guide | BharatUtility',
+      description: 'Learn zero income tax rules and state stamp duty concessions for gifting property to family.',
+      keywords: ['gift deed stamp duty', 'gift deed tax exemption', 'will vs gift deed'],
+      canonicalSlug: 'family-gift-deed-vs-will-stamp-duty-guide',
+      h1: 'Family Gift Deed vs Will (Vasiyat) Stamp Duty & Tax Exemption Guide'
+    },
+    formulaDescription: 'Gifts to specified blood relatives are 100% exempt from Income Tax under Section 56(2)(x).',
+    workedExample: {
+      inputSummary: 'Father gifting ₹50,00,000 residential flat to son in Uttar Pradesh',
+      calculationSteps: [
+        'Income Tax Liability for Son: ₹0 (Exempt under Section 56(2)(x))',
+        'UP Concessional Family Stamp Duty: ₹5,000 Token Stamp'
+      ],
+      finalResult: 'Property Transferred Legally with Immediate Ownership and Zero Tax'
+    },
+    faqs: [{ question: 'Can a registered gift deed be cancelled unilaterally?', answer: 'No, once signed and registered, a gift deed cannot be cancelled unilaterally unless fraud or coercion is proven in court.' }],
+    relatedToolSlugs: ['property-stamp-duty-calculator', 'non-judicial-stamp-paper-guide', 'central-gazette-name-change-guide']
+  },
+  {
+    id: 'restaurant-bill-gst-service-charge-checker',
+    slug: 'restaurant-bill-gst-service-charge-checker',
+    name: 'Restaurant Bill Food GST (5% vs 18%) & Service Charge Legality Checker',
+    shortName: 'Food GST & CCPA',
+    tagline: 'Verify 5% GST vs 18% luxury rates & CCPA voluntary service charge guidelines',
+    description: 'Check restaurant food bill tax rates (5% without ITC for standard dining, 18% for 5-star hotels) and know your legal right to remove mandatory service charges.',
+    category: 'business',
+    icon: 'Utensils',
+    popular: true,
+    badge: 'Consumer Right',
+    keywords: ['restaurant food GST 5 percent', 'service charge illegal CCPA', 'restaurant bill checker'],
+    seo: {
+      title: 'Restaurant Bill Food GST & Service Charge Checker | BharatUtility',
+      description: 'Check 5% restaurant GST and understand CCPA consumer rights to remove mandatory service charge.',
+      keywords: ['restaurant GST calculator', 'service charge rules CCPA', 'food bill GST'],
+      canonicalSlug: 'restaurant-bill-gst-service-charge-checker',
+      h1: 'Restaurant Bill Food GST (5% vs 18%) & Service Charge Legality Checker'
+    },
+    formulaDescription: 'Standalone Food GST = 5% (2.5% CGST + 2.5% SGST) | Service charge is 100% voluntary.',
+    workedExample: {
+      inputSummary: 'Food: ₹2,500, Restaurant added 10% Service Charge (₹250)',
+      calculationSteps: [
+        'Food Subtotal: ₹2,500',
+        'Optional Service Charge: ₹250 (Can be waived off on request)',
+        'GST (5%): ₹125'
+      ],
+      finalResult: 'Payable with Service Charge: ₹2,875 | Payable without Service Charge: ₹2,625'
+    },
+    faqs: [{ question: 'Is paying service charge mandatory in restaurants?', answer: 'No. Central Consumer Protection Authority (CCPA) guidelines state service charge is completely voluntary and cannot be forced.' }],
+    relatedToolSlugs: ['gst-calculator', 'mrp-margin-gst-breakdown-calculator', 'consumer-court-complaint-notice-generator']
+  },
+  {
+    id: 'college-75-percent-attendance-bunk-planner',
+    slug: 'college-75-percent-attendance-bunk-planner',
+    name: 'College Attendance Minimum 75% Requirement & Safe Bunk Planner',
+    shortName: '75% Bunk Planner',
+    tagline: 'Calculate safe classes to skip or consecutive classes needed to avoid detainment',
+    description: 'Calculate your exact attendance percentage against UGC, AICTE, NMC, and BCI 75% minimum norms and find out how many classes you can safely bunk or must attend.',
+    category: 'education',
+    icon: 'GraduationCap',
+    popular: true,
+    trending: true,
+    badge: 'Student Tool',
+    keywords: ['75 attendance calculator', 'college bunk calculator', 'how many classes can I skip'],
+    seo: {
+      title: 'College 75% Attendance & Safe Bunk Planner | BharatUtility',
+      description: 'Calculate how many classes you can safely skip or must attend to maintain 75% college attendance.',
+      keywords: ['attendance calculator', '75 percent attendance', 'college bunk planner'],
+      canonicalSlug: 'college-75-percent-attendance-bunk-planner',
+      h1: 'College Attendance Minimum 75% Requirement & Safe Bunk Planner'
+    },
+    formulaDescription: 'Safe Bunks = Floor((Attended * 100 / Target %) - Total Held).',
+    workedExample: {
+      inputSummary: 'Total Classes Held: 60, Attended: 42 (Current: 70.0%)',
+      calculationSteps: [
+        'Target: 75% (Shortage: -5.0%)',
+        'Formula: (75 * 60 - 100 * 42) / (100 - 75) = (4500 - 4200) / 25 = 12'
+      ],
+      finalResult: 'Must attend next 12 consecutive classes without missing to reach 75%'
+    },
+    faqs: [{ question: 'What happens if college attendance drops below 75%?', answer: 'Most Indian universities detain students from writing semester end examinations or withhold admit cards unless medical leave is approved.' }],
+    relatedToolSlugs: ['cbse-icse-best-of-five-percentage-calculator', 'cgpa-calculator', 'marks-percentage-calculator']
+  },
+  {
+    id: 'leave-travel-allowance-lta-calculator',
+    slug: 'leave-travel-allowance-lta-calculator',
+    name: 'Leave Travel Allowance (LTA / LTC) Tax Exemption Calculator (Section 10(5))',
+    shortName: 'LTA Tax Exemption',
+    tagline: 'Calculate 2 domestic trips in 4-year block (2026-2029) air/train fare exemption',
+    description: 'Calculate Section 10(5) LTA tax exemptions for domestic economy airfare and AC train travel with family under the Old Tax Regime.',
+    category: 'business',
+    icon: 'Plane',
+    badge: 'Tax Saver',
+    keywords: ['LTA tax exemption calculator', 'Section 10 5 income tax', 'LTC 4 year block rules'],
+    seo: {
+      title: 'Leave Travel Allowance (LTA) Tax Exemption Calculator | BharatUtility',
+      description: 'Calculate Section 10(5) LTA tax exemption on domestic airfare and train tickets.',
+      keywords: ['LTA calculator', 'Section 10(5)', 'Leave Travel Allowance'],
+      canonicalSlug: 'leave-travel-allowance-lta-calculator',
+      h1: 'Leave Travel Allowance (LTA / LTC) Tax Exemption Calculator (Section 10(5))'
+    },
+    formulaDescription: 'LTA Exemption = Minimum of (Actual Economy Air/AC Train Fare Incurred, LTA in Salary Component).',
+    workedExample: {
+      inputSummary: 'Domestic Airfare for family: ₹60,000 (Salary LTA: ₹75,000)',
+      calculationSteps: [
+        'Actual Ticket Cost: ₹60,000',
+        'Tax Exemption Allowed: ₹60,000'
+      ],
+      finalResult: 'Tax Saved at 30% Slab: ₹18,720 (Zero tax on ₹60,000 travel fare)'
+    },
+    faqs: [{ question: 'Are hotel and food expenses covered under LTA?', answer: 'No, Section 10(5) strictly covers only actual transportation travel fare (airfare, train, bus).' }],
+    relatedToolSlugs: ['salary-calculator', 'salary-and-gst-suite-calculator', 'trip-cost-calculator']
+  },
+  {
+    id: 'car-tyre-size-upsize-speedometer-calculator',
+    slug: 'car-tyre-size-upsize-speedometer-calculator',
+    name: 'Car Tyre Size Upsize & Speedometer Error Percentage Calculator',
+    shortName: 'Tyre Upsize Calc',
+    tagline: 'Compare 185/65 R15 to 195/60 R16 diameter, ground clearance & +/-2.5% safety',
+    description: 'Calculate diameter variation, ride height ground clearance changes, and speedometer deviation when upsizing car tyres and alloy wheels.',
+    category: 'vehicle-utility',
+    icon: 'Disc',
+    badge: 'Auto Tool',
+    keywords: ['car tyre upsize calculator', 'speedometer error tyre size', 'tyre diameter comparison'],
+    seo: {
+      title: 'Car Tyre Size Upsize & Speedometer Error Calculator | BharatUtility',
+      description: 'Compare tyre upsize dimensions, diameter variation, and speedometer error percentage.',
+      keywords: ['tyre size calculator', 'speedometer error', 'tyre upsize'],
+      canonicalSlug: 'car-tyre-size-upsize-speedometer-calculator',
+      h1: 'Car Tyre Size Upsize & Speedometer Error Percentage Calculator'
+    },
+    formulaDescription: 'Overall Diameter (mm) = Rim (inches) * 25.4 + 2 * ((Width * Profile) / 100).',
+    workedExample: {
+      inputSummary: 'Stock: 185/65 R15 (621.5 mm) -> New: 195/60 R16 (640.4 mm)',
+      calculationSteps: [
+        'Diameter Change: +18.9 mm (+3.04%)',
+        'Permissible Safety Range: +/- 2.5%'
+      ],
+      finalResult: 'High Risk (3.04% Error): Exceeds safe 2.5% threshold. Consider 195/55 R16 instead.'
+    },
+    faqs: [{ question: 'What is the maximum safe tyre upsize limit?', answer: 'Automotive experts recommend keeping overall diameter variation strictly within +/- 2.0% to 2.5% to maintain ABS calibration.' }],
+    relatedToolSlugs: ['old-vehicle-resale-valuation-calculator', 'fuel-cost-calculator', 'ev-vs-petrol-scooter-tco-calculator']
+  },
+  {
+    id: 'apmc-mandi-msp-procurement-calculator',
+    slug: 'apmc-mandi-msp-procurement-calculator',
+    name: 'APMC Mandi Cess, MSP Procurement Rates & Farmer Payout Calculator',
+    shortName: 'Mandi MSP Calc',
+    tagline: 'Official Minimum Support Price for Wheat, Paddy, Mustard & DBT payout',
+    description: 'Calculate farmer payment at government Minimum Support Price (MSP) rates and understand Mandi cess and Arhatiya commission deductions.',
+    category: 'india-services',
+    icon: 'Scale',
+    badge: 'Kisan MSP',
+    keywords: ['APMC mandi MSP rates', 'wheat MSP rate 2025-26', 'paddy government price'],
+    seo: {
+      title: 'APMC Mandi MSP Rates & Farmer Payout Calculator | BharatUtility',
+      description: 'Calculate official Minimum Support Price (MSP) farmer bank payout for Wheat, Paddy, Mustard.',
+      keywords: ['MSP calculator', 'mandi rates', 'minimum support price'],
+      canonicalSlug: 'apmc-mandi-msp-procurement-calculator',
+      h1: 'APMC Mandi Cess, MSP Procurement Rates & Farmer Payout Calculator'
+    },
+    formulaDescription: 'Farmer Bank Transfer = Quantity (Quintals) * Official MSP Rate per Quintal.',
+    workedExample: {
+      inputSummary: '50 Quintals Wheat (Gehu) @ MSP ₹2,425 / quintal',
+      calculationSteps: [
+        'Total Crop Value: 50 * ₹2,425 = ₹1,21,250',
+        'Direct Bank Transfer (DBT): ₹1,21,250 credited directly to farmer account'
+      ],
+      finalResult: 'Net Farmer Direct Benefit: ₹1,21,250 credited within 48-72 hours'
+    },
+    faqs: [{ question: 'How is MSP payment sent to the farmer?', answer: 'MSP procurement payments are transferred directly into the farmer Aadhaar-linked bank account via PFMS/DBT.' }],
+    relatedToolSlugs: ['kisan-credit-card-4percent-calculator', 'pm-fasal-bima-crop-insurance-calculator', 'apmc-mandi-bhav-live-tracker']
+  },
+  {
+    id: 'nps-tier1-80ccd1b-pension-calculator',
+    slug: 'nps-tier1-80ccd1b-pension-calculator',
+    name: 'NPS Section 80CCD(1B) Extra ₹50,000 Tax Benefit & Pension Simulator',
+    shortName: 'NPS ₹50K Benefit',
+    tagline: 'Additional ₹50,000 tax deduction over 80C, 60% tax-free lump sum & annuity',
+    description: 'Calculate tax savings from the exclusive ₹50,000 Section 80CCD(1B) deduction in National Pension System (NPS) and simulate retirement monthly pensions.',
+    category: 'money',
+    icon: 'ShieldCheck',
+    popular: true,
+    badge: 'Extra ₹50K',
+    keywords: ['NPS 80CCD 1B tax benefit', 'national pension scheme calculator', 'NPS annuity pension'],
+    seo: {
+      title: 'NPS 80CCD(1B) Extra ₹50,000 Tax Benefit & Pension Calculator | BharatUtility',
+      description: 'Calculate exclusive ₹50,000 NPS tax deduction and simulated retirement monthly pension.',
+      keywords: ['NPS calculator', '80CCD(1B)', 'National Pension System'],
+      canonicalSlug: 'nps-tier1-80ccd1b-pension-calculator',
+      h1: 'NPS Section 80CCD(1B) Extra ₹50,000 Tax Benefit & Pension Simulator'
+    },
+    formulaDescription: '60% Tax-Free Lump Sum at Age 60 + 40% Mandatory Annuity for Monthly Pension.',
+    workedExample: {
+      inputSummary: '₹5,000/month for 25 Years @ 10% expected return',
+      calculationSteps: [
+        'Total Accumulated Corpus: ~₹66.94 Lakhs',
+        '60% Tax-Free Cash Withdrawal: ~₹40.16 Lakhs',
+        '40% Annuity Pension Fund (6.5%): ~₹14,500 / month lifetime pension'
+      ],
+      finalResult: 'Lump Sum: ₹40.16 Lakhs Tax-Free + Monthly Pension: ₹14,500 for life'
+    },
+    faqs: [{ question: 'Is NPS Tier-1 withdrawal completely tax-free at age 60?', answer: 'Yes, 60% lump-sum withdrawal is 100% tax-free, and the remaining 40% is utilized to purchase regular pension annuity.' }],
+    relatedToolSlugs: ['epf-passbook-eps95-pension-calculator', 'atal-pension-yojana-calculator', 'gratuity-leave-encashment-calculator']
+  },
+  {
+    id: 'rti-application-first-appeal-timeline-guide',
+    slug: 'rti-application-first-appeal-timeline-guide',
+    name: 'RTI Section 6(1) Application & 30-Day First Appeal Timeline Guide',
+    shortName: 'RTI 30-Day Appeal',
+    tagline: '₹10 application fee, 48-hr life & liberty rules & First Appeal Section 19(1)',
+    description: 'Learn how to seek information from government departments under the Right to Information (RTI) Act 2005 and file First Appeals when PIOs fail to respond.',
+    category: 'documents',
+    icon: 'FileText',
+    badge: 'Citizen Right',
+    keywords: ['RTI first appeal process', 'RTI 30 day timeline', 'Section 6 1 RTI application'],
+    seo: {
+      title: 'RTI Application & 30-Day First Appeal Guide | BharatUtility',
+      description: 'Understand RTI Act 2005 30-day deadlines, ₹10 fee rules, and filing Section 19(1) First Appeals.',
+      keywords: ['RTI first appeal', 'RTI Act 2005', 'RTI application guide'],
+      canonicalSlug: 'rti-application-first-appeal-timeline-guide',
+      h1: 'RTI Section 6(1) Application & 30-Day First Appeal Timeline Guide'
+    },
+    formulaDescription: 'RTI Deadlines: 30 Days (Standard) | 48 Hours (Life & Liberty) | First Appeal within 30 days of expiry.',
+    workedExample: {
+      inputSummary: 'Application filed 35 days ago with no PIO reply',
+      calculationSteps: [
+        'Statutory 30-day window expired on Day 30',
+        'Eligible to file First Appeal under Section 19(1) to First Appellate Authority (FAA)'
+      ],
+      finalResult: 'File First Appeal immediately with Zero additional fees'
+    },
+    faqs: [{ question: 'What is the fee for filing an online RTI?', answer: 'Central government online RTIs at rti.gov.in cost a nominal ₹10 fee.' }],
+    relatedToolSlugs: ['rti-application-generator', 'cybercrime-1930-fraud-emergency-guide', 'consumer-court-complaint-notice-generator']
+  },
+  {
+    id: 'body-surface-area-clinical-dosage-calculator',
+    slug: 'body-surface-area-clinical-dosage-calculator',
+    name: 'Body Surface Area (BSA) & Medication Dosage (Mosteller Formula)',
+    shortName: 'Clinical BSA Dosage',
+    tagline: 'Calculate Body Surface Area (m²) for clinical drug dosing & pediatric medicine',
+    description: 'Calculate Body Surface Area (BSA) in square metres using the validated Mosteller Formula for medical dosage normalization and clinical calculations.',
+    category: 'daily-life',
+    icon: 'Activity',
+    badge: 'Clinical Tool',
+    keywords: ['Body surface area calculator', 'Mosteller formula BSA', 'clinical drug dosage BSA'],
+    seo: {
+      title: 'Body Surface Area (BSA) Mosteller Formula Calculator | BharatUtility',
+      description: 'Calculate Body Surface Area (m²) using Mosteller formula for pediatric and clinical drug dosing.',
+      keywords: ['BSA calculator', 'Mosteller formula', 'body surface area'],
+      canonicalSlug: 'body-surface-area-clinical-dosage-calculator',
+      h1: 'Body Surface Area (BSA) & Medication Dosage (Mosteller Formula)'
+    },
+    formulaDescription: 'Mosteller BSA (m²) = Sqrt((Height in cm * Weight in kg) / 3600).',
+    workedExample: {
+      inputSummary: 'Height: 168 cm, Weight: 65 kg',
+      calculationSteps: [
+        'Product: 168 * 65 = 10,920',
+        'Divide by 3600: 10,920 / 3600 = 3.0333',
+        'Square Root: Sqrt(3.0333) = 1.74 m²'
+      ],
+      finalResult: 'Body Surface Area: 1.74 m² (Standard adult Indian normal range)'
+    },
+    faqs: [{ question: 'Why is BSA preferred over body weight for chemotherapy dosing?', answer: 'BSA correlates more accurately with metabolic rate, cardiac output, and renal clearance than weight alone.' }],
+    relatedToolSlugs: ['indian-diet-macro-bmi-planner', 'indian-blood-pressure-dash-diet-analyzer', 'blood-group-compatibility-eraktkosh']
+  },
+
+  // --- BATCH 6: ENERGY, QUOTA & POST OFFICE ---
+  {
+    id: 'lpg-cylinder-price-ujjwala-subsidy-tracker',
+    slug: 'lpg-cylinder-price-ujjwala-subsidy-tracker',
+    name: 'LPG Gas 14.2kg Price & PM Ujjwala Subsidy DBTL Tracker',
+    shortName: 'LPG Gas Subsidy',
+    tagline: 'City-wise 14.2kg domestic cylinder rates & ₹300 direct bank subsidy',
+    description: 'Check official monthly LPG gas cylinder prices across major Indian cities (Indane, BharatGas, HP Gas) and calculate effective costs after ₹300 Ujjwala subsidy.',
+    category: 'india-services',
+    icon: 'Flame',
+    popular: true,
+    trending: true,
+    badge: 'Monthly Rates',
+    keywords: ['LPG gas cylinder price', 'Ujjwala subsidy 300', 'Indane gas price today'],
+    seo: {
+      title: 'LPG Gas 14.2kg Cylinder Price & Ujjwala Subsidy Tracker | BharatUtility',
+      description: 'Check city-wise 14.2kg domestic cylinder prices and DBTL ₹300 bank cash subsidy.',
+      keywords: ['LPG price', 'Ujjwala subsidy', 'gas cylinder price'],
+      canonicalSlug: 'lpg-cylinder-price-ujjwala-subsidy-tracker',
+      h1: 'LPG Gas 14.2kg Price & PM Ujjwala Subsidy DBTL Tracker'
+    },
+    formulaDescription: 'Effective Cost = City OMC Base Price - ₹300 DBTL Cash Subsidy.',
+    workedExample: {
+      inputSummary: 'Delhi Domestic Cylinder (Base: ₹803), PM Ujjwala Beneficiary',
+      calculationSteps: [
+        'Delivery Price: ₹803',
+        'Direct Bank Subsidy: -₹300'
+      ],
+      finalResult: 'Effective Cost per Cylinder: ₹503 (₹300 credited into bank account)'
+    },
+    faqs: [{ question: 'How do I check if my LPG subsidy is being credited?', answer: 'You can check your DBTL subsidy credit on mylpg.in or via the UMANG app.' }],
+    relatedToolSlugs: ['fuel-price-tracker-tool', 'state-electricity-slab-calculator', 'pm-surya-ghar-solar-calculator']
+  },
+  {
+    id: 'ews-obc-ncl-income-asset-criteria-checker',
+    slug: 'ews-obc-ncl-income-asset-criteria-checker',
+    name: 'EWS (10% Quota) & OBC Non-Creamy Layer (NCL) Eligibility Checker',
+    shortName: 'EWS 10% Quota',
+    tagline: 'Verify ₹8 Lakh income ceiling, 5-acre land & 1000 sq ft residential flat limits',
+    description: 'Evaluate your eligibility for Central Government 10% EWS reservation and OBC Non-Creamy Layer (NCL) certificates against official asset and income criteria.',
+    category: 'india-services',
+    icon: 'Scale',
+    popular: true,
+    badge: 'Quota Criteria',
+    keywords: ['EWS certificate eligibility criteria', 'OBC non creamy layer income limit', 'EWS 8 lakh rule'],
+    seo: {
+      title: 'EWS 10% Quota & OBC-NCL Eligibility Checker | BharatUtility',
+      description: 'Check Central EWS 10% quota eligibility based on family income and land assets.',
+      keywords: ['EWS eligibility', 'OBC NCL checker', 'EWS certificate criteria'],
+      canonicalSlug: 'ews-obc-ncl-income-asset-criteria-checker',
+      h1: 'EWS (10% Quota) & OBC Non-Creamy Layer (NCL) Eligibility Checker'
+    },
+    formulaDescription: 'EWS Criteria: Family Gross Income < ₹8 Lakhs + Agri Land < 5 Acres + Flat < 1000 Sq Ft.',
+    workedExample: {
+      inputSummary: 'Income: ₹5.5 Lakhs, Agri Land: 2 Acres, Flat: 850 Sq Ft',
+      calculationSteps: [
+        'Income Test: ₹5.5L < ₹8.0L (Pass)',
+        'Land Test: 2 Acres < 5 Acres (Pass)',
+        'Residential Test: 850 sq ft < 1000 sq ft (Pass)'
+      ],
+      finalResult: '100% Eligible for Central Government 10% EWS Certificate'
+    },
+    faqs: [{ question: 'Does EWS income include agricultural income?', answer: 'Yes, for EWS, gross annual income includes salary, agriculture, business, profession, and all other sources.' }],
+    relatedToolSlugs: ['sarkari-exam-age-calculator', 'cbse-icse-best-of-five-percentage-calculator', 'ugc-university-recognition-verifier']
+  },
+  {
+    id: 'fastag-blacklist-double-toll-penalty-guide',
+    slug: 'fastag-blacklist-double-toll-penalty-guide',
+    name: 'FASTag Blacklist Reason & Toll Double Cash Penalty Exemption Guide',
+    shortName: 'FASTag Blacklist',
+    tagline: 'Fix low balance, KYC failure & instant UPI recharge via netc.vehicleno@bank',
+    description: 'Diagnose why your FASTag was blacklisted at toll plazas, prevent double toll penalties, and learn instant recharge shortcuts.',
+    category: 'vehicle-utility',
+    icon: 'CreditCard',
+    badge: 'Toll Guide',
+    keywords: ['FASTag blacklist reason', 'double toll cash penalty', 'instant FASTag UPI recharge'],
+    seo: {
+      title: 'FASTag Blacklist Reason & Toll Penalty Exemption Guide | BharatUtility',
+      description: 'Learn why FASTags get blacklisted at toll plazas and how to recharge instantly via UPI.',
+      keywords: ['FASTag blacklist', 'double toll penalty', 'FASTag recharge UPI'],
+      canonicalSlug: 'fastag-blacklist-double-toll-penalty-guide',
+      h1: 'FASTag Blacklist Reason & Toll Double Cash Penalty Exemption Guide'
+    },
+    formulaDescription: 'FASTag Blacklist Triggers: Low balance (< ₹150) OR Incomplete KYC compliance.',
+    workedExample: {
+      inputSummary: 'Vehicle at Toll Plaza with ₹80 balance',
+      calculationSteps: [
+        'NHAI minimum threshold: ₹150',
+        'Current status: Blacklisted at toll lane reader'
+      ],
+      finalResult: 'Recharge instantly via UPI: netc.DL01AB1234@sbi to restore green status in 2 minutes'
+    },
+    faqs: [{ question: 'Can I pass a toll without penalty if the toll scanner fails?', answer: 'Yes, under NHAI gazette rules, if the RFID toll reader is non-functional, the vehicle passes free of cost.' }],
+    relatedToolSlugs: ['nhai-fastag-toll-calculator', 'traffic-challan-portal-finder', 'mparivahan-virtual-rc-dl-portal-guide']
+  },
+  {
+    id: 'pm-kusum-solar-pump-subsidy-calculator',
+    slug: 'pm-kusum-solar-pump-subsidy-calculator',
+    name: 'PM KUSUM Solar Water Pump 60% Subsidy Calculator (3HP / 5HP / 7.5HP)',
+    shortName: 'KUSUM Solar 60%',
+    tagline: 'Calculate 30% Central + 30% State subsidies & replace diesel generators',
+    description: 'Calculate government subsidies for agricultural solar pumps under PM-KUSUM Scheme Component B and save up to ₹60,000/year in diesel generator costs.',
+    category: 'india-services',
+    icon: 'Sun',
+    badge: '60% Subsidy',
+    keywords: ['PM KUSUM solar pump subsidy', '5HP solar pump price after subsidy', 'solar agri pump scheme'],
+    seo: {
+      title: 'PM KUSUM Solar Pump 60% Subsidy Calculator | BharatUtility',
+      description: 'Calculate 60% government subsidy on 3HP, 5HP, and 7.5HP solar agricultural water pumps.',
+      keywords: ['PM KUSUM calculator', 'solar pump subsidy', 'KUSUM scheme'],
+      canonicalSlug: 'pm-kusum-solar-pump-subsidy-calculator',
+      h1: 'PM KUSUM Solar Water Pump 60% Subsidy Calculator (3HP / 5HP / 7.5HP)'
+    },
+    formulaDescription: 'Total Benchmark Cost: 30% Central Subsidy + 30% State Subsidy + 40% Farmer Contribution.',
+    workedExample: {
+      inputSummary: '5 HP Standalone Solar Pump (Benchmark Cost: ₹2,40,000)',
+      calculationSteps: [
+        'Central Govt Subsidy (30%): ₹72,000',
+        'State Govt Subsidy (30%): ₹72,000',
+        'Farmer Payable Share (40%): ₹96,000'
+      ],
+      finalResult: 'Farmer Pays: ₹96,000 (Saved ₹1,44,000 in Subsidies)'
+    },
+    faqs: [{ question: 'Can farmers get a bank loan for the remaining 40%?', answer: 'Yes, farmers only need to pay 10% upfront, and up to 30% can be financed via bank agri loans.' }],
+    relatedToolSlugs: ['pm-surya-ghar-solar-calculator', 'kisan-credit-card-4percent-calculator', 'pm-fasal-bima-crop-insurance-calculator']
+  },
+  {
+    id: 'indian-blood-pressure-dash-diet-analyzer',
+    slug: 'indian-blood-pressure-dash-diet-analyzer',
+    name: 'Indian Blood Pressure (AHA/CSI Guidelines) & DASH Diet Analyzer',
+    shortName: 'BP & DASH Diet',
+    tagline: 'Classify systolic/diastolic readings & low-salt Indian meal plans',
+    description: 'Analyze blood pressure readings according to Cardiology Society of India (CSI) guidelines and receive tailored Indian DASH dietary recommendations.',
+    category: 'daily-life',
+    icon: 'Heart',
+    popular: true,
+    badge: 'Health Tool',
+    keywords: ['blood pressure chart India', 'DASH diet for Indians', 'hypertension stage 1 stage 2'],
+    seo: {
+      title: 'Indian Blood Pressure & DASH Diet Analyzer | BharatUtility',
+      description: 'Classify blood pressure readings and get low-salt Indian DASH diet tips to manage hypertension.',
+      keywords: ['blood pressure analyzer', 'BP chart India', 'hypertension diet'],
+      canonicalSlug: 'indian-blood-pressure-dash-diet-analyzer',
+      h1: 'Indian Blood Pressure (AHA/CSI Guidelines) & DASH Diet Analyzer'
+    },
+    formulaDescription: 'CSI Classification: Normal (<120/80), Elevated (120-129/<80), Stage 1 (130-139/80-89), Stage 2 (>=140/>=90).',
+    workedExample: {
+      inputSummary: 'Reading: 132 / 86 mmHg',
+      calculationSteps: [
+        'Systolic: 132 (Stage 1 range 130-139)',
+        'Diastolic: 86 (Stage 1 range 80-89)'
+      ],
+      finalResult: 'Stage 1 Hypertension: Restrict table salt, pickle, papad, and practice 30-min brisk walk'
+    },
+    faqs: [{ question: 'What is the recommended daily salt limit for hypertensive individuals?', answer: 'Cardiologists recommend limiting salt intake to under 3.75g to 5g (approx. 1 teaspoon) per day.' }],
+    relatedToolSlugs: ['indian-diet-macro-bmi-planner', 'body-surface-area-clinical-dosage-calculator', 'blood-group-compatibility-eraktkosh']
+  },
+  {
+    id: 'shop-and-establishment-gumasta-guide',
+    slug: 'shop-and-establishment-gumasta-guide',
+    name: 'Shop and Establishment Act (Gumasta License / Trade License) Guide',
+    shortName: 'Gumasta License',
+    tagline: 'Mandatory commercial registration for current bank accounts & retail stores',
+    description: 'Comprehensive guide to applying for a Shop and Establishment Act (Gumasta License / Trade License) certificate with document checklists and state portals.',
+    category: 'business',
+    icon: 'Store',
+    badge: 'Business Setup',
+    keywords: ['Gumasta license online apply', 'shop and establishment registration', 'trade license documents'],
+    seo: {
+      title: 'Shop and Establishment (Gumasta License) Guide | BharatUtility',
+      description: 'Learn how to register a shop, clinic, or IT office under Shop and Establishment Act.',
+      keywords: ['Gumasta license', 'shop registration', 'trade license India'],
+      canonicalSlug: 'shop-and-establishment-gumasta-guide',
+      h1: 'Shop and Establishment Act (Gumasta License / Trade License) Guide'
+    },
+    formulaDescription: 'Statutory registration within 30 days of opening establishment under State Labour Dept.',
+    workedExample: {
+      inputSummary: 'New Retail Shop with 4 employees',
+      calculationSteps: [
+        'Document 1: Shop Rent Agreement + Electricity Bill',
+        'Document 2: Proprietor PAN + Aadhaar',
+        'Fee: ₹500 - ₹1,500 based on employee tier'
+      ],
+      finalResult: 'Gumasta Certificate issued for opening Current Account and GST registration'
+    },
+    faqs: [{ question: 'Is Gumasta license mandatory to open a current bank account?', answer: 'Yes, banks mandatorily require a Shop & Establishment / Gumasta registration or GST certificate as proof of commercial activity.' }],
+    relatedToolSlugs: ['freelancer-44ada-tax-calculator', 'gst-calculator', 'commercial-rent-escalation-calculator']
+  },
+  {
+    id: 'post-office-schemes-pomis-kvp-nsc-calculator',
+    slug: 'post-office-schemes-pomis-kvp-nsc-calculator',
+    name: 'Indian Postal Savings Scheme (POMIS, NSC, KVP, SCSS) Interest Matrix',
+    shortName: 'Post Office Schemes',
+    tagline: 'POMIS 7.4% monthly income, NSC 7.7%, KVP doubles in 115 mos & SCSS 8.2%',
+    description: 'Calculate maturity values and monthly income payouts for sovereign-guaranteed India Post savings schemes with 100% government safety.',
+    category: 'money',
+    icon: 'Mail',
+    popular: true,
+    trending: true,
+    badge: '100% Safe',
+    keywords: ['post office MIS calculator', 'KVP maturity calculator', 'NSC interest rate post office'],
+    seo: {
+      title: 'Post Office Schemes (POMIS, NSC, KVP, SCSS) Calculator | BharatUtility',
+      description: 'Calculate interest and returns on Post Office MIS, NSC, KVP, and Senior Citizen schemes.',
+      keywords: ['post office calculator', 'POMIS interest', 'KVP calculator', 'NSC calculator'],
+      canonicalSlug: 'post-office-schemes-pomis-kvp-nsc-calculator',
+      h1: 'Indian Postal Savings Scheme (POMIS, NSC, KVP, SCSS) Interest Matrix'
+    },
+    formulaDescription: 'POMIS (7.4% monthly) | NSC (7.7% compound) | KVP (7.5% 2x in 115 mos) | SCSS (8.2% quarterly).',
+    workedExample: {
+      inputSummary: '₹2,00,000 deposited in Post Office Monthly Income Scheme (POMIS)',
+      calculationSteps: [
+        'Annual Rate: 7.4% sovereign interest',
+        'Annual Payout: ₹14,800',
+        'Monthly Payout: ₹1,233 / month'
+      ],
+      finalResult: 'Monthly Guaranteed Income: ₹1,233 credited direct to Post Office Savings Account'
+    },
+    faqs: [{ question: 'Are post office deposits safer than bank fixed deposits?', answer: 'Yes, Post Office deposits carry an unlimited sovereign guarantee from the Government of India.' }],
+    relatedToolSlugs: ['sukanya-samriddhi-vs-ppf-comparator', 'senior-citizen-fd-form15h-calculator', 'fd-calculator']
+  },
+  {
+    id: 'irctc-luggage-weight-excess-baggage-rates',
+    slug: 'irctc-luggage-weight-excess-baggage-rates',
+    name: 'Indian Railways (IRCTC) Luggage Weight Allowance & Excess Rates',
+    shortName: 'Train Luggage Limit',
+    tagline: 'AC 1st 70kg, 2AC 50kg, 3AC/SL 40kg free allowances & parcel booking rates',
+    description: 'Check official free baggage limits per passenger across all travel classes on Indian Railways and calculate excess luggage charges.',
+    category: 'travel-utility',
+    icon: 'Luggage',
+    badge: 'Rail Rules',
+    keywords: ['railway luggage allowance rules', 'train baggage limit IRCTC', 'excess luggage charge train'],
+    seo: {
+      title: 'Indian Railways Luggage Allowance & Excess Baggage Rates | BharatUtility',
+      description: 'Check class-wise free luggage weight limits and parcel van rates on Indian Railways.',
+      keywords: ['railway luggage limit', 'train baggage allowance', 'IRCTC luggage rules'],
+      canonicalSlug: 'irctc-luggage-weight-excess-baggage-rates',
+      h1: 'Indian Railways (IRCTC) Luggage Weight Allowance & Excess Rates'
+    },
+    formulaDescription: 'Free Baggage: AC 1st (70 kg), AC 2-Tier (50 kg), AC 3-Tier/CC (40 kg), Sleeper (40 kg).',
+    workedExample: {
+      inputSummary: 'Passenger in 3AC carrying 55 kg luggage',
+      calculationSteps: [
+        'Free Allowance: 40 kg',
+        'Marginal Tolerance: 10 kg',
+        'Excess Weight: 15 kg'
+      ],
+      finalResult: 'Excess 15 kg must be booked at parcel office to avoid 6x penal freight penalty'
+    },
+    faqs: [{ question: 'Can I carry a bicycle on a train?', answer: 'Yes, bicycles can be booked as luggage in the brake van (SLR) at standard parcel freight rates.' }],
+    relatedToolSlugs: ['irctc-pnr-quotas-confirmation-decoder', 'train-berth-tatkal-finder', 'railmadad-139-uts-mobile-railway-guide']
+  },
+  {
+    id: 'mobile-imei-luhn-validator-ceir-guide',
+    slug: 'mobile-imei-luhn-validator-ceir-guide',
+    name: 'Mobile IMEI 15-Digit Luhn Algorithm Verification & CEIR Blocking Guide',
+    shortName: 'IMEI CEIR Check',
+    tagline: 'Validate 15-digit IMEI genuineness & block lost/stolen phones on Sanchar Saathi',
+    description: 'Validate 15-digit International Mobile Equipment Identity (IMEI) numbers using the Luhn Modulo-10 algorithm and learn how to block stolen phones on the CEIR portal.',
+    category: 'technology',
+    icon: 'Smartphone',
+    badge: 'CEIR Portal',
+    keywords: ['IMEI validator Luhn algorithm', 'block stolen phone CEIR', 'Sanchar Saathi IMEI check'],
+    seo: {
+      title: 'IMEI 15-Digit Luhn Validator & CEIR Stolen Phone Guide | BharatUtility',
+      description: 'Validate 15-digit smartphone IMEI genuineness and block lost mobiles on CEIR portal.',
+      keywords: ['IMEI validator', 'CEIR portal', 'Sanchar Saathi IMEI'],
+      canonicalSlug: 'mobile-imei-luhn-validator-ceir-guide',
+      h1: 'Mobile IMEI 15-Digit Luhn Algorithm Verification & CEIR Blocking Guide'
+    },
+    formulaDescription: 'Luhn Modulo-10 checksum validation on 15-digit IMEI string.',
+    workedExample: {
+      inputSummary: 'IMEI: 863456041234567',
+      calculationSteps: [
+        'Double every second digit and sum all digits',
+        'Modulo-10 check sum equals 0'
+      ],
+      finalResult: 'Valid IMEI Structure: Legitimate device ready for CEIR tracking if lost'
+    },
+    faqs: [{ question: 'How do I block a stolen phone on CEIR?', answer: 'File an online police complaint (e-FIR), then visit ceir.sancharsaathi.gov.in and enter your 15-digit IMEI and police complaint number.' }],
+    relatedToolSlugs: ['imei-ceir-guide-validator', 'sanchar-saathi-tafcop-sim-checker-guide', 'mobile-sar-radiation-checker']
+  },
+  {
+    id: 'epf-higher-pension-vs-eps95-calculator',
+    slug: 'epf-higher-pension-vs-eps95-calculator',
+    name: 'EPF Higher Pension (Supreme Court 2022 Ruling) vs EPS-95 Calculator',
+    shortName: 'EPF Higher Pension',
+    tagline: 'Calculate actual salary pension vs ₹15,000 wage ceiling & fund transfer tradeoffs',
+    description: 'Calculate monthly pension on actual basic salary vs ₹15,000 statutory wage ceiling under EPS-95 following the Supreme Court judgment of November 2022.',
+    category: 'india-services',
+    icon: 'ShieldCheck',
+    badge: 'SC Judgment',
+    keywords: ['EPF higher pension calculator', 'EPS 95 pension calculation formula', 'Supreme court higher pension 2022'],
+    seo: {
+      title: 'EPF Higher Pension vs EPS-95 Pension Calculator | BharatUtility',
+      description: 'Calculate higher monthly pension on actual salary vs ₹15,000 wage ceiling under EPS-95.',
+      keywords: ['EPF higher pension', 'EPS 95 calculator', 'pension calculation'],
+      canonicalSlug: 'epf-higher-pension-vs-eps95-calculator',
+      h1: 'EPF Higher Pension (Supreme Court 2022 Ruling) vs EPS-95 Calculator'
+    },
+    formulaDescription: 'Monthly Pension = (Average 60 Months Basic Pay * Pensionable Service Years) / 70.',
+    workedExample: {
+      inputSummary: 'Basic Salary: ₹75,000, 28 Years Service',
+      calculationSteps: [
+        'Capped Pension (₹15,000 cap): (15,000 * 28) / 70 = ₹6,000 / month',
+        'Higher Pension (Actual Salary): (75,000 * 28) / 70 = ₹30,000 / month'
+      ],
+      finalResult: 'Higher Pension Gain: +₹24,000/month (Requires 8.33% EPF to EPS transfer)'
+    },
+    faqs: [{ question: 'What is the formula to calculate EPS-95 monthly pension?', answer: 'The formula is (Pensionable Salary * Pensionable Service Years) / 70.' }],
+    relatedToolSlugs: ['epf-passbook-eps95-pension-calculator', 'nps-tier1-80ccd1b-pension-calculator', 'gratuity-leave-encashment-calculator']
+  },
+
+  // --- BATCH 7: OFFICIAL GOVERNMENT APPS & CITIZEN PORTALS ---
+  {
+    id: 'umang-app-all-in-one-govt-services-guide',
+    slug: 'umang-app-all-in-one-govt-services-guide',
+    name: 'UMANG App Guide - 1,200+ Central & State Government Services in One App',
+    shortName: 'UMANG App Guide',
+    tagline: 'Single mobile hub for EPFO, NPS, PM Kisan, Bharat Gas & Board results',
+    description: 'Explore the official UMANG (Unified Mobile App for New-Age Governance) platform developed by MeitY to access 1,200+ central and state services with zero clutter.',
+    category: 'india-services',
+    icon: 'Smartphone',
+    popular: true,
+    trending: true,
+    badge: 'Govt Portal',
+    keywords: ['UMANG app download', 'EPFO passbook UMANG', 'UMANG government services list'],
+    seo: {
+      title: 'UMANG App Guide - 1,200+ Government Services in One App | BharatUtility',
+      description: 'Explore the UMANG app to check EPFO passbooks, NPS statements, and PM-Kisan payouts.',
+      keywords: ['UMANG app', 'UMANG EPFO', 'UMANG services'],
+      canonicalSlug: 'umang-app-all-in-one-govt-services-guide',
+      h1: 'UMANG App Guide - 1,200+ Central & State Government Services in One App'
+    },
+    formulaDescription: 'Single Sign-On (SSO) gateway created by MeitY and NeGD for all Indian public services.',
+    workedExample: {
+      inputSummary: 'Accessing EPFO balance & PRAN NPS holding',
+      calculationSteps: [
+        'Open web.umang.gov.in or install UMANG app',
+        'Login via Mobile OTP or MeriPehchan',
+        'Directly access EPFO, NPS, and Gas booking without separate apps'
+      ],
+      finalResult: 'Single unified app saves phone storage and gives verified access'
+    },
+    faqs: [{ question: 'Is UMANG app safe for checking EPFO balance?', answer: 'Yes, UMANG is the official Government of India app created by MeitY with encrypted government APIs.' }],
+    relatedToolSlugs: ['digilocker-rule-9a-it-act-compliance-guide', 'maadhaar-biometric-lock-unlock-fraud-protection', 'epf-passbook-eps95-pension-calculator']
+  },
+  {
+    id: 'digilocker-rule-9a-it-act-compliance-guide',
+    slug: 'digilocker-rule-9a-it-act-compliance-guide',
+    name: 'DigiLocker App & Rule 9A Information Technology Act Compliance Guide',
+    shortName: 'DigiLocker Rule 9A',
+    tagline: 'Carry digital DL, RC, Marksheets legally equivalent to original physical papers',
+    description: 'Learn how documents issued in DigiLocker are legally treated on par with original physical certificates under Rule 9A of the IT Rules 2016.',
+    category: 'documents',
+    icon: 'FolderLock',
+    popular: true,
+    badge: 'IT Act 9A',
+    keywords: ['DigiLocker rule 9A IT Act', 'DigiLocker legal validity traffic police', 'driving license in DigiLocker'],
+    seo: {
+      title: 'DigiLocker & Rule 9A IT Act Legal Power Guide | BharatUtility',
+      description: 'Know your legal right to show digital Driving License and RC via DigiLocker under Rule 9A.',
+      keywords: ['DigiLocker Rule 9A', 'DigiLocker legal', 'DigiLocker traffic police'],
+      canonicalSlug: 'digilocker-rule-9a-it-act-compliance-guide',
+      h1: 'DigiLocker App & Rule 9A Information Technology Act Compliance Guide'
+    },
+    formulaDescription: 'Rule 9A of IT Rules 2016: Electronic documents in DigiLocker are deemed original documents.',
+    workedExample: {
+      inputSummary: 'Traffic check demanding physical vehicle RC',
+      calculationSteps: [
+        'Show issued RC document in official DigiLocker app',
+        'MoRTH advisory RT-11036/64/2017 prohibits demanding physical papers'
+      ],
+      finalResult: '100% Legal Compliance: No challan can be issued for not carrying physical papers'
+    },
+    faqs: [{ question: 'Can police seize my phone if I show DigiLocker?', answer: 'No, police have no legal authority to seize your phone when inspecting DigiLocker documents.' }],
+    relatedToolSlugs: ['mparivahan-virtual-rc-dl-portal-guide', 'mva-traffic-challan-fine-decoder', 'traffic-challan-portal-finder']
+  },
+  {
+    id: 'maadhaar-biometric-lock-unlock-fraud-protection',
+    slug: 'maadhaar-biometric-lock-unlock-fraud-protection',
+    name: 'mAadhaar App Biometric Lock / Unlock & AePS Fraud Protection Guide',
+    shortName: 'mAadhaar Lock',
+    tagline: 'Lock fingerprint biometrics to prevent AePS clone fraud & generate Virtual ID (VID)',
+    description: 'Step-by-step guide to locking your Aadhaar biometric fingerprints via the official mAadhaar app to stop illegal AePS bank withdrawals.',
+    category: 'technology',
+    icon: 'Fingerprint',
+    popular: true,
+    badge: 'Security',
+    keywords: ['mAadhaar biometric lock', 'prevent AePS fraud', 'Aadhaar virtual ID VID'],
+    seo: {
+      title: 'mAadhaar Biometric Lock & AePS Fraud Protection Guide | BharatUtility',
+      description: 'Protect your bank account from AePS fingerprint cloning by locking Aadhaar biometrics.',
+      keywords: ['mAadhaar lock', 'biometric lock Aadhaar', 'AePS fraud prevention'],
+      canonicalSlug: 'maadhaar-biometric-lock-unlock-fraud-protection',
+      h1: 'mAadhaar App Biometric Lock / Unlock & AePS Fraud Protection Guide'
+    },
+    formulaDescription: 'UIDAI Biometric Lock: Blocks biometric authentication while preserving OTP verification.',
+    workedExample: {
+      inputSummary: 'Securing Aadhaar-linked bank accounts',
+      calculationSteps: [
+        'Login to myaadhaar.uidai.gov.in or mAadhaar app',
+        'Enable "Lock Biometrics"',
+        'Biometric authentication becomes disabled across all AePS micro-ATMs'
+      ],
+      finalResult: '100% Protected from silicone fingerprint clone theft'
+    },
+    faqs: [{ question: 'Can I still receive Aadhaar OTPs when biometrics are locked?', answer: 'Yes! Biometric locking only disables fingerprint and iris scans; OTP authentication continues to work normally.' }],
+    relatedToolSlugs: ['cybercrime-1930-fraud-emergency-guide', 'sanchar-saathi-tafcop-sim-checker-guide', 'upi-daily-limits-and-cooloff-tracker']
+  },
+  {
+    id: 'mparivahan-virtual-rc-dl-portal-guide',
+    slug: 'mparivahan-virtual-rc-dl-portal-guide',
+    name: 'NextGen mParivahan App - Virtual RC, DL & Vehicle PUC / Insurance Portal',
+    shortName: 'mParivahan Guide',
+    tagline: 'Generate QR Virtual RC & DL, check e-challans & vehicle insurance validity',
+    description: 'Explore the official Ministry of Road Transport & Highways (MoRTH) NextGen mParivahan app to generate secure QR Virtual RC and Driving License.',
+    category: 'vehicle-utility',
+    icon: 'Car',
+    popular: true,
+    badge: 'MoRTH',
+    keywords: ['mParivahan virtual RC', 'NextGen mParivahan app', 'check vehicle insurance mParivahan'],
+    seo: {
+      title: 'NextGen mParivahan App - Virtual RC & DL Portal Guide | BharatUtility',
+      description: 'Generate Virtual RC and Driving License with QR code verification on mParivahan.',
+      keywords: ['mParivahan', 'virtual RC', 'mParivahan DL', 'vehicle details'],
+      canonicalSlug: 'mparivahan-virtual-rc-dl-portal-guide',
+      h1: 'NextGen mParivahan App - Virtual RC, DL & Vehicle PUC / Insurance Portal'
+    },
+    formulaDescription: 'Direct integration with MoRTH Vahan and Sarathi national vehicle databases.',
+    workedExample: {
+      inputSummary: 'Creating Virtual RC for two-wheeler',
+      calculationSteps: [
+        'Enter Vehicle Registration Number (e.g. MH12AB1234)',
+        'Enter last 5 digits of Chassis & Engine number',
+        'Generate encrypted QR-coded Virtual RC'
+      ],
+      finalResult: 'Official QR Virtual RC stored safely on phone'
+    },
+    faqs: [{ question: 'Can I share my Virtual RC with a family member?', answer: 'Yes, mParivahan allows sharing Virtual RC with family members with temporary validity.' }],
+    relatedToolSlugs: ['digilocker-rule-9a-it-act-compliance-guide', 'traffic-challan-portal-finder', 'mva-traffic-challan-fine-decoder']
+  },
+  {
+    id: 'sanchar-saathi-tafcop-sim-checker-guide',
+    slug: 'sanchar-saathi-tafcop-sim-checker-guide',
+    name: 'Sanchar Saathi & TAFCOP Portal (Check SIMs Registered on Your Aadhaar)',
+    shortName: 'TAFCOP SIM Checker',
+    tagline: 'Check active mobile numbers under your name (Max 9) & report fake connections',
+    description: 'Use the Department of Telecommunications (DoT) TAFCOP portal to identify all mobile connections registered against your Aadhaar and disconnect fraud numbers.',
+    category: 'technology',
+    icon: 'ShieldAlert',
+    popular: true,
+    trending: true,
+    badge: 'DoT Portal',
+    keywords: ['TAFCOP portal check SIM', 'how many SIMs on my Aadhaar', 'Sanchar Saathi TAFCOP'],
+    seo: {
+      title: 'TAFCOP Sanchar Saathi - Check SIMs on Your Aadhaar | BharatUtility',
+      description: 'Check how many SIM cards are registered in your name on DoT TAFCOP portal.',
+      keywords: ['TAFCOP', 'check SIM cards Aadhaar', 'Sanchar Saathi'],
+      canonicalSlug: 'sanchar-saathi-tafcop-sim-checker-guide',
+      h1: 'Sanchar Saathi & TAFCOP Portal (Check SIMs Registered on Your Aadhaar)'
+    },
+    formulaDescription: 'DoT Regulatory Limit: Maximum 9 mobile connections per individual (6 for J&K/NE).',
+    workedExample: {
+      inputSummary: 'Checking mobile numbers on tafcop.sancharsaathi.gov.in',
+      calculationSteps: [
+        'Enter mobile number and verify OTP',
+        'View list of all masked mobile numbers linked to your Aadhaar',
+        'Click "Not My Number" on unauthorized fake connections'
+      ],
+      finalResult: 'Unauthorized SIM deactivated by telecom operator within 48 hours'
+    },
+    faqs: [{ question: 'What is the maximum number of SIM cards an individual can own in India?', answer: 'Under DoT regulations, one individual can possess a maximum of 9 SIM cards across all telecom operators.' }],
+    relatedToolSlugs: ['mobile-imei-luhn-validator-ceir-guide', 'cybercrime-1930-fraud-emergency-guide', 'maadhaar-biometric-lock-unlock-fraud-protection']
+  },
+  {
+    id: 'railmadad-139-uts-mobile-railway-guide',
+    slug: 'railmadad-139-uts-mobile-railway-guide',
+    name: 'RailMadad (139 Helpline) & UTS on Mobile Railway Passenger Guide',
+    shortName: 'RailMadad 139',
+    tagline: 'Real-time train cleanliness, medical complaints & queue-free general tickets',
+    description: 'Guide to using Indian Railways official RailMadad portal and 139 helpline for real-time coach grievances and booking unreserved tickets on UTS Mobile.',
+    category: 'travel-utility',
+    icon: 'Train',
+    badge: 'Railways 139',
+    keywords: ['RailMadad complaint portal', 'UTS on mobile ticket booking', 'railway 139 helpline'],
+    seo: {
+      title: 'RailMadad 139 & UTS on Mobile Ticket Guide | BharatUtility',
+      description: 'Learn how to lodge real-time train complaints on RailMadad and book queue-free general tickets.',
+      keywords: ['RailMadad', 'UTS on mobile', 'railway helpline 139'],
+      canonicalSlug: 'railmadad-139-uts-mobile-railway-guide',
+      h1: 'RailMadad (139 Helpline) & UTS on Mobile Railway Passenger Guide'
+    },
+    formulaDescription: 'RailMadad single-window redressal system for Indian Railways passengers.',
+    workedExample: {
+      inputSummary: 'AC not cooling / Dirty coach in running train',
+      calculationSteps: [
+        'Open railmadad.indianrailways.gov.in or dial 139',
+        'Enter PNR number and select complaint category',
+        'Onboard train captain attends grievance at next major halt'
+      ],
+      finalResult: 'Fast real-time issue resolution with official tracking ID'
+    },
+    faqs: [{ question: 'Can I book platform tickets using UTS on Mobile?', answer: 'Yes, UTS app allows booking paperless platform tickets directly on your smartphone.' }],
+    relatedToolSlugs: ['irctc-pnr-quotas-confirmation-decoder', 'irctc-luggage-weight-excess-baggage-rates', 'train-berth-tatkal-finder']
+  },
+  {
+    id: 'pm-kisan-face-auth-ekyc-mobile-guide',
+    slug: 'pm-kisan-face-auth-ekyc-mobile-guide',
+    name: 'PM-Kisan Mobile App & Face Authentication e-KYC Step-by-Step Guide',
+    shortName: 'PM-Kisan Face eKYC',
+    tagline: 'Complete mandatory e-KYC from home using camera without fingerprint scanner',
+    description: 'Complete mandatory ₹6,000/year PM-Kisan e-KYC using the official PM-Kisan and Aadhaar FaceRD mobile apps directly from your smartphone camera.',
+    category: 'india-services',
+    icon: 'Smile',
+    badge: 'Farmer Guide',
+    keywords: ['PM Kisan face authentication eKYC', 'PM Kisan mobile app', 'PM kisan eKYC without OTP'],
+    seo: {
+      title: 'PM-Kisan Face Authentication e-KYC Guide | BharatUtility',
+      description: 'Step-by-step guide to complete PM-Kisan e-KYC using smartphone Face Recognition.',
+      keywords: ['PM Kisan face eKYC', 'PM Kisan app', 'face authentication PM Kisan'],
+      canonicalSlug: 'pm-kisan-face-auth-ekyc-mobile-guide',
+      h1: 'PM-Kisan Mobile App & Face Authentication e-KYC Step-by-Step Guide'
+    },
+    formulaDescription: 'UIDAI Aadhaar FaceRD facial liveness verification for biometric-free authentication.',
+    workedExample: {
+      inputSummary: 'Farmer completing e-KYC at home',
+      calculationSteps: [
+        'Install "PM Kisan" app + "Aadhaar FaceRD" app from Play Store',
+        'Login with Aadhaar and click "Scan Face"',
+        'Blink eyes into front camera for 3 seconds'
+      ],
+      finalResult: 'e-KYC Status marked "Success" — ₹2,000 installment released'
+    },
+    faqs: [{ question: 'Do I need to pay any fee for Face e-KYC?', answer: 'No, Face Authentication e-KYC via PM-Kisan app is completely free of charge.' }],
+    relatedToolSlugs: ['pm-kisan-eligibility-checker', 'kisan-credit-card-4percent-calculator', 'pm-fasal-bima-crop-insurance-calculator']
+  },
+  {
+    id: 'bhim-upi-offline-star99hash-guide',
+    slug: 'bhim-upi-offline-star99hash-guide',
+    name: 'BHIM UPI & USSD *99# Feature Phone Offline UPI Payment Guide',
+    shortName: 'Offline *99# UPI',
+    tagline: 'Transfer money, check bank balance without internet on basic keypad phones',
+    description: 'Learn how to make UPI payments without internet or smartphones using NPCI official USSD *99# service across all telecom networks (Jio, Airtel, Vi, BSNL).',
+    category: 'india-services',
+    icon: 'Zap',
+    badge: 'Offline UPI',
+    keywords: ['*99# UPI offline payment', 'BHIM offline money transfer', 'UPI without internet keypad phone'],
+    seo: {
+      title: 'USSD *99# Offline UPI & Keypad Phone Payment Guide | BharatUtility',
+      description: 'Transfer money and check bank balance without internet by dialing *99# on your phone.',
+      keywords: ['*99# UPI', 'offline UPI', 'BHIM offline', 'keypad phone UPI'],
+      canonicalSlug: 'bhim-upi-offline-star99hash-guide',
+      h1: 'BHIM UPI & USSD *99# Feature Phone Offline UPI Payment Guide'
+    },
+    formulaDescription: 'National Unified USSD Platform (NUUP) *99# protocol operating over GSM cellular signalling.',
+    workedExample: {
+      inputSummary: 'Transferring ₹500 from basic feature phone',
+      calculationSteps: [
+        'Dial *99# from registered SIM',
+        'Press 1 (Send Money) -> Enter recipient Mobile / UPI ID',
+        'Enter Amount and 4/6-digit UPI PIN'
+      ],
+      finalResult: 'Money Transferred Instantly via IMPS with Zero Internet Connection'
+    },
+    faqs: [{ question: 'Does *99# work on smartphones as well?', answer: 'Yes! *99# works on any phone whenever you are in a remote area without mobile data or internet connectivity.' }],
+    relatedToolSlugs: ['upi-daily-limits-and-cooloff-tracker', 'cybercrime-1930-fraud-emergency-guide', 'maadhaar-biometric-lock-unlock-fraud-protection']
+  },
+  {
+    id: 'emergency-112-india-erss-sos-guide',
+    slug: 'emergency-112-india-erss-sos-guide',
+    name: '112 India (Emergency Response Support System - ERSS) SOS Guide',
+    shortName: '112 India SOS',
+    tagline: 'Single emergency app uniting Police (100), Fire (101), Ambulance (108) & Women Safety',
+    description: 'Understand how the national 112 India (ERSS) system operates to dispatch immediate police, ambulance, fire, and disaster response with real-time GPS location sharing.',
+    category: 'documents',
+    icon: 'PhoneCall',
+    popular: true,
+    badge: 'Emergency',
+    keywords: ['112 India emergency app', 'all in one emergency number India', 'ERSS 112 helpline'],
+    seo: {
+      title: '112 India (ERSS) Single Emergency SOS Helpline Guide | BharatUtility',
+      description: 'Learn how 112 India connects Police, Fire, Ambulance, and Women Safety into one panic button.',
+      keywords: ['112 emergency India', '112 ERSS', 'police fire ambulance 112'],
+      canonicalSlug: 'emergency-112-india-erss-sos-guide',
+      h1: '112 India (Emergency Response Support System - ERSS) SOS Guide'
+    },
+    formulaDescription: 'MHA Unified Emergency Response Support System (ERSS) operational nationwide.',
+    workedExample: {
+      inputSummary: 'Emergency roadside accident / medical situation',
+      calculationSteps: [
+        'Dial 112 or press power button 3 times for panic alert',
+        'Call connects to state centralized Emergency Response Centre (ERC)',
+        'GPS location coordinates dispatched to nearest police PCR / 108 ambulance'
+      ],
+      finalResult: 'Emergency vehicle dispatched with real-time route monitoring'
+    },
+    faqs: [{ question: 'Does 112 work without a mobile SIM card?', answer: 'Yes, 112 emergency calls connect over any available carrier network even without an active SIM card.' }],
+    relatedToolSlugs: ['cybercrime-1930-fraud-emergency-guide', 'blood-group-compatibility-eraktkosh', 'jan-aushadhi-generic-saver']
+  },
+  {
+    id: 'abha-health-card-digital-records-guide',
+    slug: 'abha-health-card-digital-records-guide',
+    name: 'ABHA App & Ayushman Bharat Digital Mission (ABDM) PHR Guide',
+    shortName: 'ABHA Records Guide',
+    tagline: 'Link lab reports, doctor prescriptions & lifetime digital medical history',
+    description: 'Master the ABHA Personal Health Record (PHR) app to organize diagnostic test reports, doctor discharge summaries, and share records securely with informed consent.',
+    category: 'daily-life',
+    icon: 'HeartPulse',
+    popular: true,
+    badge: 'NHA App',
+    keywords: ['ABHA PHR app download', 'link health records ABHA', 'Ayushman Bharat digital mission'],
+    seo: {
+      title: 'ABHA App & ABDM Digital Health Records Guide | BharatUtility',
+      description: 'Learn how to link diagnostic reports and prescriptions into your ABHA digital health account.',
+      keywords: ['ABHA app', 'digital health record', 'ABDM guide'],
+      canonicalSlug: 'abha-health-card-digital-records-guide',
+      h1: 'ABHA App & Ayushman Bharat Digital Mission (ABDM) PHR Guide'
+    },
+    formulaDescription: 'Consent-based Health Information Exchange (HIE) under National Health Authority.',
+    workedExample: {
+      inputSummary: 'Linking blood test report from private diagnostic lab',
+      calculationSteps: [
+        'Give 14-digit ABHA ID at lab registration counter',
+        'Lab pushes signed digital report to ABDM network',
+        'Receive instant notification in ABHA App to view and download PDF'
+      ],
+      finalResult: 'Permanent digital medical archive accessible anytime across India'
+    },
+    faqs: [{ question: 'Can hospitals see my old medical history without my permission?', answer: 'No. The ABDM framework is 100% consent-driven; hospitals can only view records after you approve an OTP request.' }],
+    relatedToolSlugs: ['ayushman-abha-digital-health-id-guide', 'ayushman-bharat-eligibility-checker', 'body-surface-area-clinical-dosage-calculator']
   }
 ];
 

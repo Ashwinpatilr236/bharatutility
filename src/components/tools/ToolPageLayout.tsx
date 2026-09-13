@@ -73,6 +73,11 @@ const LivePublicApisSuiteCalculator = React.lazy(() => import('../calculators/Li
 const HardwareAndDiagnosticSuiteCalculator = React.lazy(() => import('../calculators/HardwareAndDiagnosticSuiteCalculator').then(m => ({ default: m.HardwareAndDiagnosticSuiteCalculator })));
 const IndianGovtAndCivicExpansionSuite = React.lazy(() => import('../calculators/IndianGovtAndCivicExpansionSuite').then(m => ({ default: m.IndianGovtAndCivicExpansionSuite })));
 const DailyIndianMassUtilitySuite = React.lazy(() => import('../calculators/DailyIndianMassUtilitySuite').then(m => ({ default: m.DailyIndianMassUtilitySuite })));
+const TravelWeddingAndLandSuite = React.lazy(() => import('../calculators/TravelWeddingAndLandSuite').then(m => ({ default: m.TravelWeddingAndLandSuite })));
+const DigitalFinanceAndMobilitySuite = React.lazy(() => import('../calculators/DigitalFinanceAndMobilitySuite').then(m => ({ default: m.DigitalFinanceAndMobilitySuite })));
+const RightsCollegeAndWealthSuite = React.lazy(() => import('../calculators/RightsCollegeAndWealthSuite').then(m => ({ default: m.RightsCollegeAndWealthSuite })));
+const EnergyQuotasAndPostOfficeSuite = React.lazy(() => import('../calculators/EnergyQuotasAndPostOfficeSuite').then(m => ({ default: m.EnergyQuotasAndPostOfficeSuite })));
+const OfficialGovtAppsMasterSuite = React.lazy(() => import('../calculators/OfficialGovtAppsMasterSuite').then(m => ({ default: m.OfficialGovtAppsMasterSuite })));
 
 // 13 New Power Utilities
 const GoldSilverRateCalculator = React.lazy(() => import('./money/GoldSilverRateCalculator').then(m => ({ default: m.GoldSilverRateCalculator })));
@@ -644,6 +649,116 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <DailyIndianMassUtilitySuite initialMode="consumer-notice" onResultChange={handleResultChange} />;
       case 'branded-vs-generic-medicine-comparator':
         return <DailyIndianMassUtilitySuite initialMode="medicine-compare" onResultChange={handleResultChange} />;
+
+      // Batch 3: Travel, Wedding, Agriloan & Citizen Life Suite
+      case 'irctc-pnr-quotas-confirmation-decoder':
+        return <TravelWeddingAndLandSuite initialMode="pnr-decoder" onResultChange={handleResultChange} />;
+      case 'indian-wedding-shaadi-budget-planner':
+        return <TravelWeddingAndLandSuite initialMode="wedding-budget" onResultChange={handleResultChange} />;
+      case 'kisan-credit-card-4percent-calculator':
+        return <TravelWeddingAndLandSuite initialMode="kcc-loan" onResultChange={handleResultChange} />;
+      case 'central-gazette-name-change-guide':
+        return <TravelWeddingAndLandSuite initialMode="gazette-guide" onResultChange={handleResultChange} />;
+      case 'cbse-icse-best-of-five-percentage-calculator':
+        return <TravelWeddingAndLandSuite initialMode="board-marks" onResultChange={handleResultChange} />;
+      case 'commercial-rent-escalation-calculator':
+        return <TravelWeddingAndLandSuite initialMode="rent-escalation" onResultChange={handleResultChange} />;
+      case 'ayurvedic-prakriti-dosha-analyzer':
+        return <TravelWeddingAndLandSuite initialMode="ayurveda-prakriti" onResultChange={handleResultChange} />;
+      case 'rainwater-harvesting-tank-sizing-calculator':
+        return <TravelWeddingAndLandSuite initialMode="rainwater-tank" onResultChange={handleResultChange} />;
+      case 'mobile-sar-radiation-checker':
+        return <TravelWeddingAndLandSuite initialMode="sar-radiation" onResultChange={handleResultChange} />;
+      case 'bank-locker-rent-and-liability-guide':
+        return <TravelWeddingAndLandSuite initialMode="bank-locker" onResultChange={handleResultChange} />;
+
+      // Batch 4: Digital Finance, Mobility & Rights Suite
+      case 'upi-daily-limits-and-cooloff-tracker':
+        return <DigitalFinanceAndMobilitySuite initialMode="upi-limits" onResultChange={handleResultChange} />;
+      case 'sukanya-samriddhi-vs-ppf-comparator':
+        return <DigitalFinanceAndMobilitySuite initialMode="ssy-ppf" onResultChange={handleResultChange} />;
+      case 'tds-on-rent-194ib-calculator':
+        return <DigitalFinanceAndMobilitySuite initialMode="tds-rent" onResultChange={handleResultChange} />;
+      case 'ev-vs-petrol-scooter-tco-calculator':
+        return <DigitalFinanceAndMobilitySuite initialMode="ev-petrol" onResultChange={handleResultChange} />;
+      case 'pm-fasal-bima-crop-insurance-calculator':
+        return <DigitalFinanceAndMobilitySuite initialMode="fasal-bima" onResultChange={handleResultChange} />;
+      case 'rto-dl-test-traffic-signs-simulator':
+        return <DigitalFinanceAndMobilitySuite initialMode="rto-quiz" onResultChange={handleResultChange} />;
+      case 'housing-society-maintenance-sinking-fund-calculator':
+        return <DigitalFinanceAndMobilitySuite initialMode="society-maintenance" onResultChange={handleResultChange} />;
+      case 'tatkaal-passport-checklist-and-timeline':
+        return <DigitalFinanceAndMobilitySuite initialMode="tatkaal-passport" onResultChange={handleResultChange} />;
+      case 'senior-citizen-fd-form15h-calculator':
+        return <DigitalFinanceAndMobilitySuite initialMode="senior-fd" onResultChange={handleResultChange} />;
+      case 'ayushman-abha-digital-health-id-guide':
+        return <DigitalFinanceAndMobilitySuite initialMode="abha-card" onResultChange={handleResultChange} />;
+
+      // Batch 5: Rights, College, Wealth & Protection Suite
+      case 'rbi-sovereign-gold-bond-sgb-calculator':
+        return <RightsCollegeAndWealthSuite initialMode="sgb-gold" onResultChange={handleResultChange} />;
+      case 'family-gift-deed-vs-will-stamp-duty-guide':
+        return <RightsCollegeAndWealthSuite initialMode="gift-deed" onResultChange={handleResultChange} />;
+      case 'restaurant-bill-gst-service-charge-checker':
+        return <RightsCollegeAndWealthSuite initialMode="restaurant-gst" onResultChange={handleResultChange} />;
+      case 'college-75-percent-attendance-bunk-planner':
+        return <RightsCollegeAndWealthSuite initialMode="college-attendance" onResultChange={handleResultChange} />;
+      case 'leave-travel-allowance-lta-calculator':
+        return <RightsCollegeAndWealthSuite initialMode="lta-tax" onResultChange={handleResultChange} />;
+      case 'car-tyre-size-upsize-speedometer-calculator':
+        return <RightsCollegeAndWealthSuite initialMode="tyre-upsize" onResultChange={handleResultChange} />;
+      case 'apmc-mandi-msp-procurement-calculator':
+        return <RightsCollegeAndWealthSuite initialMode="mandi-msp" onResultChange={handleResultChange} />;
+      case 'nps-tier1-80ccd1b-pension-calculator':
+        return <RightsCollegeAndWealthSuite initialMode="nps-pension" onResultChange={handleResultChange} />;
+      case 'rti-application-first-appeal-timeline-guide':
+        return <RightsCollegeAndWealthSuite initialMode="rti-appeal" onResultChange={handleResultChange} />;
+      case 'body-surface-area-clinical-dosage-calculator':
+        return <RightsCollegeAndWealthSuite initialMode="bsa-dosage" onResultChange={handleResultChange} />;
+
+      // Batch 6: Energy, Quota, Post Office & Civic Suite
+      case 'lpg-cylinder-price-ujjwala-subsidy-tracker':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="lpg-price" onResultChange={handleResultChange} />;
+      case 'ews-obc-ncl-income-asset-criteria-checker':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="ews-checker" onResultChange={handleResultChange} />;
+      case 'fastag-blacklist-double-toll-penalty-guide':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="fastag-blacklist" onResultChange={handleResultChange} />;
+      case 'pm-kusum-solar-pump-subsidy-calculator':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="kusum-solar" onResultChange={handleResultChange} />;
+      case 'indian-blood-pressure-dash-diet-analyzer':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="blood-pressure" onResultChange={handleResultChange} />;
+      case 'shop-and-establishment-gumasta-guide':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="gumasta-license" onResultChange={handleResultChange} />;
+      case 'post-office-schemes-pomis-kvp-nsc-calculator':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="post-office-calc" onResultChange={handleResultChange} />;
+      case 'irctc-luggage-weight-excess-baggage-rates':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="train-luggage" onResultChange={handleResultChange} />;
+      case 'mobile-imei-luhn-validator-ceir-guide':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="imei-validator" onResultChange={handleResultChange} />;
+      case 'epf-higher-pension-vs-eps95-calculator':
+        return <EnergyQuotasAndPostOfficeSuite initialMode="epf-higher-pension" onResultChange={handleResultChange} />;
+
+      // Batch 7: Official Government Apps & Digital Portals Suite
+      case 'umang-app-all-in-one-govt-services-guide':
+        return <OfficialGovtAppsMasterSuite initialMode="umang-app" onResultChange={handleResultChange} />;
+      case 'digilocker-rule-9a-it-act-compliance-guide':
+        return <OfficialGovtAppsMasterSuite initialMode="digilocker-guide" onResultChange={handleResultChange} />;
+      case 'maadhaar-biometric-lock-unlock-fraud-protection':
+        return <OfficialGovtAppsMasterSuite initialMode="maadhaar-lock" onResultChange={handleResultChange} />;
+      case 'mparivahan-virtual-rc-dl-portal-guide':
+        return <OfficialGovtAppsMasterSuite initialMode="mparivahan-guide" onResultChange={handleResultChange} />;
+      case 'sanchar-saathi-tafcop-sim-checker-guide':
+        return <OfficialGovtAppsMasterSuite initialMode="tafcop-sims" onResultChange={handleResultChange} />;
+      case 'railmadad-139-uts-mobile-railway-guide':
+        return <OfficialGovtAppsMasterSuite initialMode="railmadad-guide" onResultChange={handleResultChange} />;
+      case 'pm-kisan-face-auth-ekyc-mobile-guide':
+        return <OfficialGovtAppsMasterSuite initialMode="pmkisan-face" onResultChange={handleResultChange} />;
+      case 'bhim-upi-offline-star99hash-guide':
+        return <OfficialGovtAppsMasterSuite initialMode="bhim-offline" onResultChange={handleResultChange} />;
+      case 'emergency-112-india-erss-sos-guide':
+        return <OfficialGovtAppsMasterSuite initialMode="emergency-112" onResultChange={handleResultChange} />;
+      case 'abha-health-card-digital-records-guide':
+        return <OfficialGovtAppsMasterSuite initialMode="abha-digital" onResultChange={handleResultChange} />;
 
       default:
         return <EmiCalculator onResultChange={handleResultChange} />;
