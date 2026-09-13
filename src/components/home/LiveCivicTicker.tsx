@@ -47,7 +47,7 @@ export const LiveCivicTicker: React.FC = () => {
 
           {/* 3. Live Currency Exchange */}
           <button
-            onClick={() => navigateToTool('live-currency-converter-inr')}
+            onClick={() => navigateToTool('currency-converter')}
             className="flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
           >
             <DollarSign className="w-3.5 h-3.5 text-emerald-500" />
@@ -74,7 +74,7 @@ export const LiveCivicTicker: React.FC = () => {
 
           {/* 5. Vedic Panchang & Rahu Kaal */}
           <button
-            onClick={() => navigateToTool('choghadiya-rahu-kaal-panchang')}
+            onClick={() => navigateToTool('panchang-choghadiya-muhurat-clock')}
             className="hidden lg:flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
           >
             <Sun className="w-3.5 h-3.5 text-amber-500" />

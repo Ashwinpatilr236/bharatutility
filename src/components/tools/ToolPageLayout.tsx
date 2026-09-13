@@ -287,6 +287,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       // Indian Choghadiya & Shubh Muhurat
       case 'choghadiya-calculator':
+      case 'choghadiya-rahu-kaal-panchang':
       case 'shubh-muhurat-calculator':
         return <ChoghadiyaSuiteCalculator onResultChange={handleResultChange} />;
 
@@ -328,22 +329,30 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       // 6 New Free API-Powered Utilities
       case 'currency-converter':
-        return <CurrencyConverterSuite />;
+      case 'live-currency-converter-inr':
+      case 'live-currency-converter':
+        return <CurrencyConverterSuite onResultChange={handleResultChange} />;
 
       case 'aqi-weather-forecast':
-        return <AqiAndWeatherSuite />;
+      case 'live-aqi-weather-forecast':
+        return <AqiAndWeatherSuite onResultChange={handleResultChange} />;
 
       case 'ip-isp-inspector':
-        return <IpInspectorSuite />;
+      case 'my-ip-inspector':
+        return <IpInspectorSuite onResultChange={handleResultChange} />;
 
       case 'daily-fuel-price-tracker':
-        return <FuelPriceTrackerSuite />;
+      case 'fuel-price-tracker':
+        return <FuelPriceTrackerSuite onResultChange={handleResultChange} />;
 
       case 'qr-code-scanner-reader':
-        return <QrScannerSuite />;
+      case 'camera-qr-scanner':
+      case 'qr-scanner':
+        return <QrScannerSuite onResultChange={handleResultChange} />;
 
       case 'long-weekend-holiday-planner':
-        return <LongWeekendPlannerSuite />;
+      case 'long-weekend-planner':
+        return <LongWeekendPlannerSuite onResultChange={handleResultChange} />;
 
       case 'gst-calculator':
       case 'discount-calculator':
@@ -541,8 +550,6 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <ImeiCeirGuideValidator />;
       case 'property-stamp-duty-calculator':
         return <PropertyStampDutyCalculator />;
-      case 'indian-baby-names-rashi':
-        return <IndianBabyNamesRashi />;
       case 'password-breach-checker':
         return <PasswordBreachChecker />;
 

@@ -11889,12 +11889,31 @@ export const TOOLS_REGISTRY: Tool[] = [
   }
 ];
 
+const TOOL_SLUG_ALIASES: Record<string, string> = {
+  'live-currency-converter-inr': 'currency-converter',
+  'live-currency-converter': 'currency-converter',
+  'inr-currency-converter': 'currency-converter',
+  'choghadiya-rahu-kaal-panchang': 'panchang-choghadiya-muhurat-clock',
+  'rahu-kaal-calculator': 'panchang-choghadiya-muhurat-clock',
+  'panchang-calculator': 'panchang-choghadiya-muhurat-clock',
+  'live-aqi-weather-forecast': 'aqi-weather-forecast',
+  'aqi-forecast': 'aqi-weather-forecast',
+  'my-ip-inspector': 'ip-isp-inspector',
+  'my-ip-address-inspector': 'ip-isp-inspector',
+  'camera-qr-scanner': 'qr-code-scanner-reader',
+  'qr-scanner': 'qr-code-scanner-reader',
+  'long-weekend-planner': 'long-weekend-holiday-planner',
+  'fuel-price-tracker': 'daily-fuel-price-tracker',
+  'daily-petrol-diesel-price': 'daily-fuel-price-tracker',
+};
+
 export function getActiveTools(): Tool[] {
   return TOOLS_REGISTRY.filter(t => t.status === 'published' || !t.status);
 }
 
 export function getToolBySlug(slug: string): Tool | undefined {
-  return TOOLS_REGISTRY.find(t => t.slug === slug || t.id === slug);
+  const resolvedSlug = TOOL_SLUG_ALIASES[slug] || slug;
+  return TOOLS_REGISTRY.find(t => t.slug === resolvedSlug || t.id === resolvedSlug || t.slug === slug || t.id === slug);
 }
 
 export function getToolsByCategory(categoryId: string): Tool[] {
