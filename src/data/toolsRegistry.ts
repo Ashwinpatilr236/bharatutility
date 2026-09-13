@@ -9499,6 +9499,411 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: ['train-berth-tatkal-finder', 'indian-passport-visa-free-countries', 'fuel-trip-cost-calculator']
+  },
+  // 151. State-Wise Electricity Slab Calculator
+  {
+    id: 'state-electricity-slab-calculator',
+    slug: 'state-electricity-slab-calculator',
+    name: 'State-Wise Electricity Bill Slab & Subsidy Calculator',
+    shortName: 'Electricity Slab Bill',
+    tagline: 'Calculate electricity bills with state DISCOM slabs, fixed charges, electricity duty, and free power subsidies (Gruha Jyothi, Delhi, Punjab)',
+    description: "Calculate residential electricity bills slab-by-slab for MSEDCL, TPDDL, BESCOM, UPPCL, PSPCL, TANGEDCO, and WBSEDCL. Includes government free electricity schemes and electricity duty.",
+    category: 'home',
+    icon: 'Zap',
+    keywords: ['electricity bill slab calculator', 'msedcl tangedco bescom tariff', 'gruha jyothi 200 units free calculator', 'delhi punjab free electricity check', 'state discom electricity duty rate'],
+    popular: true,
+    trending: true,
+    badge: 'State Slabs',
+    views: 87600,
+    seo: {
+      title: 'State-Wise Electricity Bill Slab & Subsidy Calculator | BharatUtility',
+      description: 'Calculate residential electricity bills slab-by-slab with fixed charges, duty, and free power subsidies (Gruha Jyothi, Delhi 200 units).',
+      keywords: ['electricity bill slab calculator', 'msedcl tangedco bescom tariff', 'gruha jyothi 200 units free calculator', 'delhi punjab free electricity check', 'state discom electricity duty rate'],
+      canonicalSlug: 'state-electricity-slab-calculator',
+      h1: 'State-Wise Electricity Bill Slab & Subsidy Calculator',
+    },
+    formulaDescription: 'Slab tier unit pricing + Fixed meter charge + State Electricity Duty percentage.',
+    workedExample: {
+      inputSummary: 'DISCOM: MSEDCL (Maharashtra) | Consumption: 240 Units / month',
+      calculationSteps: [
+        'First 100 Units @ ₹5.58 = ₹558',
+        'Next 140 Units @ ₹10.81 = ₹1,513',
+        'Fixed Charge: ₹125 | Electricity Duty (16%): ₹351',
+        'Total Estimated Bill: ₹2,547'
+      ],
+      finalResult: 'Monthly Bill: ₹2,547 | Includes Energy, Fixed & Duty Surcharges',
+    },
+    faqs: [
+      {
+        question: 'Which Indian states offer free electricity subsidies for households?',
+        answer: 'Karnataka (Gruha Jyothi up to 200 units), Delhi (100% subsidy up to 200 units), Punjab (up to 300 units free per month), and Tamil Nadu (first 100 units free for all domestic connections).'
+      }
+    ],
+    relatedToolSlugs: ['pm-surya-ghar-solar-calculator', 'home-inverter-battery-backup-calculator', 'cooling-tonnage-calculator']
+  },
+  // 152. 7th to 8th CPC Salary Matrix
+  {
+    id: 'seventh-to-eighth-cpc-calculator',
+    slug: 'seventh-to-eighth-cpc-calculator',
+    name: '7th to Expected 8th Pay Commission Salary & Pension Calculator',
+    shortName: '7th to 8th CPC Matrix',
+    tagline: 'Calculate 7th CPC salary with 50%+ DA, HRA, and predict 8th Pay Commission basic pay & hike (2.86x / 3.68x fitment factor)',
+    description: "Calculate central government employee gross salary, in-hand pay, and pension under 7th CPC (50% Dearness Allowance, HRA, TA) and forecast expected salary under 8th Pay Commission fitment factor recommendations.",
+    category: 'money',
+    icon: 'Building2',
+    keywords: ['8th pay commission salary calculator', '7th to 8th cpc fitment factor', 'central government salary calculator 50 da', '8th cpc salary hike prediction', 'pensioners 8th pay commission calculator'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: '8th CPC',
+    views: 115000,
+    seo: {
+      title: '7th to 8th Pay Commission Salary & Pension Calculator | BharatUtility',
+      description: 'Calculate 7th CPC salary with 50% DA and forecast expected 8th Pay Commission basic pay with 2.86x and 3.68x fitment factors.',
+      keywords: ['8th pay commission salary calculator', '7th to 8th cpc fitment factor', 'central government salary calculator 50 da', '8th cpc salary hike prediction', 'pensioners 8th pay commission calculator'],
+      canonicalSlug: 'seventh-to-eighth-cpc-calculator',
+      h1: '7th to Expected 8th Pay Commission Salary & Pension Matrix',
+    },
+    formulaDescription: '7th CPC Gross = Basic + DA (50%) + HRA (10-30%) + TA. 8th CPC Basic = 7th Basic * Fitment Factor.',
+    workedExample: {
+      inputSummary: 'Level: Level 6 (Basic ₹35,400) | DA: 50% | HRA: Tier X (30%) | Fitment: 2.86x',
+      calculationSteps: [
+        'Current 7th Basic: ₹35,400 | DA (50%): ₹17,700',
+        'HRA (30%): ₹10,620 | TA + DA on TA: ₹7,200',
+        'Current 7th Gross: ₹70,920 / month',
+        'Projected 8th CPC Basic (2.86x): ₹1,01,200 / month'
+      ],
+      finalResult: 'Current 7th Gross: ₹70,920/mo | Projected 8th Basic: ₹1,01,200/mo',
+    },
+    faqs: [
+      {
+        question: 'What is the expected fitment factor for the 8th Pay Commission?',
+        answer: 'Employee federations have proposed fitment factors ranging between 2.86x and 3.68x, which would substantially revise basic pay for all Level 1 to Level 18 government employees.'
+      }
+    ],
+    relatedToolSlugs: ['salary-calculator', 'epf-passbook-eps95-pension-calculator', 'gratuity-calculator']
+  },
+  // 153. NHAI FASTag Highway Toll Estimator
+  {
+    id: 'nhai-fastag-toll-calculator',
+    slug: 'nhai-fastag-toll-calculator',
+    name: 'NHAI FASTag Highway Toll Rate & Route Trip Estimator',
+    shortName: 'FASTag Toll Estimator',
+    tagline: 'Calculate FASTag toll charges, toll plaza counts, and single vs return rates for major Indian expressways and national highways',
+    description: "Estimate toll charges for road trips across major Indian highways (Delhi-Jaipur, Mumbai-Pune, Bengaluru-Chennai, Yamuna Expressway, Agra-Lucknow). View single journey, 24-hour return, and toll plazas.",
+    category: 'travel',
+    icon: 'Car',
+    keywords: ['fastag toll calculator india', 'nhai highway toll charges trip', 'mumbai pune expressway toll rate', 'delhi jaipur toll plazas cost', 'fastag return trip discount'],
+    popular: true,
+    trending: true,
+    badge: 'FASTag Rates',
+    views: 79200,
+    seo: {
+      title: 'NHAI FASTag Highway Toll Rate & Trip Estimator | BharatUtility',
+      description: 'Calculate FASTag toll expenses across Indian expressways and national highways with single and return trip rates.',
+      keywords: ['fastag toll calculator india', 'nhai highway toll charges trip', 'mumbai pune expressway toll rate', 'delhi jaipur toll plazas cost', 'fastag return trip discount'],
+      canonicalSlug: 'nhai-fastag-toll-calculator',
+      h1: 'NHAI FASTag Highway Toll Rate & Route Trip Estimator',
+    },
+    formulaDescription: 'NHAI toll plaza fee matrix for Car/Jeep/Van: Single Journey and 24-hour Return Trip rates.',
+    workedExample: {
+      inputSummary: 'Route: Delhi to Jaipur (NH-48) | Distance: 280 km | Vehicle: Car',
+      calculationSteps: [
+        'Total Toll Plazas: 3 (Kherki Daula, Bilaspur, Manoharpur)',
+        'Single Journey FASTag: ₹345',
+        '24-Hour Return Journey: ₹520 (Save ₹170 on return within 24 hours)'
+      ],
+      finalResult: 'Single Journey: ₹345 | Return Trip: ₹520 | 3 Toll Plazas',
+    },
+    faqs: [
+      {
+        question: 'What is the return trip concession on FASTag?',
+        answer: 'If you complete a return journey through the same toll plaza within 24 hours of the first crossing, a discounted return rate (typically 25% to 50% discount on the return leg) is automatically deducted.'
+      }
+    ],
+    relatedToolSlugs: ['fuel-cost-calculator', 'traffic-challan-portal-finder', 'mva-traffic-challan-fine-decoder']
+  },
+  // 154. Live Vedic Panchang & Choghadiya
+  {
+    id: 'panchang-choghadiya-muhurat-clock',
+    slug: 'panchang-choghadiya-muhurat-clock',
+    name: 'Live Vedic Panchang, Rahu Kaal & Choghadiya Muhurat Clock',
+    shortName: 'Live Panchang & Choghadiya',
+    tagline: 'Real-time Tithi, Nakshatra, Yoga, Rahu Kaal countdown, and Day/Night Choghadiya (Shubh, Labh, Amrit) auspicious timing',
+    description: "Check daily Vedic Panchang for Indian cities with real-time Tithi, Nakshatra, Yoga, Karana, Rahu Kaal inauspicious window, Abhijit Muhurat, and Day/Night Choghadiya for travel and new ventures.",
+    category: 'date-time',
+    icon: 'SunMedium',
+    keywords: ['today panchang rahu kaal time', 'daily choghadiya live clock', 'shubh labh amrit muhurat today', 'tithi nakshatra hindu calendar', 'abhijit muhurat auspicious time'],
+    popular: true,
+    trending: true,
+    badge: 'Live Muhurat',
+    views: 104000,
+    seo: {
+      title: 'Live Vedic Panchang, Rahu Kaal & Choghadiya Muhurat | BharatUtility',
+      description: 'Daily Panchang with Tithi, Nakshatra, Rahu Kaal countdown, and Day/Night Choghadiya for auspicious timings.',
+      keywords: ['today panchang rahu kaal time', 'daily choghadiya live clock', 'shubh labh amrit muhurat today', 'tithi nakshatra hindu calendar', 'abhijit muhurat auspicious time'],
+      canonicalSlug: 'panchang-choghadiya-muhurat-clock',
+      h1: 'Live Vedic Panchang, Rahu Kaal & Choghadiya Muhurat Clock',
+    },
+    formulaDescription: 'Solar astronomical ephemeris: Sunrise/Sunset interval divided into 8 equal Choghadiya & Rahu Kaal periods.',
+    workedExample: {
+      inputSummary: 'Location: India (IST) | Day: Shukla Paksha Ekadashi',
+      calculationSteps: [
+        'Abhijit Muhurat: 11:52 AM to 12:44 PM (Most Auspicious for all works)',
+        'Rahu Kaal: 04:30 PM to 06:00 PM (Inauspicious - avoid new transactions)',
+        'Active Choghadiya: Amrit (Nectar - highly favorable for journeys and deals)'
+      ],
+      finalResult: 'Active Muhurat: Amrit Choghadiya (Auspicious)',
+    },
+    faqs: [
+      {
+        question: 'Which Choghadiyas are considered auspicious?',
+        answer: 'Shubh (Good/Lucky), Labh (Gain/Profit), and Amrit (Best/Immortal) are auspicious. Chal (Neutral) is suitable for travel. Rog, Kaal, and Udveg should be avoided.'
+      }
+    ],
+    relatedToolSlugs: ['vastu-shastra-digital-compass', 'date-difference-calculator', 'working-days-calculator']
+  },
+  // 155. Indian Diet & Asian-BMI Planner
+  {
+    id: 'indian-diet-macro-bmi-planner',
+    slug: 'indian-diet-macro-bmi-planner',
+    name: 'Indian Diet Macro, Asian-BMI & Daily Protein Planner',
+    shortName: 'Indian Diet & BMI',
+    tagline: 'Calculate Asian-Indian cutoffs (Overweight at 23 BMI) and daily vegetarian/non-vegetarian protein goals (Roti, Dal, Paneer)',
+    description: "Calculate your body mass index based on official ICMR and WHO Asian-Indian specific cutoffs. Plan daily protein and calorie requirements tailored for Indian dietary staples (Roti, Dal, Paneer, Rice, Soya).",
+    category: 'daily-life',
+    icon: 'HeartPulse',
+    keywords: ['asian indian bmi calculator icmr', 'indian diet protein calculator', 'roti dal paneer calorie macro counter', 'indian overweight bmi cutoff 23', 'daily protein intake indian vegetarian'],
+    popular: true,
+    badge: 'ICMR Cutoff',
+    views: 62400,
+    seo: {
+      title: 'Indian Diet Macro, Asian-BMI & Daily Protein Planner | BharatUtility',
+      description: 'Calculate Asian-Indian specific BMI (Overweight starts at 23) and plan daily protein intake for Indian vegetarian and non-veg diets.',
+      keywords: ['asian indian bmi calculator icmr', 'indian diet protein calculator', 'roti dal paneer calorie macro counter', 'indian overweight bmi cutoff 23', 'daily protein intake indian vegetarian'],
+      canonicalSlug: 'indian-diet-macro-bmi-planner',
+      h1: 'Indian Diet Macro, Asian-BMI & Daily Protein Planner',
+    },
+    formulaDescription: 'BMI = weight(kg) / height(m)^2 with Asian-Indian risk stratification (Normal: 18.5-22.9, Overweight: 23-24.9, Obese: >=25).',
+    workedExample: {
+      inputSummary: 'Weight: 70 kg | Height: 172 cm (1.72 m) | Diet: Indian Vegetarian',
+      calculationSteps: [
+        'BMI = 70 / (1.72)^2 = 23.7 (Overweight under Asian-Indian criteria)',
+        'Ideal Indian Weight: 65 kg',
+        'Daily Protein Target: 70 grams (e.g. 100g Paneer + 1 cup Dal + 20g Soya chunks)'
+      ],
+      finalResult: 'BMI: 23.7 (Pre-Obese for Indian Risk) | Target Protein: 70g / day',
+    },
+    faqs: [
+      {
+        question: 'Why is BMI cutoff lower for Indians compared to Western standards?',
+        answer: 'ICMR and WHO recommend a lower BMI cutoff (Overweight at 23 instead of 25) for South Asians because Indians tend to accumulate higher visceral abdominal fat at lower body weights, increasing type-2 diabetes and cardiovascular risk.'
+      }
+    ],
+    relatedToolSlugs: ['food-adulteration-test-kit', 'blood-group-compatibility-eraktkosh', 'age-calculator']
+  },
+  // 156. MVA Traffic Challan Fine Decoder
+  {
+    id: 'mva-traffic-challan-fine-decoder',
+    slug: 'mva-traffic-challan-fine-decoder',
+    name: 'Motor Vehicle Act (MVA) Traffic Challan Penalty Decoder',
+    shortName: 'MVA Traffic Fines',
+    tagline: 'Official statutory fine rates for helmet, seatbelt, over-speeding, red light, drunk driving, and virtual court contest guidelines',
+    description: "Search official Motor Vehicle (Amendment) Act statutory penalties for traffic violations in India. Learn compoundable vs non-compoundable offences and how to settle or contest challans in online Virtual Courts.",
+    category: 'vehicle-utility',
+    icon: 'Scale',
+    keywords: ['mva traffic challan fine list', 'without helmet challan rate 2026', 'drunk driving penalty section 185', 'virtual court traffic challan settlement', 'blocking ambulance fine 10000'],
+    popular: true,
+    trending: true,
+    badge: 'MVA Rules',
+    views: 88100,
+    seo: {
+      title: 'Motor Vehicle Act (MVA) Traffic Challan Fine Decoder | BharatUtility',
+      description: 'Official statutory fine rates for helmet, seatbelt, red light, drunk driving, and virtual court online payment rules.',
+      keywords: ['mva traffic challan fine list', 'without helmet challan rate 2026', 'drunk driving penalty section 185', 'virtual court traffic challan settlement', 'blocking ambulance fine 10000'],
+      canonicalSlug: 'mva-traffic-challan-fine-decoder',
+      h1: 'Motor Vehicle Act (MVA) Traffic Challan Penalty Decoder',
+    },
+    formulaDescription: 'Motor Vehicle (Amendment) Act statutory schedule of penalties and virtual court procedure.',
+    workedExample: {
+      inputSummary: 'Violation: Driving without Helmet (Section 194D)',
+      calculationSteps: [
+        'Statutory Penalty: ₹1,000 fine',
+        'Additional Disqualification: 3-month driving licence suspension',
+        'Resolution Mode: Compoundable on-spot or via echallan.parivahan.gov.in'
+      ],
+      finalResult: 'Fine: ₹1,000 + 3-month DL disqualification',
+    },
+    faqs: [
+      {
+        question: 'What is the penalty for blocking an ambulance in India?',
+        answer: 'Under Section 194E of the Motor Vehicles Act, obstructing emergency vehicles (ambulances, fire tenders) attracts a severe penalty of ₹10,000 or up to 6 months imprisonment.'
+      }
+    ],
+    relatedToolSlugs: ['traffic-challan-portal-finder', 'nhai-fastag-toll-calculator', 'fuel-cost-calculator']
+  },
+  // 157. EPF 8.25% & EPS-95 Pension Calculator
+  {
+    id: 'epf-passbook-eps95-pension-calculator',
+    slug: 'epf-passbook-eps95-pension-calculator',
+    name: 'EPF Passbook 8.25% Interest & EPS-95 Monthly Pension Calculator',
+    shortName: 'EPF & EPS-95 Pension',
+    tagline: 'Calculate Employee (12%) and Employer split (3.67% EPF + 8.33% EPS) and estimate monthly lifelong pension after age 58',
+    description: "Calculate employee and employer provident fund contributions compounded at EPFO's 8.25% sovereign interest rate and estimate your lifelong monthly pension under EPS-95 based on pensionable service.",
+    category: 'money',
+    icon: 'Landmark',
+    keywords: ['epf interest calculator 8.25', 'eps 95 monthly pension formula', 'epfo employee employer contribution split', 'eps pension after 58 years', 'epf passbook balance compounding'],
+    popular: true,
+    trending: true,
+    badge: 'EPFO 8.25%',
+    views: 92400,
+    seo: {
+      title: 'EPF Passbook 8.25% Interest & EPS-95 Pension Calculator | BharatUtility',
+      description: 'Calculate EPF balance compounding at 8.25% interest and estimate monthly lifelong pension under EPS-95 after age 58.',
+      keywords: ['epf interest calculator 8.25', 'eps 95 monthly pension formula', 'epfo employee employer contribution split', 'eps pension after 58 years', 'epf passbook balance compounding'],
+      canonicalSlug: 'epf-passbook-eps95-pension-calculator',
+      h1: 'EPF Passbook 8.25% Interest & EPS-95 Pension Calculator',
+    },
+    formulaDescription: 'EPF = 8.25% annual compounding on monthly running balance. EPS Pension = (Pensionable Salary * Service Years) / 70.',
+    workedExample: {
+      inputSummary: 'Basic + DA: ₹30,000 | Service Years: 25 Years',
+      calculationSteps: [
+        'Employee Monthly EPF (12%): ₹3,600',
+        'Employer Monthly EPS (8.33% capped at ₹15k): ₹1,250',
+        'Employer Monthly EPF Balance: ₹2,350',
+        'Lifelong EPS-95 Monthly Pension at Age 58: ₹5,357 / month'
+      ],
+      finalResult: 'Monthly Employee EPF: ₹3,600 | Monthly Lifelong EPS Pension: ₹5,357 / mo',
+    },
+    faqs: [
+      {
+        question: 'What is the minimum service required to receive EPS pension?',
+        answer: 'An employee must complete at least 10 years of eligible contributory service to qualify for lifelong monthly pension under the Employees Pension Scheme (EPS-95).'
+      }
+    ],
+    relatedToolSlugs: ['seventh-to-eighth-cpc-calculator', 'gratuity-calculator', 'nps-calculator']
+  },
+  // 158. DGCA Flight Delay Compensation
+  {
+    id: 'dgca-flight-delay-compensation-calculator',
+    slug: 'dgca-flight-delay-compensation-calculator',
+    name: 'DGCA Flight Delay, Cancellation & Passenger Rights Claim Calculator',
+    shortName: 'DGCA Flight Claim',
+    tagline: 'Check statutory airline cash compensation (up to ₹20,000), free hotel stay, and refund rights under DGCA Passenger Charter',
+    description: "Check your legal rights and cash compensation entitlements if your domestic Indian flight (IndiGo, Air India, SpiceJet, Akasa) is delayed, cancelled, or denied boarding under DGCA CAR Section 3 rules.",
+    category: 'travel-utility',
+    icon: 'Plane',
+    keywords: ['dgca flight delay compensation rules', 'flight cancellation refund rights india', 'indigo air india flight delay claim', 'denied boarding airline compensation 20000', 'dgca passenger charter hotel stay'],
+    popular: true,
+    badge: 'DGCA Rights',
+    views: 58300,
+    seo: {
+      title: 'DGCA Flight Delay & Cancellation Compensation Calculator | BharatUtility',
+      description: 'Check statutory airline compensation entitlement (up to ₹20,000), free meals, hotel stay, and refund rights under DGCA rules.',
+      keywords: ['dgca flight delay compensation rules', 'flight cancellation refund rights india', 'indigo air india flight delay claim', 'denied boarding airline compensation 20000', 'dgca passenger charter hotel stay'],
+      canonicalSlug: 'dgca-flight-delay-compensation-calculator',
+      h1: 'DGCA Flight Delay & Cancellation Compensation Calculator',
+    },
+    formulaDescription: 'DGCA Civil Aviation Requirement (CAR) Section 3, Series M, Part IV statutory guidelines.',
+    workedExample: {
+      inputSummary: 'Delay: 4.5 Hours | Domestic Flight Block Time: 2.5 Hours',
+      calculationSteps: [
+        'Delay Exceeds 2 Hours: Mandatory free refreshments & meals at airport',
+        'Delay Exceeds 6 Hours / Night: Mandatory free hotel accommodation + transfers',
+        'Option for Full Refund: Eligible if delay exceeds 6 hours and passenger opts out'
+      ],
+      finalResult: 'Entitled to Free Meals & Refreshments + Free Hotel if delayed overnight',
+    },
+    faqs: [
+      {
+        question: 'What is the compensation if an airline denies boarding due to overbooking?',
+        answer: 'If alternate flight is arranged within 1 hour: No compensation. If alternate flight is within 24 hours: 200% of basic fare + fuel surcharge (up to ₹10,000). If >24 hours: 400% of basic fare (up to ₹20,000).'
+      }
+    ],
+    relatedToolSlugs: ['travel-budget-calculator', 'indian-passport-visa-free-countries', 'fuel-trip-cost-calculator']
+  },
+  // 159. Home Loan Prepayment & Tenure Reduction Calculator
+  {
+    id: 'home-loan-prepayment-tenure-calculator',
+    slug: 'home-loan-prepayment-tenure-calculator',
+    name: 'Home Loan Prepayment, Interest Saver & Tenure Reduction Simulator',
+    shortName: 'Loan Prepayment Saver',
+    tagline: 'Simulate lump-sum prepayments and annual EMI step-ups to save ₹10-25 Lakhs in bank interest and cut loan tenure by 5-8 years',
+    description: "Simulate home loan prepayments with lump-sum bonus payouts or annual 5% EMI step-ups. See exact calculations of lakhs saved in total bank interest and how many years you shave off your home loan.",
+    category: 'money',
+    icon: 'Calculator',
+    keywords: ['home loan prepayment calculator', 'loan tenure reduction calculator', 'how to save home loan interest india', 'part payment home loan sbi hdfc', 'home loan emi step up prepayment'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Save ₹10L+',
+    views: 118000,
+    seo: {
+      title: 'Home Loan Prepayment & Tenure Reduction Calculator | BharatUtility',
+      description: 'Simulate lump-sum prepayments and annual EMI step-ups to save lakhs in home loan interest and reduce tenure by 5-8 years.',
+      keywords: ['home loan prepayment calculator', 'loan tenure reduction calculator', 'how to save home loan interest india', 'part payment home loan sbi hdfc', 'home loan emi step up prepayment'],
+      canonicalSlug: 'home-loan-prepayment-tenure-calculator',
+      h1: 'Home Loan Prepayment & Tenure Reduction Simulator',
+    },
+    formulaDescription: 'Monthly amortization simulation with early principal reduction reducing subsequent interest compounding.',
+    workedExample: {
+      inputSummary: 'Loan: ₹40 Lakhs | Rate: 8.5% | Tenure: 20 Yrs | Lump Sum: ₹2 Lakhs in Yr 1 + ₹50,000/yr',
+      calculationSteps: [
+        'Original Total Interest: ₹45,15,400 (More than principal!)',
+        'With Prepayments Total Interest: ₹28,40,000',
+        'Total Interest Saved: ₹16,75,400',
+        'Loan Finished in: 13.8 Years (6.2 Years Shorter!)'
+      ],
+      finalResult: 'Saved ₹16.75 Lakhs in Interest | Loan Closed 6.2 Years Early',
+    },
+    faqs: [
+      {
+        question: 'Are there any prepayment penalty charges on floating rate home loans in India?',
+        answer: 'No. As per Reserve Bank of India (RBI) guidelines, banks and NBFCs cannot charge any prepayment or foreclosure penalty on floating rate home loans taken by individuals.'
+      }
+    ],
+    relatedToolSlugs: ['emi-calculator', 'pm-awas-yojana-subsidy-calculator', 'property-stamp-duty-calculator']
+  },
+  // 160. Indian MRP Breakdown & Retail Margin Calculator
+  {
+    id: 'mrp-margin-gst-breakdown-calculator',
+    slug: 'mrp-margin-gst-breakdown-calculator',
+    name: 'Indian MRP Price Breakdown, GST & Retail Margin Calculator',
+    shortName: 'MRP Margin Breakdown',
+    tagline: 'Decompose product MRP into Base Manufacturing Cost, GST Tax (5%, 12%, 18%, 28%), Distributor Margin, and Retailer Profit',
+    description: "Reverse engineer any printed product Maximum Retail Price (MRP) in India. View exact breakdown of manufacturer cost, government GST tax component, distributor margin (5-8%), and retailer margin (15-20%).",
+    category: 'business',
+    icon: 'ShoppingBag',
+    keywords: ['mrp breakdown calculator', 'retailer distributor margin calculator india', 'how mrp is calculated fmcg', 'gst inclusive reverse price calculation', 'mrp profit margin percentage'],
+    popular: true,
+    badge: 'MRP Margins',
+    views: 54200,
+    seo: {
+      title: 'Indian MRP Price Breakdown & Retail Margin Calculator | BharatUtility',
+      description: 'Decompose printed product MRP into Base Cost, GST Tax, Distributor Margin, and Retailer Profit margins.',
+      keywords: ['mrp breakdown calculator', 'retailer distributor margin calculator india', 'how mrp is calculated fmcg', 'gst inclusive reverse price calculation', 'mrp profit margin percentage'],
+      canonicalSlug: 'mrp-margin-gst-breakdown-calculator',
+      h1: 'Indian MRP Price Breakdown, GST & Retail Margin Calculator',
+    },
+    formulaDescription: 'Reverse distribution waterfall: MRP - Retailer Margin - Distributor Margin - Back-calculated GST = Base Cost.',
+    workedExample: {
+      inputSummary: 'Printed MRP: ₹100 | GST Slab: 18%',
+      calculationSteps: [
+        'Retailer Margin (~18%): ₹18',
+        'Distributor Margin (~6%): ₹6',
+        'Subtotal (Manufacturer + GST): ₹76',
+        'GST Component (18% inclusive): ₹12',
+        'Estimated Manufacturer Base Cost: ₹64'
+      ],
+      finalResult: 'Base Cost: ₹64 | GST: ₹12 | Distributor: ₹6 | Retailer: ₹18',
+    },
+    faqs: [
+      {
+        question: 'Can a retailer charge more than the printed MRP in India?',
+        answer: 'No. Under the Legal Metrology (Packaged Commodities) Rules, charging above the Maximum Retail Price (MRP) is illegal and punishable with fines and prosecution.'
+      }
+    ],
+    relatedToolSlugs: ['gst-calculator', 'profit-margin-calculator', 'business-break-even-calculator']
   }
 ];
 

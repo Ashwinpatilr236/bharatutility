@@ -71,6 +71,7 @@ const GovernmentSchemesSuiteCalculator = React.lazy(() => import('../calculators
 const LegalAndCitizenRightsCalculator = React.lazy(() => import('../calculators/LegalAndCitizenRightsCalculator').then(m => ({ default: m.LegalAndCitizenRightsCalculator })));
 const LivePublicApisSuiteCalculator = React.lazy(() => import('../calculators/LivePublicApisSuiteCalculator').then(m => ({ default: m.LivePublicApisSuiteCalculator })));
 const HardwareAndDiagnosticSuiteCalculator = React.lazy(() => import('../calculators/HardwareAndDiagnosticSuiteCalculator').then(m => ({ default: m.HardwareAndDiagnosticSuiteCalculator })));
+const IndianGovtAndCivicExpansionSuite = React.lazy(() => import('../calculators/IndianGovtAndCivicExpansionSuite').then(m => ({ default: m.IndianGovtAndCivicExpansionSuite })));
 
 // 13 New Power Utilities
 const GoldSilverRateCalculator = React.lazy(() => import('./money/GoldSilverRateCalculator').then(m => ({ default: m.GoldSilverRateCalculator })));
@@ -598,6 +599,28 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <HardwareAndDiagnosticSuiteCalculator initialMode="inverter-calculator" onResultChange={handleResultChange} />;
       case 'irctc-tatkal-timing-station-finder':
         return <HardwareAndDiagnosticSuiteCalculator initialMode="tatkal-timing" onResultChange={handleResultChange} />;
+
+      // Indian Civic & Governance Expansion Suite
+      case 'state-electricity-slab-calculator':
+        return <IndianGovtAndCivicExpansionSuite initialMode="electricity-slab" onResultChange={handleResultChange} />;
+      case 'seventh-to-eighth-cpc-calculator':
+        return <IndianGovtAndCivicExpansionSuite initialMode="cpc-salary" onResultChange={handleResultChange} />;
+      case 'nhai-fastag-toll-calculator':
+        return <IndianGovtAndCivicExpansionSuite initialMode="fastag-toll" onResultChange={handleResultChange} />;
+      case 'panchang-choghadiya-muhurat-clock':
+        return <IndianGovtAndCivicExpansionSuite initialMode="panchang-muhurat" onResultChange={handleResultChange} />;
+      case 'indian-diet-macro-bmi-planner':
+        return <IndianGovtAndCivicExpansionSuite initialMode="indian-diet-bmi" onResultChange={handleResultChange} />;
+      case 'mva-traffic-challan-fine-decoder':
+        return <IndianGovtAndCivicExpansionSuite initialMode="mva-fines" onResultChange={handleResultChange} />;
+      case 'epf-passbook-eps95-pension-calculator':
+        return <IndianGovtAndCivicExpansionSuite initialMode="epf-eps95" onResultChange={handleResultChange} />;
+      case 'dgca-flight-delay-compensation-calculator':
+        return <IndianGovtAndCivicExpansionSuite initialMode="dgca-flight-claim" onResultChange={handleResultChange} />;
+      case 'home-loan-prepayment-tenure-calculator':
+        return <IndianGovtAndCivicExpansionSuite initialMode="loan-prepayment" onResultChange={handleResultChange} />;
+      case 'mrp-margin-gst-breakdown-calculator':
+        return <IndianGovtAndCivicExpansionSuite initialMode="mrp-breakdown" onResultChange={handleResultChange} />;
 
       default:
         return <EmiCalculator onResultChange={handleResultChange} />;
