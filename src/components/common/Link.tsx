@@ -11,7 +11,7 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export const Link: React.FC<LinkProps> = ({ to, children, className = '', onClick, ...props }) => {
-  const { setView, navigateToTool, navigateToCategory, navigateToHome, navigateToAllTools, navigateToFavorites, navigateToLegal, navigateToContact, navigateToRequestTool, navigateToAdmin } = useApp();
+  const { setView, navigateToTool, navigateToCategory, navigateToHome, navigateToAllTools, navigateToFavorites, navigateToLegal, navigateToContact, navigateToRequestTool, navigateToSanatanNext, navigateToAdmin } = useApp();
 
   let href = '#';
   let targetView: ViewMode | null = null;
@@ -49,6 +49,8 @@ export const Link: React.FC<LinkProps> = ({ to, children, className = '', onClic
         navigateToContact();
       } else if (to === '/request-tool') {
         navigateToRequestTool();
+      } else if (to === '/sanatan-next') {
+        navigateToSanatanNext();
       } else if (to === '/about' || to === '/legal/about') {
         navigateToLegal('about');
       } else if (to === '/legal/privacy' || to === '/privacy') {

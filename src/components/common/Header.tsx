@@ -171,6 +171,24 @@ export const Header: React.FC = () => {
                         ))}
                       </div>
                     </div>
+
+                    {/* Ecosystem Discovery Promo inside Categories Menu */}
+                    <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between p-2 rounded-xl bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-transparent text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">🕉️</span>
+                        <div>
+                          <span className="font-bold text-neutral-900 dark:text-white">Sanatan Next</span>
+                          <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">Heritage, 12 Jyotirlingas, 51 Shakti Peeths & Panchang</span>
+                        </div>
+                      </div>
+                      <Link
+                        to="/sanatan-next"
+                        onClick={() => setIsCategoriesOpen(false)}
+                        className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-900 dark:text-amber-200 border border-amber-500/30 text-[10px] font-bold shrink-0 transition-colors"
+                      >
+                        Explore ↗
+                      </Link>
+                    </div>
                   </div>
                 )}
               </div>
@@ -325,6 +343,24 @@ export const Header: React.FC = () => {
               </div>
             </div>
 
+            {/* Mobile Ecosystem Discovery Card */}
+            <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
+              <Link
+                to="/sanatan-next"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-transparent border border-amber-500/20 text-xs"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🕉️</span>
+                  <div>
+                    <span className="font-bold text-neutral-900 dark:text-white block">Sanatan Next</span>
+                    <span className="text-[10px] text-amber-700 dark:text-amber-400">Cultural heritage & panchang initiative</span>
+                  </div>
+                </div>
+                <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400">Explore ↗</span>
+              </Link>
+            </div>
+
             <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800 flex flex-wrap justify-between items-center gap-2 text-xs text-neutral-500">
               <Link
                 to="/about"
@@ -332,6 +368,13 @@ export const Header: React.FC = () => {
                 className="hover:underline"
               >
                 About BharatUtility
+              </Link>
+              <Link
+                to="/sanatan-next"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="hover:underline text-amber-600 dark:text-amber-400 font-medium"
+              >
+                Sanatan Next
               </Link>
               <Link
                 to="/request-tool"

@@ -115,6 +115,7 @@ export type ViewMode =
   | { type: 'favorites' }
   | { type: 'contact' }
   | { type: 'request-tool' }
+  | { type: 'sanatan-next' }
   | { type: 'admin'; section?: AdminSection; subParam?: string }
   | { type: 'legal'; page: 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact' };
 

@@ -20,6 +20,7 @@ import { RecentlyUsedSection } from './components/home/RecentlyUsedSection';
 import { TrustSection } from './components/home/TrustSection';
 import { HomeFaqSection } from './components/home/HomeFaqSection';
 import { FinalDiscoveryCtaSection } from './components/home/FinalDiscoveryCtaSection';
+import { SanatanNextShowcaseSection } from './components/home/SanatanNextShowcaseSection';
 import { SocialFollow } from './components/common/SocialFollow';
 import { getToolBySlug } from './data/toolsRegistry';
 import { ArrowLeft } from 'lucide-react';
@@ -36,6 +37,7 @@ const CategoryView = React.lazy(() => import('./components/views/CategoryView').
 const AllToolsView = React.lazy(() => import('./components/views/AllToolsView').then(m => ({ default: m.AllToolsView })));
 const FavoritesView = React.lazy(() => import('./components/views/FavoritesView').then(m => ({ default: m.FavoritesView })));
 const RequestToolView = React.lazy(() => import('./components/views/RequestToolView').then(m => ({ default: m.RequestToolView })));
+const SanatanNextPromoView = React.lazy(() => import('./components/views/SanatanNextPromoView').then(m => ({ default: m.SanatanNextPromoView })));
 
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 
@@ -90,13 +92,16 @@ const AppContent: React.FC = () => {
             <YourFavoritesSection />
             <RecentlyUsedSection />
 
-            {/* 9. Section 7: Why BharatUtility & Privacy Trust */}
+            {/* 9. Section 7: Sister Project Showcase: Sanatan Next */}
+            <SanatanNextShowcaseSection />
+
+            {/* 10. Section 8: Why BharatUtility & Privacy Trust */}
             <TrustSection />
 
-            {/* 10. Section 8: Concise Indian User FAQ */}
+            {/* 11. Section 9: Concise Indian User FAQ */}
             <HomeFaqSection />
 
-            {/* 11. Section 9: Final Tool Discovery CTA */}
+            {/* 12. Section 10: Final Tool Discovery CTA */}
             <FinalDiscoveryCtaSection />
           </div>
         )}
@@ -144,6 +149,10 @@ const AppContent: React.FC = () => {
 
             {view.type === 'request-tool' && (
               <RequestToolView />
+            )}
+
+            {view.type === 'sanatan-next' && (
+              <SanatanNextPromoView />
             )}
 
             {view.type === 'legal' && (

@@ -22,6 +22,7 @@ interface AppContextType {
   navigateToLegal: (page: 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact') => void;
   navigateToContact: () => void;
   navigateToRequestTool: () => void;
+  navigateToSanatanNext: () => void;
   navigateToAdmin: (section?: AdminSection, subParam?: string) => void;
   theme: ThemeMode;
   setTheme: (theme: ThemeMode) => void;
@@ -85,6 +86,9 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
   if (hash === '#/request-tool' || hash === '#request-tool') {
     return { view: { type: 'request-tool' }, redirectPath: `/request-tool${search}` };
   }
+  if (hash === '#/sanatan-next' || hash === '#sanatan-next') {
+    return { view: { type: 'sanatan-next' }, redirectPath: `/sanatan-next${search}` };
+  }
   if (hash === '#/about' || hash === '#about') {
     return { view: { type: 'legal', page: 'about' }, redirectPath: `/about${search}` };
   }
@@ -147,6 +151,9 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
   }
   if (cleanPath === '/request-tool') {
     return { view: { type: 'request-tool' } };
+  }
+  if (cleanPath === '/sanatan-next') {
+    return { view: { type: 'sanatan-next' } };
   }
   if (cleanPath === '/about' || cleanPath === '/about-us' || cleanPath === '/info') {
     return { view: { type: 'legal', page: 'about' } };
@@ -394,6 +401,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setView({ type: 'request-tool' });
   };
 
+  const navigateToSanatanNext = () => {
+    setView({ type: 'sanatan-next' });
+  };
+
   const toggleFavorite = (toolSlug: string) => {
     setFavorites(prev => {
       const exists = prev.includes(toolSlug);
@@ -498,6 +509,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         navigateToLegal,
         navigateToContact,
         navigateToRequestTool,
+        navigateToSanatanNext,
         navigateToAdmin,
         theme,
         setTheme,

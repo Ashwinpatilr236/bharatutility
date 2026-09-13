@@ -31,6 +31,8 @@ export function getPathForView(view: ViewMode): string {
       return '/contact';
     case 'request-tool':
       return '/request-tool';
+    case 'sanatan-next':
+      return '/sanatan-next';
     case 'legal':
       if (view.page === 'about') return '/about';
       return `/legal/${view.page}`;
@@ -290,6 +292,35 @@ export function updateSeoMetadata(view: ViewMode): void {
       name: 'Request a Tool',
       url: canonicalUrl,
       description: description,
+    };
+  } else if (view.type === 'sanatan-next') {
+    title = `Sanatan Next — Aane Wali Peedhi Ke Liye Sanatan Gyan | ${SITE_NAME}`;
+    description =
+      'Discover Sanatan Next, a free digital platform exploring Sanatan knowledge, traditions, festivals, sacred places and Indian cultural heritage.';
+    jsonLdData = {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Sanatan Next — Digital Heritage & Knowledge Initiative',
+      url: canonicalUrl,
+      description: description,
+      publisher: {
+        '@type': 'Organization',
+        '@id': `${CANONICAL_BASE}/#organization`,
+        name: SITE_NAME,
+        url: `${CANONICAL_BASE}/`,
+      },
+      isPartOf: {
+        '@type': 'WebSite',
+        name: 'ARRJS Technologies Ecosystem',
+        url: 'https://arrjs-technologies.netlify.app/',
+      },
+      about: {
+        '@type': 'Thing',
+        name: 'Sanatan Next',
+        url: 'https://sanatannext.netlify.app/',
+        description:
+          'Aane wali peedhi ke liye Sanatan gyan — Free digital platform for Sanatan knowledge, Jyotirlingas, Shakti Peeths, Panchang, and Indian traditions.',
+      },
     };
   } else if (view.type === 'admin') {
     title = `Admin Portal & Analytics | ${SITE_NAME}`;

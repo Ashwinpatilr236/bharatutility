@@ -84,6 +84,15 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link
+                  to="/sanatan-next"
+                  className="hover:text-accent dark:hover:text-white transition-colors text-left font-medium text-amber-600 dark:text-amber-400 flex items-center gap-1"
+                >
+                  <span>Sanatan Next</span>
+                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20">New</span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/contact"
                   className="hover:text-accent dark:hover:text-white transition-colors text-left"
                 >
@@ -176,24 +185,35 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Parent Company Ecosystem Attribution Banner */}
-        <div className="mt-10 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-900/90 border border-neutral-200/80 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <div className="mt-10 p-5 rounded-2xl bg-neutral-100 dark:bg-neutral-900/90 border border-neutral-200/80 dark:border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
           <div className="flex items-center gap-3">
-            <span className="text-xl">🏢</span>
+            <span className="text-2xl">🏢</span>
             <div>
-              <span className="font-bold text-neutral-900 dark:text-white font-display">Part of the ARRJS Technologies Ecosystem</span>
-              <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
-                BharatUtility is an India-focused public utility platform developed & operated by <strong>ARRJS Technologies</strong>.
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-bold text-neutral-900 dark:text-white font-display">ARRJS Technologies Ecosystem</span>
+                <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">Parent Organization</span>
+              </div>
+              <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5">
+                BharatUtility (Everyday Utilities) and <Link to="/sanatan-next" className="text-amber-600 dark:text-amber-400 font-bold hover:underline">Sanatan Next</Link> (Digital Cultural Heritage) are independent projects within <strong>ARRJS Technologies</strong>.
               </p>
             </div>
           </div>
-          <a
-            href="https://arrjs-technologies.netlify.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3.5 py-1.5 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-all shrink-0 inline-flex items-center gap-1 shadow-xs"
-          >
-            <span>Visit Parent Site (ARRJS Tech) ↗</span>
-          </a>
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <Link
+              to="/sanatan-next"
+              className="px-3.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-900 dark:text-amber-200 border border-amber-500/30 font-bold text-xs transition-all inline-flex items-center gap-1 shadow-2xs"
+            >
+              <span>Sanatan Next ↗</span>
+            </Link>
+            <a
+              href="https://arrjs-technologies.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3.5 py-1.5 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-all inline-flex items-center gap-1 shadow-xs"
+            >
+              <span>ARRJS Tech ↗</span>
+            </a>
+          </div>
         </div>
 
         {/* Disclaimer Notice */}
