@@ -187,31 +187,8 @@ const DEFAULT_FEATURE_FLAGS: FeatureFlagItem[] = [
   },
 ];
 
-// Initial Site Announcements
-const DEFAULT_ANNOUNCEMENTS: SiteAnnouncement[] = [
-  {
-    id: 'ann_1',
-    title: '🚀 BharatUtility 2.0 Live',
-    message: 'Fast, privacy-friendly, 100% free everyday calculators and utility tools for Indian citizens.',
-    ctaText: 'Explore Tools',
-    ctaUrl: '#/',
-    style: 'new',
-    enabled: true,
-    createdAt: '2026-08-01T10:00:00Z',
-    updatedAt: '2026-08-15T08:00:00Z',
-  },
-  {
-    id: 'ann_2',
-    title: '📢 Request a Custom Indian Utility',
-    message: 'Have an everyday calculation or document requirement? Submit your tool request directly to our engineering team.',
-    ctaText: 'Request Tool',
-    ctaUrl: '#/request-tool',
-    style: 'info',
-    enabled: false,
-    createdAt: '2026-07-15T12:00:00Z',
-    updatedAt: '2026-08-10T14:00:00Z',
-  },
-];
+// Initial Site Announcements (Default empty - synced from Supabase/Central Admin)
+const DEFAULT_ANNOUNCEMENTS: SiteAnnouncement[] = [];
 
 // Initial Dynamic Datasets
 const DEFAULT_DYNAMIC_DATASETS: DynamicDataset[] = [
@@ -735,12 +712,12 @@ class AdminStore {
       }
 
       // 2. Fetch announcements
-      const { data: annData } = await supabase
+      const { data: annData, error: annError } = await supabase
         .from('site_announcements')
         .select('*')
         .eq('is_active', true);
 
-      if (annData && annData.length > 0) {
+      if (!annError && Array.isArray(annData)) {
         const mappedAnn: SiteAnnouncement[] = annData.map((a: any) => ({
           id: a.id,
           title: a.title,
@@ -756,6 +733,7 @@ class AdminStore {
         }));
         this.announcements = mappedAnn;
         localStorage.setItem(ANNOUNCEMENTS_STORAGE_KEY, JSON.stringify(mappedAnn));
+        this.notify();
       }
 
       // 3. Fetch feature flags

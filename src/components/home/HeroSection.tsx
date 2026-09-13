@@ -74,42 +74,42 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-3 pb-12 sm:pt-6 sm:pb-16 overflow-hidden">
+    <section className="relative pt-1 pb-4 sm:pt-2 sm:pb-6 overflow-hidden">
       {/* Background Floating Subtle Ambient Light */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full" />
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[600px] h-[260px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full" />
 
       {/* Live Civic Status Bar */}
-      <div className="mb-6 sm:mb-8">
+      <div className="mb-4 sm:mb-5">
         <LiveCivicTicker />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 text-center">
         {/* Top Mini Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent-subtle border border-accent/20 text-accent text-xs font-semibold mb-5 shadow-2xs animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-accent-subtle border border-accent/20 text-accent text-xs font-semibold mb-3 shadow-2xs animate-in fade-in slide-in-from-bottom-2 duration-300">
           <Sparkles className="w-3.5 h-3.5" />
           <span>BharatUtility • India's Practical Utility Super-Site</span>
         </div>
 
         {/* Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-[1.15] mb-4">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-tight mb-2.5">
           Useful tools for everyday India
         </h1>
 
         {/* Subhead */}
-        <p className="text-sm sm:text-base lg:text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed">
+        <p className="text-xs sm:text-sm lg:text-base text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-4 sm:mb-5 leading-relaxed">
           Fast, privacy-focused calculators, official citizen lookups, document converters, and financial utilities — 100% free with zero signups.
         </p>
 
         {/* Large Clean Native Inline Search Box */}
-        <div className="relative max-w-2xl mx-auto mb-6 text-left">
+        <div className="relative max-w-2xl mx-auto mb-3.5 text-left">
           <div
-            className={`flex items-center gap-3 px-4 py-3.5 sm:py-4 bg-white dark:bg-neutral-900 rounded-2xl border-2 transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/40 ${
+            className={`flex items-center gap-3 px-4 py-3 bg-white dark:bg-neutral-900 rounded-2xl border-2 transition-all shadow-lg shadow-neutral-900/5 dark:shadow-black/40 ${
               isFocused
                 ? 'border-accent ring-4 ring-accent/15'
                 : 'border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700'
             }`}
           >
-            <Search className="w-5 h-5 text-accent shrink-0" />
+            <Search className="w-4 h-4 text-accent shrink-0" />
             <input
               ref={inputRef}
               id="hero-tool-search-input"
@@ -120,7 +120,7 @@ export const HeroSection: React.FC = () => {
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 250)}
               onKeyDown={handleKeyDown}
-              className="w-full bg-transparent text-sm sm:text-base text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none pr-2"
+              className="w-full bg-transparent text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none pr-2"
             />
             {searchQuery ? (
               <button
@@ -136,7 +136,7 @@ export const HeroSection: React.FC = () => {
             ) : (
               <button
                 onClick={() => setCommandPaletteOpen(true)}
-                className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 hover:border-accent/40 hover:text-accent transition-colors shrink-0"
+                className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 hover:border-accent/40 hover:text-accent transition-colors shrink-0"
               >
                 <span>Spotlight</span>
                 <kbd className="text-[10px]">Ctrl+K</kbd>
@@ -273,7 +273,7 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Quick Search Shortcut Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4 sm:mb-5">
           <span className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 mr-1 flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
             Trending:
@@ -282,7 +282,7 @@ export const HeroSection: React.FC = () => {
             <button
               key={keyword}
               onClick={() => handleTrendingClick(keyword)}
-              className="px-3 py-1.5 rounded-full text-xs font-medium bg-neutral-100 hover:bg-accent-subtle hover:text-accent hover:border-accent/40 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-2xs"
+              className="px-2.5 py-1 rounded-full text-xs font-medium bg-neutral-100 hover:bg-accent-subtle hover:text-accent hover:border-accent/40 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-2xs"
             >
               {keyword}
             </button>
@@ -290,7 +290,7 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* 8 Instant Quick-Access Bento Hero Cards (Spacious 4x2 Grid on Desktop) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 pt-1 text-left">
           {[
             {
               slug: 'emi-calculator',
@@ -360,10 +360,10 @@ export const HeroSection: React.FC = () => {
             <button
               key={tool.slug}
               onClick={() => navigateToTool(tool.slug)}
-              className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-lg transition-all group flex flex-col justify-between cursor-pointer"
+              className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-lg transition-all group flex flex-col justify-between cursor-pointer"
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-2.5">
                   <div className={`p-2 rounded-xl ${tool.color} group-hover:scale-105 transition-transform`}>
                     <DynamicIcon name={tool.icon} className="w-4 h-4" />
                   </div>
@@ -378,7 +378,7 @@ export const HeroSection: React.FC = () => {
                   {tool.tagline}
                 </p>
               </div>
-              <div className="mt-3.5 pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs font-semibold text-accent">
+              <div className="mt-3 pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs font-semibold text-accent">
                 <span>Open Calculator</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
