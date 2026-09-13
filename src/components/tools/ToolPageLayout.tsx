@@ -66,6 +66,12 @@ const FuelPriceTrackerSuite = React.lazy(() => import('../calculators/FuelPriceT
 const QrScannerSuite = React.lazy(() => import('../calculators/QrScannerSuite').then(m => ({ default: m.QrScannerSuite })));
 const LongWeekendPlannerSuite = React.lazy(() => import('../calculators/LongWeekendPlannerSuite').then(m => ({ default: m.LongWeekendPlannerSuite })));
 
+// New Mega Expansion Suites
+const GovernmentSchemesSuiteCalculator = React.lazy(() => import('../calculators/GovernmentSchemesSuiteCalculator').then(m => ({ default: m.GovernmentSchemesSuiteCalculator })));
+const LegalAndCitizenRightsCalculator = React.lazy(() => import('../calculators/LegalAndCitizenRightsCalculator').then(m => ({ default: m.LegalAndCitizenRightsCalculator })));
+const LivePublicApisSuiteCalculator = React.lazy(() => import('../calculators/LivePublicApisSuiteCalculator').then(m => ({ default: m.LivePublicApisSuiteCalculator })));
+const HardwareAndDiagnosticSuiteCalculator = React.lazy(() => import('../calculators/HardwareAndDiagnosticSuiteCalculator').then(m => ({ default: m.HardwareAndDiagnosticSuiteCalculator })));
+
 // 13 New Power Utilities
 const GoldSilverRateCalculator = React.lazy(() => import('./money/GoldSilverRateCalculator').then(m => ({ default: m.GoldSilverRateCalculator })));
 const CryptoInrTaxCalculator = React.lazy(() => import('./money/CryptoInrTaxCalculator').then(m => ({ default: m.CryptoInrTaxCalculator })));
@@ -532,6 +538,66 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <IndianBabyNamesRashi />;
       case 'password-breach-checker':
         return <PasswordBreachChecker />;
+
+      // Government Schemes Suite
+      case 'sukanya-samriddhi-yojana-calculator':
+        return <GovernmentSchemesSuiteCalculator initialMode="ssy" onResultChange={handleResultChange} />;
+      case 'pm-surya-ghar-solar-calculator':
+        return <GovernmentSchemesSuiteCalculator initialMode="pm-surya-ghar" onResultChange={handleResultChange} />;
+      case 'ayushman-bharat-eligibility-checker':
+        return <GovernmentSchemesSuiteCalculator initialMode="ayushman-bharat" onResultChange={handleResultChange} />;
+      case 'atal-pension-yojana-calculator':
+        return <GovernmentSchemesSuiteCalculator initialMode="atal-pension" onResultChange={handleResultChange} />;
+      case 'pm-kisan-eligibility-checker':
+        return <GovernmentSchemesSuiteCalculator initialMode="pm-kisan" onResultChange={handleResultChange} />;
+      case 'pm-mudra-loan-eligibility-calculator':
+        return <GovernmentSchemesSuiteCalculator initialMode="pm-mudra" onResultChange={handleResultChange} />;
+      case 'pm-awas-yojana-subsidy-calculator':
+        return <GovernmentSchemesSuiteCalculator initialMode="pm-awas" onResultChange={handleResultChange} />;
+      case 'pm-matru-vandana-yojana-calculator':
+        return <GovernmentSchemesSuiteCalculator initialMode="pm-matru-vandana" onResultChange={handleResultChange} />;
+
+      // Legal & Citizen Rights Suite
+      case 'ipc-to-bns-law-finder':
+        return <LegalAndCitizenRightsCalculator initialMode="ipc-bns" onResultChange={handleResultChange} />;
+      case 'rti-application-generator':
+        return <LegalAndCitizenRightsCalculator initialMode="rti-generator" onResultChange={handleResultChange} />;
+      case 'all-india-bhulekh-land-records':
+        return <LegalAndCitizenRightsCalculator initialMode="all-india-bhulekh" onResultChange={handleResultChange} />;
+      case 'cybercrime-1930-fraud-emergency-guide':
+        return <LegalAndCitizenRightsCalculator initialMode="cybercrime-1930" onResultChange={handleResultChange} />;
+      case 'indian-passport-visa-free-countries':
+        return <LegalAndCitizenRightsCalculator initialMode="visa-free-passport" onResultChange={handleResultChange} />;
+      case 'food-adulteration-test-kit':
+        return <LegalAndCitizenRightsCalculator initialMode="food-adulteration" onResultChange={handleResultChange} />;
+      case 'blood-group-compatibility-eraktkosh':
+        return <LegalAndCitizenRightsCalculator initialMode="blood-compatibility" onResultChange={handleResultChange} />;
+      case 'ugc-university-recognition-verifier':
+        return <LegalAndCitizenRightsCalculator initialMode="ugc-verifier" onResultChange={handleResultChange} />;
+
+      // Live Public APIs Suite
+      case 'iss-tracker-india-pass':
+        return <LivePublicApisSuiteCalculator initialMode="iss-tracker" onResultChange={handleResultChange} />;
+      case 'isro-satellites-missions-directory':
+        return <LivePublicApisSuiteCalculator initialMode="isro-directory" onResultChange={handleResultChange} />;
+      case 'apmc-mandi-bhav-live-tracker':
+        return <LivePublicApisSuiteCalculator initialMode="mandi-bhav" onResultChange={handleResultChange} />;
+
+      // Hardware & Diagnostic Suite
+      case 'mobile-screen-hardware-tester':
+        return <HardwareAndDiagnosticSuiteCalculator initialMode="mobile-tester" onResultChange={handleResultChange} />;
+      case 'indian-voice-speech-studio':
+        return <HardwareAndDiagnosticSuiteCalculator initialMode="voice-studio" onResultChange={handleResultChange} />;
+      case 'live-room-noise-decibel-meter':
+        return <HardwareAndDiagnosticSuiteCalculator initialMode="noise-meter" onResultChange={handleResultChange} />;
+      case 'vastu-shastra-digital-compass':
+        return <HardwareAndDiagnosticSuiteCalculator initialMode="vastu-compass" onResultChange={handleResultChange} />;
+      case 'ev-fast-charging-cost-matrix':
+        return <HardwareAndDiagnosticSuiteCalculator initialMode="ev-charging" onResultChange={handleResultChange} />;
+      case 'home-inverter-battery-backup-calculator':
+        return <HardwareAndDiagnosticSuiteCalculator initialMode="inverter-calculator" onResultChange={handleResultChange} />;
+      case 'irctc-tatkal-timing-station-finder':
+        return <HardwareAndDiagnosticSuiteCalculator initialMode="tatkal-timing" onResultChange={handleResultChange} />;
 
       default:
         return <EmiCalculator onResultChange={handleResultChange} />;

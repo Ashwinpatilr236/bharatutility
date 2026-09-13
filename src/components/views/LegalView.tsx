@@ -55,27 +55,47 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
               About BharatUtility
             </h1>
             <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              <strong>BharatUtility</strong> is India's Utility Super-Site - an independent online platform bringing together practical calculators, finance tools, document tools and everyday digital utilities in one place. Designed specifically for Indian users, BharatUtility offers fast, private, client-side tools - requiring zero sign-up or user account registration.
+              <strong>BharatUtility</strong> is India's Digital Utility Super-App — a 100% free, community-first online platform built to simplify everyday Indian financial, legal, citizen, travel, educational, and technical calculations in one unified, lightning-fast web experience.
             </p>
-            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">What We Offer</h3>
-            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Our utility collection includes loan EMI calculators, mutual fund SIP planners, GST invoice tools, CTC to in-hand salary converters, bank FD maturity calculators, age calculators, multi-unit converters, fuel trip cost estimators, CGPA-to-percentage converters, paint & tile estimators, and formal letter generators.
-            </p>
-            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">Why People Choose BharatUtility</h3>
-            <ul className="space-y-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span><strong>Indian Financial Accuracy:</strong> Aligned with FY 2024-25 / FY 2025-26 New Tax Regime slabs, the ₹75,000 standard deduction, and Indian commercial bank compounding conventions.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span><strong>Regional Land Metrics:</strong> Native unit conversion support for Gaj, Bigha, Guntha, Cent, Biswa, Ground, and Acres used across Indian states.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span><strong>Privacy-First & Free:</strong> All calculations run 100% locally on your browser with zero data storage, zero paywalls, and zero account registration required.</span>
-              </li>
-            </ul>
+            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">Our Mission & Principles</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-1.5">
+                <div className="flex items-center gap-2 font-bold text-xs text-neutral-900 dark:text-white">
+                  <span className="text-base">🔒</span>
+                  <span>100% Client-Side Privacy</span>
+                </div>
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Your calculations, loan figures, PIN codes, and documents are processed locally in your browser. We never harvest, track, or sell your private numbers.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-1.5">
+                <div className="flex items-center gap-2 font-bold text-xs text-neutral-900 dark:text-white">
+                  <span className="text-base">🌐</span>
+                  <span>Open Data & Public APIs</span>
+                </div>
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  We leverage open-source algorithms, official Government guidelines, and free public data feeds (like India Post, Razorpay IFSC, ISRO, and Open-Meteo) for real-time accuracy.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-1.5">
+                <div className="flex items-center gap-2 font-bold text-xs text-neutral-900 dark:text-white">
+                  <span className="text-base">🇮🇳</span>
+                  <span>Indian Context-Specific</span>
+                </div>
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Formulas are specifically tailored for Indian tax slabs, regional land metrics (Gaj, Bigha, Guntha), RTO codes, BNS legal sections, and Central/State welfare schemes.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-1.5">
+                <div className="flex items-center gap-2 font-bold text-xs text-neutral-900 dark:text-white">
+                  <span className="text-base">⚡</span>
+                  <span>Zero Paywalls & No Logins</span>
+                </div>
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Every tool is instant, ad-light, and completely free forever. No registration, no app downloads, and no credit card required.
+                </p>
+              </div>
+            </div>
 
             {/* Parent Company Callout Banner */}
             <div className="mt-6 p-5 rounded-2xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-indigo-500/15 border border-indigo-500/30 space-y-3">
@@ -106,13 +126,19 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
         {page === 'disclaimer' && (
           <div className="space-y-4">
             <h1 className="text-2xl font-extrabold text-neutral-900 dark:text-white font-display">
-              Financial & Calculation Disclaimer
+              Public Data, Government Schemes & Calculation Disclaimer
             </h1>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              The calculations, estimates, formulas, and results provided on BharatUtility (including but not limited to Loan EMI, Mutual Fund SIP, In-Hand Salary, GST, and Fixed Deposits) are intended solely for informational, planning, and educational purposes.
+              The calculations, formulas, estimates, and data displayed on BharatUtility (including but not limited to Government Schemes like SSY, PM Surya Ghar, Ayushman Bharat, PM Mudra, APY, as well as Loan EMI, Income Tax, GST, and IFSC/PIN Lookups) are provided solely for informational, estimation, and educational purposes.
             </p>
+            <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-300 space-y-2">
+              <p className="font-bold">⚠️ Non-Affiliation & Independent Platform Notice:</p>
+              <p>
+                BharatUtility is an independent public digital utility platform and is not affiliated with, endorsed by, or operated on behalf of any government agency, ministry, or banking institution. All scheme information and eligibility metrics are based on publicly published government notifications, gazettes, and official circulars.
+              </p>
+            </div>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              While we strive to ensure that all financial formulas and tax slab rules match official Indian government notifications and standard banking conventions, actual financial results may vary depending on bank processing fees, compounding dates, and individual tax circumstances. BharatUtility is not a certified Chartered Accountant or registered SEBI financial advisor.
+              While we make every effort to maintain absolute precision and keep interest rates and formulas updated, actual bank charges, compounding frequencies, and administrative approvals may vary. Users are advised to consult official government portals or certified financial advisors for formal transactions.
             </p>
           </div>
         )}
@@ -120,13 +146,35 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
         {page === 'privacy' && (
           <div className="space-y-4">
             <h1 className="text-2xl font-extrabold text-neutral-900 dark:text-white font-display">
-              Privacy Policy
+              Privacy Policy & Open Data Framework
             </h1>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              At BharatUtility, we take your privacy extremely seriously. We believe utility tools should respect your confidential numbers and personal information.
+              At BharatUtility, user privacy is our foundational promise. We believe utility tools should be powerful without compromising your private figures or personal identity.
             </p>
-            <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300">
-              <strong>Zero Data Selling:</strong> We do not log, sell, or transmit your salary numbers, loan amounts, age, or letter templates to third-party databases. All state is maintained locally in your browser session.
+            
+            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">1. In-Browser Client-Side Processing</h3>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              All financial calculations, salary estimators, PDF tools, image compressors, QR decoders, and voice synthesizers run <strong>100% locally inside your web browser</strong> using native JavaScript, Web Audio, and Web Canvas APIs. Your data never leaves your device.
+            </p>
+
+            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">2. Open APIs & Public Data Sources</h3>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              For live real-time features (such as Indian PIN Code directory, Bank IFSC lookups, ISRO satellite launches, Live ISS space tracking, and Weather/AQI forecasts), we query publicly accessible, open APIs and public datasets. These queries contain only the specific lookup key (e.g. 6-digit PIN code) and zero personally identifiable information.
+            </p>
+
+            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">3. Feature & API Removal / Takedown Request Policy</h3>
+            <div className="p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800 text-xs text-indigo-900 dark:text-indigo-200 space-y-2">
+              <p className="font-bold">📢 Notice for API Providers & Content Owners:</p>
+              <p>
+                BharatUtility is committed to fair open-data use and honoring service provider guidelines. If you are an API provider, institutional authority, or copyright owner and wish to modify, attribute, or request the immediate removal of any feature or API integration from our platform, please reach out to our dedicated support team at:
+              </p>
+              <div className="flex items-center gap-2 font-mono font-bold text-xs text-accent">
+                <Mail className="w-4 h-4" />
+                <span>support@bharatutility.tech</span>
+              </div>
+              <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
+                All legitimate modification or takedown requests are processed and resolved within <strong>24 to 48 hours</strong>.
+              </p>
             </div>
           </div>
         )}
@@ -137,8 +185,23 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
               Terms of Service
             </h1>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              By accessing BharatUtility, you agree to use these tools for lawful personal or business calculations. The services are provided "as is" without warranty of uninterrupted availability.
+              By accessing and using BharatUtility (https://bharatutility.tech), you agree to these Terms of Service. These tools are provided free of charge for personal, professional, and commercial calculation convenience.
             </p>
+            <h3 className="text-base font-bold text-neutral-900 dark:text-white pt-2">Permitted Use</h3>
+            <ul className="space-y-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <span>You may freely use any calculator, letter template, document converter, or diagnostic utility for individual or business purposes.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <span>You may embed or share generated PDFs, invoices, and calculation results without royalty or licensing fees.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <span>Automated scraping, denial-of-service attempts, or reverse-engineering of backend endpoints is strictly prohibited.</span>
+              </li>
+            </ul>
           </div>
         )}
 
@@ -148,14 +211,20 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
               Contact & Support
             </h1>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Have a suggestion for a new Indian utility calculator or noticed a formula discrepancy? We would love to hear from you!
+              Have a suggestion for a new Indian utility calculator, noticed a formula update, or wish to submit an API coordination request? We are here to help!
             </p>
-            <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-2 text-xs">
-              <div className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200 font-semibold">
+            <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-3 text-xs">
+              <div className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200 font-semibold text-sm">
                 <Mail className="w-4 h-4 text-accent" />
                 <span>support@bharatutility.tech</span>
               </div>
-              <p className="text-neutral-500">We typically respond to community feature requests and formula inquiries within 24-48 hours.</p>
+              <p className="text-neutral-600 dark:text-neutral-400">
+                Official support email for general inquiries, feature suggestions, partnership requests, and API takedown coordination.
+              </p>
+              <div className="flex items-center gap-2 pt-2 text-[11px] text-neutral-500 dark:text-neutral-400">
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Average Response Time: 24 to 48 hours</span>
+              </div>
             </div>
           </div>
         )}

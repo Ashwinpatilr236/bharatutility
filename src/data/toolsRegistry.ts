@@ -8495,6 +8495,1010 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: ['ip-network-inspector', 'imei-ceir-guide-validator', 'network-speed-ping-probe']
+  },
+  // 126. Sukanya Samriddhi Yojana (SSY 2026) Calculator
+  {
+    id: 'sukanya-samriddhi-yojana-calculator',
+    slug: 'sukanya-samriddhi-yojana-calculator',
+    name: 'Sukanya Samriddhi Yojana (SSY 2026) Calculator',
+    shortName: 'SSY Calculator',
+    tagline: 'Calculate tax-free maturity corpus, 8.2% sovereign quarterly interest, and 80C tax deduction for girl child',
+    description: "Calculate maturity wealth and interest earned on Sukanya Samriddhi Yojana accounts. Features 8.2% sovereign interest rate with 21-year maturity chart and Section 80C tax benefits.",
+    category: 'money',
+    icon: 'Baby',
+    keywords: ['sukanya samriddhi yojana calculator', 'ssy calculator 2026', 'girl child scheme calculator', 'ssy maturity amount', 'ssy 8.2 interest rate'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Govt 8.2%',
+    views: 64200,
+    seo: {
+      title: 'Sukanya Samriddhi Yojana (SSY 2026) Calculator - 8.2% Interest | BharatUtility',
+      description: 'Calculate maturity corpus and annual interest for Sukanya Samriddhi Yojana (SSY) under 8.2% sovereign rate with Section 80C tax savings.',
+      keywords: ['sukanya samriddhi yojana calculator', 'ssy calculator 2026', 'girl child scheme calculator', 'ssy maturity amount', 'ssy 8.2 interest rate'],
+      canonicalSlug: 'sukanya-samriddhi-yojana-calculator',
+      h1: 'Sukanya Samriddhi Yojana (SSY 2026) Maturity Calculator',
+    },
+    formulaDescription: 'SSY compounds annually at 8.2% for 21 years (15 years deposit window followed by 6 years growth).',
+    formulaLatex: 'A = P \times (1 + r)^n',
+    workedExample: {
+      inputSummary: 'Annual Deposit: ₹1,00,000 | Girl Age: 3 Yrs | Deposit Period: 15 Yrs | Maturity: 21 Yrs',
+      calculationSteps: [
+        'Total Deposited (15 Years): ₹15,00,000',
+        'Annual Interest Rate: 8.2% Compounded Annually',
+        'Interest Earned (21 Years): ₹39,78,400',
+        'Maturity Payout at Age 24: ₹54,78,400'
+      ],
+      finalResult: 'Tax-Free Maturity Corpus: ₹54,78,400 | Total Interest: ₹39,78,400',
+    },
+    faqs: [
+      {
+        question: 'What is the minimum and maximum deposit limit in SSY?',
+        answer: 'The minimum annual deposit is ₹250 and the maximum is ₹1,50,000 per financial year under Section 80C.'
+      },
+      {
+        question: 'Is SSY interest and maturity completely tax-free?',
+        answer: 'Yes, SSY enjoys full Exempt-Exempt-Exempt (EEE) status: deposits are tax-deductible under 80C, interest is tax-exempt, and the final maturity amount is 100% tax-free.'
+      }
+    ],
+    relatedToolSlugs: ['ppf-calculator', 'sip-calculator', 'fd-calculator']
+  },
+  // 127. PM Surya Ghar Muft Bijli Solar Calculator
+  {
+    id: 'pm-surya-ghar-solar-calculator',
+    slug: 'pm-surya-ghar-solar-calculator',
+    name: 'PM Surya Ghar: Muft Bijli Solar Rooftop Calculator',
+    shortName: 'PM Surya Ghar Solar',
+    tagline: 'Calculate Central MNRE rooftop solar subsidy (up to ₹78,000 DBT), roof area, and 25-year electricity bill savings',
+    description: "Estimate your solar rooftop installation cost, government direct bank transfer subsidy (up to ₹78,000), monthly electricity generation units, and 25-year lifetime ROI under PM Surya Ghar Muft Bijli Yojana.",
+    category: 'home',
+    icon: 'Sun',
+    keywords: ['pm surya ghar calculator', 'solar rooftop subsidy calculator', 'pm surya ghar muft bijli yojana', 'rooftop solar 3kw subsidy', 'mnre solar subsidy 2026'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: '₹78k Subsidy',
+    views: 78500,
+    seo: {
+      title: 'PM Surya Ghar Solar Rooftop Subsidy & 25-Year ROI Calculator | BharatUtility',
+      description: 'Calculate PM Surya Ghar Muft Bijli Yojana rooftop solar subsidy (₹30k to ₹78k DBT), required roof sq ft, and 25-year electricity bill savings.',
+      keywords: ['pm surya ghar calculator', 'solar rooftop subsidy calculator', 'pm surya ghar muft bijli yojana', 'rooftop solar 3kw subsidy', 'mnre solar subsidy 2026'],
+      canonicalSlug: 'pm-surya-ghar-solar-calculator',
+      h1: 'PM Surya Ghar: Muft Bijli Solar Subsidy & ROI Calculator',
+    },
+    formulaDescription: 'Subsidy = ₹30,000 (1kW) / ₹60,000 (2kW) / ₹78,000 (3kW+). Net Cost = Total Cost - Subsidy.',
+    workedExample: {
+      inputSummary: 'System Capacity: 3 kW | Monthly Bill: ₹2,500 | Roof Area: 300 Sq Ft',
+      calculationSteps: [
+        'Total Estimated System Cost: ₹1,95,000',
+        'Direct Govt Subsidy (DBT): ₹78,000',
+        'Your Net Upfront Investment: ₹1,17,000',
+        'Annual Electricity Savings: ~₹27,000 / year',
+        'Payback Period: 4.3 Years'
+      ],
+      finalResult: 'Net Cost: ₹1,17,000 | 25-Year Lifetime Savings: ₹5,58,000',
+    },
+    faqs: [
+      {
+        question: 'How much subsidy does Govt give under PM Surya Ghar scheme?',
+        answer: 'The Government gives ₹30,000 for 1 kW, ₹60,000 for 2 kW, and a flat ₹78,000 for 3 kW or higher systems credited directly to the beneficiary bank account.'
+      }
+    ],
+    relatedToolSlugs: ['cooling-tonnage-calculator', 'electricity-bill-calculator', 'home-inverter-battery-backup-calculator']
+  },
+  // 128. Ayushman Bharat Eligibility Checker
+  {
+    id: 'ayushman-bharat-eligibility-checker',
+    slug: 'ayushman-bharat-eligibility-checker',
+    name: 'Ayushman Bharat (PM-JAY) ₹5 Lakh Health Eligibility Checker',
+    shortName: 'Ayushman Bharat Checker',
+    tagline: 'Check SECC rural/urban criteria for ₹5,00,000 free family hospitalization and e-KYC steps',
+    description: "Verify your family's eligibility for ₹5 Lakh annual cashless healthcare treatment under Pradhan Mantri Jan Arogya Yojana (PM-JAY) and get step-by-step guidance to generate your Ayushman Golden Card.",
+    category: 'india-services',
+    icon: 'HeartHandshake',
+    keywords: ['ayushman bharat eligibility checker', 'pm jay 5 lakh card', 'ayushman card check online', 'secc 2011 eligibility', 'ayushman golden card download'],
+    popular: true,
+    trending: true,
+    badge: '₹5L Health',
+    views: 89400,
+    seo: {
+      title: 'Ayushman Bharat (PM-JAY) ₹5 Lakh Health Card Eligibility Checker | BharatUtility',
+      description: 'Check your family eligibility for ₹5,00,000 free cashless hospital treatment under Ayushman Bharat PM-JAY and generate your Ayushman card.',
+      keywords: ['ayushman bharat eligibility checker', 'pm jay 5 lakh card', 'ayushman card check online', 'secc 2011 eligibility', 'ayushman golden card download'],
+      canonicalSlug: 'ayushman-bharat-eligibility-checker',
+      h1: 'Ayushman Bharat (PM-JAY) ₹5 Lakh Health Eligibility Checker',
+    },
+    formulaDescription: 'Evaluates SECC 2011 rural deprivation parameters (D1-D7) and 11 urban occupational categories.',
+    workedExample: {
+      inputSummary: 'Location: Rural | Ration Card: Active NFSA | Category: D1 (1 Room Kutcha)',
+      calculationSteps: [
+        'SECC Rural Deprivation: Meets D1 Deprivation Criteria',
+        'NFSA Ration Card: Verified Priority Household',
+        'Coverage Limit: ₹5,00,000 / family / year',
+        'Empaneled Hospitals: Free cashless secondary & tertiary admissions'
+      ],
+      finalResult: 'Fully Eligible for Ayushman Bharat PM-JAY ₹5,00,000 Golden Card',
+    },
+    faqs: [
+      {
+        question: 'Who is eligible for Ayushman Bharat ₹5 Lakh health cover?',
+        answer: 'Families listed in the Socio-Economic Caste Census (SECC 2011) database, NFSA ration card holders, and senior citizens aged 70+ under recent PM-JAY expansions.'
+      }
+    ],
+    relatedToolSlugs: ['blood-group-compatibility-eraktkosh', 'janaushadhi-generic-saver', 'food-adulteration-test-kit']
+  },
+  // 129. Atal Pension Yojana (APY) Calculator
+  {
+    id: 'atal-pension-yojana-calculator',
+    slug: 'atal-pension-yojana-calculator',
+    name: 'Atal Pension Yojana (APY) Monthly Contribution Calculator',
+    shortName: 'Atal Pension APY',
+    tagline: 'Calculate monthly auto-debit contribution for ₹1,000 to ₹5,000 guaranteed lifetime pension from age 60',
+    description: "Calculate your exact monthly contribution for Atal Pension Yojana based on your entry age (18 to 40 years). View return of accumulated corpus (up to ₹8.5 Lakhs) to your nominee.",
+    category: 'money',
+    icon: 'Coins',
+    keywords: ['atal pension yojana calculator', 'apy contribution chart', 'apy calculator 2026', 'pfrda atal pension scheme', 'apy nominee corpus amount'],
+    popular: true,
+    trending: true,
+    badge: 'Govt Pension',
+    views: 45600,
+    seo: {
+      title: 'Atal Pension Yojana (APY) Contribution & Pension Calculator | BharatUtility',
+      description: 'Calculate your monthly APY contribution for guaranteed ₹1,000 to ₹5,000 pension after age 60 with nominee corpus return details.',
+      keywords: ['atal pension yojana calculator', 'apy contribution chart', 'apy calculator 2026', 'pfrda atal pension scheme', 'apy nominee corpus amount'],
+      canonicalSlug: 'atal-pension-yojana-calculator',
+      h1: 'Atal Pension Yojana (APY) Monthly Contribution Calculator',
+    },
+    formulaDescription: 'PFRDA actuarial contribution matrix based on entry age (18-40) and selected monthly pension (₹1k-₹5k).',
+    workedExample: {
+      inputSummary: 'Entry Age: 25 Years | Chosen Pension: ₹5,000 / month | Contribution Tenure: 35 Years',
+      calculationSteps: [
+        'Entry Age: 25 Years | Retirement: Age 60',
+        'Required Monthly Contribution: ₹376 / month',
+        'Guaranteed Pension from Age 60: ₹5,000 / month for life',
+        'Nominee Return of Corpus: ₹8,50,000'
+      ],
+      finalResult: 'Monthly Contribution: ₹376/mo | Guaranteed Pension: ₹5,000/mo | Nominee Corpus: ₹8.5 Lakhs',
+    },
+    faqs: [
+      {
+        question: 'Who can join Atal Pension Yojana?',
+        answer: 'Any Indian citizen between 18 and 40 years of age with a savings bank account can join APY.'
+      }
+    ],
+    relatedToolSlugs: ['nps-calculator', 'epf-calculator', 'gratuity-calculator']
+  },
+  // 130. PM Kisan Eligibility & Payment Verifier
+  {
+    id: 'pm-kisan-eligibility-checker',
+    slug: 'pm-kisan-eligibility-checker',
+    name: 'PM Kisan Samman Nidhi (₹6,000/Yr) Eligibility Checker',
+    shortName: 'PM Kisan Checker',
+    tagline: 'Verify farmer landholding eligibility, Aadhaar-bank DBT seeding, and 3 installment timeline',
+    description: "Check your eligibility for ₹6,000 annual direct income support under PM Kisan Samman Nidhi Yojana. Verify landholding rules, e-KYC checklist, and mandatory Aadhaar DBT seeding.",
+    category: 'india-services',
+    icon: 'Sprout',
+    keywords: ['pm kisan eligibility checker', 'pm kisan 6000 status', 'pm kisan ekyc online', 'pm kisan installment dates', 'pm kisan land seeding'],
+    popular: true,
+    trending: true,
+    badge: '₹6,000 / Yr',
+    views: 71200,
+    seo: {
+      title: 'PM Kisan Samman Nidhi (₹6,000/Yr) Eligibility & e-KYC Guide | BharatUtility',
+      description: 'Check farmer landholding eligibility for ₹6,000 annual PM Kisan DBT installments, Aadhaar seeding, and e-KYC guidelines.',
+      keywords: ['pm kisan eligibility checker', 'pm kisan 6000 status', 'pm kisan ekyc online', 'pm kisan installment dates', 'pm kisan land seeding'],
+      canonicalSlug: 'pm-kisan-eligibility-checker',
+      h1: 'PM Kisan Samman Nidhi (₹6,000/Yr) Eligibility Checker',
+    },
+    formulaDescription: 'Evaluates agricultural land ownership and exclusion criteria (Income Tax payers, institutional landholders).',
+    workedExample: {
+      inputSummary: 'Land: 1.5 Hectares | Aadhaar DBT: Seeded | Tax Payer: No',
+      calculationSteps: [
+        'Landholding: Small & Marginal Farmer (<2 Hectares)',
+        'Exclusion Check: Passed (Non-tax payer)',
+        'Payment Schedule: 3 installments of ₹2,000 each (Total ₹6,000 / year)'
+      ],
+      finalResult: 'Eligible for ₹6,000 annual DBT direct to Aadhaar bank account',
+    },
+    faqs: [
+      {
+        question: 'What are the 3 payment cycles of PM Kisan?',
+        answer: 'Cycle 1: April to July (₹2,000), Cycle 2: August to November (₹2,000), Cycle 3: December to March (₹2,000).'
+      }
+    ],
+    relatedToolSlugs: ['all-india-bhulekh-land-records', 'apmc-mandi-bhav-live-tracker', 'land-area-converter']
+  },
+  // 131. PM Mudra Loan Calculator
+  {
+    id: 'pm-mudra-loan-eligibility-calculator',
+    slug: 'pm-mudra-loan-eligibility-calculator',
+    name: 'PM Mudra Yojana (PMMY) Loan EMI & Category Calculator',
+    shortName: 'PM Mudra Loan',
+    tagline: 'Calculate EMI for Shishu (up to ₹50k), Kishore (up to ₹5L), and Tarun (up to ₹20L) collateral-free business loans',
+    description: "Calculate monthly EMI and check eligibility for collateral-free business loans under Pradhan Mantri Mudra Yojana (PMMY) across Shishu, Kishore, and Tarun loan tiers.",
+    category: 'business',
+    icon: 'Briefcase',
+    keywords: ['pm mudra loan calculator', 'pmmy loan emi calculator', 'shishu mudra loan 50000', 'kishore mudra loan 5 lakh', 'tarun mudra loan 20 lakh'],
+    popular: true,
+    badge: 'Up to ₹20L',
+    views: 52400,
+    seo: {
+      title: 'PM Mudra Yojana (PMMY) Loan EMI & Tier Calculator | BharatUtility',
+      description: 'Calculate monthly EMI for Shishu, Kishore, and Tarun business loans up to ₹20 Lakhs under PM Mudra Yojana with zero collateral.',
+      keywords: ['pm mudra loan calculator', 'pmmy loan emi calculator', 'shishu mudra loan 50000', 'kishore mudra loan 5 lakh', 'tarun mudra loan 20 lakh'],
+      canonicalSlug: 'pm-mudra-loan-eligibility-calculator',
+      h1: 'PM Mudra Yojana (PMMY) Business Loan EMI Calculator',
+    },
+    formulaDescription: 'Standard reducing balance EMI formula applied to PMMY loan tiers with CGFMU credit guarantee.',
+    workedExample: {
+      inputSummary: 'Loan Amount: ₹3,00,000 (Kishore Tier) | Rate: 10.5% p.a. | Tenure: 3 Years',
+      calculationSteps: [
+        'Monthly Interest Rate: 0.875%',
+        'Number of Months: 36',
+        'Monthly EMI: ₹9,750',
+        'Total Interest: ₹51,000',
+        'Collateral: ZERO (100% CGFMU Covered)'
+      ],
+      finalResult: 'Monthly EMI: ₹9,750 | Total Repayment: ₹3,51,000 | Zero Collateral',
+    },
+    faqs: [
+      {
+        question: 'Is collateral or guarantee required for PM Mudra loans?',
+        answer: 'No collateral is required for loans under PM Mudra Yojana as they are backed by the Credit Guarantee Fund for Micro Units (CGFMU).'
+      }
+    ],
+    relatedToolSlugs: ['gst-calculator', 'business-break-even-calculator', 'profit-margin-calculator']
+  },
+  // 132. PM Awas Yojana Housing Subsidy Calculator
+  {
+    id: 'pm-awas-yojana-subsidy-calculator',
+    slug: 'pm-awas-yojana-subsidy-calculator',
+    name: 'PM Awas Yojana (PMAY-Urban & Gramin) Housing Subsidy Calculator',
+    shortName: 'PM Awas Subsidy',
+    tagline: 'Calculate upfront home loan interest subsidy (up to ₹2.67 Lakhs) for EWS, LIG, and MIG categories',
+    description: "Calculate direct home loan interest subsidy credited upfront to your loan principal under Pradhan Mantri Awas Yojana (PMAY-Urban 2.0 & PMAY-Gramin).",
+    category: 'home',
+    icon: 'Home',
+    keywords: ['pm awas yojana subsidy calculator', 'pmay clss subsidy calculator', 'pmay urban 2.0 subsidy', 'pm awas interest subsidy 2.67 lakh', 'pmay ews lig subsidy'],
+    popular: true,
+    badge: '₹2.67L Subsidy',
+    views: 61800,
+    seo: {
+      title: 'PM Awas Yojana (PMAY) Housing Subsidy Calculator | BharatUtility',
+      description: 'Calculate upfront home loan interest subsidy under PM Awas Yojana (PMAY 2.0) for EWS, LIG, and MIG home buyers in India.',
+      keywords: ['pm awas yojana subsidy calculator', 'pmay clss subsidy calculator', 'pmay urban 2.0 subsidy', 'pm awas interest subsidy 2.67 lakh', 'pmay ews lig subsidy'],
+      canonicalSlug: 'pm-awas-yojana-subsidy-calculator',
+      h1: 'PM Awas Yojana (PMAY) Housing Subsidy Calculator',
+    },
+    formulaDescription: 'Net Present Value (NPV) calculation of 6.5% interest subsidy on eligible loan amount up to ₹6 Lakhs.',
+    workedExample: {
+      inputSummary: 'Income Category: EWS/LIG | Home Loan: ₹15,00,000 | Tenure: 20 Years',
+      calculationSteps: [
+        'Eligible Loan Sizing for Subsidy: ₹6,00,000',
+        'Interest Subsidy Rate: 6.5% p.a.',
+        'NPV of Subsidy: ₹2,67,280',
+        'Direct Principal Reduction: Upfront credit of ₹2,67,280'
+      ],
+      finalResult: 'Direct Principal Credit: ₹2,67,280 | Reduced Monthly EMI',
+    },
+    faqs: [
+      {
+        question: 'How is the PMAY subsidy paid to the borrower?',
+        answer: 'The subsidy amount is credited directly by the Central Nodal Agency to the beneficiary home loan account, reducing the outstanding principal.'
+      }
+    ],
+    relatedToolSlugs: ['emi-calculator', 'property-stamp-duty-calculator', 'rent-agreement-stamp-duty']
+  },
+  // 133. PM Matru Vandana Yojana Maternity Calculator
+  {
+    id: 'pm-matru-vandana-yojana-calculator',
+    slug: 'pm-matru-vandana-yojana-calculator',
+    name: 'PM Matru Vandana Yojana (PMMVY) Maternity Benefit Calculator',
+    shortName: 'PM Matru Vandana',
+    tagline: 'Calculate ₹5,000 (1st child) and ₹6,000 (2nd girl child) direct maternity cash benefit',
+    description: "Check eligibility and payment installment schedule for direct bank transfer maternity assistance under Pradhan Mantri Matru Vandana Yojana (PMMVY).",
+    category: 'india-services',
+    icon: 'Building',
+    keywords: ['pm matru vandana yojana calculator', 'pmmvy 5000 maternity benefit', 'pmmvy installment schedule', 'pmmvy second girl child 6000', 'women child development dbt'],
+    views: 39500,
+    seo: {
+      title: 'PM Matru Vandana Yojana (PMMVY) Maternity Benefit Calculator | BharatUtility',
+      description: 'Calculate ₹5,000 and ₹6,000 maternity direct bank transfer cash benefits under PM Matru Vandana Yojana (PMMVY).',
+      keywords: ['pm matru vandana yojana calculator', 'pmmvy 5000 maternity benefit', 'pmmvy installment schedule', 'pmmvy second girl child 6000', 'women child development dbt'],
+      canonicalSlug: 'pm-matru-vandana-yojana-calculator',
+      h1: 'PM Matru Vandana Yojana (PMMVY) Maternity Benefit Calculator',
+    },
+    formulaDescription: '₹5,000 in 2 installments for first child, ₹6,000 in 1 installment for second girl child.',
+    workedExample: {
+      inputSummary: 'Child Order: First Child | ANC Registered: Yes',
+      calculationSteps: [
+        'Installment 1 (₹3,000): On pregnancy registration and 1st ANC',
+        'Installment 2 (₹2,000): On birth registration and 1st cycle vaccines',
+        'Total Cash Benefit: ₹5,000'
+      ],
+      finalResult: 'Total Direct Cash Benefit: ₹5,000 credited to Aadhaar bank account',
+    },
+    faqs: [
+      {
+        question: 'What is the enhanced benefit for a second girl child in PMMVY?',
+        answer: 'Under PMMVY 2.0, if the second child born is a girl, the mother receives an enhanced incentive of ₹6,000 in a single installment to promote the girl child.'
+      }
+    ],
+    relatedToolSlugs: ['sukanya-samriddhi-yojana-calculator', 'indian-baby-names-rashi', 'ayushman-bharat-eligibility-checker']
+  },
+  // 134. IPC to BNS Law Section Finder
+  {
+    id: 'ipc-to-bns-law-finder',
+    slug: 'ipc-to-bns-law-finder',
+    name: 'IPC to BNS (Bharatiya Nyaya Sanhita 2024) Law Section Finder',
+    shortName: 'IPC to BNS Finder',
+    tagline: 'Searchable mapping between old IPC 1860 sections and new BNS 2023 laws with bailable & punishment details',
+    description: "Search and convert between Indian Penal Code (IPC 1860) sections and new Bharatiya Nyaya Sanhita (BNS 2023) criminal laws effective July 1, 2024. View bailable status, cognizable nature, and statutory punishments.",
+    category: 'documents',
+    icon: 'Scale',
+    keywords: ['ipc to bns converter', 'bharatiya nyaya sanhita section finder', 'ipc 420 in bns', 'ipc 302 in bns', 'new criminal laws india 2024'],
+    popular: true,
+    trending: true,
+    badge: 'New Laws',
+    views: 95400,
+    seo: {
+      title: 'IPC to BNS Law Section Finder (Bharatiya Nyaya Sanhita 2024) | BharatUtility',
+      description: 'Find new BNS 2023 sections corresponding to old IPC 1860 sections with bailable status, cognizable nature, and punishments.',
+      keywords: ['ipc to bns converter', 'bharatiya nyaya sanhita section finder', 'ipc 420 in bns', 'ipc 302 in bns', 'new criminal laws india 2024'],
+      canonicalSlug: 'ipc-to-bns-law-finder',
+      h1: 'IPC to BNS (Bharatiya Nyaya Sanhita) Law Section Finder',
+    },
+    formulaDescription: 'Comprehensive statutory concordance matrix between IPC (1860) and BNS (2023).',
+    workedExample: {
+      inputSummary: 'Query: IPC Section 420 (Cheating & Dishonesty)',
+      calculationSteps: [
+        'Old Law: IPC Section 420',
+        'New Law: BNS Section 318(4)',
+        'Classification: Cognizable, Non-Bailable',
+        'Statutory Punishment: Up to 7 years imprisonment + Fine'
+      ],
+      finalResult: 'IPC 420 = BNS Section 318(4) | Non-Bailable | Up to 7 Yrs',
+    },
+    faqs: [
+      {
+        question: 'When did the new BNS criminal laws come into effect in India?',
+        answer: 'The Bharatiya Nyaya Sanhita (BNS), Bharatiya Nagarik Suraksha Sanhita (BNSS), and Bharatiya Sakshya Adhiniyam (BSA) came into force on July 1, 2024.'
+      }
+    ],
+    relatedToolSlugs: ['rti-application-generator', 'rent-agreement-stamp-duty', 'traffic-challan-portal-finder']
+  },
+  // 135. RTI Application Generator
+  {
+    id: 'rti-application-generator',
+    slug: 'rti-application-generator',
+    name: 'RTI Application & First Appeal Generator (DoPT Format)',
+    shortName: 'RTI Form Maker',
+    tagline: 'Generate legally compliant Right to Information (RTI) applications & first appeals in English & Hindi with print to PDF',
+    description: "Create official, legally standard RTI application letters and first appeals under Section 6(1) of the Right to Information Act, 2005. Features bilingual English and Hindi drafting with instant PDF printing.",
+    category: 'documents',
+    icon: 'FileText',
+    keywords: ['rti application generator', 'rti letter format english hindi', 'dopt rti application format', 'how to file rti online offline', 'rti first appeal generator'],
+    popular: true,
+    badge: 'DoPT Format',
+    views: 68700,
+    seo: {
+      title: 'RTI Application & First Appeal Generator (English & Hindi) | BharatUtility',
+      description: 'Generate legally standard RTI application letters and first appeals under Section 6(1) of the RTI Act 2005 in English and Hindi.',
+      keywords: ['rti application generator', 'rti letter format english hindi', 'dopt rti application format', 'how to file rti online offline', 'rti first appeal generator'],
+      canonicalSlug: 'rti-application-generator',
+      h1: 'RTI Application & First Appeal Form Generator',
+    },
+    formulaDescription: 'DoPT standard Section 6(1) and Section 19(1) statutory formats for Central & State Public Authorities.',
+    workedExample: {
+      inputSummary: 'Department: PWD | Subject: Road Repair Budget | Language: English',
+      calculationSteps: [
+        'Statutory Addressee: Public Information Officer (PIO), PWD',
+        'Application Fee: ₹10 Postal Order / Court Fee Stamp',
+        'Section 6(3) Transfer Clause: Included automatically',
+        'Time Limit for Response: 30 Days from receipt'
+      ],
+      finalResult: 'Ready-to-Print Official RTI Application Letter Generated',
+    },
+    faqs: [
+      {
+        question: 'What is the standard fee for filing an RTI application in India?',
+        answer: 'The statutory application fee is ₹10 for Central Government departments, payable via Indian Postal Order (IPO), Demand Draft, Court Fee Stamp, or online via rtionline.gov.in. BPL cardholders are exempt from fees.'
+      }
+    ],
+    relatedToolSlugs: ['ipc-to-bns-law-finder', 'all-india-bhulekh-land-records', 'cybercrime-1930-fraud-emergency-guide']
+  },
+  // 136. All-India Land Records (Bhulekh) Directory
+  {
+    id: 'all-india-bhulekh-land-records',
+    slug: 'all-india-bhulekh-land-records',
+    name: 'All-India Land Records (Bhulekh / Khasra-Khatauni) Directory',
+    shortName: 'All-India Bhulekh',
+    tagline: 'Verified direct access to official digital land records, 7/12, Khasra, Khatauni, and Bhu-Naksha for 28 states',
+    description: "Search and access verified official land record portals across 28 Indian States. View Khasra, Khatauni, Satbara (7/12), Jamabandi, Patta, Pahani, and Bhu-Naksha cadastral maps.",
+    category: 'india-services',
+    icon: 'Map',
+    keywords: ['all india bhulekh portal', 'khasra khatauni check online', 'up bhulekh mahabhulekh bihar bhumi', 'apna khata rajasthan anyror gujarat', '7 12 satbara online download'],
+    popular: true,
+    trending: true,
+    badge: '28 States',
+    views: 112000,
+    seo: {
+      title: 'All-India Land Records (Bhulekh / Khasra-Khatauni) Directory | BharatUtility',
+      description: 'Official directory of state land record portals for UP Bhulekh, Mahabhulekh, Bihar Bhumi, Apna Khata, AnyRoR, and Bhoomi Karnataka.',
+      keywords: ['all india bhulekh portal', 'khasra khatauni check online', 'up bhulekh mahabhulekh bihar bhumi', 'apna khata rajasthan anyror gujarat', '7 12 satbara online download'],
+      canonicalSlug: 'all-india-bhulekh-land-records',
+      h1: 'All-India Land Records (Bhulekh / Khasra-Khatauni) Directory',
+    },
+    formulaDescription: 'State-wise repository of Digital India Land Records Modernization Programme (DILRMP) verified portals.',
+    workedExample: {
+      inputSummary: 'State: Uttar Pradesh | Record: Khasra / Khatauni',
+      calculationSteps: [
+        'Official Portal: upbhulekh.gov.in',
+        'Record Type: Khatauni (ROR) Certified Copy',
+        'Search Methods: By Khasra Number, Gata Number, or Khatedar Name'
+      ],
+      finalResult: 'Direct verified access to official state land records portal',
+    },
+    faqs: [
+      {
+        question: 'What is the difference between Khasra and Khatauni?',
+        answer: 'A Khasra number specifies an individual parcel of agricultural land (survey plot number), whereas Khatauni is the register of landholders showing all land plots owned by an individual or family.'
+      }
+    ],
+    relatedToolSlugs: ['property-stamp-duty-calculator', 'land-area-converter', 'pm-kisan-eligibility-checker']
+  },
+  // 137. Indian Cyber Crime 1930 & Digital Arrest Guide
+  {
+    id: 'cybercrime-1930-fraud-emergency-guide',
+    slug: 'cybercrime-1930-fraud-emergency-guide',
+    name: 'Indian Cyber Crime 1930 & Digital Arrest Emergency Guide',
+    shortName: 'Cyber Crime 1930 Guide',
+    tagline: 'Golden 2-hour financial fraud action plan, 1930 helpline workflow, bank account freeze, and fake police digital arrest alert',
+    description: "Emergency citizen playbook for online financial fraud, UPI scams, fake investment schemes, and digital arrest intimidation. Actionable steps to freeze recipient accounts within the Golden 2-Hour window via 1930 helpline.",
+    category: 'technology',
+    icon: 'ShieldAlert',
+    keywords: ['1930 cyber crime helpline india', 'digital arrest fraud report', 'upi fraud money refund 1930', 'cybercrime gov in complaint filing', 'chakshu sanchar saathi fraud portal'],
+    popular: true,
+    trending: true,
+    badge: '1930 Alert',
+    views: 82300,
+    seo: {
+      title: '1930 Cyber Crime & Digital Arrest Emergency Action Guide | BharatUtility',
+      description: 'Emergency guide for reporting online financial fraud, UPI scams, and digital arrest threats via 1930 cyber helpline and cybercrime.gov.in.',
+      keywords: ['1930 cyber crime helpline india', 'digital arrest fraud report', 'upi fraud money refund 1930', 'cybercrime gov in complaint filing', 'chakshu sanchar saathi fraud portal'],
+      canonicalSlug: 'cybercrime-1930-fraud-emergency-guide',
+      h1: '1930 Cyber Crime & Digital Arrest Emergency Action Guide',
+    },
+    formulaDescription: 'MHA National Cyber Crime Reporting Portal standard operating protocol for financial triage.',
+    workedExample: {
+      inputSummary: 'Incident: UPI Fraud of ₹50,000 | Elapsed Time: 45 Minutes',
+      calculationSteps: [
+        'Step 1: Immediate call to 1930 National Cyber Fraud Helpline',
+        'Step 2: Bank Nodal Officer alerts recipient bank to freeze funds',
+        'Step 3: Formal incident registration on cybercrime.gov.in with UTR number'
+      ],
+      finalResult: 'Funds frozen in recipient bank account before withdrawal',
+    },
+    faqs: [
+      {
+        question: 'What is the Golden Window in cyber fraud?',
+        answer: 'The first 2 hours after fraudulent fund transfer is called the Golden Window. Calling 1930 during this period gives the highest chance of freezing the money in the scammer bank account before ATM withdrawal.'
+      }
+    ],
+    relatedToolSlugs: ['password-breach-checker', 'imei-ceir-guide-validator', 'ip-network-inspector']
+  },
+  // 138. Indian Passport Visa-Free Country Explorer
+  {
+    id: 'indian-passport-visa-free-countries',
+    slug: 'indian-passport-visa-free-countries',
+    name: 'Indian Passport Visa-Free & Visa-on-Arrival Country Explorer',
+    shortName: 'Visa-Free Countries',
+    tagline: 'Explore 60+ countries offering Visa-Free, Visa on Arrival (VoA), and fast e-Visa access for Indian passport holders',
+    description: "Discover international destinations where Indian passport holders can travel without embassy visa appointments. Filter by Visa-Free, Visa on Arrival, permitted stay duration, and passport validity requirements.",
+    category: 'travel',
+    icon: 'Globe2',
+    keywords: ['indian passport visa free countries 2026', 'visa on arrival for indians', 'thailand malaysia visa free indians', 'visa free international travel india', 'fast evisa countries for indian citizens'],
+    popular: true,
+    trending: true,
+    badge: '60+ Countries',
+    views: 94100,
+    seo: {
+      title: 'Indian Passport Visa-Free & Visa-on-Arrival Countries (2026) | BharatUtility',
+      description: 'Explore 60+ countries with Visa-Free and Visa-on-Arrival access for Indian passport holders, including Thailand, Malaysia, Sri Lanka, and Mauritius.',
+      keywords: ['indian passport visa free countries 2026', 'visa on arrival for indians', 'thailand malaysia visa free indians', 'visa free international travel india', 'fast evisa countries for indian citizens'],
+      canonicalSlug: 'indian-passport-visa-free-countries',
+      h1: 'Indian Passport Visa-Free & Visa-on-Arrival Country Explorer',
+    },
+    formulaDescription: 'Curated international immigration and bilateral visa-waiver directory for Indian citizens.',
+    workedExample: {
+      inputSummary: 'Destination: Thailand | Type: Tourism | Duration: 60 Days',
+      calculationSteps: [
+        'Visa Status: Visa-Free Entry (Exemption Scheme)',
+        'Permitted Stay: Up to 60 Days',
+        'Requirements: Passport valid for 6+ months, return flight ticket, hotel stay proof'
+      ],
+      finalResult: 'Visa-Free Travel Permitted (No prior embassy visa needed)',
+    },
+    faqs: [
+      {
+        question: 'Which popular tourist countries offer Visa-Free entry for Indians?',
+        answer: 'Popular destinations include Thailand (60 days), Malaysia (30 days), Sri Lanka (30 days ETA), Mauritius (90 days), Nepal, and Bhutan.'
+      }
+    ],
+    relatedToolSlugs: ['currency-converter-live', 'travel-budget-calculator', 'fuel-trip-cost-calculator']
+  },
+  // 139. Food Adulteration Test Kit (FSSAI DART)
+  {
+    id: 'food-adulteration-test-kit',
+    slug: 'food-adulteration-test-kit',
+    name: 'Indian Food Adulteration Home Test Kit (FSSAI DART)',
+    shortName: 'Food Adulteration Test',
+    tagline: 'Simple scientific kitchen tests for milk, honey, turmeric, ghee, red chilli, and black pepper based on FSSAI guidelines',
+    description: "Detect synthetic chemicals, toxic dyes, and starch in your daily groceries using the official FSSAI DART (Detect Adulteration with Rapid Test) manual with step-by-step home kitchen tests.",
+    category: 'daily-life',
+    icon: 'FlaskConical',
+    keywords: ['food adulteration test kit', 'fssai dart manual tests', 'how to check pure milk at home', 'honey purity test water', 'turmeric metanil yellow test'],
+    badge: 'FSSAI DART',
+    views: 48900,
+    seo: {
+      title: 'Food Adulteration Quick Home Test Kit (FSSAI DART) | BharatUtility',
+      description: 'Test purity of milk, honey, ghee, haldi, and spices at home using official FSSAI DART rapid testing techniques.',
+      keywords: ['food adulteration test kit', 'fssai dart manual tests', 'how to check pure milk at home', 'honey purity test water', 'turmeric metanil yellow test'],
+      canonicalSlug: 'food-adulteration-test-kit',
+      h1: 'Indian Food Adulteration Quick Home Test Kit (FSSAI DART)',
+    },
+    formulaDescription: 'Chemical reaction and physical density test protocols from FSSAI DART manual.',
+    workedExample: {
+      inputSummary: 'Item Tested: Turmeric Powder (Haldi) | Test: Concentrated Acid / Lemon Test',
+      calculationSteps: [
+        'Add half teaspoon turmeric to water glass',
+        'Add lemon juice or mild acid drops',
+        'Observation: If magenta/violet color appears -> Metanil Yellow dye detected'
+      ],
+      finalResult: 'Pure Haldi retains bright yellow; artificial dye turns magenta',
+    },
+    faqs: [
+      {
+        question: 'What is FSSAI DART?',
+        answer: 'DART stands for Detect Adulteration with Rapid Test, an official guidebook published by the Food Safety and Standards Authority of India (FSSAI) for citizen household food safety.'
+      }
+    ],
+    relatedToolSlugs: ['blood-group-compatibility-eraktkosh', 'jan-aushadhi-generic-saver', 'age-calculator']
+  },
+  // 140. Universal Blood Group & eRaktKosh Finder
+  {
+    id: 'blood-group-compatibility-eraktkosh',
+    slug: 'blood-group-compatibility-eraktkosh',
+    name: 'Emergency Blood Group Compatibility & eRaktKosh Directory',
+    shortName: 'Blood Group Guide',
+    tagline: 'Interactive donor-recipient matching matrix (A, B, AB, O, Bombay Blood Group) and official eRaktKosh national blood bank inventory',
+    description: "Check universal red blood cell and plasma donor-recipient compatibility, calculate healthy donation recovery intervals, and access the official MoHFW eRaktKosh national blood bank inventory.",
+    category: 'daily-life',
+    icon: 'Heart',
+    keywords: ['blood group compatibility chart', 'eraktkosh live blood bank search', 'universal blood donor recipient', 'bombay blood group compatibility', 'blood donation recovery period'],
+    popular: true,
+    badge: 'eRaktKosh',
+    views: 56300,
+    seo: {
+      title: 'Emergency Blood Group Compatibility & eRaktKosh Directory | BharatUtility',
+      description: 'Check universal donor/recipient compatibility for all blood types and search live blood bank inventory across India via eRaktKosh.',
+      keywords: ['blood group compatibility chart', 'eraktkosh live blood bank search', 'universal blood donor recipient', 'bombay blood group compatibility', 'blood donation recovery period'],
+      canonicalSlug: 'blood-group-compatibility-eraktkosh',
+      h1: 'Emergency Blood Group Compatibility & eRaktKosh Directory',
+    },
+    formulaDescription: 'ABO and Rh factor antigen-antibody agglutination compatibility matrix.',
+    workedExample: {
+      inputSummary: 'Patient Blood Group: O Positive (O+)',
+      calculationSteps: [
+        'Can receive red blood cells from: O+ and O-',
+        'Can donate red blood cells to: O+, A+, B+, AB+',
+        'Universal Red Blood Cell Donor: O Negative (O-)'
+      ],
+      finalResult: 'Safe Recipients: O+, A+, B+, AB+ | Safe Donors: O+, O-',
+    },
+    faqs: [
+      {
+        question: 'What is the Bombay Blood Group (hh)?',
+        answer: 'The Bombay Blood Group is an extremely rare blood type lacking the H antigen. Individuals with Bombay blood can only receive blood from another Bombay blood group donor.'
+      }
+    ],
+    relatedToolSlugs: ['ayushman-bharat-eligibility-checker', 'food-adulteration-test-kit', 'jan-aushadhi-generic-saver']
+  },
+  // 141. Live ISS Space Station India Pass Tracker
+  {
+    id: 'iss-tracker-india-pass',
+    slug: 'iss-tracker-india-pass',
+    name: 'Live ISS (Space Station) Over India Pass Tracker',
+    shortName: 'Live ISS Tracker',
+    tagline: 'Real-time orbital tracking of the International Space Station with speed (27,600 km/h), altitude, and naked-eye sighting alert',
+    description: "Track the International Space Station (ISS) live in real-time as it orbits Earth at 27,600 km/h. View live latitude, longitude, altitude, and calculate naked-eye sighting passes over Indian cities.",
+    category: 'technology',
+    icon: 'Satellite',
+    keywords: ['live iss tracker india', 'international space station pass delhi mumbai', 'spot the space station india', 'iss live orbit speed altitude', 'where the iss at live api'],
+    popular: true,
+    trending: true,
+    badge: 'Live Orbit',
+    views: 73400,
+    seo: {
+      title: 'Live ISS (Space Station) Over India Pass Tracker | BharatUtility',
+      description: 'Track the International Space Station in real-time with orbital speed, altitude, and naked-eye sighting times over Indian cities.',
+      keywords: ['live iss tracker india', 'international space station pass delhi mumbai', 'spot the space station india', 'iss live orbit speed altitude', 'where the iss at live api'],
+      canonicalSlug: 'iss-tracker-india-pass',
+      h1: 'Live ISS (Space Station) Over India Pass Tracker',
+    },
+    formulaDescription: 'Real-time telemetry from WhereTheISS API: latitude, longitude, velocity (km/h), and altitude (km).',
+    workedExample: {
+      inputSummary: 'Telemetry: 418 km Altitude | Speed: 27,610 km/h | Target: India Pass',
+      calculationSteps: [
+        'Orbital Period: 92.68 minutes per complete Earth revolution',
+        'Pass Duration: 3 to 6 minutes across sky',
+        'Appearance: Steady bright white star without blinking strobe lights'
+      ],
+      finalResult: 'Live Telemetry Active | Visible to naked eyes during dusk/dawn passes',
+    },
+    faqs: [
+      {
+        question: 'Can you see the ISS with naked eyes from India?',
+        answer: 'Yes! When the ISS passes overhead during early dawn or late dusk, it reflects sunlight and appears as a bright, fast-moving star traveling smoothly across the sky without any flashing lights.'
+      }
+    ],
+    relatedToolSlugs: ['isro-satellites-missions-directory', 'ip-network-inspector', 'live-aqi-weather-forecast']
+  },
+  // 142. ISRO Satellites & Spacecraft Mission Directory
+  {
+    id: 'isro-satellites-missions-directory',
+    slug: 'isro-satellites-missions-directory',
+    name: 'ISRO Satellites & Spacecraft Mission Directory',
+    shortName: 'ISRO Missions',
+    tagline: 'Explore Chandrayaan-3, Aditya-L1, Gaganyaan, PSLV, GSLV, and active Indian Space Research satellites',
+    description: "Search the comprehensive directory of Indian Space Research Organisation (ISRO) spacecraft, lunar landers, solar observatories, and launch vehicles (PSLV, GSLV, LVM3) with launch dates and mission status.",
+    category: 'technology',
+    icon: 'Rocket',
+    keywords: ['isro satellites directory', 'isro missions list chandrayaan aditya', 'pslv gslv lvm3 rockets', 'isro spacecraft payloads orbit', 'indian space program mission tracker'],
+    popular: true,
+    badge: 'ISRO Data',
+    views: 65400,
+    seo: {
+      title: 'ISRO Satellites & Spacecraft Mission Directory | BharatUtility',
+      description: 'Explore ISRO spacecraft, lunar landers (Chandrayaan-3), solar observatories (Aditya-L1), and rockets (PSLV, GSLV, LVM3).',
+      keywords: ['isro satellites directory', 'isro missions list chandrayaan aditya', 'pslv gslv lvm3 rockets', 'isro spacecraft payloads orbit', 'indian space program mission tracker'],
+      canonicalSlug: 'isro-satellites-missions-directory',
+      h1: 'ISRO Satellites & Spacecraft Mission Directory',
+    },
+    formulaDescription: 'Department of Space / ISRO open spacecraft mission registry and orbital classification.',
+    workedExample: {
+      inputSummary: 'Mission: Chandrayaan-3 | Launch: 14 July 2023 | Rocket: LVM3-M4',
+      calculationSteps: [
+        'Payload: Vikram Lander + Pragyan Rover + Propulsion Module',
+        'Historical Landing Date: 23 August 2023 (Shiv Shakti Point)',
+        'Status: Historical Success (First nation on Lunar South Pole)'
+      ],
+      finalResult: 'Historical Success: Lunar South Pole Landing Accomplished',
+    },
+    faqs: [
+      {
+        question: 'What is India’s primary workhorse launch vehicle?',
+        answer: 'The Polar Satellite Launch Vehicle (PSLV) is known as the workhorse of ISRO with over 50+ successful orbital missions.'
+      }
+    ],
+    relatedToolSlugs: ['iss-tracker-india-pass', 'live-aqi-weather-forecast', 'network-speed-ping-probe']
+  },
+  // 143. All-India APMC Mandi Bhav Tracker
+  {
+    id: 'apmc-mandi-bhav-live-tracker',
+    slug: 'apmc-mandi-bhav-live-tracker',
+    name: 'All-India APMC Mandi Bhav (Daily Crop & Veggie Prices)',
+    shortName: 'APMC Mandi Bhav',
+    tagline: 'Daily wholesale rates for wheat, rice, onion, tomato, potato, mustard, and cash crops across major Indian agricultural mandis',
+    description: "Track daily wholesale commodity rates across major Indian APMC mandis (Lasalgaon, Khanna, Indore, Agra, Kolar, Rajkot) for wheat, paddy, onion, tomato, potato, mustard, soyabean, and cotton.",
+    category: 'business',
+    icon: 'Wheat',
+    keywords: ['apmc mandi bhav today', 'daily crop prices india', 'wheat onion tomato mandi price', 'lasalgaon onion mandi bhav', 'agmarknet daily wholesale rates'],
+    popular: true,
+    trending: true,
+    badge: 'Mandi Rates',
+    views: 84300,
+    seo: {
+      title: 'All-India APMC Mandi Bhav (Daily Wholesale Prices) | BharatUtility',
+      description: 'Daily APMC mandi prices for wheat, paddy, onion, tomato, potato, and mustard across Indian agricultural wholesale markets.',
+      keywords: ['apmc mandi bhav today', 'daily crop prices india', 'wheat onion tomato mandi price', 'lasalgaon onion mandi bhav', 'agmarknet daily wholesale rates'],
+      canonicalSlug: 'apmc-mandi-bhav-live-tracker',
+      h1: 'All-India APMC Mandi Bhav (Daily Commodity Price Tracker)',
+    },
+    formulaDescription: 'Agmarknet wholesale market pricing: Modal Price, Minimum Price, and Maximum Price per Quintal (100 kg).',
+    workedExample: {
+      inputSummary: 'Commodity: Wheat (Gehu) | Mandi: Indore (MP) | Unit: ₹/Quintal',
+      calculationSteps: [
+        'Minimum Arrival Price: ₹2,400 / Quintal',
+        'Maximum Arrival Price: ₹2,680 / Quintal',
+        'Modal Market Rate: ₹2,550 / Quintal (₹25.50 / kg)'
+      ],
+      finalResult: 'Modal Wholesale Rate: ₹2,550 / Quintal',
+    },
+    faqs: [
+      {
+        question: 'What is a Modal Price in Mandi Bhav?',
+        answer: 'The modal price is the most frequently transacted price for a commodity in the mandi on that trading day, representing the true average market rate.'
+      }
+    ],
+    relatedToolSlugs: ['pm-kisan-eligibility-checker', 'gst-calculator', 'land-area-converter']
+  },
+  // 144. Mobile Screen & Touch Hardware Tester
+  {
+    id: 'mobile-screen-hardware-tester',
+    slug: 'mobile-screen-hardware-tester',
+    name: 'Mobile Screen & Touch Diagnostic Tester (Used / Refurbished)',
+    shortName: 'Screen & Touch Tester',
+    tagline: 'Test dead pixels (RGB colors), multi-touch grid, display refresh rate (60Hz/90Hz/120Hz), and stereo speaker balance',
+    description: "Self-diagnostic testing tool for refurbished, second-hand, or newly purchased smartphones. Run fullscreen RGB dead pixel cycle, multi-touch touch controller test, live screen FPS counter, and stereo sound channel tests.",
+    category: 'technology',
+    icon: 'Smartphone',
+    keywords: ['mobile screen tester', 'dead pixel test online phone', 'touch screen multi touch test', 'screen refresh rate test 120hz', 'speaker left right audio test phone'],
+    popular: true,
+    trending: true,
+    badge: 'Hardware Test',
+    views: 91200,
+    seo: {
+      title: 'Mobile Screen & Touch Hardware Diagnostic Tester | BharatUtility',
+      description: 'Test refurbished and used phones for dead pixels, touchscreen multi-touch response, 120Hz display refresh rate, and stereo speakers.',
+      keywords: ['mobile screen tester', 'dead pixel test online phone', 'touch screen multi touch test', 'screen refresh rate test 120hz', 'speaker left right audio test phone'],
+      canonicalSlug: 'mobile-screen-hardware-tester',
+      h1: 'Mobile Screen & Touch Hardware Diagnostic Tester',
+    },
+    formulaDescription: 'Canvas RGB color rendering + Web Touch API + requestAnimationFrame hardware FPS measurement.',
+    workedExample: {
+      inputSummary: 'Device: AMOLED Display | Target: Dead Pixel & 120Hz Refresh Rate',
+      calculationSteps: [
+        'RGB Fullscreen Cycle: Red -> Green -> Blue -> White -> Black',
+        'Hardware VSync Sampling: 120 frames per second measured',
+        'Multi-Touch Controller: 10 points registered simultaneously'
+      ],
+      finalResult: 'Display Passed: 120Hz Refresh Rate | Zero Dead Pixels',
+    },
+    faqs: [
+      {
+        question: 'How do you identify a dead pixel on a smartphone screen?',
+        answer: 'Cycle through solid primary colors (Red, Green, Blue, White, Black) in fullscreen. A dead pixel will stand out as a tiny unlit black dot or stuck glowing color that does not change.'
+      }
+    ],
+    relatedToolSlugs: ['imei-ceir-guide-validator', 'network-speed-ping-probe', 'live-room-noise-decibel-meter']
+  },
+  // 145. Multi-Language Indian Voice Speech Studio
+  {
+    id: 'indian-voice-speech-studio',
+    slug: 'indian-voice-speech-studio',
+    name: 'Multi-Language Indian Voice Speech Studio',
+    shortName: 'Indian Voice Studio',
+    tagline: 'Convert text to natural audio voice in Indian English, Hindi, Marathi, Tamil, Telugu, Bengali, and Gujarati',
+    description: "Convert any script, article, or message into clear spoken audio with natural Indian regional voices using the native Web Speech API. Adjust playback speed, voice pitch, and listen in 7+ Indian languages.",
+    category: 'daily-life',
+    icon: 'Volume2',
+    keywords: ['indian text to speech free', 'hindi voice generator online', 'marathi tamil telugu text to speech', 'web speech api indian accents', 'tts generator india'],
+    popular: true,
+    trending: true,
+    badge: 'Speech API',
+    views: 67300,
+    seo: {
+      title: 'Multi-Language Indian Voice Speech Studio (TTS) | BharatUtility',
+      description: 'Convert text to speech in Indian English, Hindi, Marathi, Tamil, Telugu, and Bengali with pitch and speed controls.',
+      keywords: ['indian text to speech free', 'hindi voice generator online', 'marathi tamil telugu text to speech', 'web speech api indian accents', 'tts generator india'],
+      canonicalSlug: 'indian-voice-speech-studio',
+      h1: 'Multi-Language Indian Voice Speech Studio',
+    },
+    formulaDescription: 'Native browser window.speechSynthesis utilizing localized Indian language voice synthesizers.',
+    workedExample: {
+      inputSummary: 'Text: नमस्ते भारत | Voice: hi-IN (Hindi) | Rate: 1.0x',
+      calculationSteps: [
+        'Synthesis Engine: Local Browser Web Speech API',
+        'Language Code: hi-IN',
+        'Audio Output: High-fidelity natural speech synthesized locally'
+      ],
+      finalResult: 'Speech rendered instantly without server latency',
+    },
+    faqs: [
+      {
+        question: 'Are there any character limits or subscription fees for this voice tool?',
+        answer: 'No! Because the tool utilizes your browser’s native Web Speech API, there are zero subscription fees and zero character caps.'
+      }
+    ],
+    relatedToolSlugs: ['word-character-counter', 'speed-typing-test', 'case-converter']
+  },
+  // 146. Live Room Noise & Decibel (dB) Sound Meter
+  {
+    id: 'live-room-noise-decibel-meter',
+    slug: 'live-room-noise-decibel-meter',
+    name: 'Live Room Noise & Decibel (dB) Sound Meter',
+    shortName: 'Room Noise Meter',
+    tagline: 'Measure real-time ambient acoustic decibel (dB) sound levels for study rooms, bedrooms, and workplaces',
+    description: "Measure environmental sound and noise levels in real-time using your device's microphone and the Web Audio API. Identify quiet study spaces (<45 dB) vs hazardous noise levels (>85 dB).",
+    category: 'technology',
+    icon: 'Mic',
+    keywords: ['room noise decibel meter online', 'sound level meter browser', 'measure ambient noise db', 'study room sound checker', 'web audio decibel analyzer'],
+    badge: 'Microphone dB',
+    views: 43200,
+    seo: {
+      title: 'Live Room Noise & Decibel (dB) Sound Meter | BharatUtility',
+      description: 'Measure ambient room sound and noise levels in real-time with your microphone using the Web Audio API.',
+      keywords: ['room noise decibel meter online', 'sound level meter browser', 'measure ambient noise db', 'study room sound checker', 'web audio decibel analyzer'],
+      canonicalSlug: 'live-room-noise-decibel-meter',
+      h1: 'Live Room Noise & Decibel (dB) Sound Meter',
+    },
+    formulaDescription: 'RMS sound pressure analysis: dB = 20 * log10(V_rms / V_ref) scaled to standard acoustic range.',
+    workedExample: {
+      inputSummary: 'Microphone Stream: Active | Measured Level: 38 dB',
+      calculationSteps: [
+        'Fast Fourier Transform (FFT) analysis on audio buffer',
+        'Average RMS Amplitude: Scaled to 38 dB SPL',
+        'Acoustic Classification: Quiet Room (Ideal for study and deep sleep)'
+      ],
+      finalResult: 'Ambient Sound: 38 dB (Quiet Study Environment)',
+    },
+    faqs: [
+      {
+        question: 'What is considered a safe room noise level?',
+        answer: 'A quiet bedroom or study room is typically 30-40 dB. Normal conversation is around 60 dB. Continuous exposure to noise above 85 dB can cause hearing fatigue and damage.'
+      }
+    ],
+    relatedToolSlugs: ['mobile-screen-hardware-tester', 'network-speed-ping-probe', 'cooling-tonnage-calculator']
+  },
+  // 147. Vastu Shastra Digital Compass
+  {
+    id: 'vastu-shastra-digital-compass',
+    slug: 'vastu-shastra-digital-compass',
+    name: 'Vastu Shastra Digital Compass & Home Zone Analyzer',
+    shortName: 'Vastu Compass',
+    tagline: '360° live magnetic compass with 16 Vastu Zones (Ishanya, Agneya, Nairutya, Vayavya) and room suitability guide',
+    description: "Analyze your home or office orientation according to classical Vedic Vastu Shastra. Features 360° digital compass sensor, 16 zonal classifications (North-East Mandir, South-East Kitchen, South-West Master Bedroom), and room remedies.",
+    category: 'home',
+    icon: 'Compass',
+    keywords: ['vastu shastra compass online', '16 vastu zones directions', 'ishanya agneya nairutya vayavya', 'vastu for home entrance kitchen mandir', 'digital vastu compass phone'],
+    popular: true,
+    trending: true,
+    badge: '16 Zones',
+    views: 79800,
+    seo: {
+      title: 'Vastu Shastra Digital Compass & Home Energy Zone Analyzer | BharatUtility',
+      description: 'Check 16 Vastu directions and ideal room placements (Mandir, Kitchen, Bedroom, Cash Locker) using digital compass orientation.',
+      keywords: ['vastu shastra compass online', '16 vastu zones directions', 'ishanya agneya nairutya vayavya', 'vastu for home entrance kitchen mandir', 'digital vastu compass phone'],
+      canonicalSlug: 'vastu-shastra-digital-compass',
+      h1: 'Vastu Shastra Digital Compass & Home Energy Zone Analyzer',
+    },
+    formulaDescription: 'Magnetometer DeviceOrientation compass angle mapped to 16 cardinal and intercardinal Vastu energy sectors.',
+    workedExample: {
+      inputSummary: 'Heading: 45° (North-East) | Sector: Ishanya Zone',
+      calculationSteps: [
+        'Zonal Direction: North-East (Ishanya)',
+        'Governing Element: Water (Jal Tattva)',
+        'Ideal Placements: Puja Room / Mandir, Meditation, Study Space, Water Fountain'
+      ],
+      finalResult: 'Ishanya Zone: Ideal for Mandir, Meditation & Study',
+    },
+    faqs: [
+      {
+        question: 'Which direction is best for a Mandir (Puja Room) as per Vastu?',
+        answer: 'North-East (Ishanya) is the most auspicious direction for a Mandir as it brings divine positive energy and spiritual clarity.'
+      }
+    ],
+    relatedToolSlugs: ['property-stamp-duty-calculator', 'land-area-converter', 'pm-surya-ghar-solar-calculator']
+  },
+  // 148. Indian EV Fast-Charging Matrix
+  {
+    id: 'ev-fast-charging-cost-matrix',
+    slug: 'ev-fast-charging-cost-matrix',
+    name: 'Indian EV Fast-Charging Time & Running Cost Matrix',
+    shortName: 'EV Fast-Charging Matrix',
+    tagline: 'Compare 0-80% DC fast-charging duration, home charging costs, and per-km running expenses for Tata, MG, Mahindra, Ola & Ather',
+    description: "Calculate DC fast-charging speeds (0-80%), home AC charging time, and running costs per kilometer for top Indian electric vehicles including Nexon EV, Punch EV, MG ZS EV, Mahindra XUV400, Ola S1, and Ather 450X.",
+    category: 'vehicle-utility',
+    icon: 'BatteryCharging',
+    keywords: ['indian ev fast charging calculator', 'nexon ev punch ev charging time', 'ev running cost per km vs petrol', 'tata ev dc fast charger speed', 'ola s1 ather 450x charging cost'],
+    popular: true,
+    badge: 'EV Matrix',
+    views: 63100,
+    seo: {
+      title: 'Indian EV Fast-Charging Time & Running Cost Matrix | BharatUtility',
+      description: 'Calculate 0-80% DC fast-charging time, home electricity cost, and per-km expenses for Indian electric cars and scooters.',
+      keywords: ['indian ev fast charging calculator', 'nexon ev punch ev charging time', 'ev running cost per km vs petrol', 'tata ev dc fast charger speed', 'ola s1 ather 450x charging cost'],
+      canonicalSlug: 'ev-fast-charging-cost-matrix',
+      h1: 'Indian EV Fast-Charging Time & Running Cost Matrix',
+    },
+    formulaDescription: 'Charging Time = Battery (kWh) / Charger Power (kW) * efficiency factor. Cost per KM = Total Charging Cost / Claimed Range.',
+    workedExample: {
+      inputSummary: 'Vehicle: Tata Nexon EV LR (40.5 kWh) | DC Charger: 50 kW | Home Rate: ₹7.50/unit',
+      calculationSteps: [
+        '0-80% DC Fast Charge Time: ~39 Minutes',
+        'Full Home Charge Cost (40.5 kWh * ₹7.50): ₹304',
+        'Running Cost per KM (465 km range): ~₹0.65 / km'
+      ],
+      finalResult: 'DC Fast Time: ~39 Mins | Home Cost: ₹0.65 / km (vs ₹6-8 / km for Petrol)',
+    },
+    faqs: [
+      {
+        question: 'Why does EV fast charging slow down after 80%?',
+        answer: 'To protect battery chemistry from overheating and extend battery lifespan, the Battery Management System (BMS) automatically throttles charging speed after reaching 80% state of charge.'
+      }
+    ],
+    relatedToolSlugs: ['fuel-price-tracker', 'fuel-trip-cost-calculator', 'mileage-calculator']
+  },
+  // 149. Home Inverter & Battery Backup Calculator
+  {
+    id: 'home-inverter-battery-backup-calculator',
+    slug: 'home-inverter-battery-backup-calculator',
+    name: 'Home Inverter & Battery Backup Hours Calculator',
+    shortName: 'Inverter & Battery Sizing',
+    tagline: 'Calculate total appliance wattage, recommended inverter VA rating, and backup hours for 150Ah/200Ah tubular batteries',
+    description: "Determine the ideal inverter VA capacity (Luminous, Microtek, Exide) and tubular battery size for your home. Calculate total watt load and exact battery backup duration during power outages.",
+    category: 'home',
+    icon: 'Zap',
+    keywords: ['inverter battery backup calculator', 'how to calculate inverter va rating', '150ah battery backup hours', 'home inverter load calculator', 'luminous microtek inverter sizing'],
+    popular: true,
+    badge: 'Backup Hours',
+    views: 74600,
+    seo: {
+      title: 'Home Inverter & Battery Backup Duration Calculator | BharatUtility',
+      description: 'Calculate appliance wattage, recommended inverter VA rating, and tubular battery backup hours (150Ah/200Ah) for your home.',
+      keywords: ['inverter battery backup calculator', 'how to calculate inverter va rating', '150ah battery backup hours', 'home inverter load calculator', 'luminous microtek inverter sizing'],
+      canonicalSlug: 'home-inverter-battery-backup-calculator',
+      h1: 'Home Inverter & Battery Backup Duration Calculator',
+    },
+    formulaDescription: 'Backup Hours = (Battery Ah * 12 Volts * 0.8 efficiency) / Total Connected Wattage Load.',
+    workedExample: {
+      inputSummary: 'Load: 3 Fans (225W) + 5 LED Bulbs (75W) + 1 TV (100W) = 400W | Battery: 150Ah 12V',
+      calculationSteps: [
+        'Total Connected Wattage: 400 Watts',
+        'Recommended Inverter Rating: 400W / 0.8 Power Factor = 500 VA -> 700-900 VA Inverter',
+        'Battery Energy: 150Ah * 12V * 0.8 Efficiency = 1,440 Watt-Hours',
+        'Backup Duration: 1,440 Wh / 400 W = 3.6 Hours'
+      ],
+      finalResult: 'Inverter: 900 VA | Backup Duration: 3.6 Hours continuous operation',
+    },
+    faqs: [
+      {
+        question: 'What is the power factor in inverter sizing?',
+        answer: 'Most residential inverters operate at a 0.8 power factor. To find required VA, divide total watts by 0.8 (e.g., 400 Watts / 0.8 = 500 VA).'
+      }
+    ],
+    relatedToolSlugs: ['pm-surya-ghar-solar-calculator', 'electricity-bill-calculator', 'cooling-tonnage-calculator']
+  },
+  // 150. IRCTC Tatkal Timing & Station Finder
+  {
+    id: 'irctc-tatkal-timing-station-finder',
+    slug: 'irctc-tatkal-timing-station-finder',
+    name: 'IRCTC Tatkal Ticket Booking Timing & Station Code Directory',
+    shortName: 'IRCTC Tatkal Clock',
+    tagline: 'Live countdown to 10:00 AM (AC) and 11:00 AM (Non-AC) Tatkal booking windows with railway station code directory',
+    description: "Live countdown timer to official Indian Railways IRCTC Tatkal ticket booking windows (10:00 AM for AC classes, 11:00 AM for Sleeper classes). Features a searchable directory of major railway station codes and CRIS zones.",
+    category: 'travel',
+    icon: 'Train',
+    keywords: ['irctc tatkal booking timing countdown', 'tatkal ticket booking time 10am 11am', 'railway station code finder ndls csmt', 'tatkal confirmation tricks', 'indian railways station directory'],
+    popular: true,
+    trending: true,
+    badge: 'Tatkal Clock',
+    views: 98700,
+    seo: {
+      title: 'IRCTC Tatkal Booking Timing Countdown & Station Code Finder | BharatUtility',
+      description: 'Live countdown to 10 AM (AC) and 11 AM (Non-AC) IRCTC Tatkal booking windows with Indian railway station code directory.',
+      keywords: ['irctc tatkal booking timing countdown', 'tatkal ticket booking time 10am 11am', 'railway station code finder ndls csmt', 'tatkal confirmation tricks', 'indian railways station directory'],
+      canonicalSlug: 'irctc-tatkal-timing-station-finder',
+      h1: 'IRCTC Tatkal Ticket Booking Timing & Station Code Finder',
+    },
+    formulaDescription: 'Live time delta calculation to next 10:00 AM IST (AC Tatkal) and 11:00 AM IST (Non-AC Tatkal) windows.',
+    workedExample: {
+      inputSummary: 'Class: 3rd AC (3A) | Booking Day: 1 Day prior to journey date',
+      calculationSteps: [
+        'AC Classes (1A, 2A, 3A, 3E, CC): Opens at 10:00 AM IST sharp',
+        'Non-AC Classes (SL, 2S): Opens at 11:00 AM IST sharp',
+        'Booking Advice: Keep Master Passenger List created in IRCTC profile'
+      ],
+      finalResult: 'Live Countdown Active | Opens daily at 10:00 AM / 11:00 AM IST',
+    },
+    faqs: [
+      {
+        question: 'When does IRCTC Tatkal booking open for tomorrow’s train?',
+        answer: 'Tatkal opens 1 day prior to the train departure from the originating station — 10:00 AM IST for AC classes and 11:00 AM IST for Non-AC Sleeper classes.'
+      }
+    ],
+    relatedToolSlugs: ['train-berth-tatkal-finder', 'indian-passport-visa-free-countries', 'fuel-trip-cost-calculator']
   }
 ];
 

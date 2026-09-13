@@ -21,7 +21,7 @@ console.log('🚀 RUNNING BHARATUTILITY COMPREHENSIVE QA TEST SUITE');
 console.log('====================================================\n');
 
 // 1. ROUTE & REGISTRY INTEGRITY
-assert('Route Integrity', 'Total tools is 125', TOOLS_REGISTRY.length === 125, `Found ${TOOLS_REGISTRY.length}`);
+assert('Route Integrity', 'Total tools is 150', TOOLS_REGISTRY.length === 150, `Found ${TOOLS_REGISTRY.length}`);
 assert('Route Integrity', 'Total categories is 13', CATEGORIES.length === 13, `Found ${CATEGORIES.length}`);
 
 // Check unique slugs
@@ -56,7 +56,7 @@ for (const tool of TOOLS_REGISTRY) {
     toolsWithoutRelated++;
   }
 }
-assert('Discovery Loop', 'All 106 tools have at least 3-4 working related tools', toolsWithoutRelated === 0, `${toolsWithoutRelated} tools failed`);
+assert('Discovery Loop', 'All 150 tools have at least 3-4 working related tools', toolsWithoutRelated === 0, `${toolsWithoutRelated} tools failed`);
 
 // 3. 10 REPRESENTATIVE TOOLS CALCULATION & BOUNDARY TESTS
 console.log('\n--- Running Mathematical & Functional Unit Checks ---');
