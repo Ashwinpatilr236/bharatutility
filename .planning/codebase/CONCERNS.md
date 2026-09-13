@@ -1,40 +1,49 @@
-# Security, Performance & Technical Considerations — BharatUtility
+# BharatUtility Known Concerns, Tech Debt & Future Considerations
 
-## 1. Security & Privacy Posture
-- **Zero Exposed Secret Tokens:**
-  - Hardcoded tokens (e.g. Telegram Bot tokens) have been completely eliminated.
-  - Supabase client operates exclusively via public anon keys (`VITE_SUPABASE_ANON_KEY`) with Row-Level Security (RLS) policies on the backend database.
-- **Client-Side Privacy Guarantee (k-Anonymity):**
-  - Features such as the **Password & Data Breach Exposure Checker** never send user credentials across the internet.
-  - Hashes are generated locally via the browser's native `crypto.subtle` API, and only the 5-character prefix is used to query public collision ranges.
-- **Client-Side Document & PDF Security:**
-  - All document processing (PDF merge, split, image compression, passport photo cropping) executes 100% locally in browser memory without transmitting user documents or images to external servers.
+This document outlines technical debt, potential architectural bottlenecks, security considerations, and future improvement areas identified during the codebase mapping.
 
 ---
 
-## 2. Performance & Code-Splitting Architecture
-- **Lazy Chunk Loading:**
-  - Individual tool components are lazily evaluated via `React.lazy()`.
-  - Heavy chart and PDF libraries (`chart.js`, `jspdf`, `pdf-lib`) are isolated in independent vendor chunks, preventing initial page load bottlenecks.
-- **Vite Build Bundle Profile:**
-  - CSS Bundle: ~165 kB (~20 kB gzip).
-  - Main Framework: ~390 kB (~119 kB gzip).
-  - Individual Tool Chunks: 5 kB to 25 kB (1.5 kB to 6 kB gzip).
+## 1. Technical Debt & Codebase Health
+
+| Item | Area | Description | Severity | Recommendation |
+|---|---|---|---|---|
+| **Large Component Files** | `src/components/calculators/` | Several calculator suites (`DocumentToolsSuiteCalculator.tsx`, `DailyIndianMassUtilitySuite.tsx`, `ToolPageLayout.tsx`) contain 1,000+ to 2,000+ lines. | Medium | As the application continues to grow, consider sub-modularizing related sub-calculators into dedicated domain directories (`src/components/calculators/finance/`, `src/components/calculators/citizen/`). |
+| **Large Registry Catalog** | `src/data/toolsRegistry.ts` | The central tool catalog is now ~12,000 lines defining 220 tools with rich SEO metadata and FAQ datasets. | Low-Medium | Currently well-typed and fast to parse; in future milestones, splitting into category-based slices (e.g. `src/data/tools/finance.ts`, `src/data/tools/health.ts`) can improve developer ergonomics and editor performance. |
+| **PDF Generation Bundle Size** | `PDFButton.tsx` (jsPDF & html2canvas) | The PDF bundle chunk is ~430 KB (178 KB gzip). | Low | It is already isolated in a lazy chunk, preventing impact on the initial page load. Keep it lazy-loaded. |
 
 ---
 
-## 3. Resilience & Fallback Mechanisms
-- **Offline & API Fallbacks:**
-  - Currency, Crypto, AQI, Weather, and Fuel price tools include hardcoded Indian benchmark rates that activate seamlessly if external network endpoints experience rate limits or downtime.
-- **Graceful Supabase Degradation:**
-  - If Supabase environment variables are missing in local dev or offline mode, contact and tool request forms safely store entries to browser `localStorage` with user notification rather than crashing.
+## 2. External API Dependency & Reliability
+
+| API Integration | Dependency Type | Risk / Concern | Mitigation Strategy in Place |
+|---|---|---|---|
+| **Frankfurter (Currency)** | Free Public API | Third-party rate-limiting or brief downtime. | Bundled with a fallback currency rate matrix updated directly from official reserve ratios. |
+| **Open-Meteo (AQI & Weather)** | Free Public API | Network timeout on slow 2G/3G mobile networks. | 5-second fetch timeout with automatic graceful fallback to verified standard seasonal metrics. |
+| **ipapi.co (IP & ISP)** | Free Public API (Client-side) | Client-side adblockers or quota limits. | Catches network errors and returns simulated local connection diagnostics with ping probe. |
+| **Supabase (Backend forms)** | Managed Backend | Free tier connection limits or pausing. | In-memory queue fallback and local logging ensures no UI crashes if database is unreachable. |
 
 ---
 
-## 4. Maintenance & Evolution Checklist
-- **Adding New Tools:**
-  1. Add entry to `src/data/toolsRegistry.ts`.
-  2. Update tool count in `src/data/categories.ts`.
-  3. Mount lazy import & case in `src/components/tools/ToolPageLayout.tsx`.
-  4. Run `npm run lint` and `npm run test:seo`.
-  5. Run `npm run sitemap` to refresh `public/sitemap.xml`.
+## 3. Security Considerations
+
+- **Client-Side Data Privacy**:
+  - All mathematical and sensitive citizen calculators (e.g., EPF Passbook analysis, 80C deductions, EMI amortization, salary CTC breakdown, Aadhaar masking guidelines, password leak audits) execute purely in memory in the user's browser.
+  - Zero sensitive form inputs are saved or transmitted to backend servers.
+- **Form Sanitization & Spam Protection**:
+  - `contactService.ts` and `toolRequestService.ts` validate email regexes and sanitize inputs before writing to Supabase.
+  - Environment variables (`SUPABASE_SERVICE_ROLE_KEY`) remain strictly on the backend server.
+- **Clean Social Links**:
+  - All public social links point to official ARRJS Technologies channels (`https://www.linkedin.com/company/arrjstechnologies`, `https://www.instagram.com/arrjstechnologies/`, `https://www.facebook.com/arrjstechnologies`, `https://x.com/arrjstech`).
+  - No orphaned or insecure third-party bot tokens exist in the codebase.
+
+---
+
+## 4. Scalability & Future Roadmap
+
+1. **PWA (Progressive Web App) Offline Support**:
+   - Because 95%+ of calculators are purely client-side mathematical algorithms, adding a Service Worker / PWA manifest would allow BharatUtility to function 100% offline in rural or low-connectivity Indian regions.
+2. **Multi-Lingual Localization (i18n)**:
+   - High-demand regional languages (Hindi, Marathi, Tamil, Telugu, Bengali, Gujarati, Kannada) could be layered over the existing tool registry definitions.
+3. **Structured Schema.org Expansion**:
+   - Add `SoftwareApplication` and `FinancialProduct` JSON-LD rich snippets to `ToolPageLayout` for enhanced Google Search feature snippets.
