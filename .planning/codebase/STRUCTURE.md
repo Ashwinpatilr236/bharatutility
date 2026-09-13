@@ -1,73 +1,64 @@
-# Directory Structure & File Hierarchy — BharatUtility
+# Directory & File Structure — BharatUtility
 
 ```
 bharatutility/
-├── .planning/                  # GSD Planning & Architecture Intelligence
-│   └── codebase/               # 7 Codebase intelligence documents
-│       ├── STACK.md
-│       ├── INTEGRATIONS.md
-│       ├── ARCHITECTURE.md
-│       ├── STRUCTURE.md
-│       ├── CONVENTIONS.md
-│       ├── TESTING.md
-│       └── CONCERNS.md
-│
+├── .planning/                  # GSD Project Management & Intelligence
+│   └── codebase/               # Codebase Map Documents (STACK, ARCHITECTURE, etc.)
 ├── public/                     # Static Web Assets
-│   ├── favicon.svg             # Favicon
-│   ├── robots.txt              # Search engine crawler directives
-│   └── sitemap.xml             # 146 dynamically generated XML routes
-│
-├── scripts/                    # Automation & Quality Scripts
-│   ├── generate-sitemap.ts     # Generates public/sitemap.xml from toolsRegistry.ts
-│   ├── qa-runner.ts            # Mathematical & functional unit test runner
-│   └── validate-seo.ts         # Automated SEO, Schema, and canonical auditor
-│
-├── src/                        # Core Application Source Code
-│   ├── components/             # React Component Library
-│   │   ├── calculators/        # Multi-tool suites (Finance, Vehicle, Document, etc.)
-│   │   ├── common/             # Reusable UI primitives (Breadcrumbs, DynamicIcon, ShareModal)
-│   │   ├── home/               # 8 Modular Homepage Sections (Hero, Popular, FAQ, etc.)
-│   │   ├── layout/             # Layout components (Header, Footer, Navigation)
-│   │   ├── search/             # Global search & command palette
-│   │   ├── seo/                # SEOHead component with dynamic JSON-LD injection
-│   │   └── tools/              # Specialized domain tool components:
-│   │       ├── business/       # StockMarketHoursTracker, etc.
-│   │       ├── daily/          # JanAushadhiGenericSaver, IndianBabyNamesRashi
-│   │       ├── documents/      # RentAgreementStampDuty, etc.
-│   │       ├── education/      # SarkariExamAgeCalculator, etc.
-│   │       ├── home/           # PropertyStampDutyCalculator, etc.
-│   │       ├── money/          # GoldSilverRateCalculator, CryptoInrTaxCalculator
-│   │       ├── tech/           # NetworkSpeedPingProbe, ImeiCeirGuideValidator, PasswordBreachChecker
-│   │       ├── travel/         # TrainBerthTatkalFinder, etc.
-│   │       ├── vehicle/        # TrafficChallanPortalFinder, etc.
-│   │       └── ToolPageLayout.tsx # Universal dynamic tool layout engine
-│   │
-│   ├── context/                # Global React Context
-│   │   └── AppContext.tsx      # Routing, active tool/category, favorites, history
-│   │
-│   ├── data/                   # Central Catalogs & Registries
-│   │   ├── categories.ts       # 13 Categories with metadata & tool counts
-│   │   └── toolsRegistry.ts    # 125 Fully typed Tools with SEO, math formulas & FAQs
-│   │
-│   ├── lib/                    # Library Initializations
+│   ├── favicon.svg             # Official SVG favicon
+│   ├── robots.txt              # Search engine crawler instructions
+│   └── sitemap.xml             # Generated 243+ URL XML sitemap
+├── scripts/                    # Build & QA Automation Runners
+│   ├── generate-sitemap.ts     # Build-time XML sitemap generator
+│   └── qa-runner.ts            # Mathematical & Route QA Test Suite
+├── src/                        # Application Source Code
+│   ├── components/             # Reusable UI & Page Modules
+│   │   ├── calculators/        # 40+ Isolated Calculator Suites & Tools
+│   │   │   ├── AqiAndWeatherSuite.tsx
+│   │   │   ├── CurrencyConverterSuite.tsx
+│   │   │   ├── EmiCalculator.tsx
+│   │   │   ├── FuelPriceTrackerSuite.tsx
+│   │   │   ├── IpInspectorSuite.tsx
+│   │   │   ├── LongWeekendPlannerSuite.tsx
+│   │   │   ├── OnlineNotepadSuite.tsx
+│   │   │   ├── OnlinePaintCanvasSuite.tsx
+│   │   │   ├── QrScannerSuite.tsx
+│   │   │   └── ... (40+ suites)
+│   │   ├── common/             # Shared Design System Elements (Header, Footer, Icons)
+│   │   ├── home/               # 8 Modular Homepage Sections
+│   │   │   ├── HeroSection.tsx
+│   │   │   ├── PopularToolsSection.tsx
+│   │   │   ├── CategorizedToolsSection.tsx
+│   │   │   ├── YouMayAlsoNeedSection.tsx
+│   │   │   ├── LiveStatsSection.tsx
+│   │   │   ├── HomeFaqSection.tsx
+│   │   │   └── FinalDiscoveryCtaSection.tsx
+│   │   ├── tools/              # Tool View Container & Layout Engine
+│   │   │   └── ToolPageLayout.tsx
+│   │   └── views/              # Main App Route Views
+│   │       ├── AllToolsView.tsx
+│   │       ├── CategoryView.tsx
+│   │       ├── ContactView.tsx
+│   │       ├── FavoritesView.tsx
+│   │       ├── LegalView.tsx
+│   │       └── RequestToolView.tsx
+│   ├── context/                # Global Application State
+│   │   └── AppContext.tsx      # Routing, Theme, Search, and Favorites
+│   ├── data/                   # Static Data Registries & Catalogs
+│   │   ├── categories.ts       # 13 Official Categories
+│   │   └── toolsRegistry.ts    # 222 Typed Tools with Formulas & FAQs
+│   ├── lib/                    # Third-Party Initializers
 │   │   └── supabase.ts         # Supabase client singleton
-│   │
-│   ├── services/               # Data & API Services
-│   │   ├── contactService.ts   # Contact form handler with local fallback
-│   │   └── toolRequestService.ts # Tool suggestion handler
-│   │
-│   ├── utils/                  # Pure Utility & Helper Functions
-│   │   ├── formatters.ts       # formatINR, formatIndianNumber, formatIndianCompact
-│   │   ├── pdfGenerator.ts     # Client-side PDF generation
-│   │   └── calculations.ts     # Standard mathematical formulas
-│   │
-│   ├── types.ts                # Core TypeScript interfaces (Tool, Category, ToolSEO, FAQItem)
-│   ├── App.tsx                 # Root application view switcher
-│   ├── main.tsx                # React DOM root entrypoint
-│   └── index.css               # Tailwind CSS 4 theme tokens & glassmorphism utilities
-│
-├── server.ts                   # Express.js production backend server
-├── vite.config.ts              # Vite 6 configuration with chunk splitting
-├── tsconfig.json               # TypeScript compiler configuration
-└── package.json                # NPM scripts and dependencies
+│   ├── services/               # API & DB Service Layers
+│   │   ├── contactService.ts
+│   │   └── toolRequestService.ts
+│   ├── types/                  # Global TypeScript Interfaces
+│   │   └── index.ts
+│   ├── App.tsx                 # Root Component & Layout Shell
+│   ├── index.css               # Tailwind CSS 4 Design Tokens & Theme
+│   └── main.tsx                # React DOM Mount Entrypoint
+├── server.ts                   # Express Production Server
+├── vite.config.ts              # Vite & Rollup Bundler Configuration
+├── package.json                # Project Manifest & Script Definitions
+└── tsconfig.json               # TypeScript Compiler Options
 ```

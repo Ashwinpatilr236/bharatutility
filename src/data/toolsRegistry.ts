@@ -11886,10 +11886,91 @@ export const TOOLS_REGISTRY: Tool[] = [
     },
     faqs: [{ question: 'Can hospitals see my old medical history without my permission?', answer: 'No. The ABDM framework is 100% consent-driven; hospitals can only view records after you approve an OTP request.' }],
     relatedToolSlugs: ['ayushman-abha-digital-health-id-guide', 'ayushman-bharat-eligibility-checker', 'body-surface-area-clinical-dosage-calculator']
+  },
+  {
+    id: 'free-online-notepad-scratchpad',
+    slug: 'free-online-notepad-scratchpad',
+    name: 'Free Online Notepad & Scratchpad',
+    shortName: 'Online Notepad',
+    tagline: 'Distraction-free auto-saving notepad with voice typing & stats',
+    description: 'A fast, lightweight, 100% private in-browser text editor with local auto-save, speech-to-text voice dictation, live word and character counters, and 1-click export to TXT and Markdown.',
+    category: 'documents',
+    icon: 'FileText',
+    popular: true,
+    badge: 'Popular',
+    trending: true,
+    keywords: ['online notepad', 'free scratchpad', 'voice typing notepad', 'word counter online', 'browser notes app'],
+    seo: {
+      title: 'Free Online Notepad & Quick Scratchpad with Auto-Save | BharatUtility',
+      description: 'Use BharatUtility’s free online notepad. Auto-saves locally in browser, offers speech-to-text Hindi/English voice dictation, live word count, and instant TXT/MD export.',
+      keywords: ['free online notepad', 'browser scratchpad', 'speech to text notes', 'online text editor', 'private notes'],
+      canonicalSlug: 'free-online-notepad-scratchpad',
+      h1: 'Free Online Notepad & In-Browser Scratchpad'
+    },
+    formulaDescription: 'Local browser storage + Web Speech API + live word/char tokenization metrics.',
+    workedExample: {
+      inputSummary: 'Typing 250 words meeting notes with voice typing',
+      calculationSteps: [
+        'Text continuously persisted to browser localStorage with zero server transfer',
+        'Real-time calculation of characters, words, lines, and ~1.2 min reading time',
+        '1-click export to .txt or copy directly to clipboard'
+      ],
+      finalResult: 'Zero data loss with distraction-free writing environment'
+    },
+    faqs: [
+      { question: 'Is my text sent to any server?', answer: 'No. All text is stored 100% privately in your browser’s local storage. No data is transmitted to external servers.' },
+      { question: 'Will my notes be saved if I refresh or close the tab?', answer: 'Yes, your notes auto-save continuously in your browser’s local storage so you can resume anytime.' },
+      { question: 'Does voice typing support Hindi and Indian English?', answer: 'Yes! Click the Voice Type button to dictate notes in Hindi or English using your device microphone.' }
+    ],
+    relatedToolSlugs: ['word-character-counter', 'text-case-converter', 'online-paint-canvas-drawing-tool', 'markdown-to-html-converter', 'diff-checker-tool']
+  },
+  {
+    id: 'online-paint-canvas-drawing-tool',
+    slug: 'online-paint-canvas-drawing-tool',
+    name: 'Free Online Paint & Canvas Drawing Tool',
+    shortName: 'Online Paint',
+    tagline: 'HD canvas sketchpad, signature maker & screenshot annotator',
+    description: 'An interactive HTML5 canvas sketchpad with brush, pencil, highlighter, geometric shapes, undo/redo, image annotations, and high-resolution PNG/JPG export.',
+    category: 'technology',
+    icon: 'Paintbrush',
+    popular: true,
+    badge: 'New',
+    trending: true,
+    keywords: ['online paint', 'free drawing tool', 'canvas sketchpad', 'online signature maker', 'draw shapes online'],
+    seo: {
+      title: 'Free Online Paint, Whiteboard & Canvas Drawing Tool | BharatUtility',
+      description: 'Draw, sketch, create digital signatures, and annotate images on an interactive HD canvas. Free online MS Paint alternative with brush, shapes, and PNG/JPG download.',
+      keywords: ['online paint', 'canvas drawing tool', 'browser sketchpad', 'free whiteboard online', 'digital signature drawer'],
+      canonicalSlug: 'online-paint-canvas-drawing-tool',
+      h1: 'Free Online Paint & Canvas Drawing Tool'
+    },
+    formulaDescription: 'HTML5 2D Canvas rendering engine with path rasterization, touch events, and alpha-blended strokes.',
+    workedExample: {
+      inputSummary: 'Drawing a quick diagram with brush and geometric arrows',
+      calculationSteps: [
+        'Select Brush mode with 6px thickness and Vibrant Blue stroke',
+        'Draw freehand curves and connect with straight arrow vector shapes',
+        '1-click Export to 1200x700 HD PNG'
+      ],
+      finalResult: 'Instant high-resolution drawing ready for download or clipboard copy'
+    },
+    faqs: [
+      { question: 'Can I use this online paint tool on mobile phones and tablets?', answer: 'Yes! The canvas supports multi-touch gestures, stylus pens, and desktop mouse drawing seamlessly.' },
+      { question: 'Can I upload an image to draw or annotate on it?', answer: 'Yes! Click the upload icon to insert any photo, screenshot, or document preview and draw directly on top of it.' },
+      { question: 'How can I save my drawing?', answer: 'Click the "Save PNG" button to download your artwork in crisp HD resolution or click "Copy" to paste into other apps.' }
+    ],
+    relatedToolSlugs: ['free-online-notepad-scratchpad', 'svg-to-png-converter', 'image-format-converter', 'qr-code-generator', 'exam-photo-date-stamp']
   }
 ];
 
 const TOOL_SLUG_ALIASES: Record<string, string> = {
+  'online-notepad': 'free-online-notepad-scratchpad',
+  'notepad': 'free-online-notepad-scratchpad',
+  'scratchpad': 'free-online-notepad-scratchpad',
+  'online-paint': 'online-paint-canvas-drawing-tool',
+  'paint': 'online-paint-canvas-drawing-tool',
+  'paint-tool': 'online-paint-canvas-drawing-tool',
+  'canvas-drawing': 'online-paint-canvas-drawing-tool',
   'live-currency-converter-inr': 'currency-converter',
   'live-currency-converter': 'currency-converter',
   'inr-currency-converter': 'currency-converter',

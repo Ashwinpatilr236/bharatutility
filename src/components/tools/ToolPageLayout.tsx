@@ -65,6 +65,8 @@ const IpInspectorSuite = React.lazy(() => import('../calculators/IpInspectorSuit
 const FuelPriceTrackerSuite = React.lazy(() => import('../calculators/FuelPriceTrackerSuite').then(m => ({ default: m.FuelPriceTrackerSuite })));
 const QrScannerSuite = React.lazy(() => import('../calculators/QrScannerSuite').then(m => ({ default: m.QrScannerSuite })));
 const LongWeekendPlannerSuite = React.lazy(() => import('../calculators/LongWeekendPlannerSuite').then(m => ({ default: m.LongWeekendPlannerSuite })));
+const OnlineNotepadSuite = React.lazy(() => import('../calculators/OnlineNotepadSuite').then(m => ({ default: m.OnlineNotepadSuite })));
+const OnlinePaintCanvasSuite = React.lazy(() => import('../calculators/OnlinePaintCanvasSuite').then(m => ({ default: m.OnlinePaintCanvasSuite })));
 
 // New Mega Expansion Suites
 const GovernmentSchemesSuiteCalculator = React.lazy(() => import('../calculators/GovernmentSchemesSuiteCalculator').then(m => ({ default: m.GovernmentSchemesSuiteCalculator })));
@@ -354,6 +356,21 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       case 'long-weekend-planner':
         return <LongWeekendPlannerSuite onResultChange={handleResultChange} />;
 
+      // Free Online Notepad & Scratchpad
+      case 'free-online-notepad-scratchpad':
+      case 'online-notepad':
+      case 'notepad':
+      case 'scratchpad':
+        return <OnlineNotepadSuite />;
+
+      // Free Online Paint & Canvas Drawing Tool
+      case 'online-paint-canvas-drawing-tool':
+      case 'online-paint':
+      case 'paint':
+      case 'paint-tool':
+      case 'canvas-drawing':
+        return <OnlinePaintCanvasSuite />;
+
       case 'gst-calculator':
       case 'discount-calculator':
         return <GstCalculator onResultChange={handleResultChange} />;
@@ -550,6 +567,8 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <ImeiCeirGuideValidator />;
       case 'property-stamp-duty-calculator':
         return <PropertyStampDutyCalculator />;
+      case 'indian-baby-names-rashi':
+        return <IndianBabyNamesRashi />;
       case 'password-breach-checker':
         return <PasswordBreachChecker />;
 
