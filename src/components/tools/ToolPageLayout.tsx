@@ -72,6 +72,7 @@ const LegalAndCitizenRightsCalculator = React.lazy(() => import('../calculators/
 const LivePublicApisSuiteCalculator = React.lazy(() => import('../calculators/LivePublicApisSuiteCalculator').then(m => ({ default: m.LivePublicApisSuiteCalculator })));
 const HardwareAndDiagnosticSuiteCalculator = React.lazy(() => import('../calculators/HardwareAndDiagnosticSuiteCalculator').then(m => ({ default: m.HardwareAndDiagnosticSuiteCalculator })));
 const IndianGovtAndCivicExpansionSuite = React.lazy(() => import('../calculators/IndianGovtAndCivicExpansionSuite').then(m => ({ default: m.IndianGovtAndCivicExpansionSuite })));
+const DailyIndianMassUtilitySuite = React.lazy(() => import('../calculators/DailyIndianMassUtilitySuite').then(m => ({ default: m.DailyIndianMassUtilitySuite })));
 
 // 13 New Power Utilities
 const GoldSilverRateCalculator = React.lazy(() => import('./money/GoldSilverRateCalculator').then(m => ({ default: m.GoldSilverRateCalculator })));
@@ -621,6 +622,28 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <IndianGovtAndCivicExpansionSuite initialMode="loan-prepayment" onResultChange={handleResultChange} />;
       case 'mrp-margin-gst-breakdown-calculator':
         return <IndianGovtAndCivicExpansionSuite initialMode="mrp-breakdown" onResultChange={handleResultChange} />;
+
+      // Daily Indian Mass Utility Suite
+      case 'jewellery-gold-making-charge-calculator':
+        return <DailyIndianMassUtilitySuite initialMode="gold-jewellery" onResultChange={handleResultChange} />;
+      case 'dairy-milk-fat-snf-calculator':
+        return <DailyIndianMassUtilitySuite initialMode="milk-fat" onResultChange={handleResultChange} />;
+      case 'all-india-land-unit-converter':
+        return <DailyIndianMassUtilitySuite initialMode="land-units" onResultChange={handleResultChange} />;
+      case 'gratuity-leave-encashment-calculator':
+        return <DailyIndianMassUtilitySuite initialMode="gratuity-calc" onResultChange={handleResultChange} />;
+      case 'baby-vaccination-schedule-calculator':
+        return <DailyIndianMassUtilitySuite initialMode="baby-vaccine" onResultChange={handleResultChange} />;
+      case 'non-judicial-stamp-paper-guide':
+        return <DailyIndianMassUtilitySuite initialMode="stamp-paper" onResultChange={handleResultChange} />;
+      case 'old-vehicle-resale-valuation-calculator':
+        return <DailyIndianMassUtilitySuite initialMode="car-valuation" onResultChange={handleResultChange} />;
+      case 'freelancer-44ada-tax-calculator':
+        return <DailyIndianMassUtilitySuite initialMode="tax-44ada" onResultChange={handleResultChange} />;
+      case 'consumer-court-complaint-notice-generator':
+        return <DailyIndianMassUtilitySuite initialMode="consumer-notice" onResultChange={handleResultChange} />;
+      case 'branded-vs-generic-medicine-comparator':
+        return <DailyIndianMassUtilitySuite initialMode="medicine-compare" onResultChange={handleResultChange} />;
 
       default:
         return <EmiCalculator onResultChange={handleResultChange} />;

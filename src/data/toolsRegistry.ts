@@ -9904,6 +9904,412 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: ['gst-calculator', 'profit-margin-calculator', 'business-break-even-calculator']
+  },
+  // 161. Jewellery Gold Making Charges & GST Calculator
+  {
+    id: 'jewellery-gold-making-charge-calculator',
+    slug: 'jewellery-gold-making-charge-calculator',
+    name: 'Gold Jewellery Making Charges, Hallmark & 3% GST Calculator',
+    shortName: 'Gold Making & GST',
+    tagline: 'Calculate net jewellery bill with 22K/18K purity rate, jeweller making charges (wastage), ₹45 hallmark fee, and 3% GST',
+    description: "Calculate the exact transparent billing breakdown for gold jewellery (necklace, ring, chain, bangles) in India. Accounts for 22K (916) or 18K purity, jeweller making charges (wastage), BIS hallmark fee (₹45), and 3% GST.",
+    category: 'money',
+    icon: 'Coins',
+    keywords: ['gold making charges calculator', 'jewellery gst calculation formula 3 percent', '22k 916 hallmark gold rate calculator', 'gold wastage charges per gram', 'jewellery billing transparent price'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Jewellery Bill',
+    views: 132000,
+    seo: {
+      title: 'Gold Jewellery Making Charges, Hallmark & GST Calculator | BharatUtility',
+      description: 'Calculate real transparent gold jewellery price with 22K/18K rate, making charges, BIS hallmark fee, and 3% GST.',
+      keywords: ['gold making charges calculator', 'jewellery gst calculation formula 3 percent', '22k 916 hallmark gold rate calculator', 'gold wastage charges per gram', 'jewellery billing transparent price'],
+      canonicalSlug: 'jewellery-gold-making-charge-calculator',
+      h1: 'Gold Jewellery Making Charges, Hallmark & 3% GST Calculator',
+    },
+    formulaDescription: 'Net Bill = (Weight * Purity Rate + Making Charges + ₹45 Hallmark) * 1.03 (3% GST).',
+    workedExample: {
+      inputSummary: 'Weight: 10g | Purity: 22K (916) | 24K Rate: ₹8,650/g | Making: 12% | Hallmark: ₹45',
+      calculationSteps: [
+        '22K Base Rate: ₹7,929 / gram | Net Gold: ₹79,290',
+        'Making Charges (12%): ₹9,515 | BIS Hallmark Fee: ₹45',
+        'Subtotal Before Tax: ₹88,850',
+        '3% Govt GST: ₹2,666 | Final Jewellery Price: ₹91,516'
+      ],
+      finalResult: 'Final Payable Price: ₹91,516 | Includes Gold, Making & 3% GST',
+    },
+    faqs: [
+      {
+        question: 'How is GST applied on gold jewellery purchases in India?',
+        answer: 'GST on gold jewellery is 3% flat, applied on the total value of gold plus making charges and hallmark fees.'
+      }
+    ],
+    relatedToolSlugs: ['gold-silver-rate-calculator', 'gst-calculator', 'mrp-margin-gst-breakdown-calculator']
+  },
+  // 162. Dairy Milk Fat & SNF Rate Calculator
+  {
+    id: 'dairy-milk-fat-snf-calculator',
+    slug: 'dairy-milk-fat-snf-calculator',
+    name: 'Dairy Milk Fat & SNF Rate Chart Calculator (Farmer Payout)',
+    shortName: 'Milk Fat & SNF Payout',
+    tagline: 'Calculate milk purchase rate per litre and total farmer payout based on Fat % (3.5%-10%) and SNF % for Cow and Buffalo milk',
+    description: "Calculate milk rates and dairy farmer payment based on Fat % and Solid-Not-Fat (SNF %) standards used by Indian dairy cooperatives (Amul, Mother Dairy, Nandini, Saras).",
+    category: 'daily-life',
+    icon: 'Milk',
+    keywords: ['dairy milk fat snf rate calculator', 'cow buffalo milk rate per litre', 'dudh dairy fat formula amul', 'milk collection center rate chart', 'dairy farmer payment calculation'],
+    popular: true,
+    trending: true,
+    badge: 'Dudh Dairy',
+    views: 84000,
+    seo: {
+      title: 'Dairy Milk Fat & SNF Rate Chart Calculator | BharatUtility',
+      description: 'Calculate milk rate per litre and farmer payout based on Fat % and SNF % for cow and buffalo milk.',
+      keywords: ['dairy milk fat snf rate calculator', 'cow buffalo milk rate per litre', 'dudh dairy fat formula amul', 'milk collection center rate chart', 'dairy farmer payment calculation'],
+      canonicalSlug: 'dairy-milk-fat-snf-calculator',
+      h1: 'Dairy Milk Fat & SNF Rate Chart Calculator (Farmer Payout)',
+    },
+    formulaDescription: 'Milk Rate = (Fat% * Fat Factor) + (SNF% * SNF Factor). Total Payout = Rate * Quantity.',
+    workedExample: {
+      inputSummary: 'Buffalo Milk: 25 Litres | Fat: 6.5% | SNF: 9.0%',
+      calculationSteps: [
+        'Fat Contribution: 6.5 * ₹5.8 = ₹37.70',
+        'SNF Contribution: 9.0 * ₹2.8 = ₹25.20',
+        'Calculated Rate: ₹62.90 / Litre',
+        'Total Payout for 25 Litres: ₹1,573'
+      ],
+      finalResult: 'Rate: ₹62.90 / Litre | Total Payout: ₹1,573 for 25 Litres',
+    },
+    faqs: [
+      {
+        question: 'What is standard Fat and SNF for Cow vs Buffalo milk in India?',
+        answer: 'Cow milk typically averages 3.5% - 4.5% Fat and 8.5% SNF. Buffalo milk is richer with 6.5% - 8.5% Fat and 9.0% SNF, commanding a higher price per litre.'
+      }
+    ],
+    relatedToolSlugs: ['apmc-mandi-bhav-live-tracker', 'food-adulteration-test-kit', 'unit-converter']
+  },
+  // 163. All-India Multi-State Land Unit Converter
+  {
+    id: 'all-india-land-unit-converter',
+    slug: 'all-india-land-unit-converter',
+    name: 'All-India Multi-State Land Unit Converter (Bigha, Gaj, Guntha, Cent)',
+    shortName: 'Multi-State Land Units',
+    tagline: 'Convert UP/MP/Bihar/Rajasthan Bigha, Maharashtra Guntha, South Cent/Ground, Punjab Kanal/Marla into Acres & Sq Ft',
+    description: "Convert local land measurements across all Indian states. Compare UP Pucca Bigha (27,000 sq ft), MP Bigha (12,000 sq ft), Maharashtra Guntha (1,089 sq ft), South Ground/Cent, and Punjab Kanal into standard Acres and Sq Metres.",
+    category: 'home',
+    icon: 'MapPin',
+    keywords: ['all india land unit converter', 'bigha to acre converter up mp bihar', 'guntha to sq ft maharashtra karnataka', 'gaj to square feet calculator', 'kanal marla to acre punjab'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: '28 States',
+    views: 145000,
+    seo: {
+      title: 'All-India Multi-State Land Unit Converter (Bigha, Guntha, Gaj) | BharatUtility',
+      description: 'Convert local land measurements (Bigha, Guntha, Cent, Gaj, Kanal) across all 28 Indian states into Acres and Square Feet.',
+      keywords: ['all india land unit converter', 'bigha to acre converter up mp bihar', 'guntha to sq ft maharashtra karnataka', 'gaj to square feet calculator', 'kanal marla to acre punjab'],
+      canonicalSlug: 'all-india-land-unit-converter',
+      h1: 'All-India Multi-State Land Unit Converter',
+    },
+    formulaDescription: 'Regional revenue department conversion factors to Square Feet, Acres, and Square Metres.',
+    workedExample: {
+      inputSummary: 'Quantity: 2 Bigha | Region: Uttar Pradesh (Pucca Bigha = 27,000 sq ft)',
+      calculationSteps: [
+        'Total Square Feet: 2 * 27,000 = 54,000 sq ft',
+        'Standard Acres: 54,000 / 43,560 = 1.24 Acres',
+        'Gaj (Square Yards): 54,000 / 9 = 6,000 Gaj',
+        'Square Metres: ~5,017 sq m'
+      ],
+      finalResult: '54,000 Sq Ft = 1.24 Acres = 6,000 Gaj',
+    },
+    faqs: [
+      {
+        question: 'Why is 1 Bigha different in every Indian state?',
+        answer: 'Bigha is a traditional pre-independence land unit defined by regional revenue codes. For example, 1 Bigha is 27,000 sq ft in UP, 12,000 sq ft in MP, 27,225 sq ft in Rajasthan, and 14,400 sq ft in West Bengal.'
+      }
+    ],
+    relatedToolSlugs: ['property-stamp-duty-calculator', 'all-india-bhulekh-land-records', 'tile-calculator']
+  },
+  // 164. Gratuity & Leave Encashment Calculator
+  {
+    id: 'gratuity-leave-encashment-calculator',
+    slug: 'gratuity-leave-encashment-calculator',
+    name: 'Gratuity & Leave Encashment Calculator (₹25 Lakhs Tax Free)',
+    shortName: 'Gratuity & Leave Encashment',
+    tagline: 'Calculate statutory gratuity on job change or retirement via (15 * Basic+DA * Years)/26 with Section 10(10) ₹25 Lakhs tax exemption',
+    description: "Calculate employee gratuity entitlement under the Payment of Gratuity Act 1972 using the 15/26 formula. View continuous 5-year service rules and the latest ₹25 Lakhs tax-exempt limit under Section 10(10).",
+    category: 'money',
+    icon: 'Landmark',
+    keywords: ['gratuity calculator 15 26 formula', 'gratuity tax exemption 25 lakhs', 'payment of gratuity act 1972 calculation', 'gratuity eligibility 5 years continuous service', 'leave encashment tax exemption'],
+    popular: true,
+    trending: true,
+    badge: '₹25L Tax Free',
+    views: 126000,
+    seo: {
+      title: 'Gratuity & Leave Encashment Calculator (₹25L Tax Free) | BharatUtility',
+      description: 'Calculate gratuity under Payment of Gratuity Act using 15/26 formula with Section 10(10) ₹25 Lakhs tax exemption.',
+      keywords: ['gratuity calculator 15 26 formula', 'gratuity tax exemption 25 lakhs', 'payment of gratuity act 1972 calculation', 'gratuity eligibility 5 years continuous service', 'leave encashment tax exemption'],
+      canonicalSlug: 'gratuity-leave-encashment-calculator',
+      h1: 'Gratuity & Leave Encashment Calculator (₹25 Lakhs Tax Free)',
+    },
+    formulaDescription: 'Gratuity = (15 * Last Drawn Basic+DA * Completed Years of Service) / 26.',
+    workedExample: {
+      inputSummary: 'Basic + DA: ₹45,000 | Completed Service: 8 Years',
+      calculationSteps: [
+        'Gratuity = (15 * 45,000 * 8) / 26',
+        'Calculated Gratuity: ₹2,07,692',
+        'Taxability: 100% Tax-Free under Section 10(10) (Exemption limit: ₹25 Lakhs)'
+      ],
+      finalResult: 'Payable Gratuity: ₹2,07,692 (100% Tax-Free)',
+    },
+    faqs: [
+      {
+        question: 'Is 5 years of service mandatory to claim gratuity?',
+        answer: 'Yes, under the Payment of Gratuity Act 1972, completing 5 continuous years of service with the same employer is mandatory, except in cases of death or permanent disablement.'
+      }
+    ],
+    relatedToolSlugs: ['seventh-to-eighth-cpc-calculator', 'epf-passbook-eps95-pension-calculator', 'salary-calculator']
+  },
+  // 165. Baby Vaccination & Immunization Schedule
+  {
+    id: 'baby-vaccination-schedule-calculator',
+    slug: 'baby-vaccination-schedule-calculator',
+    name: 'Indian Baby Vaccination & Immunization Schedule (UIP 0-16 Yrs)',
+    shortName: 'Baby Vaccine Schedule',
+    tagline: 'Personalized immunization milestone calendar for newborn to 16 years as per Ministry of Health Universal Immunization Programme (UIP)',
+    description: "Generate a complete baby vaccination chart based on date of birth following the Government of India Universal Immunization Programme (UIP/U-WIN). Covers BCG, Hepatitis B, Pentavalent, Polio, MR, and Boosters.",
+    category: 'daily-life',
+    icon: 'Baby',
+    keywords: ['baby vaccination schedule india', 'uwin uip immunization chart', 'newborn baby vaccine dates calculator', 'pentavalent polio mr vaccine schedule', 'government baby immunization free'],
+    popular: true,
+    trending: true,
+    badge: 'U-WIN / UIP',
+    views: 96000,
+    seo: {
+      title: 'Indian Baby Vaccination & Immunization Schedule (0-16 Yrs) | BharatUtility',
+      description: 'Generate baby vaccination calendar following Ministry of Health UIP guidelines for BCG, Pentavalent, Polio, MR, and Boosters.',
+      keywords: ['baby vaccination schedule india', 'uwin uip immunization chart', 'newborn baby vaccine dates calculator', 'pentavalent polio mr vaccine schedule', 'government baby immunization free'],
+      canonicalSlug: 'baby-vaccination-schedule-calculator',
+      h1: 'Indian Baby Vaccination & Immunization Schedule (0 to 16 Years)',
+    },
+    formulaDescription: 'UIP Immunization Milestone Schedule: Birth, 6w, 10w, 14w, 9-12m, 16-24m, 5-6y, 10y, 16y.',
+    workedExample: {
+      inputSummary: 'Newborn DOB: 15 Jan 2026',
+      calculationSteps: [
+        'Birth (15 Jan 2026): BCG, OPV 0, Hepatitis B Birth Dose',
+        '6 Weeks (26 Feb 2026): Pentavalent 1, Rotavirus 1, OPV 1, PCV 1',
+        '9 Months (15 Oct 2026): MR 1st Dose, JE 1, Vitamin A',
+        'All vaccines available free at Govt Health Centres / Anganwadis'
+      ],
+      finalResult: 'Complete 8-stage immunization milestone chart generated',
+    },
+    faqs: [
+      {
+        question: 'Are UIP vaccines free in Indian government hospitals?',
+        answer: 'Yes, all vaccines included in the Universal Immunization Programme (UIP) are provided 100% free of cost at all government hospitals, primary health centres (PHCs), and Anganwadis across India.'
+      }
+    ],
+    relatedToolSlugs: ['age-calculator', 'indian-baby-names-rashi-astrology', 'blood-group-compatibility-eraktkosh']
+  },
+  // 166. Non-Judicial Stamp Paper Value Guide
+  {
+    id: 'non-judicial-stamp-paper-guide',
+    slug: 'non-judicial-stamp-paper-guide',
+    name: 'Indian Non-Judicial Stamp Paper & e-Stamping Value Guide',
+    shortName: 'Stamp Paper Guide',
+    tagline: 'Check required stamp paper denominations for Rent Agreements, Affidavits, GPA, Indemnity Bonds, and Partnership Deeds across Indian states',
+    description: "Find the required non-judicial stamp paper value across Indian states for Rent Agreements (₹100-₹500), General Affidavits (₹10-₹100), Power of Attorney (GPA), Indemnity Bonds, and Partnership Deeds with SHCIL e-Stamping instructions.",
+    category: 'documents',
+    icon: 'FileText',
+    keywords: ['stamp paper value for rent agreement', 'affidavit stamp paper denomination 10 50 100', 'shcil e stamp paper online india', 'power of attorney stamp duty value', 'partnership deed stamp paper charges'],
+    popular: true,
+    badge: 'e-Stamping',
+    views: 78000,
+    seo: {
+      title: 'Indian Non-Judicial Stamp Paper & e-Stamping Guide | BharatUtility',
+      description: 'Check required stamp paper denominations for Rent Agreements, Affidavits, GPA, and Indemnity Bonds across Indian states.',
+      keywords: ['stamp paper value for rent agreement', 'affidavit stamp paper denomination 10 50 100', 'shcil e stamp paper online india', 'power of attorney stamp duty value', 'partnership deed stamp paper charges'],
+      canonicalSlug: 'non-judicial-stamp-paper-guide',
+      h1: 'Indian Non-Judicial Stamp Paper & e-Stamping Value Guide',
+    },
+    formulaDescription: 'Indian Stamp Act and State Stamp Schedules for non-judicial agreements and affidavits.',
+    workedExample: {
+      inputSummary: 'Document: 11-Month Residential Rent Agreement',
+      calculationSteps: [
+        'Standard Non-Judicial Stamp: ₹100 or ₹500 depending on state',
+        'Maharashtra: 0.25% of total rent + refundable deposit',
+        'Official e-Stamp: Available on shcilestamp.com'
+      ],
+      finalResult: 'Required Stamp: ₹100 / ₹500 e-Stamp | Valid for 11 Months',
+    },
+    faqs: [
+      {
+        question: 'What is the difference between Judicial and Non-Judicial stamp paper?',
+        answer: 'Judicial stamp papers (Court Fee stamps) are used for court litigation and legal cases. Non-Judicial stamp papers are used for commercial agreements, affidavits, rent deeds, and contracts.'
+      }
+    ],
+    relatedToolSlugs: ['rent-agreement-stamp-duty', 'property-stamp-duty-calculator', 'formal-letter-generator']
+  },
+  // 167. Old Vehicle Resale Valuation & Depreciation
+  {
+    id: 'old-vehicle-resale-valuation-calculator',
+    slug: 'old-vehicle-resale-valuation-calculator',
+    name: 'Old Car & Bike Resale Valuation & Depreciation Calculator',
+    shortName: 'Used Vehicle Valuation',
+    tagline: 'Calculate fair market resale value of used cars and bikes in India based on age depreciation (15-55%), odometer reading, and IDV',
+    description: "Calculate the true fair market value of used cars and two-wheelers in India (Maruti, Hyundai, Tata, Honda, Mahindra, Hero). Factors in age depreciation schedules (0-1 yr: 15%, 2 yr: 25%, 3-4 yr: 38-48%, 5+ yr: 55%+), odometer km, and market demand.",
+    category: 'vehicle-utility',
+    icon: 'Car',
+    keywords: ['used car valuation calculator india', 'second hand bike resale price', 'car depreciation rate per year india', 'insurance idv to market value', 'old car price estimate maruti hyundai'],
+    popular: true,
+    trending: true,
+    badge: 'Resale Value',
+    views: 112000,
+    seo: {
+      title: 'Old Car & Bike Resale Valuation & Depreciation Calculator | BharatUtility',
+      description: 'Calculate fair market resale value of used cars and bikes in India based on age depreciation and mileage.',
+      keywords: ['used car valuation calculator india', 'second hand bike resale price', 'car depreciation rate per year india', 'insurance idv to market value', 'old car price estimate maruti hyundai'],
+      canonicalSlug: 'old-vehicle-resale-valuation-calculator',
+      h1: 'Old Car & Bike Resale Valuation & Depreciation Calculator',
+    },
+    formulaDescription: 'Insurance Regulatory and Development Authority (IRDAI) vehicle depreciation matrix adjusted for market mileage.',
+    workedExample: {
+      inputSummary: 'Ex-Showroom: ₹9,00,000 | Age: 3 Years | Odometer: 35,000 km',
+      calculationSteps: [
+        '3-Year Standard Depreciation: 38%',
+        'Mileage Factor (35k km vs 36k km expected): Normal wear',
+        'Effective Cumulative Depreciation: 38%',
+        'Estimated Fair Market Value: ₹5,58,000'
+      ],
+      finalResult: 'Fair Market Value: ₹5.58 Lakhs (Suggested range: ₹5.30L - ₹5.85L)',
+    },
+    faqs: [
+      {
+        question: 'How fast do cars depreciate in India?',
+        answer: 'A new car loses approximately 15% value in year 1, 25% by year 2, 38-40% by year 3, and over 50% after 5 years, depending on brand resale demand.'
+      }
+    ],
+    relatedToolSlugs: ['vehicle-depreciation-calculator', 'ev-savings-calculator', 'fuel-cost-calculator']
+  },
+  // 168. Freelancer 44ADA Presumptive Tax Calculator
+  {
+    id: 'freelancer-44ada-tax-calculator',
+    slug: 'freelancer-44ada-tax-calculator',
+    name: 'Freelancer & Professional 44ADA 50% Presumptive Tax Calculator',
+    shortName: 'Freelancer 44ADA Tax',
+    tagline: 'Calculate taxable income for software devs, designers, doctors, and consultants under Section 44ADA with 50% flat deemed profit & advance tax calendar',
+    description: "Calculate income tax for Indian freelancers, software consultants, doctors, lawyers, and designers under Section 44ADA (up to ₹75 Lakhs receipts). Assumes 50% deemed profit with no tax audit required and generates quarterly Advance Tax schedules.",
+    category: 'money',
+    icon: 'Laptop',
+    keywords: ['section 44ada tax calculator freelancer', '50 percent presumptive tax software developer', 'freelancer advance tax schedule dates', '44ada income tax limit 75 lakhs', 'professional presumptive taxation scheme'],
+    popular: true,
+    trending: true,
+    badge: '50% Profit',
+    views: 98000,
+    seo: {
+      title: 'Freelancer & Professional 44ADA 50% Presumptive Tax Calculator | BharatUtility',
+      description: 'Calculate income tax for freelancers and consultants under Section 44ADA with 50% deemed profit and advance tax calendar.',
+      keywords: ['section 44ada tax calculator freelancer', '50 percent presumptive tax software developer', 'freelancer advance tax schedule dates', '44ada income tax limit 75 lakhs', 'professional presumptive taxation scheme'],
+      canonicalSlug: 'freelancer-44ada-tax-calculator',
+      h1: 'Freelancer & Professional 44ADA 50% Presumptive Tax Calculator',
+    },
+    formulaDescription: 'Section 44ADA Deemed Profit = 50% of Gross Receipts. Tax computed under New Tax Regime slabs.',
+    workedExample: {
+      inputSummary: 'Gross Receipts: ₹18,00,000 / year (Freelance Software Consultant)',
+      calculationSteps: [
+        '50% Deemed Taxable Profit: ₹9,00,000 (No expense bills needed)',
+        'Tax on ₹9,00,000 under New Tax Regime: ~₹40,000',
+        'Advance Tax 15% (15 June): ₹6,000 | 45% (15 Sep): ₹18,000 | 75% (15 Dec): ₹30,000 | 100% (15 Mar): ₹40,000'
+      ],
+      finalResult: 'Taxable Income: ₹9.0 Lakhs | Total Tax: ~₹40,000 | Zero Audit Needed',
+    },
+    faqs: [
+      {
+        question: 'Who is eligible for Section 44ADA presumptive taxation?',
+        answer: 'Professionals engaged in IT/Software, engineering, architecture, legal, medical, accountancy, interior decoration, and technical consultancy with annual gross receipts up to ₹75 Lakhs (provided online receipts are >= 95%).'
+      }
+    ],
+    relatedToolSlugs: ['salary-calculator', 'gst-calculator', 'crypto-inr-tax-calculator']
+  },
+  // 169. National Consumer Court (NCH 1915) Legal Notice Generator
+  {
+    id: 'consumer-court-complaint-notice-generator',
+    slug: 'consumer-court-complaint-notice-generator',
+    name: 'National Consumer Court (NCH 1915) Legal Notice Generator',
+    shortName: 'Consumer Notice 1915',
+    tagline: 'Draft formal legal notice and e-Daakhil consumer complaint for e-commerce fraud, builder delay, defective products, and airline refunds',
+    description: "Step-by-step guidance and template generator to issue legal notices and file consumer complaints under Consumer Protection Act 2019 via National Consumer Helpline (1915) and e-Daakhil portal.",
+    category: 'documents',
+    icon: 'Scale',
+    keywords: ['consumer court complaint online edaakhil', 'national consumer helpline 1915 complaint', 'jago grahak jago legal notice format', 'builder delay flat possession consumer case', 'ecommerce fraud refund notice format'],
+    popular: true,
+    badge: 'Jago Grahak',
+    views: 72000,
+    seo: {
+      title: 'National Consumer Court (NCH 1915) Legal Notice Generator | BharatUtility',
+      description: 'Draft legal notice and e-Daakhil consumer complaint for e-commerce fraud, builder delay, and defective products.',
+      keywords: ['consumer court complaint online edaakhil', 'national consumer helpline 1915 complaint', 'jago grahak jago legal notice format', 'builder delay flat possession consumer case', 'ecommerce fraud refund notice format'],
+      canonicalSlug: 'consumer-court-complaint-notice-generator',
+      h1: 'National Consumer Court (NCH 1915) Legal Notice Generator',
+    },
+    formulaDescription: 'Consumer Protection Act 2019 three-tier redressal procedure (District up to ₹50L, State up to ₹2Cr, National >₹2Cr).',
+    workedExample: {
+      inputSummary: 'Dispute: Defective electronic item / Refund denied by e-commerce company',
+      calculationSteps: [
+        'Step 1: Lodge ticket with National Consumer Helpline (NCH) at 1915',
+        'Step 2: Send 15-day formal Legal Notice to company registered address',
+        'Step 3: If unresolved, file online case at edaakhil.nic.in with zero physical court visits'
+      ],
+      finalResult: 'Ready Legal Notice generated with 15-day compliance deadline',
+    },
+    faqs: [
+      {
+        question: 'What is the toll-free number for National Consumer Helpline?',
+        answer: 'You can dial 1915 (National Consumer Helpline) or SMS to 8800001915, or register complaints online on consumerhelpline.gov.in.'
+      }
+    ],
+    relatedToolSlugs: ['rti-application-generator', 'cybercrime-1930-fraud-emergency-guide', 'formal-letter-generator']
+  },
+  // 170. Branded vs PM Jan Aushadhi Generic Medicine Comparator
+  {
+    id: 'branded-vs-generic-medicine-comparator',
+    slug: 'branded-vs-generic-medicine-comparator',
+    name: 'Branded vs PM Jan Aushadhi Generic Salt Price Comparator',
+    shortName: 'Generic Medicine Saver',
+    tagline: 'Compare prices between popular branded medicines (Augmentin, Pan-D, Telma, Glycomet) and their exact chemical salt generic equivalents to save 80-90%',
+    description: "Search popular branded medicines in India and discover their exact chemical salt generic equivalents available at Pradhan Mantri Bhartiya Janaushadhi Kendras. Calculate your annual family medicine bill savings of 80% to 90%.",
+    category: 'daily-life',
+    icon: 'Pill',
+    keywords: ['generic medicine vs branded price comparison', 'pm jan aushadhi medicine list prices', 'augmentin pan d generic substitute salt', 'save 80 percent on medicine bills india', 'jan aushadhi generic store near me'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Save 80-90%',
+    views: 139000,
+    seo: {
+      title: 'Branded vs PM Jan Aushadhi Generic Medicine Comparator | BharatUtility',
+      description: 'Compare branded medicines (Augmentin, Pan-D, Telma) with generic salt equivalents to save 80-90% on medical bills.',
+      keywords: ['generic medicine vs branded price comparison', 'pm jan aushadhi medicine list prices', 'augmentin pan d generic substitute salt', 'save 80 percent on medicine bills india', 'jan aushadhi generic store near me'],
+      canonicalSlug: 'branded-vs-generic-medicine-comparator',
+      h1: 'Branded vs PM Jan Aushadhi Generic Salt Price Comparator',
+    },
+    formulaDescription: 'Price Comparison = Branded MRP vs PM Jan Aushadhi Cap Pricing for equivalent WHO-GMP certified salt.',
+    workedExample: {
+      inputSummary: 'Medicine: Telma-40 (Telmisartan 40mg) for BP | Quantity: 2 strips / month',
+      calculationSteps: [
+        'Branded Telma-40 Annual Cost: ₹145 * 2 * 12 = ₹3,480 / year',
+        'Jan Aushadhi Generic Salt Cost: ₹18 * 2 * 12 = ₹432 / year',
+        'Total Annual Family Savings: ₹3,048 (88% Savings!)'
+      ],
+      finalResult: 'Annual Savings: ₹3,048 (88% Cheaper with identical therapeutic effect)',
+    },
+    faqs: [
+      {
+        question: 'Are generic medicines as effective as branded medicines in India?',
+        answer: 'Yes. PM Jan Aushadhi generic medicines contain the identical active pharmaceutical ingredient (API), strength, dosage form, and efficacy certified by WHO-GMP standards.'
+      }
+    ],
+    relatedToolSlugs: ['jan-aushadhi-generic-saver', 'ayushman-bharat-eligibility-checker', 'food-adulteration-test-kit']
   }
 ];
 
