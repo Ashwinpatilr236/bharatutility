@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Tool } from '../../types';
+import { calculate44ADAComprehensive } from '../../utils/tax44ada';
 import {
   Coins,
   TrendingUp,
@@ -180,87 +181,15 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
   }, [goldWeightGrams, goldKarat, goldRatePerGram24K, goldLoanTenureMonths, goldInterestRatePa, goldRepaymentType]);
 
   // =========================================================================
-  // 3. FREELANCE 44ADA TAX CALCULATION
+  // 3. FREELANCE 44ADA TAX CALCULATION (Shared Engine: src/utils/tax44ada.ts)
   // =========================================================================
   const freelanceResult = useMemo(() => {
-    const gross = Math.min(7500000, Math.max(0, freelanceGrossReceipts));
-    const isEligible = freelanceGrossReceipts <= 7500000;
-    
-    // 50% Deemed taxable income
-    const deemedProfit = gross * 0.5;
-    const totalTaxableIncomeNew = deemedProfit + freelanceOtherIncome;
-    
-    // Compute tax under New Regime (FY 2024-25 / 2025-26 slabs):
-    // 0 to 3L: Nil
-    // 3L to 7L: 5%
-    // 7L to 10L: 10%
-    // 10L to 12L: 15%
-    // 12L to 15L: 20%
-    // Above 15L: 30%
-    // Section 87A rebate: Taxable income up to 7,00,000 pays ₹0 tax!
-    const computeNewRegimeTax = (income: number) => {
-      if (income <= 700000) return 0; // Full 87A rebate
-      let tax = 0;
-      if (income > 1500000) {
-        tax += (income - 1500000) * 0.30 + (300000 * 0.20) + (200000 * 0.15) + (300000 * 0.10) + (400000 * 0.05);
-      } else if (income > 1200000) {
-        tax += (income - 1200000) * 0.20 + (200000 * 0.15) + (300000 * 0.10) + (400000 * 0.05);
-      } else if (income > 1000000) {
-        tax += (income - 1000000) * 0.15 + (300000 * 0.10) + (400000 * 0.05);
-      } else if (income > 700000) {
-        tax += (income - 700000) * 0.10 + (400000 * 0.05);
-      } else if (income > 300000) {
-        tax += (income - 300000) * 0.05;
-      }
-      return tax;
-    };
-
-    // Old Regime computation:
-    const totalTaxableIncomeOld = Math.max(0, deemedProfit + freelanceOtherIncome - freelanceOld80CDeductions);
-    const computeOldRegimeTax = (income: number) => {
-      if (income <= 500000) return 0; // 87A rebate for old regime
-      let tax = 0;
-      if (income > 1000000) {
-        tax += 112500 + (income - 1000000) * 0.30;
-      } else if (income > 500000) {
-        tax += 12500 + (income - 500000) * 0.20;
-      } else if (income > 250000) {
-        tax += (income - 250000) * 0.05;
-      }
-      return tax;
-    };
-
-    const newRegimeBaseTax = computeNewRegimeTax(totalTaxableIncomeNew);
-    const newRegimeTotalTax = Math.round(newRegimeBaseTax * 1.04); // 4% cess
-
-    const oldRegimeBaseTax = computeOldRegimeTax(totalTaxableIncomeOld);
-    const oldRegimeTotalTax = Math.round(oldRegimeBaseTax * 1.04);
-
-    const chosenTax = freelanceRegime === 'new' ? newRegimeTotalTax : oldRegimeTotalTax;
-    const effectiveTaxRate = gross > 0 ? (chosenTax / gross) * 100 : 0;
-    const netTakeHome = gross - chosenTax;
-
-    // Advance Tax Installments: 15% (Jun 15), 45% (Sep 15), 75% (Dec 15), 100% (Mar 15)
-    const advTax1 = Math.round(chosenTax * 0.15);
-    const advTax2 = Math.round(chosenTax * 0.45);
-    const advTax3 = Math.round(chosenTax * 0.75);
-    const advTax4 = chosenTax;
-
-    return {
-      gross,
-      isEligible,
-      deemedProfit: Math.round(deemedProfit),
-      expensesSaved: Math.round(deemedProfit), // 50% flat deduction without receipts
-      newRegimeTotalTax,
-      oldRegimeTotalTax,
-      chosenTax,
-      effectiveTaxRate: effectiveTaxRate.toFixed(1),
-      netTakeHome: Math.round(netTakeHome),
-      advTax1,
-      advTax2,
-      advTax3,
-      advTax4,
-    };
+    return calculate44ADAComprehensive({
+      grossReceipts: freelanceGrossReceipts,
+      otherIncome: freelanceOtherIncome,
+      regime: freelanceRegime,
+      old80CDeductions: freelanceOld80CDeductions,
+    });
   }, [freelanceGrossReceipts, freelanceOtherIncome, freelanceRegime, freelanceOld80CDeductions]);
 
   // =========================================================================

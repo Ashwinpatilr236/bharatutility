@@ -1,28 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { Tool } from '../../types';
+import { LAND_UNITS, convertLandAreaToAll } from '../../data/landUnits';
 import { GraduationCap, MapPin, Building, Sparkles, Check, Copy, AlertTriangle, CheckCircle2, Info, ArrowRight } from 'lucide-react';
 
 interface Props {
   tool: Tool;
 }
-
-// Indian Land Conversion Constants relative to Square Feet
-const LAND_UNITS: { [key: string]: { label: string; sqft: number; region: string } } = {
-  sqft: { label: 'Square Feet (sq ft)', sqft: 1, region: 'Universal' },
-  gaj: { label: 'Square Gaj / Yard (sq yd)', sqft: 9, region: 'North & Central India' },
-  sqm: { label: 'Square Meter (sq m)', sqft: 10.7639, region: 'Metric / Universal' },
-  guntha: { label: 'Guntha', sqft: 1089, region: 'Maharashtra, Gujarat, Karnataka' },
-  cent: { label: 'Cent', sqft: 435.6, region: 'Kerala, Tamil Nadu, AP, Telangana' },
-  ground: { label: 'Ground', sqft: 2400, region: 'Tamil Nadu (Chennai)' },
-  biswa_up: { label: 'Biswa (UP / Haryana / Punjab)', sqft: 1350, region: 'North India (1/20 Bigha)' },
-  bigha_pucca: { label: 'Bigha (Standard Pucca)', sqft: 27000, region: 'UP, Bihar, Rajasthan' },
-  bigha_bengal: { label: 'Bigha (Bengal / Assam)', sqft: 14400, region: 'East India' },
-  bigha_kaccha: { label: 'Bigha (Kaccha / MP)', sqft: 9000, region: 'Central India' },
-  acre: { label: 'Acre', sqft: 43560, region: 'Universal (40 Gunthas / 100 Cents)' },
-  hectare: { label: 'Hectare', sqft: 107639, region: 'Metric (2.471 Acres)' },
-  marla: { label: 'Marla', sqft: 225, region: 'Punjab, Haryana' },
-  kanal: { label: 'Kanal', sqft: 4500, region: 'Punjab, Haryana, HP (20 Marla)' },
-};
 
 export const StudentAndLandSuiteCalculator: React.FC<Props> = ({ tool }) => {
   const slug = tool.id;
@@ -89,30 +72,9 @@ export const StudentAndLandSuiteCalculator: React.FC<Props> = ({ tool }) => {
     };
   }, [classesHeld, classesAttended, targetPercentage]);
 
-  // --- LAND AREA CONVERSION ---
+  // --- LAND AREA CONVERSION (Shared Engine: src/data/landUnits.ts) ---
   const landConversions = useMemo(() => {
-    const fromConfig = LAND_UNITS[fromUnit] || LAND_UNITS.sqft;
-    const totalSqFt = (landValue || 0) * fromConfig.sqft;
-
-    return Object.entries(LAND_UNITS).map(([key, config]) => {
-      const convertedVal = totalSqFt / config.sqft;
-      let displayStr = '';
-      if (convertedVal >= 1000) {
-        displayStr = convertedVal.toLocaleString('en-IN', { maximumFractionDigits: 2 });
-      } else if (convertedVal >= 1) {
-        displayStr = convertedVal.toLocaleString('en-IN', { maximumFractionDigits: 4 });
-      } else {
-        displayStr = convertedVal.toFixed(6);
-      }
-
-      return {
-        key,
-        label: config.label,
-        region: config.region,
-        value: displayStr,
-        raw: convertedVal,
-      };
-    });
+    return convertLandAreaToAll(landValue, fromUnit);
   }, [landValue, fromUnit]);
 
   // --- CONCRETE & CEMENT ESTIMATOR ---

@@ -694,9 +694,11 @@ export const TravelWeddingAndLandSuite: React.FC<Props> = ({
 
             {/* Prakriti Dominance Card */}
             {(() => {
-              const counts = { vata: 0, pitta: 0, kapha: 0 };
-              Object.values(prakritiAnswers).forEach((v) => counts[v]++);
-              const dominant = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+              const counts: Record<'vata' | 'pitta' | 'kapha', number> = { vata: 0, pitta: 0, kapha: 0 };
+              (Object.values(prakritiAnswers) as Array<'vata' | 'pitta' | 'kapha'>).forEach((v) => {
+                if (counts[v] !== undefined) counts[v]++;
+              });
+              const dominant = (Object.entries(counts) as Array<['vata' | 'pitta' | 'kapha', number]>).sort((a, b) => b[1] - a[1])[0][0];
 
               return (
                 <div className="bg-slate-950/60 p-6 rounded-2xl border border-emerald-500/20 space-y-4 text-xs">

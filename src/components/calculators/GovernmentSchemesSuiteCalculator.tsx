@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { calculateSSYSchedule } from '../../utils/ssyMath';
 import { 
   Building, 
   Sun, 
@@ -82,32 +83,14 @@ export const GovernmentSchemesSuiteCalculator: React.FC<Props> = ({
   const [pmmvyAncRegistered, setPmmvyAncRegistered] = useState<boolean>(true);
 
   // Calculations
-  // SSY 8.2% annual compounding over 21 years (15 years deposit, 6 years interest only)
+  // SSY 8.2% annual compounding over 21 years (Shared Engine: src/utils/ssyMath.ts)
   const calculateSSY = () => {
-    const rate = 0.082;
-    let balance = 0;
-    let totalInvested = 0;
-    const yearByYear: { year: number; age: number; deposit: number; interest: number; balance: number }[] = [];
-
-    for (let yr = 1; yr <= 21; yr++) {
-      const currentAge = ssyGirlAge + yr;
-      const deposit = yr <= 15 ? ssyAnnualDeposit : 0;
-      totalInvested += deposit;
-      const interest = (balance + deposit) * rate;
-      balance = balance + deposit + interest;
-      yearByYear.push({
-        year: ssyStartYear + yr,
-        age: currentAge,
-        deposit,
-        interest: Math.round(interest),
-        balance: Math.round(balance),
-      });
-    }
-
-    const totalInterest = Math.round(balance - totalInvested);
-    const maturityAmount = Math.round(balance);
-
-    return { totalInvested, totalInterest, maturityAmount, yearByYear };
+    return calculateSSYSchedule({
+      annualDeposit: ssyAnnualDeposit,
+      girlAge: ssyGirlAge,
+      startYear: ssyStartYear,
+      interestRatePercent: 8.2,
+    });
   };
 
   // PM Surya Ghar

@@ -1,20 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import { Coins, Sparkles, IndianRupee, MapPin, Calculator, RefreshCw, ShieldCheck, ArrowRightLeft, Info } from 'lucide-react';
 import { formatINR } from '../../../utils/formatters';
+import {
+  CITY_BULLION_RATES,
+  getEffectiveGoldRatePerGram,
+  calculateJewelleryPrice,
+  calculateOldGoldExchange
+} from '../../../utils/goldPricing';
 
 // City wise baseline rates per 10g for 24K Gold & 1kg Silver
-const CITY_RATES: Record<string, { gold24k: number; silver1kg: number; name: string }> = {
-  mumbai: { name: 'Mumbai', gold24k: 88450, silver1kg: 98500 },
-  delhi: { name: 'Delhi NCR', gold24k: 88600, silver1kg: 98500 },
-  bengaluru: { name: 'Bengaluru', gold24k: 88450, silver1kg: 97500 },
-  chennai: { name: 'Chennai', gold24k: 88900, silver1kg: 104000 },
-  kolkata: { name: 'Kolkata', gold24k: 88450, silver1kg: 98500 },
-  hyderabad: { name: 'Hyderabad', gold24k: 88450, silver1kg: 104000 },
-  ahmedabad: { name: 'Ahmedabad', gold24k: 88500, silver1kg: 98500 },
-  pune: { name: 'Pune', gold24k: 88450, silver1kg: 98500 },
-  jaipur: { name: 'Jaipur', gold24k: 88600, silver1kg: 98500 },
-  lucknow: { name: 'Lucknow', gold24k: 88600, silver1kg: 98500 },
-};
+const CITY_RATES = CITY_BULLION_RATES;
 
 export const GoldSilverRateCalculator: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<string>('delhi');
@@ -34,54 +29,46 @@ export const GoldSilverRateCalculator: React.FC = () => {
 
   const currentRates = CITY_RATES[selectedCity] || CITY_RATES.delhi;
 
-  // Rate Calculations
+  // Rate Calculations (Shared Engine: src/utils/goldPricing.ts)
   const rate24kPerGram = currentRates.gold24k / 10;
-  const rate22kPerGram = rate24kPerGram * (22 / 24); // 91.6% purity
-  const rate18kPerGram = rate24kPerGram * (18 / 24); // 75.0% purity
+  const rate22kPerGram = getEffectiveGoldRatePerGram(rate24kPerGram, '22K');
+  const rate18kPerGram = getEffectiveGoldRatePerGram(rate24kPerGram, '18K');
   const silverPerGram = currentRates.silver1kg / 1000;
 
   const currentPurityRate = useMemo(() => {
-    if (goldPurity === '24K') return rate24kPerGram;
-    if (goldPurity === '22K') return rate22kPerGram;
-    return rate18kPerGram;
-  }, [goldPurity, rate24kPerGram, rate22kPerGram, rate18kPerGram]);
+    return getEffectiveGoldRatePerGram(rate24kPerGram, goldPurity);
+  }, [goldPurity, rate24kPerGram]);
 
-  // Jewellery Bill Computation
+  // Jewellery Bill Computation (Shared Engine: src/utils/goldPricing.ts)
   const jewelleryMath = useMemo(() => {
-    const rawGoldCost = currentPurityRate * weightGrams;
-    const makingCharges =
-      makingChargeType === 'percentage'
-        ? (rawGoldCost * makingChargeValue) / 100
-        : makingChargeValue * weightGrams;
-    
-    const hallmarkFee = includeHallmark ? 53.1 : 0; // ₹45 + 18% GST = ₹53.10
-    const subtotalBeforeGst = rawGoldCost + makingCharges;
-    const gst3Percent = subtotalBeforeGst * 0.03; // 3% GST on Gold + Making
-    const grandTotal = subtotalBeforeGst + gst3Percent + hallmarkFee;
+    const result = calculateJewelleryPrice({
+      weightGrams,
+      base24kRatePerGram: rate24kPerGram,
+      karat: goldPurity,
+      makingChargeValue,
+      makingChargeType,
+      hallmarkingFee: includeHallmark ? 53.1 : 0,
+      gstRatePercent: 3,
+    });
 
     return {
-      rawGoldCost,
-      makingCharges,
-      hallmarkFee,
-      gst3Percent,
-      grandTotal,
-      effectiveRatePerGram: weightGrams > 0 ? grandTotal / weightGrams : 0,
+      rawGoldCost: result.rawGoldValue,
+      makingCharges: result.makingCharges,
+      hallmarkFee: result.hallmarkingFee,
+      gst3Percent: result.gstAmount,
+      grandTotal: result.finalJewelleryPrice,
+      effectiveRatePerGram: result.costPerGramAllInclusive,
     };
-  }, [currentPurityRate, weightGrams, makingChargeType, makingChargeValue, includeHallmark]);
+  }, [rate24kPerGram, goldPurity, weightGrams, makingChargeType, makingChargeValue, includeHallmark]);
 
-  // Old Gold Valuation
+  // Old Gold Valuation (Shared Engine: src/utils/goldPricing.ts)
   const exchangeMath = useMemo(() => {
-    const purityMultiplier = oldGoldPurity === '22K' ? 22 / 24 : oldGoldPurity === '18K' ? 18 / 24 : 14 / 24;
-    const netPurityRate = rate24kPerGram * purityMultiplier;
-    const grossValue = netPurityRate * oldWeightGrams;
-    const deductionAmount = (grossValue * meltingDeduction) / 100;
-    const netExchangeValue = grossValue - deductionAmount;
-
-    return {
-      grossValue,
-      deductionAmount,
-      netExchangeValue,
-    };
+    return calculateOldGoldExchange({
+      oldWeightGrams,
+      base24kRatePerGram: rate24kPerGram,
+      karat: oldGoldPurity,
+      meltingDeductionPercent: meltingDeduction,
+    });
   }, [oldGoldPurity, oldWeightGrams, meltingDeduction, rate24kPerGram]);
 
   return (

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Tool } from '../../types';
+import { calculateJewelleryPrice } from '../../utils/goldPricing';
 import { Zap, Sun, Coins, Banknote, Sparkles, Check, Copy, RefreshCw, Calculator, IndianRupee } from 'lucide-react';
 
 interface Props {
@@ -145,33 +146,27 @@ export const EnergyAndJewelrySuiteCalculator: React.FC<Props> = ({ tool }) => {
     };
   }, [currentMonthlyBill, solarCapacityKW]);
 
-  // ================= CALCULATION 3: GOLD & JEWELLERY =================
+  // ================= CALCULATION 3: GOLD & JEWELLERY (Shared Engine: src/utils/goldPricing.ts) =================
   const goldResult = useMemo(() => {
-    // 24K rate = 100%
-    // 22K (916 Hallmarked) = (22 / 24) * 24K Rate = 91.67%
-    // 18K = (18 / 24) * 24K Rate = 75.0%
-    let effectiveRatePerGram = baseGoldRate24k;
-    if (purityKarats === 22) {
-      effectiveRatePerGram = (baseGoldRate24k * 22) / 24;
-    } else if (purityKarats === 18) {
-      effectiveRatePerGram = (baseGoldRate24k * 18) / 24;
-    }
-
-    const rawGoldValue = effectiveRatePerGram * goldWeightGrams;
-    const makingCharges = (rawGoldValue * makingChargePct) / 100;
-    const taxableSubtotal = rawGoldValue + makingCharges + hallmarkingFee;
-    const gstAmount = (taxableSubtotal * 3) / 100; // 3% GST on jewellery in India
-    const finalJewelleryPrice = taxableSubtotal + gstAmount;
+    const result = calculateJewelleryPrice({
+      weightGrams: goldWeightGrams,
+      base24kRatePerGram: baseGoldRate24k,
+      karat: purityKarats,
+      makingChargeValue: makingChargePct,
+      makingChargeType: 'percentage',
+      hallmarkingFee,
+      gstRatePercent: 3,
+    });
 
     return {
-      effectiveRatePerGram: Math.round(effectiveRatePerGram),
-      rawGoldValue: Math.round(rawGoldValue),
-      makingCharges: Math.round(makingCharges),
-      hallmarkingFee,
-      taxableSubtotal: Math.round(taxableSubtotal),
-      gstAmount: Math.round(gstAmount),
-      finalJewelleryPrice: Math.round(finalJewelleryPrice),
-      costPerGramAllInclusive: goldWeightGrams > 0 ? Math.round(finalJewelleryPrice / goldWeightGrams) : 0,
+      effectiveRatePerGram: Math.round(result.effectiveRatePerGram),
+      rawGoldValue: Math.round(result.rawGoldValue),
+      makingCharges: Math.round(result.makingCharges),
+      hallmarkingFee: result.hallmarkingFee,
+      taxableSubtotal: Math.round(result.taxableSubtotal),
+      gstAmount: Math.round(result.gstAmount),
+      finalJewelleryPrice: Math.round(result.finalJewelleryPrice),
+      costPerGramAllInclusive: Math.round(result.costPerGramAllInclusive),
     };
   }, [goldWeightGrams, purityKarats, baseGoldRate24k, makingChargePct, hallmarkingFee]);
 

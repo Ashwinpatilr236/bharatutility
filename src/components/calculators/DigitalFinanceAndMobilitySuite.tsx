@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { calculateSSYvsPPF } from '../../utils/ssyMath';
 import {
   CreditCard,
   Sparkles,
@@ -252,25 +253,9 @@ export const DigitalFinanceAndMobilitySuite: React.FC<Props> = ({
               </div>
             </div>
 
-            {/* SSY vs PPF Wealth Results */}
+            {/* SSY vs PPF Wealth Results (Shared Engine: src/utils/ssyMath.ts) */}
             {(() => {
-              // 15 years contribution, 21 years maturity for SSY (8.2%) vs 15 years PPF (7.1%)
-              const ssyRate = 0.082;
-              let ssyCorpus = 0;
-              for (let yr = 1; yr <= 15; yr++) {
-                ssyCorpus = (ssyCorpus + annualInvestment) * (1 + ssyRate);
-              }
-              for (let yr = 16; yr <= 21; yr++) {
-                ssyCorpus = ssyCorpus * (1 + ssyRate);
-              }
-
-              const ppfRate = 0.071;
-              let ppfCorpus = 0;
-              for (let yr = 1; yr <= 15; yr++) {
-                ppfCorpus = (ppfCorpus + annualInvestment) * (1 + ppfRate);
-              }
-
-              const totalInvested = annualInvestment * 15;
+              const { ssyCorpus, ppfCorpus, totalInvested } = calculateSSYvsPPF(annualInvestment, 8.2, 7.1);
 
               return (
                 <div className="bg-slate-950/60 p-6 rounded-2xl border border-pink-500/20 space-y-3 text-xs">

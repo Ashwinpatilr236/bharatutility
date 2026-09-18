@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Tool } from '../../types';
+import { calculateSSYSummary } from '../../utils/ssyMath';
 import { IndianRupee, TrendingUp, ShieldCheck, Calculator, Sparkles, Check, Copy } from 'lucide-react';
 
 interface Props {
@@ -72,28 +73,9 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
     };
   }, [ppfYearlyDeposit, ppfTenureYears, ppfInterestRate]);
 
-  // SSY Calculation (Deposits for 15 years, interest compounds till 21 years)
+  // SSY Calculation (Deposits for 15 years, interest compounds till 21 years) (Shared Engine: src/utils/ssyMath.ts)
   const ssyResult = useMemo(() => {
-    let balance = 0;
-    let totalInvested = 0;
-    const rate = ssyInterestRate / 100;
-
-    for (let yr = 1; yr <= 21; yr++) {
-      if (yr <= 15) {
-        balance = (balance + ssyYearlyDeposit) * (1 + rate);
-        totalInvested += ssyYearlyDeposit;
-      } else {
-        balance = balance * (1 + rate);
-      }
-    }
-
-    const totalInterest = Math.max(0, balance - totalInvested);
-    return {
-      totalInvested,
-      totalInterest,
-      maturityAmount: balance,
-      maturityYear: 21,
-    };
+    return calculateSSYSummary(ssyYearlyDeposit, ssyInterestRate);
   }, [ssyYearlyDeposit, ssyInterestRate]);
 
   // Gratuity Calculation (Payment of Gratuity Act 1972)

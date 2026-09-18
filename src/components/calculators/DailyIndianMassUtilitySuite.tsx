@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { calculate44ADABasic } from '../../utils/tax44ada';
+import { calculateJewelleryPrice, getEffectiveGoldRatePerGram } from '../../utils/goldPricing';
+import { REGIONAL_LAND_UNITS, convertRegionalLand } from '../../data/landUnits';
 import { 
   Sparkles, 
   Coins, 
@@ -46,18 +49,6 @@ const POPULAR_MEDICINES = [
   { brand: 'Shelcal 500', salt: 'Calcium (500mg) + Vitamin D3 (250 IU)', brandPrice: 135, genericPrice: 24, use: 'Bone strength, Calcium deficiency' },
   { brand: 'Montair-LC', salt: 'Montelukast (10mg) + Levocetirizine (5mg)', brandPrice: 215, genericPrice: 35, use: 'Allergy, Asthma, Runny nose' },
   { brand: 'Rosuvas 10 (Rozavel)', salt: 'Rosuvastatin (10mg)', brandPrice: 240, genericPrice: 30, use: 'High Cholesterol, Heart health' },
-];
-
-// 2. Multi-State Bigha and Land Unit Definitions (in Square Feet)
-const REGIONAL_LAND_UNITS = [
-  { region: 'Uttar Pradesh & Uttarakhand (Standard Pucca Bigha)', bighaSqFt: 27000, biswaSqFt: 1350, gajSqFt: 9 },
-  { region: 'Madhya Pradesh (MP Bigha)', bighaSqFt: 12000, biswaSqFt: 600, gajSqFt: 9 },
-  { region: 'Bihar (Standard Bigha)', bighaSqFt: 27220, biswaSqFt: 1361, gajSqFt: 9 },
-  { region: 'Rajasthan (Pucca Bigha)', bighaSqFt: 27225, biswaSqFt: 1361.25, gajSqFt: 9 },
-  { region: 'West Bengal (Bigha)', bighaSqFt: 14400, biswaSqFt: 720, gajSqFt: 9 },
-  { region: 'Maharashtra & Karnataka (Guntha)', bighaSqFt: 43560, gunthaSqFt: 1089, gajSqFt: 9 },
-  { region: 'Punjab & Haryana (Kanal & Marla)', bighaSqFt: 9000, kanalSqFt: 5445, marlaSqFt: 272.25 },
-  { region: 'Tamil Nadu & Kerala (Ground & Cent)', groundSqFt: 2400, centSqFt: 435.6, acreSqFt: 43560 },
 ];
 
 // 3. Indian Baby Vaccination Milestone Schedule
@@ -129,22 +120,25 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
   const [monthlyStrips, setMonthlyStrips] = useState<number>(2);
 
   // Calculations
-  // 1. Gold Jewellery Calculation
+  // 1. Gold Jewellery Calculation (Shared Engine: src/utils/goldPricing.ts)
   const calculateGold = () => {
-    const purityMultiplier = goldPurityKarat === 24 ? 1.0 : goldPurityKarat === 22 ? 22 / 24 : goldPurityKarat === 18 ? 18 / 24 : 14 / 24;
-    const basePurityRatePerGram = goldRatePerGram24K * purityMultiplier;
-    const netGoldPrice = goldWeightGrams * basePurityRatePerGram;
-    const makingChargesAmt = (netGoldPrice * makingChargePercent) / 100;
-    const subtotalBeforeGst = netGoldPrice + makingChargesAmt + hallmarkCharges;
-    const gst3Percent = (subtotalBeforeGst * 3) / 100;
-    const finalJewelleryPrice = Math.round(subtotalBeforeGst + gst3Percent);
+    const basePurityRatePerGram = getEffectiveGoldRatePerGram(goldRatePerGram24K, goldPurityKarat);
+    const result = calculateJewelleryPrice({
+      weightGrams: goldWeightGrams,
+      base24kRatePerGram: goldRatePerGram24K,
+      karat: goldPurityKarat,
+      makingChargeValue: makingChargePercent,
+      makingChargeType: 'percentage',
+      hallmarkingFee: hallmarkCharges,
+      gstRatePercent: 3,
+    });
 
     return {
       basePurityRatePerGram: Math.round(basePurityRatePerGram),
-      netGoldPrice: Math.round(netGoldPrice),
-      makingChargesAmt: Math.round(makingChargesAmt),
-      gst3Percent: Math.round(gst3Percent),
-      finalJewelleryPrice,
+      netGoldPrice: Math.round(result.rawGoldValue),
+      makingChargesAmt: Math.round(result.makingCharges),
+      gst3Percent: Math.round(result.gstAmount),
+      finalJewelleryPrice: Math.round(result.finalJewelleryPrice),
     };
   };
 
@@ -158,24 +152,10 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
     return { ratePerLiter, totalPayout };
   };
 
-  // 3. Land Unit Conversion
+  // 3. Land Unit Conversion (Shared Engine: src/data/landUnits.ts)
   const calculateLand = () => {
     const region = REGIONAL_LAND_UNITS[selectedLandRegionIdx];
-    const bighaSize = region.bighaSqFt || 27000;
-    let totalSqFt = 0;
-
-    if (inputLandUnit === 'bigha') totalSqFt = inputLandValue * bighaSize;
-    else if (inputLandUnit === 'acre') totalSqFt = inputLandValue * 43560;
-    else if (inputLandUnit === 'gaj') totalSqFt = inputLandValue * 9;
-    else if (inputLandUnit === 'guntha') totalSqFt = inputLandValue * 1089;
-
-    const inAcres = Number((totalSqFt / 43560).toFixed(3));
-    const inBigha = Number((totalSqFt / bighaSize).toFixed(2));
-    const inGaj = Math.round(totalSqFt / 9);
-    const inGuntha = Number((totalSqFt / 1089).toFixed(2));
-    const inSqMeters = Math.round(totalSqFt * 0.092903);
-
-    return { totalSqFt, inAcres, inBigha, inGaj, inGuntha, inSqMeters };
+    return convertRegionalLand(inputLandValue, inputLandUnit, region);
   };
 
   // 4. Gratuity Calculation
@@ -207,28 +187,9 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
     return { estimatedValue, depPercent: Math.round(effectiveDep * 100) };
   };
 
-  // 7. 44ADA Tax Calculation
+  // 7. 44ADA Tax Calculation (Shared Engine: src/utils/tax44ada.ts)
   const calculate44ADA = () => {
-    const deemedProfit = freelancerGrossReceipts * 0.5; // 50% flat deemed profit
-    // Under New Tax Regime FY 2024-26 (Standard rebate up to ₹7 Lakhs)
-    let taxableIncome = deemedProfit;
-    let estimatedTax = 0;
-
-    if (taxableIncome > 700000) {
-      if (taxableIncome > 1500000) estimatedTax = 140000 + (taxableIncome - 1500000) * 0.3;
-      else if (taxableIncome > 1200000) estimatedTax = 90000 + (taxableIncome - 1200000) * 0.2;
-      else if (taxableIncome > 1000000) estimatedTax = 60000 + (taxableIncome - 1000000) * 0.15;
-      else estimatedTax = (taxableIncome - 700000) * 0.1;
-    }
-
-    const advanceTaxSchedule = [
-      { date: '15th June', percent: '15%', amount: Math.round(estimatedTax * 0.15) },
-      { date: '15th September', percent: '45%', amount: Math.round(estimatedTax * 0.45) },
-      { date: '15th December', percent: '75%', amount: Math.round(estimatedTax * 0.75) },
-      { date: '15th March', percent: '100%', amount: Math.round(estimatedTax) },
-    ];
-
-    return { deemedProfit, estimatedTax: Math.round(estimatedTax), advanceTaxSchedule };
+    return calculate44ADABasic(freelancerGrossReceipts);
   };
 
   // 8. Medicine Savings Calculation
