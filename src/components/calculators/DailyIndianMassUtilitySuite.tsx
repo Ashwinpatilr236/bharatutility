@@ -181,8 +181,8 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
     const kmDiff = odometerKm - expectedKm;
     const mileageFactor = (kmDiff / 10000) * 0.02; // 2% per 10k extra km
 
-    const effectiveDep = Math.min(0.85, depRate + mileageFactor);
-    const estimatedValue = Math.round(originalCarExShowroom * (1 - effectiveDep));
+    const effectiveDep = Math.max(0.05, Math.min(0.85, depRate + mileageFactor));
+    const estimatedValue = Math.max(0, Math.round(originalCarExShowroom * (1 - effectiveDep)));
 
     return { estimatedValue, depPercent: Math.round(effectiveDep * 100) };
   };

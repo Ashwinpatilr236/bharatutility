@@ -82,7 +82,7 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
   const gratuityResult = useMemo(() => {
     // Formula: (15 * Last Drawn Basic * Tenure) / 26
     const calculated = (15 * monthlyBasicSalary * completedTenureYears) / 26;
-    const taxExemptLimit = 2000000; // 20 Lakhs
+    const taxExemptLimit = 2500000; // 25 Lakhs as per latest Amendment
     const isTaxFree = calculated <= taxExemptLimit;
 
     return {

@@ -7,6 +7,15 @@ interface AgeCalculatorProps {
   onResultChange?: (summary: string, params: Record<string, any>) => void;
 }
 
+function parseLocalDate(dateStr: string): Date {
+  if (!dateStr) return new Date();
+  const parts = dateStr.split('-');
+  if (parts.length === 3) {
+    return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+  }
+  return new Date(dateStr);
+}
+
 export const AgeCalculator: React.FC<AgeCalculatorProps> = ({ onResultChange }) => {
   const { currentToolParams } = useApp();
 
@@ -18,8 +27,8 @@ export const AgeCalculator: React.FC<AgeCalculatorProps> = ({ onResultChange }) 
   });
 
   // Calculate Exact Age
-  const birth = new Date(dob);
-  const target = new Date(targetDate);
+  const birth = parseLocalDate(dob);
+  const target = parseLocalDate(targetDate);
 
   let years = 0;
   let months = 0;

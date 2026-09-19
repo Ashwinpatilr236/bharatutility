@@ -39,9 +39,9 @@ export const EmiCalculator: React.FC<EmiCalculatorProps> = ({ onResultChange }) 
   let totalPayable = 0;
   let totalInterest = 0;
 
-  if (loanAmount > 0 && interestRate > 0 && totalMonths > 0) {
+  if (loanAmount > 0 && interestRate >= 0 && totalMonths > 0) {
     if (monthlyRate === 0) {
-      monthlyEmi = loanAmount / totalMonths;
+      monthlyEmi = Math.round(loanAmount / totalMonths);
     } else {
       const compoundFactor = Math.pow(1 + monthlyRate, totalMonths);
       monthlyEmi = Math.round((loanAmount * monthlyRate * compoundFactor) / (compoundFactor - 1));

@@ -203,7 +203,7 @@ export const MarksPercentageCalculator: React.FC<MarksPercentageCalculatorProps>
 
               <div className="p-3 rounded-2xl bg-neutral-800/60">
                 <span className="text-neutral-400 block mb-0.5">Equivalent CGPA</span>
-                <span className="text-2xl font-bold font-mono text-white">{(percentage / 9.5).toFixed(2)}</span>
+                <span className="text-2xl font-bold font-mono text-white">{Math.min(10.0, Math.max(0, percentage / 9.5)).toFixed(2)}</span>
               </div>
             </div>
 
