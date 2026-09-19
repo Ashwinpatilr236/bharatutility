@@ -469,7 +469,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
     setCalculationHistory(prev => [newItem, ...prev.filter(h => h.summary !== item.summary)].slice(0, 20));
     try {
-      analyticsService.trackAction('calculation', item.toolSlug, item.toolName, undefined, item.summary);
+      analyticsService.trackCalculation(item.toolSlug, item.toolName, undefined, `Computed result for ${item.toolName}`);
     } catch {}
   };
 
