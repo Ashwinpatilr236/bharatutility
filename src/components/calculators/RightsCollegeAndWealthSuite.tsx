@@ -166,7 +166,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">Issue Price (₹/g)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={sgbIssuePrice}
                     onChange={(e) => setSgbIssuePrice(parseInt(e.target.value) || 6000)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
@@ -175,7 +175,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">8-Yr Gold Rate (₹/g)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={sgbExpectedMaturityGoldPrice}
                     onChange={(e) => setSgbExpectedMaturityGoldPrice(parseInt(e.target.value) || 12000)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
@@ -317,7 +317,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                   Food Order Base Amount: ₹{foodBillAmount}
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   step="100"
                   value={foodBillAmount}
                   onChange={(e) => setFoodBillAmount(Math.max(100, parseInt(e.target.value) || 100))}
@@ -408,7 +408,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">Total Classes Held</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="1"
                     value={totalClassesHeld}
                     onChange={(e) => setTotalClassesHeld(Math.max(1, parseInt(e.target.value) || 1))}
@@ -418,7 +418,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">Classes Attended</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="0"
                     max={totalClassesHeld}
                     value={classesAttended}
@@ -503,7 +503,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                   Total Travel Fare Incurred: ₹{ltaTravelCost.toLocaleString('en-IN')}
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   step="5000"
                   value={ltaTravelCost}
                   onChange={(e) => setLtaTravelCost(parseInt(e.target.value) || 10000)}
@@ -558,18 +558,18 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
               <div className="p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-2">
                 <div className="font-bold text-slate-300">Stock OEM Tyre (e.g. 185/65 R15)</div>
                 <div className="grid grid-cols-3 gap-2">
-                  <input type="number" value={stockWidth} onChange={(e) => setStockWidth(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
-                  <input type="number" value={stockProfile} onChange={(e) => setStockProfile(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
-                  <input type="number" value={stockRim} onChange={(e) => setStockRim(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
+                  <input type="number" inputMode="decimal" pattern="[0-9]*" value={stockWidth} onChange={(e) => setStockWidth(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
+                  <input type="number" inputMode="decimal" pattern="[0-9]*" value={stockProfile} onChange={(e) => setStockProfile(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
+                  <input type="number" inputMode="decimal" pattern="[0-9]*" value={stockRim} onChange={(e) => setStockRim(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
                 </div>
               </div>
 
               <div className="p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-2">
                 <div className="font-bold text-slate-300">New Upsized Tyre (e.g. 195/60 R16)</div>
                 <div className="grid grid-cols-3 gap-2">
-                  <input type="number" value={newWidth} onChange={(e) => setNewWidth(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
-                  <input type="number" value={newProfile} onChange={(e) => setNewProfile(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
-                  <input type="number" value={newRim} onChange={(e) => setNewRim(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
+                  <input type="number" inputMode="decimal" pattern="[0-9]*" value={newWidth} onChange={(e) => setNewWidth(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
+                  <input type="number" inputMode="decimal" pattern="[0-9]*" value={newProfile} onChange={(e) => setNewProfile(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
+                  <input type="number" inputMode="decimal" pattern="[0-9]*" value={newRim} onChange={(e) => setNewRim(parseInt(e.target.value))} className="bg-slate-950 p-2 rounded border border-slate-700 text-white" />
                 </div>
               </div>
             </div>
@@ -710,7 +710,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">Investment Horizon</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={npsYears}
                     onChange={(e) => setNpsYears(parseInt(e.target.value) || 20)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
@@ -719,7 +719,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">Expected Return (%)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={npsExpectedReturn}
                     onChange={(e) => setNpsExpectedReturn(parseFloat(e.target.value) || 10)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
@@ -834,7 +834,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">Height (cm)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={patientHeightCm}
                     onChange={(e) => setPatientHeightCm(parseInt(e.target.value) || 160)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
@@ -843,7 +843,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">Weight (kg)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={patientWeightKg}
                     onChange={(e) => setPatientWeightKg(parseInt(e.target.value) || 60)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"

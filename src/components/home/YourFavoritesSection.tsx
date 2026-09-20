@@ -3,6 +3,8 @@ import { useApp } from '../../context/AppContext';
 import { getToolBySlug } from '../../data/toolsRegistry';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Star, ArrowRight, Trash2, Sparkles, X } from 'lucide-react';
+import { ToolCard } from '../common/ToolCard';
+import { ScrollableCarousel } from '../common/ScrollableCarousel';
 import { Tool } from '../../types';
 
 export const YourFavoritesSection: React.FC = () => {
@@ -18,14 +20,14 @@ export const YourFavoritesSection: React.FC = () => {
   if (validTools.length === 0) return null;
 
   return (
-    <section className="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-in fade-in duration-200">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+    <section className="py-2.5 sm:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-in fade-in duration-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5 sm:mb-6">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-500 mb-1">
             <Star className="w-3.5 h-3.5 fill-current" />
             <span>Personalized Toolbox ({validTools.length})</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display">
+          <h2 className="text-xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display">
             Your Favorites
           </h2>
           <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
@@ -77,12 +79,12 @@ export const YourFavoritesSection: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <ScrollableCarousel className="pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 no-scrollbar">
         {validTools.map(tool => (
           <div
             key={tool.id}
             onClick={() => navigateToTool(tool.slug)}
-            className="group relative flex flex-col justify-between p-4 sm:p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800/90 hover:border-amber-400/60 dark:hover:border-amber-400/60 shadow-xs hover:shadow-lg transition-all duration-200 cursor-pointer"
+            className="group relative flex flex-col justify-between p-4 sm:p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800/90 hover:border-amber-400/60 dark:hover:border-amber-400/60 shadow-xs hover:shadow-lg transition-all duration-200 cursor-pointer min-w-[75vw] sm:min-w-0 snap-start"
           >
             <div>
               <div className="flex items-start justify-between gap-3 mb-3">
@@ -121,7 +123,7 @@ export const YourFavoritesSection: React.FC = () => {
             </div>
           </div>
         ))}
-      </div>
+      </ScrollableCarousel>
     </section>
   );
 };

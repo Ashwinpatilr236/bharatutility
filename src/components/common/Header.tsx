@@ -46,24 +46,24 @@ export const Header: React.FC = () => {
           )}
         </div>
       )}
-      <header className="sticky top-0 z-40 w-full border-b border-neutral-200/80 dark:border-neutral-800/80 bg-white/85 dark:bg-neutral-950/85 backdrop-blur-md transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-40 w-full border-b border-neutral-200/80 dark:border-neutral-800/80 bg-white/85 dark:bg-black/70 backdrop-blur-xl transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-4">
           {/* Logo & Brand */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 sm:gap-6 min-w-0">
             <Link
               id="brand-logo-btn"
               to="/"
-              className="flex items-center gap-2.5 group text-left focus:outline-none"
+              className="flex items-center gap-2 sm:gap-2.5 group text-left focus:outline-none shrink-0"
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 dark:from-indigo-500 dark:to-indigo-800 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-                <span className="font-bold text-base tracking-tighter">₹U</span>
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 dark:from-indigo-500 dark:to-indigo-800 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform shrink-0">
+                <span className="font-bold text-sm sm:text-base tracking-tighter">₹U</span>
               </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-lg sm:text-xl font-display tracking-tight text-neutral-900 dark:text-white">
+              <div className="flex flex-col shrink-0">
+                <div className="flex items-center gap-1 sm:gap-1.5">
+                  <span className="font-extrabold text-base sm:text-xl font-display tracking-tight text-neutral-900 dark:text-white">
                     Bharat<span className="text-accent">Utility</span>
                   </span>
-                  <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+                  <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest px-1 sm:px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
                     TECH
                   </span>
                 </div>
@@ -236,27 +236,26 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Search Trigger, Favorites & Settings */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Quick Search Spotlight Button */}
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            {/* Quick Search Spotlight Button - desktop/tablet only since mobile has central FAB */}
             <button
               id="global-search-trigger"
               onClick={() => setCommandPaletteOpen(true)}
-              className="flex items-center gap-2 px-3 py-1.5 bg-neutral-100/90 dark:bg-neutral-900/90 hover:bg-neutral-200/80 dark:hover:bg-neutral-800/90 text-neutral-500 dark:text-neutral-400 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs hover:shadow-xs transition-all text-xs font-medium focus:ring-2 focus:ring-accent"
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-neutral-100/90 dark:bg-neutral-900/90 hover:bg-neutral-200/80 dark:hover:bg-neutral-800/90 text-neutral-500 dark:text-neutral-400 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs hover:shadow-xs transition-all text-xs font-medium focus:ring-2 focus:ring-accent"
             >
               <Search className="w-3.5 h-3.5 text-accent shrink-0" />
               <span className="hidden sm:inline text-xs">Search Indian utilities...</span>
-              <span className="sm:hidden text-xs">Search</span>
               <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-800 rounded-md border border-neutral-200/90 dark:border-neutral-700 shadow-2xs">
                 {typeof window !== 'undefined' && navigator.platform?.toUpperCase().indexOf('MAC') >= 0 ? '⌘K' : 'Ctrl+K'}
               </kbd>
             </button>
 
-            {/* Saved & History Modal Trigger */}
+            {/* Saved & History Modal Trigger - desktop/tablet only since mobile has bottom dock */}
             <button
               id="favorites-history-button"
               onClick={() => setIsFavModalOpen(true)}
               title="Saved tools and recent calculations"
-              className="relative p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+              className="hidden sm:flex relative p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
             >
               <Star className="w-4 h-4" />
               {favorites.length > 0 && (
@@ -264,13 +263,13 @@ export const Header: React.FC = () => {
               )}
             </button>
 
-            {/* Theme & Accent Palette Switcher */}
+            {/* Theme Switcher */}
             <ThemeAccentPicker />
 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+              className="md:hidden p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

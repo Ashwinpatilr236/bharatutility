@@ -142,7 +142,7 @@ export const QuickToolsSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Distance (Kilometers)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={distanceKm}
                   onChange={(e) => setDistanceKm(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-lg"
@@ -151,7 +151,7 @@ export const QuickToolsSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Average Speed (km/h)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={speedKmh}
                   onChange={(e) => setSpeedKmh(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-indigo-400 font-mono text-lg font-bold"

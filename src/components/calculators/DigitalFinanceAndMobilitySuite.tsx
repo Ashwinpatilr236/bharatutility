@@ -390,7 +390,7 @@ export const DigitalFinanceAndMobilitySuite: React.FC<Props> = ({
                 <div>
                   <label className="text-slate-400 block mb-1">Petrol Price (₹/L)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={petrolPrice}
                     onChange={(e) => setPetrolPrice(parseFloat(e.target.value) || 100)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono"
@@ -399,7 +399,7 @@ export const DigitalFinanceAndMobilitySuite: React.FC<Props> = ({
                 <div>
                   <label className="text-slate-400 block mb-1">Petrol Mileage (kmpl)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={petrolMileage}
                     onChange={(e) => setPetrolMileage(parseFloat(e.target.value) || 45)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono"
@@ -638,7 +638,7 @@ export const DigitalFinanceAndMobilitySuite: React.FC<Props> = ({
                   Base Construction Cost (₹/sq ft): ₹{constructionRateSqFt}
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   step="250"
                   value={constructionRateSqFt}
                   onChange={(e) => setConstructionRateSqFt(parseInt(e.target.value) || 2500)}

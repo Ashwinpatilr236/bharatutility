@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { formatINR, formatIndianCompact, formatIndianNumber, numberToIndianWords } from '../../utils/formatters';
-import { PiggyBank, RefreshCw, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { formatINR, formatIndianCompact, numberToIndianWords } from '../../utils/formatters';
+import { RefreshCw, ShieldCheck } from 'lucide-react';
+import { QuickAmountChips } from '../common/QuickAmountChips';
+import { triggerHapticFeedback } from '../../utils/haptics';
 
 interface FdCalculatorProps {
   onResultChange?: (summary: string, params: Record<string, any>) => void;
@@ -42,13 +44,6 @@ export const FdCalculator: React.FC<FdCalculatorProps> = ({ onResultChange }) =>
     }
   }, [principal, effectiveRate, totalTenureInYears, compounding, maturityAmount]);
 
-  const presets = [
-    { label: '₹1 Lakh', value: 100000 },
-    { label: '₹5 Lakh', value: 500000 },
-    { label: '₹10 Lakh', value: 1000000 },
-    { label: '₹25 Lakh', value: 2500000 },
-  ];
-
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -60,12 +55,13 @@ export const FdCalculator: React.FC<FdCalculatorProps> = ({ onResultChange }) =>
             </h3>
             <button
               onClick={() => {
+                triggerHapticFeedback('light');
                 setPrincipal(500000);
                 setInterestRate(7.1);
                 setTenureYears(3);
                 setIsSeniorCitizen(false);
               }}
-              className="text-xs text-neutral-400 hover:text-accent font-medium flex items-center gap-1"
+              className="text-xs text-neutral-400 hover:text-accent font-medium flex items-center gap-1 active:scale-95 transition-transform"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Reset
@@ -87,12 +83,14 @@ export const FdCalculator: React.FC<FdCalculatorProps> = ({ onResultChange }) =>
               <span className="absolute left-3.5 text-neutral-400 font-bold">₹</span>
               <input
                 id="fd-principal-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="5000"
                 max="50000000"
                 step="5000"
                 value={principal || ''}
-                onChange={e => setPrincipal(Math.max(0, Number(e.target.value)))}
+                onChange={e => {
+                  setPrincipal(Math.max(0, Number(e.target.value)));
+                }}
                 className="w-full pl-8 pr-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
               />
             </div>
@@ -103,26 +101,25 @@ export const FdCalculator: React.FC<FdCalculatorProps> = ({ onResultChange }) =>
               max="5000000"
               step="10000"
               value={principal}
-              onChange={e => setPrincipal(Number(e.target.value))}
+              onChange={e => {
+                setPrincipal(Number(e.target.value));
+              }}
               aria-label="FD Amount Slider"
               className="w-full accent-indigo-600 h-2 bg-neutral-200 dark:bg-neutral-800 rounded-lg cursor-pointer"
             />
 
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              {presets.map(p => (
-                <button
-                  key={p.value}
-                  onClick={() => setPrincipal(p.value)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
-                    principal === p.value
-                      ? 'bg-accent text-white border-accent shadow-xs'
-                      : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700'
-                  }`}
-                >
-                  {p.label}
-                </button>
-              ))}
-            </div>
+            <QuickAmountChips
+              currentValue={principal}
+              onChange={val => setPrincipal(val)}
+              chips={[
+                { label: '+₹25K', value: 25000 },
+                { label: '+₹50K', value: 50000 },
+                { label: '+₹1L', value: 100000 },
+                { label: '+₹5L', value: 500000 },
+                { label: '+₹10L', value: 1000000 },
+              ]}
+              resetValue={500000}
+            />
           </div>
 
           {/* 2. Interest Rate & Senior Citizen Checkbox */}
@@ -139,7 +136,7 @@ export const FdCalculator: React.FC<FdCalculatorProps> = ({ onResultChange }) =>
             <div className="relative flex items-center">
               <input
                 id="fd-interest-rate-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="1"
                 max="15"
                 step="0.05"
@@ -177,7 +174,7 @@ export const FdCalculator: React.FC<FdCalculatorProps> = ({ onResultChange }) =>
               </label>
               <input
                 id="fd-tenure-years-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="0"
                 max="10"
                 value={tenureYears}

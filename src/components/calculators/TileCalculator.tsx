@@ -86,7 +86,7 @@ export const TileCalculator: React.FC<TileCalculatorProps> = ({ onResultChange }
                 Room Length (ft)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={roomLength || ''}
                 onChange={e => setRoomLength(Math.max(1, Number(e.target.value)))}
                 className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -98,7 +98,7 @@ export const TileCalculator: React.FC<TileCalculatorProps> = ({ onResultChange }
                 Room Width (ft)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={roomWidth || ''}
                 onChange={e => setRoomWidth(Math.max(1, Number(e.target.value)))}
                 className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -158,7 +158,7 @@ export const TileCalculator: React.FC<TileCalculatorProps> = ({ onResultChange }
                 Avg Rate per Box (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={pricePerBox || ''}
                 onChange={e => setPricePerBox(Math.max(0, Number(e.target.value)))}
                 className="w-full px-3.5 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-sm text-neutral-900 dark:text-white outline-none focus:border-accent"

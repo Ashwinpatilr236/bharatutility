@@ -9,6 +9,9 @@ import { DynamicIcon } from '../common/DynamicIcon';
 import { Link } from '../common/Link';
 import { Star } from 'lucide-react';
 import { RequestToolCta } from '../common/RequestToolCta';
+import { AntigravityParticles } from '../common/AntigravityParticles';
+import { FloatingBadge } from '../common/FloatingBadge';
+import { ToolCard } from '../common/ToolCard';
 
 interface CategoryViewProps {
   categoryId: CategoryId;
@@ -22,7 +25,11 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
   const tools = getToolsByCategory(categoryId);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-200">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-8 space-y-3.5 sm:space-y-8 animate-in fade-in duration-200 relative">
+      {/* Background Subtle Antigravity Ambient Light & Particles */}
+      <AntigravityParticles className="opacity-35 dark:opacity-50" particleCount={25} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[250px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full animate-antigravity-pulse" />
+
       {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
@@ -32,20 +39,22 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
       />
 
       {/* Category Header Hero */}
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-10 border border-neutral-200/80 dark:border-neutral-800 shadow-sm relative overflow-hidden">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-neutral-100 dark:bg-neutral-800 text-accent flex items-center justify-center shrink-0 border border-neutral-200 dark:border-neutral-700">
-            <DynamicIcon name={category.icon} className="w-8 h-8" />
+      <div className="bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-10 border border-neutral-200/90 dark:border-neutral-800/90 shadow-lg shadow-neutral-900/5 dark:shadow-black/40 relative overflow-hidden">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 relative z-10">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-indigo-500/15 via-purple-500/10 to-indigo-600/20 text-accent flex items-center justify-center shrink-0 border border-neutral-200/90 dark:border-neutral-700/60 shadow-xs">
+            <DynamicIcon name={category.icon} className="w-6 h-6 sm:w-8 sm:h-8" />
           </div>
 
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display">
+              <h1 className="text-xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display">
                 {category.name}
               </h1>
-              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
-                {tools.length} Tools
-              </span>
+              <FloatingBadge duration={3} distance={3}>
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
+                  {tools.length} Tools
+                </span>
+              </FloatingBadge>
             </div>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl">
               {category.description}
@@ -55,71 +64,20 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
       </div>
 
       {/* Tools Grid */}
-      <div className="space-y-4">
-        <h2 className="text-lg font-bold text-neutral-900 dark:text-white font-display">
+      <div className="space-y-3 sm:space-y-4 relative z-10">
+        <h2 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white font-display">
           Available Calculators & Utilities
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {tools.map(tool => {
-            const fav = isFavorite(tool.slug);
-
-            return (
-              <Link
-                key={tool.id}
-                to={`/tools/${tool.slug}`}
-                className="bg-white dark:bg-neutral-900 rounded-3xl p-5 border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:border-accent hover:shadow-md transition-all group flex flex-col justify-between cursor-pointer"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between">
-                    <div className="w-11 h-11 rounded-2xl bg-neutral-100 dark:bg-neutral-800 text-accent flex items-center justify-center group-hover:scale-105 transition-transform border border-neutral-200/60 dark:border-neutral-700/60">
-                      <DynamicIcon name={tool.icon} className="w-5 h-5" />
-                    </div>
-
-                    <div className="flex items-center gap-1">
-                      {tool.badge && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
-                          {tool.badge}
-                        </span>
-                      )}
-                      <button
-                        onClick={e => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          toggleFavorite(tool.slug);
-                        }}
-                        className="p-1.5 text-neutral-400 hover:text-amber-400 transition-colors"
-                        title={fav ? 'Favorited' : 'Add to favorites'}
-                      >
-                        <Star className={`w-4 h-4 ${fav ? 'fill-amber-400 text-amber-400' : ''}`} />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
-                      {tool.name}
-                    </h3>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mt-1 leading-relaxed">
-                      {tool.tagline}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-4 mt-4 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-[11px]">
-                  <span className="text-neutral-400">{tool.keywords.slice(0, 2).join(', ')}</span>
-                  <span className="font-semibold text-accent group-hover:translate-x-0.5 transition-transform">
-                    Calculate Now →
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
+          {tools.map(tool => (
+            <ToolCard key={tool.id} tool={tool} />
+          ))}
         </div>
       </div>
 
       {/* Category In-Depth Guide & SEO Overview */}
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+      <div className="bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-3 sm:space-y-4">
         <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white font-display">
           Why Use BharatUtility for {category.name}?
         </h2>
@@ -177,7 +135,7 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
       </div>
 
       {/* Community Request CTA */}
-      <RequestToolCta initialToolName={`New ${category.name} Tool`} className="mt-8" />
+      <RequestToolCta initialToolName={`New ${category.name} Tool`} className="mt-4 sm:mt-8" />
     </div>
   );
 };

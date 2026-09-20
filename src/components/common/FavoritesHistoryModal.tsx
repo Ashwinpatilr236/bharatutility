@@ -25,43 +25,52 @@ export const FavoritesHistoryModal: React.FC<FavoritesHistoryModalProps> = ({
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="bg-white dark:bg-neutral-900 w-full max-w-lg rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150"
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        className="bg-white dark:bg-neutral-900 w-full max-w-lg rounded-t-3xl sm:rounded-2xl shadow-2xl border-t sm:border border-neutral-200 dark:border-neutral-800 overflow-hidden flex flex-col max-h-[88vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-6 sm:zoom-in-95 duration-200 safe-area-bottom"
+      >
+        {/* Mobile Drag Indicator Bar */}
+        <div className="w-12 h-1.5 bg-neutral-300 dark:bg-neutral-700 rounded-full mx-auto mt-3 sm:hidden" />
+
         <div className="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-800">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
             <button
               onClick={() => setActiveTab('favorites')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                 activeTab === 'favorites'
                   ? 'bg-accent-subtle text-accent'
                   : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
               <Star className="w-4 h-4 fill-current" />
-              Saved Tools ({favoriteTools.length})
+              <span>Saved ({favoriteTools.length})</span>
             </button>
             <button
               onClick={() => setActiveTab('history')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                 activeTab === 'history'
                   ? 'bg-accent-subtle text-accent'
                   : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
               <History className="w-4 h-4" />
-              Recent Calculations ({calculationHistory.length})
+              <span>History ({calculationHistory.length})</span>
             </button>
           </div>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="p-1.5 text-neutral-400 hover:text-neutral-700 dark:hover:text-white rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+            className="p-2 text-neutral-400 hover:text-neutral-700 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer touch-target flex items-center justify-center"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-2.5">
+        <div className="flex-1 overflow-y-auto p-4 space-y-2.5 -webkit-overflow-scrolling-touch">
           {activeTab === 'favorites' ? (
             favoriteTools.length === 0 ? (
               <div className="py-12 text-center">

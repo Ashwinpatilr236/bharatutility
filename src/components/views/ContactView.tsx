@@ -16,6 +16,8 @@ import {
   FileQuestion,
   Lightbulb
 } from 'lucide-react';
+import { AntigravityParticles } from '../common/AntigravityParticles';
+import { FloatingBadge } from '../common/FloatingBadge';
 
 const CONTACT_REASONS: ContactReason[] = [
   'General Question',
@@ -68,7 +70,7 @@ export const ContactView: React.FC = () => {
     if (!formData.message.trim()) {
       newErrors.message = 'Please enter your message.';
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Please provide a bit more detail (minimum 10 characters).';
+      newErrors.message = 'Please write a message with at least 10 characters.';
     }
 
     setErrors(newErrors);
@@ -81,27 +83,27 @@ export const ContactView: React.FC = () => {
     e.preventDefault();
 
     if (!validate()) {
-      showToast('Please fix the errors in the form.', 'error');
+      showToast('Please correct the highlighted fields.', 'error');
       return;
     }
 
-    const currentPayload = JSON.stringify(formData);
-    if (currentPayload === lastSubmittedPayload) {
-      showToast('This message has already been submitted.', 'info');
+    const payloadKey = `${formData.email.trim().toLowerCase()}|${formData.subject.trim()}|${formData.message.trim()}`;
+    if (payloadKey === lastSubmittedPayload) {
+      showToast('You already sent this exact message.', 'info');
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const response = await submitContactMessage(formData);
-      if (response.success) {
+      const result = await submitContactMessage(formData);
+      if (result.success) {
         setIsSubmitted(true);
-        if (response.id) setSubmittedTicketId(response.id);
-        setLastSubmittedPayload(currentPayload);
-        showToast('Thanks! Your message has been sent successfully.', 'success');
+        if (result.id) setSubmittedTicketId(result.id);
+        setLastSubmittedPayload(payloadKey);
+        showToast('Message sent! We will review your inquiry.', 'success');
       }
     } catch (err: any) {
-      showToast(err.message || 'Something went wrong while sending your message. Please try again.', 'error');
+      showToast(err.message || 'Failed to submit inquiry. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -121,34 +123,43 @@ export const ContactView: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      {/* Back button */}
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative animate-in fade-in duration-200">
+      {/* Background Subtle Antigravity Ambient Light & Particles */}
+      <AntigravityParticles className="opacity-35 dark:opacity-50" particleCount={25} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[250px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full animate-antigravity-pulse" />
+
+      {/* Back Button */}
       <button
         onClick={navigateToHome}
-        className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-500 hover:text-neutral-900 dark:hover:text-white mb-6 transition-colors group"
+        className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-500 hover:text-neutral-900 dark:hover:text-white mb-6 transition-colors group relative z-10"
       >
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
         <span>Back to Home</span>
       </button>
 
       {/* Header Section */}
-      <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12 space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-subtle text-accent text-xs font-bold uppercase tracking-wider">
-          <Mail className="w-3.5 h-3.5" />
-          <span>Get in Touch</span>
-        </div>
+      <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12 space-y-3 relative z-10">
+        <FloatingBadge duration={3.5} distance={4}>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md text-accent text-xs font-bold uppercase tracking-wider border border-accent/30 shadow-2xs">
+            <Mail className="w-3.5 h-3.5" />
+            <span>Get in Touch</span>
+          </div>
+        </FloatingBadge>
         <h1 className="text-2xl sm:text-4xl font-extrabold font-display text-neutral-900 dark:text-white tracking-tight">
-          Contact BharatUtility
+          Contact{' '}
+          <span className="bg-gradient-to-r from-accent via-purple-500 to-indigo-500 bg-clip-text text-transparent animate-antigravity-shimmer">
+            BharatUtility
+          </span>
         </h1>
         <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
           Have a question, feedback, bug report, or partnership inquiry? Send us a message and our team will get back to you.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
         {/* Contact Form Card */}
         <div className="lg:col-span-2">
-          <div className="bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl border border-neutral-200/90 dark:border-neutral-800 p-6 sm:p-8 shadow-xs">
+          <div className="bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl rounded-2xl sm:rounded-3xl border border-neutral-200/90 dark:border-neutral-800/90 p-6 sm:p-8 shadow-lg shadow-neutral-900/5 dark:shadow-black/40">
             {isSubmitted ? (
               /* Success State */
               <div className="text-center py-8 sm:py-12 space-y-5 animate-in fade-in zoom-in-95 duration-200">

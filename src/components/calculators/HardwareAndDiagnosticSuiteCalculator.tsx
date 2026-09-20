@@ -712,7 +712,7 @@ export const HardwareAndDiagnosticSuiteCalculator: React.FC<Props> = ({
                       Home Tariff (₹/Unit)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       step="0.5"
                       value={homeElectricityRate}
                       onChange={(e) => setHomeElectricityRate(Number(e.target.value))}
@@ -724,7 +724,7 @@ export const HardwareAndDiagnosticSuiteCalculator: React.FC<Props> = ({
                       Highway DC Tariff (₹/kWh)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       step="0.5"
                       value={publicDcRate}
                       onChange={(e) => setPublicDcRate(Number(e.target.value))}
@@ -783,7 +783,7 @@ export const HardwareAndDiagnosticSuiteCalculator: React.FC<Props> = ({
                       Ceiling Fans (75W)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="0"
                       max="10"
                       value={fansCount}
@@ -796,7 +796,7 @@ export const HardwareAndDiagnosticSuiteCalculator: React.FC<Props> = ({
                       LED Bulbs (15W)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="0"
                       max="20"
                       value={ledCount}
@@ -809,7 +809,7 @@ export const HardwareAndDiagnosticSuiteCalculator: React.FC<Props> = ({
                       TV / Entertainment (100W)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="0"
                       max="3"
                       value={tvCount}
@@ -822,7 +822,7 @@ export const HardwareAndDiagnosticSuiteCalculator: React.FC<Props> = ({
                       Refrigerator (200W)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="0"
                       max="2"
                       value={fridgeCount}

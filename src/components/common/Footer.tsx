@@ -1,19 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TOOLS_REGISTRY } from '../../data/toolsRegistry';
-import { ShieldCheck, ArrowUp } from 'lucide-react';
+import { ShieldCheck, ArrowUp, ChevronDown } from 'lucide-react';
 import { Link } from './Link';
 import { LiveVisitorsBadge } from './LiveVisitorsBadge';
 import { SocialFollow } from './SocialFollow';
 
-export const Footer: React.FC = () => {
+const FooterSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="border-b border-neutral-100 dark:border-neutral-800/80 md:border-none py-3 md:py-0">
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="w-full flex items-center justify-between md:cursor-auto"
+      >
+        <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white font-display">
+          {title}
+        </h4>
+        <ChevronDown className={`w-4 h-4 text-neutral-400 md:hidden transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      <div className={`mt-3 ${isOpen ? 'block' : 'hidden'} md:block`}>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({ showEcosystemPromo = true }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="mt-12 border-t border-neutral-200 dark:border-neutral-800/80 bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
+    <footer className="mt-4 md:mt-12 border-t border-neutral-200 dark:border-neutral-800/80 bg-white dark:bg-black text-neutral-600 dark:text-neutral-400 transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-8 lg:gap-10">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <Link
@@ -45,10 +65,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white mb-3 font-display">
-              Quick Links
-            </h4>
+          <FooterSection title="Quick Links">
             <ul className="space-y-2 text-xs">
               <li>
                 <Link
@@ -100,13 +117,10 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
             </ul>
-          </div>
+          </FooterSection>
 
           {/* Popular Calculators */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white mb-3 font-display">
-              Popular Tools
-            </h4>
+          <FooterSection title="Popular Tools">
             <ul className="space-y-2 text-xs">
               {[
                 'emi-calculator',
@@ -132,13 +146,10 @@ export const Footer: React.FC = () => {
                 );
               })}
             </ul>
-          </div>
+          </FooterSection>
 
           {/* Trust & Legal */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white mb-3 font-display">
-              Trust & Legal
-            </h4>
+          <FooterSection title="Trust & Legal">
             <ul className="space-y-2 text-xs">
               <li>
                 <Link
@@ -181,40 +192,42 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
             </ul>
-          </div>
+          </FooterSection>
         </div>
 
         {/* Parent Company Ecosystem Attribution Banner */}
-        <div className="mt-10 p-5 rounded-2xl bg-neutral-100 dark:bg-neutral-900/90 border border-neutral-200/80 dark:border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">🏢</span>
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="font-bold text-neutral-900 dark:text-white font-display">ARRJS Technologies Ecosystem</span>
-                <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">Parent Organization</span>
+        {showEcosystemPromo && (
+          <div className="mt-10 p-5 rounded-2xl bg-neutral-100 dark:bg-neutral-900/90 border border-neutral-200/80 dark:border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🏢</span>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-bold text-neutral-900 dark:text-white font-display">ARRJS Technologies Ecosystem</span>
+                  <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">Parent Organization</span>
+                </div>
+                <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5">
+                  BharatUtility (Everyday Utilities) and <Link to="/sanatan-next" className="text-amber-600 dark:text-amber-400 font-bold hover:underline">Sanatan Next</Link> (Digital Cultural Heritage) are independent projects within <strong>ARRJS Technologies</strong>.
+                </p>
               </div>
-              <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5">
-                BharatUtility (Everyday Utilities) and <Link to="/sanatan-next" className="text-amber-600 dark:text-amber-400 font-bold hover:underline">Sanatan Next</Link> (Digital Cultural Heritage) are independent projects within <strong>ARRJS Technologies</strong>.
-              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <Link
+                to="/sanatan-next"
+                className="px-3.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-900 dark:text-amber-200 border border-amber-500/30 font-bold text-xs transition-all inline-flex items-center gap-1 shadow-2xs"
+              >
+                <span>Sanatan Next ↗</span>
+              </Link>
+              <a
+                href="https://arrjs-technologies.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-1.5 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-all inline-flex items-center gap-1 shadow-xs"
+              >
+                <span>ARRJS Tech ↗</span>
+              </a>
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-2 shrink-0">
-            <Link
-              to="/sanatan-next"
-              className="px-3.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-900 dark:text-amber-200 border border-amber-500/30 font-bold text-xs transition-all inline-flex items-center gap-1 shadow-2xs"
-            >
-              <span>Sanatan Next ↗</span>
-            </Link>
-            <a
-              href="https://arrjs-technologies.netlify.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3.5 py-1.5 rounded-xl bg-accent text-white font-bold text-xs hover:bg-accent/90 transition-all inline-flex items-center gap-1 shadow-xs"
-            >
-              <span>ARRJS Tech ↗</span>
-            </a>
-          </div>
-        </div>
+        )}
 
         {/* Disclaimer Notice */}
         <div className="mt-6 pt-6 border-t border-neutral-100 dark:border-neutral-900 text-[11px] text-neutral-400 dark:text-neutral-500 leading-normal">

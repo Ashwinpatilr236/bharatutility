@@ -3,6 +3,9 @@ import { useApp } from '../../context/AppContext';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Link } from '../common/Link';
 import { Compass, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
+import { ToolCard } from '../common/ToolCard';
+import { ScrollableCarousel } from '../common/ScrollableCarousel';
+import { getToolBySlug } from '../../data/toolsRegistry';
 
 interface ToolCluster {
   id: string;
@@ -185,37 +188,37 @@ export const YouMayAlsoNeedSection: React.FC = () => {
   const activeCluster = TOOL_CLUSTERS.find(c => c.id === activeClusterId) || TOOL_CLUSTERS[0];
 
   return (
-    <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-3">
+    <section className="py-2 sm:py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-3 sm:mb-5 gap-1.5 sm:gap-3">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-accent mb-1">
+          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-accent mb-0.5">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Workflow & Task Kits</span>
+            <span>Workflow &amp; Task Kits</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display">
+          <h2 className="text-lg sm:text-2xl font-extrabold text-neutral-900 dark:text-white font-display">
             You May Also Need
           </h2>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
             Curated combinations of tools designed to help you complete end-to-end tasks without switching websites
           </p>
         </div>
       </div>
 
       {/* Workflow Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-3 sm:mb-4 scrollbar-none">
         {TOOL_CLUSTERS.map(cluster => {
           const isActive = cluster.id === activeClusterId;
           return (
             <button
               key={cluster.id}
               onClick={() => setActiveClusterId(cluster.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold shrink-0 transition-all flex items-center gap-2 border cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-all flex items-center gap-1.5 border cursor-pointer ${
                 isActive
                   ? 'bg-accent text-white border-accent shadow-md shadow-accent/20'
                   : 'bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-800 hover:border-accent/40'
               }`}
             >
-              <DynamicIcon name={cluster.icon} className="w-4 h-4" />
+              <DynamicIcon name={cluster.icon} className="w-3.5 h-3.5" />
               <span>{cluster.name}</span>
             </button>
           );
@@ -223,48 +226,29 @@ export const YouMayAlsoNeedSection: React.FC = () => {
       </div>
 
       {/* Active Cluster Grid */}
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/90 dark:border-neutral-800 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-6 border-b border-neutral-100 dark:border-neutral-800 gap-2">
+      <div className="bg-white dark:bg-neutral-900 rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-neutral-200/90 dark:border-neutral-800 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2.5 mb-2.5 sm:pb-4 sm:mb-4 border-b border-neutral-100 dark:border-neutral-800 gap-2">
           <div>
-            <h3 className="text-lg font-bold text-neutral-900 dark:text-white font-display flex items-center gap-2">
-              <DynamicIcon name={activeCluster.icon} className="w-5 h-5 text-accent" />
+            <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white font-display flex items-center gap-1.5">
+              <DynamicIcon name={activeCluster.icon} className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent" />
               {activeCluster.name}
             </h3>
-            <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
+            <p className="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5">
               {activeCluster.subtitle}
             </p>
           </div>
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-accent-subtle text-accent w-fit">
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent-subtle text-accent w-fit">
             {activeCluster.tools.length} Coordinated Utilities
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {activeCluster.tools.map(tool => (
-            <Link
-              key={tool.slug}
-              to={`/tools/${tool.slug}`}
-              className="p-4 rounded-2xl bg-neutral-50/80 dark:bg-neutral-800/60 border border-neutral-200/70 dark:border-neutral-700/60 hover:border-accent dark:hover:border-accent hover:bg-white dark:hover:bg-neutral-800 transition-all group flex flex-col justify-between"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-accent-subtle text-accent flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-xs">
-                  <DynamicIcon name={tool.icon} className="w-5 h-5" />
-                </div>
-                <h4 className="font-bold text-sm text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
-                  {tool.name}
-                </h4>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2 leading-relaxed">
-                  {tool.tagline}
-                </p>
-              </div>
-
-              <div className="mt-4 pt-2.5 border-t border-neutral-200/60 dark:border-neutral-700/50 flex items-center justify-between text-xs font-semibold text-accent">
-                <span>Use Tool</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </Link>
-          ))}
-        </div>
+        <ScrollableCarousel className="pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 no-scrollbar">
+          {activeCluster.tools.map(tool => {
+            const fullTool = getToolBySlug(tool.slug);
+            if (!fullTool) return null;
+            return <ToolCard key={tool.slug} tool={fullTool} />;
+          })}
+        </ScrollableCarousel>
       </div>
     </section>
   );

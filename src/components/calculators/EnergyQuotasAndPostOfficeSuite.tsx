@@ -433,7 +433,7 @@ export const EnergyQuotasAndPostOfficeSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">Systolic (Upper mmHg)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={systolicBp}
                     onChange={(e) => setSystolicBp(parseInt(e.target.value) || 120)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
@@ -442,7 +442,7 @@ export const EnergyQuotasAndPostOfficeSuite: React.FC<Props> = ({
                 <div>
                   <label className="text-xs text-slate-400 font-medium block mb-1">Diastolic (Lower mmHg)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={diastolicBp}
                     onChange={(e) => setDiastolicBp(parseInt(e.target.value) || 80)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
@@ -739,7 +739,7 @@ export const EnergyQuotasAndPostOfficeSuite: React.FC<Props> = ({
                   Last 60-Months Average Basic + DA: ₹{lastBasicSalary.toLocaleString('en-IN')}
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   step="5000"
                   value={lastBasicSalary}
                   onChange={(e) => setLastBasicSalary(parseInt(e.target.value) || 15000)}

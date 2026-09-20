@@ -145,7 +145,7 @@ export const CurrencyConverterSuite: React.FC = () => {
             </label>
             <div className="flex rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 focus-within:border-accent overflow-hidden bg-neutral-50 dark:bg-neutral-800/50">
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="0"
                 step="any"
                 value={amount}

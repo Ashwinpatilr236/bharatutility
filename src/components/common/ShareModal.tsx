@@ -14,6 +14,13 @@ interface ShareModalProps {
 export const ShareModal: React.FC<ShareModalProps> = ({ tool, calculationSummary, isOpen, onClose }) => {
   const { showToast } = useApp();
   const [copied, setCopied] = useState(false);
+  const [canNativeShare, setCanNativeShare] = useState(false);
+
+  React.useEffect(() => {
+    if (navigator.share) {
+      setCanNativeShare(true);
+    }
+  }, []);
 
   if (!isOpen) return null;
 
@@ -47,9 +54,25 @@ export const ShareModal: React.FC<ShareModalProps> = ({ tool, calculationSummary
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
+  const handleNativeShare = async () => {
+    try {
+      await navigator.share({
+        title: shareTitle,
+        text: shareText,
+        url: currentUrl,
+      });
+      onClose();
+    } catch (err) {
+      console.log('User cancelled share or share failed');
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="bg-white dark:bg-neutral-900 w-full max-w-md rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-800 p-6 relative animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+      <div className="bg-white dark:bg-neutral-900 w-full max-w-md rounded-t-3xl sm:rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-800 p-6 sm:p-8 pb-10 sm:pb-8 relative animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-300">
+        {/* Mobile Drag Handle */}
+        <div className="sm:hidden absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-neutral-300 dark:bg-neutral-700 rounded-full" />
+        
         <button
           onClick={onClose}
           aria-label="Close modal"
@@ -81,7 +104,16 @@ export const ShareModal: React.FC<ShareModalProps> = ({ tool, calculationSummary
           </div>
         )}
 
-        <div className="grid grid-cols-3 gap-2.5 mb-5">
+        <div className={`grid ${canNativeShare ? 'grid-cols-4' : 'grid-cols-3'} gap-2 sm:gap-2.5 mb-5`}>
+          {canNativeShare && (
+            <button
+              onClick={handleNativeShare}
+              className="flex flex-col items-center justify-center p-3 rounded-xl bg-accent/10 text-accent hover:bg-accent/20 border border-accent/20 transition-colors font-medium text-[10px] sm:text-xs gap-1.5"
+            >
+              <Share2 className="w-5 h-5" />
+              More
+            </button>
+          )}
           <button
             onClick={shareToWhatsApp}
             className="flex flex-col items-center justify-center p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 border border-emerald-200 dark:border-emerald-800/50 transition-colors font-medium text-xs gap-1.5"

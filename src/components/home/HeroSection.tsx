@@ -3,8 +3,14 @@ import { useApp } from '../../context/AppContext';
 import { useAdminStore } from '../../hooks/useAdminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch, TRENDING_SEARCH_KEYWORDS } from '../../utils/smartSearch';
-import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass } from 'lucide-react';
+import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck } from 'lucide-react';
 import { LiveCivicTicker } from './LiveCivicTicker';
+import { AntigravityParticles } from '../common/AntigravityParticles';
+import { SpotlightCard } from '../common/SpotlightCard';
+import { CommandPalette } from '../common/CommandPalette';
+import { ScrollableCarousel } from '../common/ScrollableCarousel';
+import { FloatingBadge } from '../common/FloatingBadge';
+import { VoiceSearchButton } from '../common/VoiceSearchButton';
 
 export const HeroSection: React.FC = () => {
   useAdminStore();
@@ -74,39 +80,74 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-1 pb-4 sm:pt-2 sm:pb-6 overflow-hidden">
+    <section className="relative pt-1 pb-3 sm:pt-2 sm:pb-5 overflow-hidden">
+      {/* Background Interactive Antigravity Particles & Cosmic Glow */}
+      <AntigravityParticles className="opacity-70 dark:opacity-80" particleCount={48} />
+
       {/* Background Floating Subtle Ambient Light */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[600px] h-[260px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full" />
+      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[300px] bg-gradient-to-b from-indigo-500/15 via-purple-500/10 to-transparent blur-3xl pointer-events-none -z-10 rounded-full animate-antigravity-pulse" />
 
       {/* Live Civic Status Bar */}
-      <div className="mb-4 sm:mb-5">
+      <div className="mb-2 sm:mb-3 relative z-10">
         <LiveCivicTicker />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 text-center">
-        {/* Top Mini Pill */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-accent-subtle border border-accent/20 text-accent text-xs font-semibold mb-3 shadow-2xs animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>BharatUtility • India's Practical Utility Super-Site</span>
+      <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
+        {/* Antigravity Floating Top Badge */}
+        <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
+          <FloatingBadge duration={3.5} distance={5}>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-accent/30 text-accent text-xs font-semibold shadow-xs hover:border-accent/60 transition-colors">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+              </span>
+              <span>BharatUtility • 100% Private & Free Utility Super-Site</span>
+            </div>
+          </FloatingBadge>
         </div>
 
-        {/* Headline */}
-        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-tight mb-2.5">
-          Useful tools for everyday India
+        {/* Kinetic Shimmer Headline */}
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-tight mb-1.5 sm:mb-2">
+          Useful tools for{' '}
+          <span className="bg-gradient-to-r from-accent via-purple-500 to-indigo-500 bg-clip-text text-transparent animate-antigravity-shimmer">
+            everyday India
+          </span>
         </h1>
 
-        {/* Subhead */}
-        <p className="text-xs sm:text-sm lg:text-base text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-4 sm:mb-5 leading-relaxed">
+        {/* Subhead with Subtle Floating Levitation Badges */}
+        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-2 sm:mb-4 leading-relaxed">
           Fast, privacy-focused calculators, official citizen lookups, document converters, and financial utilities — 100% free with zero signups.
         </p>
 
-        {/* Large Clean Native Inline Search Box */}
-        <div className="relative max-w-2xl mx-auto mb-3.5 text-left">
+        {/* Floating Quick Feature Badges */}
+        <div className="hidden sm:flex items-center justify-center gap-3 mb-5">
+          <FloatingBadge delay={0.2} duration={4.2} distance={6}>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-neutral-100/80 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/60 dark:border-neutral-700/60">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+              100% Client-Side Privacy
+            </span>
+          </FloatingBadge>
+          <FloatingBadge delay={0.6} duration={3.8} distance={7}>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-neutral-100/80 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/60 dark:border-neutral-700/60">
+              <Zap className="w-3.5 h-3.5 text-amber-500" />
+              Zero Server Latency
+            </span>
+          </FloatingBadge>
+          <FloatingBadge delay={1.0} duration={4.5} distance={5}>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-neutral-100/80 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/60 dark:border-neutral-700/60">
+              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              220+ Native Indian Tools
+            </span>
+          </FloatingBadge>
+        </div>
+
+        {/* Large Clean Native Inline Search Box with Antigravity Glow */}
+        <div className="relative max-w-2xl mx-auto mb-2.5 sm:mb-3.5 text-left">
           <div
-            className={`flex items-center gap-3 px-4 py-3 bg-white dark:bg-neutral-900 rounded-2xl border-2 transition-all shadow-lg shadow-neutral-900/5 dark:shadow-black/40 ${
+            className={`flex items-center gap-3 px-4 py-3.5 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl rounded-2xl border-2 transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/50 ${
               isFocused
-                ? 'border-accent ring-4 ring-accent/15'
-                : 'border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700'
+                ? 'border-accent ring-4 ring-accent/20 shadow-accent/10'
+                : 'border-neutral-200/90 dark:border-neutral-800/90 hover:border-neutral-300 dark:hover:border-neutral-700'
             }`}
           >
             <Search className="w-4 h-4 text-accent shrink-0" />
@@ -120,8 +161,16 @@ export const HeroSection: React.FC = () => {
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 250)}
               onKeyDown={handleKeyDown}
-              className="w-full bg-transparent text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none pr-2"
+              className="w-full min-w-0 bg-transparent text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none pr-2"
             />
+            {/* Voice Search Mic Button (Hindi/English) */}
+            <VoiceSearchButton
+              onTranscript={text => {
+                setSearchQuery(text);
+                setIsFocused(true);
+              }}
+            />
+
             {searchQuery ? (
               <button
                 onClick={() => {
@@ -146,7 +195,7 @@ export const HeroSection: React.FC = () => {
 
           {/* Clean Elevated Real-time Dropdown */}
           {isFocused && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border-2 border-accent/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[580px] sm:max-h-[640px] overflow-y-auto space-y-2">
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border-2 border-accent/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[580px] sm:max-h-[640px] overflow-y-auto space-y-2">
               {/* Natural Language Intent suggestion card */}
               {naturalLanguageIntent && (
                 <div
@@ -273,7 +322,7 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Quick Search Shortcut Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4 sm:mb-5">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 mb-2 sm:mb-3.5">
           <span className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 mr-1 flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
             Trending:
@@ -282,15 +331,15 @@ export const HeroSection: React.FC = () => {
             <button
               key={keyword}
               onClick={() => handleTrendingClick(keyword)}
-              className="px-2.5 py-1 rounded-full text-xs font-medium bg-neutral-100 hover:bg-accent-subtle hover:text-accent hover:border-accent/40 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-2xs"
+              className="px-2.5 py-1 rounded-full text-xs font-medium bg-white/70 hover:bg-accent-subtle hover:text-accent hover:border-accent/40 dark:bg-neutral-900/70 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 backdrop-blur-xs transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-2xs"
             >
               {keyword}
             </button>
           ))}
         </div>
 
-        {/* 8 Instant Quick-Access Bento Hero Cards (Spacious 4x2 Grid on Desktop) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 pt-1 text-left">
+        {/* 8 Instant Quick-Access Bento Hero Cards with Spotlight & 3D Tilt */}
+        <ScrollableCarousel className="pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 pt-0.5 text-left">
           {[
             {
               slug: 'emi-calculator',
@@ -357,17 +406,17 @@ export const HeroSection: React.FC = () => {
               color: 'text-blue-500 bg-blue-500/10'
             }
           ].map(tool => (
-            <button
+            <SpotlightCard
               key={tool.slug}
               onClick={() => navigateToTool(tool.slug)}
-              className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-accent dark:hover:border-accent hover:shadow-lg transition-all group flex flex-col justify-between cursor-pointer"
+              className="p-3 sm:p-3.5 cursor-pointer group flex flex-col justify-between min-w-[68vw] sm:min-w-[220px] snap-start sm:snap-start"
             >
               <div>
                 <div className="flex items-center justify-between mb-2.5">
-                  <div className={`p-2 rounded-xl ${tool.color} group-hover:scale-105 transition-transform`}>
+                  <div className={`p-2 rounded-xl ${tool.color} group-hover:scale-110 transition-transform`}>
                     <DynamicIcon name={tool.icon} className="w-4 h-4" />
                   </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 group-hover:bg-accent/15 group-hover:text-accent transition-colors">
                     {tool.badge}
                   </span>
                 </div>
@@ -378,13 +427,13 @@ export const HeroSection: React.FC = () => {
                   {tool.tagline}
                 </p>
               </div>
-              <div className="mt-3 pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs font-semibold text-accent">
-                <span>Open Calculator</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              <div className="mt-2.5 pt-1.5 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs font-semibold text-accent">
+                <span>Open Utility</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
               </div>
-            </button>
+            </SpotlightCard>
           ))}
-        </div>
+        </ScrollableCarousel>
       </div>
     </section>
   );

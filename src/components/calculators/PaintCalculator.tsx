@@ -125,7 +125,7 @@ export const PaintCalculator: React.FC<PaintCalculatorProps> = ({ onResultChange
                     Length (ft)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={length || ''}
                     onChange={e => setLength(Math.max(1, Number(e.target.value)))}
                     className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-sm text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -137,7 +137,7 @@ export const PaintCalculator: React.FC<PaintCalculatorProps> = ({ onResultChange
                     Width (ft)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={width || ''}
                     onChange={e => setWidth(Math.max(1, Number(e.target.value)))}
                     className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-sm text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -149,7 +149,7 @@ export const PaintCalculator: React.FC<PaintCalculatorProps> = ({ onResultChange
                     Height (ft)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={height || ''}
                     onChange={e => setHeight(Math.max(1, Number(e.target.value)))}
                     className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-sm text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -163,7 +163,7 @@ export const PaintCalculator: React.FC<PaintCalculatorProps> = ({ onResultChange
                     Doors (21 sq ft deduction)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={doorCount}
                     onChange={e => setDoorCount(Math.max(0, Number(e.target.value)))}
                     className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-sm text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -175,7 +175,7 @@ export const PaintCalculator: React.FC<PaintCalculatorProps> = ({ onResultChange
                     Windows (16 sq ft deduction)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={windowCount}
                     onChange={e => setWindowCount(Math.max(0, Number(e.target.value)))}
                     className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-sm text-neutral-900 dark:text-white outline-none focus:border-accent"

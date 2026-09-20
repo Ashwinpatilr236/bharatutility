@@ -291,7 +291,7 @@ export const FinanceAndInvoiceSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-slate-400 mb-1">Recent Loan Inquiries</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={recentHardInquiries}
                     onChange={(e) => setRecentHardInquiries(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"
@@ -399,7 +399,7 @@ export const FinanceAndInvoiceSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-slate-400 mb-1">Tenure (Years)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={stepUpYears}
                     onChange={(e) => setStepUpYears(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"
@@ -408,7 +408,7 @@ export const FinanceAndInvoiceSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-slate-400 mb-1">Expected Return (%)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={stepUpExpectedReturn}
                     onChange={(e) => setStepUpExpectedReturn(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"
@@ -538,7 +538,7 @@ export const FinanceAndInvoiceSuiteCalculator: React.FC<Props> = ({ tool }) => {
                   </div>
                   <div className="col-span-2">
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={item.rate}
                       placeholder="Rate"
                       onChange={(e) => {

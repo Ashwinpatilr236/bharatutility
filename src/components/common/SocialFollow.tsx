@@ -117,30 +117,31 @@ export const SocialFollow: React.FC<SocialFollowProps> = ({
   return (
     <section
       aria-label="Follow BharatUtility"
-      className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 sm:my-12 ${className}`}
+      className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 sm:py-3 ${className}`}
     >
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-neutral-200/90 dark:border-neutral-800 bg-gradient-to-b from-white via-neutral-50/50 to-neutral-100/50 dark:from-neutral-900 dark:via-neutral-900/80 dark:to-neutral-950 p-6 sm:p-8 lg:p-10 shadow-xs">
+      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-neutral-200/90 dark:border-neutral-800 bg-gradient-to-r from-white via-neutral-50/60 to-white dark:from-neutral-900 dark:via-neutral-900/80 dark:to-neutral-900 p-3 sm:p-4 shadow-xs">
         {/* Subtle decorative background accent */}
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-accent/5 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 rounded-full bg-amber-500/5 blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-accent/5 blur-2xl pointer-events-none" />
 
-        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6 lg:gap-8">
+        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
           {/* Header & Subtitle */}
-          <div className="space-y-2 max-w-xl">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-subtle text-accent text-[11px] font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Community & Updates</span>
+          <div className="space-y-0.5 text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-2">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-accent-subtle text-accent text-[10px] font-bold uppercase tracking-wider">
+                <Sparkles className="w-2.5 h-2.5" />
+                <span>Community</span>
+              </span>
+              <h3 className="text-sm sm:text-base font-bold font-display text-neutral-900 dark:text-white tracking-tight">
+                Follow BharatUtility
+              </h3>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 dark:text-white tracking-tight">
-              Follow BharatUtility
-            </h3>
-            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Stay updated with new tools, useful utilities and BharatUtility updates.
+            <p className="text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400">
+              Stay updated with new tools, useful utilities, and community updates.
             </p>
           </div>
 
           {/* Social Platform Badges */}
-          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             {activePlatforms.map(platform => {
               const url = socialLinks[platform.key];
               const Icon = platform.icon;
@@ -157,11 +158,11 @@ export const SocialFollow: React.FC<SocialFollowProps> = ({
                     onMouseLeave={() => setActiveTooltip(null)}
                     onFocus={() => setActiveTooltip(platform.key)}
                     onBlur={() => setActiveTooltip(null)}
-                    className={`group flex items-center gap-2 px-3.5 py-2.5 rounded-xl sm:rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/90 text-neutral-700 dark:text-neutral-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-accent ${platform.colorClass}`}
+                    className={`group flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/90 text-neutral-700 dark:text-neutral-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs focus:outline-none focus:ring-2 focus:ring-accent ${platform.colorClass}`}
                   >
-                    <Icon className="w-4 h-4 transition-transform group-hover:scale-110" />
+                    <Icon className="w-3.5 h-3.5 transition-transform group-hover:scale-110" />
                     <span className="text-xs font-semibold">{platform.label}</span>
-                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity -ml-0.5" />
+                    <ExternalLink className="w-2.5 h-2.5 opacity-0 group-hover:opacity-100 transition-opacity -ml-0.5" />
                   </a>
 
                   {/* Accessible Floating Tooltip */}

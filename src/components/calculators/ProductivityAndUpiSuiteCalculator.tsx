@@ -291,7 +291,7 @@ export const ProductivityAndUpiSuiteCalculator: React.FC<Props> = ({ tool }) => 
                 <div>
                   <label className="block text-slate-400 mb-1">Amount to Request (₹)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={payAmount}
                     onChange={(e) => setPayAmount(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-emerald-400 font-mono font-bold text-sm"

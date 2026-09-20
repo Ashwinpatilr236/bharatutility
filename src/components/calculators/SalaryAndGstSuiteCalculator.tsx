@@ -132,7 +132,7 @@ export const SalaryAndGstSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Current / Previous Annual CTC (₹)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={oldCtc}
                   onChange={(e) => setOldCtc(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -142,7 +142,7 @@ export const SalaryAndGstSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">New Offered / Appraised Annual CTC (₹)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={newCtc}
                   onChange={(e) => setNewCtc(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold text-lg"
@@ -251,7 +251,7 @@ export const SalaryAndGstSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Net GST Tax Payable Amount (₹)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={taxPayableAmount}
                     onChange={(e) => setTaxPayableAmount(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -303,7 +303,7 @@ export const SalaryAndGstSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Principal Amount (₹)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={principalAmount}
                   onChange={(e) => setPrincipalAmount(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -314,7 +314,7 @@ export const SalaryAndGstSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-slate-400 mb-1">Interest Rate (% p.a.)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={annualInterestRate}
                     onChange={(e) => setAnnualInterestRate(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"
@@ -323,7 +323,7 @@ export const SalaryAndGstSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-slate-400 mb-1">Duration (Days)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={durationDays}
                     onChange={(e) => setDurationDays(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"

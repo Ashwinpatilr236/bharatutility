@@ -118,7 +118,7 @@ export const EducationSuiteCalculator: React.FC<EducationSuiteCalculatorProps> =
                 Total Classes Conducted
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={totalClasses || ''}
                 onChange={(e) => setTotalClasses(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -129,7 +129,7 @@ export const EducationSuiteCalculator: React.FC<EducationSuiteCalculatorProps> =
                 Classes You Attended
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={attendedClasses || ''}
                 onChange={(e) => setAttendedClasses(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -199,7 +199,7 @@ export const EducationSuiteCalculator: React.FC<EducationSuiteCalculatorProps> =
                 Days Remaining for Exam
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={examDaysRemaining || ''}
                 onChange={(e) => setExamDaysRemaining(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -210,7 +210,7 @@ export const EducationSuiteCalculator: React.FC<EducationSuiteCalculatorProps> =
                 Total Chapters / Modules to Cover
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={totalChapters || ''}
                 onChange={(e) => setTotalChapters(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -221,7 +221,7 @@ export const EducationSuiteCalculator: React.FC<EducationSuiteCalculatorProps> =
                 Estimated Hours per Chapter
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={hoursPerChapter || ''}
                 onChange={(e) => setHoursPerChapter(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { formatINR, formatIndianCompact, formatIndianNumber, numberToIndianWords } from '../../utils/formatters';
-import { Receipt, RefreshCw, FileText, Check } from 'lucide-react';
+import { formatINR, numberToIndianWords } from '../../utils/formatters';
+import { RefreshCw } from 'lucide-react';
+import { QuickAmountChips } from '../common/QuickAmountChips';
+import { triggerHapticFeedback } from '../../utils/haptics';
 
 interface GstCalculatorProps {
   onResultChange?: (summary: string, params: Record<string, any>) => void;
@@ -64,8 +66,11 @@ export const GstCalculator: React.FC<GstCalculatorProps> = ({ onResultChange }) 
           <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-4">
             <div className="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-800 p-1 rounded-xl">
               <button
-                onClick={() => setCalcType('exclusive')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                onClick={() => {
+                  triggerHapticFeedback('light');
+                  setCalcType('exclusive');
+                }}
+                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 ${
                   calcType === 'exclusive'
                     ? 'bg-accent text-white shadow-xs'
                     : 'text-neutral-600 dark:text-neutral-300'
@@ -74,8 +79,11 @@ export const GstCalculator: React.FC<GstCalculatorProps> = ({ onResultChange }) 
                 Add GST (Exclusive)
               </button>
               <button
-                onClick={() => setCalcType('inclusive')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                onClick={() => {
+                  triggerHapticFeedback('light');
+                  setCalcType('inclusive');
+                }}
+                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 ${
                   calcType === 'inclusive'
                     ? 'bg-accent text-white shadow-xs'
                     : 'text-neutral-600 dark:text-neutral-300'
@@ -87,10 +95,11 @@ export const GstCalculator: React.FC<GstCalculatorProps> = ({ onResultChange }) 
 
             <button
               onClick={() => {
+                triggerHapticFeedback('light');
                 setAmount(10000);
                 setGstRate(18);
               }}
-              className="text-xs text-neutral-400 hover:text-neutral-700 dark:hover:text-white flex items-center gap-1"
+              className="text-xs text-neutral-400 hover:text-neutral-700 dark:hover:text-white flex items-center gap-1 active:scale-95 transition-transform"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Reset
@@ -112,7 +121,7 @@ export const GstCalculator: React.FC<GstCalculatorProps> = ({ onResultChange }) 
               <span className="absolute left-3.5 text-neutral-400 font-bold">₹</span>
               <input
                 id="gst-amount-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="1"
                 max="100000000"
                 step="100"
@@ -121,6 +130,19 @@ export const GstCalculator: React.FC<GstCalculatorProps> = ({ onResultChange }) 
                 className="w-full pl-8 pr-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
               />
             </div>
+
+            <QuickAmountChips
+              currentValue={amount}
+              onChange={val => setAmount(val)}
+              chips={[
+                { label: '+₹1K', value: 1000 },
+                { label: '+₹5K', value: 5000 },
+                { label: '+₹10K', value: 10000 },
+                { label: '+₹50K', value: 50000 },
+                { label: '+₹1L', value: 100000 },
+              ]}
+              resetValue={10000}
+            />
           </div>
 
           {/* 2. Indian Standard GST Rate Slabs */}
@@ -133,8 +155,11 @@ export const GstCalculator: React.FC<GstCalculatorProps> = ({ onResultChange }) 
               {gstSlabs.map(slab => (
                 <button
                   key={slab.rate}
-                  onClick={() => setGstRate(slab.rate)}
-                  className={`p-3 rounded-2xl border flex flex-col items-center justify-center text-center transition-all ${
+                  onClick={() => {
+                    triggerHapticFeedback('light');
+                    setGstRate(slab.rate);
+                  }}
+                  className={`p-3 rounded-2xl border flex flex-col items-center justify-center text-center transition-all active:scale-95 ${
                     gstRate === slab.rate
                       ? 'bg-accent text-white border-accent shadow-md scale-102'
                       : 'bg-neutral-50 dark:bg-neutral-800/80 border-neutral-200 dark:border-neutral-700 hover:border-accent text-neutral-800 dark:text-neutral-200'

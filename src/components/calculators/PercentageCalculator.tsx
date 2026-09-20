@@ -122,7 +122,7 @@ export const PercentageCalculator: React.FC<PercentageCalculatorProps> = ({ onRe
                 </label>
                 <div className="relative">
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={percent1 || ''}
                     onChange={e => setPercent1(Number(e.target.value))}
                     className="w-full px-4 pr-8 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -136,7 +136,7 @@ export const PercentageCalculator: React.FC<PercentageCalculatorProps> = ({ onRe
                   Of Value (Total Amount)
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={value1 || ''}
                   onChange={e => setValue1(Number(e.target.value))}
                   className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -191,7 +191,7 @@ export const PercentageCalculator: React.FC<PercentageCalculatorProps> = ({ onRe
                   Initial / Old Value
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={initialVal || ''}
                   onChange={e => setInitialVal(Number(e.target.value))}
                   className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -203,7 +203,7 @@ export const PercentageCalculator: React.FC<PercentageCalculatorProps> = ({ onRe
                   Final / New Value
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={finalVal || ''}
                   onChange={e => setFinalVal(Number(e.target.value))}
                   className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -245,7 +245,7 @@ export const PercentageCalculator: React.FC<PercentageCalculatorProps> = ({ onRe
                   Original MRP (₹)
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={originalPrice || ''}
                   onChange={e => setOriginalPrice(Math.max(0, Number(e.target.value)))}
                   className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -257,7 +257,7 @@ export const PercentageCalculator: React.FC<PercentageCalculatorProps> = ({ onRe
                   Discount Percentage (%)
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   min="0"
                   max="100"
                   value={discountPercent || ''}
@@ -325,7 +325,7 @@ export const PercentageCalculator: React.FC<PercentageCalculatorProps> = ({ onRe
                   Obtained Part (X)
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={partVal || ''}
                   onChange={e => setPartVal(Number(e.target.value))}
                   className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -337,7 +337,7 @@ export const PercentageCalculator: React.FC<PercentageCalculatorProps> = ({ onRe
                   Out of Total (Y)
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={totalVal || ''}
                   onChange={e => setTotalVal(Number(e.target.value))}
                   className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"

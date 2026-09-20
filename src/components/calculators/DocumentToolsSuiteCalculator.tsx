@@ -535,7 +535,7 @@ export const DocumentToolsSuiteCalculator: React.FC<DocumentToolsSuiteCalculator
                 File Size in Bytes
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={fileSizeBytes}
                 onChange={e => setFileSizeBytes(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"

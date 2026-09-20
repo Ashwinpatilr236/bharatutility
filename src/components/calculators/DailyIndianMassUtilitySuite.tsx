@@ -271,7 +271,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       Gold Weight (Grams)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={goldWeightGrams}
                       onChange={(e) => setGoldWeightGrams(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -300,7 +300,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       24K Pure Rate (₹ / Gram)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={goldRatePerGram24K}
                       onChange={(e) => setGoldRatePerGram24K(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -311,7 +311,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       Making Charges (%)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={makingChargePercent}
                       onChange={(e) => setMakingChargePercent(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -376,7 +376,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       Milk Fat % (3.5 - 10.0%)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       step="0.1"
                       value={fatPercent}
                       onChange={(e) => setFatPercent(Number(e.target.value))}
@@ -388,7 +388,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       SNF % (8.0 - 9.5%)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       step="0.1"
                       value={snfPercent}
                       onChange={(e) => setSnfPercent(Number(e.target.value))}
@@ -402,7 +402,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                     Total Milk Quantity (Litres)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={milkQuantityLiters}
                     onChange={(e) => setMilkQuantityLiters(Number(e.target.value))}
                     className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -471,7 +471,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       Enter Quantity
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={inputLandValue}
                       onChange={(e) => setInputLandValue(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -541,7 +541,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       Last Drawn Basic + DA (₹)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={gratuityBasicDa}
                       onChange={(e) => setGratuityBasicDa(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -552,7 +552,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       Completed Years of Service
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="1"
                       max="45"
                       value={gratuityYears}
@@ -687,7 +687,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                     Original Ex-Showroom Price (₹)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={originalCarExShowroom}
                     onChange={(e) => setOriginalCarExShowroom(Number(e.target.value))}
                     className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -700,7 +700,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       Vehicle Age (Years)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="1"
                       max="15"
                       value={carAgeYears}
@@ -713,7 +713,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                       Odometer (KM Driven)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={odometerKm}
                       onChange={(e) => setOdometerKm(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -767,7 +767,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                     Annual Gross Professional Receipts (₹)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={freelancerGrossReceipts}
                     onChange={(e) => setFreelancerGrossReceipts(Number(e.target.value))}
                     className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -867,7 +867,7 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
                     Monthly Consumption (Strips / Packs)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="1"
                     max="10"
                     value={monthlyStrips}

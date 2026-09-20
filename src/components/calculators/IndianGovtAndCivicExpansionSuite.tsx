@@ -469,7 +469,7 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
                       Basic Pay (₹)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={basicPay}
                       onChange={(e) => setBasicPay(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -671,7 +671,7 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
                       Body Weight (kg)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={weightKg}
                       onChange={(e) => setWeightKg(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -682,7 +682,7 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
                       Height (cm)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={heightCm}
                       onChange={(e) => setHeightCm(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -785,7 +785,7 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
                       Basic Pay + DA (₹)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={epfBasicDa}
                       onChange={(e) => setEpfBasicDa(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -796,7 +796,7 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
                       Total Service (Years)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="10"
                       max="35"
                       value={serviceYears}
@@ -895,7 +895,7 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
                     Outstanding Home Loan Principal (₹)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={loanPrincipal}
                     onChange={(e) => setLoanPrincipal(Number(e.target.value))}
                     className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -907,7 +907,7 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
                       One-time Lump Sum (₹)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={lumpSumPrepay}
                       onChange={(e) => setLumpSumPrepay(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -918,7 +918,7 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
                       Yearly Extra Prepay (₹)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={yearlyPrepay}
                       onChange={(e) => setYearlyPrepay(Number(e.target.value))}
                       className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-bold"
@@ -969,7 +969,7 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
                     Printed Product MRP (₹)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={mrpInput}
                     onChange={(e) => setMrpInput(Number(e.target.value))}
                     className="w-full px-3 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-sm font-bold"

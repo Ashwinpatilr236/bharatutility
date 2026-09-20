@@ -126,7 +126,7 @@ export const MarksPercentageCalculator: React.FC<MarksPercentageCalculatorProps>
 
                 <div className="col-span-3 sm:col-span-3">
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="0"
                     max={sub.total}
                     value={sub.obtained}
@@ -140,7 +140,7 @@ export const MarksPercentageCalculator: React.FC<MarksPercentageCalculatorProps>
                   <div className="flex items-center justify-center gap-1 font-mono text-xs text-neutral-500">
                     <span>/</span>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="1"
                       value={sub.total}
                       onChange={e => updateSubject(sub.id, 'total', Number(e.target.value))}

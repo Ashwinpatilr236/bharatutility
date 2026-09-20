@@ -12,6 +12,10 @@ import { RequestToolCta } from '../common/RequestToolCta';
 import { BookmarkPrompt } from '../common/BookmarkPrompt';
 import { Link } from '../common/Link';
 import { ErrorBoundary } from '../common/ErrorBoundary';
+import { AntigravityParticles } from '../common/AntigravityParticles';
+import { FloatingBadge } from '../common/FloatingBadge';
+import { ToolCard } from '../common/ToolCard';
+import { ScrollableCarousel } from '../common/ScrollableCarousel';
 
 // Lazy-loaded Calculator Components for isolated bundle chunks & instant public loading
 const EmiCalculator = React.lazy(() => import('../calculators/EmiCalculator').then(m => ({ default: m.EmiCalculator })));
@@ -792,7 +796,11 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8 animate-in fade-in duration-200">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-8 space-y-3 sm:space-y-8 animate-in fade-in duration-200 relative">
+      {/* Background Subtle Antigravity Ambient Light & Particles */}
+      <AntigravityParticles className="opacity-35 dark:opacity-50" particleCount={25} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[250px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full animate-antigravity-pulse" />
+
       {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
@@ -806,10 +814,10 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       />
 
       {/* Tool Header Banner */}
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm relative overflow-hidden">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-neutral-200/90 dark:border-neutral-800/90 shadow-lg shadow-neutral-900/5 dark:shadow-black/40 relative overflow-hidden">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div className="flex items-start gap-4 sm:gap-5">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-indigo-500/10 to-indigo-600/20 text-accent dark:bg-neutral-800 flex items-center justify-center shrink-0 border border-neutral-200/80 dark:border-neutral-700/60 shadow-xs">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-indigo-500/15 via-purple-500/10 to-indigo-600/20 text-accent dark:bg-neutral-800/80 flex items-center justify-center shrink-0 border border-neutral-200/90 dark:border-neutral-700/60 shadow-xs">
               <DynamicIcon name={tool.icon} className="w-7 h-7 sm:w-8 sm:h-8" />
             </div>
 
@@ -819,12 +827,14 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                   {tool.name}
                 </h1>
                 {tool.badge && (
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
-                    {tool.badge}
-                  </span>
+                  <FloatingBadge duration={3} distance={3}>
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
+                      {tool.badge}
+                    </span>
+                  </FloatingBadge>
                 )}
               </div>
-              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
+              <p className="hidden md:block text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
                 {tool.description}
               </p>
             </div>
@@ -899,6 +909,9 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         </ErrorBoundary>
       </div>
 
+      {/* Tool Feedback & Rating Widget */}
+      <ToolFeedbackWidget toolSlug={tool.slug} toolName={tool.name} />
+
       {/* Bookmark BharatUtility Prompt */}
       <BookmarkPrompt variant="card" />
 
@@ -907,7 +920,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Dynamic Extended SEO Content Sections */}
       {tool.seoSections && tool.seoSections.length > 0 && (
-        <div className="space-y-6">
+        <div className="hidden md:block space-y-6">
           {tool.seoSections.map((sec, idx) => (
             <div
               key={idx}
@@ -947,7 +960,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Formula & Explanation Section */}
       {tool.formulaDescription && (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+        <div className="hidden md:block bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
           <div className="flex items-center gap-2.5 border-b border-neutral-100 dark:border-neutral-800 pb-3">
             <BookOpen className="w-5 h-5 text-accent" />
             <h2 className="text-lg font-bold text-neutral-900 dark:text-white font-display">
@@ -969,7 +982,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Step-by-Step Worked Indian Example */}
       {tool.workedExample && (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+        <div className="hidden md:block bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
           <div className="flex items-center gap-2.5 border-b border-neutral-100 dark:border-neutral-800 pb-3">
             <Sparkles className="w-5 h-5 text-amber-500" />
             <h2 className="text-lg font-bold text-neutral-900 dark:text-white font-display">
@@ -1005,7 +1018,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Frequently Asked Questions (FAQ) Section */}
       {tool.faqs && tool.faqs.length > 0 && (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+        <div className="hidden md:block bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
           <div className="flex items-center gap-2.5 border-b border-neutral-100 dark:border-neutral-800 pb-3">
             <HelpCircle className="w-5 h-5 text-accent" />
             <h2 className="text-lg font-bold text-neutral-900 dark:text-white font-display">
@@ -1065,36 +1078,11 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
             )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <ScrollableCarousel className="pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 no-scrollbar">
             {relatedTools.map(rt => (
-              <Link
-                key={rt.id}
-                to={`/tools/${rt.slug}`}
-                className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-left hover:border-accent hover:shadow-lg transition-all group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-accent-subtle text-accent flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-xs">
-                    <DynamicIcon name={rt.icon} className="w-5 h-5" />
-                  </div>
-                  <h4 className="font-bold text-sm text-neutral-900 dark:text-white group-hover:text-accent transition-colors line-clamp-1">
-                    {rt.name}
-                  </h4>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mt-1 leading-relaxed">
-                    {rt.tagline}
-                  </p>
-                </div>
-
-                <div className="mt-4 pt-2.5 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs font-semibold text-accent">
-                  <span className="capitalize text-[11px] text-neutral-400 font-medium">
-                    {rt.category}
-                  </span>
-                  <span className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Use Tool →
-                  </span>
-                </div>
-              </Link>
+              <ToolCard key={rt.id} tool={rt} />
             ))}
-          </div>
+          </ScrollableCarousel>
 
           {/* Quick Discovery Navigation Bar */}
           <div className="p-4 rounded-2xl bg-neutral-100/70 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3 text-xs">
@@ -1122,8 +1110,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         </div>
       )}
 
-      {/* Tool Feedback & Rating Widget */}
-      <ToolFeedbackWidget toolSlug={tool.slug} toolName={tool.name} />
+
 
       {/* Request a Tool CTA Card */}
       <RequestToolCta initialToolName={tool.name} variant="card" />

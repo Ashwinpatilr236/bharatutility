@@ -3,6 +3,8 @@ import { useApp } from '../../context/AppContext';
 import { getToolBySlug } from '../../data/toolsRegistry';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Clock, ArrowRight, X, Trash2 } from 'lucide-react';
+import { ToolCard } from '../common/ToolCard';
+import { ScrollableCarousel } from '../common/ScrollableCarousel';
 import { Tool } from '../../types';
 
 export const RecentlyUsedSection: React.FC = () => {
@@ -18,8 +20,8 @@ export const RecentlyUsedSection: React.FC = () => {
   if (validTools.length === 0) return null;
 
   return (
-    <section className="py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-in fade-in duration-200">
-      <div className="p-5 sm:p-6 rounded-3xl bg-neutral-100/80 dark:bg-neutral-900/80 border border-neutral-200/80 dark:border-neutral-800/80">
+    <section className="py-2 sm:py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-in fade-in duration-200">
+      <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-neutral-100/80 dark:bg-neutral-900/80 border border-neutral-200/80 dark:border-neutral-800/80">
         <div className="flex items-center justify-between gap-4 mb-4">
           <div className="flex items-center gap-2">
             <div className="p-1.5 rounded-lg bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">
@@ -45,12 +47,12 @@ export const RecentlyUsedSection: React.FC = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <ScrollableCarousel className="pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 no-scrollbar">
           {validTools.map(tool => (
             <div
               key={tool.id}
               onClick={() => navigateToTool(tool.slug)}
-              className="relative group flex flex-col justify-between p-3.5 rounded-2xl bg-white dark:bg-neutral-800 border border-neutral-200/70 dark:border-neutral-700/70 hover:border-accent/60 shadow-2xs hover:shadow-md text-left transition-all cursor-pointer"
+              className="relative group flex flex-col justify-between p-3.5 rounded-2xl bg-white dark:bg-neutral-800 border border-neutral-200/70 dark:border-neutral-700/70 hover:border-accent/60 shadow-2xs hover:shadow-md text-left transition-all cursor-pointer min-w-[50vw] sm:min-w-0 snap-start"
             >
               <div className="flex items-start justify-between gap-2 mb-2">
                 <div className="p-2 rounded-xl bg-accent-subtle text-accent group-hover:scale-105 transition-transform">
@@ -78,7 +80,7 @@ export const RecentlyUsedSection: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
+        </ScrollableCarousel>
       </div>
     </section>
   );

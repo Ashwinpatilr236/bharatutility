@@ -197,7 +197,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Trip Distance (km)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={distanceKm || ''}
                 onChange={e => setDistanceKm(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -208,7 +208,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Vehicle Mileage (km / Litre)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={mileageKmpl || ''}
                 onChange={e => setMileageKmpl(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -219,7 +219,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Fuel Price (₹ / Litre)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={fuelPricePerLitre || ''}
                 onChange={e => setFuelPricePerLitre(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -230,7 +230,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Number of Passengers
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min={1}
                 value={passengers || 1}
                 onChange={e => setPassengers(Number(e.target.value))}
@@ -272,7 +272,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Battery Capacity (kWh)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={batteryCapacityKwh || ''}
                 onChange={e => setBatteryCapacityKwh(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -283,7 +283,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Full Charge Range (km)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={evRangeKm || ''}
                 onChange={e => setEvRangeKm(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -294,7 +294,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Electricity Rate (₹ / Unit / kWh)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={electricityCostPerUnit || ''}
                 onChange={e => setElectricityCostPerUnit(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -305,7 +305,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Charger Rating (kW)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={chargerKw || ''}
                 onChange={e => setChargerKw(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -342,7 +342,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Monthly Driving Distance (km)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={monthlyKm || ''}
                 onChange={e => setMonthlyKm(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -353,7 +353,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Petrol Vehicle Mileage (km / L)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={petrolMileage || ''}
                 onChange={e => setPetrolMileage(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -364,7 +364,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Petrol Price (₹ / L)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={petrolCostLitre || ''}
                 onChange={e => setPetrolCostLitre(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -405,7 +405,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Original On-Road Purchase Price (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={purchasePrice || ''}
                 onChange={e => setPurchasePrice(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -416,7 +416,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Vehicle Age (Years)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min={1}
                 max={15}
                 value={vehicleAgeYears || 1}
@@ -429,7 +429,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Annual Depreciation Rate (%)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={depreciationRate || 15}
                 onChange={e => setDepreciationRate(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -462,7 +462,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Vehicle Price (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={vehicleLoanAmount || ''}
                 onChange={e => setVehicleLoanAmount(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -473,7 +473,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Down Payment (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={downPayment || 0}
                 onChange={e => setDownPayment(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -484,7 +484,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Interest Rate (% p.a.)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={interestRate || 9.5}
                 onChange={e => setInterestRate(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -495,7 +495,7 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
                 Tenure (Years)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={loanTenureYears || 5}
                 onChange={e => setLoanTenureYears(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -529,16 +529,16 @@ export const VehicleUtilitySuiteCalculator: React.FC<VehicleUtilitySuiteCalculat
           <div className="space-y-4">
             <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">Original Tyre Specs</div>
             <div className="grid grid-cols-3 gap-2">
-              <input type="number" placeholder="Width (185)" value={origWidth} onChange={e => setOrigWidth(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
-              <input type="number" placeholder="Aspect (65)" value={origAspect} onChange={e => setOrigAspect(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
-              <input type="number" placeholder="Rim (15)" value={origRim} onChange={e => setOrigRim(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
+              <input type="number" inputMode="decimal" pattern="[0-9]*" placeholder="Width (185)" value={origWidth} onChange={e => setOrigWidth(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
+              <input type="number" inputMode="decimal" pattern="[0-9]*" placeholder="Aspect (65)" value={origAspect} onChange={e => setOrigAspect(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
+              <input type="number" inputMode="decimal" pattern="[0-9]*" placeholder="Rim (15)" value={origRim} onChange={e => setOrigRim(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
             </div>
 
             <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2 pt-2">New Tyre Specs</div>
             <div className="grid grid-cols-3 gap-2">
-              <input type="number" placeholder="Width (195)" value={newWidth} onChange={e => setNewWidth(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
-              <input type="number" placeholder="Aspect (60)" value={newAspect} onChange={e => setNewAspect(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
-              <input type="number" placeholder="Rim (15)" value={newRim} onChange={e => setNewRim(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
+              <input type="number" inputMode="decimal" pattern="[0-9]*" placeholder="Width (195)" value={newWidth} onChange={e => setNewWidth(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
+              <input type="number" inputMode="decimal" pattern="[0-9]*" placeholder="Aspect (60)" value={newAspect} onChange={e => setNewAspect(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
+              <input type="number" inputMode="decimal" pattern="[0-9]*" placeholder="Rim (15)" value={newRim} onChange={e => setNewRim(Number(e.target.value))} className="p-2.5 rounded-xl border text-xs font-mono text-center" />
             </div>
           </div>
 

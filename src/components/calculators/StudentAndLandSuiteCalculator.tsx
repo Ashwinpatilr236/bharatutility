@@ -349,7 +349,7 @@ export const StudentAndLandSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div className="md:col-span-5">
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Land Area Quantity</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={landValue}
                   onChange={(e) => setLandValue(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono text-lg focus:outline-none focus:border-emerald-500"
@@ -440,7 +440,7 @@ export const StudentAndLandSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Length (Feet)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={slabLength}
                   onChange={(e) => setSlabLength(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-white font-mono"
@@ -449,7 +449,7 @@ export const StudentAndLandSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Width (Feet)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={slabWidth}
                   onChange={(e) => setSlabWidth(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-white font-mono"
@@ -507,7 +507,7 @@ export const StudentAndLandSuiteCalculator: React.FC<Props> = ({ tool }) => {
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1.5">Avg Cement Bag Price (₹/50kg)</label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={cementBagPrice}
                 onChange={(e) => setCementBagPrice(Number(e.target.value))}
                 className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-sm"

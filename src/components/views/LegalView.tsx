@@ -2,6 +2,8 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { ShieldCheck, Lock, FileText, Info, Mail, CheckCircle2 } from 'lucide-react';
 import { Breadcrumbs } from '../common/Breadcrumbs';
+import { AntigravityParticles } from '../common/AntigravityParticles';
+import { FloatingBadge } from '../common/FloatingBadge';
 
 interface LegalViewProps {
   page: 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact';
@@ -11,7 +13,11 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
   const { navigateToLegal, navigateToContact, navigateToRequestTool, navigateToHome } = useApp();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-200">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-200 relative">
+      {/* Background Subtle Antigravity Ambient Light & Particles */}
+      <AntigravityParticles className="opacity-35 dark:opacity-50" particleCount={25} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[250px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full animate-antigravity-pulse" />
+
       <Breadcrumbs
         items={[
           { label: 'Home', onClick: navigateToHome },
@@ -20,7 +26,7 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
       />
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-neutral-100 dark:bg-neutral-800/80">
+      <div className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-800/80 shadow-xs relative z-10">
         {[
           { id: 'about', label: 'About BharatUtility' },
           { id: 'disclaimer', label: 'Disclaimer' },
@@ -39,8 +45,8 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
             }}
             className={`py-2 px-3.5 rounded-xl text-xs font-bold transition-all ${
               page === tab.id
-                ? 'bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-xs'
-                : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900'
+                ? 'bg-accent text-white shadow-xs'
+                : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
             }`}
           >
             {tab.label}
@@ -48,7 +54,7 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
         ))}
       </div>
 
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-10 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+      <div className="bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-neutral-200/90 dark:border-neutral-800/90 shadow-lg shadow-neutral-900/5 dark:shadow-black/40 space-y-6 relative z-10">
         {page === 'about' && (
           <div className="space-y-4">
             <h1 className="text-2xl font-extrabold text-neutral-900 dark:text-white font-display">

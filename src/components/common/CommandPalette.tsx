@@ -5,6 +5,7 @@ import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecen
 import { Search, X, ArrowRight, CornerDownLeft, Sparkles, Zap, Clock, MessageSquarePlus, Compass, Trash2 } from 'lucide-react';
 import { Tool } from '../../types';
 import { getPopularTools } from '../../data/toolsRegistry';
+import { VoiceSearchButton } from './VoiceSearchButton';
 
 export const CommandPalette: React.FC = () => {
   const {
@@ -100,20 +101,20 @@ export const CommandPalette: React.FC = () => {
   return (
     <div
       onClick={() => setCommandPaletteOpen(false)}
-      className="fixed inset-0 z-[100] flex items-start justify-center pt-12 sm:pt-16 px-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150"
+      className="fixed inset-0 z-[100] flex items-start justify-center pt-3 sm:pt-16 px-2.5 sm:px-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150 safe-area-top"
     >
       <div
         onClick={e => e.stopPropagation()}
-        className="bg-white dark:bg-neutral-900 w-full max-w-3xl rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.8)] border-2 border-accent/40 overflow-hidden flex flex-col animate-in zoom-in-95 duration-150"
+        className="bg-white dark:bg-neutral-900 w-full max-w-3xl rounded-2xl sm:rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.8)] border-2 border-accent/40 overflow-hidden flex flex-col animate-in zoom-in-95 duration-150 max-h-[90vh]"
         onKeyDown={handleKeyDown}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
+        <div className="flex items-center gap-2.5 sm:gap-3 px-4 sm:px-5 py-3.5 sm:py-4 border-b border-neutral-200 dark:border-neutral-800">
           <Search className="w-5 h-5 text-accent shrink-0" />
           <input
             ref={inputRef}
             type="text"
-            placeholder="Search tools, calculate EMI, 75000 salary ka in hand, GST, SIP..."
+            placeholder="Search tools, calculate EMI, 75000 salary, GST, SIP..."
             value={query}
             onChange={e => {
               setQuery(e.target.value);
@@ -121,10 +122,18 @@ export const CommandPalette: React.FC = () => {
             }}
             className="w-full bg-transparent text-sm sm:text-base text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none"
           />
+          {/* Voice Search Mic Button (Hindi/English) */}
+          <VoiceSearchButton
+            onTranscript={text => {
+              setQuery(text);
+              setSelectedIndex(0);
+            }}
+          />
+
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="p-1 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 text-xs"
+              className="px-2 py-1 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 text-xs font-semibold rounded-md bg-neutral-100 dark:bg-neutral-800 cursor-pointer"
             >
               Clear
             </button>
@@ -132,6 +141,13 @@ export const CommandPalette: React.FC = () => {
           <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-mono font-medium text-neutral-400 bg-neutral-100 dark:bg-neutral-800 rounded-md border border-neutral-200 dark:border-neutral-700">
             ESC
           </kbd>
+          <button
+            onClick={() => setCommandPaletteOpen(false)}
+            className="sm:hidden p-1.5 text-neutral-400 hover:text-neutral-700 dark:hover:text-white rounded-lg cursor-pointer"
+            aria-label="Close search"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Quick Suggestion Trending Pills when empty */}

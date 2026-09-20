@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Fuel, Users, MapPin, Navigation, Car, Gauge, CheckCircle2 } from 'lucide-react';
 import { formatINR } from '../../utils/formatters';
+import { QuickAmountChips } from '../common/QuickAmountChips';
+import { triggerHapticFeedback } from '../../utils/haptics';
 
 interface FuelCostCalculatorProps {
   onResultChange?: (summary: string, params: Record<string, any>) => void;
@@ -36,6 +38,7 @@ export const FuelCostCalculator: React.FC<FuelCostCalculatorProps> = ({ onResult
 
   // Sync default price on fuel type change
   const handleFuelTypeChange = (type: 'petrol' | 'diesel' | 'cng' | 'ev') => {
+    triggerHapticFeedback('light');
     setFuelType(type);
     if (type === 'petrol') {
       setFuelPrice(104);
@@ -94,10 +97,11 @@ export const FuelCostCalculator: React.FC<FuelCostCalculatorProps> = ({ onResult
                 <button
                   key={r.name}
                   onClick={() => {
+                    triggerHapticFeedback('light');
                     setDistanceKm(r.distanceKm);
                     setTollCost(r.tollEstimate);
                   }}
-                  className="px-3 py-1.5 rounded-xl text-xs font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 transition-colors"
+                  className="px-3 py-1.5 rounded-xl text-xs font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 transition-colors active:scale-95"
                 >
                   {r.name} ({r.distanceKm} km)
                 </button>
@@ -111,10 +115,21 @@ export const FuelCostCalculator: React.FC<FuelCostCalculatorProps> = ({ onResult
                 One-Way Distance (km)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={distanceKm || ''}
                 onChange={e => setDistanceKm(Math.max(1, Number(e.target.value)))}
                 className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent"
+              />
+              <QuickAmountChips
+                currentValue={distanceKm}
+                onChange={val => setDistanceKm(val)}
+                chips={[
+                  { label: '+50 km', value: 50 },
+                  { label: '+100 km', value: 100 },
+                  { label: '+250 km', value: 250 },
+                  { label: '+500 km', value: 500 },
+                ]}
+                resetValue={350}
               />
             </div>
 
@@ -132,7 +147,7 @@ export const FuelCostCalculator: React.FC<FuelCostCalculatorProps> = ({ onResult
                   <button
                     key={f.id}
                     onClick={() => handleFuelTypeChange(f.id as any)}
-                    className={`py-2 rounded-xl text-xs font-bold border transition-all ${
+                    className={`py-2 rounded-xl text-xs font-bold border transition-all active:scale-95 ${
                       fuelType === f.id
                         ? 'bg-accent text-white border-accent'
                         : 'bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700'
@@ -151,7 +166,7 @@ export const FuelCostCalculator: React.FC<FuelCostCalculatorProps> = ({ onResult
                 Fuel Price ({fuelType === 'cng' ? '₹/kg' : fuelType === 'ev' ? '₹/unit' : '₹/Liter'})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 step="0.5"
                 value={fuelPrice || ''}
                 onChange={e => setFuelPrice(Number(e.target.value))}
@@ -164,7 +179,7 @@ export const FuelCostCalculator: React.FC<FuelCostCalculatorProps> = ({ onResult
                 Vehicle Mileage ({fuelType === 'cng' ? 'km/kg' : fuelType === 'ev' ? 'km/kWh' : 'km/L'})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 step="0.5"
                 value={mileage || ''}
                 onChange={e => setMileage(Math.max(1, Number(e.target.value)))}
@@ -179,7 +194,7 @@ export const FuelCostCalculator: React.FC<FuelCostCalculatorProps> = ({ onResult
                 FASTag / Tolls Estimate (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={tollCost}
                 onChange={e => setTollCost(Math.max(0, Number(e.target.value)))}
                 className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono text-sm text-neutral-900 dark:text-white outline-none focus:border-accent"
@@ -191,7 +206,7 @@ export const FuelCostCalculator: React.FC<FuelCostCalculatorProps> = ({ onResult
                 Passengers (Split Count)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="1"
                 max="50"
                 value={passengers}

@@ -198,7 +198,7 @@ export const HomeAndHealthSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-slate-400 mb-1">Height Head (Feet)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={deliveryHeightFeet}
                     onChange={(e) => setDeliveryHeightFeet(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"
@@ -356,7 +356,7 @@ export const HomeAndHealthSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Height (cm)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={heightCm}
                   onChange={(e) => setHeightCm(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -365,7 +365,7 @@ export const HomeAndHealthSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Weight (kg)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={weightKg}
                   onChange={(e) => setWeightKg(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -388,7 +388,7 @@ export const HomeAndHealthSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-slate-400 mb-1">Age</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={age}
                   onChange={(e) => setAge(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"

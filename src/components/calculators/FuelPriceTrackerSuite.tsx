@@ -174,7 +174,7 @@ export const FuelPriceTrackerSuite: React.FC = () => {
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-neutral-500">Daily Round Trip (km)</label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="1"
                 value={distanceKm}
                 onChange={e => setDistanceKm(Math.max(1, parseInt(e.target.value) || 0))}
@@ -185,7 +185,7 @@ export const FuelPriceTrackerSuite: React.FC = () => {
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-neutral-500">Vehicle Mileage (km/L or km/kg)</label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="1"
                 value={mileageKmpl}
                 onChange={e => setMileageKmpl(Math.max(1, parseInt(e.target.value) || 1))}

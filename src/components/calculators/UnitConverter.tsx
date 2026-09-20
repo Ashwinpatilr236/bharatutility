@@ -192,7 +192,7 @@ export const UnitConverter: React.FC<UnitConverterProps> = ({ onResultChange }) 
               Enter Value to Convert
             </label>
             <input
-              type="number"
+              type="number" inputMode="decimal" pattern="[0-9]*"
               value={inputValue || ''}
               onChange={e => setInputValue(Number(e.target.value))}
               className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-lg text-neutral-900 dark:text-white outline-none focus:border-accent"

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { formatINR, formatIndianCompact, formatIndianNumber, numberToIndianWords } from '../../utils/formatters';
-import { RefreshCw, CheckCircle2, Info, Building2, HelpCircle } from 'lucide-react';
+import { formatINR, formatIndianCompact, numberToIndianWords } from '../../utils/formatters';
+import { RefreshCw, Building2, HelpCircle } from 'lucide-react';
+import { QuickAmountChips } from '../common/QuickAmountChips';
+import { triggerHapticFeedback } from '../../utils/haptics';
 
 interface SalaryCalculatorProps {
   onResultChange?: (summary: string, params: Record<string, any>) => void;
@@ -50,14 +52,6 @@ export const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({ onResultChan
   let annualIncomeTax = 0;
 
   if (taxRegime === 'new') {
-    // New Tax Regime Slabs:
-    // 0 - 3,00,000 : Nil
-    // 3,00,001 - 7,00,000 : 5%
-    // 7,00,001 - 10,00,000 : 10%
-    // 10,00,001 - 12,00,000 : 15%
-    // 12,00,001 - 15,00,000 : 20%
-    // Above 15,00,000 : 30%
-    // Rebate u/s 87A: If taxable income <= 7,00,000 (total salary <= 7,75,000), tax is NIL!
     if (taxableIncome <= 700000) {
       annualIncomeTax = 0;
     } else {
@@ -81,11 +75,6 @@ export const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({ onResultChan
       annualIncomeTax = Math.round(tax * 1.04);
     }
   } else {
-    // Old Tax Regime Slabs:
-    // 0 - 2.5L: Nil
-    // 2.5L - 5L: 5%
-    // 5L - 10L: 20%
-    // Above 10L: 30%
     if (taxableIncome <= 500000) {
       annualIncomeTax = 0;
     } else {
@@ -115,14 +104,6 @@ export const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({ onResultChan
     }
   }, [annualCtc, taxRegime, bonusPercentage, monthlyInHand]);
 
-  const presets = [
-    { label: '₹6 Lakh', value: 600000 },
-    { label: '₹10 Lakh', value: 1000000 },
-    { label: '₹15 Lakh', value: 1500000 },
-    { label: '₹25 Lakh', value: 2500000 },
-    { label: '₹50 Lakh', value: 5000000 },
-  ];
-
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -141,8 +122,11 @@ export const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({ onResultChan
 
             <div className="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-800 p-1 rounded-xl">
               <button
-                onClick={() => setTaxRegime('new')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                onClick={() => {
+                  triggerHapticFeedback('light');
+                  setTaxRegime('new');
+                }}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 ${
                   taxRegime === 'new'
                     ? 'bg-accent text-white shadow-xs'
                     : 'text-neutral-600 dark:text-neutral-300'
@@ -151,8 +135,11 @@ export const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({ onResultChan
                 New Regime (Default)
               </button>
               <button
-                onClick={() => setTaxRegime('old')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                onClick={() => {
+                  triggerHapticFeedback('light');
+                  setTaxRegime('old');
+                }}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 ${
                   taxRegime === 'old'
                     ? 'bg-accent text-white shadow-xs'
                     : 'text-neutral-600 dark:text-neutral-300'
@@ -178,7 +165,7 @@ export const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({ onResultChan
               <span className="absolute left-3.5 text-neutral-400 font-bold">₹</span>
               <input
                 id="annual-ctc-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="100000"
                 max="100000000"
                 step="50000"
@@ -199,21 +186,18 @@ export const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({ onResultChan
               className="w-full accent-indigo-600 h-2 bg-neutral-200 dark:bg-neutral-800 rounded-lg cursor-pointer"
             />
 
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              {presets.map(p => (
-                <button
-                  key={p.value}
-                  onClick={() => setAnnualCtc(p.value)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
-                    annualCtc === p.value
-                      ? 'bg-accent text-white border-accent shadow-xs'
-                      : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700'
-                  }`}
-                >
-                  {p.label}
-                </button>
-              ))}
-            </div>
+            <QuickAmountChips
+              currentValue={annualCtc}
+              onChange={val => setAnnualCtc(val)}
+              chips={[
+                { label: '+₹1L', value: 100000 },
+                { label: '+₹2L', value: 200000 },
+                { label: '+₹5L', value: 500000 },
+                { label: '+₹10L', value: 1000000 },
+                { label: '+₹25L', value: 2500000 },
+              ]}
+              resetValue={1200000}
+            />
           </div>
 
           {/* 2. Optional Deductions Toggles */}

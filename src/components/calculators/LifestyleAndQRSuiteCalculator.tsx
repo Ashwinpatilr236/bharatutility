@@ -228,7 +228,7 @@ export const LifestyleAndQRSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-slate-400 mb-1">Age</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={userAge}
                   onChange={(e) => setUserAge(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"
@@ -240,7 +240,7 @@ export const LifestyleAndQRSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-slate-400 mb-1">Weight (kg)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={userWeightKg}
                   onChange={(e) => setUserWeightKg(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"
@@ -249,7 +249,7 @@ export const LifestyleAndQRSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-slate-400 mb-1">Height (cm)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={userHeightCm}
                   onChange={(e) => setUserHeightCm(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"

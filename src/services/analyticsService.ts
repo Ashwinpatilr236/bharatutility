@@ -104,6 +104,53 @@ export function detectIsBot(ua: string = typeof navigator !== 'undefined' ? navi
   return /bot|crawler|spider|googlebot|bingbot|yandex|duckduckbot|slurp|baiduspider|headless|lighthouse|pingdom|uptimerobot/i.test(ua);
 }
 
+export type TrafficType = 'public' | 'dev_test' | 'antigravity';
+
+// Traffic classifier to distinguish real public visitors, developer testing, and Antigravity automated testing
+export function detectTrafficType(): TrafficType {
+  if (typeof window === 'undefined') return 'public';
+
+  try {
+    const ua = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+    const isWebdriver = typeof navigator !== 'undefined' && Boolean(navigator.webdriver);
+    const isHeadless = /headless|antigravity/i.test(ua);
+    const isAgFlagged = Boolean(
+      (window as any).__ANTIGRAVITY__ ||
+      (window as any).__AGY__ ||
+      window.location?.search?.includes('antigravity') ||
+      window.location?.search?.includes('test_runner=antigravity')
+    );
+
+    if (isWebdriver || isHeadless || isAgFlagged) {
+      return 'antigravity';
+    }
+
+    const hostname = window.location.hostname || '';
+    const isLocalhost =
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1' ||
+      hostname.endsWith('.local') ||
+      hostname === '[::1]' ||
+      window.location.port !== '';
+
+    const isDevTestParam =
+      window.location.search.includes('test=true') ||
+      window.location.search.includes('dev=true') ||
+      window.location.search.includes('dev_mode=1');
+
+    const isLocalTesterFlag =
+      localStorage.getItem('bu_dev_tester') === 'true' ||
+      localStorage.getItem('bu_tester') === 'true' ||
+      Boolean(localStorage.getItem('bu_admin_session'));
+
+    if (isLocalhost || isDevTestParam || isLocalTesterFlag) {
+      return 'dev_test';
+    }
+  } catch {}
+
+  return 'public';
+}
+
 export function detectBrowserAndOS(): { browser: string; os: string } {
   if (typeof window === 'undefined') return { browser: 'Browser', os: 'Unknown' };
   const ua = navigator.userAgent;
@@ -304,9 +351,10 @@ class AnalyticsService {
     const { sessionId } = getOrCreateSessionId();
     const visitorId = getOrCreateVisitorId();
     const isBot = detectIsBot();
+    const trafficType = detectTrafficType();
 
     // Attach anonymous metadata cleanly into details header without user inputs
-    const metadataHeader = `[sid:${sessionId}|vid:${visitorId}|bot:${isBot ? '1' : '0'}]`;
+    const metadataHeader = `[sid:${sessionId}|vid:${visitorId}|bot:${isBot ? '1' : '0'}|traffic:${trafficType}]`;
     const cleanDetails = event.details ? `${metadataHeader} ${event.details}` : metadataHeader;
 
     // Save to local cache

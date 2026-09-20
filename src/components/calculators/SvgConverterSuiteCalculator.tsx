@@ -254,7 +254,7 @@ export const SvgConverterSuiteCalculator: React.FC<SvgConverterSuiteCalculatorPr
               <div>
                 <label className="block text-xs font-semibold text-slate-400 mb-1">Custom Width (px)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   min="8"
                   max="4096"
                   value={targetWidth}
@@ -270,7 +270,7 @@ export const SvgConverterSuiteCalculator: React.FC<SvgConverterSuiteCalculatorPr
               <div>
                 <label className="block text-xs font-semibold text-slate-400 mb-1">Custom Height (px)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   min="8"
                   max="4096"
                   value={targetHeight}

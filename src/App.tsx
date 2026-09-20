@@ -10,11 +10,8 @@ import { RequestToolCta } from './components/common/RequestToolCta';
 
 // Home View Sections (kept eager for instantaneous public home landing)
 import { HeroSection } from './components/home/HeroSection';
-import { PopularToolsSection } from './components/home/PopularToolsSection';
-import { CategoryShowcase } from './components/home/CategoryShowcase';
-import { YouMayAlsoNeedSection } from './components/home/YouMayAlsoNeedSection';
-import { TrendingToolsSection } from './components/home/TrendingToolsSection';
-import { NewToolsSection } from './components/home/NewToolsSection';
+import { ToolDiscoveryWidget } from './components/home/ToolDiscoveryWidget';
+import { CategoryDetailPanel } from './components/home/CategoryDetailPanel';
 import { YourFavoritesSection } from './components/home/YourFavoritesSection';
 import { RecentlyUsedSection } from './components/home/RecentlyUsedSection';
 import { TrustSection } from './components/home/TrustSection';
@@ -56,52 +53,45 @@ const AppContent: React.FC = () => {
   const { view, navigateToHome, toast } = useApp();
 
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-50/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white pb-14 md:pb-0">
+    <div className="min-h-screen flex flex-col bg-neutral-50/50 dark:bg-black text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white relative w-full max-w-[100vw] overflow-x-clip">
       {/* Global Offline Banner */}
       <OfflineStatusIndicator />
 
       {/* Global Header */}
       <Header />
 
-      <main className="flex-1">
+      <main className="flex-1 pb-16 md:pb-0">
         {view.type === 'home' && (
-          <div className="space-y-4 sm:space-y-8">
-            {/* 1. Hero & Smart Discovery Search with 8 Bento Tool Cards */}
+          <div className="flex flex-col space-y-1.5 sm:space-y-3.5 py-0.5 sm:py-2">
+            {/* 1. Hero & Smart Discovery Search */}
             <HeroSection />
 
             {/* 2. PWA Install App Banner */}
             <PwaInstallBanner />
 
-            {/* 3. Section 2: Popular Tools Grid */}
-            <PopularToolsSection />
+            {/* 3. Tabbed Tool Discovery: Trending / Popular / New (3 → 1 widget) */}
+            <ToolDiscoveryWidget />
 
-            {/* 4. Section 3: Interactive Instant Mini-Calculators */}
+            {/* 4. Category + Detail Panel: 2-col on desktop, chips+carousel on mobile */}
+            <CategoryDetailPanel />
+
+            {/* 5. Interactive Quick Calculators */}
             <InteractiveMiniTools />
 
-            {/* 5. Section 4: Explore by Category */}
-            <CategoryShowcase />
-
-            {/* 6. Section 5: "You May Also Need" Workflow Discovery */}
-            <YouMayAlsoNeedSection />
-
-            {/* 7. Section 6: New on BharatUtility & Trending Tools */}
-            <NewToolsSection />
-            <TrendingToolsSection />
-
-            {/* 8. Personalized Sections (Shown only when user has saved or used tools) */}
+            {/* 6. Personalized Sections (shown only when user has used tools) */}
             <YourFavoritesSection />
             <RecentlyUsedSection />
 
-            {/* 9. Section 7: Sister Project Showcase: Sanatan Next */}
+            {/* 7. Sister Project Showcase: Sanatan Next */}
             <SanatanNextShowcaseSection />
 
-            {/* 10. Section 8: Why BharatUtility & Privacy Trust */}
+            {/* 8. Why BharatUtility & Privacy Trust */}
             <TrustSection />
 
-            {/* 11. Section 9: Concise Indian User FAQ */}
+            {/* 9. Concise Indian User FAQ */}
             <HomeFaqSection />
 
-            {/* 12. Section 10: Final Tool Discovery CTA */}
+            {/* 10. Final Tool Discovery CTA */}
             <FinalDiscoveryCtaSection />
           </div>
         )}
@@ -163,10 +153,10 @@ const AppContent: React.FC = () => {
       </main>
 
       {/* Global Social Media Follow Section */}
-      <SocialFollow />
+      {view.type === 'home' && <SocialFollow />}
 
       {/* Global Footer */}
-      <Footer />
+      <Footer showEcosystemPromo={view.type === 'home'} />
 
       {/* Global Mobile Bottom Navigation Dock */}
       <MobileNavDock />

@@ -151,7 +151,7 @@ export const TechnologySuiteCalculator: React.FC<TechnologySuiteCalculatorProps>
                 File Size (GB)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={fileSizeGB || ''}
                 onChange={(e) => setFileSizeGB(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -162,7 +162,7 @@ export const TechnologySuiteCalculator: React.FC<TechnologySuiteCalculatorProps>
                 Internet Speed (Mbps)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={speedMbps || ''}
                 onChange={(e) => setSpeedMbps(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -194,7 +194,7 @@ export const TechnologySuiteCalculator: React.FC<TechnologySuiteCalculatorProps>
                 Daily Video Streaming (Hours)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={dailyStreamingHours || ''}
                 onChange={(e) => setDailyStreamingHours(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -246,7 +246,7 @@ export const TechnologySuiteCalculator: React.FC<TechnologySuiteCalculatorProps>
                 TV Screen Size (Inches Diagonal)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={screenSizeInches || ''}
                 onChange={(e) => setScreenSizeInches(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -278,7 +278,7 @@ export const TechnologySuiteCalculator: React.FC<TechnologySuiteCalculatorProps>
                 Number of Pay Channels Selected
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={selectedChannels || ''}
                 onChange={(e) => setSelectedChannels(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -323,7 +323,7 @@ export const TechnologySuiteCalculator: React.FC<TechnologySuiteCalculatorProps>
               </label>
               <div className="flex gap-2">
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={storageVal || ''}
                   onChange={(e) => setStorageVal(Number(e.target.value))}
                   className="flex-1 px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"

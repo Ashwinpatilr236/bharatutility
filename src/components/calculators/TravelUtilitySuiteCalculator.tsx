@@ -244,7 +244,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
               <div>
                 <label className="block text-[11px] font-bold text-neutral-400 mb-1">Total Distance (km)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={roadTripDistanceKm}
                   onChange={e => setRoadTripDistanceKm(Number(e.target.value))}
                   className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-bold text-neutral-900 dark:text-white font-mono"
@@ -253,7 +253,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
               <div>
                 <label className="block text-[11px] font-bold text-neutral-400 mb-1">Mileage (km / L)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={roadTripMileage}
                   onChange={e => setRoadTripMileage(Number(e.target.value))}
                   className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-bold text-neutral-900 dark:text-white font-mono"
@@ -262,7 +262,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
               <div>
                 <label className="block text-[11px] font-bold text-neutral-400 mb-1">Fuel Price (₹ / L)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={roadTripFuelPrice}
                   onChange={e => setRoadTripFuelPrice(Number(e.target.value))}
                   className="w-full px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs font-bold text-neutral-900 dark:text-white font-mono"
@@ -304,7 +304,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Trip Duration (Days / Nights)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min={1}
                 value={stayDays || 1}
                 onChange={e => setStayDays(Number(e.target.value))}
@@ -316,7 +316,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Hotel Room Rate (₹ / Night)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={hotelPerNight || 0}
                 onChange={e => setHotelPerNight(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -327,7 +327,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Food & Dining Budget (₹ / Day)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={foodPerDay || 0}
                 onChange={e => setFoodPerDay(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -338,7 +338,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Total Transport / Fuel / Flights Cost (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={transportCost || 0}
                 onChange={e => setTransportCost(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -349,7 +349,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Number of Travelers
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min={1}
                 value={numTravelers || 1}
                 onChange={e => setNumTravelers(Number(e.target.value))}
@@ -395,7 +395,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Total Bill / Hotel / Taxi Amount (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={totalExpense || ''}
                 onChange={e => setTotalExpense(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -406,7 +406,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Number of People in Group
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min={2}
                 value={peopleCount || 2}
                 onChange={e => setPeopleCount(Number(e.target.value))}
@@ -450,7 +450,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Total Allocated Travel Corpus (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={totalBudget || ''}
                 onChange={e => setTotalBudget(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -461,7 +461,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Total Trip Duration (Days)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min={1}
                 value={tripDays || 1}
                 onChange={e => setTripDays(Number(e.target.value))}
@@ -491,7 +491,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
                 Amount in Indian Rupees (₹ INR)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={amountInr || ''}
                 onChange={e => setAmountInr(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"

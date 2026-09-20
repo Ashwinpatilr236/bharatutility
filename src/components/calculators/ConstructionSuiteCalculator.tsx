@@ -121,7 +121,7 @@ export const ConstructionSuiteCalculator: React.FC<ConstructionSuiteCalculatorPr
                 Total Built-up Slab Area (Sq Ft)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={builtUpAreaSqFt || ''}
                 onChange={(e) => setBuiltUpAreaSqFt(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -162,7 +162,7 @@ export const ConstructionSuiteCalculator: React.FC<ConstructionSuiteCalculatorPr
               </label>
               <div className="flex gap-2">
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={landAreaValue || ''}
                   onChange={(e) => setLandAreaValue(Number(e.target.value))}
                   className="flex-1 px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -213,7 +213,7 @@ export const ConstructionSuiteCalculator: React.FC<ConstructionSuiteCalculatorPr
               <div>
                 <label className="block text-[11px] font-bold uppercase text-neutral-500 mb-1">Length (Ft)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={tankLengthFt || ''}
                   onChange={(e) => setTankLengthFt(Number(e.target.value))}
                   className="w-full px-3 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-bold"
@@ -222,7 +222,7 @@ export const ConstructionSuiteCalculator: React.FC<ConstructionSuiteCalculatorPr
               <div>
                 <label className="block text-[11px] font-bold uppercase text-neutral-500 mb-1">Width (Ft)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={tankWidthFt || ''}
                   onChange={(e) => setTankWidthFt(Number(e.target.value))}
                   className="w-full px-3 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-bold"
@@ -231,7 +231,7 @@ export const ConstructionSuiteCalculator: React.FC<ConstructionSuiteCalculatorPr
               <div>
                 <label className="block text-[11px] font-bold uppercase text-neutral-500 mb-1">Depth (Ft)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={tankDepthFt || ''}
                   onChange={(e) => setTankDepthFt(Number(e.target.value))}
                   className="w-full px-3 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-bold"

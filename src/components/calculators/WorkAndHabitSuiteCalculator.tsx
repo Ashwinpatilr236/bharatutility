@@ -275,7 +275,7 @@ export const WorkAndHabitSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Monthly Gross / Basic Salary (₹)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={monthlyGrossSalary}
                   onChange={(e) => setMonthlyGrossSalary(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono font-bold"
@@ -286,7 +286,7 @@ export const WorkAndHabitSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Working Days in Month</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="1"
                     max="31"
                     value={workingDaysInMonth}
@@ -297,7 +297,7 @@ export const WorkAndHabitSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Daily Work Hours</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="1"
                     max="16"
                     value={standardHoursPerDay}
@@ -310,7 +310,7 @@ export const WorkAndHabitSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Total Overtime Hours Worked</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   min="0"
                   value={overtimeHoursWorked}
                   onChange={(e) => setOvertimeHoursWorked(Number(e.target.value))}
@@ -584,7 +584,7 @@ export const WorkAndHabitSuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Total Chit Fund Value (₹)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={chitFundTotalValue}
                   onChange={(e) => setChitFundTotalValue(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono font-bold text-lg"
@@ -595,7 +595,7 @@ export const WorkAndHabitSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Total Members / Months</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="2"
                     max="100"
                     value={chitTotalMembers}
@@ -606,7 +606,7 @@ export const WorkAndHabitSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Foreman Commission (%)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     step="0.5"
                     value={foremanCommissionPercent}
                     onChange={(e) => setForemanCommissionPercent(Number(e.target.value))}

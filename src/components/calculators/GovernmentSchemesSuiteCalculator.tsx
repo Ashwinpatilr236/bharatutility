@@ -265,7 +265,7 @@ export const GovernmentSchemesSuiteCalculator: React.FC<Props> = ({
                       Girl Child Age (0-10 Yrs)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="0"
                       max="10"
                       value={ssyGirlAge}
@@ -278,7 +278,7 @@ export const GovernmentSchemesSuiteCalculator: React.FC<Props> = ({
                       Account Start Year
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="2015"
                       max="2035"
                       value={ssyStartYear}
@@ -683,7 +683,7 @@ export const GovernmentSchemesSuiteCalculator: React.FC<Props> = ({
                     Cultivable Agricultural Land (Hectares / Acres)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="0.1"
                     max="50"
                     step="0.1"
@@ -820,7 +820,7 @@ export const GovernmentSchemesSuiteCalculator: React.FC<Props> = ({
                       Interest Rate (% p.a.)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       step="0.1"
                       min="7"
                       max="18"

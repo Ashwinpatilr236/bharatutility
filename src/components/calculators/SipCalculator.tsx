@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { formatINR, formatIndianCompact, formatIndianNumber, numberToIndianWords } from '../../utils/formatters';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, RefreshCw, Sparkles, AlertCircle } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
+import { QuickAmountChips } from '../common/QuickAmountChips';
 
 interface SipCalculatorProps {
   onResultChange?: (summary: string, params: Record<string, any>) => void;
@@ -155,7 +156,7 @@ export const SipCalculator: React.FC<SipCalculatorProps> = ({ onResultChange }) 
               <span className="absolute left-3.5 text-neutral-400 font-bold">₹</span>
               <input
                 id="investment-amount-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="500"
                 max="5000000"
                 step="500"
@@ -176,8 +177,31 @@ export const SipCalculator: React.FC<SipCalculatorProps> = ({ onResultChange }) 
               className="w-full accent-indigo-600 h-2 bg-neutral-200 dark:bg-neutral-800 rounded-lg cursor-pointer"
             />
 
+            {/* Quick Amount Chips (+1k, +2.5k, +5k, +10k, +25k) */}
+            <QuickAmountChips
+              currentValue={monthlyInvestment}
+              onValueChange={setMonthlyInvestment}
+              defaultValue={10000}
+              chips={
+                investmentType === 'sip'
+                  ? [
+                      { label: '+1K', value: 1000 },
+                      { label: '+2.5K', value: 2500 },
+                      { label: '+5K', value: 5000 },
+                      { label: '+10K', value: 10000 },
+                      { label: '+25K', value: 25000 },
+                    ]
+                  : [
+                      { label: '+10K', value: 10000 },
+                      { label: '+50K', value: 50000 },
+                      { label: '+1L', value: 100000 },
+                      { label: '+5L', value: 500000 },
+                    ]
+              }
+            />
+
             {investmentType === 'sip' && (
-              <div className="flex flex-wrap gap-1.5 pt-1">
+              <div className="flex flex-wrap gap-1.5 pt-0.5">
                 {presets.map(p => (
                   <button
                     key={p.value}
@@ -209,7 +233,7 @@ export const SipCalculator: React.FC<SipCalculatorProps> = ({ onResultChange }) 
             <div className="relative flex items-center">
               <input
                 id="expected-return-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="1"
                 max="35"
                 step="0.5"
@@ -246,7 +270,7 @@ export const SipCalculator: React.FC<SipCalculatorProps> = ({ onResultChange }) 
             <div className="relative flex items-center">
               <input
                 id="time-period-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="1"
                 max="40"
                 value={timePeriodYears || ''}

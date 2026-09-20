@@ -312,7 +312,7 @@ export const TextAndLanguageSuiteCalculator: React.FC<Props> = ({ tool }) => {
                 Numerical Amount (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={numInput}
                 onChange={(e) => setNumInput(e.target.value)}
                 placeholder="e.g. 1524000"

@@ -155,7 +155,7 @@ export const CgpaCalculator: React.FC<CgpaCalculatorProps> = ({ onResultChange }
                 Cumulative Grade Point Average (CGPA)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 step="0.01"
                 min="0"
                 max="10"
@@ -240,7 +240,7 @@ export const CgpaCalculator: React.FC<CgpaCalculatorProps> = ({ onResultChange }
                   </div>
                   <div className="col-span-3">
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       step="0.01"
                       min="0"
                       max="10"
@@ -252,7 +252,7 @@ export const CgpaCalculator: React.FC<CgpaCalculatorProps> = ({ onResultChange }
                   </div>
                   <div className="col-span-3">
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="1"
                       value={sem.credits}
                       onChange={e => updateSemester(sem.id, 'credits', Number(e.target.value))}

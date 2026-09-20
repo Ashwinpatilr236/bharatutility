@@ -183,7 +183,7 @@ export const TravelWeddingAndLandSuite: React.FC<Props> = ({
                     Current Waiting No.
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="1"
                     max="300"
                     value={waitingNumber}
@@ -318,7 +318,7 @@ export const TravelWeddingAndLandSuite: React.FC<Props> = ({
                     Expected Guests
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     step="25"
                     value={guestCount}
                     onChange={(e) => setGuestCount(Math.max(50, parseInt(e.target.value) || 50))}
@@ -520,7 +520,7 @@ export const TravelWeddingAndLandSuite: React.FC<Props> = ({
                   <div key={idx} className="flex items-center gap-2 text-xs">
                     <span className="w-44 text-slate-300 truncate">{sub.name}</span>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       min="0"
                       max="100"
                       value={sub.marks}
@@ -585,7 +585,7 @@ export const TravelWeddingAndLandSuite: React.FC<Props> = ({
                   Starting Monthly Rent: ₹{baseMonthlyRent.toLocaleString('en-IN')}
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   step="5000"
                   value={baseMonthlyRent}
                   onChange={(e) => setBaseMonthlyRent(Math.max(1000, parseInt(e.target.value) || 1000))}
@@ -749,7 +749,7 @@ export const TravelWeddingAndLandSuite: React.FC<Props> = ({
                   Average Annual City Rainfall: {annualRainfallMm} mm/year
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   step="50"
                   value={annualRainfallMm}
                   onChange={(e) => setAnnualRainfallMm(Math.max(200, parseInt(e.target.value) || 200))}

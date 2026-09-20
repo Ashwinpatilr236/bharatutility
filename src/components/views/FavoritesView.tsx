@@ -5,6 +5,7 @@ import { CATEGORIES } from '../../data/categories';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Breadcrumbs } from '../common/Breadcrumbs';
 import { Link } from '../common/Link';
+import { ToolCard } from '../common/ToolCard';
 import { Tool } from '../../types';
 import {
   Star,
@@ -17,6 +18,8 @@ import {
   Clock,
   ExternalLink
 } from 'lucide-react';
+import { AntigravityParticles } from '../common/AntigravityParticles';
+import { FloatingBadge } from '../common/FloatingBadge';
 
 export const FavoritesView: React.FC = () => {
   const {
@@ -54,7 +57,11 @@ export const FavoritesView: React.FC = () => {
   const popularSuggestions = getPopularTools(4);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-200">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-200 relative">
+      {/* Background Subtle Antigravity Ambient Light & Particles */}
+      <AntigravityParticles className="opacity-35 dark:opacity-50" particleCount={25} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[250px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full animate-antigravity-pulse" />
+
       {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
@@ -64,8 +71,8 @@ export const FavoritesView: React.FC = () => {
       />
 
       {/* Page Header */}
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-10 border border-neutral-200/80 dark:border-neutral-800 shadow-sm relative overflow-hidden">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div className="bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-neutral-200/90 dark:border-neutral-800/90 shadow-lg shadow-neutral-900/5 dark:shadow-black/40 relative overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10">
           <div className="flex items-start sm:items-center gap-4 sm:gap-5">
             <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0 border border-amber-500/20 shadow-xs">
               <Star className="w-7 h-7 sm:w-8 sm:h-8 fill-current" />
@@ -76,9 +83,11 @@ export const FavoritesView: React.FC = () => {
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display">
                   Saved Utilities
                 </h1>
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
-                  {favorites.length} Saved
-                </span>
+                <FloatingBadge duration={3} distance={3}>
+                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
+                    {favorites.length} Saved
+                  </span>
+                </FloatingBadge>
               </div>
               <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-xl">
                 Quick 1-click access to your most frequently used Indian financial, tax, property, and daily utility tools.
@@ -142,7 +151,7 @@ export const FavoritesView: React.FC = () => {
 
           {/* Populated Grid or Empty State */}
           {savedTools.length === 0 ? (
-            <div className="bg-white dark:bg-neutral-900 rounded-3xl p-8 sm:p-12 border border-neutral-200/80 dark:border-neutral-800 text-center space-y-6 shadow-sm">
+            <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-12 border border-neutral-200/80 dark:border-neutral-800 text-center space-y-6 shadow-sm">
               <div className="w-16 h-16 rounded-3xl bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 flex items-center justify-center mx-auto">
                 <Star className="w-8 h-8" />
               </div>
@@ -219,55 +228,9 @@ export const FavoritesView: React.FC = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {filteredFavorites.map(tool => {
-                const cat = CATEGORIES.find(c => c.id === tool.category);
-
-                return (
-                  <Link
-                    key={tool.id}
-                    to={`/tools/${tool.slug}`}
-                    className="bg-white dark:bg-neutral-900 rounded-3xl p-5 border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:border-accent hover:shadow-md transition-all group flex flex-col justify-between cursor-pointer relative"
-                  >
-                    <div className="space-y-3">
-                      <div className="flex items-start justify-between">
-                        <div className="w-11 h-11 rounded-2xl bg-accent-subtle text-accent flex items-center justify-center group-hover:scale-105 transition-transform">
-                          <DynamicIcon name={tool.icon} className="w-5 h-5" />
-                        </div>
-
-                        <div className="flex items-center gap-1">
-                          <button
-                            onClick={e => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              toggleFavorite(tool.slug);
-                            }}
-                            className="p-1.5 text-amber-500 hover:text-rose-500 transition-colors rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/30"
-                            title="Remove from favorites"
-                          >
-                            <Star className="w-4 h-4 fill-current" />
-                          </button>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h3 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
-                          {tool.name}
-                        </h3>
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mt-1 leading-relaxed">
-                          {tool.tagline}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 mt-4 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-[11px]">
-                      <span className="font-medium text-neutral-400">{cat?.name}</span>
-                      <span className="font-semibold text-accent group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
-                        Open <ArrowRight className="w-3 h-3" />
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
+              {filteredFavorites.map(tool => (
+                <ToolCard key={tool.id} tool={tool} />
+              ))}
             </div>
           )}
         </div>

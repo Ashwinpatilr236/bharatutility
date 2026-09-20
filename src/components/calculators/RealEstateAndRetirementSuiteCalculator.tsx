@@ -210,7 +210,7 @@ export const RealEstateAndRetirementSuiteCalculator: React.FC<Props> = ({ tool }
                 <div>
                   <label className="block text-slate-400 mb-1">Loan Interest (%)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={homeLoanRate}
                     onChange={(e) => setHomeLoanRate(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"
@@ -219,7 +219,7 @@ export const RealEstateAndRetirementSuiteCalculator: React.FC<Props> = ({ tool }
                 <div>
                   <label className="block text-slate-400 mb-1">SIP Return (%)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={sipReturnRate}
                     onChange={(e) => setSipReturnRate(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono"
@@ -296,7 +296,7 @@ export const RealEstateAndRetirementSuiteCalculator: React.FC<Props> = ({ tool }
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Total Property Cost (Purchase + Registration)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={flatCost}
                   onChange={(e) => setFlatCost(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -305,7 +305,7 @@ export const RealEstateAndRetirementSuiteCalculator: React.FC<Props> = ({ tool }
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Annual Rental Income (₹)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={annualRentIncome}
                   onChange={(e) => setAnnualRentIncome(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -314,7 +314,7 @@ export const RealEstateAndRetirementSuiteCalculator: React.FC<Props> = ({ tool }
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Annual Maintenance & Property Tax (₹)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={maintenanceAndTaxYearly}
                   onChange={(e) => setMaintenanceAndTaxYearly(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -415,7 +415,7 @@ export const RealEstateAndRetirementSuiteCalculator: React.FC<Props> = ({ tool }
               <div>
                 <label className="block text-xs font-medium text-slate-400 mb-1">Expected Annual Return (% CAGR)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={expectedSipReturn}
                   onChange={(e) => setExpectedSipReturn(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -479,7 +479,7 @@ export const RealEstateAndRetirementSuiteCalculator: React.FC<Props> = ({ tool }
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Monthly Living Expenses Today (₹)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={monthlyExpenseToday}
                   onChange={(e) => setMonthlyExpenseToday(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -490,7 +490,7 @@ export const RealEstateAndRetirementSuiteCalculator: React.FC<Props> = ({ tool }
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1">Current Age</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={currentAge}
                     onChange={(e) => setCurrentAge(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono"
@@ -499,7 +499,7 @@ export const RealEstateAndRetirementSuiteCalculator: React.FC<Props> = ({ tool }
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1">Target Retirement Age</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={targetFireAge}
                     onChange={(e) => setTargetFireAge(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono"

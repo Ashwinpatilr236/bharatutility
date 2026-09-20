@@ -322,7 +322,7 @@ export const DateDifferenceCalculator: React.FC<DateDifferenceCalculatorProps> =
                   Number of Days
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   min="1"
                   max="10000"
                   value={daysToAdd || ''}

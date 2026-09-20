@@ -244,7 +244,7 @@ export const EnergyAndJewelrySuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1.5">Fixed Meter Charge (₹)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={fixedCharge}
                     onChange={(e) => setFixedCharge(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -253,7 +253,7 @@ export const EnergyAndJewelrySuiteCalculator: React.FC<Props> = ({ tool }) => {
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1.5">Electricity Duty (%)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={dutyPercent}
                     onChange={(e) => setDutyPercent(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -270,7 +270,7 @@ export const EnergyAndJewelrySuiteCalculator: React.FC<Props> = ({ tool }) => {
                   <div className="p-2.5 bg-slate-800/60 rounded-xl border border-slate-700/60">
                     <span className="text-slate-400 block mb-1">1.5 Ton AC (hrs/day)</span>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={acHours}
                       onChange={(e) => setAcHours(Number(e.target.value))}
                       className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-white font-mono"
@@ -279,7 +279,7 @@ export const EnergyAndJewelrySuiteCalculator: React.FC<Props> = ({ tool }) => {
                   <div className="p-2.5 bg-slate-800/60 rounded-xl border border-slate-700/60">
                     <span className="text-slate-400 block mb-1">Ceiling Fans (count)</span>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal" pattern="[0-9]*"
                       value={fanCount}
                       onChange={(e) => setFanCount(Number(e.target.value))}
                       className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-white font-mono"
@@ -460,7 +460,7 @@ export const EnergyAndJewelrySuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Gold Weight (Grams)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   step={0.1}
                   value={goldWeightGrams}
                   onChange={(e) => setGoldWeightGrams(Number(e.target.value))}
@@ -485,7 +485,7 @@ export const EnergyAndJewelrySuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">24K Gold Rate (₹/Gram)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={baseGoldRate24k}
                   onChange={(e) => setBaseGoldRate24k(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -494,7 +494,7 @@ export const EnergyAndJewelrySuiteCalculator: React.FC<Props> = ({ tool }) => {
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Making Charges (%)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={makingChargePct}
                   onChange={(e) => setMakingChargePct(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -582,7 +582,7 @@ export const EnergyAndJewelrySuiteCalculator: React.FC<Props> = ({ tool }) => {
                     ₹{row.denom} ×
                   </div>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min={0}
                     value={row.val || ''}
                     onChange={(e) => row.set(Math.max(0, parseInt(e.target.value) || 0))}

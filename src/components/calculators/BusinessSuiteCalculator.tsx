@@ -141,7 +141,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Cost Price (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={costPrice || ''}
                 onChange={(e) => setCostPrice(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white focus:ring-2 focus:ring-accent"
@@ -152,7 +152,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Selling Price (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={sellingPrice || ''}
                 onChange={(e) => setSellingPrice(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white focus:ring-2 focus:ring-accent"
@@ -188,7 +188,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Total Fixed Costs (₹/Month)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={fixedCosts || ''}
                 onChange={(e) => setFixedCosts(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -199,7 +199,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Selling Price Per Unit (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={pricePerUnit || ''}
                 onChange={(e) => setPricePerUnit(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -210,7 +210,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Variable Cost Per Unit (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={variableCostPerUnit || ''}
                 onChange={(e) => setVariableCostPerUnit(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -246,7 +246,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Total Sales Volume (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={salesAmount || ''}
                 onChange={(e) => setSalesAmount(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -257,7 +257,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Commission Rate (%)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={commissionRate || ''}
                 onChange={(e) => setCommissionRate(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -289,7 +289,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Monthly Gross Pay (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={monthlyGross || ''}
                 onChange={(e) => setMonthlyGross(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -300,7 +300,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Employer PF / Gratuity / Insurance (%)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={employerPfBonusPercent || ''}
                 onChange={(e) => setEmployerPfBonusPercent(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -336,7 +336,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Loan Amount (₹)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={loanAmount || ''}
                 onChange={(e) => setLoanAmount(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -347,7 +347,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Interest Rate (% p.a.)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={interestRate || ''}
                 onChange={(e) => setInterestRate(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"
@@ -358,7 +358,7 @@ export const BusinessSuiteCalculator: React.FC<BusinessSuiteCalculatorProps> = (
                 Tenure (Years)
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 value={tenureYears || ''}
                 onChange={(e) => setTenureYears(Number(e.target.value))}
                 className="w-full px-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 font-mono text-base font-bold text-neutral-900 dark:text-white"

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { formatINR, formatIndianCompact, formatIndianNumber, numberToIndianWords } from '../../utils/formatters';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { IndianRupee, Percent, Calendar, RefreshCw, ChevronDown, ChevronUp, Check, ShieldCheck } from 'lucide-react';
+import { RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
+import { QuickAmountChips } from '../common/QuickAmountChips';
 
 interface EmiCalculatorProps {
   onResultChange?: (summary: string, params: Record<string, any>) => void;
@@ -130,7 +131,7 @@ export const EmiCalculator: React.FC<EmiCalculatorProps> = ({ onResultChange }) 
               <span className="absolute left-3.5 text-neutral-400 font-bold">₹</span>
               <input
                 id="loan-amount-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="50000"
                 max="100000000"
                 step="50000"
@@ -152,8 +153,16 @@ export const EmiCalculator: React.FC<EmiCalculatorProps> = ({ onResultChange }) 
               className="w-full accent-indigo-600 h-2 bg-neutral-200 dark:bg-neutral-800 rounded-lg cursor-pointer"
             />
 
+            {/* Quick Amount Chips (+10k, +50k, +1L, +5L, +10L) */}
+            <QuickAmountChips
+              currentValue={loanAmount}
+              onValueChange={setLoanAmount}
+              defaultValue={2500000}
+              max={200000000}
+            />
+
             {/* Quick preset buttons */}
-            <div className="flex flex-wrap gap-1.5 pt-1">
+            <div className="flex flex-wrap gap-1.5 pt-0.5">
               {amountPresets.map(p => (
                 <button
                   key={p.value}
@@ -184,7 +193,7 @@ export const EmiCalculator: React.FC<EmiCalculatorProps> = ({ onResultChange }) 
             <div className="relative flex items-center">
               <input
                 id="interest-rate-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="1"
                 max="30"
                 step="0.05"
@@ -240,9 +249,9 @@ export const EmiCalculator: React.FC<EmiCalculatorProps> = ({ onResultChange }) 
             <div className="relative flex items-center">
               <input
                 id="tenure-input"
-                type="number"
+                type="number" inputMode="decimal" pattern="[0-9]*"
                 min="1"
-                max={tenureType === 'years' ? 35 : 420}
+                max={tenureType === 'years' ? 40 : 480}
                 value={tenureYears || ''}
                 onChange={e => setTenureYears(Math.max(1, Number(e.target.value)))}
                 className="w-full px-4 pr-16 py-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 font-mono font-bold text-base text-neutral-900 dark:text-white outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"

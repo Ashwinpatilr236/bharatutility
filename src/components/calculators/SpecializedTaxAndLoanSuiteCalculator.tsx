@@ -267,7 +267,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Total Purchase / Invested Amount (₹)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={mfPurchaseAmount}
                     onChange={(e) => setMfPurchaseAmount(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -276,7 +276,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Total Redemption / Sale Value (₹)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={mfSaleAmount}
                     onChange={(e) => setMfSaleAmount(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold"
@@ -312,7 +312,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
                     LTCG Exemption Already Claimed elsewhere this FY (₹) (Max ₹1.25L)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     max={125000}
                     value={mfAlreadyUtilizedExemption}
                     onChange={(e) => setMfAlreadyUtilizedExemption(Math.min(125000, Number(e.target.value)))}
@@ -413,7 +413,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Net Gold Weight (Grams)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="1"
                     value={goldWeightGrams}
                     onChange={(e) => setGoldWeightGrams(Number(e.target.value))}
@@ -438,7 +438,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-1.5">Current 24K Gold Market Rate (₹/Gram)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={goldRatePerGram24K}
                   onChange={(e) => setGoldRatePerGram24K(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
@@ -449,7 +449,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Interest Rate (% p.a.)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     step="0.1"
                     value={goldInterestRatePa}
                     onChange={(e) => setGoldInterestRatePa(Number(e.target.value))}
@@ -459,7 +459,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
                 <div>
                   <label className="block text-xs font-medium text-slate-300 mb-1.5">Tenure (Months)</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     min="1"
                     max="36"
                     value={goldLoanTenureMonths}
@@ -594,7 +594,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
                   Gross Annual Receipts / Invoiced Amount (₹) (Max ₹75L)
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal" pattern="[0-9]*"
                   value={freelanceGrossReceipts}
                   onChange={(e) => setFreelanceGrossReceipts(Number(e.target.value))}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-blue-400 font-mono font-bold text-lg"
@@ -635,7 +635,7 @@ export const SpecializedTaxAndLoanSuiteCalculator: React.FC<Props> = ({ tool }) 
                     Section 80C / 80D Deductions (₹) (PPF, ELSS, Insurance)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal" pattern="[0-9]*"
                     value={freelanceOld80CDeductions}
                     onChange={(e) => setFreelanceOld80CDeductions(Number(e.target.value))}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
