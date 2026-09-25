@@ -218,36 +218,7 @@ export const IndiaServicesSuiteCalculator: React.FC<IndiaServicesSuiteCalculator
   }, [mode, ifscSearch, pinSearch, rtoSearch, gstin, pan, isGstinValid, isPanValid]);
 
   return (
-    <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
-      {/* Mode Switcher Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-neutral-100 dark:border-neutral-800">
-        {[
-          { id: 'ifsc-finder', label: 'IFSC Code Finder', icon: Landmark },
-          { id: 'gstin-validator', label: 'GSTIN Validator', icon: ShieldCheck },
-          { id: 'pan-validator', label: 'PAN Validator', icon: CreditCard },
-          { id: 'pin-finder', label: 'PIN Code Finder', icon: MapPin },
-          { id: 'rto-finder', label: 'RTO Code Finder', icon: Hash },
-          { id: 'bank-holidays', label: 'Bank Holidays', icon: Calendar },
-          { id: 'gov-directory', label: 'Official Gov Services', icon: ExternalLink },
-        ].map(tab => {
-          const Icon = tab.icon;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setMode(tab.id as IndiaServicesMode)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
-                mode === tab.id
-                  ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-xs'
-                  : 'bg-neutral-50 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100'
-              }`}
-            >
-              <Icon className="w-3.5 h-3.5" />
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
-
+    <div className="w-full space-y-6">
       {/* Mode 1: IFSC Code Finder */}
       {mode === 'ifsc-finder' && (
         <div className="space-y-6">

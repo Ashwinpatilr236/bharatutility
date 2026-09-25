@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { TOOLS_REGISTRY } from '../src/data/toolsRegistry.ts';
+import { getActiveTools } from '../src/data/toolsRegistry.ts';
+const TOOLS_REGISTRY = getActiveTools();
 import { CATEGORIES } from '../src/data/categories.ts';
 
 const __filename = fileURLToPath(import.meta.url);

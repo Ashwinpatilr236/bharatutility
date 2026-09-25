@@ -170,36 +170,7 @@ export const TravelUtilitySuiteCalculator: React.FC<TravelUtilitySuiteCalculator
   ]);
 
   return (
-    <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
-      {/* Mode Switcher Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-neutral-100 dark:border-neutral-800">
-        {[
-          { id: 'trip-cost', label: 'Trip Cost Calculator', icon: Compass },
-          { id: 'road-trip', label: 'Road Trip Planner', icon: Navigation },
-          { id: 'group-split', label: 'Group Expense Split', icon: Users },
-          { id: 'travel-budget', label: 'Travel Budget Planner', icon: DollarSign },
-          { id: 'currency-converter', label: 'Currency Converter', icon: Globe },
-          { id: 'timezone-converter', label: 'Time Zone Converter', icon: Clock },
-          { id: 'packing-checklist', label: 'Packing Checklist', icon: Luggage },
-        ].map(tab => {
-          const Icon = tab.icon;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setMode(tab.id as TravelMode)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
-                mode === tab.id
-                  ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-xs'
-                  : 'bg-neutral-50 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100'
-              }`}
-            >
-              <Icon className="w-3.5 h-3.5" />
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
-
+    <div className="w-full space-y-6">
       {/* Mode: Road Trip Planner */}
       {mode === 'road-trip' && (
         <div className="space-y-6">

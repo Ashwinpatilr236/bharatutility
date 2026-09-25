@@ -216,38 +216,7 @@ export const DocumentToolsSuiteCalculator: React.FC<DocumentToolsSuiteCalculator
   }, [mode]);
 
   return (
-    <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
-      {/* Mode Switcher Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-neutral-100 dark:border-neutral-800">
-        {[
-          { id: 'pdf-merge', label: 'Merge PDF', icon: FileText },
-          { id: 'jpg-to-pdf', label: 'Images to PDF', icon: ImageIcon },
-          { id: 'image-compressor-resizer', label: 'Image Compressor', icon: Sliders },
-          { id: 'signature-resizer', label: 'Exam Signature / Photo', icon: Scissors },
-          { id: 'qr-generator', label: 'QR Code Generator', icon: QrCode },
-          { id: 'file-size-calc', label: 'File Size Calculator', icon: HardDrive },
-        ].map(tab => {
-          const Icon = tab.icon;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => {
-                setMode(tab.id as DocumentToolsMode);
-                setStatusMsg('');
-              }}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
-                mode === tab.id
-                  ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-xs'
-                  : 'bg-neutral-50 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100'
-              }`}
-            >
-              <Icon className="w-3.5 h-3.5" />
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
-
+    <div className="w-full space-y-6">
       {/* Privacy Notice Banner */}
       <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
         <Shield className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />

@@ -99,57 +99,7 @@ export const TravelWeddingAndLandSuite: React.FC<Props> = ({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 lg:p-8 text-white shadow-2xl">
-      {/* Suite Tabs Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-5 mb-6 overflow-x-auto gap-2">
-        <div className="flex items-center gap-2">
-          <span className="p-2.5 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/20">
-            <Train className="w-6 h-6" />
-          </span>
-          <div>
-            <h2 className="text-xl font-bold text-white tracking-tight">
-              Travel, Wedding, Agriloan & Citizen Life Suite
-            </h2>
-            <p className="text-xs text-slate-400">
-              IRCTC Quotas, Shaadi Budget, KCC 4% Loan, Gazette Name Change, Board Best-of-5 & Locker 100x
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs Navigation */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-1.5 p-1.5 bg-slate-950/60 rounded-2xl border border-slate-800/80 mb-8">
-        {[
-          { id: 'pnr-decoder', label: '🚆 PNR Quotas', icon: Train },
-          { id: 'wedding-budget', label: '💍 Shaadi Budget', icon: Heart },
-          { id: 'kcc-loan', label: '🌾 KCC 4% Loan', icon: Tractor },
-          { id: 'gazette-guide', label: '📜 Gazette Name', icon: FileCheck },
-          { id: 'board-marks', label: '🏫 Best of 5', icon: GraduationCap },
-          { id: 'rent-escalation', label: '🏢 Rent Escalation', icon: Building2 },
-          { id: 'ayurveda-prakriti', label: '🌿 Prakriti Dosha', icon: Leaf },
-          { id: 'rainwater-tank', label: '🌧️ Rainwater Sizing', icon: Droplets },
-          { id: 'sar-radiation', label: '📱 SAR Radiation', icon: Radio },
-          { id: 'bank-locker', label: '🏦 Locker 100x', icon: Lock },
-        ].map((tab) => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as TravelWeddingLandToolMode)}
-              className={`flex flex-col items-center justify-center p-2 rounded-xl text-xs font-semibold transition-all ${
-                isActive
-                  ? 'bg-gradient-to-r from-orange-500 to-amber-600 text-white shadow-lg shadow-orange-500/20 scale-[1.02]'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-              }`}
-            >
-              <Icon className="w-4 h-4 mb-1" />
-              <span className="truncate w-full text-center">{tab.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
+    <div className="w-full">
       {/* 1. IRCTC PNR Quotas & Waiting Confirmation Decoder */}
       {activeTab === 'pnr-decoder' && (
         <div className="space-y-6">

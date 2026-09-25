@@ -95,6 +95,9 @@ export interface Tool {
   relatedTools?: string[];
   seoSections?: SEOSection[];
   disclaimer?: string;
+  lastUpdated?: string;
+  officialSource?: string;
+  needsManualVerification?: boolean;
 }
 
 export interface CalculationHistoryItem {

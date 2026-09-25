@@ -24,6 +24,19 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
   const category = CATEGORIES.find(c => c.id === categoryId) || CATEGORIES[0];
   const tools = getToolsByCategory(categoryId);
 
+  const [visibleCount, React_useState] = React.useState(24);
+  const handleLoadMore = () => {
+    React_useState(prev => prev + 24);
+  };
+
+  // Reset when category changes
+  React.useEffect(() => {
+    React_useState(24);
+  }, [categoryId]);
+
+  const currentTools = tools.slice(0, visibleCount);
+  const hasMore = visibleCount < tools.length;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-8 space-y-3.5 sm:space-y-8 animate-in fade-in duration-200 relative">
       {/* Background Subtle Antigravity Ambient Light & Particles */}
@@ -70,10 +83,21 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
-          {tools.map(tool => (
+          {currentTools.map(tool => (
             <ToolCard key={tool.id} tool={tool} />
           ))}
         </div>
+        
+        {hasMore && (
+          <div className="flex justify-center pt-6 pb-2">
+            <button
+              onClick={handleLoadMore}
+              className="px-6 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white font-bold text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors shadow-sm"
+            >
+              Load More Tools ({tools.length - visibleCount} remaining)
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Category In-Depth Guide & SEO Overview */}

@@ -359,7 +359,7 @@ export const HardwareAndDiagnosticSuiteCalculator: React.FC<Props> = ({
       </div>
 
       {/* Main Card */}
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+      <div className="w-full space-y-6">
         
         {/* 1. Mobile Screen Tester */}
         {activeTab === 'mobile-tester' && (

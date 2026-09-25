@@ -5,6 +5,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'emi-calculator',
     slug: 'emi-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'EMI Calculator',
     shortName: 'EMI Calculator',
     tagline: 'Calculate monthly loan EMI, interest payout, and total repayment for home, personal, and car loans',
@@ -173,6 +175,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'sip-calculator',
     slug: 'sip-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'SIP Calculator',
     shortName: 'SIP Calculator',
     tagline: 'Calculate monthly mutual fund SIP returns, total investment, and expected wealth',
@@ -328,6 +332,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'gst-calculator',
     slug: 'gst-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'GST Calculator',
     shortName: 'GST Calculator',
     tagline: 'Calculate GST inclusive & exclusive amounts, CGST, SGST, and IGST rates',
@@ -348,7 +354,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     featured: true,
     views: 46000,
     seo: {
-      title: 'GST Calculator India - Calculate GST Inclusive & Exclusive | BharatUtility',
+      title: 'GST Calculator India | BharatUtility',
       description: 'Calculate Goods and Services Tax (GST) inclusive and exclusive amounts online in India. Instant CGST, SGST, and IGST breakdown for 5%, 12%, 18%, and 28% GST rates.',
       keywords: [
         'GST calculator',
@@ -482,6 +488,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'salary-calculator',
     slug: 'salary-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Salary Calculator',
     shortName: 'Salary Calculator',
     tagline: 'Calculate CTC to net in-hand monthly take-home salary after EPF & tax deductions',
@@ -629,6 +637,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'fd-calculator',
     slug: 'fd-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'FD Calculator',
     shortName: 'FD Calculator',
     tagline: 'Calculate Fixed Deposit interest payout and maturity value for Indian banks',
@@ -790,7 +800,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     views: 49000,
     seo: {
-      title: 'Age Calculator - Calculate Exact Age in Years, Months & Days | BharatUtility',
+      title: 'Age Calculator | BharatUtility',
       description: 'Calculate your exact age in years, months, weeks, days, hours, and minutes from your date of birth. Find your next birthday countdown with our free online age calculator.',
       keywords: [
         'Age calculator',
@@ -1035,6 +1045,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'unit-converter',
     slug: 'unit-converter',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Unit Converter',
     shortName: 'Unit Converter',
     tagline: 'Convert measurements across length, weight, area, volume, temperature, and speed',
@@ -1168,6 +1180,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'fuel-cost-calculator',
     slug: 'fuel-cost-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Fuel Cost Calculator',
     shortName: 'Fuel Cost Calculator',
     tagline: 'Calculate petrol or diesel trip expense and split fuel cost per passenger',
@@ -1552,6 +1566,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'paint-calculator',
     slug: 'paint-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Paint Calculator',
     shortName: 'Paint Calculator',
     tagline: 'Calculate wall paint quantity in litres, coats, and estimated budget',
@@ -1569,7 +1585,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: false,
     views: 18500,
     seo: {
-      title: 'Paint Calculator - Calculate Wall Paint Quantity (Litres) | BharatUtility',
+      title: 'Paint Calculator | BharatUtility',
       description: 'Calculate exact paint quantity required in litres for painting walls, rooms, and house interiors/exteriors in India. Estimates paint coverage, coats, and cost.',
       keywords: [
         'Paint calculator',
@@ -1699,7 +1715,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: false,
     views: 16900,
     seo: {
-      title: 'Tile Calculator - Calculate Floor & Wall Tiles Required | BharatUtility',
+      title: 'Tile Calculator | BharatUtility',
       description: 'Calculate the exact number of floor or wall tiles and tile boxes needed for your room in India. Includes tile dimensions, room area, and wastage allowance.',
       keywords: [
         'Tile calculator',
@@ -1819,7 +1835,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     popular: false,
     views: 22400,
     seo: {
-      title: 'Date Difference Calculator - Calculate Days Between Dates | BharatUtility',
+      title: 'Date Difference Calculator | BharatUtility',
       description: 'Calculate the exact number of days, weeks, months, and years between two dates. Free online date duration calculator with inclusive and exclusive date counting.',
       keywords: [
         'Date difference calculator',
@@ -1919,6 +1935,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'letter-generator',
     slug: 'letter-generator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Letter Generator',
     shortName: 'Letter Generator',
     tagline: 'Generate professional formal letters, leave applications, and resignation emails',
@@ -2264,7 +2282,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'Hash',
     keywords: ['RTO code finder', 'vehicle registration code', 'state RTO list'],
     seo: {
-      title: 'RTO Code Finder - Indian Vehicle Registration RTO Lookup | BharatUtility',
+      title: 'RTO Code Finder | BharatUtility',
       description: 'Search RTO vehicle registration codes across Maharashtra, Delhi, Karnataka, Tamil Nadu, and all Indian states.',
       keywords: ['RTO code', 'vehicle number state code', 'RTO list'],
       canonicalSlug: 'rto-code-finder',
@@ -2314,6 +2332,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'gstin-validator',
     slug: 'gstin-validator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'GSTIN Format Validator',
     shortName: 'GSTIN Validator',
     tagline: 'Validate 15-digit GSTIN structure, state code, and PAN association',
@@ -2448,6 +2468,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'indian-bank-holidays',
     slug: 'indian-bank-holidays',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Bank Holidays 2026',
     shortName: 'Bank Holidays',
     tagline: 'Check upcoming national, gazetted, and regional bank holidays in India',
@@ -2456,7 +2478,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'Calendar',
     keywords: ['bank holidays 2026', 'SBI bank holiday', 'RBI bank holiday list'],
     seo: {
-      title: 'Indian Bank Holidays 2026 - State & National Bank Calendar | BharatUtility',
+      title: 'Indian Bank Holidays 2026 | BharatUtility',
       description: 'Check bank holidays in India for 2026 including gazetted holidays and weekend closures.',
       keywords: ['bank holidays 2026', 'Indian bank holidays', 'SBI holiday list'],
       canonicalSlug: 'indian-bank-holidays',
@@ -2496,6 +2518,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'government-services-directory',
     slug: 'government-services-directory',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Official Government Service Directory',
     shortName: 'Govt Services',
     tagline: 'Direct navigation to official portals for Aadhaar, Income Tax, Passport, Parivahan & EPFO',
@@ -2505,7 +2529,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['official government portals', 'Aadhaar official site', 'Passport Seva portal'],
     popular: true,
     seo: {
-      title: 'Official Government Services Directory - Trusted Portal Links | BharatUtility',
+      title: 'Official Government Services Directory | BharatUtility',
       description: 'Directory of official Indian government portals for Aadhaar, Tax, Passport, RTO, Voter ID & EPFO.',
       keywords: ['government service links', 'official portals India', 'UIDAI portal'],
       canonicalSlug: 'government-services-directory',
@@ -2710,6 +2734,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'signature-resizer',
     slug: 'signature-resizer',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Exam Signature & Photo Resizer',
     shortName: 'Signature Resizer',
     tagline: 'Format photos and signatures for SSC, UPSC, IBPS, and Govt exam portals',
@@ -2721,7 +2747,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     badge: 'Govt Exams',
     seo: {
-      title: 'Exam Signature & Photo Resizer - 10KB/20KB/50KB Converter | BharatUtility',
+      title: 'Exam Signature & Photo Resizer | BharatUtility',
       description: 'Resize signature and passport photo files for SSC, UPSC, IBPS, and NTA entrance exam portals.',
       keywords: ['signature resizer 20kb', 'SSC photo resizer', 'UPSC signature format'],
       canonicalSlug: 'signature-resizer',
@@ -2765,6 +2791,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'qr-code-generator',
     slug: 'qr-code-generator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'QR Code Generator',
     shortName: 'QR Generator',
     tagline: 'Generate high-resolution custom QR codes for URLs, text, and UPI links',
@@ -2863,6 +2891,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'vehicle-fuel-cost-calculator',
     slug: 'vehicle-fuel-cost-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Trip Fuel Cost & Passenger Split',
     shortName: 'Fuel Cost Split',
     tagline: 'Calculate petrol/diesel cost and split expenses among carpool passengers',
@@ -2925,7 +2955,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     badge: 'EV Special',
     seo: {
-      title: 'EV Charging Cost & Range Calculator - Electric Vehicle Savings | BharatUtility',
+      title: 'EV Charging Cost & Range Calculator | BharatUtility',
       description: 'Calculate EV charging cost, cost per kilometer, and charging duration for electric vehicles in India.',
       keywords: ['EV charging cost', 'electric car cost per km', 'EV range calculator'],
       canonicalSlug: 'ev-cost-calculator',
@@ -2975,7 +3005,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['EV vs petrol calculator', 'electric car savings', 'EV vs diesel cost comparison'],
     popular: true,
     seo: {
-      title: 'EV vs Petrol Cost Calculator - 5-Year Electric Vehicle Savings | BharatUtility',
+      title: 'EV vs Petrol Cost Calculator | BharatUtility',
       description: 'Compare running costs and project 5-year financial savings of Electric Vehicles vs Petrol cars.',
       keywords: ['EV vs petrol cost', 'electric vehicle savings calculator'],
       canonicalSlug: 'ev-vs-petrol-calculator',
@@ -3015,6 +3045,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'vehicle-depreciation-calculator',
     slug: 'vehicle-depreciation-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Vehicle Age & Depreciation Calculator',
     shortName: 'Depreciation',
     tagline: 'Estimate used car and bike resale value based on vehicle age & WDV depreciation',
@@ -3023,7 +3055,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'RefreshCw',
     keywords: ['car depreciation calculator', 'used car resale value', 'vehicle age calculator'],
     seo: {
-      title: 'Vehicle Depreciation Calculator - Car & Bike Resale Value | BharatUtility',
+      title: 'Vehicle Depreciation Calculator | BharatUtility',
       description: 'Calculate car and motorcycle market resale value based on age and depreciation rates.',
       keywords: ['vehicle depreciation', 'car resale value calculator'],
       canonicalSlug: 'vehicle-depreciation-calculator',
@@ -3065,6 +3097,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'car-loan-emi-calculator',
     slug: 'car-loan-emi-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Car & Bike Loan EMI Calculator',
     shortName: 'Car Loan EMI',
     tagline: 'Calculate monthly vehicle loan EMI, interest payout, and down payment schedule',
@@ -3074,7 +3108,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['car loan EMI calculator', 'bike loan EMI', 'vehicle EMI India'],
     popular: true,
     seo: {
-      title: 'Car Loan EMI Calculator - Monthly Auto Loan Installments | BharatUtility',
+      title: 'Car Loan EMI Calculator | BharatUtility',
       description: 'Calculate car and bike loan EMIs with down payment and interest rate breakdown.',
       keywords: ['car loan EMI', 'auto loan calculator', 'bike loan EMI'],
       canonicalSlug: 'car-loan-emi-calculator',
@@ -3125,7 +3159,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'Gauge',
     keywords: ['tyre size calculator', 'tire upgrade comparison', 'speedometer error tyre'],
     seo: {
-      title: 'Tyre Size Calculator - Tire Upgrade & Speedometer Error | BharatUtility',
+      title: 'Tyre Size Calculator | BharatUtility',
       description: 'Compare original vs new tyre sizes, diameter differences, and speedometer accuracy.',
       keywords: ['tyre size comparison', 'speedometer error calculator'],
       canonicalSlug: 'tyre-size-calculator',
@@ -3179,7 +3213,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     trending: true,
     featured: true,
     seo: {
-      title: 'Trip Cost Calculator - Holiday & Vacation Budget Planner | BharatUtility',
+      title: 'Trip Cost Calculator | BharatUtility',
       description: 'Calculate complete holiday expenses including hotel, food, flights, and per-person split.',
       keywords: ['trip cost calculator', 'vacation planner', 'travel budget split'],
       canonicalSlug: 'trip-cost-calculator',
@@ -3271,6 +3305,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'travel-budget-calculator',
     slug: 'travel-budget-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Travel Budget & Daily Outflow Planner',
     shortName: 'Travel Budget',
     tagline: 'Determine daily spending allowance limit to stay within your total trip budget',
@@ -3319,6 +3355,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'currency-converter-tool',
     slug: 'currency-converter-tool',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Travel Currency Converter',
     shortName: 'Currency Converter',
     tagline: 'Convert Indian Rupees (INR) to USD, EUR, GBP, AED, THB, SGD, and JPY',
@@ -3368,6 +3406,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'time-zone-converter-tool',
     slug: 'time-zone-converter-tool',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Travel Time Zone Converter',
     shortName: 'Time Zone Converter',
     tagline: 'Convert Indian Standard Time (IST) to London, Dubai, Singapore, and US time zones',
@@ -3519,6 +3559,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'ppf-calculator',
     slug: 'ppf-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'PPF Calculator',
     shortName: 'PPF Calculator',
     tagline: 'Calculate Public Provident Fund maturity amount, yearly compounding interest, and tax savings under Section 80C',
@@ -3541,7 +3583,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 38400,
     seo: {
-      title: 'PPF Calculator - Public Provident Fund Maturity & Interest | BharatUtility',
+      title: 'PPF Calculator | BharatUtility',
       description: 'Calculate 15-year PPF maturity amount and tax-free compounding interest with the latest 7.1% p.a. government rate. Sovereign guaranteed returns.',
       keywords: [
         'PPF calculator',
@@ -3600,6 +3642,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'sukanya-samriddhi-calculator',
     slug: 'sukanya-samriddhi-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Sukanya Samriddhi Yojana (SSY) Calculator',
     shortName: 'SSY Calculator',
     tagline: 'Calculate Sukanya Samriddhi Yojana maturity corpus and highest government interest for girl child education and marriage',
@@ -3620,7 +3664,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 31200,
     seo: {
-      title: 'Sukanya Samriddhi Calculator (SSY) - 8.2% Interest & Maturity | BharatUtility',
+      title: 'Sukanya Samriddhi Calculator (SSY) | BharatUtility',
       description: 'Calculate Sukanya Samriddhi Yojana (SSY) maturity value with the latest 8.2% interest rate. Free government savings calculator for girl child future.',
       keywords: [
         'sukanya samriddhi calculator',
@@ -3668,6 +3712,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'gratuity-calculator',
     slug: 'gratuity-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Gratuity Calculator',
     shortName: 'Gratuity Calculator',
     tagline: 'Calculate gratuity payout under the Payment of Gratuity Act 1972 for private and government employees in India',
@@ -3688,7 +3734,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 29500,
     seo: {
-      title: 'Gratuity Calculator India - Payment of Gratuity Act 1972 | BharatUtility',
+      title: 'Gratuity Calculator India | BharatUtility',
       description: 'Calculate your gratuity payout upon resignation or retirement using the official 15/26 formula under the Payment of Gratuity Act 1972.',
       keywords: [
         'gratuity calculator',
@@ -3735,6 +3781,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'nps-calculator',
     slug: 'nps-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'NPS Calculator (National Pension System)',
     shortName: 'NPS Calculator',
     tagline: 'Calculate National Pension Scheme retirement corpus, monthly pension annuity, and tax-free lump sum withdrawal',
@@ -3755,7 +3803,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Retirement',
     views: 24100,
     seo: {
-      title: 'NPS Calculator - National Pension System Monthly Pension & Corpus | BharatUtility',
+      title: 'NPS Calculator | BharatUtility',
       description: 'Calculate your NPS retirement corpus, tax-free 60% lump sum withdrawal, and monthly annuity pension with expected market returns.',
       keywords: [
         'NPS calculator',
@@ -3800,6 +3848,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'epf-calculator',
     slug: 'epf-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'EPF Calculator (Employees Provident Fund)',
     shortName: 'EPF Calculator',
     tagline: 'Calculate PF maturity corpus with employee (12%) and employer (3.67% EPF + 8.33% EPS) contributions and annual salary hike',
@@ -3820,7 +3870,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 35600,
     seo: {
-      title: 'EPF Calculator - Employees Provident Fund Balance & Maturity | BharatUtility',
+      title: 'EPF Calculator | BharatUtility',
       description: 'Calculate your retirement EPF balance with 12% employee contribution, employer share, and latest 8.25% EPFO interest rate.',
       keywords: [
         'EPF calculator',
@@ -3865,6 +3915,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'home-loan-prepayment-calculator',
     slug: 'home-loan-prepayment-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Home Loan Prepayment & Interest Saver Calculator',
     shortName: 'Loan Prepayment Calculator',
     tagline: 'Calculate how making extra monthly payments or annual part-prepayments slashes your loan tenure and saves lakhs in interest',
@@ -3885,7 +3937,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Save Money',
     views: 28900,
     seo: {
-      title: 'Home Loan Prepayment Calculator - Save Interest & Cut Tenure | BharatUtility',
+      title: 'Home Loan Prepayment Calculator | BharatUtility',
       description: 'Calculate how extra monthly payments or part-prepayment reduces your home loan tenure and saves lakhs in bank interest.',
       keywords: [
         'home loan prepayment calculator',
@@ -3929,6 +3981,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'number-to-words-converter',
     slug: 'number-to-words-converter',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Number to Words Converter (Indian Rupees)',
     shortName: 'Number to Words',
     tagline: 'Convert numerical figures into words in Indian numbering system (Lakhs, Crores, Rupees & Paise) for bank cheques, invoices, and RTGS',
@@ -3949,7 +4003,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 42100,
     seo: {
-      title: 'Number to Words Converter - Indian Rupees for Cheques & Invoices | BharatUtility',
+      title: 'Number to Words Converter | BharatUtility',
       description: 'Convert numeric amounts into Indian Rupees words (Crores, Lakhs, Thousands, Paise) formatted for bank cheques, tax invoices, and legal documents.',
       keywords: [
         'number to words',
@@ -4076,7 +4130,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Developer Tool',
     views: 21900,
     seo: {
-      title: 'Text Case Converter - UPPERCASE, lowercase, Title Case & camelCase | BharatUtility',
+      title: 'Text Case Converter | BharatUtility',
       description: 'Convert text instantly into UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case. Free online developer & writer utility.',
       keywords: [
         'case converter',
@@ -4138,7 +4192,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Student Essential',
     views: 46800,
     seo: {
-      title: 'College Attendance Calculator - 75% Rule & Bunk Planner | BharatUtility',
+      title: 'College Attendance Calculator | BharatUtility',
       description: 'Calculate your college attendance percentage, how many classes you must attend for 75%, or how many lectures you can safely bunk without getting debarred.',
       keywords: [
         'attendance calculator',
@@ -4182,6 +4236,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'land-area-converter',
     slug: 'land-area-converter',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Land Area Converter (Bigha, Guntha, Gaj, Cent)',
     shortName: 'Land Area Converter',
     tagline: 'Convert land measurements across all Indian regional units: Bigha, Guntha, Gaj, Cent, Ground, Biswa, Acre, and Sq Ft',
@@ -4203,7 +4259,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 49500,
     seo: {
-      title: 'Indian Land Area Converter - Bigha, Guntha, Gaj, Cent, Sq Ft | BharatUtility',
+      title: 'Indian Land Area Converter | BharatUtility',
       description: 'Convert land & plot areas across Bigha, Guntha, Square Gaj, Cent, Ground, Biswa, Acres, and Square Feet for all Indian states.',
       keywords: [
         'land area converter',
@@ -4273,7 +4329,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Construction',
     views: 37800,
     seo: {
-      title: 'Concrete Cement & Sand Calculator - Roof Slab (Chhat) Material Estimator | BharatUtility',
+      title: 'Concrete Cement & Sand Calculator | BharatUtility',
       description: 'Calculate 50kg cement bags, sand (reti), and aggregate (gitti) required for house roof slab casting with M20/M25 mix ratios and budget estimate.',
       keywords: [
         'cement sand calculator',
@@ -4322,6 +4378,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'electricity-bill-calculator',
     slug: 'electricity-bill-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Electricity Bill & Unit Calculator (Indian Discoms)',
     shortName: 'Electricity Bill Calculator',
     tagline: 'Calculate electricity meter power units (kWh), state DISCOM slab rates, fixed charges, and appliance consumption',
@@ -4342,7 +4400,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 41200,
     seo: {
-      title: 'Electricity Bill & Unit Calculator - Indian DISCOM Slab Rates | BharatUtility',
+      title: 'Electricity Bill & Unit Calculator | BharatUtility',
       description: 'Calculate monthly electricity bill from meter units (kWh) with tiered slab rates, fixed charges, fuel surcharges (FPPPA), and appliance power estimator.',
       keywords: [
         'electricity bill calculator',
@@ -4388,6 +4446,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'solar-rooftop-calculator',
     slug: 'solar-rooftop-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Solar Rooftop Subsidy & Savings Calculator (PM Surya Ghar)',
     shortName: 'Solar Rooftop Calculator',
     tagline: 'Calculate 1kW, 2kW, 3kW solar panel generation, PM Surya Ghar central subsidy (up to ₹78,000), and 25-year bill savings',
@@ -4408,7 +4468,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'PM Surya Ghar',
     views: 39800,
     seo: {
-      title: 'Solar Rooftop Calculator - PM Surya Ghar Subsidy & Savings | BharatUtility',
+      title: 'Solar Rooftop Calculator | BharatUtility',
       description: 'Calculate PM Surya Ghar Muft Bijli Yojana solar subsidy (upto ₹78,000), 1kW/2kW/3kW installation costs, net customer investment, and 25-year power bill savings.',
       keywords: [
         'solar rooftop calculator',
@@ -4452,6 +4512,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'gold-jewellery-price-calculator',
     slug: 'gold-jewellery-price-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Gold Jewellery Price & Making Charges Calculator',
     shortName: 'Gold Price Calculator',
     tagline: 'Calculate gold jewellery final retail price with 22K (916 Hallmark), 18K purity, jeweler making charges (8-15%), and 3% GST',
@@ -4472,7 +4534,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 45300,
     seo: {
-      title: 'Gold Jewellery Price Calculator - 22K 916, Making Charges & 3% GST | BharatUtility',
+      title: 'Gold Jewellery Price Calculator | BharatUtility',
       description: 'Calculate final gold jewellery price with 22K (916 BIS Hallmark) / 18K purity conversion, jeweler making charges, hallmarking fee, and 3% GST.',
       keywords: [
         'gold calculator',
@@ -4538,7 +4600,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Business',
     views: 36200,
     seo: {
-      title: 'Cash Denomination Counter - Currency Note Tally for Banks & Shops | BharatUtility',
+      title: 'Cash Denomination Counter | BharatUtility',
       description: 'Count Indian currency note denominations (₹500, ₹200, ₹100, ₹50, ₹20, ₹10) with total note count, cash in figures, and bank deposit slip format.',
       keywords: [
         'cash denomination calculator',
@@ -4601,7 +4663,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Wealth Decision',
     views: 38900,
     seo: {
-      title: 'Rent vs Buy Calculator India - Compare 20-Year Home Loan vs Rent + SIP | BharatUtility',
+      title: 'Rent vs Buy Calculator India | BharatUtility',
       description: 'Compare 20-year net wealth of buying a home with loan EMI versus renting and investing the difference in equity mutual fund SIP.',
       keywords: [
         'rent vs buy calculator',
@@ -4645,6 +4707,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'rental-yield-calculator',
     slug: 'rental-yield-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Rental Yield & Real Estate ROI Calculator',
     shortName: 'Rental Yield Calculator',
     tagline: 'Calculate Gross and Net Rental Yield, annual ROI, and cash-on-cash return for Indian residential and commercial properties',
@@ -4664,7 +4728,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Real Estate',
     views: 22800,
     seo: {
-      title: 'Rental Yield Calculator - Gross & Net Real Estate ROI in India | BharatUtility',
+      title: 'Rental Yield Calculator | BharatUtility',
       description: 'Calculate Gross & Net Rental Yield for Indian flats, villas, and commercial shops after deducting maintenance, taxes, and vacancy costs.',
       keywords: [
         'rental yield calculator',
@@ -4726,7 +4790,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 48600,
     seo: {
-      title: '₹1 Crore Crorepati SIP Calculator - Monthly Investment for ₹1 Cr | BharatUtility',
+      title: '₹1 Crore Crorepati SIP Calculator | BharatUtility',
       description: 'Calculate how much monthly mutual fund SIP you need to accumulate a ₹1 Crore corpus in 5, 10, 15, or 20 years with 12-15% returns.',
       keywords: [
         '1 crore sip calculator',
@@ -4770,6 +4834,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'fire-retirement-calculator',
     slug: 'fire-retirement-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'FIRE Calculator (Financial Independence Retire Early - India)',
     shortName: 'FIRE Calculator',
     tagline: 'Calculate your FIRE number, required retirement corpus, and Lean/Fat FIRE goals adjusted for Indian inflation and living expenses',
@@ -4790,7 +4856,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Retire Early',
     views: 31400,
     seo: {
-      title: 'FIRE Calculator India - Financial Independence Retire Early Corpus | BharatUtility',
+      title: 'FIRE Calculator India | BharatUtility',
       description: 'Calculate your target retirement corpus for early retirement in India. Features inflation adjustment, Lean FIRE, and Fat FIRE targets.',
       keywords: [
         'fire calculator india',
@@ -4832,6 +4898,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'json-formatter-validator',
     slug: 'json-formatter-validator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'JSON Formatter, Validator & Minifier (100% In-Browser)',
     shortName: 'JSON Formatter',
     tagline: 'Format, beautify, validate, and minify JSON data with 2/4 spaces and instant error highlighting in real-time',
@@ -4852,7 +4920,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Developer Tool',
     views: 38200,
     seo: {
-      title: 'JSON Formatter & Validator - Beautify, Validate & Minify Online | BharatUtility',
+      title: 'JSON Formatter & Validator | BharatUtility',
       description: 'Format, beautify, minify, and validate JSON online. Fast, 100% private in-browser developer tool with instant syntax error detection.',
       keywords: [
         'json formatter',
@@ -4913,7 +4981,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Developer Tool',
     views: 26400,
     seo: {
-      title: 'Base64 Encoder & Decoder - Convert Text to Base64 Online | BharatUtility',
+      title: 'Base64 Encoder & Decoder | BharatUtility',
       description: 'Encode text into Base64 format or decode Base64 back to text with full UTF-8 and special character support. 100% free & private in-browser.',
       keywords: [
         'base64 encoder',
@@ -4953,6 +5021,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'secure-password-generator',
     slug: 'secure-password-generator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Secure Password Generator & Strength Checker',
     shortName: 'Password Generator',
     tagline: 'Generate cryptographically strong randomized passwords with customizable length, symbols, digits, and entropy score',
@@ -4973,7 +5043,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Security',
     views: 34100,
     seo: {
-      title: 'Secure Password Generator - Strong Randomized Passwords Online | BharatUtility',
+      title: 'Secure Password Generator | BharatUtility',
       description: 'Generate strong, unbreakable passwords using browser-based cryptographic randomness. Includes symbols, numbers, and entropy strength score.',
       keywords: [
         'password generator',
@@ -5032,7 +5102,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Writing & Code',
     views: 19500,
     seo: {
-      title: 'Text Difference Checker - Compare Two Texts Side-by-Side | BharatUtility',
+      title: 'Text Difference Checker | BharatUtility',
       description: 'Compare two text documents or code files side-by-side online. Free in-browser diff tool highlights added, removed, and modified lines.',
       keywords: [
         'diff checker',
@@ -5092,7 +5162,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Media Tool',
     views: 24700,
     seo: {
-      title: 'Aspect Ratio Calculator - Scale 16:9, 9:16, 4:3 & 1:1 Dimensions | BharatUtility',
+      title: 'Aspect Ratio Calculator | BharatUtility',
       description: 'Calculate and scale aspect ratios for images and videos. Scale pixel dimensions for YouTube (16:9), Reels (9:16), and Instagram posts without distortion.',
       keywords: [
         'aspect ratio calculator',
@@ -5134,6 +5204,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'water-tank-filling-time-calculator',
     slug: 'water-tank-filling-time-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Water Tank Motor Filling Time Calculator',
     shortName: 'Water Tank Time Calculator',
     tagline: 'Calculate how long a 0.5 HP, 1 HP, 1.5 HP motor pump takes to fill a 500L, 1000L, 2000L overhead water tank',
@@ -5154,7 +5226,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Home Utility',
     views: 31800,
     seo: {
-      title: 'Water Tank Motor Filling Time Calculator - 500L, 1000L, 2000L Tank | BharatUtility',
+      title: 'Water Tank Motor Filling Time Calculator | BharatUtility',
       description: 'Calculate exact time required for 0.5 HP, 1 HP, 1.5 HP motor pump to fill 500L to 2000L overhead water tank, flow rate (LPM), and electricity cost per fill.',
       keywords: [
         'water tank calculator',
@@ -5195,6 +5267,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'lpg-cylinder-price-calculator',
     slug: 'lpg-cylinder-price-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'LPG Gas Cylinder Price & Subsidy Calculator',
     shortName: 'LPG Cylinder Calculator',
     tagline: 'Calculate domestic 14.2 kg vs commercial 19 kg gas refill costs, annual budget, and PM Ujjwala Yojana subsidies',
@@ -5215,7 +5289,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Household',
     views: 27900,
     seo: {
-      title: 'LPG Gas Cylinder Price & Subsidy Calculator - Domestic & Commercial | BharatUtility',
+      title: 'LPG Gas Cylinder Price & Subsidy Calculator | BharatUtility',
       description: 'Calculate domestic 14.2 kg and commercial 19 kg LPG refill prices, annual cooking gas budget, and PM Ujjwala Yojana ₹300 subsidy savings.',
       keywords: [
         'lpg price calculator',
@@ -5257,6 +5331,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'bmi-indian-health-calculator',
     slug: 'bmi-indian-health-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'BMI Calculator (Indian ICMR & South Asian Standards)',
     shortName: 'Indian BMI Calculator',
     tagline: 'Calculate Body Mass Index (BMI) and ideal body weight specifically calibrated for Indian body types by ICMR and WHO South Asia',
@@ -5277,7 +5353,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Health',
     views: 47200,
     seo: {
-      title: 'Indian BMI Calculator - ICMR & South Asian Health Standards | BharatUtility',
+      title: 'Indian BMI Calculator | BharatUtility',
       description: 'Calculate BMI and ideal body weight calibrated specifically for Indian body types using official ICMR and WHO South Asian health cutoffs.',
       keywords: [
         'bmi calculator india',
@@ -5318,6 +5394,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'markdown-to-html-converter',
     slug: 'markdown-to-html-converter',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Markdown to HTML Converter (Live Preview)',
     shortName: 'Markdown to HTML',
     tagline: 'Convert Markdown syntax (Headings, bold, links, lists) into clean HTML code with instant live preview and copy',
@@ -5337,7 +5415,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Developer Tool',
     views: 23100,
     seo: {
-      title: 'Markdown to HTML Converter - Clean HTML Generator Online | BharatUtility',
+      title: 'Markdown to HTML Converter | BharatUtility',
       description: 'Convert Markdown syntax to clean semantic HTML code with real-time preview and one-click copy. 100% free, fast, in-browser developer utility.',
       keywords: [
         'markdown to html',
@@ -5398,7 +5476,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Travel Tool',
     views: 32600,
     seo: {
-      title: 'Speed, Distance & Travel Time Calculator - Hours & Minutes | BharatUtility',
+      title: 'Speed, Distance & Travel Time Calculator | BharatUtility',
       description: 'Calculate travel duration in hours and minutes from distance (km) and vehicle speed (km/h). Includes Vande Bharat, expressway car, and train presets.',
       keywords: [
         'speed distance calculator',
@@ -5440,6 +5518,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'wifi-qr-code-generator',
     slug: 'wifi-qr-code-generator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Wi-Fi QR Code Generator (Scan to Connect)',
     shortName: 'Wi-Fi QR Generator',
     tagline: 'Create instant Scan-to-Connect QR codes for home and office Wi-Fi networks without sharing passwords manually',
@@ -5520,7 +5600,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 46100,
     seo: {
-      title: 'CIBIL Score Simulator - Check Credit Score & Loan Eligibility | BharatUtility',
+      title: 'CIBIL Score Simulator | BharatUtility',
       description: 'Simulate how payment history, credit card utilization (30% rule), and inquiries affect your CIBIL score. Free educational credit simulator for India.',
       keywords: [
         'cibil score simulator',
@@ -5563,6 +5643,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'gst-tax-invoice-generator',
     slug: 'gst-tax-invoice-generator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'GST Tax Invoice Generator & PDF Maker',
     shortName: 'GST Invoice Generator',
     tagline: 'Create professional Indian GST tax invoices with B2B/B2C details, HSN codes, CGST/SGST/IGST breakdown, and print to PDF',
@@ -5583,7 +5665,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Business',
     views: 49200,
     seo: {
-      title: 'GST Tax Invoice Generator - Create Free B2B & B2C GST Invoices | BharatUtility',
+      title: 'GST Tax Invoice Generator | BharatUtility',
       description: 'Generate professional Indian GST tax invoices with HSN codes, CGST/SGST tax split, and one-click PDF printing. 100% free with zero watermarks.',
       keywords: [
         'gst invoice generator',
@@ -5624,6 +5706,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'sip-step-up-calculator',
     slug: 'sip-step-up-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Step-Up SIP Calculator (Annual Top-Up)',
     shortName: 'Step-Up SIP Calculator',
     tagline: 'Calculate compounding mutual fund wealth when you increase your SIP amount by 5%, 10%, or 15% every year with salary increments',
@@ -5644,7 +5728,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 43800,
     seo: {
-      title: 'Step-Up SIP Calculator - Annual Top-Up Mutual Fund Returns | BharatUtility',
+      title: 'Step-Up SIP Calculator | BharatUtility',
       description: 'Calculate your mutual fund returns with yearly step-up SIP increments (5%, 10%, 15%). Compares step-up wealth against standard flat SIP.',
       keywords: [
         'step up sip calculator',
@@ -5705,7 +5789,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Wellness',
     views: 35100,
     seo: {
-      title: 'Sleep Cycle Calculator - Optimal Wake-Up Times & 90-Min Cycles | BharatUtility',
+      title: 'Sleep Cycle Calculator | BharatUtility',
       description: 'Calculate natural 90-minute REM sleep cycle wake-up times and bedtimes. Wake up refreshed and energized without morning fatigue.',
       keywords: [
         'sleep cycle calculator',
@@ -5748,6 +5832,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'daily-calorie-water-calculator',
     slug: 'daily-calorie-water-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Daily Calorie, TDEE & Water Intake Calculator',
     shortName: 'Calorie & Water Calculator',
     tagline: 'Calculate your Basal Metabolic Rate (BMR), maintenance calories (TDEE), fat loss target, and daily hydration requirement',
@@ -5768,7 +5854,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Health',
     views: 31900,
     seo: {
-      title: 'Daily Calorie & Water Intake Calculator - TDEE, BMR & Fat Loss | BharatUtility',
+      title: 'Daily Calorie & Water Intake Calculator | BharatUtility',
       description: 'Calculate daily maintenance calories (TDEE), BMR, fat loss deficit, and daily water hydration targets (litres and glasses) for your body weight.',
       keywords: [
         'calorie calculator',
@@ -5810,6 +5896,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'vcard-qr-generator',
     slug: 'vcard-qr-generator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Digital Visiting Card (vCard) QR Code Generator',
     shortName: 'vCard QR Generator',
     tagline: 'Create digital contact QR codes that instantly save your name, phone number, email, and company into smartphone address books',
@@ -5830,7 +5918,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Networking',
     views: 37400,
     seo: {
-      title: 'vCard QR Code Generator - Create Digital Visiting Card QR Online | BharatUtility',
+      title: 'vCard QR Code Generator | BharatUtility',
       description: 'Generate digital visiting card QR codes (vCard 3.0). Smartphone cameras scan and save contact details directly to phonebook without typing.',
       keywords: [
         'vcard qr generator',
@@ -5890,7 +5978,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Career',
     views: 48300,
     seo: {
-      title: 'Salary Hike & Increment Percentage Calculator - CTC & In-Hand | BharatUtility',
+      title: 'Salary Hike & Increment Percentage Calculator | BharatUtility',
       description: 'Calculate salary hike percentage from old and new CTC. Computes appraisal percentage, annual increment, and estimated monthly in-hand increase.',
       keywords: [
         'salary hike calculator',
@@ -5932,6 +6020,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'gst-late-fee-calculator',
     slug: 'gst-late-fee-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'GST Late Fee & Section 50 Interest Calculator',
     shortName: 'GST Late Fee Calculator',
     tagline: 'Calculate GSTR-3B & GSTR-1 daily late filing fees (₹50/day or ₹20/day) and 18% p.a. statutory interest',
@@ -5952,7 +6042,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Tax Tool',
     views: 33800,
     seo: {
-      title: 'GST Late Fee Calculator - GSTR-3B & GSTR-1 Penalty & Interest | BharatUtility',
+      title: 'GST Late Fee Calculator | BharatUtility',
       description: 'Calculate GST late filing fees (₹50/day regular, ₹20/day Nil) and Section 50 statutory 18% p.a. interest on net tax payable.',
       keywords: [
         'gst late fee calculator',
@@ -5993,6 +6083,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'compound-daily-interest-calculator',
     slug: 'compound-daily-interest-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Compound Daily Interest Calculator',
     shortName: 'Daily Interest Calculator',
     tagline: 'Calculate daily, monthly, and quarterly compounding interest for business overdue invoices, personal loans, and deposits',
@@ -6012,7 +6104,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Finance',
     views: 28400,
     seo: {
-      title: 'Compound Daily Interest Calculator - Calculate Daily & Monthly Compounding | BharatUtility',
+      title: 'Compound Daily Interest Calculator | BharatUtility',
       description: 'Calculate daily, monthly, and quarterly compounding interest on principal amounts. Free online daily compound interest calculator.',
       keywords: [
         'daily compound interest',
@@ -6053,6 +6145,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'whatsapp-direct-link-generator',
     slug: 'whatsapp-direct-link-generator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'WhatsApp Direct Chat Link & QR Generator',
     shortName: 'WhatsApp Link Generator',
     tagline: 'Create instant wa.me click-to-chat links and QR codes to message anyone without saving their phone number',
@@ -6073,7 +6167,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 49800,
     seo: {
-      title: 'WhatsApp Direct Link Generator - Click-to-Chat & QR Code | BharatUtility',
+      title: 'WhatsApp Direct Link Generator | BharatUtility',
       description: 'Generate WhatsApp direct click-to-chat links (wa.me) and QR codes with custom messages. Start chats without saving phone numbers.',
       keywords: [
         'whatsapp link generator',
@@ -6134,7 +6228,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Productivity',
     views: 41600,
     seo: {
-      title: 'Pomodoro Focus Timer - 25-Minute Productivity Clock Online | BharatUtility',
+      title: 'Pomodoro Focus Timer | BharatUtility',
       description: 'Free online Pomodoro focus timer with 25-minute work intervals and 5-minute breaks. Boost study and coding productivity with zero distractions.',
       keywords: [
         'pomodoro timer',
@@ -6175,6 +6269,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'upi-qr-payment-generator',
     slug: 'upi-qr-payment-generator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'UPI Payment QR Code Generator (GPay / PhonePe / Paytm)',
     shortName: 'UPI QR Generator',
     tagline: 'Create instant Scan-to-Pay QR codes with custom amount and transaction note for GPay, PhonePe, Paytm, and BHIM',
@@ -6195,7 +6291,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Popular',
     views: 47900,
     seo: {
-      title: 'UPI Payment QR Code Generator - Custom Amount QR for GPay & PhonePe | BharatUtility',
+      title: 'UPI Payment QR Code Generator | BharatUtility',
       description: 'Generate custom amount UPI Scan-to-Pay QR codes for your shop or freelancing. Works with Google Pay, PhonePe, Paytm, and all Indian UPI apps.',
       keywords: [
         'upi qr generator',
@@ -6236,6 +6332,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'mutual-fund-capital-gains-tax-calculator',
     slug: 'mutual-fund-capital-gains-tax-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Mutual Fund Capital Gains Tax Calculator (Budget 2024-2026)',
     shortName: 'MF Capital Gains Tax',
     tagline: 'Calculate LTCG (12.5% above ₹1.25 Lakh exemption) & STCG (20%) on Equity & Debt Mutual Funds',
@@ -6256,7 +6354,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Budget 2024',
     views: 32400,
     seo: {
-      title: 'Mutual Fund Capital Gains Tax Calculator (LTCG 12.5% & STCG 20%) | BharatUtility',
+      title: 'Mutual Fund Capital Gains Tax Calculator | BharatUtility',
       description: 'Calculate your mutual fund capital gains tax under new Budget 2024 rules. Free equity (12.5% LTCG with ₹1.25L exemption, 20% STCG) & debt fund tax calculator.',
       keywords: [
         'mutual fund capital gains tax calculator',
@@ -6309,6 +6407,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'gold-loan-eligibility-calculator',
     slug: 'gold-loan-eligibility-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Gold Loan & Per Gram Loan Eligibility Calculator',
     shortName: 'Gold Loan Calculator',
     tagline: 'Calculate maximum bank loan sanction value per gram with RBI 75% LTV cap & monthly interest EMI',
@@ -6329,7 +6429,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'RBI 75% LTV',
     views: 28900,
     seo: {
-      title: 'Gold Loan & Per Gram Eligibility Calculator (RBI 75% LTV) | BharatUtility',
+      title: 'Gold Loan & Per Gram Eligibility Calculator | BharatUtility',
       description: 'Check maximum gold loan sanction amount per gram for 22K/24K gold with RBI 75% LTV limit. Free gold loan EMI & interest calculator.',
       keywords: [
         'gold loan calculator',
@@ -6381,6 +6481,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'section-44ada-freelance-tax-calculator',
     slug: 'section-44ada-freelance-tax-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Section 44ADA Freelance & Tech Consultant Tax Calculator',
     shortName: '44ADA Freelance Tax',
     tagline: '50% Presumptive Taxation Scheme for Developers, Consultants, Doctors & Designers (Up to ₹75 Lakh limit)',
@@ -6401,7 +6503,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Sec 44ADA',
     views: 31200,
     seo: {
-      title: 'Section 44ADA Freelance Tax Calculator (₹75 Lakh Limit) | BharatUtility',
+      title: 'Section 44ADA Freelance Tax Calculator | BharatUtility',
       description: 'Calculate presumptive income tax for tech freelancers, consultants, and doctors under Section 44ADA. 50% deemed profit and advance tax schedules.',
       keywords: [
         'section 44ada calculator',
@@ -6453,6 +6555,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'post-office-mis-calculator',
     slug: 'post-office-mis-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Post Office Monthly Income Scheme (MIS) Calculator',
     shortName: 'Post Office MIS',
     tagline: 'Calculate guaranteed monthly income at 7.4% p.a. for Single (₹9 Lakh) and Joint (₹15 Lakh) deposits',
@@ -6473,7 +6577,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Govt 7.4% Guaranteed',
     views: 33800,
     seo: {
-      title: 'Post Office MIS Calculator (7.4% Monthly Guaranteed Income) | BharatUtility',
+      title: 'Post Office MIS Calculator | BharatUtility',
       description: 'Calculate monthly guaranteed interest payout on Post Office MIS deposits. Single (up to ₹9L) and Joint (up to ₹15L) account calculations @ 7.4% p.a.',
       keywords: [
         'post office mis calculator',
@@ -6524,6 +6628,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'overtime-salary-wage-calculator',
     slug: 'overtime-salary-wage-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Overtime & Hourly Salary Wage Calculator',
     shortName: 'Overtime Calculator',
     tagline: 'Calculate standard per-hour wage and 2x double overtime rate under Indian Factories Act 1948',
@@ -6544,7 +6650,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Factories Act 2x',
     views: 24500,
     seo: {
-      title: 'Overtime & Hourly Salary Wage Calculator (Factories Act 2x) | BharatUtility',
+      title: 'Overtime & Hourly Salary Wage Calculator | BharatUtility',
       description: 'Calculate standard hourly pay and 2x double overtime rates under the Indian Factories Act. Free overtime wage and bonus calculator.',
       keywords: [
         'overtime salary calculator',
@@ -6616,7 +6722,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '100% Local & Private',
     views: 35600,
     seo: {
-      title: 'Habit Streak & Daily Routine Tracker (100% Private LocalStorage) | BharatUtility',
+      title: 'Habit Streak & Daily Routine Tracker | BharatUtility',
       description: 'Track daily habits and streak days with 100% private browser localStorage. Zero signups, zero servers, instant daily routine tracker.',
       keywords: [
         'habit tracker browser',
@@ -6665,6 +6771,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'chit-fund-committee-calculator',
     slug: 'chit-fund-committee-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Chit Fund & Committee Dividend Profit Calculator',
     shortName: 'Chit Fund Calculator',
     tagline: 'Calculate monthly auction discount, foreman commission, dividend distribution & net installment',
@@ -6685,7 +6793,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Chit Funds Act',
     views: 29800,
     seo: {
-      title: 'Chit Fund & Committee Dividend Calculator (Chit Funds Act) | BharatUtility',
+      title: 'Chit Fund & Committee Dividend Calculator | BharatUtility',
       description: 'Calculate monthly auction discounts, dividend distribution per member, and actual installment payments for Chit Funds and Committee schemes.',
       keywords: [
         'chit fund calculator',
@@ -6820,7 +6928,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Business Days',
     views: 29100,
     seo: {
-      title: 'Working Days & Business Days Calculator (Exclude Weekends) | BharatUtility',
+      title: 'Working Days & Business Days Calculator | BharatUtility',
       description: 'Calculate net working days and business days between any two dates. Exclude Saturdays, Sundays, and holidays with instant results.',
       keywords: [
         'working days calculator india',
@@ -6863,6 +6971,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'ist-time-zone-converter',
     slug: 'ist-time-zone-converter',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'IST to Global Time Zone Converter',
     shortName: 'IST Time Converter',
     tagline: 'Convert Indian Standard Time (IST) to US (EST/PST), UK (GMT), Dubai (GST), Singapore (SGT) & Sydney (AEST)',
@@ -7010,7 +7120,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Live Muhurat',
     views: 45200,
     seo: {
-      title: 'Today Choghadiya & Shubh Muhurat Calculator (Live Timings) | BharatUtility',
+      title: 'Today Choghadiya & Shubh Muhurat Calculator | BharatUtility',
       description: 'Check today Day and Night Choghadiya, Shubh Muhurat, Rahu Kaal, and Abhijit timings for all Indian cities. 100% free mathematical Vedic calculation.',
       keywords: [
         'choghadiya calculator',
@@ -7139,7 +7249,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Vector Tool',
     views: 38400,
     seo: {
-      title: 'SVG to PNG & WebP Converter (High-Resolution & Transparent) | BharatUtility',
+      title: 'SVG to PNG & WebP Converter | BharatUtility',
       description: 'Convert SVG vector files or raw markup to high-res PNG and WebP images. 100% private, client-side converter with custom background and size presets.',
       keywords: [
         'svg to png',
@@ -7200,7 +7310,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'SSC / UPSC Ready',
     views: 64500,
     seo: {
-      title: 'Govt Exam Photo & Date Stamp Maker (SSC, UPSC, IBPS 20KB-50KB) | BharatUtility',
+      title: 'Govt Exam Photo & Date Stamp Maker | BharatUtility',
       description: 'Add candidate name and Date of Photo (DOP) banner to your passport photo. Formatted specifically for SSC CGL/CHSL, UPSC, IBPS, and State PSC applications.',
       keywords: [
         'ssc photo date stamp',
@@ -7467,6 +7577,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'csv-to-json-converter',
     slug: 'csv-to-json-converter',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'CSV to JSON & JSON to CSV Converter (Tabular Preview)',
     shortName: 'CSV <-> JSON Converter',
     tagline: 'Convert spreadsheets and datasets between CSV and JSON with live sorting table and custom delimiters',
@@ -7485,7 +7597,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Developer Tool',
     views: 48900,
     seo: {
-      title: 'CSV to JSON & JSON to CSV Converter (Live Table Preview) | BharatUtility',
+      title: 'CSV to JSON & JSON to CSV Converter | BharatUtility',
       description: 'Convert CSV to JSON and JSON to CSV online. Features live spreadsheet table preview, delimiter selection, and instant download.',
       keywords: ['csv to json', 'json to csv', 'csv converter'],
       canonicalSlug: 'csv-to-json-converter',
@@ -7540,7 +7652,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Batch Tool',
     views: 59100,
     seo: {
-      title: 'Image Format Converter - Batch WebP, PNG, JPG Converter | BharatUtility',
+      title: 'Image Format Converter | BharatUtility',
       description: 'Convert multiple images to WebP, PNG, or JPG format simultaneously. Fast in-browser batch converter with quality slider.',
       keywords: ['image format converter', 'batch image converter', 'png to webp'],
       canonicalSlug: 'image-format-converter',
@@ -7576,6 +7688,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'currency-converter',
     slug: 'currency-converter',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Live Currency Converter & Remittance',
     shortName: 'Currency Converter',
     tagline: 'Real-time exchange rates for USD, EUR, GBP, AED, SAR against INR with remittance estimates',
@@ -7639,7 +7753,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Live API',
     views: 41200,
     seo: {
-      title: 'Live AQI & Weather Monitor - Air Quality in Indian Cities | BharatUtility',
+      title: 'Live AQI & Weather Monitor | BharatUtility',
       description: 'Check real-time AQI, PM2.5 pollutant levels, and weather forecast for Delhi, Mumbai, Bengaluru, Kolkata and 100+ cities.',
       keywords: ['aqi live india', 'air quality index', 'delhi pollution level', 'pm25 live monitor'],
       canonicalSlug: 'aqi-weather-forecast',
@@ -7728,6 +7842,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'daily-fuel-price-tracker',
     slug: 'daily-fuel-price-tracker',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Daily Petrol, Diesel & CNG Price Tracker',
     shortName: 'Fuel Price Tracker',
     tagline: 'Today’s retail petrol, diesel, and CNG rates per litre across all Indian states and cities',
@@ -7828,6 +7944,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'long-weekend-holiday-planner',
     slug: 'long-weekend-holiday-planner',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Holidays & Long Weekend Planner (2026-2027)',
     shortName: 'Long Weekend Planner',
     tagline: 'Calendar of Gazetted holidays and curated 3-day & 4-day long weekend vacation suggestions',
@@ -7879,6 +7997,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'gold-silver-rate-calculator',
     slug: 'gold-silver-rate-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Gold & Silver Rate & Jewellery GST Calculator',
     shortName: 'Gold Rate & Jewellery Bill',
     tagline: 'Live 24K, 22K (916 Hallmark), 18K Gold & Silver rates in India + Making charges & 3% GST jewellery bill calculator',
@@ -7892,7 +8012,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Live Bullion',
     views: 65400,
     seo: {
-      title: 'Live Gold & Silver Rate Today + Jewellery Making Charges & 3% GST Calculator | BharatUtility',
+      title: 'Live Gold & Silver Rate Today + Jewellery Making Ch... | BharatUtility',
       description: 'Check today 24K, 22K, 18K Gold and Silver prices in Mumbai, Delhi, Bengaluru. Compute exact jewellery bill with making charges, BIS hallmarking & 3% GST.',
       keywords: ['gold rate today', 'silver price live inr', '22k hallmark gold price', 'jewellery making charge calculator', 'gold gst calculator', 'old gold exchange value'],
       canonicalSlug: 'gold-silver-rate-calculator',
@@ -7928,6 +8048,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'crypto-inr-tax-calculator',
     slug: 'crypto-inr-tax-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Crypto to INR & 30% Tax Calculator',
     shortName: 'Crypto Tax (Sec 115BBH)',
     tagline: 'Live Bitcoin, Ethereum, Solana prices in INR + Section 115BBH 30% flat tax & 1% TDS deduction calculator',
@@ -7941,7 +8063,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '30% Tax',
     views: 48900,
     seo: {
-      title: 'Crypto to INR Live Converter & Indian 30% Tax (Sec 115BBH) Calculator | BharatUtility',
+      title: 'Crypto to INR Live Converter & Indian 30% Tax (Sec... | BharatUtility',
       description: 'Convert BTC, ETH, SOL, USDT to INR and compute your Section 115BBH 30% capital gains tax + 1% Section 194S TDS with zero set-off rules.',
       keywords: ['crypto tax calculator india', 'bitcoin price inr', 'section 115bbh tax', '1% tds crypto 194s', 'ethereum to inr', 'crypto profit loss calculator'],
       canonicalSlug: 'crypto-inr-tax-calculator',
@@ -7977,6 +8099,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'sarkari-exam-age-calculator',
     slug: 'sarkari-exam-age-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Sarkari Exam Age & Attempt Eligibility Checker',
     shortName: 'Sarkari Exam Age Checker',
     tagline: 'Calculate exact age as on cut-off date for UPSC, SSC CGL, IBPS, RRB NTPC, NDA with OBC/SC/ST/PwD age relaxations',
@@ -7990,7 +8114,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '2026 Cutoff',
     views: 78300,
     seo: {
-      title: 'Sarkari Exam Age & Attempt Eligibility Calculator (UPSC, SSC, IBPS, RRB) | BharatUtility',
+      title: 'Sarkari Exam Age & Attempt Eligibility Calculator | BharatUtility',
       description: 'Instant cut-off date age calculator for UPSC IAS, SSC CGL, IBPS PO, RRB NTPC. Check General, OBC, SC/ST, and PwD age relaxation and attempt limits.',
       keywords: ['sarkari exam age calculator', 'upsc age limit calculator', 'ssc cgl age cut off', 'ibps po age relaxation', 'railway exam age limit', 'govt job age eligibility'],
       canonicalSlug: 'sarkari-exam-age-calculator',
@@ -8037,7 +8161,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'IRCTC Helper',
     views: 62100,
     seo: {
-      title: 'IRCTC Train Seat & Berth Position Finder + Live Tatkal Countdown | BharatUtility',
+      title: 'IRCTC Train Seat & Berth Position Finder + Live Tat... | BharatUtility',
       description: 'Check whether your train seat is Lower, Middle, Upper or Window. Live Tatkal booking timer for 10 AM AC & 11 AM Sleeper, plus cancellation refund rules.',
       keywords: ['train seat position finder', 'irctc berth calculator', 'lower berth seat numbers', 'tatkal booking clock 10 am', 'railway ticket cancellation charges'],
       canonicalSlug: 'train-berth-tatkal-finder',
@@ -8084,7 +8208,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Edge Probe',
     views: 51200,
     seo: {
-      title: 'Live Network Latency & Multi-City CDN Ping Probe (India) | BharatUtility',
+      title: 'Live Network Latency & Multi-City CDN Ping Probe | BharatUtility',
       description: 'Test your internet ping and jitter to Mumbai, Delhi, Bengaluru, Hyderabad, and Singapore edge servers. Ad-free browser ping testing tool.',
       keywords: ['ping test india', 'latency probe mumbai delhi', 'jitter test fiber', 'broadband ping test', 'bgmi ping check', 'speed test zero ads'],
       canonicalSlug: 'network-speed-ping-probe',
@@ -8118,6 +8242,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'stock-market-hours-tracker',
     slug: 'stock-market-hours-tracker',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'NSE & BSE Stock Market Hours & Holiday Tracker',
     shortName: 'Stock Market Hours & Holidays',
     tagline: 'Live trading session clock, pre-market/post-market indicators, 2026 trading holidays & turnover charges',
@@ -8131,7 +8257,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Market Clock',
     views: 57400,
     seo: {
-      title: 'NSE & BSE Stock Market Timings, Holidays 2026 & STT Charges Calculator | BharatUtility',
+      title: 'NSE & BSE Stock Market Timings, Holidays 2026 & STT... | BharatUtility',
       description: 'Check live Indian stock market status (Pre-market, Live, Post-closing), 2026 trading holidays calendar, and calculate STT, SEBI, and exchange charges.',
       keywords: ['stock market timing india', 'nse market hours', 'share market holidays 2026', 'stt charges calculator', 'zerodha turnover charges', 'bse pre open session'],
       canonicalSlug: 'stock-market-hours-tracker',
@@ -8167,6 +8293,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'jan-aushadhi-generic-saver',
     slug: 'jan-aushadhi-generic-saver',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Jan Aushadhi Generic Medicine Price Saver',
     shortName: 'Generic Medicine Price Saver',
     tagline: 'Compare branded vs generic medicine prices (PMBJP scheme), search chemical salts & save up to 80% on medical bills',
@@ -8180,7 +8308,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Health Saver',
     views: 69800,
     seo: {
-      title: 'Jan Aushadhi Generic Medicine Price Comparison & Savings Calculator | BharatUtility',
+      title: 'Jan Aushadhi Generic Medicine Price Comparison & Sa... | BharatUtility',
       description: 'Compare branded medicine MRP vs Govt Jan Aushadhi generic rates. Search chemical salts and calculate family savings up to 80% on monthly prescription bills.',
       keywords: ['jan aushadhi medicine list', 'generic medicine price comparison', 'branded vs generic medicine', 'pmbjp price list', 'save medicine bill', 'generic paracetamol cost'],
       canonicalSlug: 'jan-aushadhi-generic-saver',
@@ -8214,6 +8342,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'rent-agreement-stamp-duty',
     slug: 'rent-agreement-stamp-duty',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Rent Agreement Stamp Duty & E-Registration Cost Calculator',
     shortName: 'Rent Agreement Stamp Duty',
     tagline: 'Calculate state-wise 11-month lease stamp duty, sub-registrar fees & legal clause checklist (MH, Delhi, KA, UP, TS)',
@@ -8227,7 +8357,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Legal Tool',
     views: 53100,
     seo: {
-      title: 'Rent Agreement Stamp Duty & E-Registration Cost Calculator (State-wise) | BharatUtility',
+      title: 'Rent Agreement Stamp Duty & E-Registration Cost Cal... | BharatUtility',
       description: 'Calculate official stamp paper duty and registration charges for rent agreements in Maharashtra, Delhi, Bangalore, Noida, Hyderabad.',
       keywords: ['rent agreement stamp duty calculator', 'maharashtra rent agreement stamp duty', '11 month agreement stamp paper cost', 'online rent agreement charges', 'delhi rent agreement cost'],
       canonicalSlug: 'rent-agreement-stamp-duty',
@@ -8264,6 +8394,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'traffic-challan-portal-finder',
     slug: 'traffic-challan-portal-finder',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'State Traffic E-Challan Portal & MVA Fine Directory',
     shortName: 'Traffic E-Challan & Fines',
     tagline: 'Direct official links for all 28 States e-Challan payments + 2026 Motor Vehicles Act (MVA) traffic fine table',
@@ -8277,7 +8409,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Challan Hub',
     views: 74200,
     seo: {
-      title: 'State Traffic Police E-Challan Portal & MVA Fine Directory 2026 | BharatUtility',
+      title: 'State Traffic Police E-Challan Portal & MVA Fine Di... | BharatUtility',
       description: 'Official direct payment portals for traffic eChallans across all Indian states. Check latest 2026 penalties for over-speeding, helmet, seatbelt, and red lights.',
       keywords: ['traffic challan check online', 'mva traffic fines 2026', 'parivahan echallan portal', 'delhi traffic police notice', 'mahatraffic challan payment', 'speeding fine in india'],
       canonicalSlug: 'traffic-challan-portal-finder',
@@ -8324,7 +8456,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Security',
     views: 46700,
     seo: {
-      title: 'IMEI Number Validator & Govt CEIR Lost Phone Blocking Guide | BharatUtility',
+      title: 'IMEI Number Validator & Govt CEIR Lost Phone Blocki... | BharatUtility',
       description: 'Check 15-digit IMEI validity using Luhn Mod-10 checksum. Step-by-step guide to block and trace stolen mobile phones on DoT Sanchar Saathi CEIR portal.',
       keywords: ['imei validator luhn algorithm', 'ceir sanchar saathi lost phone', 'block stolen phone imei', 'check second hand phone imei', 'tac code lookup'],
       canonicalSlug: 'imei-ceir-guide-validator',
@@ -8358,6 +8490,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'property-stamp-duty-calculator',
     slug: 'property-stamp-duty-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Property Stamp Duty & Circle Rate Estimator',
     shortName: 'Property Stamp Duty',
     tagline: 'State-wise flat & land registration charges, women buyer rebates, metro cess & Section 50C circle rate checks',
@@ -8371,7 +8505,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Registry Cost',
     views: 61300,
     seo: {
-      title: 'Property Stamp Duty & Circle Rate Registration Calculator (India) | BharatUtility',
+      title: 'Property Stamp Duty & Circle Rate Registration Calc... | BharatUtility',
       description: 'Estimate stamp duty and registration fees for buying flats or land across Indian states with women owner concession and circle rate comparison.',
       keywords: ['property stamp duty calculator', 'flat registration charges mumbai', 'stamp duty delhi women discount', 'circle rate vs agreement value', 'stamp paper for land registry'],
       canonicalSlug: 'property-stamp-duty-calculator',
@@ -8406,6 +8540,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'indian-baby-names-rashi',
     slug: 'indian-baby-names-rashi',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Baby Names by Rashi, Nakshatra & Numerology',
     shortName: 'Baby Names by Rashi',
     tagline: '12 Vedic Rashis, auspicious starting syllables (Shubh Akshar), Sanskrit meanings & numerology life path numbers',
@@ -8419,7 +8555,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Vedic Names',
     views: 71500,
     seo: {
-      title: 'Indian Baby Names by Rashi, Nakshatra & Numerology (500+ Sanskrit Names) | BharatUtility',
+      title: 'Indian Baby Names by Rashi, Nakshatra & Numerology | BharatUtility',
       description: 'Find auspicious Hindu and Indian baby names based on Rashi (Mesh, Vrishabh, Mithun, etc.), lucky starting letters, and numerology life path numbers.',
       keywords: ['indian baby names by rashi', 'mesh rashi baby boy names', 'shubh akshar naamkaran', 'hindu baby names with meaning', 'nakshatra names sanskrit'],
       canonicalSlug: 'indian-baby-names-rashi',
@@ -8453,6 +8589,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'password-breach-checker',
     slug: 'password-breach-checker',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Password & Data Breach Exposure Checker',
     shortName: 'Data Breach Checker',
     tagline: '100% privacy-safe k-Anonymity SHA-1 hash check to see if your password has leaked in public data breaches',
@@ -8466,7 +8604,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '100% Private',
     views: 58900,
     seo: {
-      title: 'Privacy-Safe Password Breach & Exposure Checker (k-Anonymity) | BharatUtility',
+      title: 'Privacy-Safe Password Breach & Exposure Checker | BharatUtility',
       description: 'Check if your password was leaked in data breaches without revealing it. 100% client-side SHA-1 k-Anonymity verification tool.',
       keywords: ['password breach checker', 'have i been pwned free', 'check leaked passwords safe', 'k anonymity password test', 'data breach lookup india'],
       canonicalSlug: 'password-breach-checker',
@@ -8500,6 +8638,9 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'sukanya-samriddhi-yojana-calculator',
     slug: 'sukanya-samriddhi-yojana-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
+  status: 'inactive',
     name: 'Sukanya Samriddhi Yojana (SSY 2026) Calculator',
     shortName: 'SSY Calculator',
     tagline: 'Calculate tax-free maturity corpus, 8.2% sovereign quarterly interest, and 80C tax deduction for girl child',
@@ -8513,7 +8654,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Govt 8.2%',
     views: 64200,
     seo: {
-      title: 'Sukanya Samriddhi Yojana (SSY 2026) Calculator - 8.2% Interest | BharatUtility',
+      title: 'Sukanya Samriddhi Yojana (SSY 2026) Calculator | BharatUtility',
       description: 'Calculate maturity corpus and annual interest for Sukanya Samriddhi Yojana (SSY) under 8.2% sovereign rate with Section 80C tax savings.',
       keywords: ['sukanya samriddhi yojana calculator', 'ssy calculator 2026', 'girl child scheme calculator', 'ssy maturity amount', 'ssy 8.2 interest rate'],
       canonicalSlug: 'sukanya-samriddhi-yojana-calculator',
@@ -8547,6 +8688,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'pm-surya-ghar-solar-calculator',
     slug: 'pm-surya-ghar-solar-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'PM Surya Ghar: Muft Bijli Solar Rooftop Calculator',
     shortName: 'PM Surya Ghar Solar',
     tagline: 'Calculate Central MNRE rooftop solar subsidy (up to ₹78,000 DBT), roof area, and 25-year electricity bill savings',
@@ -8560,7 +8703,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '₹78k Subsidy',
     views: 78500,
     seo: {
-      title: 'PM Surya Ghar Solar Rooftop Subsidy & 25-Year ROI Calculator | BharatUtility',
+      title: 'PM Surya Ghar Solar Rooftop Subsidy & 25-Year ROI C... | BharatUtility',
       description: 'Calculate PM Surya Ghar Muft Bijli Yojana rooftop solar subsidy (₹30k to ₹78k DBT), required roof sq ft, and 25-year electricity bill savings.',
       keywords: ['pm surya ghar calculator', 'solar rooftop subsidy calculator', 'pm surya ghar muft bijli yojana', 'rooftop solar 3kw subsidy', 'mnre solar subsidy 2026'],
       canonicalSlug: 'pm-surya-ghar-solar-calculator',
@@ -8590,6 +8733,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'ayushman-bharat-eligibility-checker',
     slug: 'ayushman-bharat-eligibility-checker',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Ayushman Bharat (PM-JAY) ₹5 Lakh Health Eligibility Checker',
     shortName: 'Ayushman Bharat Checker',
     tagline: 'Check SECC rural/urban criteria for ₹5,00,000 free family hospitalization and e-KYC steps',
@@ -8602,7 +8747,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '₹5L Health',
     views: 89400,
     seo: {
-      title: 'Ayushman Bharat (PM-JAY) ₹5 Lakh Health Card Eligibility Checker | BharatUtility',
+      title: 'Ayushman Bharat (PM-JAY) ₹5 Lakh Health Card Eligib... | BharatUtility',
       description: 'Check your family eligibility for ₹5,00,000 free cashless hospital treatment under Ayushman Bharat PM-JAY and generate your Ayushman card.',
       keywords: ['ayushman bharat eligibility checker', 'pm jay 5 lakh card', 'ayushman card check online', 'secc 2011 eligibility', 'ayushman golden card download'],
       canonicalSlug: 'ayushman-bharat-eligibility-checker',
@@ -8631,6 +8776,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'atal-pension-yojana-calculator',
     slug: 'atal-pension-yojana-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Atal Pension Yojana (APY) Monthly Contribution Calculator',
     shortName: 'Atal Pension APY',
     tagline: 'Calculate monthly auto-debit contribution for ₹1,000 to ₹5,000 guaranteed lifetime pension from age 60',
@@ -8643,7 +8790,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Govt Pension',
     views: 45600,
     seo: {
-      title: 'Atal Pension Yojana (APY) Contribution & Pension Calculator | BharatUtility',
+      title: 'Atal Pension Yojana Contribution & Pension Calculator | BharatUtility',
       description: 'Calculate your monthly APY contribution for guaranteed ₹1,000 to ₹5,000 pension after age 60 with nominee corpus return details.',
       keywords: ['atal pension yojana calculator', 'apy contribution chart', 'apy calculator 2026', 'pfrda atal pension scheme', 'apy nominee corpus amount'],
       canonicalSlug: 'atal-pension-yojana-calculator',
@@ -8684,7 +8831,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '₹6,000 / Yr',
     views: 71200,
     seo: {
-      title: 'PM Kisan Samman Nidhi (₹6,000/Yr) Eligibility & e-KYC Guide | BharatUtility',
+      title: 'PM Kisan Samman Nidhi Eligibility & e-KYC Guide | BharatUtility',
       description: 'Check farmer landholding eligibility for ₹6,000 annual PM Kisan DBT installments, Aadhaar seeding, and e-KYC guidelines.',
       keywords: ['pm kisan eligibility checker', 'pm kisan 6000 status', 'pm kisan ekyc online', 'pm kisan installment dates', 'pm kisan land seeding'],
       canonicalSlug: 'pm-kisan-eligibility-checker',
@@ -8753,6 +8900,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'pm-awas-yojana-subsidy-calculator',
     slug: 'pm-awas-yojana-subsidy-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'PM Awas Yojana (PMAY-Urban & Gramin) Housing Subsidy Calculator',
     shortName: 'PM Awas Subsidy',
     tagline: 'Calculate upfront home loan interest subsidy (up to ₹2.67 Lakhs) for EWS, LIG, and MIG categories',
@@ -8802,7 +8951,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     keywords: ['pm matru vandana yojana calculator', 'pmmvy 5000 maternity benefit', 'pmmvy installment schedule', 'pmmvy second girl child 6000', 'women child development dbt'],
     views: 39500,
     seo: {
-      title: 'PM Matru Vandana Yojana (PMMVY) Maternity Benefit Calculator | BharatUtility',
+      title: 'PM Matru Vandana Yojana Maternity Benefit Calculator | BharatUtility',
       description: 'Calculate ₹5,000 and ₹6,000 maternity direct bank transfer cash benefits under PM Matru Vandana Yojana (PMMVY).',
       keywords: ['pm matru vandana yojana calculator', 'pmmvy 5000 maternity benefit', 'pmmvy installment schedule', 'pmmvy second girl child 6000', 'women child development dbt'],
       canonicalSlug: 'pm-matru-vandana-yojana-calculator',
@@ -8830,6 +8979,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'ipc-to-bns-law-finder',
     slug: 'ipc-to-bns-law-finder',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'IPC to BNS (Bharatiya Nyaya Sanhita 2024) Law Section Finder',
     shortName: 'IPC to BNS Finder',
     tagline: 'Searchable mapping between old IPC 1860 sections and new BNS 2023 laws with bailable & punishment details',
@@ -8842,7 +8993,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'New Laws',
     views: 95400,
     seo: {
-      title: 'IPC to BNS Law Section Finder (Bharatiya Nyaya Sanhita 2024) | BharatUtility',
+      title: 'IPC to BNS Law Section Finder | BharatUtility',
       description: 'Find new BNS 2023 sections corresponding to old IPC 1860 sections with bailable status, cognizable nature, and punishments.',
       keywords: ['ipc to bns converter', 'bharatiya nyaya sanhita section finder', 'ipc 420 in bns', 'ipc 302 in bns', 'new criminal laws india 2024'],
       canonicalSlug: 'ipc-to-bns-law-finder',
@@ -8871,6 +9022,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'rti-application-generator',
     slug: 'rti-application-generator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'RTI Application & First Appeal Generator (DoPT Format)',
     shortName: 'RTI Form Maker',
     tagline: 'Generate legally compliant Right to Information (RTI) applications & first appeals in English & Hindi with print to PDF',
@@ -8882,7 +9035,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'DoPT Format',
     views: 68700,
     seo: {
-      title: 'RTI Application & First Appeal Generator (English & Hindi) | BharatUtility',
+      title: 'RTI Application & First Appeal Generator | BharatUtility',
       description: 'Generate legally standard RTI application letters and first appeals under Section 6(1) of the RTI Act 2005 in English and Hindi.',
       keywords: ['rti application generator', 'rti letter format english hindi', 'dopt rti application format', 'how to file rti online offline', 'rti first appeal generator'],
       canonicalSlug: 'rti-application-generator',
@@ -8923,7 +9076,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '28 States',
     views: 112000,
     seo: {
-      title: 'All-India Land Records (Bhulekh / Khasra-Khatauni) Directory | BharatUtility',
+      title: 'All-India Land Records Directory | BharatUtility',
       description: 'Official directory of state land record portals for UP Bhulekh, Mahabhulekh, Bihar Bhumi, Apna Khata, AnyRoR, and Bhoomi Karnataka.',
       keywords: ['all india bhulekh portal', 'khasra khatauni check online', 'up bhulekh mahabhulekh bihar bhumi', 'apna khata rajasthan anyror gujarat', '7 12 satbara online download'],
       canonicalSlug: 'all-india-bhulekh-land-records',
@@ -8951,6 +9104,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'cybercrime-1930-fraud-emergency-guide',
     slug: 'cybercrime-1930-fraud-emergency-guide',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Cyber Crime 1930 & Digital Arrest Emergency Guide',
     shortName: 'Cyber Crime 1930 Guide',
     tagline: 'Golden 2-hour financial fraud action plan, 1930 helpline workflow, bank account freeze, and fake police digital arrest alert',
@@ -8963,7 +9118,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '1930 Alert',
     views: 82300,
     seo: {
-      title: '1930 Cyber Crime & Digital Arrest Emergency Action Guide | BharatUtility',
+      title: '1930 Cyber Crime & Digital Arrest Emergency Action... | BharatUtility',
       description: 'Emergency guide for reporting online financial fraud, UPI scams, and digital arrest threats via 1930 cyber helpline and cybercrime.gov.in.',
       keywords: ['1930 cyber crime helpline india', 'digital arrest fraud report', 'upi fraud money refund 1930', 'cybercrime gov in complaint filing', 'chakshu sanchar saathi fraud portal'],
       canonicalSlug: 'cybercrime-1930-fraud-emergency-guide',
@@ -8991,6 +9146,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'indian-passport-visa-free-countries',
     slug: 'indian-passport-visa-free-countries',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Passport Visa-Free & Visa-on-Arrival Country Explorer',
     shortName: 'Visa-Free Countries',
     tagline: 'Explore 60+ countries offering Visa-Free, Visa on Arrival (VoA), and fast e-Visa access for Indian passport holders',
@@ -9003,7 +9160,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '60+ Countries',
     views: 94100,
     seo: {
-      title: 'Indian Passport Visa-Free & Visa-on-Arrival Countries (2026) | BharatUtility',
+      title: 'Indian Passport Visa-Free & Visa-on-Arrival Countries | BharatUtility',
       description: 'Explore 60+ countries with Visa-Free and Visa-on-Arrival access for Indian passport holders, including Thailand, Malaysia, Sri Lanka, and Mauritius.',
       keywords: ['indian passport visa free countries 2026', 'visa on arrival for indians', 'thailand malaysia visa free indians', 'visa free international travel india', 'fast evisa countries for indian citizens'],
       canonicalSlug: 'indian-passport-visa-free-countries',
@@ -9080,7 +9237,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'eRaktKosh',
     views: 56300,
     seo: {
-      title: 'Emergency Blood Group Compatibility & eRaktKosh Directory | BharatUtility',
+      title: 'Emergency Blood Group Compatibility & eRaktKosh Dir... | BharatUtility',
       description: 'Check universal donor/recipient compatibility for all blood types and search live blood bank inventory across India via eRaktKosh.',
       keywords: ['blood group compatibility chart', 'eraktkosh live blood bank search', 'universal blood donor recipient', 'bombay blood group compatibility', 'blood donation recovery period'],
       canonicalSlug: 'blood-group-compatibility-eraktkosh',
@@ -9108,6 +9265,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'iss-tracker-india-pass',
     slug: 'iss-tracker-india-pass',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Live ISS (Space Station) Over India Pass Tracker',
     shortName: 'Live ISS Tracker',
     tagline: 'Real-time orbital tracking of the International Space Station with speed (27,600 km/h), altitude, and naked-eye sighting alert',
@@ -9187,6 +9346,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'apmc-mandi-bhav-live-tracker',
     slug: 'apmc-mandi-bhav-live-tracker',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'All-India APMC Mandi Bhav (Daily Crop & Veggie Prices)',
     shortName: 'APMC Mandi Bhav',
     tagline: 'Daily wholesale rates for wheat, rice, onion, tomato, potato, mustard, and cash crops across major Indian agricultural mandis',
@@ -9227,6 +9388,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'mobile-screen-hardware-tester',
     slug: 'mobile-screen-hardware-tester',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Mobile Screen & Touch Diagnostic Tester (Used / Refurbished)',
     shortName: 'Screen & Touch Tester',
     tagline: 'Test dead pixels (RGB colors), multi-touch grid, display refresh rate (60Hz/90Hz/120Hz), and stereo speaker balance',
@@ -9357,7 +9520,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '16 Zones',
     views: 79800,
     seo: {
-      title: 'Vastu Shastra Digital Compass & Home Energy Zone Analyzer | BharatUtility',
+      title: 'Vastu Shastra Digital Compass & Home Energy Zone An... | BharatUtility',
       description: 'Check 16 Vastu directions and ideal room placements (Mandir, Kitchen, Bedroom, Cash Locker) using digital compass orientation.',
       keywords: ['vastu shastra compass online', '16 vastu zones directions', 'ishanya agneya nairutya vayavya', 'vastu for home entrance kitchen mandir', 'digital vastu compass phone'],
       canonicalSlug: 'vastu-shastra-digital-compass',
@@ -9476,7 +9639,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Tatkal Clock',
     views: 98700,
     seo: {
-      title: 'IRCTC Tatkal Booking Timing Countdown & Station Code Finder | BharatUtility',
+      title: 'IRCTC Tatkal Booking Timing Countdown & Station Cod... | BharatUtility',
       description: 'Live countdown to 10 AM (AC) and 11 AM (Non-AC) IRCTC Tatkal booking windows with Indian railway station code directory.',
       keywords: ['irctc tatkal booking timing countdown', 'tatkal ticket booking time 10am 11am', 'railway station code finder ndls csmt', 'tatkal confirmation tricks', 'indian railways station directory'],
       canonicalSlug: 'irctc-tatkal-timing-station-finder',
@@ -9504,6 +9667,9 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'state-electricity-slab-calculator',
     slug: 'state-electricity-slab-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
+  status: 'inactive',
     name: 'State-Wise Electricity Bill Slab & Subsidy Calculator',
     shortName: 'Electricity Slab Bill',
     tagline: 'Calculate electricity bills with state DISCOM slabs, fixed charges, electricity duty, and free power subsidies (Gruha Jyothi, Delhi, Punjab)',
@@ -9587,6 +9753,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'nhai-fastag-toll-calculator',
     slug: 'nhai-fastag-toll-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'NHAI FASTag Highway Toll Rate & Route Trip Estimator',
     shortName: 'FASTag Toll Estimator',
     tagline: 'Calculate FASTag toll charges, toll plaza counts, and single vs return rates for major Indian expressways and national highways',
@@ -9706,6 +9874,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'mva-traffic-challan-fine-decoder',
     slug: 'mva-traffic-challan-fine-decoder',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Motor Vehicle Act (MVA) Traffic Challan Penalty Decoder',
     shortName: 'MVA Traffic Fines',
     tagline: 'Official statutory fine rates for helmet, seatbelt, over-speeding, red light, drunk driving, and virtual court contest guidelines',
@@ -9746,6 +9916,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'epf-passbook-eps95-pension-calculator',
     slug: 'epf-passbook-eps95-pension-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'EPF Passbook 8.25% Interest & EPS-95 Monthly Pension Calculator',
     shortName: 'EPF & EPS-95 Pension',
     tagline: 'Calculate Employee (12%) and Employer split (3.67% EPF + 8.33% EPS) and estimate monthly lifelong pension after age 58',
@@ -9758,7 +9930,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'EPFO 8.25%',
     views: 92400,
     seo: {
-      title: 'EPF Passbook 8.25% Interest & EPS-95 Pension Calculator | BharatUtility',
+      title: 'EPF Passbook 8.25% Interest & EPS-95 Pension Calcul... | BharatUtility',
       description: 'Calculate EPF balance compounding at 8.25% interest and estimate monthly lifelong pension under EPS-95 after age 58.',
       keywords: ['epf interest calculator 8.25', 'eps 95 monthly pension formula', 'epfo employee employer contribution split', 'eps pension after 58 years', 'epf passbook balance compounding'],
       canonicalSlug: 'epf-passbook-eps95-pension-calculator',
@@ -9798,7 +9970,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'DGCA Rights',
     views: 58300,
     seo: {
-      title: 'DGCA Flight Delay & Cancellation Compensation Calculator | BharatUtility',
+      title: 'DGCA Flight Delay & Cancellation Compensation Calcu... | BharatUtility',
       description: 'Check statutory airline compensation entitlement (up to ₹20,000), free meals, hotel stay, and refund rights under DGCA rules.',
       keywords: ['dgca flight delay compensation rules', 'flight cancellation refund rights india', 'indigo air india flight delay claim', 'denied boarding airline compensation 20000', 'dgca passenger charter hotel stay'],
       canonicalSlug: 'dgca-flight-delay-compensation-calculator',
@@ -9826,6 +9998,9 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'home-loan-prepayment-tenure-calculator',
     slug: 'home-loan-prepayment-tenure-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
+  status: 'inactive',
     name: 'Home Loan Prepayment, Interest Saver & Tenure Reduction Simulator',
     shortName: 'Loan Prepayment Saver',
     tagline: 'Simulate lump-sum prepayments and annual EMI step-ups to save ₹10-25 Lakhs in bank interest and cut loan tenure by 5-8 years',
@@ -9868,6 +10043,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'mrp-margin-gst-breakdown-calculator',
     slug: 'mrp-margin-gst-breakdown-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian MRP Price Breakdown, GST & Retail Margin Calculator',
     shortName: 'MRP Margin Breakdown',
     tagline: 'Decompose product MRP into Base Manufacturing Cost, GST Tax (5%, 12%, 18%, 28%), Distributor Margin, and Retailer Profit',
@@ -9909,6 +10086,9 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'jewellery-gold-making-charge-calculator',
     slug: 'jewellery-gold-making-charge-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
+  status: 'inactive',
     name: 'Gold Jewellery Making Charges, Hallmark & 3% GST Calculator',
     shortName: 'Gold Making & GST',
     tagline: 'Calculate net jewellery bill with 22K/18K purity rate, jeweller making charges (wastage), ₹45 hallmark fee, and 3% GST',
@@ -9922,7 +10102,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Jewellery Bill',
     views: 132000,
     seo: {
-      title: 'Gold Jewellery Making Charges, Hallmark & GST Calculator | BharatUtility',
+      title: 'Gold Jewellery Making Charges, Hallmark & GST Calcu... | BharatUtility',
       description: 'Calculate real transparent gold jewellery price with 22K/18K rate, making charges, BIS hallmark fee, and 3% GST.',
       keywords: ['gold making charges calculator', 'jewellery gst calculation formula 3 percent', '22k 916 hallmark gold rate calculator', 'gold wastage charges per gram', 'jewellery billing transparent price'],
       canonicalSlug: 'jewellery-gold-making-charge-calculator',
@@ -9951,6 +10131,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'dairy-milk-fat-snf-calculator',
     slug: 'dairy-milk-fat-snf-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Dairy Milk Fat & SNF Rate Chart Calculator (Farmer Payout)',
     shortName: 'Milk Fat & SNF Payout',
     tagline: 'Calculate milk purchase rate per litre and total farmer payout based on Fat % (3.5%-10%) and SNF % for Cow and Buffalo milk',
@@ -9992,6 +10174,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'all-india-land-unit-converter',
     slug: 'all-india-land-unit-converter',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'All-India Multi-State Land Unit Converter (Bigha, Gaj, Guntha, Cent)',
     shortName: 'Multi-State Land Units',
     tagline: 'Convert UP/MP/Bihar/Rajasthan Bigha, Maharashtra Guntha, South Cent/Ground, Punjab Kanal/Marla into Acres & Sq Ft',
@@ -10005,7 +10189,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '28 States',
     views: 145000,
     seo: {
-      title: 'All-India Multi-State Land Unit Converter (Bigha, Guntha, Gaj) | BharatUtility',
+      title: 'All-India Multi-State Land Unit Converter | BharatUtility',
       description: 'Convert local land measurements (Bigha, Guntha, Cent, Gaj, Kanal) across all 28 Indian states into Acres and Square Feet.',
       keywords: ['all india land unit converter', 'bigha to acre converter up mp bihar', 'guntha to sq ft maharashtra karnataka', 'gaj to square feet calculator', 'kanal marla to acre punjab'],
       canonicalSlug: 'all-india-land-unit-converter',
@@ -10034,6 +10218,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'gratuity-leave-encashment-calculator',
     slug: 'gratuity-leave-encashment-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Gratuity & Leave Encashment Calculator (₹25 Lakhs Tax Free)',
     shortName: 'Gratuity & Leave Encashment',
     tagline: 'Calculate statutory gratuity on job change or retirement via (15 * Basic+DA * Years)/26 with Section 10(10) ₹25 Lakhs tax exemption',
@@ -10074,6 +10260,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'baby-vaccination-schedule-calculator',
     slug: 'baby-vaccination-schedule-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Baby Vaccination & Immunization Schedule (UIP 0-16 Yrs)',
     shortName: 'Baby Vaccine Schedule',
     tagline: 'Personalized immunization milestone calendar for newborn to 16 years as per Ministry of Health Universal Immunization Programme (UIP)',
@@ -10086,7 +10274,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'U-WIN / UIP',
     views: 96000,
     seo: {
-      title: 'Indian Baby Vaccination & Immunization Schedule (0-16 Yrs) | BharatUtility',
+      title: 'Indian Baby Vaccination & Immunization Schedule | BharatUtility',
       description: 'Generate baby vaccination calendar following Ministry of Health UIP guidelines for BCG, Pentavalent, Polio, MR, and Boosters.',
       keywords: ['baby vaccination schedule india', 'uwin uip immunization chart', 'newborn baby vaccine dates calculator', 'pentavalent polio mr vaccine schedule', 'government baby immunization free'],
       canonicalSlug: 'baby-vaccination-schedule-calculator',
@@ -10166,7 +10354,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Resale Value',
     views: 112000,
     seo: {
-      title: 'Old Car & Bike Resale Valuation & Depreciation Calculator | BharatUtility',
+      title: 'Old Car & Bike Resale Valuation & Depreciation Calc... | BharatUtility',
       description: 'Calculate fair market resale value of used cars and bikes in India based on age depreciation and mileage.',
       keywords: ['used car valuation calculator india', 'second hand bike resale price', 'car depreciation rate per year india', 'insurance idv to market value', 'old car price estimate maruti hyundai'],
       canonicalSlug: 'old-vehicle-resale-valuation-calculator',
@@ -10195,6 +10383,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'freelancer-44ada-tax-calculator',
     slug: 'freelancer-44ada-tax-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Freelancer & Professional 44ADA 50% Presumptive Tax Calculator',
     shortName: 'Freelancer 44ADA Tax',
     tagline: 'Calculate taxable income for software devs, designers, doctors, and consultants under Section 44ADA with 50% flat deemed profit & advance tax calendar',
@@ -10207,7 +10397,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: '50% Profit',
     views: 98000,
     seo: {
-      title: 'Freelancer & Professional 44ADA 50% Presumptive Tax Calculator | BharatUtility',
+      title: 'Freelancer & Professional 44ADA 50% Presumptive Tax... | BharatUtility',
       description: 'Calculate income tax for freelancers and consultants under Section 44ADA with 50% deemed profit and advance tax calendar.',
       keywords: ['section 44ada tax calculator freelancer', '50 percent presumptive tax software developer', 'freelancer advance tax schedule dates', '44ada income tax limit 75 lakhs', 'professional presumptive taxation scheme'],
       canonicalSlug: 'freelancer-44ada-tax-calculator',
@@ -10246,7 +10436,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Jago Grahak',
     views: 72000,
     seo: {
-      title: 'National Consumer Court (NCH 1915) Legal Notice Generator | BharatUtility',
+      title: 'National Consumer Court Legal Notice Generator | BharatUtility',
       description: 'Draft legal notice and e-Daakhil consumer complaint for e-commerce fraud, builder delay, and defective products.',
       keywords: ['consumer court complaint online edaakhil', 'national consumer helpline 1915 complaint', 'jago grahak jago legal notice format', 'builder delay flat possession consumer case', 'ecommerce fraud refund notice format'],
       canonicalSlug: 'consumer-court-complaint-notice-generator',
@@ -10274,6 +10464,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'branded-vs-generic-medicine-comparator',
     slug: 'branded-vs-generic-medicine-comparator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Branded vs PM Jan Aushadhi Generic Salt Price Comparator',
     shortName: 'Generic Medicine Saver',
     tagline: 'Compare prices between popular branded medicines (Augmentin, Pan-D, Telma, Glycomet) and their exact chemical salt generic equivalents to save 80-90%',
@@ -10358,7 +10550,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'New',
     keywords: ['wedding budget calculator India', 'shaadi budget planner', 'marriage catering cost'],
     seo: {
-      title: 'Indian Wedding Budget Planner - 7-Category Shaadi Calculator | BharatUtility',
+      title: 'Indian Wedding Budget Planner | BharatUtility',
       description: 'Realistic Indian wedding budget distribution across food, venue, gold jewellery, and photography.',
       keywords: ['wedding budget India', 'shaadi cost planner'],
       canonicalSlug: 'indian-wedding-shaadi-budget-planner',
@@ -10384,6 +10576,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'kisan-credit-card-4percent-calculator',
     slug: 'kisan-credit-card-4percent-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Kisan Credit Card (KCC) 4% Subvention Interest Calculator',
     shortName: 'KCC 4% Loan',
     tagline: 'Calculate 3% prompt repayment incentive & net interest on crop loans',
@@ -10424,7 +10618,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Legal Guide',
     keywords: ['Gazette notification name change', 'egazette application process', 'name change affidavit'],
     seo: {
-      title: 'Central Gazette Name Change Guide - Step-by-Step Process | BharatUtility',
+      title: 'Central Gazette Name Change Guide | BharatUtility',
       description: 'How to publish name change in Central Gazette of India with affidavit format and newspaper ads.',
       keywords: ['Gazette name change', 'egazette publication', 'name change legal process'],
       canonicalSlug: 'central-gazette-name-change-guide',
@@ -10478,6 +10672,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'commercial-rent-escalation-calculator',
     slug: 'commercial-rent-escalation-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Commercial Shop / Office Rent Escalation Calculator',
     shortName: 'Rent Escalation',
     tagline: 'Calculate 5%, 10% or 15% 3-year compound rent jumps & Section 194-I TDS',
@@ -10486,7 +10682,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     icon: 'Building2',
     keywords: ['commercial rent escalation', 'lease rental increase', 'office rent 15 percent 3 years'],
     seo: {
-      title: 'Commercial Rent Escalation Calculator - 3/5/9 Year Lease | BharatUtility',
+      title: 'Commercial Rent Escalation Calculator | BharatUtility',
       description: 'Calculate multi-year commercial rent escalation schedules with compounding rates and TDS 194-I.',
       keywords: ['rent escalation calculator', 'commercial lease increase'],
       canonicalSlug: 'commercial-rent-escalation-calculator',
@@ -10570,6 +10766,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'mobile-sar-radiation-checker',
     slug: 'mobile-sar-radiation-checker',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Mobile SAR Radiation Limit (*#07#) & Safe Distance Checker',
     shortName: 'SAR Radiation Check',
     tagline: 'Check DoT India 1.6 W/kg Specific Absorption Rate limits & safety habits',
@@ -10600,6 +10798,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'bank-locker-rent-and-liability-guide',
     slug: 'bank-locker-rent-and-liability-guide',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Bank Locker Rent & RBI 100x Liability Compensation Guide',
     shortName: 'Bank Locker 100x',
     tagline: 'Compare SBI, HDFC, ICICI locker rents & RBI fire/theft 100x compensation rules',
@@ -10633,6 +10833,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'upi-daily-limits-and-cooloff-tracker',
     slug: 'upi-daily-limits-and-cooloff-tracker',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'UPI Daily Transaction Limits, Bank Cool-Off & ₹5L Hospital Rules',
     shortName: 'UPI Daily Limits',
     tagline: 'Check NPCI limits, bank daily caps & 24-hr ₹5,000 device reset cool-off',
@@ -10644,7 +10846,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'NPCI Rules',
     keywords: ['UPI daily transaction limit', 'SBI UPI limit per day', 'UPI cool off limit 5000'],
     seo: {
-      title: 'UPI Daily Transaction Limits & 24-Hour Cool-Off Tracker | BharatUtility',
+      title: 'UPI Daily Transaction Limits & 24-Hour Cool-Off Tra... | BharatUtility',
       description: 'Check bank-wise daily UPI limits and ₹5 Lakh rules for hospitals and IPO investments.',
       keywords: ['UPI limits', 'UPI daily limit', 'NPCI UPI 5 lakh'],
       canonicalSlug: 'upi-daily-limits-and-cooloff-tracker',
@@ -10665,6 +10867,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'sukanya-samriddhi-vs-ppf-comparator',
     slug: 'sukanya-samriddhi-vs-ppf-comparator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Sukanya Samriddhi Yojana (SSY 8.2%) vs PPF (7.1%) Wealth Comparator',
     shortName: 'SSY vs PPF',
     tagline: 'Compare sovereign compound growth & ₹70L+ tax-free corpus for girl child',
@@ -10697,6 +10901,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'tds-on-rent-194ib-calculator',
     slug: 'tds-on-rent-194ib-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'TDS on Rent (Section 194-IB) & Form 26QC Tenant Calculator',
     shortName: 'Rent 194-IB TDS',
     tagline: 'Deduct 5% TDS on rent > ₹50,000/month without TAN & generate Form 16C',
@@ -10757,6 +10963,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'pm-fasal-bima-crop-insurance-calculator',
     slug: 'pm-fasal-bima-crop-insurance-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Pradhan Mantri Fasal Bima Yojana (PMFBY) Crop Insurance Calculator',
     shortName: 'PM Fasal Bima',
     tagline: 'Calculate 2% Kharif, 1.5% Rabi & 5% commercial crop insurance premiums',
@@ -10797,7 +11005,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'RTO Test',
     keywords: ['RTO learner license test', 'traffic signs quiz India', 'Sarathi Parivahan LL mock test'],
     seo: {
-      title: 'RTO Learner License (LL) Test & Traffic Signs Simulator | BharatUtility',
+      title: 'RTO Learner License Test & Traffic Signs Simulator | BharatUtility',
       description: 'Practice official Sarathi Parivahan computer test questions and road traffic signs.',
       keywords: ['RTO mock test', 'driving license test', 'traffic signs quiz'],
       canonicalSlug: 'rto-dl-test-traffic-signs-simulator',
@@ -10850,6 +11058,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'tatkaal-passport-checklist-and-timeline',
     slug: 'tatkaal-passport-checklist-and-timeline',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Tatkaal Passport Document Checklist & Police Verification Tracker',
     shortName: 'Tatkaal Passport',
     tagline: '3 mandatory documents, ₹3,500 fee & post-issuance police verification rules',
@@ -10881,6 +11091,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'senior-citizen-fd-form15h-calculator',
     slug: 'senior-citizen-fd-form15h-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Senior Citizen FD 0.50% Extra Rate & Form 15H TDS Saver',
     shortName: 'Senior FD 15H',
     tagline: 'Calculate +0.50% extra interest, Section 80TTB ₹50,000 deduction & Form 15H',
@@ -10891,7 +11103,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Senior 60+',
     keywords: ['senior citizen FD interest rate', 'Form 15H for senior citizens', 'section 80TTB exemption'],
     seo: {
-      title: 'Senior Citizen FD 0.50% Extra Rate & Form 15H Calculator | BharatUtility',
+      title: 'Senior Citizen FD 0.50% Extra Rate & Form 15H Calcu... | BharatUtility',
       description: 'Calculate senior citizen fixed deposit interest with ₹50,000 Section 80TTB tax deduction.',
       keywords: ['senior citizen FD', 'Form 15H calculator', '80TTB exemption'],
       canonicalSlug: 'senior-citizen-fd-form15h-calculator',
@@ -10946,6 +11158,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'rbi-sovereign-gold-bond-sgb-calculator',
     slug: 'rbi-sovereign-gold-bond-sgb-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'RBI Sovereign Gold Bond (SGB) 2.5% + 100% Tax-Free Maturity Calculator',
     shortName: 'SGB Gold 2.5%',
     tagline: 'Calculate semi-annual 2.5% interest & 8-year tax-free capital gains',
@@ -10980,6 +11194,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'family-gift-deed-vs-will-stamp-duty-guide',
     slug: 'family-gift-deed-vs-will-stamp-duty-guide',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Family Gift Deed vs Will (Vasiyat) Stamp Duty & Tax Exemption Guide',
     shortName: 'Family Gift Deed',
     tagline: 'Section 56(2)(x) zero tax for blood relatives & state-wise token stamp duty',
@@ -10989,7 +11205,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Property Law',
     keywords: ['gift deed to blood relatives stamp duty', 'gift deed vs will India', 'section 56 2 x tax exemption'],
     seo: {
-      title: 'Family Gift Deed vs Will Stamp Duty & Tax Exemption Guide | BharatUtility',
+      title: 'Family Gift Deed vs Will Stamp Duty & Tax Exemption... | BharatUtility',
       description: 'Learn zero income tax rules and state stamp duty concessions for gifting property to family.',
       keywords: ['gift deed stamp duty', 'gift deed tax exemption', 'will vs gift deed'],
       canonicalSlug: 'family-gift-deed-vs-will-stamp-duty-guide',
@@ -11010,6 +11226,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'restaurant-bill-gst-service-charge-checker',
     slug: 'restaurant-bill-gst-service-charge-checker',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Restaurant Bill Food GST (5% vs 18%) & Service Charge Legality Checker',
     shortName: 'Food GST & CCPA',
     tagline: 'Verify 5% GST vs 18% luxury rates & CCPA voluntary service charge guidelines',
@@ -11074,6 +11292,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'leave-travel-allowance-lta-calculator',
     slug: 'leave-travel-allowance-lta-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Leave Travel Allowance (LTA / LTC) Tax Exemption Calculator (Section 10(5))',
     shortName: 'LTA Tax Exemption',
     tagline: 'Calculate 2 domestic trips in 4-year block (2026-2029) air/train fare exemption',
@@ -11134,6 +11354,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'apmc-mandi-msp-procurement-calculator',
     slug: 'apmc-mandi-msp-procurement-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'APMC Mandi Cess, MSP Procurement Rates & Farmer Payout Calculator',
     shortName: 'Mandi MSP Calc',
     tagline: 'Official Minimum Support Price for Wheat, Paddy, Mustard & DBT payout',
@@ -11164,6 +11386,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'nps-tier1-80ccd1b-pension-calculator',
     slug: 'nps-tier1-80ccd1b-pension-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'NPS Section 80CCD(1B) Extra ₹50,000 Tax Benefit & Pension Simulator',
     shortName: 'NPS ₹50K Benefit',
     tagline: 'Additional ₹50,000 tax deduction over 80C, 60% tax-free lump sum & annuity',
@@ -11174,7 +11398,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Extra ₹50K',
     keywords: ['NPS 80CCD 1B tax benefit', 'national pension scheme calculator', 'NPS annuity pension'],
     seo: {
-      title: 'NPS 80CCD(1B) Extra ₹50,000 Tax Benefit & Pension Calculator | BharatUtility',
+      title: 'NPS 80CCD(1B) Extra ₹50,000 Tax Benefit & Pension C... | BharatUtility',
       description: 'Calculate exclusive ₹50,000 NPS tax deduction and simulated retirement monthly pension.',
       keywords: ['NPS calculator', '80CCD(1B)', 'National Pension System'],
       canonicalSlug: 'nps-tier1-80ccd1b-pension-calculator',
@@ -11196,6 +11420,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'rti-application-first-appeal-timeline-guide',
     slug: 'rti-application-first-appeal-timeline-guide',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'RTI Section 6(1) Application & 30-Day First Appeal Timeline Guide',
     shortName: 'RTI 30-Day Appeal',
     tagline: '₹10 application fee, 48-hr life & liberty rules & First Appeal Section 19(1)',
@@ -11259,6 +11485,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'lpg-cylinder-price-ujjwala-subsidy-tracker',
     slug: 'lpg-cylinder-price-ujjwala-subsidy-tracker',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'LPG Gas 14.2kg Price & PM Ujjwala Subsidy DBTL Tracker',
     shortName: 'LPG Gas Subsidy',
     tagline: 'City-wise 14.2kg domestic cylinder rates & ₹300 direct bank subsidy',
@@ -11270,7 +11498,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Monthly Rates',
     keywords: ['LPG gas cylinder price', 'Ujjwala subsidy 300', 'Indane gas price today'],
     seo: {
-      title: 'LPG Gas 14.2kg Cylinder Price & Ujjwala Subsidy Tracker | BharatUtility',
+      title: 'LPG Gas 14.2kg Cylinder Price & Ujjwala Subsidy Tra... | BharatUtility',
       description: 'Check city-wise 14.2kg domestic cylinder prices and DBTL ₹300 bank cash subsidy.',
       keywords: ['LPG price', 'Ujjwala subsidy', 'gas cylinder price'],
       canonicalSlug: 'lpg-cylinder-price-ujjwala-subsidy-tracker',
@@ -11353,6 +11581,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'pm-kusum-solar-pump-subsidy-calculator',
     slug: 'pm-kusum-solar-pump-subsidy-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'PM KUSUM Solar Water Pump 60% Subsidy Calculator (3HP / 5HP / 7.5HP)',
     shortName: 'KUSUM Solar 60%',
     tagline: 'Calculate 30% Central + 30% State subsidies & replace diesel generators',
@@ -11446,6 +11676,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'post-office-schemes-pomis-kvp-nsc-calculator',
     slug: 'post-office-schemes-pomis-kvp-nsc-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Postal Savings Scheme (POMIS, NSC, KVP, SCSS) Interest Matrix',
     shortName: 'Post Office Schemes',
     tagline: 'POMIS 7.4% monthly income, NSC 7.7%, KVP doubles in 115 mos & SCSS 8.2%',
@@ -11479,6 +11711,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'irctc-luggage-weight-excess-baggage-rates',
     slug: 'irctc-luggage-weight-excess-baggage-rates',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'Indian Railways (IRCTC) Luggage Weight Allowance & Excess Rates',
     shortName: 'Train Luggage Limit',
     tagline: 'AC 1st 70kg, 2AC 50kg, 3AC/SL 40kg free allowances & parcel booking rates',
@@ -11488,7 +11722,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Rail Rules',
     keywords: ['railway luggage allowance rules', 'train baggage limit IRCTC', 'excess luggage charge train'],
     seo: {
-      title: 'Indian Railways Luggage Allowance & Excess Baggage Rates | BharatUtility',
+      title: 'Indian Railways Luggage Allowance & Excess Baggage... | BharatUtility',
       description: 'Check class-wise free luggage weight limits and parcel van rates on Indian Railways.',
       keywords: ['railway luggage limit', 'train baggage allowance', 'IRCTC luggage rules'],
       canonicalSlug: 'irctc-luggage-weight-excess-baggage-rates',
@@ -11510,6 +11744,7 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'mobile-imei-luhn-validator-ceir-guide',
     slug: 'mobile-imei-luhn-validator-ceir-guide',
+  status: 'inactive',
     name: 'Mobile IMEI 15-Digit Luhn Algorithm Verification & CEIR Blocking Guide',
     shortName: 'IMEI CEIR Check',
     tagline: 'Validate 15-digit IMEI genuineness & block lost/stolen phones on Sanchar Saathi',
@@ -11540,6 +11775,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'epf-higher-pension-vs-eps95-calculator',
     slug: 'epf-higher-pension-vs-eps95-calculator',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'EPF Higher Pension (Supreme Court 2022 Ruling) vs EPS-95 Calculator',
     shortName: 'EPF Higher Pension',
     tagline: 'Calculate actual salary pension vs ₹15,000 wage ceiling & fund transfer tradeoffs',
@@ -11572,6 +11809,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'umang-app-all-in-one-govt-services-guide',
     slug: 'umang-app-all-in-one-govt-services-guide',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'UMANG App Guide - 1,200+ Central & State Government Services in One App',
     shortName: 'UMANG App Guide',
     tagline: 'Single mobile hub for EPFO, NPS, PM Kisan, Bharat Gas & Board results',
@@ -11583,7 +11822,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     badge: 'Govt Portal',
     keywords: ['UMANG app download', 'EPFO passbook UMANG', 'UMANG government services list'],
     seo: {
-      title: 'UMANG App Guide - 1,200+ Government Services in One App | BharatUtility',
+      title: 'UMANG App Guide | BharatUtility',
       description: 'Explore the UMANG app to check EPFO passbooks, NPS statements, and PM-Kisan payouts.',
       keywords: ['UMANG app', 'UMANG EPFO', 'UMANG services'],
       canonicalSlug: 'umang-app-all-in-one-govt-services-guide',
@@ -11668,6 +11907,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'mparivahan-virtual-rc-dl-portal-guide',
     slug: 'mparivahan-virtual-rc-dl-portal-guide',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: 'NextGen mParivahan App - Virtual RC, DL & Vehicle PUC / Insurance Portal',
     shortName: 'mParivahan Guide',
     tagline: 'Generate QR Virtual RC & DL, check e-challans & vehicle insurance validity',
@@ -11826,6 +12067,8 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'emergency-112-india-erss-sos-guide',
     slug: 'emergency-112-india-erss-sos-guide',
+  needsManualVerification: true,
+  lastUpdated: '2026-09-25',
     name: '112 India (Emergency Response Support System - ERSS) SOS Guide',
     shortName: '112 India SOS',
     tagline: 'Single emergency app uniting Police (100), Fire (101), Ambulance (108) & Women Safety',
@@ -11960,6 +12203,382 @@ export const TOOLS_REGISTRY: Tool[] = [
       { question: 'How can I save my drawing?', answer: 'Click the "Save PNG" button to download your artwork in crisp HD resolution or click "Copy" to paste into other apps.' }
     ],
     relatedToolSlugs: ['free-online-notepad-scratchpad', 'svg-to-png-converter', 'image-format-converter', 'qr-code-generator', 'exam-photo-date-stamp']
+  },
+  {
+    id: 'stock-average-calculator',
+    slug: 'stock-average-calculator',
+    name: 'Stock & Crypto Average Price Calculator',
+    shortName: 'Stock Average',
+    tagline: 'Calculate average buy price when buying the dip',
+    description: 'Calculate your average buy price for stocks and crypto when buying the dip or averaging down your investments.',
+    category: 'money',
+    icon: 'TrendingUp',
+    seo: {
+      title: 'Stock & Crypto Average Price Calculator | BharatUtility',
+      description: 'Free online calculator to find average stock or crypto purchase price when buying the dip.',
+      keywords: ['stock average calculator', 'crypto average price', 'buying the dip calculator', 'share market average'],
+      canonicalSlug: 'stock-average-calculator',
+      h1: 'Stock & Crypto Average Price Calculator'
+    },
+    formulaDescription: 'Average Price = Total Investment / Total Shares.',
+    features: [
+      'Add multiple purchases',
+      'Calculates total investment',
+      'Calculates exact average buy price'
+    ],
+    faqs: [
+      {
+        question: 'What does averaging down mean?',
+        answer: 'Averaging down means buying more shares of an asset when its price falls, lowering your overall average cost per share.'
+      }
+    ],
+    relatedToolSlugs: ['mutual-fund-sip-calculator', 'mutual-fund-lumpsum-calculator']
+  },
+  {
+    id: 'hra-tax-exemption-calculator',
+    slug: 'hra-tax-exemption-calculator',
+    name: 'HRA Tax Exemption Calculator (Old Regime)',
+    shortName: 'HRA Exemption',
+    tagline: 'Calculate exact House Rent Allowance deduction for tax saving',
+    description: 'Calculate your House Rent Allowance (HRA) tax exemption limit under the Old Tax Regime based on basic salary, rent paid and city type.',
+    category: 'money',
+    icon: 'Building2',
+    seo: {
+      title: 'HRA Tax Exemption Calculator - Old Regime | BharatUtility',
+      description: 'Calculate exact HRA tax exemption for Metro (50%) and Non-Metro (40%) cities to save Income Tax in India.',
+      keywords: ['HRA exemption calculator', 'house rent allowance calculator', 'hra calculation formula', 'income tax hra'],
+      canonicalSlug: 'hra-tax-exemption-calculator',
+      h1: 'House Rent Allowance (HRA) Tax Exemption Calculator'
+    },
+    formulaDescription: 'HRA Exemption is the minimum of: 1) Actual HRA received, 2) 50% or 40% of Basic+DA, 3) Rent paid minus 10% of Basic+DA.',
+    features: [
+      'Metro vs Non-Metro calculation',
+      'DA inclusion support',
+      'Instant tax break down'
+    ],
+    faqs: [
+      {
+        question: 'Is HRA exempt in the New Tax Regime?',
+        answer: 'No, HRA exemption is only available under the Old Tax Regime in India.'
+      }
+    ],
+    relatedToolSlugs: ['salary-calculator']
+  },
+  {
+    id: 'income-tax-calculator',
+    slug: 'income-tax-calculator',
+    name: 'Income Tax Calculator (Old vs New Regime FY 2026-27)',
+    shortName: 'Income Tax',
+    tagline: 'Compare Old vs New Tax Regime with FY2026 slabs',
+    description: 'Calculate your income tax for FY 2026-27 (AY 2027-28) under both Old and New Tax Regimes. Compare tax savings instantly.',
+    category: 'money',
+    icon: 'Landmark',
+    seo: {
+      title: 'Income Tax Calculator FY 2026-27 (Old vs New Regime) | BharatUtility',
+      description: 'Free Income Tax Calculator for FY 2026-27. Compare Old vs New Tax Regimes in India, include 80C, 80D, HRA deductions, and standard deduction of ₹75,000.',
+      keywords: ['income tax calculator 2026-27', 'old vs new tax regime', 'tax calculator india', 'income tax slabs'],
+      canonicalSlug: 'income-tax-calculator',
+      h1: 'Income Tax Calculator (Old vs New Tax Regime FY 2026-27)'
+    },
+    formulaDescription: 'Calculates tax based on the latest Union Budget slabs. Standard deduction of ₹75,000 applies to the New Regime.',
+    features: [
+      'FY 2026-27 (AY 2027-28) slabs',
+      'Old vs New Regime exact comparison',
+      '80C, 80D, HRA, NPS inputs'
+    ],
+    faqs: [
+      {
+        question: 'What is the standard deduction in the New Tax Regime for FY 2026-27?',
+        answer: 'The standard deduction under the New Tax Regime is ₹75,000 for salaried employees.'
+      },
+      {
+        question: 'Is income up to ₹7 Lakhs tax-free?',
+        answer: 'Yes, under the New Tax Regime, if your taxable income is ₹7,00,000 or below, your tax liability is zero due to the Section 87A rebate.'
+      }
+    ],
+    relatedToolSlugs: ['hra-tax-exemption-calculator', 'salary-calculator']
+  },
+  {
+    id: 'ev-tco-calculator',
+    slug: 'ev-tco-calculator',
+    name: 'EV vs Petrol Total Cost of Ownership (TCO)',
+    shortName: 'EV vs Petrol',
+    tagline: 'Compare 10-year cost of owning an EV vs Petrol Car',
+    description: 'Calculate and compare the total cost of ownership (TCO) between an Electric Vehicle (EV) and a Petrol car over 5 or 10 years, including running costs and maintenance.',
+    category: 'vehicle',
+    icon: 'Car',
+    seo: {
+      title: 'EV vs Petrol vs CNG TCO Calculator India | BharatUtility',
+      description: 'Calculate the total cost of ownership (TCO) of EV vs Petrol car. Find your break-even point, per km cost, and total savings over 10 years in India.',
+      keywords: ['ev vs petrol calculator', 'electric car vs petrol car cost', 'EV running cost per km', 'EV TCO calculator'],
+      canonicalSlug: 'ev-tco-calculator',
+      h1: 'EV vs Petrol Total Cost of Ownership (TCO) Calculator'
+    },
+    formulaDescription: 'Total Cost (TCO) = Car Price + (Fuel/Power Cost over N years) + (Maintenance over N years). Break-even is when the savings offset the EV price premium.',
+    features: [
+      'Running cost per km calculation',
+      'Break-even year calculation',
+      '10-year total savings projection'
+    ],
+    faqs: [
+      {
+        question: 'What is EV Break-even?',
+        answer: 'Break-even is the point in time (or kilometers driven) where the money saved on fuel and maintenance matches the extra amount you paid upfront to buy the EV compared to a petrol car.'
+      }
+    ],
+    relatedToolSlugs: ['fuel-cost-calculator']
+  },
+  {
+    id: 'cagr-calculator',
+    slug: 'cagr-calculator',
+    name: 'CAGR Calculator (Compound Annual Growth Rate)',
+    shortName: 'CAGR',
+    tagline: 'Calculate mutual fund or stock annual growth',
+    description: 'Calculate the Compound Annual Growth Rate (CAGR) for your investments. Know the exact annualized return of your portfolio over any time period.',
+    category: 'money',
+    icon: 'TrendingUp',
+    seo: {
+      title: 'CAGR Calculator | Compound Annual Growth Rate Calculator India',
+      description: 'Free CAGR calculator to find the Compound Annual Growth Rate of your investments, stocks, and mutual funds over time.',
+      keywords: ['cagr calculator', 'compound annual growth rate', 'annualized return calculator', 'mutual fund cagr'],
+      canonicalSlug: 'cagr-calculator',
+      h1: 'CAGR Calculator - Calculate Annualized Growth'
+    },
+    formulaDescription: 'CAGR = ((Final Value / Initial Value) ^ (1 / Years)) - 1',
+    features: [
+      'Exact annualized return calculation',
+      'Absolute return comparison',
+      'One-click result copying'
+    ],
+    faqs: [
+      {
+        question: 'What is a good CAGR?',
+        answer: 'In India, a CAGR of 10-15% over a 5+ year period in equity mutual funds is generally considered good.'
+      }
+    ],
+    relatedToolSlugs: ['sip-calculator', 'lumpsum-calculator']
+  },
+  {
+    id: 'lumpsum-calculator',
+    slug: 'lumpsum-calculator',
+    name: 'Mutual Fund Lumpsum Calculator',
+    shortName: 'Lumpsum',
+    tagline: 'Calculate returns on one-time investments',
+    description: 'Calculate the future value and estimated profits of your one-time (lumpsum) mutual fund or stock investments based on expected return rates.',
+    category: 'money',
+    icon: 'IndianRupee',
+    seo: {
+      title: 'Lumpsum Calculator - Mutual Fund Return Calculator India',
+      description: 'Calculate your mutual fund lumpsum investment returns. Find estimated wealth and profit over 1, 5, 10 or 20 years.',
+      keywords: ['lumpsum calculator', 'mutual fund lumpsum', 'investment calculator', 'future value calculator'],
+      canonicalSlug: 'lumpsum-calculator',
+      h1: 'Mutual Fund Lumpsum Return Calculator'
+    },
+    formulaDescription: 'Uses the compound interest formula: A = P(1 + r/n)^(nt) assuming annual compounding.',
+    features: [
+      'Total wealth estimation',
+      'Profit breakdown',
+      'Easy what-if scenarios'
+    ],
+    faqs: [
+      {
+        question: 'Lumpsum vs SIP, which is better?',
+        answer: 'Lumpsum is better when you have a large amount ready and the market valuation is low. SIP is better for disciplined monthly investing.'
+      }
+    ],
+    relatedToolSlugs: ['sip-calculator', 'cagr-calculator']
+  },
+  {
+    id: 'swp-calculator',
+    slug: 'swp-calculator',
+    name: 'SWP Calculator (Systematic Withdrawal Plan)',
+    shortName: 'SWP',
+    tagline: 'Plan your monthly income from mutual funds',
+    description: 'Calculate how long your mutual fund corpus will last with a Systematic Withdrawal Plan (SWP) or find the final balance after regular monthly withdrawals.',
+    category: 'money',
+    icon: 'ArrowDownCircle',
+    seo: {
+      title: 'SWP Calculator | Systematic Withdrawal Plan Calculator India',
+      description: 'Free SWP calculator to plan your regular monthly income from mutual funds. Check total amount withdrawn and final balance.',
+      keywords: ['swp calculator', 'systematic withdrawal plan', 'mutual fund swp', 'monthly income calculator'],
+      canonicalSlug: 'swp-calculator',
+      h1: 'Systematic Withdrawal Plan (SWP) Calculator'
+    },
+    formulaDescription: 'Calculates the remaining balance after deducting the monthly withdrawal and adding the monthly compounded interest.',
+    features: [
+      'Final fund balance calculation',
+      'Total withdrawal amount',
+      'Depletion alert if withdrawal is too high'
+    ],
+    faqs: [
+      {
+        question: 'What is SWP?',
+        answer: 'SWP allows an investor to withdraw a fixed amount regularly from a mutual fund investment, providing a steady income stream.'
+      }
+    ],
+    relatedToolSlugs: ['sip-calculator', 'lumpsum-calculator']
+  },
+  {
+    id: 'xirr-calculator',
+    slug: 'xirr-calculator',
+    name: 'XIRR Calculator (Extended Internal Rate of Return)',
+    shortName: 'XIRR',
+    tagline: 'Calculate returns for irregular investments',
+    description: 'Calculate the XIRR for your irregular cash flows. Perfect for calculating exact annualized returns of mutual fund SIPs and sporadic investments.',
+    category: 'money',
+    icon: 'Calculator',
+    seo: {
+      title: 'XIRR Calculator | Mutual Fund Exact Return Calculator',
+      description: 'Calculate XIRR (Extended Internal Rate of Return) for irregular investments and withdrawals. Accurate annualized returns for SIPs and stocks.',
+      keywords: ['xirr calculator', 'calculate xirr online', 'mutual fund xirr', 'irregular cash flow return'],
+      canonicalSlug: 'xirr-calculator',
+      h1: 'XIRR Calculator (Extended Internal Rate of Return)'
+    },
+    formulaDescription: 'Uses an iterative numerical method (Newton-Raphson) to find the rate (r) where the Net Present Value (NPV) of all cash flows equals zero.',
+    features: [
+      'Add multiple dates and amounts',
+      'Handles irregular cash flows',
+      'Precise algorithmic calculation'
+    ],
+    faqs: [
+      {
+        question: 'Why use XIRR instead of CAGR?',
+        answer: 'CAGR is only for a single lumpsum investment. XIRR is needed when you make multiple investments or withdrawals at different dates (like SIPs).'
+      }
+    ],
+    relatedToolSlugs: ['cagr-calculator', 'sip-calculator']
+  },
+  {
+    id: 'home-loan-eligibility-calculator',
+    slug: 'home-loan-eligibility-calculator',
+    name: 'Home Loan Eligibility Calculator',
+    shortName: 'Loan Eligibility',
+    tagline: 'Check how much home loan you can get',
+    description: 'Calculate your maximum home loan eligibility based on your in-hand salary, FOIR (Fixed Obligation to Income Ratio), and existing EMIs.',
+    category: 'money',
+    icon: 'Home',
+    seo: {
+      title: 'Home Loan Eligibility Calculator India | Max Loan Amount',
+      description: 'Check your maximum home loan eligibility and affordable EMI based on your net monthly salary and existing deductions.',
+      keywords: ['home loan eligibility calculator', 'max loan amount', 'foir calculator', 'how much home loan can i get'],
+      canonicalSlug: 'home-loan-eligibility-calculator',
+      h1: 'Home Loan Eligibility Calculator'
+    },
+    formulaDescription: 'Maximum EMI = (Net Salary × FOIR) - Existing EMIs. Max Loan Amount is then derived using the standard PV (Present Value) formula of an annuity.',
+    features: [
+      'FOIR-based exact eligibility',
+      'Considers existing EMI obligations',
+      'Dynamic slider for FOIR limit'
+    ],
+    faqs: [
+      {
+        question: 'What is FOIR?',
+        answer: 'FOIR stands for Fixed Obligation to Income Ratio. It is the maximum percentage of your income that a bank assumes can be safely used to pay EMIs. Usually, it is around 50%.'
+      }
+    ],
+    relatedToolSlugs: ['emi-calculator', 'personal-loan-emi-calculator']
+  },
+  {
+    id: 'term-insurance-calculator',
+    slug: 'term-insurance-calculator',
+    name: 'Term Insurance Cover Calculator (HLV)',
+    shortName: 'Term Insurance',
+    tagline: 'Calculate how much life cover your family needs',
+    description: 'Calculate your exact Human Life Value (HLV) and required term insurance coverage based on your current income, future goals, and liabilities.',
+    category: 'money',
+    icon: 'Shield',
+    seo: {
+      title: 'Term Insurance Coverage Calculator India | Human Life Value',
+      description: 'Free Term Insurance Calculator to estimate how much life insurance cover you need. Uses Human Life Value (HLV) and Needs-based methods.',
+      keywords: ['term insurance calculator', 'human life value calculator', 'how much term insurance', 'HLV calculator'],
+      canonicalSlug: 'term-insurance-calculator',
+      h1: 'Term Insurance & Human Life Value (HLV) Calculator'
+    },
+    formulaDescription: 'Combines two methods: 1. Rule of Thumb (10x-20x annual income based on age). 2. Needs Method (Present Value of family expenses + Liabilities + Goals - Savings). Takes the higher of the two.',
+    features: [
+      'Dual methodology calculation (HLV + Needs)',
+      'Factors in existing loans and savings',
+      'Realistic inflation & real return estimates'
+    ],
+    faqs: [
+      {
+        question: 'What is Human Life Value (HLV)?',
+        answer: 'Human Life Value is the present value of all future income you expect to earn for your family. It helps determine the ideal term insurance cover.'
+      },
+      {
+        question: 'Should I deduct my existing savings?',
+        answer: 'Yes, existing savings (like FDs, mutual funds) reduce the insurance burden because your family already has access to those funds in an emergency.'
+      }
+    ],
+    relatedToolSlugs: ['fire-retirement-calculator', 'salary-calculator']
+  },
+  {
+    id: 'health-insurance-calculator',
+    slug: 'health-insurance-calculator',
+    name: 'Health Insurance Coverage Calculator',
+    shortName: 'Health Insurance',
+    tagline: 'Calculate ideal health insurance cover for your family',
+    description: 'Calculate the optimal health insurance coverage needed for your family based on city tier, eldest member age, pre-existing conditions, and existing corporate cover.',
+    category: 'health',
+    icon: 'Stethoscope',
+    seo: {
+      title: 'Health Insurance Coverage Calculator India | Optimal Cover',
+      description: 'Free health insurance calculator to determine the ideal mediclaim policy cover size for your family in India. Factors in hospital inflation and corporate cover.',
+      keywords: ['health insurance calculator', 'how much health insurance', 'mediclaim cover calculator', 'family floater calculator'],
+      canonicalSlug: 'health-insurance-calculator',
+      h1: 'Health Insurance Coverage Calculator'
+    },
+    formulaDescription: 'Multiplies a base hospitalization cost per member by factors for medical inflation (city tier), age risk, and pre-existing conditions.',
+    features: [
+      'Accounts for existing corporate insurance',
+      'Dynamic city-tier medical inflation logic',
+      'Calculates exact shortfall / super-top-up need'
+    ],
+    faqs: [
+      {
+        question: 'Is corporate health insurance enough?',
+        answer: 'Corporate health policies lapse when you leave the job or retire. It is highly recommended to maintain a personal base policy of at least ₹5L.'
+      },
+      {
+        question: 'Why does city tier matter?',
+        answer: 'Room rent and treatment costs in Metro cities are significantly higher than in Tier-2/Tier-3 cities, requiring a higher base cover.'
+      }
+    ],
+    relatedToolSlugs: ['term-insurance-calculator', 'bmi-indian-health-calculator']
+  },
+  {
+    id: 'vehicle-idv-calculator',
+    slug: 'vehicle-idv-calculator',
+    name: 'Car/Bike IDV Calculator',
+    shortName: 'Vehicle IDV',
+    tagline: 'Calculate Insured Declared Value for insurance',
+    description: 'Estimate the exact IDV (Insured Declared Value) for your car or bike based on its age and ex-showroom price as per IRDAI standard depreciation slabs.',
+    category: 'auto',
+    icon: 'Car',
+    seo: {
+      title: 'Car/Bike IDV Calculator | Motor Insurance Value Estimator',
+      description: 'Calculate your car or two-wheeler IDV (Insured Declared Value) online. Check standard IRDAI depreciation slabs before renewing your motor insurance.',
+      keywords: ['car idv calculator', 'bike idv calculator', 'vehicle depreciation', 'insurance idv estimator', 'irdai depreciation slabs'],
+      canonicalSlug: 'vehicle-idv-calculator',
+      h1: 'Vehicle IDV (Insured Declared Value) Calculator'
+    },
+    formulaDescription: 'IDV = Ex-Showroom Price - (Ex-Showroom Price * IRDAI Depreciation Rate based on age). Depreciation varies from 5% (0-6 months) to 50% (4-5 years).',
+    features: [
+      'Standard IRDAI depreciation logic',
+      'Works for both Cars and Bikes',
+      'Helps negotiate better insurance premiums'
+    ],
+    faqs: [
+      {
+        question: 'What is IDV in motor insurance?',
+        answer: 'IDV stands for Insured Declared Value. It is the maximum sum assured the insurer will pay you if your vehicle is completely destroyed or stolen.'
+      },
+      {
+        question: 'How is IDV calculated?',
+        answer: 'It is strictly calculated on the manufacturers listed Ex-Showroom price minus standard depreciation. Registration costs and road tax are excluded.'
+      }
+    ],
+    relatedToolSlugs: ['vehicle-fuel-cost-calculator', 'emi-calculator']
   }
 ];
 
@@ -11988,13 +12607,13 @@ const TOOL_SLUG_ALIASES: Record<string, string> = {
   'canvas-drawing': 'online-paint-canvas-drawing-tool',
 
   // Finance, Loans & Tax Aliases
-  'income-tax-calculator': 'salary-calculator',
+  'new-vs-old-tax-calculator': 'income-tax-calculator',
   'personal-loan-emi-calculator': 'emi-calculator',
   'home-loan-emi-calculator': 'emi-calculator',
   'car-loan-emi-calculator': 'emi-calculator',
   'gst-calc': 'gst-calculator',
   'reverse-gst-calculator': 'gst-calculator',
-  'new-vs-old-tax-calculator': 'salary-calculator',
+
   'capital-gains-tax-calculator': 'mutual-fund-capital-gains-tax-calculator',
   'compound-interest-calculator': 'sip-calculator',
   'business-loan-calculator': 'pm-mudra-loan-eligibility-calculator',
@@ -12055,8 +12674,18 @@ const TOOL_SLUG_ALIASES: Record<string, string> = {
   'wall-paint-estimator': 'paint-calculator',
   'bigha-to-sqft-converter': 'land-area-converter',
   'guntha-to-sqft-converter': 'land-area-converter',
-  'cooling-tonnage-calculator': 'state-electricity-slab-calculator',
-  'indian-baby-names-rashi-astrology': 'indian-baby-names-rashi'
+  'cooling-tonnage-calculator': 'electricity-bill-calculator',
+  'indian-baby-names-rashi-astrology': 'indian-baby-names-rashi',
+
+  // Deactivated Duplicate Redirects
+  'sukanya-samriddhi-yojana-calculator': 'sukanya-samriddhi-calculator',
+  'state-electricity-slab-calculator': 'electricity-bill-calculator',
+  'home-loan-prepayment-tenure-calculator': 'home-loan-prepayment-calculator',
+  'jewellery-gold-making-charge-calculator': 'gold-jewellery-price-calculator',
+  'mobile-imei-luhn-validator-ceir-guide': 'imei-ceir-guide-validator',
+  
+  // Phase C Aliases
+  'old-vs-new-tax-regime-calculator': 'income-tax-calculator'
 };
 
 export function getActiveTools(): Tool[] {

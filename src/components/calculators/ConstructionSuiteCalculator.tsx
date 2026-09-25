@@ -91,7 +91,7 @@ export const ConstructionSuiteCalculator: React.FC<ConstructionSuiteCalculatorPr
   ]);
 
   return (
-    <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+    <div className="w-full space-y-6">
       {/* Mode Switcher Tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-neutral-100 dark:border-neutral-800">
         {[

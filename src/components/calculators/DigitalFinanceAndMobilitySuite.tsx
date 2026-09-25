@@ -88,57 +88,7 @@ export const DigitalFinanceAndMobilitySuite: React.FC<Props> = ({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 lg:p-8 text-white shadow-2xl">
-      {/* Suite Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-5 mb-6 overflow-x-auto gap-2">
-        <div className="flex items-center gap-2">
-          <span className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-            <CreditCard className="w-6 h-6" />
-          </span>
-          <div>
-            <h2 className="text-xl font-bold text-white tracking-tight">
-              Digital Finance, Mobility & Citizen Rights Suite
-            </h2>
-            <p className="text-xs text-slate-400">
-              UPI ₹5L Rules, SSY vs PPF, Rent 194-IB, EV Scooter TCO, Crop Insurance & RTO Simulator
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs Navigation */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-1.5 p-1.5 bg-slate-950/60 rounded-2xl border border-slate-800/80 mb-8">
-        {[
-          { id: 'upi-limits', label: '💳 UPI Limits', icon: CreditCard },
-          { id: 'ssy-ppf', label: '🌸 SSY vs PPF', icon: Sparkles },
-          { id: 'tds-rent', label: '🏠 Rent 194-IB', icon: Home },
-          { id: 'ev-petrol', label: '🛵 EV Scooter', icon: Zap },
-          { id: 'fasal-bima', label: '🌾 Fasal Bima', icon: Wheat },
-          { id: 'rto-quiz', label: '🚦 RTO DL Test', icon: ShieldCheck },
-          { id: 'society-maintenance', label: '🏢 Society Bill', icon: Building },
-          { id: 'tatkaal-passport', label: '✈️ Tatkaal Pass', icon: Plane },
-          { id: 'senior-fd', label: '👴 Senior 15H', icon: Award },
-          { id: 'abha-card', label: '🏥 ABHA Health', icon: HeartPulse },
-        ].map((tab) => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as DigitalFinanceMobilityMode)}
-              className={`flex flex-col items-center justify-center p-2 rounded-xl text-xs font-semibold transition-all ${
-                isActive
-                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/20 scale-[1.02]'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-              }`}
-            >
-              <Icon className="w-4 h-4 mb-1" />
-              <span className="truncate w-full text-center">{tab.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
+    <div className="w-full">
       {/* 1. UPI Daily Limits & Cool-off Tracker */}
       {activeTab === 'upi-limits' && (
         <div className="space-y-6">

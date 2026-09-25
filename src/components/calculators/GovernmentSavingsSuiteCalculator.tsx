@@ -208,7 +208,7 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
   switch (tool.slug) {
     case 'ppf-calculator':
       return (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+        <div className="w-full space-y-6">
           <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-4">
             <div>
               <h2 className="text-xl font-bold font-display text-neutral-900 dark:text-white">Public Provident Fund (PPF) Calculator</h2>
@@ -298,7 +298,7 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
 
     case 'sukanya-samriddhi-calculator':
       return (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+        <div className="w-full space-y-6">
           <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-4">
             <div>
               <h2 className="text-xl font-bold font-display text-neutral-900 dark:text-white">Sukanya Samriddhi Yojana (SSY) Calculator</h2>
@@ -364,7 +364,7 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
 
     case 'gratuity-calculator':
       return (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+        <div className="w-full space-y-6">
           <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-4">
             <div>
               <h2 className="text-xl font-bold font-display text-neutral-900 dark:text-white">Gratuity Calculator (Payment of Gratuity Act)</h2>
@@ -432,7 +432,7 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
 
     case 'nps-calculator':
       return (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+        <div className="w-full space-y-6">
           <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-4">
             <div>
               <h2 className="text-xl font-bold font-display text-neutral-900 dark:text-white">National Pension Scheme (NPS) Calculator</h2>
@@ -513,7 +513,7 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
 
     case 'epf-calculator':
       return (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+        <div className="w-full space-y-6">
           <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-4">
             <div>
               <h2 className="text-xl font-bold font-display text-neutral-900 dark:text-white">Employees' Provident Fund (EPF) Calculator</h2>
@@ -595,7 +595,7 @@ export const GovernmentSavingsSuiteCalculator: React.FC<Props> = ({ tool }) => {
 
     case 'home-loan-prepayment-calculator':
       return (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+        <div className="w-full space-y-6">
           <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-4">
             <div>
               <h2 className="text-xl font-bold font-display text-neutral-900 dark:text-white">Home Loan Prepayment & Savings Calculator</h2>

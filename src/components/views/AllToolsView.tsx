@@ -50,6 +50,19 @@ export const AllToolsView: React.FC = () => {
     });
   }, [searchQuery, selectedCategory, sortBy]);
 
+  const [visibleCount, setVisibleCount] = useState(24);
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 24);
+  };
+
+  // Reset pagination when filters change
+  React.useEffect(() => {
+    setVisibleCount(24);
+  }, [searchQuery, selectedCategory, sortBy]);
+
+  const currentTools = filteredTools.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredTools.length;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-8 space-y-4 sm:space-y-8 animate-in fade-in duration-200 relative">
       {/* Background Subtle Antigravity Ambient Light & Particles */}
@@ -132,12 +145,25 @@ export const AllToolsView: React.FC = () => {
       </div>
 
       {/* Tools Grid */}
-      {filteredTools.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-          {filteredTools.map(tool => (
-            <ToolCard key={tool.id} tool={tool} />
-          ))}
-        </div>
+      {currentTools.length > 0 ? (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
+            {currentTools.map(tool => (
+              <ToolCard key={tool.id} tool={tool} />
+            ))}
+          </div>
+          
+          {hasMore && (
+            <div className="flex justify-center pt-6 pb-2">
+              <button
+                onClick={handleLoadMore}
+                className="px-6 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white font-bold text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors shadow-sm"
+              >
+                Load More Tools ({filteredTools.length - visibleCount} remaining)
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center py-12 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 p-6 space-y-3">
           <p className="text-sm text-neutral-500">No tools found matching "{searchQuery}"</p>

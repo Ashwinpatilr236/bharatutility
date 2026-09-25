@@ -38,57 +38,7 @@ export const OfficialGovtAppsMasterSuite: React.FC<Props> = ({
   const [activeTab, setActiveTab] = useState<OfficialGovtAppMode>(initialMode);
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 lg:p-8 text-white shadow-2xl">
-      {/* Suite Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-5 mb-6 overflow-x-auto gap-2">
-        <div className="flex items-center gap-2">
-          <span className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
-            <Smartphone className="w-6 h-6" />
-          </span>
-          <div>
-            <h2 className="text-xl font-bold text-white tracking-tight">
-              Official Government of India Apps & Portals Suite
-            </h2>
-            <p className="text-xs text-slate-400">
-              UMANG, DigiLocker Rule 9A, mAadhaar Biometric Lock, TAFCOP SIMs & 112 SOS
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs Navigation */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-1.5 p-1.5 bg-slate-950/60 rounded-2xl border border-slate-800/80 mb-8">
-        {[
-          { id: 'umang-app', label: '📱 UMANG (1200+)', icon: Smartphone },
-          { id: 'digilocker-guide', label: '📂 DigiLocker 9A', icon: FolderLock },
-          { id: 'maadhaar-lock', label: '🆔 mAadhaar Lock', icon: Fingerprint },
-          { id: 'mparivahan-guide', label: '🚗 mParivahan', icon: Car },
-          { id: 'tafcop-sims', label: '🛡️ TAFCOP SIMs', icon: ShieldAlert },
-          { id: 'railmadad-guide', label: '🚆 RailMadad 139', icon: Train },
-          { id: 'pmkisan-face', label: '🌾 Face e-KYC', icon: Smile },
-          { id: 'bhim-offline', label: '💸 Offline *99#', icon: Zap },
-          { id: 'emergency-112', label: '🚨 112 India SOS', icon: PhoneCall },
-          { id: 'abha-digital', label: '🏥 ABHA Health', icon: HeartPulse },
-        ].map((tab) => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as OfficialGovtAppMode)}
-              className={`flex flex-col items-center justify-center p-2 rounded-xl text-xs font-semibold transition-all ${
-                isActive
-                  ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 scale-[1.02]'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-              }`}
-            >
-              <Icon className="w-4 h-4 mb-1" />
-              <span className="truncate w-full text-center">{tab.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
+    <div className="w-full">
       {/* 1. UMANG App */}
       {activeTab === 'umang-app' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">

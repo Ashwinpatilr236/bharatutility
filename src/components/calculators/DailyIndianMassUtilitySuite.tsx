@@ -213,40 +213,8 @@ export const DailyIndianMassUtilitySuite: React.FC<Props> = ({
 
   return (
     <div className="space-y-6">
-      {/* Tab Switcher */}
-      <div className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-neutral-100 dark:bg-neutral-800/80 border border-neutral-200/80 dark:border-neutral-700">
-        {[
-          { id: 'gold-jewellery', label: '💍 Gold Making & Hallmark GST', icon: Coins },
-          { id: 'milk-fat', label: '🥛 Dairy Milk Fat & SNF Rate', icon: Milk },
-          { id: 'land-units', label: '📐 Multi-State Bigha Land Units', icon: MapPin },
-          { id: 'gratuity-calc', label: '💰 Gratuity ₹25L Tax Exemption', icon: Landmark },
-          { id: 'baby-vaccine', label: '👶 Baby Vaccine UIP Calendar', icon: Baby },
-          { id: 'stamp-paper', label: '📜 Non-Judicial Stamp Paper Value', icon: FileText },
-          { id: 'car-valuation', label: '🚗 Used Car/Bike Resale Valuation', icon: Car },
-          { id: 'tax-44ada', label: '💻 Freelancer 44ADA 50% Tax', icon: Laptop },
-          { id: 'consumer-notice', label: '📢 Jago Grahak 1915 Legal Notice', icon: Scale },
-          { id: 'medicine-compare', label: '💊 Branded vs Generic Medicine', icon: Pill },
-        ].map((tab) => {
-          const Icon = tab.icon;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as IndianMassUtilityMode)}
-              className={`flex items-center gap-1.5 py-2 px-3.5 rounded-xl text-xs font-bold transition-all ${
-                activeTab === tab.id
-                  ? 'bg-accent text-white shadow-xs'
-                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
-              }`}
-            >
-              <Icon className="w-3.5 h-3.5" />
-              <span>{tab.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
       {/* Main Content Area */}
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-6">
+      <div className="w-full space-y-6">
 
         {/* 1. Gold Jewellery Making Charges & GST */}
         {activeTab === 'gold-jewellery' && (

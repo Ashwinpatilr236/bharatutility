@@ -99,6 +99,24 @@ const ImeiCeirGuideValidator = React.lazy(() => import('./tech/ImeiCeirGuideVali
 const PropertyStampDutyCalculator = React.lazy(() => import('./home/PropertyStampDutyCalculator').then(m => ({ default: m.PropertyStampDutyCalculator })));
 const IndianBabyNamesRashi = React.lazy(() => import('./daily/IndianBabyNamesRashi').then(m => ({ default: m.IndianBabyNamesRashi })));
 const PasswordBreachChecker = React.lazy(() => import('./tech/PasswordBreachChecker').then(m => ({ default: m.PasswordBreachChecker })));
+const StockAverageCalculator = React.lazy(() => import('../calculators/StockAverageCalculator').then(m => ({ default: m.StockAverageCalculator })));
+const HraTaxExemptionCalculator = React.lazy(() => import('../calculators/HraTaxExemptionCalculator').then(m => ({ default: m.HraTaxExemptionCalculator })));
+const EvTcoCalculator = React.lazy(() => import('../calculators/EvTcoCalculator').then(m => ({ default: m.EvTcoCalculator })));
+const IncomeTaxCalculator = React.lazy(() => import('../calculators/IncomeTaxCalculator').then(m => ({ default: m.IncomeTaxCalculator })));
+const CagrCalculator = React.lazy(() => import('../calculators/CagrCalculator').then(m => ({ default: m.CagrCalculator })));
+const LumpsumCalculator = React.lazy(() => import('../calculators/LumpsumCalculator').then(m => ({ default: m.LumpsumCalculator })));
+const SwpCalculator = React.lazy(() => import('../calculators/SwpCalculator').then(m => ({ default: m.SwpCalculator })));
+const XirrCalculator = React.lazy(() => import('../calculators/XirrCalculator').then(m => ({ default: m.XirrCalculator })));
+const HomeLoanEligibilityCalculator = React.lazy(() => import('../calculators/HomeLoanEligibilityCalculator').then(m => ({ default: m.HomeLoanEligibilityCalculator })));
+const TermInsuranceCalculator = React.lazy(() => import('../calculators/TermInsuranceCalculator').then(m => ({ default: m.TermInsuranceCalculator })));
+const HealthInsuranceCalculator = React.lazy(() => import('../calculators/HealthInsuranceCalculator').then(m => ({ default: m.HealthInsuranceCalculator })));
+const CarIdvCalculator = React.lazy(() => import('../calculators/CarIdvCalculator').then(m => ({ default: m.CarIdvCalculator })));
+
+
+
+
+
+
 
 import {
   Star,
@@ -115,6 +133,7 @@ import {
   Search,
   ArrowRight
 } from 'lucide-react';
+import { StarRatingWidget } from '../common/seo/StarRatingWidget';
 
 interface ToolPageLayoutProps {
   tool: Tool;
@@ -380,8 +399,31 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <GstCalculator onResultChange={handleResultChange} />;
 
       case 'salary-calculator':
-      case 'income-tax-calculator':
         return <SalaryCalculator onResultChange={handleResultChange} />;
+      case 'stock-average-calculator':
+        return <StockAverageCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'hra-tax-exemption-calculator':
+        return <HraTaxExemptionCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'ev-tco-calculator':
+        return <EvTcoCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'income-tax-calculator':
+        return <IncomeTaxCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'cagr-calculator':
+        return <CagrCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'lumpsum-calculator':
+        return <LumpsumCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'swp-calculator':
+        return <SwpCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'xirr-calculator':
+        return <XirrCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'home-loan-eligibility-calculator':
+        return <HomeLoanEligibilityCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'term-insurance-calculator':
+        return <TermInsuranceCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'health-insurance-calculator':
+        return <HealthInsuranceCalculator tool={tool} onResultChange={handleResultChange} />;
+      case 'vehicle-idv-calculator':
+        return <CarIdvCalculator tool={tool} onResultChange={handleResultChange} />;
 
       case 'age-calculator':
       case 'next-birthday-calculator':
@@ -837,6 +879,25 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
               <p className="hidden md:block text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
                 {tool.description}
               </p>
+              <StarRatingWidget tool={tool} />
+              
+              {/* Freshness / Source Indicator for Time-Sensitive Tools */}
+              {(tool.lastUpdated || tool.officialSource || tool.needsManualVerification) && (
+                <div className="flex flex-wrap items-center gap-3 mt-2 text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
+                  {tool.lastUpdated && (
+                    <div className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      Last updated: {tool.lastUpdated}
+                    </div>
+                  )}
+                  {tool.officialSource && (
+                    <div className="flex items-center gap-1 border-l border-neutral-300 dark:border-neutral-700 pl-3">
+                      Source: {tool.officialSource}
+                    </div>
+                  )}
+
+                </div>
+              )}
             </div>
           </div>
 
@@ -924,6 +985,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
           {tool.seoSections.map((sec, idx) => (
             <div
               key={idx}
+              id={`seo-section-${idx}`}
               className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-3"
             >
               <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white font-display">
@@ -1018,7 +1080,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Frequently Asked Questions (FAQ) Section */}
       {tool.faqs && tool.faqs.length > 0 && (
-        <div className="hidden md:block bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+        <div id="tool-faqs" className="hidden md:block bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
           <div className="flex items-center gap-2.5 border-b border-neutral-100 dark:border-neutral-800 pb-3">
             <HelpCircle className="w-5 h-5 text-accent" />
             <h2 className="text-lg font-bold text-neutral-900 dark:text-white font-display">

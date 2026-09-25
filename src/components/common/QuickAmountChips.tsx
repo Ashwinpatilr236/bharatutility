@@ -4,11 +4,13 @@ import { Plus, RotateCcw } from 'lucide-react';
 
 interface QuickAmountChipsProps {
   currentValue: number;
-  onValueChange: (newValue: number) => void;
+  onValueChange?: (newValue: number) => void;
+  onChange?: (newValue: number) => void;
   min?: number;
   max?: number;
   chips?: { label: string; value: number }[];
   defaultValue?: number;
+  resetValue?: number;
 }
 
 const DEFAULT_INDIAN_CHIPS = [
@@ -22,19 +24,24 @@ const DEFAULT_INDIAN_CHIPS = [
 export const QuickAmountChips: React.FC<QuickAmountChipsProps> = ({
   currentValue,
   onValueChange,
+  onChange,
   max = 100000000,
   chips = DEFAULT_INDIAN_CHIPS,
   defaultValue = 0,
+  resetValue,
 }) => {
+  const handleChange = onValueChange || onChange || (() => {});
+  const resetTarget = resetValue !== undefined ? resetValue : defaultValue;
+
   const handleAdd = (amount: number) => {
     triggerHapticFeedback('light');
     const next = Math.min(max, (currentValue || 0) + amount);
-    onValueChange(next);
+    handleChange(next);
   };
 
   const handleReset = () => {
     triggerHapticFeedback('medium');
-    onValueChange(defaultValue);
+    handleChange(resetTarget);
   };
 
   return (
@@ -54,7 +61,7 @@ export const QuickAmountChips: React.FC<QuickAmountChipsProps> = ({
         </button>
       ))}
 
-      {defaultValue > 0 && currentValue !== defaultValue && (
+      {resetTarget > 0 && currentValue !== resetTarget && (
         <button
           type="button"
           onClick={handleReset}

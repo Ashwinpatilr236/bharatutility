@@ -53,7 +53,7 @@ const AppContent: React.FC = () => {
   const { view, navigateToHome, toast } = useApp();
 
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-50/50 dark:bg-black text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white relative w-full max-w-[100vw] overflow-x-clip">
+    <div className="min-h-screen flex flex-col bg-neutral-50/50 dark:bg-black text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white relative w-full overflow-x-hidden">
       {/* Global Offline Banner */}
       <OfflineStatusIndicator />
 

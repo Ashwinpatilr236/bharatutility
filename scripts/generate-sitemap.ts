@@ -1,18 +1,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { TOOLS_REGISTRY } from '../src/data/toolsRegistry.ts';
+import { getActiveTools } from '../src/data/toolsRegistry.ts';
+const TOOLS_REGISTRY = getActiveTools();
 import { CATEGORIES } from '../src/data/categories.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const BASE_URL = 'https://bharatutility.tech';
-const TODAY = new Date().toISOString().split('T')[0];
 
 interface SitemapUrl {
   loc: string;
-  lastmod: string;
   changefreq: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
   priority: string;
 }
@@ -23,7 +22,6 @@ function generateSitemap(): void {
   // 1. Homepage
   urls.push({
     loc: `${BASE_URL}/`,
-    lastmod: TODAY,
     changefreq: 'daily',
     priority: '1.0',
   });
@@ -31,7 +29,6 @@ function generateSitemap(): void {
   // 2. All Tools Directory
   urls.push({
     loc: `${BASE_URL}/tools`,
-    lastmod: TODAY,
     changefreq: 'daily',
     priority: '0.9',
   });
@@ -40,7 +37,6 @@ function generateSitemap(): void {
   CATEGORIES.forEach(cat => {
     urls.push({
       loc: `${BASE_URL}/category/${cat.id}`,
-      lastmod: TODAY,
       changefreq: 'weekly',
       priority: '0.85',
     });
@@ -52,7 +48,6 @@ function generateSitemap(): void {
     const isHighPriority = tool.popular || tool.featured || tool.trending;
     urls.push({
       loc: `${BASE_URL}/tools/${slug}`,
-      lastmod: TODAY,
       changefreq: isHighPriority ? 'daily' : 'weekly',
       priority: isHighPriority ? '0.95' : '0.80',
     });
@@ -72,7 +67,6 @@ function generateSitemap(): void {
   staticPages.forEach(p => {
     urls.push({
       loc: `${BASE_URL}${p.path}`,
-      lastmod: TODAY,
       changefreq: p.changefreq,
       priority: p.priority,
     });
@@ -87,7 +81,6 @@ ${urls
   .map(
     u => `  <url>
     <loc>${u.loc}</loc>
-    <lastmod>${u.lastmod}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>
   </url>`
@@ -105,3 +98,4 @@ ${urls
 }
 
 generateSitemap();
+

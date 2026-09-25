@@ -87,57 +87,7 @@ export const RightsCollegeAndWealthSuite: React.FC<Props> = ({
   const [patientWeightKg, setPatientWeightKg] = useState(65);
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 lg:p-8 text-white shadow-2xl">
-      {/* Suite Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-5 mb-6 overflow-x-auto gap-2">
-        <div className="flex items-center gap-2">
-          <span className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
-            <Coins className="w-6 h-6" />
-          </span>
-          <div>
-            <h2 className="text-xl font-bold text-white tracking-tight">
-              Rights, College, Wealth & Citizen Protection Suite
-            </h2>
-            <p className="text-xs text-slate-400">
-              SGB 2.5% Tax-Free, Family Gift Deed, Food GST & CCPA, 75% Attendance & NPS Pension
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs Navigation */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-1.5 p-1.5 bg-slate-950/60 rounded-2xl border border-slate-800/80 mb-8">
-        {[
-          { id: 'sgb-gold', label: '🥇 SGB Gold', icon: Coins },
-          { id: 'gift-deed', label: '🏡 Gift Deed', icon: FileCheck2 },
-          { id: 'restaurant-gst', label: '🍽️ Food GST', icon: Utensils },
-          { id: 'college-attendance', label: '🎓 75% Bunk', icon: GraduationCap },
-          { id: 'lta-tax', label: '✈️ LTA Tax', icon: Plane },
-          { id: 'tyre-upsize', label: '🚗 Tyre Upsize', icon: Disc },
-          { id: 'mandi-msp', label: '🌾 Mandi MSP', icon: Scale },
-          { id: 'nps-pension', label: '🪙 NPS ₹50K', icon: ShieldCheck },
-          { id: 'rti-appeal', label: '⚖️ RTI 30-Day', icon: FileText },
-          { id: 'bsa-dosage', label: '🩺 Clinical BSA', icon: Activity },
-        ].map((tab) => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as RightsCollegeWealthMode)}
-              className={`flex flex-col items-center justify-center p-2 rounded-xl text-xs font-semibold transition-all ${
-                isActive
-                  ? 'bg-gradient-to-r from-amber-500 to-yellow-600 text-white shadow-lg shadow-amber-500/20 scale-[1.02]'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-              }`}
-            >
-              <Icon className="w-4 h-4 mb-1" />
-              <span className="truncate w-full text-center">{tab.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
+    <div className="w-full">
       {/* 1. RBI Sovereign Gold Bond (SGB) Calculator */}
       {activeTab === 'sgb-gold' && (
         <div className="space-y-6">
