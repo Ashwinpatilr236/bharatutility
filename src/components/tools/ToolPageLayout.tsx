@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Tool } from '../../types';
 import { useApp } from '../../context/AppContext';
 import { getToolBySlug, getToolsByCategory, getPopularTools } from '../../data/toolsRegistry';
+import { getAllArticles } from '../../data/contentRegistry';
 import { CATEGORIES } from '../../data/categories';
 import { Breadcrumbs } from '../common/Breadcrumbs';
 import { DynamicIcon } from '../common/DynamicIcon';
@@ -38,8 +39,9 @@ const FuelCostCalculator = React.lazy(() => import('../calculators/FuelCostCalcu
 const LetterGenerator = React.lazy(() => import('../calculators/LetterGenerator').then(m => ({ default: m.LetterGenerator })));
 const BusinessSuiteCalculator = React.lazy(() => import('../calculators/BusinessSuiteCalculator').then(m => ({ default: m.BusinessSuiteCalculator })));
 const TechnologySuiteCalculator = React.lazy(() => import('../calculators/TechnologySuiteCalculator').then(m => ({ default: m.TechnologySuiteCalculator })));
-const ConstructionSuiteCalculator = React.lazy(() => import('../calculators/ConstructionSuiteCalculator').then(m => ({ default: m.ConstructionSuiteCalculator })));
-const EducationSuiteCalculator = React.lazy(() => import('../calculators/EducationSuiteCalculator').then(m => ({ default: m.EducationSuiteCalculator })));
+
+const CollegeAttendanceCalculator = React.lazy(() => import('../calculators/CollegeAttendanceCalculator').then(m => ({ default: m.CollegeAttendanceCalculator })));
+const ExamStudyHoursPlanner = React.lazy(() => import('../calculators/ExamStudyHoursPlanner').then(m => ({ default: m.ExamStudyHoursPlanner })));
 const DateTimeSuiteCalculator = React.lazy(() => import('../calculators/DateTimeSuiteCalculator').then(m => ({ default: m.DateTimeSuiteCalculator })));
 const IndiaServicesSuiteCalculator = React.lazy(() => import('../calculators/IndiaServicesSuiteCalculator').then(m => ({ default: m.IndiaServicesSuiteCalculator })));
 const DocumentToolsSuiteCalculator = React.lazy(() => import('../calculators/DocumentToolsSuiteCalculator').then(m => ({ default: m.DocumentToolsSuiteCalculator })));
@@ -81,7 +83,6 @@ const LegalAndCitizenRightsCalculator = React.lazy(() => import('../calculators/
 const LivePublicApisSuiteCalculator = React.lazy(() => import('../calculators/LivePublicApisSuiteCalculator').then(m => ({ default: m.LivePublicApisSuiteCalculator })));
 const HardwareAndDiagnosticSuiteCalculator = React.lazy(() => import('../calculators/HardwareAndDiagnosticSuiteCalculator').then(m => ({ default: m.HardwareAndDiagnosticSuiteCalculator })));
 const IndianGovtAndCivicExpansionSuite = React.lazy(() => import('../calculators/IndianGovtAndCivicExpansionSuite').then(m => ({ default: m.IndianGovtAndCivicExpansionSuite })));
-const DailyIndianMassUtilitySuite = React.lazy(() => import('../calculators/DailyIndianMassUtilitySuite').then(m => ({ default: m.DailyIndianMassUtilitySuite })));
 const TravelWeddingAndLandSuite = React.lazy(() => import('../calculators/TravelWeddingAndLandSuite').then(m => ({ default: m.TravelWeddingAndLandSuite })));
 const DigitalFinanceAndMobilitySuite = React.lazy(() => import('../calculators/DigitalFinanceAndMobilitySuite').then(m => ({ default: m.DigitalFinanceAndMobilitySuite })));
 const RightsCollegeAndWealthSuite = React.lazy(() => import('../calculators/RightsCollegeAndWealthSuite').then(m => ({ default: m.RightsCollegeAndWealthSuite })));
@@ -111,6 +112,21 @@ const LumpsumCalculator = React.lazy(() => import('../calculators/LumpsumCalcula
 const SwpCalculator = React.lazy(() => import('../calculators/SwpCalculator').then(m => ({ default: m.SwpCalculator })));
 const XirrCalculator = React.lazy(() => import('../calculators/XirrCalculator').then(m => ({ default: m.XirrCalculator })));
 const HomeLoanEligibilityCalculator = React.lazy(() => import('../calculators/HomeLoanEligibilityCalculator').then(m => ({ default: m.HomeLoanEligibilityCalculator })));
+const HomeLoanPrepaymentTenureCalculator = React.lazy(() => import('../calculators/HomeLoanPrepaymentTenureCalculator').then(m => ({ default: m.HomeLoanPrepaymentTenureCalculator })));
+const MrpMarginBreakdownCalculator = React.lazy(() => import('../calculators/MrpMarginBreakdownCalculator').then(m => ({ default: m.MrpMarginBreakdownCalculator })));
+const JewelleryGoldMakingChargeCalculator = React.lazy(() => import('../calculators/JewelleryGoldMakingChargeCalculator').then(m => ({ default: m.JewelleryGoldMakingChargeCalculator })));
+const OldVehicleResaleValuationCalculator = React.lazy(() => import('../calculators/OldVehicleResaleValuationCalculator').then(m => ({ default: m.OldVehicleResaleValuationCalculator })));
+const EpfEps95Calculator = React.lazy(() => import('../calculators/EpfEps95Calculator').then(m => ({ default: m.EpfEps95Calculator })));
+const DairyMilkFatSnfCalculator = React.lazy(() => import('../calculators/DairyMilkFatSnfCalculator').then(m => ({ default: m.DairyMilkFatSnfCalculator })));
+const GratuityLeaveEncashmentCalculator = React.lazy(() => import('../calculators/GratuityLeaveEncashmentCalculator').then(m => ({ default: m.GratuityLeaveEncashmentCalculator })));
+const AllIndiaLandUnitConverter = React.lazy(() => import('../calculators/AllIndiaLandUnitConverter').then(m => ({ default: m.AllIndiaLandUnitConverter })));
+const BabyVaccineUipCalendar = React.lazy(() => import('../calculators/BabyVaccineUipCalendar').then(m => ({ default: m.BabyVaccineUipCalendar })));
+const NonJudicialStampPaperGuide = React.lazy(() => import('../calculators/NonJudicialStampPaperGuide').then(m => ({ default: m.NonJudicialStampPaperGuide })));
+const Freelancer44ADATaxCalculator = React.lazy(() => import('../calculators/Freelancer44ADATaxCalculator').then(m => ({ default: m.Freelancer44ADATaxCalculator })));
+const ConsumerCourtNoticeGenerator = React.lazy(() => import('../calculators/ConsumerCourtNoticeGenerator').then(m => ({ default: m.ConsumerCourtNoticeGenerator })));
+const BrandedVsGenericMedicineComparator = React.lazy(() => import('../calculators/BrandedVsGenericMedicineComparator').then(m => ({ default: m.BrandedVsGenericMedicineComparator })));
+const ConcreteCementSandCalculator = React.lazy(() => import('../calculators/ConcreteCementSandCalculator').then(m => ({ default: m.ConcreteCementSandCalculator })));
+const WaterTankCapacityCalculator = React.lazy(() => import('../calculators/WaterTankCapacityCalculator').then(m => ({ default: m.WaterTankCapacityCalculator })));
 const TermInsuranceCalculator = React.lazy(() => import('../calculators/TermInsuranceCalculator').then(m => ({ default: m.TermInsuranceCalculator })));
 const HealthInsuranceCalculator = React.lazy(() => import('../calculators/HealthInsuranceCalculator').then(m => ({ default: m.HealthInsuranceCalculator })));
 const CarIdvCalculator = React.lazy(() => import('../calculators/CarIdvCalculator').then(m => ({ default: m.CarIdvCalculator })));
@@ -151,6 +167,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
     navigateToHome,
     navigateToCategory,
     navigateToAllTools,
+    navigateToArticle,
     setCommandPaletteOpen
   } = useApp();
 
@@ -197,6 +214,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
     .filter(t => t.slug !== tool.slug && !explicitRelated.some(r => r.slug === t.slug) && !categoryFallback.some(c => c.slug === t.slug));
 
   const relatedTools = [...explicitRelated, ...categoryFallback, ...popularFallback].slice(0, 4);
+  const relatedArticles = getAllArticles().filter(a => a.relatedToolSlugs.includes(tool.slug));
 
   // Render the matching calculator component
   const renderCalculatorComponent = () => {
@@ -245,6 +263,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       case 'land-area-converter':
       case 'indian-land-area-converter':
       case 'concrete-cement-sand-calculator':
+        return <ConcreteCementSandCalculator tool={tool} onResultChange={handleResultChange} />;
       case 'construction-material-estimator':
         return <StudentAndLandSuiteCalculator tool={tool} />;
 
@@ -503,11 +522,14 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       // Construction & Land Tools
       case 'water-tank-capacity-calculator':
-        return <ConstructionSuiteCalculator initialMode="water-tank" onResultChange={handleResultChange} />;
+        return <WaterTankCapacityCalculator tool={tool} onResultChange={handleResultChange} />;
 
       // Education Tools
       case 'study-hours-planner':
-        return <EducationSuiteCalculator initialMode="study-time" onResultChange={handleResultChange} />;
+        return <ExamStudyHoursPlanner tool={tool} onResultChange={handleResultChange} />;
+      
+      case 'college-attendance-calculator':
+        return <CollegeAttendanceCalculator tool={tool} onResultChange={handleResultChange} />;
 
       // Date Time Tools
       case 'add-subtract-days-calculator':
@@ -701,35 +723,35 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       case 'mva-traffic-challan-fine-decoder':
         return <IndianGovtAndCivicExpansionSuite initialMode="mva-fines" onResultChange={handleResultChange} />;
       case 'epf-passbook-eps95-pension-calculator':
-        return <IndianGovtAndCivicExpansionSuite initialMode="epf-eps95" onResultChange={handleResultChange} />;
+        return <EpfEps95Calculator tool={tool} onResultChange={handleResultChange} />;
       case 'dgca-flight-delay-compensation-calculator':
         return <IndianGovtAndCivicExpansionSuite initialMode="dgca-flight-claim" onResultChange={handleResultChange} />;
       case 'home-loan-prepayment-tenure-calculator':
-        return <IndianGovtAndCivicExpansionSuite initialMode="loan-prepayment" onResultChange={handleResultChange} />;
+        return <HomeLoanPrepaymentTenureCalculator tool={tool} onResultChange={handleResultChange} />;
       case 'mrp-margin-gst-breakdown-calculator':
-        return <IndianGovtAndCivicExpansionSuite initialMode="mrp-breakdown" onResultChange={handleResultChange} />;
+        return <MrpMarginBreakdownCalculator tool={tool} onResultChange={handleResultChange} />;
 
       // Daily Indian Mass Utility Suite
       case 'jewellery-gold-making-charge-calculator':
-        return <DailyIndianMassUtilitySuite initialMode="gold-jewellery" onResultChange={handleResultChange} />;
+        return <JewelleryGoldMakingChargeCalculator tool={tool} onResultChange={handleResultChange} />;
       case 'dairy-milk-fat-snf-calculator':
-        return <DailyIndianMassUtilitySuite initialMode="milk-fat" onResultChange={handleResultChange} />;
+        return <DairyMilkFatSnfCalculator tool={tool} onResultChange={handleResultChange} />;
       case 'all-india-land-unit-converter':
-        return <DailyIndianMassUtilitySuite initialMode="land-units" onResultChange={handleResultChange} />;
+        return <AllIndiaLandUnitConverter tool={tool} onResultChange={handleResultChange} />;
       case 'gratuity-leave-encashment-calculator':
-        return <DailyIndianMassUtilitySuite initialMode="gratuity-calc" onResultChange={handleResultChange} />;
+        return <GratuityLeaveEncashmentCalculator tool={tool} onResultChange={handleResultChange} />;
       case 'baby-vaccination-schedule-calculator':
-        return <DailyIndianMassUtilitySuite initialMode="baby-vaccine" onResultChange={handleResultChange} />;
+        return <BabyVaccineUipCalendar tool={tool} onResultChange={handleResultChange} />;
       case 'non-judicial-stamp-paper-guide':
-        return <DailyIndianMassUtilitySuite initialMode="stamp-paper" onResultChange={handleResultChange} />;
+        return <NonJudicialStampPaperGuide tool={tool} onResultChange={handleResultChange} />;
       case 'old-vehicle-resale-valuation-calculator':
-        return <DailyIndianMassUtilitySuite initialMode="car-valuation" onResultChange={handleResultChange} />;
+        return <OldVehicleResaleValuationCalculator tool={tool} onResultChange={handleResultChange} />;
       case 'freelancer-44ada-tax-calculator':
-        return <DailyIndianMassUtilitySuite initialMode="tax-44ada" onResultChange={handleResultChange} />;
+        return <Freelancer44ADATaxCalculator tool={tool} onResultChange={handleResultChange} />;
       case 'consumer-court-complaint-notice-generator':
-        return <DailyIndianMassUtilitySuite initialMode="consumer-notice" onResultChange={handleResultChange} />;
+        return <ConsumerCourtNoticeGenerator tool={tool} onResultChange={handleResultChange} />;
       case 'branded-vs-generic-medicine-comparator':
-        return <DailyIndianMassUtilitySuite initialMode="medicine-compare" onResultChange={handleResultChange} />;
+        return <BrandedVsGenericMedicineComparator tool={tool} onResultChange={handleResultChange} />;
 
       // Batch 3: Travel, Wedding, Agriloan & Citizen Life Suite
       case 'irctc-pnr-quotas-confirmation-decoder':
@@ -1126,6 +1148,37 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                 </div>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {/* Related Articles & Guides */}
+      {relatedArticles.length > 0 && (
+        <div className="space-y-4 pt-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white font-display flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-accent" />
+              Related Guides & Articles
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {relatedArticles.map(article => (
+              <button
+                key={article.id}
+                onClick={() => navigateToArticle(article.slug)}
+                className="text-left p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-accent/40 dark:hover:border-accent/50 transition-colors group flex items-start gap-4"
+              >
+                <div className="flex-1">
+                  <h4 className="font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors mb-1.5">
+                    {article.title}
+                  </h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed">
+                    {article.excerpt}
+                  </p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-accent shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
+              </button>
+            ))}
           </div>
         </div>
       )}

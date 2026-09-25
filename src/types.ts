@@ -120,7 +120,10 @@ export type ViewMode =
   | { type: 'request-tool' }
   | { type: 'sanatan-next' }
   | { type: 'admin'; section?: AdminSection; subParam?: string }
-  | { type: 'legal'; page: 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact' };
+  | { type: 'legal'; page: 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact' }
+  | { type: 'blog' }
+  | { type: 'guides'; category?: string }
+  | { type: 'article'; slug: string };
 
 export type ToolRequestStatus =
   | 'new'
@@ -190,4 +193,28 @@ export interface SocialLinks {
   linkedin: string;
   youtube?: string;
   telegram?: string;
+}
+
+export type ArticleCategory = 'finance' | 'tax' | 'loans' | 'education' | 'utilities' | 'business' | 'home';
+
+export interface ArticleMetadata {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string; // ReactNode or raw string, currently using raw string for PoC
+  type: 'blog' | 'guide';
+  category: ArticleCategory;
+  author: string;
+  publishedAt: string;
+  updatedAt?: string;
+  readTimeMinutes: number;
+  featuredImage?: string;
+  relatedToolSlugs: string[];
+  relatedArticleSlugs?: string[];
+  seo: {
+    title: string;
+    description: string;
+    keywords: string[];
+  };
 }

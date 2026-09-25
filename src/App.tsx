@@ -35,6 +35,8 @@ const AllToolsView = React.lazy(() => import('./components/views/AllToolsView').
 const FavoritesView = React.lazy(() => import('./components/views/FavoritesView').then(m => ({ default: m.FavoritesView })));
 const RequestToolView = React.lazy(() => import('./components/views/RequestToolView').then(m => ({ default: m.RequestToolView })));
 const SanatanNextPromoView = React.lazy(() => import('./components/views/SanatanNextPromoView').then(m => ({ default: m.SanatanNextPromoView })));
+const BlogHomeView = React.lazy(() => import('./components/views/BlogHomeView'));
+const ArticleView = React.lazy(() => import('./components/views/ArticleView'));
 
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 
@@ -147,6 +149,14 @@ const AppContent: React.FC = () => {
 
             {view.type === 'legal' && (
               <LegalView page={view.page} />
+            )}
+
+            {(view.type === 'blog' || view.type === 'guides') && (
+              <BlogHomeView type={view.type} />
+            )}
+
+            {view.type === 'article' && (
+              <ArticleView slug={view.slug} />
             )}
           </React.Suspense>
         </ErrorBoundary>

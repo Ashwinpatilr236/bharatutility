@@ -24,6 +24,9 @@ interface AppContextType {
   navigateToRequestTool: () => void;
   navigateToSanatanNext: () => void;
   navigateToAdmin: (section?: AdminSection, subParam?: string) => void;
+  navigateToBlog: () => void;
+  navigateToGuides: (category?: string) => void;
+  navigateToArticle: (slug: string) => void;
   theme: ThemeMode;
   setTheme: (theme: ThemeMode) => void;
   accent: AccentColor;
@@ -176,6 +179,28 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
   }
   if (cleanPath.startsWith('/admin')) {
     return { view: { type: 'home' }, redirectPath: '/' };
+  }
+  if (cleanPath === '/blog') {
+    return { view: { type: 'blog' } };
+  }
+  if (cleanPath === '/guides') {
+    return { view: { type: 'guides' } };
+  }
+  if (cleanPath.startsWith('/guides/')) {
+    const parts = cleanPath.split('/');
+    if (parts.length === 3) {
+      return { view: { type: 'guides', category: parts[2] } };
+    } else if (parts.length === 4) {
+      return { view: { type: 'article', slug: parts[3] } };
+    }
+  }
+  if (cleanPath.startsWith('/blog/')) {
+    const slug = cleanPath.replace('/blog/', '').split('?')[0];
+    return { view: { type: 'article', slug } };
+  }
+  if (cleanPath.startsWith('/article/')) {
+    const slug = cleanPath.replace('/article/', '').split('?')[0];
+    return { view: { type: 'article', slug } };
   }
 
   // Root or unhandled paths -> home
@@ -336,6 +361,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         analyticsService.trackView(`legal-${view.page}`, `Legal: ${view.page}`, undefined, 'page_view');
       } else if (view.type === 'admin') {
         analyticsService.trackView('admin', 'Admin Intelligence Portal', undefined, 'page_view');
+      } else if (view.type === 'blog') {
+        analyticsService.trackView('blog', 'Blog & Updates', undefined, 'page_view');
+      } else if (view.type === 'guides') {
+        analyticsService.trackView(`guides-${view.category || 'all'}`, 'Guides', view.category, 'page_view');
+      } else if (view.type === 'article') {
+        analyticsService.trackView(`article-${view.slug}`, `Article: ${view.slug}`, undefined, 'article_view');
       }
     } catch (e) {
       console.warn('Telemetry tracking warning:', e);
@@ -404,6 +435,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const navigateToSanatanNext = () => {
     setView({ type: 'sanatan-next' });
   };
+
+  const navigateToBlog = () => setView({ type: 'blog' });
+  const navigateToGuides = (category?: string) => setView({ type: 'guides', category });
+  const navigateToArticle = (slug: string) => setView({ type: 'article', slug });
 
   const toggleFavorite = (toolSlug: string) => {
     setFavorites(prev => {
@@ -511,6 +546,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         navigateToRequestTool,
         navigateToSanatanNext,
         navigateToAdmin,
+        navigateToBlog,
+        navigateToGuides,
+        navigateToArticle,
         theme,
         setTheme,
         accent,

@@ -36,6 +36,12 @@ export function getPathForView(view: ViewMode): string {
     case 'legal':
       if (view.page === 'about') return '/about';
       return `/legal/${view.page}`;
+    case 'blog':
+      return '/blog';
+    case 'guides':
+      return view.category ? `/guides/${view.category}` : '/guides';
+    case 'article':
+      return `/article/${view.slug}`;
     case 'admin':
       return '/';
     default:
