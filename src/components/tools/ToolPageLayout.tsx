@@ -4,7 +4,6 @@ import { useApp } from '../../context/AppContext';
 import { getToolBySlug, getToolsByCategory, getPopularTools } from '../../data/toolsRegistry';
 import { getAllArticles } from '../../data/contentRegistry';
 import { CATEGORIES } from '../../data/categories';
-import { BookOpen, ArrowRight } from 'lucide-react';
 import { Breadcrumbs } from '../common/Breadcrumbs';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { ShareModal } from '../common/ShareModal';

@@ -1,33 +1,40 @@
-import React, { useState } from 'react';
-import { TOOLS_REGISTRY } from '../../data/toolsRegistry';
-import { ShieldCheck, ArrowUp, ChevronDown } from 'lucide-react';
-import { Link } from './Link';
-import { LiveVisitorsBadge } from './LiveVisitorsBadge';
-import { SocialFollow } from './SocialFollow';
+import React, { useState } from "react";
+import { TOOLS_REGISTRY } from "../../data/toolsRegistry";
+import { ShieldCheck, ArrowUp, ChevronDown } from "lucide-react";
+import { Link } from "./Link";
+import { LiveVisitorsBadge } from "./LiveVisitorsBadge";
+import { SocialFollow } from "./SocialFollow";
 
-const FooterSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
+const FooterSection: React.FC<{ title: string; children: React.ReactNode }> = ({
+  title,
+  children,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="border-b border-neutral-100 dark:border-neutral-800/80 md:border-none py-3 md:py-0">
-      <button 
-        onClick={() => setIsOpen(!isOpen)} 
+      <button
+        onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between md:cursor-auto"
       >
         <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white font-display">
           {title}
         </h4>
-        <ChevronDown className={`w-4 h-4 text-neutral-400 md:hidden transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown
+          className={`w-4 h-4 text-neutral-400 md:hidden transition-transform ${isOpen ? "rotate-180" : ""}`}
+        />
       </button>
-      <div className={`mt-3 ${isOpen ? 'block' : 'hidden'} md:block`}>
+      <div className={`mt-3 ${isOpen ? "block" : "hidden"} md:block`}>
         {children}
       </div>
     </div>
   );
 };
 
-export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({ showEcosystemPromo = true }) => {
+export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({
+  showEcosystemPromo = true,
+}) => {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -36,10 +43,7 @@ export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({ showEcosyst
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-8 lg:gap-10">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
-            <Link
-              to="/"
-              className="flex items-center gap-2.5 text-left group"
-            >
+            <Link to="/" className="flex items-center gap-2.5 text-left group">
               <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-900 flex items-center justify-center text-white font-bold text-sm shadow-xs">
                 ₹U
               </div>
@@ -49,7 +53,9 @@ export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({ showEcosyst
             </Link>
 
             <p className="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400 max-w-sm">
-              Useful tools for everyday India. Fast, privacy-friendly, and 100% free calculations tailored for Indian tax slabs, land units, loan formats, and everyday utilities.
+              Useful tools for everyday India. Fast, privacy-friendly, and 100%
+              free calculations tailored for Indian tax slabs, land units, loan
+              formats, and everyday utilities.
             </p>
 
             {/* Live Visitors Counter in Footer */}
@@ -93,6 +99,14 @@ export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({ showEcosyst
               </li>
               <li>
                 <Link
+                  to="/guides"
+                  className="hover:text-accent dark:hover:text-white transition-colors text-left"
+                >
+                  Guides & Blog
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/request-tool"
                   className="hover:text-accent dark:hover:text-white transition-colors text-left font-medium text-accent"
                 >
@@ -105,7 +119,9 @@ export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({ showEcosyst
                   className="hover:text-accent dark:hover:text-white transition-colors text-left font-medium text-amber-600 dark:text-amber-400 flex items-center gap-1"
                 >
                   <span>Sanatan Next</span>
-                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20">New</span>
+                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20">
+                    New
+                  </span>
                 </Link>
               </li>
               <li>
@@ -123,16 +139,16 @@ export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({ showEcosyst
           <FooterSection title="Popular Tools">
             <ul className="space-y-2 text-xs">
               {[
-                'emi-calculator',
-                'sip-calculator',
-                'gst-calculator',
-                'salary-calculator',
-                'fd-calculator',
-                'age-calculator',
-                'percentage-calculator',
-                'unit-converter'
-              ].map(slug => {
-                const tool = TOOLS_REGISTRY.find(t => t.slug === slug);
+                "emi-calculator",
+                "sip-calculator",
+                "gst-calculator",
+                "salary-calculator",
+                "fd-calculator",
+                "age-calculator",
+                "percentage-calculator",
+                "unit-converter",
+              ].map((slug) => {
+                const tool = TOOLS_REGISTRY.find((t) => t.slug === slug);
                 if (!tool) return null;
                 return (
                   <li key={slug}>
@@ -202,11 +218,23 @@ export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({ showEcosyst
               <span className="text-2xl">🏢</span>
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-bold text-neutral-900 dark:text-white font-display">ARRJS Technologies Ecosystem</span>
-                  <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">Parent Organization</span>
+                  <span className="font-bold text-neutral-900 dark:text-white font-display">
+                    ARRJS Technologies Ecosystem
+                  </span>
+                  <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">
+                    Parent Organization
+                  </span>
                 </div>
                 <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5">
-                  BharatUtility (Everyday Utilities) and <Link to="/sanatan-next" className="text-amber-600 dark:text-amber-400 font-bold hover:underline">Sanatan Next</Link> (Digital Cultural Heritage) are independent projects within <strong>ARRJS Technologies</strong>.
+                  BharatUtility (Everyday Utilities) and{" "}
+                  <Link
+                    to="/sanatan-next"
+                    className="text-amber-600 dark:text-amber-400 font-bold hover:underline"
+                  >
+                    Sanatan Next
+                  </Link>{" "}
+                  (Digital Cultural Heritage) are independent projects within{" "}
+                  <strong>ARRJS Technologies</strong>.
                 </p>
               </div>
             </div>
@@ -232,13 +260,29 @@ export const Footer: React.FC<{ showEcosystemPromo?: boolean }> = ({ showEcosyst
         {/* Disclaimer Notice */}
         <div className="mt-6 pt-6 border-t border-neutral-100 dark:border-neutral-900 text-[11px] text-neutral-400 dark:text-neutral-500 leading-normal">
           <p>
-            <strong>Disclaimer:</strong> BharatUtility calculators and generators provide estimates for general informational purposes based on Indian standard financial, mathematical, and tax formulas. Actual loan interest, income tax assessments, and material estimates may vary depending on state policies, bank guidelines, and specific vendor parameters.
+            <strong>Disclaimer:</strong> BharatUtility calculators and
+            generators provide estimates for general informational purposes
+            based on Indian standard financial, mathematical, and tax formulas.
+            Actual loan interest, income tax assessments, and material estimates
+            may vary depending on state policies, bank guidelines, and specific
+            vendor parameters.
           </p>
         </div>
 
         {/* Bottom Bar */}
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
-          <p>© {new Date().getFullYear()} BharatUtility • A Flagship Division of <a href="https://arrjs-technologies.netlify.app/" target="_blank" rel="noopener noreferrer" className="font-bold text-neutral-800 dark:text-neutral-200 hover:text-accent underline">ARRJS Technologies</a>. Built for everyday India.</p>
+          <p>
+            © {new Date().getFullYear()} BharatUtility • A Flagship Division of{" "}
+            <a
+              href="https://arrjs-technologies.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-neutral-800 dark:text-neutral-200 hover:text-accent underline"
+            >
+              ARRJS Technologies
+            </a>
+            . Built for everyday India.
+          </p>
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-300 transition-colors"

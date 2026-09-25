@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useApp } from '../../context/AppContext';
-import { useAdminStore } from '../../hooks/useAdminStore';
-import { CATEGORIES } from '../../data/categories';
-import { ThemeAccentPicker } from './ThemeAccentPicker';
-import { FavoritesHistoryModal } from './FavoritesHistoryModal';
-import { DynamicIcon } from './DynamicIcon';
-import { Link } from './Link';
+import React, { useState } from "react";
+import { useApp } from "../../context/AppContext";
+import { useAdminStore } from "../../hooks/useAdminStore";
+import { CATEGORIES } from "../../data/categories";
+import { ThemeAccentPicker } from "./ThemeAccentPicker";
+import { FavoritesHistoryModal } from "./FavoritesHistoryModal";
+import { DynamicIcon } from "./DynamicIcon";
+import { Link } from "./Link";
 import {
   Search,
   Star,
@@ -16,18 +16,15 @@ import {
   ChevronDown,
   Flame,
   Download,
-  Megaphone
-} from 'lucide-react';
+  Megaphone,
+  BookOpen,
+} from "lucide-react";
 
 export const Header: React.FC = () => {
   const adminStore = useAdminStore();
-  const announcements = adminStore.getAnnouncements().filter(a => a.enabled);
-  const {
-    navigateToCategory,
-    setCommandPaletteOpen,
-    favorites,
-    view
-  } = useApp();
+  const announcements = adminStore.getAnnouncements().filter((a) => a.enabled);
+  const { navigateToCategory, setCommandPaletteOpen, favorites, view } =
+    useApp();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
@@ -38,9 +35,15 @@ export const Header: React.FC = () => {
       {announcements.length > 0 && (
         <div className="bg-gradient-to-r from-accent via-indigo-600 to-purple-600 text-white text-xs py-2 px-4 text-center font-medium shadow-xs flex items-center justify-center gap-2">
           <Megaphone className="w-4 h-4 animate-pulse shrink-0" />
-          <span><strong>{announcements[0].title}:</strong> {announcements[0].message}</span>
+          <span>
+            <strong>{announcements[0].title}:</strong>{" "}
+            {announcements[0].message}
+          </span>
           {announcements[0].ctaText && announcements[0].ctaUrl && (
-            <a href={announcements[0].ctaUrl} className="underline font-bold hover:text-amber-200 ml-1">
+            <a
+              href={announcements[0].ctaUrl}
+              className="underline font-bold hover:text-amber-200 ml-1"
+            >
               {announcements[0].ctaText} →
             </a>
           )}
@@ -56,7 +59,9 @@ export const Header: React.FC = () => {
               className="flex items-center gap-2 sm:gap-2.5 group text-left focus:outline-none shrink-0"
             >
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 dark:from-indigo-500 dark:to-indigo-800 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform shrink-0">
-                <span className="font-bold text-sm sm:text-base tracking-tighter">₹U</span>
+                <span className="font-bold text-sm sm:text-base tracking-tighter">
+                  ₹U
+                </span>
               </div>
               <div className="flex flex-col shrink-0">
                 <div className="flex items-center gap-1 sm:gap-1.5">
@@ -79,12 +84,27 @@ export const Header: React.FC = () => {
               <Link
                 to="/tools"
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-                  view.type === 'all-tools'
-                    ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900'
+                  view.type === "all-tools"
+                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
                 }`}
               >
                 All Tools
+              </Link>
+
+              {/* Guides & Blog */}
+              <Link
+                to="/guides"
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1 ${
+                  view.type === "guides" ||
+                  view.type === "blog" ||
+                  view.type === "article"
+                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                }`}
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                Guides
               </Link>
 
               {/* 2. Categories Dropdown */}
@@ -109,9 +129,21 @@ export const Header: React.FC = () => {
                       <div className="space-y-1">
                         <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-2 py-1 border-b border-neutral-100 dark:border-neutral-800 mb-1 flex items-center justify-between">
                           <span>Core & Everyday Utilities</span>
-                          <span className="text-[9px] text-accent font-semibold">7 Suites</span>
+                          <span className="text-[9px] text-accent font-semibold">
+                            7 Suites
+                          </span>
                         </div>
-                        {CATEGORIES.filter(c => ['money', 'daily-life', 'construction', 'education', 'business', 'technology', 'datetime'].includes(c.id)).map(cat => (
+                        {CATEGORIES.filter((c) =>
+                          [
+                            "money",
+                            "daily-life",
+                            "construction",
+                            "education",
+                            "business",
+                            "technology",
+                            "datetime",
+                          ].includes(c.id),
+                        ).map((cat) => (
                           <Link
                             key={cat.id}
                             to={`/category/${cat.id}`}
@@ -120,7 +152,10 @@ export const Header: React.FC = () => {
                           >
                             <div className="flex items-center gap-2.5 min-w-0">
                               <div className="p-1.5 rounded-lg bg-accent-subtle text-accent shrink-0">
-                                <DynamicIcon name={cat.icon} className="w-3.5 h-3.5" />
+                                <DynamicIcon
+                                  name={cat.icon}
+                                  className="w-3.5 h-3.5"
+                                />
                               </div>
                               <div className="min-w-0">
                                 <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200 block truncate group-hover:text-accent">
@@ -142,9 +177,20 @@ export const Header: React.FC = () => {
                       <div className="space-y-1">
                         <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-2 py-1 border-b border-neutral-100 dark:border-neutral-800 mb-1 flex items-center justify-between">
                           <span>Civic & Specialty Hubs</span>
-                          <span className="text-[9px] text-emerald-500 font-semibold">6 Suites</span>
+                          <span className="text-[9px] text-emerald-500 font-semibold">
+                            6 Suites
+                          </span>
                         </div>
-                        {CATEGORIES.filter(c => ['india-services', 'document-tools', 'documents', 'vehicle-utility', 'travel-utility', 'travel'].includes(c.id)).map(cat => (
+                        {CATEGORIES.filter((c) =>
+                          [
+                            "india-services",
+                            "document-tools",
+                            "documents",
+                            "vehicle-utility",
+                            "travel-utility",
+                            "travel",
+                          ].includes(c.id),
+                        ).map((cat) => (
                           <Link
                             key={cat.id}
                             to={`/category/${cat.id}`}
@@ -153,14 +199,19 @@ export const Header: React.FC = () => {
                           >
                             <div className="flex items-center gap-2.5 min-w-0">
                               <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
-                                <DynamicIcon name={cat.icon} className="w-3.5 h-3.5" />
+                                <DynamicIcon
+                                  name={cat.icon}
+                                  className="w-3.5 h-3.5"
+                                />
                               </div>
                               <div className="min-w-0">
                                 <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200 block truncate group-hover:text-emerald-500">
                                   {cat.name}
                                 </span>
                                 <span className="text-[10px] text-neutral-400 block truncate leading-tight">
-                                  {cat.id === 'document-tools' ? '100% Client-side PDF Merge, Split & Compress' : cat.description}
+                                  {cat.id === "document-tools"
+                                    ? "100% Client-side PDF Merge, Split & Compress"
+                                    : cat.description}
                                 </span>
                               </div>
                             </div>
@@ -177,8 +228,13 @@ export const Header: React.FC = () => {
                       <div className="flex items-center gap-2">
                         <span className="text-base">🕉️</span>
                         <div>
-                          <span className="font-bold text-neutral-900 dark:text-white">Sanatan Next</span>
-                          <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">Heritage, 12 Jyotirlingas, 51 Shakti Peeths & Panchang</span>
+                          <span className="font-bold text-neutral-900 dark:text-white">
+                            Sanatan Next
+                          </span>
+                          <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">
+                            Heritage, 12 Jyotirlingas, 51 Shakti Peeths &
+                            Panchang
+                          </span>
                         </div>
                       </div>
                       <Link
@@ -206,9 +262,9 @@ export const Header: React.FC = () => {
               <Link
                 to="/request-tool"
                 className={`hidden lg:flex px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors items-center gap-1.5 ${
-                  view.type === 'request-tool'
-                    ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900'
+                  view.type === "request-tool"
+                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
@@ -219,12 +275,14 @@ export const Header: React.FC = () => {
               <Link
                 to="/favorites"
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
-                  view.type === 'favorites'
-                    ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900'
+                  view.type === "favorites"
+                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
                 }`}
               >
-                <Star className={`w-3.5 h-3.5 ${favorites.length > 0 ? 'text-amber-500 fill-current' : 'text-neutral-400'}`} />
+                <Star
+                  className={`w-3.5 h-3.5 ${favorites.length > 0 ? "text-amber-500 fill-current" : "text-neutral-400"}`}
+                />
                 <span>Favorites</span>
                 {favorites.length > 0 && (
                   <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
@@ -244,9 +302,14 @@ export const Header: React.FC = () => {
               className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-neutral-100/90 dark:bg-neutral-900/90 hover:bg-neutral-200/80 dark:hover:bg-neutral-800/90 text-neutral-500 dark:text-neutral-400 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs hover:shadow-xs transition-all text-xs font-medium focus:ring-2 focus:ring-accent"
             >
               <Search className="w-3.5 h-3.5 text-accent shrink-0" />
-              <span className="hidden sm:inline text-xs">Search Indian utilities...</span>
+              <span className="hidden sm:inline text-xs">
+                Search Indian utilities...
+              </span>
               <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-800 rounded-md border border-neutral-200/90 dark:border-neutral-700 shadow-2xs">
-                {typeof window !== 'undefined' && navigator.platform?.toUpperCase().indexOf('MAC') >= 0 ? '⌘K' : 'Ctrl+K'}
+                {typeof window !== "undefined" &&
+                navigator.platform?.toUpperCase().indexOf("MAC") >= 0
+                  ? "⌘K"
+                  : "Ctrl+K"}
               </kbd>
             </button>
 
@@ -272,7 +335,11 @@ export const Header: React.FC = () => {
               className="md:hidden p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0"
               aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
             </button>
           </div>
         </div>
@@ -280,7 +347,7 @@ export const Header: React.FC = () => {
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150">
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-5 gap-2">
               <Link
                 to="/tools"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -288,6 +355,14 @@ export const Header: React.FC = () => {
               >
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span>All Tools</span>
+              </Link>
+              <Link
+                to="/guides"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
+              >
+                <BookOpen className="w-4 h-4 text-accent" />
+                <span>Guides</span>
               </Link>
               <button
                 onClick={() => {
@@ -310,10 +385,10 @@ export const Header: React.FC = () => {
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
-                  const banner = document.getElementById('pwa-install-btn');
+                  const banner = document.getElementById("pwa-install-btn");
                   if (banner) banner.click();
                   else {
-                    window.dispatchEvent(new CustomEvent('bu:prompt-install'));
+                    window.dispatchEvent(new CustomEvent("bu:prompt-install"));
                   }
                 }}
                 className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-accent-subtle text-accent text-[11px] font-bold"
@@ -328,14 +403,17 @@ export const Header: React.FC = () => {
                 Categories
               </div>
               <div className="grid grid-cols-2 gap-1.5">
-                {CATEGORIES.map(cat => (
+                {CATEGORIES.map((cat) => (
                   <Link
                     key={cat.id}
                     to={`/category/${cat.id}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="flex items-center gap-2 p-2 rounded-lg text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                   >
-                    <DynamicIcon name={cat.icon} className="w-3.5 h-3.5 text-accent" />
+                    <DynamicIcon
+                      name={cat.icon}
+                      className="w-3.5 h-3.5 text-accent"
+                    />
                     <span className="truncate">{cat.name}</span>
                   </Link>
                 ))}
@@ -352,11 +430,17 @@ export const Header: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <span className="text-base">🕉️</span>
                   <div>
-                    <span className="font-bold text-neutral-900 dark:text-white block">Sanatan Next</span>
-                    <span className="text-[10px] text-amber-700 dark:text-amber-400">Cultural heritage & panchang initiative</span>
+                    <span className="font-bold text-neutral-900 dark:text-white block">
+                      Sanatan Next
+                    </span>
+                    <span className="text-[10px] text-amber-700 dark:text-amber-400">
+                      Cultural heritage & panchang initiative
+                    </span>
                   </div>
                 </div>
-                <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400">Explore ↗</span>
+                <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400">
+                  Explore ↗
+                </span>
               </Link>
             </div>
 
