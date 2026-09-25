@@ -79,6 +79,21 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://bharatutility.tech/tools/tds-calculator</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/tools/80c-80d-investment-planner</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/tools/break-even-point-calculator</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://bharatutility.tech/tools/emi-calculator</loc>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>

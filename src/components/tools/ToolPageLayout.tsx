@@ -18,6 +18,9 @@ import { ToolCard } from '../common/ToolCard';
 import { ScrollableCarousel } from '../common/ScrollableCarousel';
 
 // Lazy-loaded Calculator Components for isolated bundle chunks & instant public loading
+const TdsCalculator = React.lazy(() => import('../calculators/TdsCalculator'));
+const InvestmentPlanner80C80D = React.lazy(() => import('../calculators/InvestmentPlanner80C80D'));
+const BreakEvenPointCalculator = React.lazy(() => import('../calculators/BreakEvenPointCalculator'));
 const EmiCalculator = React.lazy(() => import('../calculators/EmiCalculator').then(m => ({ default: m.EmiCalculator })));
 const SipCalculator = React.lazy(() => import('../calculators/SipCalculator').then(m => ({ default: m.SipCalculator })));
 const FdCalculator = React.lazy(() => import('../calculators/FdCalculator').then(m => ({ default: m.FdCalculator })));
@@ -198,6 +201,12 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
   // Render the matching calculator component
   const renderCalculatorComponent = () => {
     switch (tool.id) {
+      case 'tds-calculator':
+        return <TdsCalculator />;
+      case '80c-80d-investment-planner':
+        return <InvestmentPlanner80C80D />;
+      case 'break-even-point-calculator':
+        return <BreakEvenPointCalculator />;
       case 'emi-calculator':
       case 'home-loan-emi-calculator':
       case 'personal-loan-emi-calculator':
