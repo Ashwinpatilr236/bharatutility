@@ -9,7 +9,7 @@ interface ArticleViewProps {
 }
 
 const ArticleView: React.FC<ArticleViewProps> = ({ slug }) => {
-  const { navigateToHome, navigateToTool, view } = useApp();
+  const { navigateToHome, navigateToTool, navigateToBlog, navigateToGuides, view } = useApp();
   
   const article = useMemo(() => getArticleBySlug(slug), [slug]);
 
@@ -51,7 +51,7 @@ const ArticleView: React.FC<ArticleViewProps> = ({ slug }) => {
     .filter(Boolean);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in pb-24">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in pb-24">
       {/* Breadcrumbs */}
       <nav className="flex mb-8 text-sm" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -68,7 +68,6 @@ const ArticleView: React.FC<ArticleViewProps> = ({ slug }) => {
               <ChevronRight className="w-4 h-4 text-gray-400 mx-1" />
               <button
                 onClick={() => {
-                   const { navigateToBlog, navigateToGuides } = useApp();
                    if (article.type === 'guide') navigateToGuides();
                    else navigateToBlog();
                 }}
@@ -90,14 +89,14 @@ const ArticleView: React.FC<ArticleViewProps> = ({ slug }) => {
       </nav>
 
       {/* Header */}
-      <header className="mb-10 text-center sm:text-left">
+      <header className="mb-10 text-center sm:text-left max-w-4xl">
         <div className="inline-flex items-center justify-center sm:justify-start space-x-2 text-xs font-medium text-indigo-600 dark:text-indigo-400 mb-4 uppercase tracking-wider">
           <span className="bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
             {article.category}
           </span>
         </div>
         
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-6 leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-6 leading-tight">
           {article.title}
         </h1>
         
@@ -126,11 +125,12 @@ const ArticleView: React.FC<ArticleViewProps> = ({ slug }) => {
       <div className="flex flex-col lg:flex-row gap-12">
         
         {/* Article Body */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 max-w-4xl">
           <div 
-            className="prose prose-indigo prose-lg dark:prose-invert max-w-none
+            className="prose prose-indigo dark:prose-invert max-w-none
               prose-headings:font-bold prose-headings:tracking-tight prose-a:text-indigo-600 dark:prose-a:text-indigo-400
-              prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md"
+              prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md
+              prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
         </div>
@@ -150,7 +150,10 @@ const ArticleView: React.FC<ArticleViewProps> = ({ slug }) => {
                   {relatedTools.map(tool => tool && (
                     <li key={tool.slug}>
                       <button
-                        onClick={() => navigateToTool(tool.slug)}
+                         onClick={(e) => {
+                          e.preventDefault();
+                          navigateToTool(tool.slug);
+                        }}
                         className="text-left w-full group"
                       >
                         <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
