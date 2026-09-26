@@ -21,6 +21,7 @@ export default defineConfig(() => {
       rollupOptions: {
         output: {
           manualChunks(id) {
+            // Split third-party vendor code
             if (id.includes('node_modules')) {
               if (id.includes('recharts') || id.includes('d3-') || id.includes('victory') || id.includes('internmap') || id.includes('decimal.js-light')) {
                 return 'vendor-charts';
@@ -31,6 +32,20 @@ export default defineConfig(() => {
               if (id.includes('react') || id.includes('scheduler') || id.includes('motion')) {
                 return 'vendor-framework';
               }
+              if (id.includes('lucide-react')) {
+                return 'vendor-icons';
+              }
+            }
+            // Split massive data registries
+            if (id.includes('src/data/toolsRegistry.ts')) {
+              return 'data-tools';
+            }
+            if (id.includes('src/data/contentRegistry.ts')) {
+              return 'data-content';
+            }
+            // Group the calculator components so they don't pollute the main index chunk
+            if (id.includes('src/components/calculators/')) {
+              return 'calculators';
             }
           },
         },

@@ -11,7 +11,7 @@ const BlogHomeView: React.FC<BlogHomeViewProps> = ({ type }) => {
   const { navigateToArticle, navigateToCategory } = useApp();
   
   const articles = useMemo(() => {
-    return getAllArticles(type);
+    return getAllArticles(type === 'guides' ? 'guide' : 'blog');
   }, [type]);
 
   const title = type === 'blog' ? 'BharatUtility Blog & Updates' : 'Financial & Utility Guides';
