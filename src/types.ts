@@ -66,7 +66,7 @@ export interface Tool {
   description: string;
   category: CategoryId;
   icon: string;
-  keywords: string[];
+  keywords?: string[];
   popular?: boolean;
   trending?: boolean;
   featured?: boolean;
@@ -90,14 +90,15 @@ export interface Tool {
     calculationSteps: string[];
     finalResult: string;
   };
-  faqs: FAQItem[];
-  relatedToolSlugs: string[];
+  faqs?: FAQItem[];
+  relatedToolSlugs?: string[];
   relatedTools?: string[];
   seoSections?: SEOSection[];
   disclaimer?: string;
   lastUpdated?: string;
   officialSource?: string;
   needsManualVerification?: boolean;
+  features?: string[];
 }
 
 export interface CalculationHistoryItem {

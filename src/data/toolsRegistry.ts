@@ -37,7 +37,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: '80C + 80D Planner',
     tagline: 'Plan your tax-saving investments to maximize deductions under 80C and 80D',
     description: 'Plan your Section 80C (PPF, ELSS, LIC) and Section 80D (Health Insurance) investments to maximize tax deductions and estimate total tax saved.',
-    category: 'tax',
+    category: 'money',
     icon: 'Shield',
     keywords: ['80C investment planner', '80D tax saving', 'tax saving planner', 'Section 80C limit', 'health insurance tax benefit'],
     popular: true,
@@ -12383,7 +12383,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'EV vs Petrol',
     tagline: 'Compare 10-year cost of owning an EV vs Petrol Car',
     description: 'Calculate and compare the total cost of ownership (TCO) between an Electric Vehicle (EV) and a Petrol car over 5 or 10 years, including running costs and maintenance.',
-    category: 'vehicle',
+    category: 'vehicle-utility',
     icon: 'Car',
     seo: {
       title: 'EV vs Petrol vs CNG TCO Calculator India | BharatUtility',
@@ -12597,7 +12597,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Health Insurance',
     tagline: 'Calculate ideal health insurance cover for your family',
     description: 'Calculate the optimal health insurance coverage needed for your family based on city tier, eldest member age, pre-existing conditions, and existing corporate cover.',
-    category: 'health',
+    category: 'daily-life',
     icon: 'Stethoscope',
     seo: {
       title: 'Health Insurance Coverage Calculator India | Optimal Cover',
@@ -12631,7 +12631,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Vehicle IDV',
     tagline: 'Calculate Insured Declared Value for insurance',
     description: 'Estimate the exact IDV (Insured Declared Value) for your car or bike based on its age and ex-showroom price as per IRDAI standard depreciation slabs.',
-    category: 'auto',
+    category: 'vehicle-utility',
     icon: 'Car',
     seo: {
       title: 'Car/Bike IDV Calculator | Motor Insurance Value Estimator',

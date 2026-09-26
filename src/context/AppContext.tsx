@@ -366,7 +366,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       } else if (view.type === 'guides') {
         analyticsService.trackView(`guides-${view.category || 'all'}`, 'Guides', view.category, 'page_view');
       } else if (view.type === 'article') {
-        analyticsService.trackView(`article-${view.slug}`, `Article: ${view.slug}`, undefined, 'article_view');
+        analyticsService.trackView(`article-${view.slug}`, `Article: ${view.slug}`, undefined, 'page_view');
       }
     } catch (e) {
       console.warn('Telemetry tracking warning:', e);

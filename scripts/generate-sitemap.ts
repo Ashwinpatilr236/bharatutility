@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { getActiveTools } from '../src/data/toolsRegistry.ts';
 const TOOLS_REGISTRY = getActiveTools();
 import { CATEGORIES } from '../src/data/categories.ts';
+import { getAllArticles } from '../src/data/contentRegistry.ts';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -53,6 +55,16 @@ function generateSitemap(): void {
     });
   });
 
+  // 4.5. Guide/Article Detail Pages
+  const articles = getAllArticles();
+  articles.forEach(article => {
+    urls.push({
+      loc: `${BASE_URL}/article/${article.slug}`,
+      changefreq: 'weekly',
+      priority: '0.80',
+    });
+  });
+
   // 5. Static & Trust Pages
   const staticPages = [
     { path: '/sanatan-next', priority: '0.85', changefreq: 'weekly' as const },
@@ -94,6 +106,7 @@ ${urls
   console.log(`✅ Sitemap successfully generated with ${urls.length} indexable URLs at: ${publicPath}`);
   console.log(`   - Tools indexed: ${TOOLS_REGISTRY.length}`);
   console.log(`   - Categories indexed: ${CATEGORIES.length}`);
+  console.log(`   - Articles indexed: ${articles.length}`);
   console.log(`   - Static pages indexed: ${staticPages.length + 2}`);
 }
 

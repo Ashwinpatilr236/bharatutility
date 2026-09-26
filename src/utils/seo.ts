@@ -1,6 +1,7 @@
 import { ViewMode } from '../types';
 import { getToolBySlug, getToolsByCategory } from '../data/toolsRegistry';
 import { getCategoryById } from '../data/categories';
+import { getArticleBySlug } from '../data/contentRegistry';
 
 export const SITE_NAME = 'BharatUtility';
 export const CANONICAL_BASE = 'https://bharatutility.tech';
@@ -394,6 +395,43 @@ export function updateSeoMetadata(view: ViewMode): void {
       title = `Financial & Calculation Disclaimer | ${SITE_NAME}`;
       description = 'Calculation disclaimer for financial, tax, and estimation tools on BharatUtility.';
     }
+  } else if (view.type === 'article') {
+    const article = getArticleBySlug(view.slug);
+    if (article) {
+      title = article.seo?.title || `${article.title} | ${SITE_NAME}`;
+      description = article.seo?.description || article.excerpt;
+      ogType = 'article';
+      jsonLdData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Article',
+            headline: title,
+            description: description,
+            author: { '@type': 'Organization', name: article.author || SITE_NAME },
+            datePublished: article.publishedAt,
+            publisher: {
+              '@type': 'Organization',
+              name: SITE_NAME,
+              logo: { '@type': 'ImageObject', url: `${CANONICAL_BASE}/icons/icon-512.png` }
+            }
+          },
+          {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${CANONICAL_BASE}/` },
+              { '@type': 'ListItem', position: 2, name: 'Guides', item: `${CANONICAL_BASE}/guides` },
+              { '@type': 'ListItem', position: 3, name: article.title, item: canonicalUrl }
+            ]
+          }
+        ]
+      };
+    } else {
+      title = `Article Not Found | ${SITE_NAME}`;
+    }
+  } else if (view.type === 'guides' || view.type === 'blog') {
+    title = `Guides & Financial Articles | ${SITE_NAME}`;
+    description = 'Read comprehensive, easy-to-understand guides on Indian taxation, EMI, SIP, and everyday utility calculations.';
   } else {
     // Home view structured data
     jsonLdData = {
@@ -444,6 +482,10 @@ export function updateSeoMetadata(view: ViewMode): void {
   if (view.type === 'tool') {
     const tool = getToolBySlug(view.slug);
     const kw = tool?.seo?.keywords?.join(', ') || tool?.keywords?.join(', ') || 'online calculator, free tools India, BharatUtility';
+    setMetaTag('meta[name="keywords"]', 'name', 'keywords', kw);
+  } else if (view.type === 'article') {
+    const article = getArticleBySlug(view.slug);
+    const kw = article?.seo?.keywords?.join(', ') || 'online calculator, guide, BharatUtility';
     setMetaTag('meta[name="keywords"]', 'name', 'keywords', kw);
   } else {
     setMetaTag('meta[name="keywords"]', 'name', 'keywords', 'online calculators, Indian finance tools, utility tools India, free calculators, GST calculator, EMI calculator, SIP calculator, BharatUtility');

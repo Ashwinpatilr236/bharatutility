@@ -18,8 +18,8 @@ export default function InvestmentPlanner80C80D() {
     parentsSenior: false
   });
 
-  const calculate80CTotal = () => {
-    return Object.values(investments80c).reduce((acc, val) => acc + (parseFloat(val) || 0), 0);
+  const calculate80CTotal = (): number => {
+    return Object.values(investments80c).reduce<number>((acc, val) => acc + (parseFloat(val as string) || 0), 0);
   };
 
   const total80C = calculate80CTotal();

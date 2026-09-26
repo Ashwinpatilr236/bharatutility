@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { TOOLS_REGISTRY } from './src/data/toolsRegistry';
+import { TOOLS_REGISTRY } from '../src/data/toolsRegistry';
 
 const flagged = TOOLS_REGISTRY.filter(t => t.needsManualVerification);
 let md = `# Freshness Audit - ${flagged.length} Tools\n\n`;
