@@ -11,7 +11,7 @@ The BharatUtility team takes the security and privacy of our users seriously. We
 If you discover a security vulnerability or potential threat in BharatUtility:
 
 1. **Email Privately**: Send full details of the issue to our verified support address:
-   **[support@bharatutility.tech](mailto:support@bharatutility.tech)**
+   **[arrjstechnologies@gmail.com](mailto:arrjstechnologies@gmail.com)**
 2. **Subject Line**: Please prefix your subject with `[SECURITY VULNERABILITY]: <Brief Description>`.
 3. **Include Details**:
    - Detailed description of the vulnerability.

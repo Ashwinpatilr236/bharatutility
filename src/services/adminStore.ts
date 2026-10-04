@@ -1053,7 +1053,7 @@ class AdminStore {
       id: 'log_' + Math.random().toString(36).substring(2, 9),
       adminId: 'sys',
       adminName: 'System / User',
-      adminEmail: 'support@bharatutility.tech',
+      adminEmail: 'arrjstechnologies@gmail.com',
       action,
       entityType,
       entityId,

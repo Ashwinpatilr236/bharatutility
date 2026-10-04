@@ -169,7 +169,7 @@ We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for 
 
 ## 🔒 Security
 
-For security vulnerability reports or sensitive concerns, please review [SECURITY.md](SECURITY.md) and contact us privately at **support@bharatutility.tech**.
+For security vulnerability reports or sensitive concerns, please review [SECURITY.md](SECURITY.md) and contact us privately at **arrjstechnologies@gmail.com**.
 
 ---
 

@@ -176,7 +176,7 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
               </p>
               <div className="flex items-center gap-2 font-mono font-bold text-xs text-accent">
                 <Mail className="w-4 h-4" />
-                <span>support@bharatutility.tech</span>
+                <span>arrjstechnologies@gmail.com</span>
               </div>
               <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
                 All legitimate modification or takedown requests are processed and resolved within <strong>24 to 48 hours</strong>.
@@ -222,7 +222,7 @@ export const LegalView: React.FC<LegalViewProps> = ({ page }) => {
             <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-3 text-xs">
               <div className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200 font-semibold text-sm">
                 <Mail className="w-4 h-4 text-accent" />
-                <span>support@bharatutility.tech</span>
+                <span>arrjstechnologies@gmail.com</span>
               </div>
               <p className="text-neutral-600 dark:text-neutral-400">
                 Official support email for general inquiries, feature suggestions, partnership requests, and API takedown coordination.
