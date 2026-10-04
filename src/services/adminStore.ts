@@ -640,6 +640,9 @@ class AdminStore {
   private experiments: ExperimentItem[] = DEFAULT_EXPERIMENTS;
 
   private listeners: Array<() => void> = [];
+  private lastSyncTime: number = 0;
+  private isSyncing: boolean = false;
+  private static readonly SYNC_COOLDOWN_MS = 15 * 60 * 1000; // 15-minute cooldown to prevent excessive polling
 
   constructor() {
     this.loadAll();
@@ -647,45 +650,59 @@ class AdminStore {
 
     if (typeof window !== 'undefined') {
       window.addEventListener('focus', () => {
-        this.syncFromSupabase().catch(() => {});
-      });
-      document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
+        if (Date.now() - this.lastSyncTime > AdminStore.SYNC_COOLDOWN_MS) {
           this.syncFromSupabase().catch(() => {});
         }
       });
-      setInterval(() => {
-        this.syncFromSupabase().catch(() => {});
-      }, 10000);
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && Date.now() - this.lastSyncTime > AdminStore.SYNC_COOLDOWN_MS) {
+          this.syncFromSupabase().catch(() => {});
+        }
+      });
+      // CRITICAL FIX: Removed aggressive 10-second setInterval that caused recurring requests and white-screen state wipes.
     }
   }
 
-  public async syncFromSupabase(): Promise<void> {
+  public async syncFromSupabase(force: boolean = false): Promise<void> {
     if (typeof window === 'undefined' || typeof localStorage === 'undefined') return;
+    if (this.isSyncing) return;
+    if (!force && this.lastSyncTime > 0 && Date.now() - this.lastSyncTime < AdminStore.SYNC_COOLDOWN_MS) {
+      return;
+    }
+
+    this.isSyncing = true;
     try {
       const supabase = getSupabase();
-      if (!supabase || !isSupabaseConfigured()) return;
+      if (!supabase || !isSupabaseConfigured()) {
+        this.lastSyncTime = Date.now();
+        return;
+      }
+
+      let hasChanges = false;
 
       // 1. Fetch site_config
-      const { data: configData } = await supabase
+      const { data: configData, error: configError } = await supabase
         .from('site_config')
         .select('*')
         .eq('id', 'default')
         .maybeSingle();
 
-      if (configData && configData.config_json) {
+      if (!configError && configData && configData.config_json) {
         const json = configData.config_json;
         if (json.seoConfig) {
           this.seoConfig = { ...this.seoConfig, ...json.seoConfig };
           localStorage.setItem(SEO_STORAGE_KEY, JSON.stringify(this.seoConfig));
+          hasChanges = true;
         }
         if (json.adsConfig) {
           this.adsConfig = { ...this.adsConfig, ...json.adsConfig };
           localStorage.setItem(ADS_STORAGE_KEY, JSON.stringify(this.adsConfig));
+          hasChanges = true;
         }
         if (json.appearanceConfig) {
           this.appearanceConfig = { ...this.appearanceConfig, ...json.appearanceConfig };
           localStorage.setItem(APPEARANCE_STORAGE_KEY, JSON.stringify(this.appearanceConfig));
+          hasChanges = true;
         }
         if (json.tools && Array.isArray(json.tools) && json.tools.length > 0) {
           const remoteMap = new Map((json.tools as any[]).map(t => [t.id, t]));
@@ -700,14 +717,33 @@ class AdminStore {
           }
           this.tools = mergedWithRemote;
           localStorage.setItem(TOOLS_STORAGE_KEY, JSON.stringify(this.tools));
+          hasChanges = true;
         }
         if (json.categories && Array.isArray(json.categories) && json.categories.length > 0) {
-          this.categories = json.categories;
+          // CRITICAL FIX: Remote config must merge with CATEGORIES so all 35 categories and icons remain intact
+          const remoteCatMap = new Map((json.categories as any[]).map(c => [c.id, c]));
+          const mergedCats: Category[] = CATEGORIES.map((c, idx) => {
+            const existing = remoteCatMap.get(c.id);
+            return {
+              ...c,
+              ...(existing || {}),
+              order: existing?.order ?? (idx + 1),
+              active: existing?.active ?? true,
+            };
+          });
+          for (const item of json.categories) {
+            if (!CATEGORIES.some(c => c.id === item.id)) {
+              mergedCats.push(item);
+            }
+          }
+          this.categories = mergedCats;
           localStorage.setItem(CATEGORIES_STORAGE_KEY, JSON.stringify(this.categories));
+          hasChanges = true;
         }
         if (json.homepageBuilder) {
           this.homepageBuilder = { ...this.homepageBuilder, ...json.homepageBuilder };
           localStorage.setItem(HOMEPAGE_BUILDER_STORAGE_KEY, JSON.stringify(this.homepageBuilder));
+          hasChanges = true;
         }
       }
 
@@ -733,15 +769,15 @@ class AdminStore {
         }));
         this.announcements = mappedAnn;
         localStorage.setItem(ANNOUNCEMENTS_STORAGE_KEY, JSON.stringify(mappedAnn));
-        this.notify();
+        hasChanges = true;
       }
 
-      // 3. Fetch feature flags
-      const { data: flagData } = await supabase
+      // 3. Fetch feature flags (cached, non-blocking)
+      const { data: flagData, error: flagError } = await supabase
         .from('feature_flags')
         .select('*');
 
-      if (flagData && flagData.length > 0) {
+      if (!flagError && flagData && flagData.length > 0) {
         const mappedFlags: FeatureFlagItem[] = flagData.map((f: any) => ({
           key: f.key,
           name: f.name,
@@ -753,11 +789,17 @@ class AdminStore {
         }));
         this.featureFlags = mappedFlags;
         localStorage.setItem(FEATURE_FLAGS_STORAGE_KEY, JSON.stringify(mappedFlags));
+        hasChanges = true;
       }
 
-      this.notify();
+      this.lastSyncTime = Date.now();
+      if (hasChanges) {
+        this.notify();
+      }
     } catch (err) {
       console.warn('Failed to sync config from Supabase:', err);
+    } finally {
+      this.isSyncing = false;
     }
   }
 

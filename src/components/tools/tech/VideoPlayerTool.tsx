@@ -44,6 +44,7 @@ import { ArrjsTvLogo } from './videoplayer/ArrjsTvLogo';
 import { fetchXtreamChannels } from './videoplayer/xtreamClient';
 import { fetchStalkerChannels } from './videoplayer/stalkerClient';
 import { useSpatialNavigation, isTvBackKey } from './videoplayer/useSpatialNavigation';
+import { IptvConstructionNotice } from './videoplayer/IptvConstructionNotice';
 import './videoplayer/iptvStyles.css';
 
 // Default authentic public test channels
@@ -112,8 +113,11 @@ const SAMPLE_IPTV_STREAMS: SampleStream[] = [
     format: 'HLS .m3u8',
   },
 ];
+interface VideoPlayerToolProps {
+  onExitToHome?: () => void;
+}
 
-export const VideoPlayerTool: React.FC = () => {
+export const VideoPlayerTool: React.FC<VideoPlayerToolProps> = ({ onExitToHome }) => {
   // Main channels & categories state
   const [channels, setChannels] = useState<ChannelItem[]>([]);
   const [categories, setCategories] = useState<string[]>(['Recently Viewed', 'All', 'Favorites']);
@@ -242,6 +246,41 @@ export const VideoPlayerTool: React.FC = () => {
       setFocusedChannelIndex(0);
     }
   }, [showDrawer]);
+
+  // Smart TV Back-press exit confirmation state
+  const [showExitConfirmToast, setShowExitConfirmToast] = useState<boolean>(false);
+  const exitConfirmTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Auto-Fullscreen Trigger on First User Interaction (any key, click, or touch)
+  useEffect(() => {
+    let triggered = false;
+
+    const handleFirstGesture = () => {
+      if (triggered) return;
+      triggered = true;
+
+      if (!document.fullscreenElement) {
+        const target = tvContainerRef.current || document.documentElement;
+        if (target && target.requestFullscreen) {
+          target.requestFullscreen().catch(() => {});
+        }
+      }
+
+      window.removeEventListener('keydown', handleFirstGesture, true);
+      window.removeEventListener('click', handleFirstGesture, true);
+      window.removeEventListener('touchstart', handleFirstGesture, true);
+    };
+
+    window.addEventListener('keydown', handleFirstGesture, true);
+    window.addEventListener('click', handleFirstGesture, true);
+    window.addEventListener('touchstart', handleFirstGesture, true);
+
+    return () => {
+      window.removeEventListener('keydown', handleFirstGesture, true);
+      window.removeEventListener('click', handleFirstGesture, true);
+      window.removeEventListener('touchstart', handleFirstGesture, true);
+    };
+  }, []);
 
   // Playback & Sound State
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
@@ -501,6 +540,102 @@ export const VideoPlayerTool: React.FC = () => {
     }
   }, [showDrawer, showEpg, showSettings, showPlayerSettings, showSearch]);
 
+  // Smart TV Unified Back Action Handler
+  const handleSmartTvBack = useCallback(() => {
+    // Priority 1: Settings Modal
+    if (showSettings) {
+      setShowSettings(false);
+      return;
+    }
+    // Priority 2: Player Quality / Audio Settings Overlay
+    if (showPlayerSettings) {
+      setShowPlayerSettings(false);
+      return;
+    }
+    // Priority 3: Search Overlay
+    if (showSearch) {
+      setShowSearch(false);
+      return;
+    }
+    // Priority 4: EPG Schedule Grid
+    if (showEpg) {
+      setShowEpg(false);
+      return;
+    }
+    // Priority 5: Category Drawer / Channel Shelf
+    if (showDrawer) {
+      if (focusedPane === 'channels') {
+        // Move focus from channels grid back to category drawer on the left
+        setFocusedPane('drawer');
+      } else {
+        // Close category drawer
+        setShowDrawer(false);
+      }
+      return;
+    }
+    // Priority 6: MiniGuide HUD
+    if (showMiniGuide) {
+      setShowMiniGuide(false);
+      return;
+    }
+    // Priority 7: Toolbar Focus mode
+    if (toolbarFocus) {
+      exitToolbarMode();
+      return;
+    }
+
+    // Priority 8: Video is playing and nothing is open
+    // Accidental Back-Press Protection: Do NOT let the browser exit or close the tab!
+    // Prompt the user: "Press Back again to exit player"
+    if (showExitConfirmToast) {
+      // Confirmed exit on second back press within 3.5s!
+      setShowExitConfirmToast(false);
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+      if (onExitToHome) {
+        onExitToHome();
+      } else {
+        window.location.href = '/';
+      }
+    } else {
+      setShowExitConfirmToast(true);
+      if (exitConfirmTimeoutRef.current) clearTimeout(exitConfirmTimeoutRef.current);
+      exitConfirmTimeoutRef.current = setTimeout(() => {
+        setShowExitConfirmToast(false);
+      }, 3500);
+    }
+  }, [
+    showSettings,
+    showPlayerSettings,
+    showSearch,
+    showEpg,
+    showDrawer,
+    focusedPane,
+    showMiniGuide,
+    toolbarFocus,
+    exitToolbarMode,
+    showExitConfirmToast,
+    onExitToHome,
+  ]);
+
+  // Trap browser history popstate so TV remote back button stays inside player
+  useEffect(() => {
+    try {
+      window.history.pushState({ iptvModalTrap: true }, '', window.location.href);
+    } catch {}
+
+    const handlePopState = () => {
+      try {
+        window.history.pushState({ iptvModalTrap: true }, '', window.location.href);
+      } catch {}
+      handleSmartTvBack();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [handleSmartTvBack]);
+
   // Fullscreen change listener
   useEffect(() => {
     const handleFsChange = () => {
@@ -671,18 +806,8 @@ export const VideoPlayerTool: React.FC = () => {
       // Back / Return (Escape, Backspace, Tizen 10009, webOS 461, Android 4)
       if (isBack) {
         e.preventDefault();
-        if (showDrawer && focusedPane === 'channels') {
-          setFocusedPane('drawer');
-        } else if (showDrawer || showEpg || showSearch || showMiniGuide) {
-          setShowMiniGuide(false);
-          setShowEpg(false);
-          setShowDrawer(false);
-          setShowSearch(false);
-        } else {
-          // Nothing open → focus top toolbar so every button is reachable by remote
-          resetTopBarTimeout();
-          setToolbarFocus(true);
-        }
+        e.stopPropagation();
+        handleSmartTvBack();
         return;
       }
 
@@ -1247,6 +1372,12 @@ export const VideoPlayerTool: React.FC = () => {
           </div>
         </div>
 
+        {/* Global IPTV Status Indicator (Section 9) */}
+        <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300 text-[11px] font-semibold tracking-wide backdrop-blur-md shadow-[0_0_15px_rgba(245,158,11,0.15)] select-none animate-in fade-in duration-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+          <span>ARRJS IPTV • Beta / Under Construction</span>
+        </div>
+
         {/* Top Right: Clock, Search, TV Guide, Playlist Settings, Player Settings, Fullscreen */}
         <div className="flex items-center gap-1.5 sm:gap-2.5">
           {/* Live Clock Widget */}
@@ -1333,6 +1464,20 @@ export const VideoPlayerTool: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Smart TV Fullscreen Prompt Banner (Shown when not in Fullscreen) */}
+      {!isFullscreen && (
+        <div
+          onClick={toggleFullscreen}
+          className="absolute top-14 sm:top-16 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-black/85 hover:bg-neutral-900 border border-cyan-400/50 shadow-[0_0_25px_rgba(0,242,254,0.35)] cursor-pointer text-cyan-300 text-xs font-semibold backdrop-blur-xl transition-all"
+        >
+          <Maximize className="w-4 h-4 text-cyan-400 animate-pulse" />
+          <span>Click anywhere or Press OK for Fullscreen TV Mode</span>
+          <span className="text-[10px] bg-cyan-500/20 px-2 py-0.5 rounded-full border border-cyan-400/40 text-white font-mono">
+            OK
+          </span>
+        </div>
+      )}
 
       {/* Layer 2: DTH Numeric Zapping Overlay */}
       <IptvDthZappingOverlay
@@ -1532,6 +1677,11 @@ export const VideoPlayerTool: React.FC = () => {
         onOpenSearch={() => setShowSearch(true)}
         channelCounts={categoryCounts}
         isDrawerFocused={focusedPane === 'drawer'}
+        onFocusDrawer={() => setFocusedPane('drawer')}
+        onRequestChannelFocus={() => {
+          setFocusedPane('channels');
+          setFocusedChannelIndex(0);
+        }}
       />
 
       {/* Layer 8: Quick Search Overlay Modal (Inside Fullscreen Shell) */}
@@ -1585,6 +1735,36 @@ export const VideoPlayerTool: React.FC = () => {
         stalkerCredentials={stalkerCredentials}
         onLoginStalker={handleLoginStalker}
       />
+
+      {/* Smart TV Back-Press Accidental Exit Protection Toast */}
+      {showExitConfirmToast && (
+        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 px-6 py-3.5 rounded-2xl bg-black/95 border-2 border-amber-400 shadow-[0_0_40px_rgba(251,191,36,0.5)] text-white backdrop-blur-2xl animate-in fade-in slide-in-from-bottom-4 duration-200">
+          <div className="flex items-center gap-2.5 text-sm font-bold text-amber-300">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping" />
+            <span>Press Back again to exit player</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowExitConfirmToast(false)}
+              className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-neutral-200 transition-colors"
+            >
+              Stay Watching
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setShowExitConfirmToast(false);
+                if (onExitToHome) onExitToHome();
+                else window.location.href = '/';
+              }}
+              className="px-3 py-1.5 rounded-xl bg-red-600/80 hover:bg-red-600 text-xs font-semibold text-white transition-colors"
+            >
+              Exit
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

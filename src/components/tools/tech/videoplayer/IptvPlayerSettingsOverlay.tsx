@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { X, Check, Sliders, Volume2, Maximize2, Sparkles, CheckCircle2 } from 'lucide-react';
 import { AspectRatio } from './types';
 import { useSpatialNavigation } from './useSpatialNavigation';
+import { IptvConstructionNotice } from './IptvConstructionNotice';
 
 interface IptvPlayerSettingsOverlayProps {
   isOpen: boolean;
@@ -200,6 +201,9 @@ export const IptvPlayerSettingsOverlay: React.FC<IptvPlayerSettingsOverlayProps>
             })}
           </div>
         </div>
+
+        {/* Construction Notice for experimental playback features */}
+        <IptvConstructionNotice compact featureName="Advanced Codecs & Timeshift" />
 
         {/* Footer */}
         <button

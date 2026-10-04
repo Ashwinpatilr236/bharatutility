@@ -317,6 +317,11 @@ class AnalyticsService {
   private initPresenceHeartbeat(): void {
     if (typeof window === 'undefined') return;
 
+    if (this.heartbeatInterval) {
+      clearInterval(this.heartbeatInterval);
+      this.heartbeatInterval = null;
+    }
+
     // Send heartbeat every 60s while tab is visible
     this.heartbeatInterval = setInterval(() => {
       if (typeof document !== 'undefined' && !document.hidden) {

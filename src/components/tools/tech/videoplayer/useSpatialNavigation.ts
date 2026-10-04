@@ -192,7 +192,7 @@ export function useSpatialNavigation(rootRef: RefObject<HTMLElement | null>, opt
       // Let caret move inside text inputs on Left/Right
       if (editing && (dir === 'left' || dir === 'right')) return;
 
-      const candidates = Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(isVisible);
+      const candidates: HTMLElement[] = (Array.from(root.querySelectorAll(FOCUSABLE_SELECTOR)) as HTMLElement[]).filter(isVisible);
 
       e.preventDefault();
       e.stopPropagation();

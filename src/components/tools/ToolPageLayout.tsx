@@ -873,29 +873,32 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
   };
 
   if (tool.slug === 'video-player') {
+    const isFullscreenActive = typeof document !== 'undefined' && Boolean(document.fullscreenElement);
     return (
-      <div className="w-full min-h-screen bg-black text-white relative flex flex-col">
-        {/* Minimal App Navigation Control */}
-        <div className="px-4 py-2 flex items-center justify-between z-40 bg-neutral-950/90 backdrop-blur-md border-b border-white/10">
-          <button
-            onClick={navigateToHome}
-            className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-400 hover:text-white transition-colors px-3 py-1.5 rounded-xl hover:bg-white/10"
-            title="Return to BharatUtility Home"
-          >
-            <ArrowLeft className="w-4 h-4 text-cyan-400" />
-            <span>← Back to Home</span>
-          </button>
-          <div className="flex items-center gap-2 text-xs text-neutral-400 font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="hidden sm:inline">ARRJS IPTV Smart TV</span>
+      <div className="w-full h-screen bg-black text-white relative flex flex-col overflow-hidden">
+        {/* Minimal App Navigation Control - Hidden when in Fullscreen */}
+        {!isFullscreenActive && (
+          <div className="px-4 py-1.5 flex items-center justify-between z-40 bg-neutral-950/90 backdrop-blur-md border-b border-white/10 shrink-0">
+            <button
+              onClick={navigateToHome}
+              className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-400 hover:text-white transition-colors px-3 py-1 rounded-xl hover:bg-white/10"
+              title="Return to BharatUtility Home"
+            >
+              <ArrowLeft className="w-4 h-4 text-cyan-400" />
+              <span>← Back to Home</span>
+            </button>
+            <div className="flex items-center gap-2 text-xs text-neutral-400 font-mono">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="hidden sm:inline">ARRJS IPTV Smart TV</span>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Fullscreen-capable IPTV application container */}
-        <div className="flex-1 w-full flex flex-col">
+        <div className="flex-1 w-full flex flex-col min-h-0 overflow-hidden">
           <ErrorBoundary fallbackTitle="Video Player by ARRJS">
-            <React.Suspense fallback={<div className="h-[80vh] w-full bg-black flex items-center justify-center text-cyan-400 font-mono text-sm">Initializing Video Player by ARRJS...</div>}>
-              <VideoPlayerTool />
+            <React.Suspense fallback={<div className="h-screen w-full bg-black flex items-center justify-center text-cyan-400 font-mono text-sm">Initializing Video Player by ARRJS...</div>}>
+              <VideoPlayerTool onExitToHome={navigateToHome} />
             </React.Suspense>
           </ErrorBoundary>
         </div>

@@ -65,42 +65,42 @@ const AppContent: React.FC = () => {
       {!isVideoPlayerApp && <Header />}
 
       <main className={`flex-1 ${isVideoPlayerApp ? 'p-0 m-0' : 'pb-16 md:pb-0'}`}>
-        {view.type === 'home' && (
-          <div className="flex flex-col space-y-1.5 sm:space-y-3.5 py-0.5 sm:py-2">
-            {/* 1. Hero & Smart Discovery Search */}
-            <HeroSection />
-
-            {/* 2. PWA Install App Banner */}
-            <PwaInstallBanner />
-
-            {/* 3. Tabbed Tool Discovery: Trending / Popular / New (3 → 1 widget) */}
-            <ToolDiscoveryWidget />
-
-            {/* 4. Category + Detail Panel: 2-col on desktop, chips+carousel on mobile */}
-            <CategoryDetailPanel />
-
-            {/* 5. Interactive Quick Calculators */}
-            <InteractiveMiniTools />
-
-            {/* 6. Personalized Sections (shown only when user has used tools) */}
-            <YourFavoritesSection />
-            <RecentlyUsedSection />
-
-            {/* 7. Sister Project Showcase: Sanatan Next */}
-            <SanatanNextShowcaseSection />
-
-            {/* 8. Why BharatUtility & Privacy Trust */}
-            <TrustSection />
-
-            {/* 9. Concise Indian User FAQ */}
-            <HomeFaqSection />
-
-            {/* 10. Final Tool Discovery CTA */}
-            <FinalDiscoveryCtaSection />
-          </div>
-        )}
-
         <ErrorBoundary>
+          {view.type === 'home' && (
+            <div className="flex flex-col space-y-1.5 sm:space-y-3.5 py-0.5 sm:py-2">
+              {/* 1. Hero & Smart Discovery Search */}
+              <HeroSection />
+
+              {/* 2. PWA Install App Banner */}
+              <PwaInstallBanner />
+
+              {/* 3. Tabbed Tool Discovery: Trending / Popular / New (3 → 1 widget) */}
+              <ToolDiscoveryWidget />
+
+              {/* 4. Category + Detail Panel: 2-col on desktop, chips+carousel on mobile */}
+              <CategoryDetailPanel />
+
+              {/* 5. Interactive Quick Calculators */}
+              <InteractiveMiniTools />
+
+              {/* 6. Personalized Sections (shown only when user has used tools) */}
+              <YourFavoritesSection />
+              <RecentlyUsedSection />
+
+              {/* 7. Sister Project Showcase: Sanatan Next */}
+              <SanatanNextShowcaseSection />
+
+              {/* 8. Why BharatUtility & Privacy Trust */}
+              <TrustSection />
+
+              {/* 9. Concise Indian User FAQ */}
+              <HomeFaqSection />
+
+              {/* 10. Final Tool Discovery CTA */}
+              <FinalDiscoveryCtaSection />
+            </div>
+          )}
+
           <React.Suspense fallback={<ViewLoadingFallback />}>
             {view.type === 'tool' && (() => {
               const tool = getToolBySlug(view.slug);
@@ -182,8 +182,10 @@ const AppContent: React.FC = () => {
 
 export default function App() {
   return (
-    <AppProvider>
-      <AppContent />
-    </AppProvider>
+    <ErrorBoundary isGlobal fallbackTitle="Something went wrong">
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
+    </ErrorBoundary>
   );
 }

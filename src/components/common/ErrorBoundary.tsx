@@ -1,9 +1,10 @@
 import React from 'react';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
+import { AlertTriangle, RefreshCw, Home, RotateCcw } from 'lucide-react';
 
 interface Props {
   children: React.ReactNode;
   fallbackTitle?: string;
+  isGlobal?: boolean;
 }
 
 interface State {
@@ -29,7 +30,12 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Uncaught error inside ErrorBoundary:', error, errorInfo);
+    // Diagnostic logging for developers without exposing raw stacks to end users
+    console.error('Diagnostic error captured by BharatUtility ErrorBoundary:', {
+      error: error?.message || error,
+      stack: error?.stack,
+      componentStack: errorInfo?.componentStack,
+    });
 
     // Auto-heal on dynamic chunk loading errors caused by new deployments
     const isChunkError =
@@ -51,43 +57,70 @@ export class ErrorBoundary extends React.Component<Props, State> {
     this.setState({ hasError: false, error: null });
   };
 
+  handleReload = () => {
+    window.location.reload();
+  };
+
   handleGoHome = () => {
     window.location.href = '/';
   };
 
   render() {
     if (this.state.hasError) {
+      const isGlobal = this.props.isGlobal ?? false;
+      const title = this.props.fallbackTitle || 'Something went wrong';
+
       return (
-        <div className="min-h-[350px] w-full p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-rose-500/30 text-white flex flex-col items-center justify-center text-center space-y-4 shadow-xl">
-          <div className="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400">
-            <AlertTriangle className="w-7 h-7" />
-          </div>
+        <div
+          className={`${
+            isGlobal ? 'min-h-screen w-full flex-col' : 'min-h-[360px] w-full my-6'
+          } p-6 sm:p-10 rounded-3xl bg-neutral-900/90 dark:bg-black/90 border border-neutral-800 text-white flex items-center justify-center text-center shadow-2xl backdrop-blur-xl relative overflow-hidden`}
+        >
+          {/* Subtle background glow */}
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="space-y-1.5 max-w-md">
-            <h3 className="text-xl font-bold font-display tracking-tight text-white">
-              {this.props.fallbackTitle || 'Tool Calculation Issue'}
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
-              An unexpected issue occurred while processing this calculation. The rest of BharatUtility remains fully functional.
-            </p>
-          </div>
+          <div className="relative z-10 flex flex-col items-center justify-center space-y-5 max-w-md">
+            <div className="w-16 h-16 rounded-2xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 shadow-lg shadow-rose-500/10">
+              <AlertTriangle className="w-8 h-8" />
+            </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2 font-mono text-xs">
-            <button
-              onClick={this.handleRetry}
-              className="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-400 text-slate-950 font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md shadow-rose-500/20"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              <span>Retry Calculation</span>
-            </button>
+            <div className="space-y-2">
+              <h2 className="text-xl sm:text-2xl font-extrabold font-display tracking-tight text-white">
+                {title}
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-sans">
+                An unexpected issue occurred while rendering this section. BharatUtility is safe and your settings remain intact.
+              </p>
+            </div>
 
-            <button
-              onClick={this.handleGoHome}
-              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 font-semibold transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <Home className="w-3.5 h-3.5" />
-              <span>Back to Home</span>
-            </button>
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2 font-mono text-xs">
+              <button
+                type="button"
+                onClick={this.handleReload}
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-slate-950 font-bold transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-rose-500/20 active:scale-95"
+              >
+                <RefreshCw className="w-4 h-4" />
+                <span>Reload BharatUtility</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={this.handleRetry}
+                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-neutral-200 font-semibold transition-all flex items-center gap-2 cursor-pointer border border-white/10"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Try Again</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={this.handleGoHome}
+                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-neutral-200 font-semibold transition-all flex items-center gap-2 cursor-pointer border border-white/10"
+              >
+                <Home className="w-3.5 h-3.5" />
+                <span>Home</span>
+              </button>
+            </div>
           </div>
         </div>
       );

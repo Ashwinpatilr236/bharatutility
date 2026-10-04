@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Heart, Tv } from 'lucide-react';
 import { ChannelItem } from './types';
 import { EpgDataMap } from './epgParser';
+import { IptvConstructionNotice } from './IptvConstructionNotice';
 
 interface EpgGridProps {
   channels: ChannelItem[];
@@ -72,10 +73,11 @@ export const EpgGrid: React.FC<EpgGridProps> = ({
         style={{ paddingLeft: '1.25rem' }}
       >
         <div
-          className="font-extrabold flex-shrink-0 pr-3 border-r border-white/15 text-cyan-400 truncate"
-          style={{ width: '16rem', minWidth: '16rem', maxWidth: '16rem' }}
+          className="font-extrabold flex-shrink-0 pr-3 border-r border-white/15 text-cyan-400 flex items-center justify-between gap-2 truncate"
+          style={{ width: '18rem', minWidth: '18rem', maxWidth: '18rem' }}
         >
-          {categoryName}
+          <span className="truncate">{categoryName}</span>
+          <IptvConstructionNotice compact featureName="EPG Guide" />
         </div>
         <div
           className="flex-1 flex overflow-x-auto no-scrollbar pl-3 gap-2"
