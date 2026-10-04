@@ -54,15 +54,17 @@ const ViewLoadingFallback: React.FC = () => (
 const AppContent: React.FC = () => {
   const { view, navigateToHome, toast } = useApp();
 
+  const isVideoPlayerApp = view.type === 'tool' && view.slug === 'video-player';
+
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-50/50 dark:bg-black text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white relative w-full overflow-x-hidden">
+    <div className={`min-h-screen flex flex-col ${isVideoPlayerApp ? 'bg-black' : 'bg-neutral-50/50 dark:bg-black'} text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white relative w-full overflow-x-hidden`}>
       {/* Global Offline Banner */}
-      <OfflineStatusIndicator />
+      {!isVideoPlayerApp && <OfflineStatusIndicator />}
 
-      {/* Global Header */}
-      <Header />
+      {/* Global Header (Hidden on Video Player for immersive IPTV experience) */}
+      {!isVideoPlayerApp && <Header />}
 
-      <main className="flex-1 pb-16 md:pb-0">
+      <main className={`flex-1 ${isVideoPlayerApp ? 'p-0 m-0' : 'pb-16 md:pb-0'}`}>
         {view.type === 'home' && (
           <div className="flex flex-col space-y-1.5 sm:space-y-3.5 py-0.5 sm:py-2">
             {/* 1. Hero & Smart Discovery Search */}
@@ -163,13 +165,13 @@ const AppContent: React.FC = () => {
       </main>
 
       {/* Global Social Media Follow Section */}
-      {view.type === 'home' && <SocialFollow />}
+      {!isVideoPlayerApp && view.type === 'home' && <SocialFollow />}
 
-      {/* Global Footer */}
-      <Footer showEcosystemPromo={view.type === 'home'} />
+      {/* Global Footer (Hidden on Video Player) */}
+      {!isVideoPlayerApp && <Footer showEcosystemPromo={view.type === 'home'} />}
 
-      {/* Global Mobile Bottom Navigation Dock */}
-      <MobileNavDock />
+      {/* Global Mobile Bottom Navigation Dock (Hidden on Video Player) */}
+      {!isVideoPlayerApp && <MobileNavDock />}
 
       {/* Global Command Palette & Toast Notifications */}
       <CommandPalette />

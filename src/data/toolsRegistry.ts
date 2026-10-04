@@ -1,6 +1,63 @@
 import { Tool } from '../types';
 
 export const TOOLS_REGISTRY: Tool[] = [
+  {
+    id: 'video-player',
+    slug: 'video-player',
+    needsManualVerification: false,
+    lastUpdated: '2026-10-04',
+    name: 'Video Player by ARRJS — IPTV Player',
+    shortName: 'IPTV Player',
+    tagline: 'Smart TV & IPTV Player with M3U playlists, XMLTV EPG guide, DTH channel zapping and HLS streaming',
+    description: 'Watch live TV, stream HLS (.m3u8), and explore M3U playlists with EPG TV guides directly in your browser with Video Player by ARRJS — IPTV Player.',
+    category: 'technology',
+    icon: 'Tv',
+    keywords: [
+      'Video Player by ARRJS',
+      'IPTV player web',
+      'M3U player',
+      'M3U8 player',
+      'HLS player',
+      'Internet TV online',
+      'EPG TV guide',
+      'channel zapping',
+      'ARRJS IPTV',
+      'smart tv web player'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'New',
+    views: 12800,
+    seo: {
+      title: 'Video Player by ARRJS — IPTV / Internet TV Player',
+      description: 'Watch live Internet TV, M3U and M3U8 playlists with interactive EPG TV guide and channel zapping directly in your browser with Video Player by ARRJS.',
+      keywords: ['Video Player by ARRJS', 'IPTV player web', 'M3U player', 'M3U8 player', 'EPG TV guide', 'Internet TV', 'live stream player'],
+      canonicalSlug: 'video-player',
+      h1: 'Video Player by ARRJS — IPTV Player',
+    },
+    formulaDescription: 'HTML5 Video Engine with hls.js Adaptive Bitrate Streaming & Client-Side M3U Parser',
+    faqs: [
+      {
+        question: 'Can I play any video or stream with Video Player by ARRJS?',
+        answer: 'You can play any direct video format supported by modern browsers (MP4, WebM) as well as HLS (.m3u8) live and VOD streams. Remote streams must allow browser access (CORS) and use HTTPS when on secure web pages.'
+      },
+      {
+        question: 'Why do some IPTV links fail to play in web browsers?',
+        answer: 'Web browsers enforce strict security rules like Cross-Origin Resource Sharing (CORS) and Mixed-Content blocking (preventing plain HTTP streams on HTTPS sites). If your playlist host blocks CORS, you can download the .m3u file to your device and upload it directly.'
+      },
+      {
+        question: 'Is my stream data or playlist private?',
+        answer: 'Yes! Video Player by ARRJS operates 100% client-side inside your browser. No video streams, channel links, or playlist contents are sent to our servers or third-party proxies.'
+      }
+    ],
+    relatedToolSlugs: [
+      'download-time-calculator',
+      'data-usage-calculator',
+      'network-speed-ping-probe',
+      'tv-viewing-distance-calculator'
+    ],
+  },
   // New P0 Business/Tax Calculators
   {
     id: 'tds-calculator',

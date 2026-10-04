@@ -17,6 +17,7 @@ import { AntigravityParticles } from '../common/AntigravityParticles';
 import { FloatingBadge } from '../common/FloatingBadge';
 import { ToolCard } from '../common/ToolCard';
 import { ScrollableCarousel } from '../common/ScrollableCarousel';
+import { ArrowLeft } from 'lucide-react';
 
 // Lazy-loaded Calculator Components for isolated bundle chunks & instant public loading
 const TdsCalculator = React.lazy(() => import('../calculators/TdsCalculator'));
@@ -103,6 +104,7 @@ const ImeiCeirGuideValidator = React.lazy(() => import('./tech/ImeiCeirGuideVali
 const PropertyStampDutyCalculator = React.lazy(() => import('./home/PropertyStampDutyCalculator').then(m => ({ default: m.PropertyStampDutyCalculator })));
 const IndianBabyNamesRashi = React.lazy(() => import('./daily/IndianBabyNamesRashi').then(m => ({ default: m.IndianBabyNamesRashi })));
 const PasswordBreachChecker = React.lazy(() => import('./tech/PasswordBreachChecker').then(m => ({ default: m.PasswordBreachChecker })));
+const VideoPlayerTool = React.lazy(() => import('./tech/VideoPlayerTool').then(m => ({ default: m.VideoPlayerTool })));
 const StockAverageCalculator = React.lazy(() => import('../calculators/StockAverageCalculator').then(m => ({ default: m.StockAverageCalculator })));
 const HraTaxExemptionCalculator = React.lazy(() => import('../calculators/HraTaxExemptionCalculator').then(m => ({ default: m.HraTaxExemptionCalculator })));
 const EvTcoCalculator = React.lazy(() => import('../calculators/EvTcoCalculator').then(m => ({ default: m.EvTcoCalculator })));
@@ -648,6 +650,8 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <IndianBabyNamesRashi />;
       case 'password-breach-checker':
         return <PasswordBreachChecker />;
+      case 'video-player':
+        return <VideoPlayerTool />;
 
       // Government Schemes Suite
       case 'sukanya-samriddhi-yojana-calculator':
@@ -867,6 +871,37 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         return <EmiCalculator onResultChange={handleResultChange} />;
     }
   };
+
+  if (tool.slug === 'video-player') {
+    return (
+      <div className="w-full min-h-screen bg-black text-white relative flex flex-col">
+        {/* Minimal App Navigation Control */}
+        <div className="px-4 py-2 flex items-center justify-between z-40 bg-neutral-950/90 backdrop-blur-md border-b border-white/10">
+          <button
+            onClick={navigateToHome}
+            className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-400 hover:text-white transition-colors px-3 py-1.5 rounded-xl hover:bg-white/10"
+            title="Return to BharatUtility Home"
+          >
+            <ArrowLeft className="w-4 h-4 text-cyan-400" />
+            <span>← Back to Home</span>
+          </button>
+          <div className="flex items-center gap-2 text-xs text-neutral-400 font-mono">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="hidden sm:inline">ARRJS IPTV Smart TV</span>
+          </div>
+        </div>
+
+        {/* Fullscreen-capable IPTV application container */}
+        <div className="flex-1 w-full flex flex-col">
+          <ErrorBoundary fallbackTitle="Video Player by ARRJS">
+            <React.Suspense fallback={<div className="h-[80vh] w-full bg-black flex items-center justify-center text-cyan-400 font-mono text-sm">Initializing Video Player by ARRJS...</div>}>
+              <VideoPlayerTool />
+            </React.Suspense>
+          </ErrorBoundary>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-8 space-y-3 sm:space-y-8 animate-in fade-in duration-200 relative">

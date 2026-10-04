@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Intense Ambient Glow -->
+    <filter id="bloom" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="20" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <linearGradient id="tv-outer-border" x1="40" y1="40" x2="472" y2="472" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="35%" stop-color="#38BDF8" />
+      <stop offset="70%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#A855F7" />
+    </linearGradient>
+
+    <linearGradient id="screen-chassis" x1="40" y1="60" x2="472" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0e1424" />
+      <stop offset="50%" stop-color="#070a12" />
+      <stop offset="100%" stop-color="#030408" />
+    </linearGradient>
+
+    <linearGradient id="play-facet-top" x1="190" y1="160" x2="350" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="30%" stop-color="#00F2FE" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+
+    <linearGradient id="play-facet-bottom" x1="190" y1="256" x2="350" y2="352" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+
+    <linearGradient id="glass-specular" x1="60" y1="70" x2="452" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18" />
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.02" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="stand-grad" x1="180" y1="410" x2="332" y2="450" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Backlight Aura -->
+  <rect x="70" y="70" width="372" height="280" rx="36" fill="#00F2FE" opacity="0.15" filter="url(#bloom)" />
+  <circle cx="270" cy="230" r="100" fill="#6366F1" opacity="0.2" filter="url(#bloom)" />
+
+  <!-- Television Display Bezel Frame -->
+  <rect x="52" y="64" width="408" height="312" rx="36" fill="url(#screen-chassis)" stroke="url(#tv-outer-border)" stroke-width="6" />
+
+  <!-- Glass Specular Highlight (Curved Top Sheen) -->
+  <path d="M56 100C56 80.1178 72.1178 64 92 64H420C439.882 64 456 80.1178 456 100V180L56 220V100Z" fill="url(#glass-specular)" />
+
+  <!-- Inner Display Active Border -->
+  <rect x="68" y="80" width="376" height="280" rx="24" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+
+  <!-- Cinema Play Prism (Faceted 3D Gemstone Play Icon) -->
+  <!-- Top Bevel Facet -->
+  <path d="M196 168L348 256H256L196 256V168Z" fill="url(#play-facet-top)" />
+  <!-- Bottom Bevel Facet -->
+  <path d="M196 256H256L348 256L196 344V256Z" fill="url(#play-facet-bottom)" />
+  <!-- Left Side Specular Line -->
+  <path d="M196 168V344L348 256L196 168Z" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" />
+  <!-- Center Prism Ridge Light Line -->
+  <line x1="196" y1="256" x2="348" y2="256" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.9" />
+  <circle cx="348" cy="256" r="4" fill="#FFFFFF" filter="url(#bloom)" />
+
+  <!-- TV Pedestal Stand -->
+  <!-- Neck Pillar -->
+  <path d="M244 376H268V424H244V376Z" fill="#1e293b" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+  <!-- Base Plate with Glowing Cyan/Indigo Edge -->
+  <path d="M176 424C176 421.791 177.791 420 180 420H332C334.209 420 336 421.791 336 424V430C336 433.314 333.314 436 330 436H182C178.686 436 176 433.314 176 430V424Z" fill="url(#screen-chassis)" stroke="url(#stand-grad)" stroke-width="3" />
+
+  <!-- Micro Power LED Indicator -->
+  <circle cx="256" cy="364" r="3.5" fill="#00F2FE" />
+  <circle cx="256" cy="364" r="6" stroke="#00F2FE" stroke-width="1" opacity="0.6" />
+</svg>

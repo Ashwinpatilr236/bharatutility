@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="100%" height="100%">
+  <defs>
+    <!-- Metallic Chrome Gradient -->
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="25%" stop-color="#cbd5e1"/>
+      <stop offset="50%" stop-color="#64748b"/>
+      <stop offset="75%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+
+    <!-- Dark Metal Bezel Gradient -->
+    <linearGradient id="darkMetal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Electric Cyan Play Glow Gradient -->
+    <linearGradient id="cyanGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="30%" stop-color="#38bdf8"/>
+      <stop offset="70%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+
+    <!-- Vibrant Play Core -->
+    <linearGradient id="playCore" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="60%" stop-color="#0072ff"/>
+      <stop offset="100%" stop-color="#0040aa"/>
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="neonShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#00f0ff" flood-opacity="0.4"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+
+    <filter id="emblemGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#000000" flood-opacity="0.9"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="15" flood-color="#00f0ff" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Group: Main Logo Emblem -->
+  <g transform="translate(20, 10)" filter="url(#emblemGlow)">
+    
+    <!-- Outer Metallic Circle Ring -->
+    <circle cx="110" cy="110" r="95" fill="none" stroke="url(#chromeGrad)" stroke-width="8"/>
+    <circle cx="110" cy="110" r="88" fill="none" stroke="url(#darkMetal)" stroke-width="4"/>
+
+    <!-- TV Screen Frame in Background -->
+    <rect x="75" y="45" width="110" height="75" rx="12" fill="url(#darkMetal)" stroke="url(#chromeGrad)" stroke-width="5"/>
+    <rect x="82" y="52" width="96" height="61" rx="7" fill="#090d16" stroke="rgba(0,240,255,0.3)" stroke-width="1.5"/>
+
+    <!-- Stylized Metallic "A" Monogram Structure -->
+    <!-- Left Leg of A -->
+    <path d="M 110,25 L 45,175 L 72,175 L 110,78 L 148,175 L 175,175 Z" fill="url(#chromeGrad)" stroke="#0f172a" stroke-width="2"/>
+    <path d="M 110,38 L 58,165 L 70,165 L 110,70 Z" fill="url(#darkMetal)"/>
+    
+    <!-- A Inner Crossbar / Metallic Media Player Bar at Bottom -->
+    <rect x="52" y="172" width="116" height="22" rx="11" fill="url(#darkMetal)" stroke="url(#chromeGrad)" stroke-width="3"/>
+    
+    <!-- Media Bar Controls Icons (< || >) -->
+    <path d="M 75,183 L 83,178 L 83,188 Z M 85,178 L 87,178 L 87,188 L 85,188 Z" fill="#94a3b8"/>
+    <rect x="105" y="178" width="3.5" height="10" rx="1" fill="#00f0ff"/>
+    <rect x="111.5" y="178" width="3.5" height="10" rx="1" fill="#00f0ff"/>
+    <path d="M 135,183 L 127,178 L 127,188 Z M 137,178 L 139,178 L 139,188 L 137,188 Z" fill="#94a3b8"/>
+
+    <!-- Central Glowing 3D Play Button Triangle -->
+    <g filter="url(#neonShadow)">
+      <!-- Outer Cyan Glow Triangle -->
+      <path d="M 92,72 L 142,108 L 92,144 Z" fill="url(#cyanGlow)" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- Inner Glossy Core Triangle -->
+      <path d="M 96,78 L 136,108 L 96,138 Z" fill="url(#playCore)"/>
+      <!-- Highlight Reflection -->
+      <path d="M 98,82 L 125,103 L 98,112 Z" fill="#ffffff" opacity="0.45"/>
+    </g>
+  </g>
+
+  <!-- Group: Typography "VIDEO PLAYER by ARRJS" -->
+  <g transform="translate(255, 62)">
+    <!-- "VIDEO PLAYER" Main Title -->
+    <text x="0" y="55" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-weight="900" font-size="52" letter-spacing="4" fill="url(#chromeGrad)" stroke="#000" stroke-width="1.5">
+      VIDEO PLAYER
+    </text>
+
+    <!-- Subtitle: "by ARRJS" -->
+    <g transform="translate(4, 98)">
+      <text x="0" y="0" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-weight="600" font-size="28" letter-spacing="2" fill="#94a3b8">
+        by
+      </text>
+      <text x="42" y="0" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-weight="900" font-size="34" letter-spacing="4" fill="#00f0ff" filter="url(#neonShadow)">
+        ARRJS
+      </text>
+    </g>
+
+    <!-- Decorative Metallic Accent Line -->
+    <line x1="0" y1="115" x2="460" y2="115" stroke="url(#chromeGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="160" y1="115" x2="320" y2="115" stroke="#00f0ff" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>
