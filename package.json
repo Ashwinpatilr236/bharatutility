@@ -1,7 +1,14 @@
 {
-  "name": "react-example",
-  "private": true,
-  "version": "0.0.0",
+  "name": "bharatutility",
+  "version": "1.0.0",
+  "description": "India's Digital Utility Super-Site with 230+ calculators, converters, financial tools, and utilities.",
+  "license": "MIT",
+  "homepage": "https://bharatutility.tech",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ashwinpatilr236/bharatutility.git"
+  },
+  "author": "BharatUtility Contributors",
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
