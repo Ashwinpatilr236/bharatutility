@@ -1,42 +1,84 @@
-# BharatUtility — India's Digital Utility Super-Site
+# BharatUtility — India's Digital Utility Super-Site 🇮🇳
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![React](https://img.shields.io/badge/React-19-61dafb.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.2-646cff.svg)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1-38bdf8.svg)](https://tailwindcss.com/)
+[![Website](https://img.shields.io/badge/Live_Site-bharatutility.tech-10b981.svg)](https://bharatutility.tech)
 
-> **Live Production Website:** [https://bharatutility.tech](https://bharatutility.tech)
+> **India's open-source digital utility platform with 233+ practical online calculators, converters, civic lookups, and everyday tools.**
 
-**BharatUtility** is India's Digital Utility Super-Site — a fast, privacy-first, community-driven online platform with over 230+ interactive calculators, converters, financial tools, document generators, and everyday civic utilities tailored specifically for Indian citizens, students, professionals, and small businesses.
+---
+
+## 🚀 Try BharatUtility
+
+Explore 233+ practical tools for everyday India — calculators, converters, financial utilities, document tools, civic lookups, and more directly in your browser with zero installation or signups.
+
+### [🌐 Open BharatUtility Live Platform](https://bharatutility.tech)
+
+[Live Demo](https://bharatutility.tech/) · [Browse Tools](https://bharatutility.tech/tools) · [Contribute](CONTRIBUTING.md) · [Report an Issue](https://github.com/Ashwinpatilr236/bharatutility/issues/new/choose)
+
+---
+
+## 📸 See BharatUtility in Action
+
+### Homepage & Smart Discovery
+![BharatUtility Homepage](docs/screenshots/homepage.png)
+
+### Core Product Experience
+
+| Tool Discovery (233+ Tools across 13 Categories) | Interactive Loan EMI Calculator |
+| :---: | :---: |
+| ![Tool Discovery](docs/screenshots/tool-discovery.png) | ![Calculator UI](docs/screenshots/calculator.png) |
+
+| Category Exploration (Money & Finance) | Smart Video Player & IPTV Engine |
+| :---: | :---: |
+| ![Category View](docs/screenshots/categories.png) | ![Video Player](docs/screenshots/video-player.png) |
+
+| Financial & Civic Guides | Responsive Mobile Experience |
+| :---: | :---: |
+| ![Guides](docs/screenshots/guides.png) | ![Mobile View](docs/screenshots/mobile.png) |
+
+---
+
+## 💡 What is BharatUtility?
+
+Everyday utility calculations in India often require jumping between ad-heavy websites, out-of-date formula blogs, or complicated software. BharatUtility was created to provide a unified, clean, privacy-conscious suite of everyday tools tailored to Indian financial rules, regional measurement units, and civic realities.
+
+- **Fast & Web-Based**: All tools are accessible instantly from any modern web browser — no app installation, registration, or paywalls required.
+- **Privacy-Conscious Architecture**: Many calculation tools process inputs directly in the browser, helping keep ordinary calculation data local to the user's session.
+- **India-Centric Rules**: Pre-configured with Indian numbering notation (Lakhs and Crores), state-wise land units, current tax slabs, and local regulatory formulas.
+- **Unified Platform**: A single home for financial calculators, civic lookups, document helpers, education converters, and media streaming tools.
 
 ---
 
 ## 🌟 Key Features
 
-BharatUtility hosts a wide variety of practical tools across 13 major Indian categories:
+BharatUtility organizes **233+ interactive tools** across **13 core categories**:
 
-- 💰 **Money & Tax Calculators**: Loan EMI (Home, Personal, Car), SIP Investment, SWP, Lump Sum, FD with Quarterly Compounding, RD, Post Office MIS, Income Tax (Old vs New Regime comparisons), GST Invoicing & Reversals, Freelancer 44ADA Presumptive Tax, Capital Gains (LTCG / STCG), Gratuity & Leave Encashment, and Gold/Silver Making Charges.
-- 📄 **Document & Legal Utilities**: Rent Agreement Stamp Duty Estimator, Legal Notice & Application Letter Generator, Non-Judicial Stamp Paper Value Guide, and PDF Tools.
-- 🎓 **Education & Career**: Sarkari Exam Age Eligibility Calculator, College Cutoff Percentile Converter, and Student Grade Points.
-- 🚗 **Travel & Vehicle Utilities**: Train Tatkal Berth Finder, Traffic Challan Portal Finder, Old Vehicle Resale Valuation, Mileage Trip Cost Estimator, and Speedometer Calibrator.
-- 🏡 **Construction & Home Real Estate**: Land Area Converter (Bigha, Guntha, Ground, Gaj, Biswa, Acres, Sq Ft), Tile & Flooring Calculator, Paint Quantity Estimator, and Water Tank Capacity.
-- ⚡ **Everyday Civic & Lifestyle**: Indian Baby Names by Rashi & Nakshatra, Vedic Choghadiya Muhurat Tracker, Jan Aushadhi Generic Medicine Cost Saver, Electricity Bill Tariff Estimator, and Stock Market Hours Countdown.
-- 📺 **ARRJS IPTV & Media Utilities**: Modern TV-ready Smart Video Player with M3U playlist parsing, HLS playback, spatial D-pad navigation, channel categories, favorites, mini guide, and numeric zapping.
-- 🛡️ **Privacy-First Design**: Over 95% of calculations occur client-side in the browser. Personal financial figures, loan amounts, and passwords are never harvested, saved to remote databases, or shared with third parties.
+- 💰 **Financial & Tax Calculators**: Loan EMI (Home, Personal, Car), SIP Compounding, SWP, Lump Sum, FD quarterly interest compounding, RD, Post Office MIS, Income Tax (Old vs. New Regime comparisons), GST Invoicing & Reversals, Freelancer Section 44ADA Presumptive Tax, Capital Gains (LTCG / STCG), Gratuity (15/26 formula), and Gold/Silver making charge estimators.
+- 📄 **Document & Legal Utilities**: Rent agreement stamp duty estimators, legal application letter templates, non-judicial stamp paper value guides, and client-side PDF utilities.
+- 🎓 **Education & Career**: Sarkari exam age eligibility analyzer, college cut-off percentile calculator, board percentage converter, and CGPA to percentage estimators.
+- 🚗 **Vehicle & Travel Utilities**: IRCTC Tatkal booking countdown timer, train coach/berth position locator, vehicle resale valuation, trip fuel cost estimator, and NHAI FASTag toll fare guides.
+- 🏡 **Construction & Real Estate**: Multi-state Indian land area converter (Bigha, Guntha, Gaj, Biswa, Ground, Cent, Acre, Sq Ft), state electricity bill slab estimators, tile and flooring estimators, and wall paint quantity planners.
+- ⚡ **Everyday Civic & Lifestyle**: Dairy milk Fat & SNF pricing formula, Indian baby names by Rashi & Nakshatra, Vedic Choghadiya Muhurat, Jan Aushadhi generic medicine cost comparison, and stock market trading hours tracker.
+- 📺 **ARRJS IPTV & Media Utilities**: Modern TV-ready Smart Video Player with M3U playlist parsing, HLS (.m3u8) adaptive streaming, spatial D-pad navigation, channel categories, favorites, mini guide, and numeric zapping.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Frontend Core**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+BharatUtility is built with a modern, performant, and lightweight frontend stack:
+
+- **Frontend Core**: [React 19](https://react.dev/) + [TypeScript 5.8](https://www.typescriptlang.org/)
 - **Bundler & Dev Server**: [Vite 6](https://vitejs.dev/)
-- **Styling**: [Vanilla CSS](src/index.css) & [Tailwind CSS v4](https://tailwindcss.com/) with dark mode support
-- **Backend & Serving**: [Express 4](https://expressjs.com/) with TypeScript execution via [tsx](https://github.com/privatenumber/tsx)
-- **Database & Telemetry**: [Supabase](https://supabase.com/) (`@supabase/supabase-js`) with strict Row Level Security (RLS)
-- **Media & Streaming**: [HLS.js](https://github.com/video-dev/hls.js) for live streaming and IPTV playback
-- **Iconography & Visuals**: [Lucide React](https://lucide.dev/)
-- **Document & Visual Engines**: `pdf-lib`, `qrcode`, `canvas-confetti`, and `recharts`
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/) with native dark mode support
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Charts & Visualizations**: [Recharts](https://recharts.org/)
+- **Media Player Engine**: [HLS.js](https://github.com/video-dev/hls.js)
+- **Serving & Middleware**: [Express 4](https://expressjs.com/) via [tsx](https://github.com/privatenumber/tsx)
+- **Database & Telemetry**: [Supabase](https://supabase.com/) (`@supabase/supabase-js`)
 
 ---
 
@@ -44,137 +86,72 @@ BharatUtility hosts a wide variety of practical tools across 13 major Indian cat
 
 ```text
 bharatutility/
-├── public/                     # Static assets, favicon, sitemap.xml, robots.txt
-├── scripts/                    # Maintenance, SEO audit, and dynamic sitemap generation scripts
-│   ├── generate-sitemap.ts     # Generates production sitemap across all 230+ tools
-│   ├── validate-seo.ts         # Automated SEO schema, canonical, and slug validation
-│   └── importIndiaPostOffices.ts # Optional batch PIN code dataset importer
+├── docs/
+│   └── screenshots/            # Verified product screenshots for GitHub documentation
+├── public/                     # Static assets, favicon, icons, sitemap.xml, robots.txt
+├── scripts/                    # Automation scripts (dynamic sitemaps, SEO audits)
 ├── src/
 │   ├── components/
-│   │   ├── calculators/        # Individual calculator suites and formula implementations
-│   │   ├── common/             # Global headers, footers, command palette, error boundaries
-│   │   ├── home/               # Homepage discovery widgets, category panels, hero sections
-│   │   ├── tools/              # Reusable tool page layout and category-specific components
-│   │   └── views/              # Full page views (All Tools, Favorites, Legal, Contact, Articles)
-│   ├── context/                # AppContext for routing, favorites, navigation, and theme
-│   ├── data/                   # Registry definitions (categories.ts, toolsRegistry.ts, contentRegistry.ts)
-│   ├── services/               # AdminStore, AnalyticsService, SupabaseClient, PostalService
-│   ├── utils/                  # Math formulas, formatters, document parsers, and SEO utilities
-│   ├── App.tsx                 # Main application root with global ErrorBoundary
-│   ├── main.tsx                # React DOM root entry point
-│   └── index.css               # Core CSS design system and Tailwind directives
-├── supabase/                   # Supabase schema definitions and migration SQL
-├── .env.example                # Safe environment variable configuration template
-├── netlify.toml                # Netlify deployment and SPA routing configuration
-├── server.ts                   # Express server with Vite middleware integration
-└── package.json                # Project scripts and dependencies
+│   │   ├── calculators/        # Individual calculator suites and formula engines
+│   │   ├── common/             # Global header, footer, command palette, toasts
+│   │   ├── home/               # Homepage hero, category panel, discovery widgets
+│   │   ├── tools/              # Reusable tool page container and shell
+│   │   └── views/              # Full page views (All Tools, Categories, Guides, Legal)
+│   ├── context/                # AppContext for navigation, favorites, routing, and theme
+│   ├── data/                   # Data registries (categories.ts, toolsRegistry.ts, contentRegistry.ts)
+│   ├── services/               # Client services (SupabaseClient, AnalyticsService, adminStore)
+│   ├── utils/                  # Mathematical formulas, formatters, and SEO helpers
+│   ├── App.tsx                 # Root application component and view router
+│   ├── main.tsx                # React DOM mount entry point
+│   └── index.css               # Core design tokens and Tailwind directives
+├── supabase/                   # Supabase schema definitions and database migrations
+├── .env.example                # Safe environment configuration template
+├── netlify.toml                # Netlify deployment and SPA routing rules
+├── server.ts                   # Express server entry point
+├── package.json                # Project dependencies and script declarations
+└── vite.config.ts              # Vite bundling, Tailwind plugin, and path aliases
 ```
 
 ---
 
-## 🚀 Local Development
+## 🌍 Open Source
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/Ashwinpatilr236/bharatutility.git
-cd bharatutility
-```
-
-### 2. Install Dependencies
-```bash
-npm install
-```
-
-### 3. Setup Environment Variables
-Copy the example environment file:
-```bash
-cp .env.example .env
-```
-*(The default configuration is ready for immediate local testing of all client-side tools).*
-
-### 4. Start Development Server
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 📦 Production Build & Testing
-
-Run the validation suite and create the production bundle:
-
-```bash
-# Typecheck & Lint
-npm run lint
-
-# Validate SEO Schemas & Registry Consistency
-npm run test:seo
-
-# Dynamically generate sitemap.xml
-npm run sitemap
-
-# Create optimized production build
-npm run build
-
-# Start the production server locally
-npm start
-```
-
----
-
-## 🔐 Environment Variables
-
-BharatUtility uses standard environment variables defined in `.env.example`:
-
-| Variable | Description | Default / Example |
-| :--- | :--- | :--- |
-| `APP_URL` | Canonical site URL for metadata & sitemaps | `https://bharatutility.tech` |
-| `PORT` | Local server port for `server.ts` | `3000` |
-| `NODE_ENV` | Environment mode (`development` or `production`) | `development` |
-| `VITE_SUPABASE_URL` | Supabase project endpoint URL | `https://your-project.supabase.co` |
-| `VITE_SUPABASE_ANON_KEY` | Public/anon API key for client-side queries | `your-anon-key` |
-| `SUPABASE_SERVICE_ROLE_KEY` | Optional service key for offline CLI scripts | *Leave blank in browser* |
-
----
-
-## 🌐 Deployment
-
-### Netlify (Configured)
-The repository includes a [netlify.toml](netlify.toml) configured for static and SPA hosting:
-- **Build command**: `npm run build`
-- **Publish directory**: `dist`
-- **Redirects**: Automatically routed to `/index.html` with status `200` for client-side routing.
-
-### Node.js / Docker / VPS
-Build the production bundle with `npm run build` and run:
-```bash
-NODE_ENV=production node dist/server.cjs
-```
+BharatUtility is an open-source project released under the **MIT License**. The repository is publicly maintained for transparency, community feedback, and developer collaboration. You are welcome to inspect the source code, open issues for feature requests or formula improvements, suggest new tools, or submit pull requests.
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on code style, testing requirements, and pull request workflows.
+Contributions to BharatUtility are warmly welcomed from developers, designers, and domain experts!
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/NewIndianTool`)
-3. Commit your Changes (`git commit -m 'feat: add new gold silver scrap rate calculator'`)
-4. Verify tests (`npm run lint && npm run test:seo && npm run build`)
-5. Push to the Branch (`git push origin feature/NewIndianTool`)
-6. Open a Pull Request
+For local development setup, environment variables, coding standards, testing instructions, and pull request guidelines, please see the complete:
+
+👉 **[Contributing Guide (CONTRIBUTING.md)](CONTRIBUTING.md)**
 
 ---
 
 ## 🔒 Security
 
-For security vulnerability reports or sensitive concerns, please review [SECURITY.md](SECURITY.md) and contact us privately at **arrjstechnologies@gmail.com**.
+For security vulnerability reports or sensitive concerns, please review our [Security Policy](SECURITY.md) and contact us privately at **arrjstechnologies@gmail.com**. Please do not report security vulnerabilities through public GitHub issues.
+
+---
+
+## 🗺️ Community Roadmap
+
+The project roadmap is community-driven and continuously evolves based on user suggestions:
+
+- [ ] **Expanded Regional Utilities**: Adding state-specific agricultural, land, and municipal bill calculators.
+- [ ] **Accessibility (a11y) Refinements**: Continuous keyboard navigation and screen-reader optimizations across complex calculator forms.
+- [ ] **Multi-Language Interfaces (i18n)**: Introducing Hindi, Marathi, Gujarati, Tamil, and Bengali localized interfaces for high-traffic tools.
+- [ ] **Enhanced Offline PWA Capabilities**: Expanding service worker caching for complete offline operation of all core calculators.
+- [ ] **Community Contribution Tooling**: Reusable scaffolding for rapid community addition of new Indian utility formulas.
 
 ---
 
 ## 📄 License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
 
 © 2026 BharatUtility Contributors & ARRJS Technologies. Built for everyday India.

@@ -52,7 +52,7 @@ export const Header: React.FC = () => {
       <header className="sticky top-0 z-40 w-full border-b border-neutral-200/80 dark:border-neutral-800/80 bg-white/85 dark:bg-black/70 backdrop-blur-xl transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-4">
           {/* Logo & Brand */}
-          <div className="flex items-center gap-4 sm:gap-6 min-w-0">
+          <div className="flex items-center gap-3 lg:gap-4 xl:gap-6 shrink-0">
             <Link
               id="brand-logo-btn"
               to="/"
@@ -79,11 +79,11 @@ export const Header: React.FC = () => {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center gap-0.5 lg:gap-1 shrink-0 whitespace-nowrap">
               {/* 1. All Tools */}
               <Link
                 to="/tools"
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                className={`whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                   view.type === "all-tools"
                     ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
                     : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
@@ -95,7 +95,7 @@ export const Header: React.FC = () => {
               {/* Guides & Blog */}
               <Link
                 to="/guides"
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1 ${
+                className={`whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1 ${
                   view.type === "guides" ||
                   view.type === "blog" ||
                   view.type === "article"
@@ -103,20 +103,20 @@ export const Header: React.FC = () => {
                     : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
                 }`}
               >
-                <BookOpen className="w-3.5 h-3.5" />
-                Guides
+                <BookOpen className="w-3.5 h-3.5 shrink-0" />
+                <span>Guides</span>
               </Link>
 
               {/* 2. Categories Dropdown */}
-              <div className="relative group">
+              <div className="relative group shrink-0">
                 <button
                   onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                   onMouseEnter={() => setIsCategoriesOpen(true)}
-                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+                  className="whitespace-nowrap shrink-0 flex items-center gap-1 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
                 >
-                  <Layers className="w-3.5 h-3.5" />
-                  Categories
-                  <ChevronDown className="w-3 h-3 text-neutral-400 group-hover:rotate-180 transition-transform duration-200" />
+                  <Layers className="w-3.5 h-3.5 shrink-0" />
+                  <span>Categories</span>
+                  <ChevronDown className="w-3 h-3 text-neutral-400 group-hover:rotate-180 transition-transform duration-200 shrink-0" />
                 </button>
 
                 {isCategoriesOpen && (
@@ -252,40 +252,40 @@ export const Header: React.FC = () => {
               {/* 3. Finance & Tax */}
               <Link
                 to="/category/money"
-                className="hidden xl:flex px-2.5 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors items-center gap-1"
+                className="hidden xl:flex whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors items-center gap-1"
               >
-                <Flame className="w-3.5 h-3.5 text-amber-500" />
-                <span>Finance & Tax</span>
+                <Flame className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                <span className="whitespace-nowrap">Finance & Tax</span>
               </Link>
 
               {/* 4. Request a Tool */}
               <Link
                 to="/request-tool"
-                className={`hidden lg:flex px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors items-center gap-1.5 ${
+                className={`hidden lg:flex whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors items-center gap-1.5 ${
                   view.type === "request-tool"
                     ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
                     : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
                 }`}
               >
-                <Sparkles className="w-3.5 h-3.5 text-accent" />
-                <span>Request a Tool</span>
+                <Sparkles className="w-3.5 h-3.5 text-accent shrink-0" />
+                <span className="whitespace-nowrap">Request a Tool</span>
               </Link>
 
               {/* 5. Favorites */}
               <Link
                 to="/favorites"
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                className={`whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   view.type === "favorites"
                     ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
                     : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
                 }`}
               >
                 <Star
-                  className={`w-3.5 h-3.5 ${favorites.length > 0 ? "text-amber-500 fill-current" : "text-neutral-400"}`}
+                  className={`w-3.5 h-3.5 shrink-0 ${favorites.length > 0 ? "text-amber-500 fill-current" : "text-neutral-400"}`}
                 />
-                <span>Favorites</span>
+                <span className="whitespace-nowrap">Favorites</span>
                 {favorites.length > 0 && (
-                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0">
                     {favorites.length}
                   </span>
                 )}
@@ -299,13 +299,13 @@ export const Header: React.FC = () => {
             <button
               id="global-search-trigger"
               onClick={() => setCommandPaletteOpen(true)}
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-neutral-100/90 dark:bg-neutral-900/90 hover:bg-neutral-200/80 dark:hover:bg-neutral-800/90 text-neutral-500 dark:text-neutral-400 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs hover:shadow-xs transition-all text-xs font-medium focus:ring-2 focus:ring-accent"
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-neutral-100/90 dark:bg-neutral-900/90 hover:bg-neutral-200/80 dark:hover:bg-neutral-800/90 text-neutral-500 dark:text-neutral-400 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs hover:shadow-xs transition-all text-xs font-medium focus:ring-2 focus:ring-accent shrink-0"
             >
               <Search className="w-3.5 h-3.5 text-accent shrink-0" />
-              <span className="hidden sm:inline text-xs">
+              <span className="hidden sm:inline text-xs whitespace-nowrap">
                 Search Indian utilities...
               </span>
-              <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-800 rounded-md border border-neutral-200/90 dark:border-neutral-700 shadow-2xs">
+              <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-800 rounded-md border border-neutral-200/90 dark:border-neutral-700 shadow-2xs shrink-0">
                 {typeof window !== "undefined" &&
                 navigator.platform?.toUpperCase().indexOf("MAC") >= 0
                   ? "⌘K"
