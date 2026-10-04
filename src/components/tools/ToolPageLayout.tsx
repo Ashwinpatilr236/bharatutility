@@ -154,7 +154,6 @@ import {
   Search,
   ArrowRight
 } from 'lucide-react';
-import { StarRatingWidget } from '../common/seo/StarRatingWidget';
 
 interface ToolPageLayoutProps {
   tool: Tool;
@@ -945,10 +944,9 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                   </FloatingBadge>
                 )}
               </div>
-              <p className="hidden md:block text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
                 {tool.description}
               </p>
-              <StarRatingWidget tool={tool} />
               
               {/* Freshness / Source Indicator for Time-Sensitive Tools */}
               {(tool.lastUpdated || tool.officialSource || tool.needsManualVerification) && (
@@ -1050,7 +1048,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Dynamic Extended SEO Content Sections */}
       {tool.seoSections && tool.seoSections.length > 0 && (
-        <div className="hidden md:block space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {tool.seoSections.map((sec, idx) => (
             <div
               key={idx}
@@ -1091,7 +1089,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Formula & Explanation Section */}
       {tool.formulaDescription && (
-        <div className="hidden md:block bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+        <div className="bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
           <div className="flex items-center gap-2.5 border-b border-neutral-100 dark:border-neutral-800 pb-3">
             <BookOpen className="w-5 h-5 text-accent" />
             <h2 className="text-lg font-bold text-neutral-900 dark:text-white font-display">
@@ -1113,7 +1111,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Step-by-Step Worked Indian Example */}
       {tool.workedExample && (
-        <div className="hidden md:block bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+        <div className="bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
           <div className="flex items-center gap-2.5 border-b border-neutral-100 dark:border-neutral-800 pb-3">
             <Sparkles className="w-5 h-5 text-amber-500" />
             <h2 className="text-lg font-bold text-neutral-900 dark:text-white font-display">
@@ -1149,7 +1147,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
       {/* Frequently Asked Questions (FAQ) Section */}
       {tool.faqs && tool.faqs.length > 0 && (
-        <div id="tool-faqs" className="hidden md:block bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+        <div id="tool-faqs" className="bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
           <div className="flex items-center gap-2.5 border-b border-neutral-100 dark:border-neutral-800 pb-3">
             <HelpCircle className="w-5 h-5 text-accent" />
             <h2 className="text-lg font-bold text-neutral-900 dark:text-white font-display">

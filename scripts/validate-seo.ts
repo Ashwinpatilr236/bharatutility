@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { getActiveTools } from '../src/data/toolsRegistry.ts';
 const TOOLS_REGISTRY = getActiveTools();
 import { CATEGORIES } from '../src/data/categories.ts';
+import { getAllArticles } from '../src/data/contentRegistry.ts';
+const ARTICLES = getAllArticles();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -155,6 +157,14 @@ function runSeoAudit(): AuditResult {
         result.errors.push(`Sitemap missing category URL: ${catUrl}`);
       }
     });
+
+    // Check all articles in sitemap
+    ARTICLES.forEach(a => {
+      const artUrl = `${CANONICAL_DOMAIN}/article/${a.slug}`;
+      if (!sitemapContent.includes(artUrl)) {
+        result.errors.push(`Sitemap missing article URL: ${artUrl}`);
+      }
+    });
   }
 
   // 4. Robots.txt Checks
@@ -172,7 +182,7 @@ function runSeoAudit(): AuditResult {
   }
 
   // Summary counts
-  result.totalIndexableRoutes = 1 + 1 + CATEGORIES.length + TOOLS_REGISTRY.length + 6; // Home + /tools + categories + tools + static pages
+  result.totalIndexableRoutes = 1 + 1 + CATEGORIES.length + TOOLS_REGISTRY.length + ARTICLES.length + 8; // Home + /tools + categories + tools + articles + 8 static pages
 
   if (result.errors.length === 0) {
     result.passed.push(`All ${result.toolCount} tools dynamically loaded with 100% unique slugs and valid IDs`);

@@ -176,11 +176,6 @@ export function updateSeoMetadata(view: ViewMode): void {
           price: '0',
           priceCurrency: 'INR',
         },
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: (4.5 + (tool.slug.length % 5) * 0.1).toFixed(1), // Pseudo-random 4.5 - 4.9
-          ratingCount: String(300 + (tool.slug.length * 47) % 2000), // Pseudo-random count
-        },
       };
 
       const breadcrumbSchema: any = {

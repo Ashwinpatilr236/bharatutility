@@ -67,6 +67,7 @@ function generateSitemap(): void {
 
   // 5. Static & Trust Pages
   const staticPages = [
+    { path: '/guides', priority: '0.85', changefreq: 'weekly' as const },
     { path: '/sanatan-next', priority: '0.85', changefreq: 'weekly' as const },
     { path: '/about', priority: '0.7', changefreq: 'monthly' as const },
     { path: '/contact', priority: '0.7', changefreq: 'monthly' as const },
