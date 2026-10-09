@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Film, Tv, MonitorPlay, Star, Calendar, ArrowRight, Loader2, Info, ExternalLink, PlayCircle, Sparkles } from 'lucide-react';
+import { Search, Film, Tv, MonitorPlay, Calendar, ArrowRight, Loader2, PlayCircle, Sparkles, ExternalLink } from 'lucide-react';
 
 interface ImdbResult {
   id: string; // IMDb ID e.g., tt123456
@@ -8,11 +8,7 @@ interface ImdbResult {
   q?: string; // Type details
   qid?: string; // Type (movie, tvSeries, etc.)
   s?: string; // Cast/Stars
-  i?: {
-    imageUrl: string;
-    width: number;
-    height: number;
-  };
+  i?: [string, number, number]; // [imageUrl, width, height]
 }
 
 export const OttStreamFinder: React.FC = () => {
@@ -21,6 +17,34 @@ export const OttStreamFinder: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [error, setError] = useState('');
+
+  const fetchJSONP = (searchQuery: string): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      const cleanQuery = searchQuery.toLowerCase().trim().replace(/[^a-z0-9]+/g, '_');
+      const firstLetter = cleanQuery.charAt(0).match(/[a-z0-9]/i) ? cleanQuery.charAt(0) : 'a';
+      const callbackName = `imdb$${cleanQuery}`;
+      
+      const url = `https://sg.media-imdb.com/suggests/${firstLetter}/${cleanQuery}.json`;
+
+      const script = document.createElement('script');
+      script.src = url;
+
+      // Define the global callback
+      (window as any)[callbackName] = (data: any) => {
+        resolve(data);
+        delete (window as any)[callbackName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+      };
+
+      script.onerror = () => {
+        reject(new Error('JSONP fetch failed'));
+        delete (window as any)[callbackName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+      };
+
+      document.head.appendChild(script);
+    });
+  };
 
   const searchMovies = async (searchQuery: string) => {
     if (!searchQuery.trim()) {
@@ -34,15 +58,7 @@ export const OttStreamFinder: React.FC = () => {
     setHasSearched(true);
 
     try {
-      const q = searchQuery.trim().toLowerCase();
-      const firstLetter = q.charAt(0).match(/[a-z0-9]/i) ? q.charAt(0) : 'a';
-      
-      // Using IMDb's public suggestion API - NO API KEY REQUIRED!
-      const response = await fetch(`https://v3.sg.media-imdb.com/suggestion/${firstLetter}/${encodeURIComponent(q)}.json`);
-      
-      if (!response.ok) throw new Error('Failed to fetch data');
-      
-      const data = await response.json();
+      const data = await fetchJSONP(searchQuery);
       
       // Filter out actors/companies, keep only movies and TV series
       const validResults = (data.d || []).filter((item: ImdbResult) => 
@@ -52,7 +68,7 @@ export const OttStreamFinder: React.FC = () => {
       setResults(validResults);
     } catch (err) {
       console.error('Search error:', err);
-      setError('Could not connect to the database. Please try again.');
+      setError('Could not connect to the database. Please check your internet connection.');
     } finally {
       setLoading(false);
     }
@@ -71,9 +87,8 @@ export const OttStreamFinder: React.FC = () => {
     return () => clearTimeout(delayDebounceFn);
   }, [query]);
 
-  const getWatchUrl = (title: string) => {
-    // Direct link to Google Watch Action which usually shows all OTT platforms beautifully at the top
-    const searchQuery = `Where to watch ${title} in India`;
+  const getWatchUrl = (title: string, year?: number) => {
+    const searchQuery = `Where to watch ${title} ${year || ''} in India`;
     return `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
   };
 
@@ -139,9 +154,9 @@ export const OttStreamFinder: React.FC = () => {
               <div key={item.id} className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/70 dark:border-neutral-800 shadow-sm overflow-hidden flex flex-col sm:flex-row group hover:shadow-md transition-shadow">
                 {/* Poster */}
                 <div className="w-24 sm:w-1/3 aspect-[2/3] sm:aspect-auto sm:h-full relative overflow-hidden bg-neutral-100 dark:bg-neutral-800 shrink-0">
-                  {item.i?.imageUrl ? (
+                  {item.i && item.i[0] ? (
                     <img 
-                      src={item.i.imageUrl} 
+                      src={item.i[0]} 
                       alt={item.l}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
@@ -182,7 +197,7 @@ export const OttStreamFinder: React.FC = () => {
                   {/* OTT Watch Button */}
                   <div className="mt-auto pt-4 border-t border-neutral-100 dark:border-neutral-800">
                     <a 
-                      href={getWatchUrl(item.l)}
+                      href={getWatchUrl(item.l, item.y)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full py-2.5 bg-neutral-900 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2"
@@ -228,4 +243,5 @@ export const OttStreamFinder: React.FC = () => {
     </div>
   );
 };
+
 
