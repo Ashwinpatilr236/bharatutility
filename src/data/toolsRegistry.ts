@@ -2,6 +2,52 @@ import { Tool } from '../types';
 
 export const TOOLS_REGISTRY: Tool[] = [
   {
+    id: 'ott-stream-finder',
+    slug: 'ott-stream-finder',
+    needsManualVerification: false,
+    lastUpdated: '2026-10-09',
+    name: 'Where to Watch: OTT Stream Finder & Reviews',
+    shortName: 'OTT Finder',
+    tagline: 'Find which OTT platform is streaming your favorite movie or web series in India.',
+    description: 'Instantly check if a movie or TV show is available on Netflix, Prime Video, Hotstar, JioCinema, SonyLIV, or other Indian streaming platforms. Includes TMDB ratings and reviews.',
+    category: 'daily-life',
+    icon: 'MonitorPlay',
+    keywords: [
+      'where to watch',
+      'ott stream finder',
+      'movie streaming india',
+      'is it on netflix',
+      'is it on prime',
+      'movie review',
+      'tmdb ratings',
+      'web series finder'
+    ],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Trending',
+    views: 15400,
+    seo: {
+      title: 'Where to Watch: OTT Stream Finder India & Movie Reviews',
+      description: 'Search any movie or web series to find out exactly which Indian OTT platform (Netflix, Prime, Hotstar, JioCinema) it is streaming on. Get TMDB ratings instantly.',
+      keywords: ['OTT finder', 'where to watch', 'netflix search', 'prime video search', 'hotstar movies', 'jiocinema web series', 'movie ratings'],
+      canonicalSlug: 'ott-stream-finder',
+      h1: 'OTT Stream Finder: Where to Watch in India',
+    },
+    formulaDescription: 'Real-time OTT Streaming Availability via TMDB & JustWatch API Integration',
+    faqs: [
+      {
+        question: 'Is this OTT data accurate for India?',
+        answer: 'Yes! Our tool is powered by the official JustWatch and TMDB APIs, which dynamically fetch the exact streaming rights and availability specifically for the Indian region.'
+      },
+      {
+        question: 'Does this tool show free streaming options?',
+        answer: 'It shows all available legal options, including flatrate subscriptions (like Netflix, Prime), rent options, and buy options.'
+      }
+    ],
+    relatedToolSlugs: []
+  },
+  {
     id: 'video-player',
     slug: 'video-player',
     needsManualVerification: false,

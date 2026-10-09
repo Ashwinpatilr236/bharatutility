@@ -3,7 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { useAdminStore } from '../../hooks/useAdminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch, TRENDING_SEARCH_KEYWORDS } from '../../utils/smartSearch';
-import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck } from 'lucide-react';
+import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck, MonitorPlay } from 'lucide-react';
 import { LiveCivicTicker } from './LiveCivicTicker';
 import { AntigravityParticles } from '../common/AntigravityParticles';
 import { SpotlightCard } from '../common/SpotlightCard';
@@ -141,6 +141,32 @@ export const HeroSection: React.FC = () => {
           </FloatingBadge>
         </div>
 
+        {/* New OTT Tool Promo Banner */}
+        <div 
+          onClick={() => navigateToTool('ott-stream-finder')}
+          className="max-w-2xl mx-auto mb-6 p-4 sm:p-5 rounded-2xl cursor-pointer bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-xl shadow-purple-500/20 hover:shadow-purple-500/40 hover:-translate-y-1 transition-all group relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 group-hover:bg-white/20 transition-colors"></div>
+          <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start sm:items-center gap-4">
+              <div className="p-3 bg-white/20 rounded-xl shrink-0 backdrop-blur-md">
+                <MonitorPlay className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-left">
+                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white/20 text-[10px] font-bold uppercase tracking-wider mb-1 backdrop-blur-md border border-white/20">
+                  <Sparkles className="w-3 h-3" /> New Tool
+                </div>
+                <h3 className="font-bold text-lg sm:text-xl leading-tight">Where to Watch? OTT Stream Finder</h3>
+                <p className="text-white/80 text-sm mt-0.5 hidden sm:block">Find which platform is streaming your favorite movie in India!</p>
+              </div>
+            </div>
+            <div className="shrink-0 flex justify-end">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white text-white group-hover:text-purple-600 transition-colors backdrop-blur-md">
+                <ArrowRight className="w-5 h-5" />
+              </div>
+            </div>
+          </div>
+        </div>
         {/* Large Clean Native Inline Search Box with Antigravity Glow */}
         <div className="relative max-w-2xl mx-auto mb-2.5 sm:mb-3.5 text-left">
           <div

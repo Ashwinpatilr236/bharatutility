@@ -20,6 +20,7 @@ import { ScrollableCarousel } from '../common/ScrollableCarousel';
 import { ArrowLeft } from 'lucide-react';
 
 // Lazy-loaded Calculator Components for isolated bundle chunks & instant public loading
+const OttStreamFinder = React.lazy(() => import('./entertainment/OttStreamFinder').then(m => ({ default: m.OttStreamFinder })));
 const TdsCalculator = React.lazy(() => import('../calculators/TdsCalculator'));
 const InvestmentPlanner80C80D = React.lazy(() => import('../calculators/InvestmentPlanner80C80D'));
 const BreakEvenPointCalculator = React.lazy(() => import('../calculators/BreakEvenPointCalculator'));
@@ -220,6 +221,8 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
   // Render the matching calculator component
   const renderCalculatorComponent = () => {
     switch (tool.id) {
+      case 'ott-stream-finder':
+        return <OttStreamFinder />;
       case 'tds-calculator':
         return <TdsCalculator />;
       case '80c-80d-investment-planner':
