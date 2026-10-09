@@ -1,0 +1,12 @@
+{
+  "lastUpdated": "2026-10-09T03:12:55.710Z",
+  "cities": [
+    {
+      "city": "Delhi (NCR)",
+      "state": "Delhi",
+      "petrol": 102.12,
+      "diesel": 95.2,
+      "cng": 74.09
+    }
+  ]
+}

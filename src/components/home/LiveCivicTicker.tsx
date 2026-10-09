@@ -6,6 +6,8 @@ export const LiveCivicTicker: React.FC = () => {
   const { navigateToTool } = useApp();
   const [marketStatus, setMarketStatus] = useState<'open' | 'closed'>('closed');
 
+  const [fuelPrices, setFuelPrices] = useState<{delhi: number, mumbai: number}>({ delhi: 94.72, mumbai: 103.44 });
+
   useEffect(() => {
     // Check Indian Stock Market hours (9:15 AM - 3:30 PM IST on weekdays)
     const now = new Date();
@@ -22,6 +24,17 @@ export const LiveCivicTicker: React.FC = () => {
     } else {
       setMarketStatus('closed');
     }
+  }, []);
+
+  useEffect(() => {
+    fetch('/data/fuel-prices.json')
+      .then(res => res.json())
+      .then(data => {
+        if (data?.cities?.[0]?.petrol) {
+          setFuelPrices(prev => ({ ...prev, delhi: data.cities[0].petrol }));
+        }
+      })
+      .catch(err => console.log('Failed to fetch live fuel prices', err));
   }, []);
 
   return (
@@ -41,7 +54,7 @@ export const LiveCivicTicker: React.FC = () => {
           >
             <Fuel className="w-3.5 h-3.5 text-rose-500" />
             <span className="font-semibold text-neutral-700 dark:text-neutral-300">Fuel:</span>
-            <span className="text-neutral-500 dark:text-neutral-400">Delhi ₹94.72 | Mum ₹103.44</span>
+            <span className="text-neutral-500 dark:text-neutral-400">Delhi ₹{fuelPrices.delhi} | Mum ₹{fuelPrices.mumbai}</span>
             <ChevronRight className="w-3 h-3 text-neutral-400 group-hover:translate-x-0.5 transition-transform" />
           </button>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Fuel, TrendingUp, TrendingDown, MapPin, Calculator, RefreshCw, ArrowRight, Sparkles } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
@@ -32,10 +32,37 @@ const INDIAN_CITIES_FUEL: CityFuelData[] = [
 
 export const FuelPriceTrackerSuite: React.FC = () => {
   const { navigateToTool } = useApp();
+  const [citiesData, setCitiesData] = useState<CityFuelData[]>(INDIAN_CITIES_FUEL);
   const [selectedCity, setSelectedCity] = useState<CityFuelData>(INDIAN_CITIES_FUEL[0]);
   const [distanceKm, setDistanceKm] = useState<number>(30);
   const [mileageKmpl, setMileageKmpl] = useState<number>(18);
   const [fuelType, setFuelType] = useState<'petrol' | 'diesel' | 'cng'>('petrol');
+
+  useEffect(() => {
+    fetch('/data/fuel-prices.json')
+      .then(res => res.json())
+      .then(data => {
+        if (data?.cities?.[0]) {
+          const liveDelhi = data.cities[0];
+          setCitiesData(prev => {
+            const newCities = [...prev];
+            const delhiIndex = newCities.findIndex(c => c.city === 'Delhi');
+            if (delhiIndex !== -1) {
+              newCities[delhiIndex] = {
+                ...newCities[delhiIndex],
+                petrol: liveDelhi.petrol || newCities[delhiIndex].petrol,
+                diesel: liveDelhi.diesel || newCities[delhiIndex].diesel,
+                cng: liveDelhi.cng || newCities[delhiIndex].cng,
+              };
+              // Update selected city if it's currently Delhi
+              setSelectedCity(curr => curr.city === 'Delhi' ? newCities[delhiIndex] : curr);
+            }
+            return newCities;
+          });
+        }
+      })
+      .catch(err => console.log('Failed to fetch fuel prices', err));
+  }, []);
 
   const unitPrice = selectedCity[fuelType];
   const dailyLitres = mileageKmpl > 0 ? distanceKm / mileageKmpl : 0;
@@ -67,7 +94,7 @@ export const FuelPriceTrackerSuite: React.FC = () => {
             Select Your City / State:
           </label>
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            {INDIAN_CITIES_FUEL.map(item => (
+            {citiesData.map(item => (
               <button
                 key={item.city}
                 onClick={() => setSelectedCity(item)}
