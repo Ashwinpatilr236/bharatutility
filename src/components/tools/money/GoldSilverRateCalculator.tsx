@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Coins, Sparkles, IndianRupee, MapPin, Calculator, RefreshCw, ShieldCheck, ArrowRightLeft, Info } from 'lucide-react';
 import { formatINR } from '../../../utils/formatters';
 import {
@@ -12,6 +12,7 @@ import {
 const CITY_RATES = CITY_BULLION_RATES;
 
 export const GoldSilverRateCalculator: React.FC = () => {
+  const [liveBullion, setLiveBullion] = useState<{gold24k_10g: number, silver_1kg: number} | null>(null);
   const [selectedCity, setSelectedCity] = useState<string>('delhi');
   const [activeTab, setActiveTab] = useState<'rates' | 'jewellery' | 'exchange'>('jewellery');
 
@@ -27,7 +28,23 @@ export const GoldSilverRateCalculator: React.FC = () => {
   const [oldWeightGrams, setOldWeightGrams] = useState<number>(10);
   const [meltingDeduction, setMeltingDeduction] = useState<number>(2); // 2% standard deduction
 
-  const currentRates = CITY_RATES[selectedCity] || CITY_RATES.delhi;
+
+  useEffect(() => {
+    fetch('/data/daily-rates.json')
+      .then(res => res.json())
+      .then(data => {
+        if (data?.bullion?.gold24k_10g) {
+          setLiveBullion(data.bullion);
+        }
+      })
+      .catch(err => console.log('Failed to fetch live bullion rates', err));
+  }, []);
+
+  const currentRates = {
+    ...CITY_RATES[selectedCity] || CITY_RATES.delhi,
+    gold24k: liveBullion?.gold24k_10g || (CITY_RATES[selectedCity] || CITY_RATES.delhi).gold24k,
+    silver1kg: liveBullion?.silver_1kg || (CITY_RATES[selectedCity] || CITY_RATES.delhi).silver1kg
+  };
 
   // Rate Calculations (Shared Engine: src/utils/goldPricing.ts)
   const rate24kPerGram = currentRates.gold24k / 10;

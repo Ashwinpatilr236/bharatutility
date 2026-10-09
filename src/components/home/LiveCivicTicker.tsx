@@ -6,7 +6,6 @@ export const LiveCivicTicker: React.FC = () => {
   const { navigateToTool } = useApp();
   const [marketStatus, setMarketStatus] = useState<'open' | 'closed'>('closed');
 
-  const [fuelPrices, setFuelPrices] = useState<{delhi: number, mumbai: number}>({ delhi: 94.72, mumbai: 103.44 });
 
   useEffect(() => {
     // Check Indian Stock Market hours (9:15 AM - 3:30 PM IST on weekdays)
@@ -26,15 +25,21 @@ export const LiveCivicTicker: React.FC = () => {
     }
   }, []);
 
+  const [fuelPrices, setFuelPrices] = useState<{delhi: number, mumbai: number}>({ delhi: 94.72, mumbai: 103.44 });
+  const [usdInr, setUsdInr] = useState<number>(87.24);
+
   useEffect(() => {
-    fetch('/data/fuel-prices.json')
+    fetch('/data/daily-rates.json')
       .then(res => res.json())
       .then(data => {
-        if (data?.cities?.[0]?.petrol) {
-          setFuelPrices(prev => ({ ...prev, delhi: data.cities[0].petrol }));
+        if (data?.fuel?.delhi?.petrol) {
+          setFuelPrices({ delhi: data.fuel.delhi.petrol, mumbai: data.fuel.mumbai?.petrol || 103.44 });
+        }
+        if (data?.currency?.usdInr) {
+          setUsdInr(data.currency.usdInr);
         }
       })
-      .catch(err => console.log('Failed to fetch live fuel prices', err));
+      .catch(err => console.log('Failed to fetch live rates', err));
   }, []);
 
   return (
@@ -65,7 +70,7 @@ export const LiveCivicTicker: React.FC = () => {
           >
             <DollarSign className="w-3.5 h-3.5 text-emerald-500" />
             <span className="font-semibold text-neutral-700 dark:text-neutral-300">USD/INR:</span>
-            <span className="text-neutral-500 dark:text-neutral-400">₹87.24 (Live)</span>
+            <span className="text-neutral-500 dark:text-neutral-400">₹{usdInr.toFixed(2)} (Live)</span>
             <ChevronRight className="w-3 h-3 text-neutral-400 group-hover:translate-x-0.5 transition-transform" />
           </button>
 

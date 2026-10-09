@@ -1,4 +1,4 @@
-name: Fetch Daily Fuel Prices
+name: Fetch Daily Rates
 
 on:
   schedule:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch: # Allow manual triggering
 
 jobs:
-  update-fuel-prices:
+  update-daily-rates:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,13 +19,16 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Run Fetch Script
-        run: node scripts/fetch-fuel-prices.mjs
+        run: node scripts/fetch-daily-rates.mjs
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data/fuel-prices.json
+          git add public/data/daily-rates.json
           # Only commit if there are changes
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): auto-update daily fuel prices [skip ci]" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): auto-update daily rates (fuel, gold, currency) [skip ci]" && git push)
