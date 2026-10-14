@@ -26,6 +26,42 @@ function escapeAttr(str: string): string {
     .replace(/'/g, '&#039;');
 }
 
+function renderHeaderShell(): string {
+  return `
+    <header class="sticky top-0 z-40 w-full border-b border-neutral-200/80 dark:border-neutral-800/80 bg-white/85 dark:bg-black/70 backdrop-blur-xl transition-colors">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="/" class="flex items-center gap-2 sm:gap-2.5 text-left shrink-0" style="text-decoration:none;">
+            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 flex items-center justify-center text-white shadow-md">
+              <span class="font-bold text-sm sm:text-base">₹U</span>
+            </div>
+            <div class="flex flex-col shrink-0">
+              <div class="flex items-center gap-1 sm:gap-1.5">
+                <span class="font-extrabold text-base sm:text-xl font-display tracking-tight text-neutral-900 dark:text-white">
+                  Bharat<span class="text-indigo-600 dark:text-indigo-400">Utility</span>
+                </span>
+                <span class="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest px-1 sm:px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+                  TECH
+                </span>
+              </div>
+              <span class="text-[10px] text-neutral-400 dark:text-neutral-500 -mt-1 font-medium hidden sm:inline">
+                ARRJS Ecosystem • Everyday Tools
+              </span>
+            </div>
+          </a>
+        </div>
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-600 dark:text-neutral-300">
+          <a href="/tools" class="hover:text-indigo-600 dark:hover:text-indigo-400" style="text-decoration:none;">All Tools</a>
+          <a href="/guides" class="hover:text-indigo-600 dark:hover:text-indigo-400" style="text-decoration:none;">Guides</a>
+          <a href="/tools" class="hover:text-indigo-600 dark:hover:text-indigo-400" style="text-decoration:none;">Categories</a>
+          <a href="/category/money" class="hover:text-indigo-600 dark:hover:text-indigo-400" style="text-decoration:none;">Finance &amp; Tax</a>
+          <a href="/request-tool" class="hover:text-indigo-600 dark:hover:text-indigo-400" style="text-decoration:none;">Request a Tool</a>
+        </div>
+      </div>
+    </header>
+  `;
+}
+
 interface PageData {
   routePath: string; // e.g. '/tools/salary-calculator'
   title: string;
@@ -227,6 +263,7 @@ export function prerenderAllRoutes() {
 
     // Semantic visible body
     let bodyHtml = `
+      ${renderHeaderShell()}
       <header class="bu-seo-header" style="max-width:1200px;margin:0 auto;padding:16px 20px;">
         <nav aria-label="Breadcrumb" style="font-size:12px;color:#64748b;margin-bottom:12px;">
           <a href="/" style="color:#4f46e5;text-decoration:none;">Home</a> &gt; 
@@ -652,21 +689,84 @@ export function prerenderAllRoutes() {
     const description = 'BharatUtility provides free, fast, and 100% private online calculators, document tools, financial planners, and daily utilities for India.';
 
     let bodyHtml = `
-      <header style="max-width:1200px;margin:0 auto;padding:24px 20px;text-align:center;">
-        <h1 style="font-size:36px;font-weight:900;color:#0f172a;margin:0 0 12px 0;letter-spacing:-0.03em;">BharatUtility — India's Digital Utility Super-Site</h1>
-        <p style="font-size:16px;color:#475569;max-width:750px;margin:0 auto 24px auto;line-height:1.6;">Over 233+ free, fast, and private online calculators, tax planners, converters, and civic utilities tailored for India.</p>
-        <div style="margin-bottom:32px;">
-          <a href="/tools" style="display:inline-block;padding:12px 24px;background:#4f46e5;color:#ffffff;text-decoration:none;border-radius:10px;font-weight:700;font-size:15px;">Explore All 233+ Tools</a>
+      ${renderHeaderShell()}
+      
+      <div class="w-full bg-neutral-100/80 dark:bg-neutral-900/80 border-b border-neutral-200/60 dark:border-neutral-800/60 py-1.5 px-4 text-xs text-neutral-600 dark:text-neutral-400">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 overflow-x-auto text-[11px]">
+          <div class="flex items-center gap-2 shrink-0 font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+            <span>LIVE BHARAT TICKER</span>
+          </div>
+          <div class="flex items-center gap-6 overflow-hidden whitespace-nowrap">
+            <span>⛽ Fuel: Delhi ₹94.72 | Mum ₹104.21</span>
+            <span>💵 USD/INR: ₹86.50 (Live)</span>
+            <span>📈 NSE/BSE: Open (9:15 - 15:30)</span>
+            <span>☀️ Panchang: Live Shubh Muhurat &amp; Choghadiya</span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-semibold">✓ 220+ Verified Tools</span>
+          </div>
         </div>
-      </header>
+      </div>
 
-      <main style="max-width:1200px;margin:0 auto;padding:0 20px;">
-        <h2 style="font-size:22px;font-weight:800;color:#0f172a;margin-bottom:16px;">Core Indian Utility Categories</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:16px;margin-bottom:36px;">
+      <section class="relative pt-4 pb-6 sm:pt-6 sm:pb-8 text-center max-w-6xl mx-auto px-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-neutral-900 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-semibold shadow-xs mb-3">
+          <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+          <span>BharatUtility • 100% Private &amp; Free Utility Super-Site</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-tight mb-2">
+          Useful tools for <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">everyday India</span>
+        </h1>
+
+        <p class="text-xs sm:text-base text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-4 leading-relaxed">
+          Fast, privacy-focused calculators, official citizen lookups, document converters, and financial utilities — 100% free with zero signups.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">
+            🛡️ 100% Client-Side Privacy
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">
+            ⚡ Zero Server Latency
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">
+            ✨ 220+ Native Indian Tools
+          </span>
+        </div>
+
+        <!-- Real Search Mockup Input -->
+        <div class="max-w-2xl mx-auto relative mb-6">
+          <div class="w-full px-5 py-3.5 sm:py-4 rounded-2xl bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500 text-sm sm:text-base flex items-center gap-3 shadow-md text-left">
+            <span>🔍</span>
+            <span>Search 220+ tools (e.g. PIN, IFSC, EMI, GST, Salary)...</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-1.5 text-xs text-neutral-500 mb-8">
+          <span class="font-bold text-rose-500 flex items-center gap-1">🔥 Trending:</span>
+          <a href="/tools/emi-calculator" class="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300" style="text-decoration:none;">Home Loan EMI</a>
+          <a href="/tools/salary-calculator" class="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300" style="text-decoration:none;">In-Hand Salary</a>
+          <a href="/tools/gst-calculator" class="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300" style="text-decoration:none;">GST 18% Slabs</a>
+          <a href="/tools/sip-calculator" class="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300" style="text-decoration:none;">SIP Compounding</a>
+          <a href="/tools/age-calculator" class="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300" style="text-decoration:none;">Age &amp; DOB</a>
+        </div>
+      </section>
+
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div class="flex items-center justify-between mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold font-display text-neutral-900 dark:text-white">Core Indian Utility Categories</h2>
+          <a href="/tools" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline">Explore All 233+ Tools &rarr;</a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           ${CATEGORIES.map(cat => `
-            <a href="/category/${cat.id}" style="display:block;padding:20px;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;text-decoration:none;">
-              <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">${escapeHtml(cat.name)}</h3>
-              <p style="font-size:12px;color:#64748b;margin:0;">${escapeHtml(cat.description)}</p>
+            <a href="/category/${cat.id}" class="group p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 hover:border-indigo-500/50 hover:shadow-md transition-all flex flex-col justify-between" style="text-decoration:none;">
+              <div>
+                <h3 class="font-bold text-base text-neutral-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1.5">${escapeHtml(cat.name)}</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed">${escapeHtml(cat.description)}</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-neutral-100 dark:border-neutral-800/80 flex items-center justify-between text-xs text-indigo-600 dark:text-indigo-400 font-semibold">
+                <span>View Tools</span>
+                <span>&rarr;</span>
+              </div>
             </a>
           `).join('')}
         </div>

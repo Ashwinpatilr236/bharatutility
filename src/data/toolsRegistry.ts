@@ -34,15 +34,15 @@ export const TOOLS_REGISTRY: Tool[] = [
       canonicalSlug: 'ott-stream-finder',
       h1: 'OTT Stream Finder: Where to Watch in India',
     },
-    formulaDescription: 'Real-time OTT Streaming Availability via TMDB & JustWatch API Integration',
+    formulaDescription: 'Multi-platform Indian streaming query generator with IMDb database title verification',
     faqs: [
       {
-        question: 'Is this OTT data accurate for India?',
-        answer: 'Yes! Our tool is powered by the official JustWatch and TMDB APIs, which dynamically fetch the exact streaming rights and availability specifically for the Indian region.'
+        question: 'How does BharatUtility find OTT platforms in India?',
+        answer: 'We verify the exact title and release year using the IMDb database, then provide one-click direct deep links to search and stream across Netflix India, Amazon Prime Video, Disney+ Hotstar, JioCinema, and Google Watch Guide.'
       },
       {
-        question: 'Does this tool show free streaming options?',
-        answer: 'It shows all available legal options, including flatrate subscriptions (like Netflix, Prime), rent options, and buy options.'
+        question: 'Does this tool show free and subscription streaming options?',
+        answer: 'Yes! The deep links allow you to immediately check availability across all major Indian platforms whether you have a subscription (like Netflix, Prime, Hotstar) or are looking for free/rent streaming options.'
       }
     ],
     relatedToolSlugs: []
@@ -10564,8 +10564,9 @@ export const TOOLS_REGISTRY: Tool[] = [
   {
     id: 'freelancer-44ada-tax-calculator',
     slug: 'freelancer-44ada-tax-calculator',
-  needsManualVerification: true,
-  lastUpdated: '2026-09-25',
+    needsManualVerification: true,
+    lastUpdated: '2026-09-25',
+    status: 'inactive',
     name: 'Freelancer & Professional 44ADA 50% Presumptive Tax Calculator',
     shortName: 'Freelancer 44ADA Tax',
     tagline: 'Calculate taxable income for software devs, designers, doctors, and consultants under Section 44ADA with 50% flat deemed profit & advance tax calendar',
@@ -12864,6 +12865,7 @@ const TOOL_SLUG_ALIASES: Record<string, string> = {
   'home-loan-prepayment-tenure-calculator': 'home-loan-prepayment-calculator',
   'jewellery-gold-making-charge-calculator': 'gold-jewellery-price-calculator',
   'mobile-imei-luhn-validator-ceir-guide': 'imei-ceir-guide-validator',
+  'freelancer-44ada-tax-calculator': 'section-44ada-freelance-tax-calculator',
   
   // Phase C Aliases
   'old-vs-new-tax-regime-calculator': 'income-tax-calculator'

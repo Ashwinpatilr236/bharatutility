@@ -61,7 +61,7 @@ bharatutility/
 
 1. **50+ Instant Client-Side Tools**:
    - **Financial Calculators**: GST Calculator, EMI Calculator, SIP Calculator, Income Tax Regime Calculator, Salary (In-Hand/CTC) Calculator, EPF/PPF/FD/RD Calculators, Gratuity, Inflation, Compound Interest.
-   - **PDF & Document Utilities**: Merge PDF, Split PDF, Compress PDF, Image to PDF, Aadhaar Card Masking, PDF Watermark, e-Signature Maker.
+   - **PDF & Document Utilities**: Merge PDF (`pdf-merge`), JPG/Images to PDF (`jpg-to-pdf`), Word (.docx) to PDF & Text (`word-to-pdf`, `word-to-text`), Text to PDF, Image Compressor & Resizer, Govt Exam Photo & Signature Resizer (`signature-resizer`), File Size Converter, Online Notepad, Markdown to HTML. (Planned Roadmap: Split PDF, PDF Watermark).
    - **Travel & Transit**: Fuel Cost Calculator, Vehicle Mileage Calculator, Toll Estimator, EV vs Petrol Savings, PNR Status Guide.
    - **India Daily & Civic Utilities**: Electricity Bill Estimator, Gold/Silver Rate Estimator, Land & Area Unit Converter (Bigha, Guntha, Acre, SqFt), Age Calculator, Pincode & Post Office Directory, QR Code & Barcode Generator, Typing Speed Test.
    - **Developer Tools**: JSON Formatter/Validator, Base64 Encoder/Decoder, Hash Generator, URL Encoder, Color Palette Converter.

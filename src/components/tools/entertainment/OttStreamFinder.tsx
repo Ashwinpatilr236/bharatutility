@@ -194,18 +194,60 @@ export const OttStreamFinder: React.FC = () => {
                     </p>
                   )}
 
-                  {/* OTT Watch Button */}
-                  <div className="mt-auto pt-4 border-t border-neutral-100 dark:border-neutral-800">
+                  {/* OTT Watch Actions */}
+                  <div className="mt-auto pt-3 border-t border-neutral-100 dark:border-neutral-800 space-y-2">
                     <a 
                       href={getWatchUrl(item.l, item.y)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-2.5 bg-neutral-900 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2"
+                      className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5 shadow-sm"
                     >
-                      <PlayCircle className="w-4 h-4" />
-                      Find OTT Platform
-                      <ExternalLink className="w-3 h-3 ml-1 opacity-70" />
+                      <PlayCircle className="w-3.5 h-3.5" />
+                      Check Where to Stream in India
+                      <ExternalLink className="w-3 h-3 ml-1 opacity-75" />
                     </a>
+                    
+                    <div className="flex items-center gap-1.5 pt-1">
+                      <span className="text-[10px] text-neutral-400 font-medium">Quick Open:</span>
+                      <div className="flex flex-wrap gap-1">
+                        <a
+                          href={`https://www.netflix.com/search?q=${encodeURIComponent(item.l)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2 py-0.5 rounded-md bg-neutral-100 hover:bg-red-50 hover:text-red-600 dark:bg-neutral-800 dark:hover:bg-red-950/50 text-[11px] font-medium transition-colors"
+                          title="Search on Netflix"
+                        >
+                          Netflix
+                        </a>
+                        <a
+                          href={`https://www.primevideo.com/search/ref=atv_nb_sr?phrase=${encodeURIComponent(item.l)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2 py-0.5 rounded-md bg-neutral-100 hover:bg-sky-50 hover:text-sky-600 dark:bg-neutral-800 dark:hover:bg-sky-950/50 text-[11px] font-medium transition-colors"
+                          title="Search on Prime Video"
+                        >
+                          Prime
+                        </a>
+                        <a
+                          href={`https://www.hotstar.com/in/explore?search_query=${encodeURIComponent(item.l)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2 py-0.5 rounded-md bg-neutral-100 hover:bg-blue-50 hover:text-blue-600 dark:bg-neutral-800 dark:hover:bg-blue-950/50 text-[11px] font-medium transition-colors"
+                          title="Search on Disney+ Hotstar"
+                        >
+                          Hotstar
+                        </a>
+                        <a
+                          href={`https://www.jiocinema.com/search/${encodeURIComponent(item.l)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2 py-0.5 rounded-md bg-neutral-100 hover:bg-pink-50 hover:text-pink-600 dark:bg-neutral-800 dark:hover:bg-pink-950/50 text-[11px] font-medium transition-colors"
+                          title="Search on JioCinema"
+                        >
+                          JioCinema
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

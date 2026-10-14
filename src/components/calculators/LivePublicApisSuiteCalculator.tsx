@@ -315,15 +315,26 @@ export const LivePublicApisSuiteCalculator: React.FC<Props> = ({
               </p>
             </div>
 
-            <div className="relative">
-              <Search className="w-4 h-4 absolute left-3.5 top-3 text-neutral-400" />
-              <input
-                type="text"
-                value={isroSearch}
-                onChange={(e) => setIsroSearch(e.target.value)}
-                placeholder="Search ISRO mission (e.g. Chandrayaan-3, Aditya-L1, Gaganyaan, PSLV)..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent"
-              />
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 absolute left-3.5 top-3 text-neutral-400" />
+                <input
+                  type="text"
+                  value={isroSearch}
+                  onChange={(e) => setIsroSearch(e.target.value)}
+                  placeholder="Search ISRO mission (e.g. Chandrayaan-3, Aditya-L1, Gaganyaan, PSLV)..."
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent"
+                />
+              </div>
+              <a
+                href="https://www.isro.gov.in/Missions.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shrink-0 transition-colors"
+              >
+                <span>Official ISRO Missions</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -400,6 +411,21 @@ export const LivePublicApisSuiteCalculator: React.FC<Props> = ({
                   {btn.label}
                 </button>
               ))}
+            </div>
+
+            <div className="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="text-xs text-amber-900 dark:text-amber-200">
+                <span className="font-bold">APMC Market Benchmark Note:</span> Rates shown are indicative modal wholesale prices for top regional trading hubs. For individual lot auctions and today's arrival bulletin in your specific mandi, visit the official Ministry of Agriculture portal.
+              </div>
+              <a
+                href="https://agmarknet.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shrink-0 transition-colors"
+              >
+                <span>Agmarknet Portal</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

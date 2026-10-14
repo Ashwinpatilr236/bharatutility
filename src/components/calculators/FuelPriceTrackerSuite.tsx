@@ -42,22 +42,44 @@ export const FuelPriceTrackerSuite: React.FC = () => {
     fetch('/data/fuel-prices.json')
       .then(res => res.json())
       .then(data => {
-        if (data?.cities?.[0]) {
-          const liveDelhi = data.cities[0];
+        if (Array.isArray(data?.cities) && data.cities.length > 0) {
           setCitiesData(prev => {
             const newCities = [...prev];
-            const delhiIndex = newCities.findIndex(c => c.city === 'Delhi');
-            if (delhiIndex !== -1) {
-              newCities[delhiIndex] = {
-                ...newCities[delhiIndex],
-                petrol: liveDelhi.petrol || newCities[delhiIndex].petrol,
-                diesel: liveDelhi.diesel || newCities[delhiIndex].diesel,
-                cng: liveDelhi.cng || newCities[delhiIndex].cng,
-              };
-              // Update selected city if it's currently Delhi
-              setSelectedCity(curr => curr.city === 'Delhi' ? newCities[delhiIndex] : curr);
-            }
+            data.cities.forEach((incoming: any) => {
+              if (!incoming?.city) return;
+              const incomingName = incoming.city.toLowerCase().replace(/[^a-z]/g, '');
+              const matchIndex = newCities.findIndex(c => {
+                const localName = c.city.toLowerCase().replace(/[^a-z]/g, '');
+                return localName === incomingName || localName.includes(incomingName) || incomingName.includes(localName);
+              });
+              if (matchIndex !== -1) {
+                newCities[matchIndex] = {
+                  ...newCities[matchIndex],
+                  petrol: incoming.petrol || newCities[matchIndex].petrol,
+                  diesel: incoming.diesel || newCities[matchIndex].diesel,
+                  cng: incoming.cng || newCities[matchIndex].cng,
+                };
+              }
+            });
             return newCities;
+          });
+          // Update selected city if matching
+          setSelectedCity(curr => {
+            const currClean = curr.city.toLowerCase().replace(/[^a-z]/g, '');
+            const matched = data.cities.find((inc: any) => {
+              if (!inc?.city) return false;
+              const incClean = inc.city.toLowerCase().replace(/[^a-z]/g, '');
+              return currClean === incClean || currClean.includes(incClean) || incClean.includes(currClean);
+            });
+            if (matched) {
+              return {
+                ...curr,
+                petrol: matched.petrol || curr.petrol,
+                diesel: matched.diesel || curr.diesel,
+                cng: matched.cng || curr.cng,
+              };
+            }
+            return curr;
           });
         }
       })
