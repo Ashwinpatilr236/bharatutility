@@ -96,47 +96,47 @@ export const HeroSection: React.FC = () => {
         {/* Antigravity Floating Top Badge */}
         <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
           <FloatingBadge duration={3.5} distance={5}>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-accent/30 text-accent text-xs font-semibold shadow-xs hover:border-accent/60 transition-colors">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-accent/30 text-accent text-xs font-semibold shadow-xs hover:border-accent/60 transition-colors">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span>BharatUtility • 100% Private & Free Utility Super-Site</span>
+              <span>233+ Free Indian Tools • 100% Private Client-Side • Real-Time APIs</span>
             </div>
           </FloatingBadge>
         </div>
 
         {/* Kinetic Shimmer Headline */}
-        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-display text-neutral-900 dark:text-white leading-tight mb-1.5 sm:mb-2">
-          Useful tools for{' '}
-          <span className="bg-gradient-to-r from-accent via-purple-500 to-indigo-500 bg-clip-text text-transparent animate-antigravity-shimmer">
-            everyday India
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-display text-neutral-900 dark:text-white leading-[1.12] mb-2 sm:mb-3">
+          Everyday Utilities for{' '}
+          <span className="bg-gradient-to-r from-accent via-indigo-500 to-emerald-500 bg-clip-text text-transparent animate-antigravity-shimmer">
+            Modern India
           </span>
         </h1>
 
         {/* Subhead with Subtle Floating Levitation Badges */}
         <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-2 sm:mb-4 leading-relaxed">
-          Fast, privacy-focused calculators, official citizen lookups, document converters, and financial utilities — 100% free with zero signups.
+          Fast, privacy-focused calculators, live citizen bank & post office lookups, document tools, and financial planners — 100% free with zero signups.
         </p>
 
         {/* Floating Quick Feature Badges */}
         <div className="hidden sm:flex items-center justify-center gap-3 mb-5">
           <FloatingBadge delay={0.2} duration={4.2} distance={6}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-neutral-100/80 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/60 dark:border-neutral-700/60">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
               100% Client-Side Privacy
             </span>
           </FloatingBadge>
           <FloatingBadge delay={0.6} duration={3.8} distance={7}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-neutral-100/80 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/60 dark:border-neutral-700/60">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80">
               <Zap className="w-3.5 h-3.5 text-amber-500" />
-              Zero Server Latency
+              Live RBI & AMFI Feeds
             </span>
           </FloatingBadge>
           <FloatingBadge delay={1.0} duration={4.5} distance={5}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-neutral-100/80 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/60 dark:border-neutral-700/60">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80">
               <Sparkles className="w-3.5 h-3.5 text-accent" />
-              220+ Native Indian Tools
+              1-Click PDF Reports
             </span>
           </FloatingBadge>
         </div>
@@ -368,12 +368,36 @@ export const HeroSection: React.FC = () => {
         <ScrollableCarousel className="pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 pt-0.5 text-left">
           {[
             {
+              slug: 'ifsc-code-finder',
+              name: 'Bank IFSC & Branch Finder',
+              tagline: 'Search 1.5L+ Indian bank branches with live UPI/NEFT/RTGS status',
+              icon: 'Building',
+              badge: '⚡ Live RBI API',
+              color: 'text-emerald-500 bg-emerald-500/10'
+            },
+            {
+              slug: 'sip-calculator',
+              name: 'AMFI Mutual Fund & SIP',
+              tagline: '45,000+ schemes live NAV, 1Y/3Y/5Y CAGR returns',
+              icon: 'TrendingUp',
+              badge: '⚡ Live AMFI',
+              color: 'text-indigo-500 bg-indigo-500/10'
+            },
+            {
+              slug: 'gratuity-calculator',
+              name: 'Gratuity & Leave Encashment',
+              tagline: 'Sec 10(10AA) ₹25L exemption & 15/26 service formula',
+              icon: 'Receipt',
+              badge: 'Updated 2026',
+              color: 'text-amber-500 bg-amber-500/10'
+            },
+            {
               slug: 'emi-calculator',
               name: 'Home Loan EMI Calculator',
               tagline: 'Principal, interest & monthly amortization schedule',
               icon: 'Calculator',
               badge: 'Finance',
-              color: 'text-indigo-500 bg-indigo-500/10'
+              color: 'text-blue-500 bg-blue-500/10'
             },
             {
               slug: 'gst-calculator',
@@ -381,7 +405,7 @@ export const HeroSection: React.FC = () => {
               tagline: '5%, 12%, 18%, 28% inclusive & exclusive tax',
               icon: 'Receipt',
               badge: 'Tax & Bill',
-              color: 'text-emerald-500 bg-emerald-500/10'
+              color: 'text-rose-500 bg-rose-500/10'
             },
             {
               slug: 'pin-code-finder',
@@ -389,7 +413,7 @@ export const HeroSection: React.FC = () => {
               tagline: 'Search 1.5L+ Indian Post Offices & delivery status',
               icon: 'MapPin',
               badge: 'India Hub',
-              color: 'text-amber-500 bg-amber-500/10'
+              color: 'text-teal-500 bg-teal-500/10'
             },
             {
               slug: 'dairy-milk-fat-snf-calculator',
@@ -400,36 +424,12 @@ export const HeroSection: React.FC = () => {
               color: 'text-sky-500 bg-sky-500/10'
             },
             {
-              slug: 'old-vehicle-resale-valuation-calculator',
-              name: 'Used Vehicle Valuation',
-              tagline: 'Year, odometer & brand depreciation guide',
-              icon: 'Car',
-              badge: 'Vehicle',
-              color: 'text-rose-500 bg-rose-500/10'
-            },
-            {
-              slug: 'jan-aushadhi-generic-saver',
-              name: 'Jan Aushadhi Medicine Saver',
-              tagline: 'Find generic salt substitutes & save 50-90%',
-              icon: 'Sparkles',
-              badge: 'Health Saver',
-              color: 'text-teal-500 bg-teal-500/10'
-            },
-            {
-              slug: 'exam-photo-date-stamp',
-              name: 'Exam Photo & Signature Stamping',
-              tagline: '100% private client-side name & date stamp generator',
-              icon: 'FileText',
-              badge: 'Exam Prep',
-              color: 'text-purple-500 bg-purple-500/10'
-            },
-            {
               slug: 'age-calculator',
               name: 'Sarkari Exam Age Calculator',
               tagline: 'Exact DOB, cutoff dates & eligibility analyzer',
               icon: 'Calendar',
               badge: 'Education',
-              color: 'text-blue-500 bg-blue-500/10'
+              color: 'text-purple-500 bg-purple-500/10'
             }
           ].map(tool => (
             <SpotlightCard

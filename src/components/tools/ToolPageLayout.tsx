@@ -1023,6 +1023,12 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                     </span>
                   </FloatingBadge>
                 )}
+                {(['ifsc-code-finder', 'sip-calculator', 'currency-converter', 'crypto-inr-tax-calculator', 'pin-code-finder', 'aqi-weather-forecast', 'gold-silver-rate-calculator'].includes(tool.slug) || tool.slug.includes('ifsc') || tool.slug.includes('currency')) && (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold border border-emerald-500/20 shadow-2xs">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Real-Time API</span>
+                  </span>
+                )}
               </div>
               <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
                 {tool.description}
@@ -1395,6 +1401,42 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       {tool.disclaimer && (
         <div className="p-4 rounded-2xl bg-neutral-100/70 dark:bg-neutral-900/70 border border-neutral-200/80 dark:border-neutral-800 text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed">
           {tool.disclaimer}
+        </div>
+      )}
+
+      {/* Mobile Sticky Floating Result & Actions Dock (Visible when calculation is performed) */}
+      {calculationSummary && (
+        <div className="md:hidden fixed bottom-14 inset-x-2 z-40 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border border-neutral-200/90 dark:border-neutral-700/80 rounded-2xl p-2.5 px-3.5 shadow-2xl flex items-center justify-between gap-3 animate-in slide-in-from-bottom-2 duration-200">
+          <div className="truncate flex-1 min-w-0">
+            <span className="text-[9px] uppercase font-bold tracking-wider text-neutral-400 block">Current Result</span>
+            <p className="text-xs font-bold text-neutral-900 dark:text-white truncate font-mono">{calculationSummary}</p>
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0">
+            <button
+              onClick={handleDownloadPdf}
+              disabled={isDownloadingPdf}
+              className="px-2.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-[11px] font-bold flex items-center gap-1 shadow-xs"
+              title="PDF Report"
+            >
+              <FileDown className="w-3.5 h-3.5" />
+              <span>{isDownloadingPdf ? '...' : 'PDF'}</span>
+            </button>
+            <button
+              onClick={handleOpenVaultModal}
+              className="px-2.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-white text-[11px] font-bold flex items-center gap-1 shadow-xs"
+              title="Save to Vault"
+            >
+              <BookmarkPlus className="w-3.5 h-3.5" />
+              <span>Save</span>
+            </button>
+            <button
+              onClick={copyResultSnapshot}
+              className="p-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700"
+              title="Copy Result"
+            >
+              <Copy className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       )}
 

@@ -79,14 +79,16 @@ const TYPO_MAP: Record<string, string> = {
 };
 
 export const TRENDING_SEARCH_KEYWORDS = [
+  'Bank Branch IFSC',
+  'AMFI Mutual Fund NAV',
+  'FASTag Toll Trip',
+  'UPI Dispute Letter',
   'Home Loan EMI',
-  'In-Hand Salary',
+  'Gratuity 2026',
   'GST 18% Slabs',
-  'SIP Compounding',
-  'Age & DOB',
-  'Gaj to Sq Ft',
-  'Bike Mileage & Petrol',
-  'Resignation Letter Format'
+  'In-Hand Salary',
+  'Gold Bullion Rate',
+  'Sarkari Exam Age'
 ];
 
 /**

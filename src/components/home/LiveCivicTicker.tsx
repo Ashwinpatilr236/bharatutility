@@ -27,6 +27,7 @@ export const LiveCivicTicker: React.FC = () => {
 
   const [fuelPrices, setFuelPrices] = useState<{delhi: number, mumbai: number}>({ delhi: 94.72, mumbai: 103.44 });
   const [usdInr, setUsdInr] = useState<number>(87.24);
+  const [goldRate, setGoldRate] = useState<number>(88450);
 
   useEffect(() => {
     // 1. Fetch fuel & base rates from daily-rates snapshot
@@ -38,6 +39,9 @@ export const LiveCivicTicker: React.FC = () => {
         }
         if (data?.currency?.usdInr) {
           setUsdInr(data.currency.usdInr);
+        }
+        if (data?.bullion?.gold24k_10g) {
+          setGoldRate(data.bullion.gold24k_10g);
         }
       })
       .catch(err => console.log('Failed to fetch snapshot rates', err));
@@ -103,20 +107,31 @@ export const LiveCivicTicker: React.FC = () => {
             </span>
           </button>
 
-          {/* 5. Vedic Panchang & Rahu Kaal */}
+          {/* 5. Live Gold Bullion Rate */}
+          <button
+            onClick={() => navigateToTool('gold-silver-rate-calculator')}
+            className="hidden md:flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <span className="font-semibold text-neutral-700 dark:text-neutral-300">Gold 24K:</span>
+            <span className="text-neutral-500 dark:text-neutral-400">₹{goldRate.toLocaleString('en-IN')}/10g</span>
+            <ChevronRight className="w-3 h-3 text-neutral-400 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+
+          {/* 6. Vedic Panchang & Rahu Kaal */}
           <button
             onClick={() => navigateToTool('panchang-choghadiya-muhurat-clock')}
-            className="hidden lg:flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
+            className="hidden xl:flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
           >
             <Sun className="w-3.5 h-3.5 text-amber-500" />
             <span className="font-semibold text-neutral-700 dark:text-neutral-300">Panchang:</span>
-            <span className="text-neutral-500 dark:text-neutral-400">Live Shubh Muhurat & Choghadiya</span>
+            <span className="text-neutral-500 dark:text-neutral-400">Live Shubh Muhurat</span>
           </button>
         </div>
 
-        {/* 6. Direct Link to All 220 Tools */}
+        {/* 7. Direct Link to All 233 Tools */}
         <div className="hidden sm:flex items-center gap-2 shrink-0">
-          <span className="text-[11px] font-medium text-neutral-400">220 Verified Tools</span>
+          <span className="text-[11px] font-semibold text-neutral-400 bg-neutral-200/50 dark:bg-neutral-800/50 px-2 py-0.5 rounded-md border border-neutral-200 dark:border-neutral-700">233 Verified Tools</span>
         </div>
       </div>
     </div>

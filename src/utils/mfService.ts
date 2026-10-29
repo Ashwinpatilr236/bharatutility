@@ -176,3 +176,4 @@ export async function fetchSchemeDetails(schemeCode: number): Promise<MfSchemeDe
     return null;
   }
 }
+
