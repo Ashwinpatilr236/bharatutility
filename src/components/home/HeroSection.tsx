@@ -181,13 +181,13 @@ export const HeroSection: React.FC = () => {
               ref={inputRef}
               id="hero-tool-search-input"
               type="text"
-              placeholder="Search 220+ tools (e.g. PIN, IFSC, EMI, GST, Salary)..."
+              placeholder="Search 233+ tools (e.g. Bank IFSC, AMFI SIP NAV, FASTag, EMI, GST, Gratuity)..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 250)}
               onKeyDown={handleKeyDown}
-              className="w-full min-w-0 bg-transparent text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none pr-2"
+              className="w-full min-w-0 bg-transparent text-sm sm:text-base font-medium text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none pr-2"
             />
             {/* Voice Search Mic Button (Hindi/English) */}
             <VoiceSearchButton
@@ -348,18 +348,41 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Quick Search Shortcut Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-1.5 mb-2 sm:mb-3.5">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 mb-2 sm:mb-3">
           <span className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 mr-1 flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
             Trending:
           </span>
-          {TRENDING_SEARCH_KEYWORDS.slice(0, 7).map(keyword => (
+          {TRENDING_SEARCH_KEYWORDS.slice(0, 8).map(keyword => (
             <button
               key={keyword}
               onClick={() => handleTrendingClick(keyword)}
-              className="px-2.5 py-1 rounded-full text-xs font-medium bg-white/70 hover:bg-accent-subtle hover:text-accent hover:border-accent/40 dark:bg-neutral-900/70 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 backdrop-blur-xs transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-2xs"
+              className="px-2.5 py-1 rounded-full text-xs font-medium bg-white/80 hover:bg-accent hover:text-white dark:bg-neutral-900/80 dark:hover:bg-accent text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 backdrop-blur-xs transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-2xs"
             >
               {keyword}
+            </button>
+          ))}
+        </div>
+
+        {/* High-Intent Live Tools Quick Jump Bar */}
+        <div className="flex items-center justify-center gap-2 flex-wrap max-w-4xl mx-auto mb-4 text-xs">
+          {[
+            { label: '🏦 Bank Branch IFSC (Live API)', slug: 'ifsc-code-finder', hot: true },
+            { label: '📈 AMFI Mutual Fund & SIP', slug: 'sip-calculator', hot: true },
+            { label: '🛣️ FASTag Toll Trip', slug: 'trip-cost-calculator', hot: true },
+            { label: '⚖️ UPI Dispute Notice', slug: 'cyber-crime-emergency-guide', hot: true },
+            { label: '📄 Gratuity 2026', slug: 'gratuity-calculator', hot: false },
+          ].map(item => (
+            <button
+              key={item.slug}
+              onClick={() => navigateToTool(item.slug)}
+              className={`px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs hover:scale-105 active:scale-95 ${
+                item.hot
+                  ? 'bg-accent/10 hover:bg-accent hover:text-white text-accent border-accent/30 font-bold'
+                  : 'bg-white/80 hover:bg-neutral-100 dark:bg-neutral-900/80 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200/80 dark:border-neutral-800'
+              }`}
+            >
+              <span>{item.label}</span>
             </button>
           ))}
         </div>

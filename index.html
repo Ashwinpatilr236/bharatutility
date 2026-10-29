@@ -100,6 +100,23 @@
     <script>
       (function() {
         try {
+          // Instantly unregister old Service Workers and purge caches on localhost to ensure instant updates
+          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.getRegistrations().then(function(regs) {
+                for (var i = 0; i < regs.length; i++) {
+                  regs[i].unregister();
+                }
+              });
+            }
+            if ('caches' in window) {
+              caches.keys().then(function(keys) {
+                for (var i = 0; i < keys.length; i++) {
+                  caches.delete(keys[i]);
+                }
+              });
+            }
+          }
           var theme = localStorage.getItem('bu_theme');
           var isDark = theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) || (theme === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
           if (isDark) {

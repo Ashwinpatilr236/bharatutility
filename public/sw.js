@@ -3,7 +3,7 @@
  * Progressive Web App offline caching & performance optimization engine
  */
 
-const CACHE_NAME = 'bharatutility-pwa-v1';
+const CACHE_NAME = 'bharatutility-pwa-v2';
 const OFFLINE_FALLBACK_URL = '/';
 
 // Core assets to pre-cache immediately upon install
