@@ -15,11 +15,11 @@
 ## 2. Technology Stack
 
 * **Frontend Framework**: React 19 (`react` 19.0.1, `react-dom` 19.0.1)
-* **Build System & Bundler**: Vite 6 (`vite` 6.2.3, `@vitejs/plugin-react` 5.0.4, `typescript` 5.8.2, `tsx` 4.21.0, `esbuild` 0.25.0)
+* **Build System & Bundler**: Vite 8 (`vite` 8.3.5, `@vitejs/plugin-react` 6.1.2, `typescript` 5.8.3, `tsx` 4.23.15, `esbuild` 0.28.2)
 * **Styling / UI**: Tailwind CSS v4 (`tailwindcss` 4.1.14, `@tailwindcss/vite` 4.1.14), Dark/Light theme system via `src/context/AppContext.tsx`
-* **Icons & Animation**: Lucide React (`lucide-react` 0.546.0), Motion (`motion` 12.23.24), Canvas Confetti (`canvas-confetti` 1.9.4)
+* **Icons & Animation**: Lucide React (`lucide-react` 1.63.0), Motion 14 (`motion` 14.7.1), Canvas Confetti (`canvas-confetti` 1.9.4)
 * **Charts & Media**: Recharts (`recharts` 3.10.1), PDF-Lib (`pdf-lib` 1.17.1), QRCode (`qrcode` 1.5.4)
-* **Database / Backend**: Supabase JS (`@supabase/supabase-js` 2.112.3), Express 4 (`express` 4.21.2) for node server bundling (`server.ts`)
+* **Database / Backend**: Supabase JS (`@supabase/supabase-js` 2.118.0), Express 5 (`express` 5.3.0) for node server bundling (`server.ts`)
 * **SEO Automation**: Custom scripts for sitemap generation (`scripts/generate-sitemap.ts`) and validation (`scripts/validate-seo.ts`)
 
 ---
