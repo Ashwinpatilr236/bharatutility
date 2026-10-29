@@ -16,8 +16,10 @@ import {
   AlertTriangle, 
   CheckCircle2, 
   Info,
-  PhoneCall
+  PhoneCall,
+  Loader2
 } from 'lucide-react';
+import { fetchIfscDetails, isValidIfscFormat } from '../../utils/ifscService';
 
 export type LegalRightsMode = 
   | 'ipc-bns' 
@@ -167,13 +169,30 @@ export const LegalAndCitizenRightsCalculator: React.FC<Props> = ({
 
   // 1930 & UPI Dispute Letter Form State
   const [disputeName, setDisputeName] = useState('Ashwin Patil');
+  const [disputeIfsc, setDisputeIfsc] = useState('SBIN0000300');
   const [disputeBank, setDisputeBank] = useState('State Bank of India');
+  const [disputeBranchAddress, setDisputeBranchAddress] = useState('Mumbai Main Branch, Mumbai, Maharashtra');
+  const [ifscLoading, setIfscLoading] = useState(false);
   const [disputeAccount, setDisputeAccount] = useState('XXXX1234');
   const [disputeAmount, setDisputeAmount] = useState<number>(5000);
   const [disputeUtr, setDisputeUtr] = useState('412345678901');
   const [disputeType, setDisputeType] = useState('Wrong UPI Transfer (Incorrect VPA/Phone)');
   const [disputeBeneficiary, setDisputeBeneficiary] = useState('recipient@upi');
   const [copiedDispute, setCopiedDispute] = useState(false);
+
+  const handleIfscChange = async (val: string) => {
+    const clean = val.trim().toUpperCase();
+    setDisputeIfsc(clean);
+    if (isValidIfscFormat(clean)) {
+      setIfscLoading(true);
+      const details = await fetchIfscDetails(clean);
+      setIfscLoading(false);
+      if (details) {
+        setDisputeBank(details.BANK);
+        setDisputeBranchAddress(`${details.BRANCH}, ${details.CITY}, ${details.STATE}`);
+      }
+    }
+  };
 
   // Blood Group State
   const [selectedBlood, setSelectedBlood] = useState('O+');
@@ -636,6 +655,26 @@ Signature: ____________________`;
                 </div>
 
                 <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+                      Bank Branch IFSC
+                    </label>
+                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+                      {ifscLoading && <Loader2 className="w-3 h-3 animate-spin" />}
+                      Auto-detects Branch
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    value={disputeIfsc}
+                    onChange={(e) => handleIfscChange(e.target.value)}
+                    placeholder="e.g. SBIN0000300"
+                    maxLength={11}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-mono font-bold text-neutral-900 dark:text-white uppercase outline-none focus:ring-2 focus:ring-rose-500 tracking-wider"
+                  />
+                </div>
+
+                <div>
                   <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
                     Your Bank Name
                   </label>
@@ -712,18 +751,20 @@ Signature: ____________________`;
                       const letter = `To,
 The Branch Manager / Nodal Grievance Officer,
 ${disputeBank}
+Branch: ${disputeBranchAddress || 'Main Branch'} (IFSC: ${disputeIfsc || 'N/A'})
 
 Subject: Urgent Request for Fund Recall / Dispute under RBI Limited Liability Circular for Fraudulent Electronic Transaction
 
 Respected Sir/Madam,
 
-I am an account holder maintaining Account No: ${disputeAccount} with ${disputeBank}. I am writing to formally report an unauthorized / disputed electronic fund transfer of ₹${disputeAmount.toLocaleString('en-IN')} that occurred recently.
+I am an account holder maintaining Account No: ${disputeAccount} with ${disputeBank} (${disputeBranchAddress}). I am writing to formally report an unauthorized / disputed electronic fund transfer of ₹${disputeAmount.toLocaleString('en-IN')} that occurred recently.
 
 Transaction Summary:
 - Disputed Amount: ₹${disputeAmount.toLocaleString('en-IN')}
 - UTR / RRN Reference: ${disputeUtr}
 - Nature of Dispute: ${disputeType}
 - Target Beneficiary: ${disputeBeneficiary}
+- Bank IFSC: ${disputeIfsc}
 
 As per the Reserve Bank of India (RBI) Circular on "Customer Protection – Limiting Liability of Customers in Unauthorised Electronic Banking Transactions" (Ref: DBR.No.Leg.BC.78/09.07.005/2017-18):
 1. I am notifying the bank within the mandatory zero-liability reporting window.
@@ -747,7 +788,7 @@ Date: ${new Date().toLocaleDateString('en-IN')}`;
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 font-mono text-xs text-neutral-800 dark:text-neutral-200 whitespace-pre-line leading-relaxed max-h-60 overflow-y-auto">
-                  {`To,\nThe Branch Manager / Nodal Grievance Officer,\n${disputeBank}\n\nSubject: Urgent Request for Fund Recall / Dispute under RBI Limited Liability Circular for Fraudulent Electronic Transaction\n\nRespected Sir/Madam,\n\nI am an account holder maintaining Account No: ${disputeAccount} with ${disputeBank}. I am writing to formally report an unauthorized / disputed electronic fund transfer of ₹${disputeAmount.toLocaleString('en-IN')}.\n\nTransaction Summary:\n- Disputed Amount: ₹${disputeAmount.toLocaleString('en-IN')}\n- UTR / RRN Reference: ${disputeUtr}\n- Nature of Dispute: ${disputeType}\n\nAs per the Reserve Bank of India (RBI) Circular on "Customer Protection – Limiting Liability in Unauthorised Electronic Banking Transactions" (Ref: DBR.No.Leg.BC.78/09.07.005/2017-18):\n1. I am notifying the bank within the mandatory zero-liability reporting window.\n2. I request you to urgently coordinate with NPCI and the beneficiary bank to freeze recipient funds and initiate a recall.\n3. Incident is also reported on National Cybercrime Helpline 1930.\n\nYours sincerely,\n${disputeName}\nDate: ${new Date().toLocaleDateString('en-IN')}`}
+                  {`To,\nThe Branch Manager / Nodal Grievance Officer,\n${disputeBank}\nBranch: ${disputeBranchAddress || 'Main Branch'} (IFSC: ${disputeIfsc || 'N/A'})\n\nSubject: Urgent Request for Fund Recall / Dispute under RBI Limited Liability Circular for Fraudulent Electronic Transaction\n\nRespected Sir/Madam,\n\nI am an account holder maintaining Account No: ${disputeAccount} with ${disputeBank}. I am writing to formally report an unauthorized / disputed electronic fund transfer of ₹${disputeAmount.toLocaleString('en-IN')}.\n\nTransaction Summary:\n- Disputed Amount: ₹${disputeAmount.toLocaleString('en-IN')}\n- UTR / RRN Reference: ${disputeUtr}\n- Nature of Dispute: ${disputeType}\n- Bank IFSC: ${disputeIfsc}\n\nAs per the Reserve Bank of India (RBI) Circular on "Customer Protection – Limiting Liability in Unauthorised Electronic Banking Transactions" (Ref: DBR.No.Leg.BC.78/09.07.005/2017-18):\n1. I am notifying the bank within the mandatory zero-liability reporting window.\n2. I request you to urgently coordinate with NPCI and the beneficiary bank to freeze recipient funds and initiate a recall.\n3. Incident is also reported on National Cybercrime Helpline 1930.\n\nYours sincerely,\n${disputeName}\nDate: ${new Date().toLocaleDateString('en-IN')}`}
                 </div>
               </div>
             </div>

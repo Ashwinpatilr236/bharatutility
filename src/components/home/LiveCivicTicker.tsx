@@ -29,6 +29,7 @@ export const LiveCivicTicker: React.FC = () => {
   const [usdInr, setUsdInr] = useState<number>(87.24);
 
   useEffect(() => {
+    // 1. Fetch fuel & base rates from daily-rates snapshot
     fetch('/data/daily-rates.json')
       .then(res => res.json())
       .then(data => {
@@ -39,7 +40,19 @@ export const LiveCivicTicker: React.FC = () => {
           setUsdInr(data.currency.usdInr);
         }
       })
-      .catch(err => console.log('Failed to fetch live rates', err));
+      .catch(err => console.log('Failed to fetch snapshot rates', err));
+
+    // 2. Fetch Real-time Live USD/INR from Open ER API (Keyless free live FX feed)
+    fetch('https://open.er-api.com/v6/latest/USD')
+      .then(res => res.json())
+      .then(data => {
+        if (data?.rates?.INR) {
+          setUsdInr(parseFloat(data.rates.INR.toFixed(2)));
+        }
+      })
+      .catch(() => {
+        // Fallback already handled
+      });
   }, []);
 
   return (

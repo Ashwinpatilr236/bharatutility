@@ -322,3 +322,4 @@ export async function downloadCalculationReportPdf(data: PdfReportData): Promise
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+

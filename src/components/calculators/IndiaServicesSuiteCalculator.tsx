@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Landmark, Search, CheckCircle, AlertCircle, ExternalLink, ShieldCheck, Calendar, MapPin, Building, CreditCard, Hash, Map, Loader2 } from 'lucide-react';
+import { Landmark, Search, CheckCircle, AlertCircle, ExternalLink, ShieldCheck, Calendar, MapPin, Building, CreditCard, Hash, Map, Loader2, Copy, Check, Phone } from 'lucide-react';
 import { searchByPincode, searchByPostOffice, PostOfficeRecord } from '../../services/postalService';
+import { fetchIfscDetails, isValidIfscFormat, IfscBankDetails } from '../../utils/ifscService';
 
 export type IndiaServicesMode =
   | 'ifsc-finder'
@@ -98,6 +99,13 @@ export const IndiaServicesSuiteCalculator: React.FC<IndiaServicesSuiteCalculator
   const [rtoSearch, setRtoSearch] = useState('');
   const [postalSearchType, setPostalSearchType] = useState<'pin' | 'office'>('pin');
 
+  // Live Razorpay IFSC State
+  const [liveIfsc, setLiveIfsc] = useState<IfscBankDetails | null>(null);
+  const [ifscLoading, setIfscLoading] = useState<boolean>(false);
+  const [ifscError, setIfscError] = useState<string | null>(null);
+  const [copiedIfsc, setCopiedIfsc] = useState<boolean>(false);
+  const [copiedMicr, setCopiedMicr] = useState<boolean>(false);
+
   // Live Supabase Postal Records State
   const [livePostalRecords, setLivePostalRecords] = useState<PostOfficeRecord[]>([]);
   const [postalLoading, setPostalLoading] = useState<boolean>(false);
@@ -106,6 +114,35 @@ export const IndiaServicesSuiteCalculator: React.FC<IndiaServicesSuiteCalculator
   const [gstin, setGstin] = useState('');
   // PAN state
   const [pan, setPan] = useState('');
+
+  // Live IFSC search effect
+  useEffect(() => {
+    if (mode !== 'ifsc-finder') return;
+    const query = ifscSearch.trim().toUpperCase();
+    if (isValidIfscFormat(query)) {
+      let isMounted = true;
+      setIfscLoading(true);
+      setIfscError(null);
+      fetchIfscDetails(query).then(res => {
+        if (!isMounted) return;
+        setIfscLoading(false);
+        if (res) {
+          setLiveIfsc(res);
+          setIfscError(null);
+        } else {
+          setLiveIfsc(null);
+          setIfscError(`IFSC code "${query}" was not found in RBI active database. Please verify the code.`);
+        }
+      });
+      return () => {
+        isMounted = false;
+      };
+    } else {
+      setLiveIfsc(null);
+      setIfscError(null);
+      setIfscLoading(false);
+    }
+  }, [mode, ifscSearch]);
 
   // Live postal search effect
   useEffect(() => {
@@ -195,7 +232,24 @@ export const IndiaServicesSuiteCalculator: React.FC<IndiaServicesSuiteCalculator
     if (!onResultChange) return;
 
     if (mode === 'ifsc-finder') {
-      onResultChange(`IFSC Finder: ${searchIfscResult.length} bank matches`, { search: ifscSearch });
+      if (liveIfsc) {
+        onResultChange(`${liveIfsc.BANK} (${liveIfsc.BRANCH}): IFSC ${liveIfsc.IFSC} | MICR ${liveIfsc.MICR || 'N/A'}`, {
+          ifsc: liveIfsc.IFSC,
+          bank: liveIfsc.BANK,
+          branch: liveIfsc.BRANCH,
+          address: liveIfsc.ADDRESS,
+          city: liveIfsc.CITY,
+          district: liveIfsc.DISTRICT,
+          state: liveIfsc.STATE,
+          micr: liveIfsc.MICR,
+          neft: liveIfsc.NEFT,
+          rtgs: liveIfsc.RTGS,
+          imps: liveIfsc.IMPS,
+          upi: liveIfsc.UPI,
+        });
+      } else {
+        onResultChange(`IFSC Finder: ${searchIfscResult.length} bank matches`, { search: ifscSearch });
+      }
     } else if (mode === 'gstin-validator') {
       onResultChange(
         isGstinValid ? `GSTIN ${cleanGstin} Validated (State Code ${gstinStateCode})` : 'GSTIN Validation Pending/Invalid',
@@ -215,43 +269,183 @@ export const IndiaServicesSuiteCalculator: React.FC<IndiaServicesSuiteCalculator
     } else if (mode === 'gov-directory') {
       onResultChange('Official Government Services Portal Directory', { portals: GOV_PORTALS.length });
     }
-  }, [mode, ifscSearch, pinSearch, rtoSearch, gstin, pan, isGstinValid, isPanValid]);
+  }, [mode, ifscSearch, liveIfsc, pinSearch, rtoSearch, gstin, pan, isGstinValid, isPanValid]);
 
   return (
     <div className="w-full space-y-6">
       {/* Mode 1: IFSC Code Finder */}
       {mode === 'ifsc-finder' && (
         <div className="space-y-6">
-          <div className="relative">
-            <Search className="w-5 h-5 absolute left-4 top-3.5 text-neutral-400" />
-            <input
-              type="text"
-              placeholder="Search by Bank Name (e.g. SBI, HDFC), City, or IFSC Code..."
-              value={ifscSearch}
-              onChange={e => setIfscSearch(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-sm font-medium text-neutral-900 dark:text-white focus:ring-2 focus:ring-accent"
-            />
+          <div className="space-y-2">
+            <div className="relative">
+              <Search className="w-5 h-5 absolute left-4 top-3.5 text-neutral-400" />
+              <input
+                type="text"
+                placeholder="Enter 11-digit IFSC (e.g. SBIN0000300) or Bank Name (e.g. HDFC)..."
+                value={ifscSearch}
+                onChange={e => setIfscSearch(e.target.value.toUpperCase())}
+                className="w-full pl-12 pr-10 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-sm font-medium text-neutral-900 dark:text-white uppercase focus:ring-2 focus:ring-accent tracking-wider font-mono"
+              />
+              {ifscLoading && (
+                <Loader2 className="w-5 h-5 text-accent animate-spin absolute right-4 top-3.5" />
+              )}
+            </div>
+
+            {/* Quick Sample Chips */}
+            <div className="flex items-center gap-1.5 flex-wrap text-xs text-neutral-500 pt-1">
+              <span className="font-medium text-[11px] uppercase tracking-wider">Try Live IFSC:</span>
+              {[
+                { label: 'SBI Mumbai', code: 'SBIN0000300' },
+                { label: 'HDFC Delhi', code: 'HDFC0000060' },
+                { label: 'ICICI Blr', code: 'ICIC0000007' },
+                { label: 'PNB Kolkata', code: 'PUNB0000100' },
+                { label: 'Axis Ahem', code: 'UTIB0000001' }
+              ].map(chip => (
+                <button
+                  key={chip.code}
+                  type="button"
+                  onClick={() => setIfscSearch(chip.code)}
+                  className="px-2.5 py-1 rounded-lg bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-mono text-[11px] font-semibold transition-colors"
+                >
+                  {chip.code} ({chip.label})
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {searchIfscResult.map((item, idx) => (
-              <div key={idx} className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 space-y-2">
-                <div className="flex justify-between items-start">
-                  <div className="font-bold text-sm text-neutral-900 dark:text-white flex items-center gap-2">
-                    <Building className="w-4 h-4 text-accent" />
-                    {item.bank}
+          {/* Real-Time Live IFSC Found Card */}
+          {liveIfsc && (
+            <div className="p-6 rounded-2xl bg-emerald-500/5 dark:bg-emerald-500/10 border-2 border-emerald-500/30 space-y-5 animate-in fade-in duration-200">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-500/20 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                    <Building className="w-5 h-5" />
                   </div>
-                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-accent/10 text-accent border border-accent/20">
-                    {item.sampleIfsc}
-                  </span>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-black text-lg text-neutral-900 dark:text-white">
+                        {liveIfsc.BANK}
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white flex items-center gap-1">
+                        <CheckCircle className="w-3 h-3" /> LIVE VERIFIED
+                      </span>
+                    </div>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                      Branch: <strong className="text-neutral-800 dark:text-neutral-200">{liveIfsc.BRANCH}</strong> ({liveIfsc.CITY}, {liveIfsc.STATE})
+                    </p>
+                  </div>
                 </div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400 flex justify-between">
-                  <span>Branch: {item.branch}</span>
-                  <span>City: {item.city}</span>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(liveIfsc.IFSC);
+                      setCopiedIfsc(true);
+                      setTimeout(() => setCopiedIfsc(false), 2000);
+                    }}
+                    className="px-3.5 py-2 rounded-xl bg-accent text-white text-xs font-bold flex items-center gap-1.5 shadow-sm hover:opacity-90 transition-opacity"
+                  >
+                    {copiedIfsc ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedIfsc ? 'Copied IFSC!' : `Copy ${liveIfsc.IFSC}`}</span>
+                  </button>
+                  {liveIfsc.MICR && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText(liveIfsc.MICR || '');
+                        setCopiedMicr(true);
+                        setTimeout(() => setCopiedMicr(false), 2000);
+                      }}
+                      className="px-3 py-2 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-semibold text-neutral-700 dark:text-neutral-300 flex items-center gap-1.5 hover:bg-neutral-50 transition-colors"
+                    >
+                      {copiedMicr ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Hash className="w-3.5 h-3.5 text-neutral-400" />}
+                      <span>{copiedMicr ? 'Copied MICR!' : `MICR: ${liveIfsc.MICR}`}</span>
+                    </button>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Branch Address & Contact Details */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div className="space-y-1.5 p-3.5 rounded-xl bg-white/80 dark:bg-neutral-800/80 border border-neutral-200/80 dark:border-neutral-700/80">
+                  <div className="font-bold text-neutral-500 uppercase tracking-wider flex items-center gap-1.5 text-[11px]">
+                    <MapPin className="w-3.5 h-3.5 text-rose-500" /> Full Branch Address
+                  </div>
+                  <p className="text-neutral-800 dark:text-neutral-200 leading-relaxed font-medium">
+                    {liveIfsc.ADDRESS || `${liveIfsc.BRANCH}, ${liveIfsc.CITY}, ${liveIfsc.STATE}`}
+                  </p>
+                  <div className="pt-1 text-[11px] text-neutral-500 flex gap-4">
+                    <span>District: <strong className="text-neutral-700 dark:text-neutral-300">{liveIfsc.DISTRICT}</strong></span>
+                    <span>State: <strong className="text-neutral-700 dark:text-neutral-300">{liveIfsc.STATE}</strong></span>
+                  </div>
+                </div>
+
+                <div className="space-y-3 p-3.5 rounded-xl bg-white/80 dark:bg-neutral-800/80 border border-neutral-200/80 dark:border-neutral-700/80">
+                  <div className="font-bold text-neutral-500 uppercase tracking-wider flex items-center gap-1.5 text-[11px]">
+                    <CreditCard className="w-3.5 h-3.5 text-accent" /> Electronic Transfer Support
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${liveIfsc.UPI ? 'bg-emerald-500' : 'bg-neutral-400'}`} />
+                      <span className="font-semibold text-neutral-700 dark:text-neutral-300">UPI Instant:</span>
+                      <span className={liveIfsc.UPI ? 'text-emerald-600 font-bold' : 'text-neutral-400'}>{liveIfsc.UPI ? 'Enabled' : 'No'}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${liveIfsc.IMPS ? 'bg-emerald-500' : 'bg-neutral-400'}`} />
+                      <span className="font-semibold text-neutral-700 dark:text-neutral-300">IMPS 24x7:</span>
+                      <span className={liveIfsc.IMPS ? 'text-emerald-600 font-bold' : 'text-neutral-400'}>{liveIfsc.IMPS ? 'Enabled' : 'No'}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${liveIfsc.NEFT ? 'bg-emerald-500' : 'bg-neutral-400'}`} />
+                      <span className="font-semibold text-neutral-700 dark:text-neutral-300">NEFT Batch:</span>
+                      <span className={liveIfsc.NEFT ? 'text-emerald-600 font-bold' : 'text-neutral-400'}>{liveIfsc.NEFT ? 'Enabled' : 'No'}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${liveIfsc.RTGS ? 'bg-emerald-500' : 'bg-neutral-400'}`} />
+                      <span className="font-semibold text-neutral-700 dark:text-neutral-300">RTGS (₹2L+):</span>
+                      <span className={liveIfsc.RTGS ? 'text-emerald-600 font-bold' : 'text-neutral-400'}>{liveIfsc.RTGS ? 'Enabled' : 'No'}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* IFSC Error Notice */}
+          {ifscError && (
+            <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-800 dark:text-rose-300 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
+              <span>{ifscError}</span>
+            </div>
+          )}
+
+          {/* Popular Bank Directory Matches (Visible when not actively displaying single IFSC result) */}
+          {!liveIfsc && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {searchIfscResult.map((item, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setIfscSearch(item.sampleIfsc)}
+                  className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 space-y-2 hover:border-accent/40 cursor-pointer transition-colors group"
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="font-bold text-sm text-neutral-900 dark:text-white flex items-center gap-2 group-hover:text-accent transition-colors">
+                      <Building className="w-4 h-4 text-accent" />
+                      {item.bank}
+                    </div>
+                    <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-accent/10 text-accent border border-accent/20">
+                      {item.sampleIfsc}
+                    </span>
+                  </div>
+                  <div className="text-xs text-neutral-500 dark:text-neutral-400 flex justify-between">
+                    <span>Branch: {item.branch}</span>
+                    <span>City: {item.city}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-800 dark:text-amber-300 space-y-1">
             <div className="font-bold flex items-center gap-1.5">

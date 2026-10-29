@@ -31,14 +31,14 @@ export const CryptoInrTaxCalculator: React.FC = () => {
   const [sellPriceINR, setSellPriceINR] = useState<number>(7850000);
   const [tdsDeductedByExchange, setTdsDeductedByExchange] = useState<boolean>(true);
 
-  // Fetch Live CoinGecko Free Open API
+  // Fetch Live CoinGecko Free Open API with CoinCap resilient fallback
   const fetchLiveRates = async () => {
     setLoading(true);
     try {
       const res = await fetch(
         'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,tether,ripple,cardano&vs_currencies=inr&include_24hr_change=true'
       );
-      if (!res.ok) throw new Error('API Error');
+      if (!res.ok) throw new Error(`CoinGecko status ${res.status}`);
       const data = await res.json();
 
       const updated = [
@@ -52,7 +52,42 @@ export const CryptoInrTaxCalculator: React.FC = () => {
       setPrices(updated);
       setLastUpdated(new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }));
     } catch (e) {
-      console.warn('CoinGecko fallback loaded:', e);
+      // Fallback: CoinCap API in USD * 87.25 INR
+      try {
+        const capRes = await fetch('https://api.coincap.io/v2/assets?ids=bitcoin,ethereum,solana,tether,xrp,cardano');
+        if (capRes.ok) {
+          const capJson = await capRes.json();
+          const assets = capJson.data || [];
+          const usdInr = 87.25;
+          const mapAsset = (id: string, fallbackInr: number) => {
+            const found = assets.find((a: any) => a.id === id);
+            if (!found) return { inr: fallbackInr, change: 0 };
+            return {
+              inr: Math.round(parseFloat(found.priceUsd) * usdInr),
+              change: parseFloat(parseFloat(found.changePercent24Hr || '0').toFixed(2))
+            };
+          };
+
+          const btc = mapAsset('bitcoin', 7850000);
+          const eth = mapAsset('ethereum', 245000);
+          const sol = mapAsset('solana', 14800);
+          const usdt = mapAsset('tether', 88.5);
+          const xrp = mapAsset('xrp', 215);
+          const ada = mapAsset('cardano', 68);
+
+          setPrices([
+            { id: 'bitcoin', name: 'Bitcoin', symbol: 'BTC', inr: btc.inr, change24h: btc.change },
+            { id: 'ethereum', name: 'Ethereum', symbol: 'ETH', inr: eth.inr, change24h: eth.change },
+            { id: 'solana', name: 'Solana', symbol: 'SOL', inr: sol.inr, change24h: sol.change },
+            { id: 'tether', name: 'Tether USD', symbol: 'USDT', inr: usdt.inr, change24h: usdt.change },
+            { id: 'ripple', name: 'XRP', symbol: 'XRP', inr: xrp.inr, change24h: xrp.change },
+            { id: 'cardano', name: 'Cardano', symbol: 'ADA', inr: ada.inr, change24h: ada.change },
+          ]);
+          setLastUpdated(new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }));
+        }
+      } catch (err) {
+        console.warn('Crypto fallback loaded:', err);
+      }
     } finally {
       setLoading(false);
     }

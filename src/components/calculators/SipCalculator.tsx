@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { formatINR, formatIndianCompact, formatIndianNumber, numberToIndianWords } from '../../utils/formatters';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, Search, Sparkles, TrendingUp, Check, Loader2, ChevronDown, ChevronUp, Building } from 'lucide-react';
 import { QuickAmountChips } from '../common/QuickAmountChips';
+import { searchMutualFunds, fetchSchemeDetails, MfSchemeSearchItem, MfSchemeDetails, POPULAR_STARTER_SCHEMES } from '../../utils/mfService';
 
 interface SipCalculatorProps {
   onResultChange?: (summary: string, params: Record<string, any>) => void;
@@ -24,6 +25,40 @@ export const SipCalculator: React.FC<SipCalculatorProps> = ({ onResultChange }) 
   });
   const [adjustInflation, setAdjustInflation] = useState<boolean>(false);
   const inflationRate = 6; // Standard Indian CPI assumption
+
+  // Live AMFI Mutual Fund State
+  const [showMfPicker, setShowMfPicker] = useState<boolean>(false);
+  const [mfSearchQuery, setMfSearchQuery] = useState<string>('');
+  const [mfSearchResults, setMfSearchResults] = useState<MfSchemeSearchItem[]>(POPULAR_STARTER_SCHEMES);
+  const [selectedScheme, setSelectedScheme] = useState<MfSchemeDetails | null>(null);
+  const [mfLoading, setMfLoading] = useState<boolean>(false);
+  const [mfDetailLoading, setMfDetailLoading] = useState<boolean>(false);
+
+  // Debounced search for mutual funds
+  useEffect(() => {
+    if (!showMfPicker) return;
+    const timer = setTimeout(async () => {
+      setMfLoading(true);
+      const results = await searchMutualFunds(mfSearchQuery);
+      setMfSearchResults(results);
+      setMfLoading(false);
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [mfSearchQuery, showMfPicker]);
+
+  const handleSelectScheme = async (code: number) => {
+    setMfDetailLoading(true);
+    const details = await fetchSchemeDetails(code);
+    setMfDetailLoading(false);
+    if (details) {
+      setSelectedScheme(details);
+      // Auto-set expected rate to 3Y or 5Y CAGR if available, else 1Y
+      const bestCagr = details.cagr3y || details.cagr5y || details.cagr1y;
+      if (bestCagr && bestCagr > 0 && bestCagr < 40) {
+        setExpectedRate(bestCagr);
+      }
+    }
+  };
 
   // Calculation
   let investedAmount = 0;
@@ -60,15 +95,19 @@ export const SipCalculator: React.FC<SipCalculatorProps> = ({ onResultChange }) 
 
   useEffect(() => {
     if (onResultChange && totalMaturityValue > 0) {
-      const summary = `Maturity: ${formatINR(totalMaturityValue)} (${formatIndianCompact(totalMaturityValue)}) | Invested: ${formatIndianCompact(investedAmount)} at ${expectedRate}% for ${timePeriodYears} yrs`;
+      const fundSuffix = selectedScheme ? ` [${selectedScheme.schemeName} (NAV ₹${selectedScheme.latestNav})]` : '';
+      const summary = `Maturity: ${formatINR(totalMaturityValue)} (${formatIndianCompact(totalMaturityValue)}) | Invested: ${formatIndianCompact(investedAmount)} at ${expectedRate}% for ${timePeriodYears} yrs${fundSuffix}`;
       onResultChange(summary, {
         type: investmentType,
         amount: monthlyInvestment,
         rate: expectedRate,
         tenure: timePeriodYears,
+        fund: selectedScheme?.schemeName,
+        nav: selectedScheme?.latestNav,
+        navDate: selectedScheme?.navDate,
       });
     }
-  }, [investmentType, monthlyInvestment, expectedRate, timePeriodYears, totalMaturityValue]);
+  }, [investmentType, monthlyInvestment, expectedRate, timePeriodYears, totalMaturityValue, selectedScheme]);
 
   // Generate Year-by-Year Growth Chart Data
   const chartData = [];
@@ -254,6 +293,142 @@ export const SipCalculator: React.FC<SipCalculatorProps> = ({ onResultChange }) 
               aria-label="Expected Return Rate Slider"
               className="w-full accent-indigo-600 h-2 bg-neutral-200 dark:bg-neutral-800 rounded-lg cursor-pointer"
             />
+
+            {/* Live AMFI Mutual Fund Selector Accordion */}
+            <div className="pt-1">
+              <button
+                type="button"
+                onClick={() => setShowMfPicker(!showMfPicker)}
+                className="w-full p-2.5 rounded-xl bg-accent/5 hover:bg-accent/10 border border-accent/20 flex items-center justify-between text-xs text-accent font-bold transition-colors"
+              >
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-3.5 h-3.5 text-accent" />
+                  <span>
+                    {selectedScheme
+                      ? `Fund Selected: ${selectedScheme.schemeName.slice(0, 32)}...`
+                      : '⚡ Choose Live Mutual Fund (AMFI Live NAV & CAGR)'}
+                  </span>
+                </div>
+                {showMfPicker ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+
+              {showMfPicker && (
+                <div className="mt-3 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/80 dark:border-neutral-700/80 space-y-3.5 animate-in fade-in duration-200">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                      Search 45,000+ Indian Mutual Funds (Live AMFI API)
+                    </span>
+                    {selectedScheme && (
+                      <button
+                        type="button"
+                        onClick={() => setSelectedScheme(null)}
+                        className="text-[10px] text-neutral-400 hover:text-rose-500"
+                      >
+                        Clear Selection
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="relative">
+                    <Search className="w-4 h-4 absolute left-3 top-2.5 text-neutral-400" />
+                    <input
+                      type="text"
+                      placeholder="Search fund (e.g. Parag Parikh, SBI Small Cap, HDFC)..."
+                      value={mfSearchQuery}
+                      onChange={e => setMfSearchQuery(e.target.value)}
+                      className="w-full pl-9 pr-8 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-accent"
+                    />
+                    {mfLoading && (
+                      <Loader2 className="w-3.5 h-3.5 text-accent animate-spin absolute right-3 top-2.5" />
+                    )}
+                  </div>
+
+                  {/* Fund Scheme Search Results List */}
+                  <div className="max-h-40 overflow-y-auto space-y-1.5 pr-1 text-xs">
+                    {mfSearchResults.slice(0, 8).map(scheme => (
+                      <div
+                        key={scheme.schemeCode}
+                        onClick={() => handleSelectScheme(scheme.schemeCode)}
+                        className={`p-2.5 rounded-xl border transition-colors cursor-pointer flex items-center justify-between gap-2 ${
+                          selectedScheme?.schemeCode === scheme.schemeCode
+                            ? 'bg-accent/10 border-accent text-accent font-bold'
+                            : 'bg-white dark:bg-neutral-900 border-neutral-200/80 dark:border-neutral-700/60 hover:border-accent/40 text-neutral-700 dark:text-neutral-300'
+                        }`}
+                      >
+                        <div className="truncate flex-1">
+                          <p className="truncate font-medium">{scheme.schemeName}</p>
+                        </div>
+                        {selectedScheme?.schemeCode === scheme.schemeCode ? (
+                          <Check className="w-4 h-4 text-accent shrink-0" />
+                        ) : (
+                          <span className="text-[10px] text-neutral-400 shrink-0">Select</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Selected Scheme Live NAV & Returns Card */}
+                  {mfDetailLoading && (
+                    <div className="flex items-center justify-center py-4 gap-2 text-xs text-accent">
+                      <Loader2 className="w-4 h-4 animate-spin" /> Fetching latest AMFI NAV & CAGR...
+                    </div>
+                  )}
+
+                  {selectedScheme && !mfDetailLoading && (
+                    <div className="p-3.5 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 space-y-2.5">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <p className="font-bold text-xs text-neutral-900 dark:text-white">
+                            {selectedScheme.schemeName}
+                          </p>
+                          <p className="text-[10px] text-neutral-500">
+                            {selectedScheme.fundHouse} • {selectedScheme.category}
+                          </p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-sm font-black text-emerald-600 dark:text-emerald-400 font-mono">
+                            ₹{selectedScheme.latestNav.toFixed(2)}
+                          </p>
+                          <p className="text-[9px] text-neutral-400">NAV on {selectedScheme.navDate}</p>
+                        </div>
+                      </div>
+
+                      {/* Historical CAGR Return Chips */}
+                      <div className="flex items-center gap-2 pt-1 border-t border-neutral-100 dark:border-neutral-800 text-xs">
+                        <span className="text-[10px] font-bold text-neutral-400 uppercase">Apply CAGR:</span>
+                        {selectedScheme.cagr1y && (
+                          <button
+                            type="button"
+                            onClick={() => setExpectedRate(selectedScheme.cagr1y!)}
+                            className="px-2 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800 text-[11px] font-mono hover:bg-accent hover:text-white transition-colors"
+                          >
+                            1Y: {selectedScheme.cagr1y}%
+                          </button>
+                        )}
+                        {selectedScheme.cagr3y && (
+                          <button
+                            type="button"
+                            onClick={() => setExpectedRate(selectedScheme.cagr3y!)}
+                            className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[11px] font-mono font-bold hover:bg-emerald-600 hover:text-white transition-colors"
+                          >
+                            3Y: {selectedScheme.cagr3y}%
+                          </button>
+                        )}
+                        {selectedScheme.cagr5y && (
+                          <button
+                            type="button"
+                            onClick={() => setExpectedRate(selectedScheme.cagr5y!)}
+                            className="px-2 py-0.5 rounded-md bg-accent/10 text-accent text-[11px] font-mono font-bold hover:bg-accent hover:text-white transition-colors"
+                          >
+                            5Y: {selectedScheme.cagr5y}%
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* 3. Time Period */}
