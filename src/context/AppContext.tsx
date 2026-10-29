@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { AccentColor, CalculationHistoryItem, CategoryId, ThemeMode, ViewMode } from '../types';
+import { AccentColor, CalculationHistoryItem, SavedVaultItem, CategoryId, ThemeMode, ViewMode } from '../types';
 import { AdminSection } from '../types/admin';
 import { getToolBySlug } from '../data/toolsRegistry';
 import { updateSeoMetadata, getPathForView } from '../utils/seo';
@@ -44,6 +44,10 @@ interface AppContextType {
   calculationHistory: CalculationHistoryItem[];
   addCalculationHistory: (item: Omit<CalculationHistoryItem, 'id' | 'timestamp'>) => void;
   clearHistory: () => void;
+  savedVaultItems: SavedVaultItem[];
+  saveToVault: (item: Omit<SavedVaultItem, 'id' | 'timestamp'>) => void;
+  deleteFromVault: (id: string) => void;
+  exportVaultToCsv: () => void;
   isCommandPaletteOpen: boolean;
   setCommandPaletteOpen: (open: boolean) => void;
   toast: ToastState | null;
@@ -256,6 +260,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
+  const [savedVaultItems, setSavedVaultItems] = useState<SavedVaultItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('bu_saved_vault');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
   // Command palette & Toast
   const [isCommandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
@@ -301,6 +314,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     localStorage.setItem('bu_calc_history', JSON.stringify(calculationHistory));
   }, [calculationHistory]);
+
+  useEffect(() => {
+    localStorage.setItem('bu_saved_vault', JSON.stringify(savedVaultItems));
+  }, [savedVaultItems]);
 
   // Global Keyboard Shortcuts (Ctrl+K / Cmd+K)
   useEffect(() => {
@@ -513,6 +530,47 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('Calculation history cleared', 'info');
   };
 
+  const saveToVault = (item: Omit<SavedVaultItem, 'id' | 'timestamp'>) => {
+    const newItem: SavedVaultItem = {
+      ...item,
+      id: Math.random().toString(36).substring(2, 9),
+      timestamp: Date.now()
+    };
+    setSavedVaultItems(prev => [newItem, ...prev]);
+    showToast(`Saved "${item.customName}" to Personal Vault!`, 'success');
+  };
+
+  const deleteFromVault = (id: string) => {
+    setSavedVaultItems(prev => prev.filter(v => v.id !== id));
+    showToast('Item removed from Vault', 'info');
+  };
+
+  const exportVaultToCsv = () => {
+    if (savedVaultItems.length === 0) {
+      showToast('Vault is empty. Save calculations first!', 'info');
+      return;
+    }
+    const headers = ['Custom Name', 'Tool Name', 'Date', 'Summary', 'Parameters'];
+    const rows = savedVaultItems.map(item => [
+      `"${(item.customName || '').replace(/"/g, '""')}"`,
+      `"${(item.toolName || '').replace(/"/g, '""')}"`,
+      `"${new Date(item.timestamp).toLocaleDateString('en-IN')}"`,
+      `"${(item.summary || '').replace(/"/g, '""')}"`,
+      `"${JSON.stringify(item.params || {}).replace(/"/g, '""')}"`
+    ]);
+    const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `BharatUtility_Vault_Export_${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showToast('Personal Vault exported to CSV!', 'success');
+  };
+
   const showToast = (message: string, type: 'success' | 'info' | 'error' = 'success') => {
     const id = Math.random().toString(36).substring(2, 9);
     setToast({ id, message, type });
@@ -566,6 +624,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         calculationHistory,
         addCalculationHistory,
         clearHistory,
+        savedVaultItems,
+        saveToVault,
+        deleteFromVault,
+        exportVaultToCsv,
         isCommandPaletteOpen,
         setCommandPaletteOpen,
         toast,

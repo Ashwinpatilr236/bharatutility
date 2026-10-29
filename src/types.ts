@@ -111,6 +111,18 @@ export interface CalculationHistoryItem {
   params: Record<string, any>;
 }
 
+export interface SavedVaultItem {
+  id: string;
+  customName: string;
+  toolId: string;
+  toolName: string;
+  toolSlug: string;
+  timestamp: number;
+  summary: string;
+  params: Record<string, any>;
+  notes?: string;
+}
+
 export type ViewMode =
   | { type: 'home' }
   | { type: 'tool'; slug: string }

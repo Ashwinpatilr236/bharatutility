@@ -73,8 +73,13 @@ const POPULAR_TOLL_ROUTES = [
   { route: 'Bengaluru to Chennai (NH-48)', distanceKm: 345, tollPlazas: 5, fastagCarSingle: 460, fastagReturn: 690, expressWay: 'NH-48 & Expressway' },
   { route: 'Delhi to Agra (Yamuna Expressway)', distanceKm: 210, tollPlazas: 3, fastagCarSingle: 435, fastagReturn: 690, expressWay: 'Yamuna Expressway' },
   { route: 'Lucknow to Agra (Agra-Lucknow Expressway)', distanceKm: 302, tollPlazas: 2, fastagCarSingle: 655, fastagReturn: 1045, expressWay: 'Agra-Lucknow Expressway' },
+  { route: 'Delhi to Mumbai Expressway (Sohna to Dausa)', distanceKm: 246, tollPlazas: 3, fastagCarSingle: 500, fastagReturn: 750, expressWay: 'Delhi-Mumbai Expressway (NE-4)' },
+  { route: 'Bengaluru to Mysuru (NH-275)', distanceKm: 118, tollPlazas: 2, fastagCarSingle: 320, fastagReturn: 480, expressWay: 'Bengaluru-Mysuru Access Controlled' },
+  { route: 'Mumbai to Nagpur (Samruddhi Mahamarg)', distanceKm: 600, tollPlazas: 6, fastagCarSingle: 1040, fastagReturn: 1560, expressWay: 'Samruddhi Mahamarg' },
   { route: 'Hyderabad to Vijayawada (NH-65)', distanceKm: 275, tollPlazas: 4, fastagCarSingle: 380, fastagReturn: 570, expressWay: 'NH-65' },
   { route: 'Ahmedabad to Vadodara (NE-1)', distanceKm: 93, tollPlazas: 1, fastagCarSingle: 135, fastagReturn: 200, expressWay: 'National Expressway 1' },
+  { route: 'Kolkata to Durgapur (NH-19)', distanceKm: 170, tollPlazas: 3, fastagCarSingle: 240, fastagReturn: 360, expressWay: 'Durgapur Expressway' },
+  { route: 'Chandigarh to Delhi (NH-44)', distanceKm: 245, tollPlazas: 4, fastagCarSingle: 390, fastagReturn: 585, expressWay: 'NH-44 Panipat Expressway' },
 ];
 
 // MVA Traffic Violations
@@ -109,9 +114,12 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
   const [hraCityCategory, setHraCityCategory] = useState<'x' | 'y' | 'z'>('x'); // X: 30%, Y: 20%, Z: 10%
   const [fitmentFactor, setFitmentFactor] = useState<number>(2.86);
 
-  // 3. FASTag State
+  // 3. FASTag & Trip Planner State
   const [selectedRouteIdx, setSelectedRouteIdx] = useState<number>(0);
   const [tripType, setTripType] = useState<'single' | 'return'>('single');
+  const [vehicleMileage, setVehicleMileage] = useState<number>(15);
+  const [fuelPricePerLitre, setFuelPricePerLitre] = useState<number>(96);
+  const [passengerCount, setPassengerCount] = useState<number>(1);
 
   // 4. Panchang State
   const [panchangCity, setPanchangCity] = useState<string>('Delhi');
@@ -540,77 +548,185 @@ export const IndianGovtAndCivicExpansionSuite: React.FC<Props> = ({
           </div>
         )}
 
-        {/* 3. NHAI FASTag Toll Estimator */}
-        {activeTab === 'fastag-toll' && (
-          <div className="space-y-6">
-            <div className="border-b border-neutral-200 dark:border-neutral-800 pb-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-2">
-                <span>NHAI Bharat Highway Toll Plaza Directory</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white font-display">
-                NHAI FASTag Highway Toll Rate & Route Trip Estimator
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-                Check total toll plazas, single and return FASTag car/jeep charges, and highway distance across major Indian corridors.
-              </p>
-            </div>
+        {/* 3. NHAI FASTag Toll & Trip Fuel Estimator */}
+        {activeTab === 'fastag-toll' && (() => {
+          const currRoute = POPULAR_TOLL_ROUTES[selectedRouteIdx] || POPULAR_TOLL_ROUTES[0];
+          const isReturn = tripType === 'return';
+          const effectiveDistance = isReturn ? currRoute.distanceKm * 2 : currRoute.distanceKm;
+          const effectiveToll = isReturn ? currRoute.fastagReturn : currRoute.fastagCarSingle;
+          const litresNeeded = vehicleMileage > 0 ? effectiveDistance / vehicleMileage : 0;
+          const fuelExpense = Math.round(litresNeeded * fuelPricePerLitre);
+          const totalTripCost = effectiveToll + fuelExpense;
+          const perPersonCost = Math.round(totalTripCost / Math.max(1, passengerCount));
 
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {POPULAR_TOLL_ROUTES.map((rt, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedRouteIdx(idx)}
-                    className={`p-4 rounded-2xl text-left border transition-all ${
-                      selectedRouteIdx === idx
-                        ? 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-500 ring-2 ring-emerald-500/20'
-                        : 'bg-neutral-50 dark:bg-neutral-800/50 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100'
-                    }`}
-                  >
-                    <div className="text-xs font-bold text-neutral-900 dark:text-white font-display">
-                      {rt.route}
-                    </div>
-                    <div className="text-[11px] text-neutral-500 mt-1">
-                      {rt.distanceKm} km • {rt.tollPlazas} Toll Plazas
-                    </div>
-                    <div className="text-xs font-black text-emerald-600 mt-2 font-mono">
-                      ₹{rt.fastagCarSingle} FASTag
-                    </div>
-                  </button>
-                ))}
+          return (
+            <div className="space-y-6">
+              <div className="border-b border-neutral-200 dark:border-neutral-800 pb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-2">
+                  <span>NHAI Bharat Highway Toll & Trip Cost Estimator</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white font-display">
+                  NHAI FASTag Highway Toll & Fuel Trip Planner
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+                  Select highway route, configure vehicle mileage & fuel price to compute total highway trip budget with passenger cost-split.
+                </p>
               </div>
 
-              {/* Selected Route Detail */}
-              {POPULAR_TOLL_ROUTES[selectedRouteIdx] && (
-                <div className="p-6 rounded-3xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+              {/* Highway Route Selector */}
+              <div>
+                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-2 uppercase tracking-wider">
+                  Select Highway Corridor ({POPULAR_TOLL_ROUTES.length} Popular Expressways)
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-72 overflow-y-auto p-1 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50/50 dark:bg-neutral-900/50">
+                  {POPULAR_TOLL_ROUTES.map((rt, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedRouteIdx(idx)}
+                      className={`p-3.5 rounded-xl text-left border transition-all ${
+                        selectedRouteIdx === idx
+                          ? 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-500 ring-2 ring-emerald-500/20'
+                          : 'bg-white dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-700/50'
+                      }`}
+                    >
+                      <div className="text-xs font-bold text-neutral-900 dark:text-white font-display">
+                        {rt.route}
+                      </div>
+                      <div className="text-[11px] text-neutral-500 mt-1">
+                        {rt.distanceKm} km • {rt.tollPlazas} Toll Plazas
+                      </div>
+                      <div className="text-xs font-black text-emerald-600 dark:text-emerald-400 mt-1 font-mono">
+                        ₹{rt.fastagCarSingle} FASTag
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Trip Controls & Vehicle Parameters */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700">
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Trip Type
+                  </label>
+                  <div className="grid grid-cols-2 gap-1.5 p-1 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-300 dark:border-neutral-700">
+                    <button
+                      type="button"
+                      onClick={() => setTripType('single')}
+                      className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
+                        !isReturn
+                          ? 'bg-emerald-600 text-white shadow-xs'
+                          : 'text-neutral-600 dark:text-neutral-400'
+                      }`}
+                    >
+                      Single
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setTripType('return')}
+                      className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
+                        isReturn
+                          ? 'bg-emerald-600 text-white shadow-xs'
+                          : 'text-neutral-600 dark:text-neutral-400'
+                      }`}
+                    >
+                      24h Return
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Mileage (km/L)
+                  </label>
+                  <input
+                    type="number"
+                    min="5"
+                    max="45"
+                    value={vehicleMileage}
+                    onChange={(e) => setVehicleMileage(Math.max(1, Number(e.target.value)))}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 font-bold text-sm text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Fuel Price (₹/L)
+                  </label>
+                  <input
+                    type="number"
+                    min="50"
+                    max="200"
+                    value={fuelPricePerLitre}
+                    onChange={(e) => setFuelPricePerLitre(Math.max(1, Number(e.target.value)))}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 font-bold text-sm text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Passengers (Split)
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    value={passengerCount}
+                    onChange={(e) => setPassengerCount(Math.max(1, Number(e.target.value)))}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 font-bold text-sm text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+              </div>
+
+              {/* Trip Cost Summary Hero Card */}
+              <div className="p-6 rounded-3xl bg-neutral-900 dark:bg-black text-white border border-neutral-800 shadow-xl space-y-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-neutral-800 pb-4">
                   <div>
-                    <h3 className="text-base font-bold text-neutral-900 dark:text-white font-display">
-                      {POPULAR_TOLL_ROUTES[selectedRouteIdx].route}
+                    <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Active Highway Itinerary</span>
+                    <h3 className="text-lg sm:text-xl font-bold font-display text-white mt-0.5">
+                      {currRoute.route} ({isReturn ? 'Round Trip • 24h Return' : 'One Way'})
                     </h3>
-                    <p className="text-xs text-neutral-500 mt-0.5">
-                      Highway: {POPULAR_TOLL_ROUTES[selectedRouteIdx].expressWay}
+                    <p className="text-xs text-neutral-400 mt-0.5">
+                      {currRoute.expressWay} • {effectiveDistance} km total • {currRoute.tollPlazas} Plazas
                     </p>
                   </div>
 
-                  <div className="flex gap-4">
-                    <div className="text-center">
-                      <span className="text-[10px] text-neutral-500">Single Journey</span>
-                      <div className="text-xl font-black font-mono text-emerald-600">
-                        ₹{POPULAR_TOLL_ROUTES[selectedRouteIdx].fastagCarSingle}
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <span className="text-[10px] text-neutral-500">Return (within 24h)</span>
-                      <div className="text-xl font-black font-mono text-neutral-900 dark:text-white">
-                        ₹{POPULAR_TOLL_ROUTES[selectedRouteIdx].fastagReturn}
-                      </div>
-                    </div>
+                  <div className="text-right self-end sm:self-auto">
+                    <span className="text-xs text-neutral-400 block uppercase">Total Trip Expense</span>
+                    <span className="text-3xl sm:text-4xl font-black font-mono text-emerald-400">
+                      ₹{totalTripCost.toLocaleString('en-IN')}
+                    </span>
                   </div>
                 </div>
-              )}
+
+                {/* Breakdown Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                  <div className="p-3 rounded-xl bg-neutral-800/60 border border-neutral-700/60">
+                    <span className="text-[11px] text-neutral-400 block">FASTag Toll</span>
+                    <span className="text-lg font-bold font-mono text-white">₹{effectiveToll}</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-neutral-800/60 border border-neutral-700/60">
+                    <span className="text-[11px] text-neutral-400 block">Fuel Cost</span>
+                    <span className="text-lg font-bold font-mono text-amber-400">₹{fuelExpense}</span>
+                    <span className="text-[10px] text-neutral-500 block">({litresNeeded.toFixed(1)} Litres)</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-neutral-800/60 border border-neutral-700/60">
+                    <span className="text-[11px] text-neutral-400 block">Total Distance</span>
+                    <span className="text-lg font-bold font-mono text-white">{effectiveDistance} km</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-800/60">
+                    <span className="text-[11px] text-emerald-300 block">Per Person Share</span>
+                    <span className="text-lg font-bold font-mono text-emerald-400">₹{perPersonCost}</span>
+                    <span className="text-[10px] text-emerald-500/80 block">({passengerCount} People)</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* 4. Live Panchang & Choghadiya */}
         {activeTab === 'panchang-muhurat' && (

@@ -165,6 +165,16 @@ export const LegalAndCitizenRightsCalculator: React.FC<Props> = ({
   const [rtiAddress, setRtiAddress] = useState('Flat 402, Greenfield Apts, Sector 12, New Delhi - 110075');
   const [rtiLang, setRtiLang] = useState<'en' | 'hi'>('en');
 
+  // 1930 & UPI Dispute Letter Form State
+  const [disputeName, setDisputeName] = useState('Ashwin Patil');
+  const [disputeBank, setDisputeBank] = useState('State Bank of India');
+  const [disputeAccount, setDisputeAccount] = useState('XXXX1234');
+  const [disputeAmount, setDisputeAmount] = useState<number>(5000);
+  const [disputeUtr, setDisputeUtr] = useState('412345678901');
+  const [disputeType, setDisputeType] = useState('Wrong UPI Transfer (Incorrect VPA/Phone)');
+  const [disputeBeneficiary, setDisputeBeneficiary] = useState('recipient@upi');
+  const [copiedDispute, setCopiedDispute] = useState(false);
+
   // Blood Group State
   const [selectedBlood, setSelectedBlood] = useState('O+');
 
@@ -595,6 +605,150 @@ Signature: ____________________`;
                 <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                   <strong>NO Police, CBI, or ED conducts arrest over Skype/WhatsApp video calls.</strong> There is no legal provision for "Digital Arrest" under Indian Law.
                 </p>
+              </div>
+            </div>
+
+            {/* Interactive Formal Bank Dispute & Chargeback Letter Generator */}
+            <div className="p-6 rounded-3xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 space-y-6">
+              <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-700 pb-3">
+                <div>
+                  <h3 className="text-base font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+                    Formal Bank Dispute & Chargeback Notice Generator
+                  </h3>
+                  <p className="text-xs text-neutral-500 mt-0.5">
+                    Generate an official notice citing RBI Zero Liability circular to submit to your Bank Manager & Nodal Officer.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Your Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={disputeName}
+                    onChange={(e) => setDisputeName(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Your Bank Name
+                  </label>
+                  <input
+                    type="text"
+                    value={disputeBank}
+                    onChange={(e) => setDisputeBank(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Bank Account Number
+                  </label>
+                  <input
+                    type="text"
+                    value={disputeAccount}
+                    onChange={(e) => setDisputeAccount(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Disputed Amount (₹)
+                  </label>
+                  <input
+                    type="number"
+                    value={disputeAmount}
+                    onChange={(e) => setDisputeAmount(Number(e.target.value))}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    12-Digit UTR / Transaction Ref No.
+                  </label>
+                  <input
+                    type="text"
+                    value={disputeUtr}
+                    onChange={(e) => setDisputeUtr(e.target.value)}
+                    placeholder="e.g. 412345678901"
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Dispute Reason
+                  </label>
+                  <select
+                    value={disputeType}
+                    onChange={(e) => setDisputeType(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-medium text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-rose-500"
+                  >
+                    <option value="Wrong UPI Transfer (Incorrect VPA/Phone)">Wrong UPI Transfer (Incorrect VPA/Phone)</option>
+                    <option value="Phishing / Fake Customer Care / OTP Fraud">Phishing / Fake Customer Care / OTP Fraud</option>
+                    <option value="Fake Video Call / Digital Arrest Extortion">Fake Video Call / Digital Arrest Extortion</option>
+                    <option value="Unauthorized Debit / Card Skimming">Unauthorized Debit / Card Skimming</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Generated Formal Letter Display */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">
+                    Generated RBI Complaint Letter
+                  </span>
+                  <button
+                    onClick={() => {
+                      const letter = `To,
+The Branch Manager / Nodal Grievance Officer,
+${disputeBank}
+
+Subject: Urgent Request for Fund Recall / Dispute under RBI Limited Liability Circular for Fraudulent Electronic Transaction
+
+Respected Sir/Madam,
+
+I am an account holder maintaining Account No: ${disputeAccount} with ${disputeBank}. I am writing to formally report an unauthorized / disputed electronic fund transfer of ₹${disputeAmount.toLocaleString('en-IN')} that occurred recently.
+
+Transaction Summary:
+- Disputed Amount: ₹${disputeAmount.toLocaleString('en-IN')}
+- UTR / RRN Reference: ${disputeUtr}
+- Nature of Dispute: ${disputeType}
+- Target Beneficiary: ${disputeBeneficiary}
+
+As per the Reserve Bank of India (RBI) Circular on "Customer Protection – Limiting Liability of Customers in Unauthorised Electronic Banking Transactions" (Ref: DBR.No.Leg.BC.78/09.07.005/2017-18):
+1. I am notifying the bank within the mandatory zero-liability reporting window.
+2. I request you to urgently coordinate with NPCI and the beneficiary bank to freeze the recipient account and recall the transferred funds.
+3. I have also reported this incident to the National Cybercrime Reporting Portal (Helpline: 1930 / cybercrime.gov.in).
+
+Kindly register this formal grievance, issue me with a Docket / Complaint Reference Number, and reverse the disputed transaction at the earliest.
+
+Yours sincerely,
+${disputeName}
+Date: ${new Date().toLocaleDateString('en-IN')}`;
+                      navigator.clipboard.writeText(letter);
+                      setCopiedDispute(true);
+                      setTimeout(() => setCopiedDispute(false), 2000);
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs"
+                  >
+                    {copiedDispute ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedDispute ? 'Letter Copied!' : 'Copy Dispute Letter'}</span>
+                  </button>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 font-mono text-xs text-neutral-800 dark:text-neutral-200 whitespace-pre-line leading-relaxed max-h-60 overflow-y-auto">
+                  {`To,\nThe Branch Manager / Nodal Grievance Officer,\n${disputeBank}\n\nSubject: Urgent Request for Fund Recall / Dispute under RBI Limited Liability Circular for Fraudulent Electronic Transaction\n\nRespected Sir/Madam,\n\nI am an account holder maintaining Account No: ${disputeAccount} with ${disputeBank}. I am writing to formally report an unauthorized / disputed electronic fund transfer of ₹${disputeAmount.toLocaleString('en-IN')}.\n\nTransaction Summary:\n- Disputed Amount: ₹${disputeAmount.toLocaleString('en-IN')}\n- UTR / RRN Reference: ${disputeUtr}\n- Nature of Dispute: ${disputeType}\n\nAs per the Reserve Bank of India (RBI) Circular on "Customer Protection – Limiting Liability in Unauthorised Electronic Banking Transactions" (Ref: DBR.No.Leg.BC.78/09.07.005/2017-18):\n1. I am notifying the bank within the mandatory zero-liability reporting window.\n2. I request you to urgently coordinate with NPCI and the beneficiary bank to freeze recipient funds and initiate a recall.\n3. Incident is also reported on National Cybercrime Helpline 1930.\n\nYours sincerely,\n${disputeName}\nDate: ${new Date().toLocaleDateString('en-IN')}`}
+                </div>
               </div>
             </div>
           </div>

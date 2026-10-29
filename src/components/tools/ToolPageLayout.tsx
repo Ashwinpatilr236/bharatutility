@@ -140,6 +140,8 @@ const CarIdvCalculator = React.lazy(() => import('../calculators/CarIdvCalculato
 
 
 
+import { downloadCalculationReportPdf } from '../../utils/pdfReportGenerator';
+
 import {
   Star,
   Share2,
@@ -154,7 +156,9 @@ import {
   Compass,
   Search,
   ArrowRight,
-  MessageCircle
+  MessageCircle,
+  FileDown,
+  BookmarkPlus
 } from 'lucide-react';
 
 interface ToolPageLayoutProps {
@@ -166,6 +170,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
     isFavorite,
     toggleFavorite,
     addCalculationHistory,
+    saveToVault,
     showToast,
     navigateToHome,
     navigateToCategory,
@@ -175,6 +180,10 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
   } = useApp();
 
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isVaultModalOpen, setIsVaultModalOpen] = useState(false);
+  const [vaultCustomName, setVaultCustomName] = useState('');
+  const [currentParams, setCurrentParams] = useState<Record<string, any>>({});
+  const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
   const [calculationSummary, setCalculationSummary] = useState<string>('');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
@@ -183,6 +192,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
   const handleResultChange = (summary: string, params: Record<string, any>) => {
     setCalculationSummary(summary);
+    if (params) setCurrentParams(params);
     addCalculationHistory({
       toolId: tool.id,
       toolName: tool.name,
@@ -222,6 +232,53 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleDownloadPdf = async () => {
+    if (!calculationSummary) {
+      showToast('Perform a calculation first to generate PDF', 'info');
+      return;
+    }
+    setIsDownloadingPdf(true);
+    try {
+      await downloadCalculationReportPdf({
+        toolName: tool.name,
+        toolTagline: tool.tagline,
+        calculationSummary,
+        inputParameters: currentParams,
+        notes: tool.formulaDescription
+      });
+      showToast('Official PDF Report downloaded!', 'success');
+    } catch (err) {
+      console.error('PDF error:', err);
+      showToast('Failed to download PDF. Try printing instead.', 'error');
+    } finally {
+      setIsDownloadingPdf(false);
+    }
+  };
+
+  const handleOpenVaultModal = () => {
+    if (!calculationSummary) {
+      showToast('Perform a calculation first to save to Vault', 'info');
+      return;
+    }
+    const defaultLabel = `${tool.name} - ${new Date().toLocaleDateString('en-IN')}`;
+    setVaultCustomName(defaultLabel);
+    setIsVaultModalOpen(true);
+  };
+
+  const handleConfirmSaveVault = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!vaultCustomName.trim()) return;
+    saveToVault({
+      customName: vaultCustomName.trim(),
+      toolId: tool.id,
+      toolName: tool.name,
+      toolSlug: tool.slug,
+      summary: calculationSummary,
+      params: currentParams
+    });
+    setIsVaultModalOpen(false);
   };
 
   // Dynamic 3-6 Related Tools (never empty, fallback to category/popular)
@@ -1031,14 +1088,35 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
             </button>
 
             {calculationSummary && (
-              <button
-                onClick={copyResultSnapshot}
-                className="p-2.5 rounded-xl border bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-all"
-                title="Copy calculated result"
-              >
-                <Copy className="w-4 h-4" />
-                <span className="hidden sm:inline">Copy Result</span>
-              </button>
+              <>
+                <button
+                  onClick={copyResultSnapshot}
+                  className="p-2.5 rounded-xl border bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  title="Copy calculated result"
+                >
+                  <Copy className="w-4 h-4" />
+                  <span className="hidden sm:inline">Copy Result</span>
+                </button>
+
+                <button
+                  onClick={handleDownloadPdf}
+                  disabled={isDownloadingPdf}
+                  className="p-2.5 rounded-xl border bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800/60 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  title="Download official PDF calculation report"
+                >
+                  <FileDown className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+                  <span className="hidden sm:inline">{isDownloadingPdf ? 'Generating...' : 'PDF Report'}</span>
+                </button>
+
+                <button
+                  onClick={handleOpenVaultModal}
+                  className="p-2.5 rounded-xl border bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/60 hover:bg-amber-100 dark:hover:bg-amber-900/50 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  title="Save this calculation scenario to Personal Vault"
+                >
+                  <BookmarkPlus className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  <span className="hidden sm:inline">Save Scenario</span>
+                </button>
+              </>
             )}
 
             <button
@@ -1327,6 +1405,51 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
       />
+
+      {/* Save Scenario to Vault Modal */}
+      {isVaultModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="bg-white dark:bg-neutral-900 w-full max-w-sm rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-800 p-6 space-y-4">
+            <h3 className="text-base font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+              <BookmarkPlus className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              Save Scenario to Vault
+            </h3>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              Give this calculation a memorable label so you can reload or compare it anytime.
+            </p>
+            <form onSubmit={handleConfirmSaveVault} className="space-y-4">
+              <div>
+                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                  Scenario Label
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={vaultCustomName}
+                  onChange={(e) => setVaultCustomName(e.target.value)}
+                  placeholder="e.g. SBI 25L Home Loan @ 8.5%"
+                  className="w-full px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-sm font-medium text-neutral-900 dark:text-white outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+              </div>
+              <div className="flex items-center justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsVaultModalOpen(false)}
+                  className="px-3 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-xs transition-all"
+                >
+                  Save to Vault
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
