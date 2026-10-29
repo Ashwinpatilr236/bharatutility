@@ -153,7 +153,8 @@ import {
   BookOpen,
   Compass,
   Search,
-  ArrowRight
+  ArrowRight,
+  MessageCircle
 } from 'lucide-react';
 
 interface ToolPageLayoutProps {
@@ -189,6 +190,25 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       summary,
       params
     });
+
+    // Dynamically synchronize calculation inputs to URL query parameters for instant sharability
+    if (typeof window !== 'undefined' && params && Object.keys(params).length > 0) {
+      try {
+        const url = new URL(window.location.href);
+        let changed = false;
+        Object.entries(params).forEach(([key, val]) => {
+          if (val !== undefined && val !== null && val !== '') {
+            url.searchParams.set(key, String(val));
+            changed = true;
+          }
+        });
+        if (changed) {
+          window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+        }
+      } catch {
+        // Safe fallback in non-standard browser contexts
+      }
+    }
   };
 
   const copyResultSnapshot = () => {
@@ -993,6 +1013,21 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
             >
               <Share2 className="w-4 h-4 text-accent" />
               <span className="hidden sm:inline">Share</span>
+            </button>
+
+            <button
+              onClick={() => {
+                const shareText = calculationSummary
+                  ? `${tool.name} Calculation:\n${calculationSummary}\n\nView details on BharatUtility:`
+                  : `Check out ${tool.name} on BharatUtility:`;
+                const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${shareText}\n${window.location.href}`)}`;
+                window.open(waUrl, '_blank', 'noopener,noreferrer');
+              }}
+              className="p-2.5 rounded-xl border bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-xs font-semibold flex items-center gap-1.5 transition-all"
+              title="Share on WhatsApp"
+            >
+              <MessageCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span className="hidden sm:inline">WhatsApp</span>
             </button>
 
             {calculationSummary && (

@@ -43,9 +43,49 @@ export default defineConfig(() => {
             if (id.includes('src/data/contentRegistry.ts')) {
               return 'data-content';
             }
-            // Group the calculator components so they don't pollute the main index chunk
+            // Group calculator components by functional domains for optimal caching and fast mobile load
             if (id.includes('src/components/calculators/')) {
-              return 'calculators';
+              if (
+                id.includes('Emi') ||
+                id.includes('Sip') ||
+                id.includes('Fd') ||
+                id.includes('Salary') ||
+                id.includes('Finance') ||
+                id.includes('Tax') ||
+                id.includes('Tds') ||
+                id.includes('Cagr') ||
+                id.includes('Xirr') ||
+                id.includes('Lumpsum') ||
+                id.includes('Swp')
+              ) {
+                return 'calculators-money';
+              }
+              if (
+                id.includes('Government') ||
+                id.includes('Official') ||
+                id.includes('Legal') ||
+                id.includes('Ayushman') ||
+                id.includes('Citizen')
+              ) {
+                return 'calculators-gov';
+              }
+              if (
+                id.includes('Travel') ||
+                id.includes('Vehicle') ||
+                id.includes('Fuel') ||
+                id.includes('Ev')
+              ) {
+                return 'calculators-transit';
+              }
+              if (
+                id.includes('Document') ||
+                id.includes('Text') ||
+                id.includes('Svg') ||
+                id.includes('ExamPhoto')
+              ) {
+                return 'calculators-documents';
+              }
+              return 'calculators-utility';
             }
           },
         },
