@@ -1004,7 +1004,10 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
       />
 
       {/* Tool Header Banner */}
-      <div className="bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-neutral-200/90 dark:border-neutral-800/90 shadow-lg shadow-neutral-900/5 dark:shadow-black/40 relative overflow-hidden">
+      <div className="bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-neutral-200/90 dark:border-neutral-800/90 shadow-xl shadow-neutral-900/5 dark:shadow-black/40 relative overflow-hidden">
+        {/* Subtle Ambient Header Sheen */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-accent/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none rounded-full" />
+
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div className="flex items-start gap-4 sm:gap-5">
             <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-indigo-500/15 via-purple-500/10 to-indigo-600/20 text-accent dark:bg-neutral-800/80 flex items-center justify-center shrink-0 border border-neutral-200/90 dark:border-neutral-700/60 shadow-xs">
@@ -1016,6 +1019,14 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                 <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-neutral-900 dark:text-white font-display tracking-tight">
                   {tool.name}
                 </h1>
+                {category && (
+                  <button
+                    onClick={() => navigateToCategory(category.id)}
+                    className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 transition-colors cursor-pointer"
+                  >
+                    {category.name}
+                  </button>
+                )}
                 {tool.badge && (
                   <FloatingBadge duration={3} distance={3}>
                     <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
@@ -1023,10 +1034,10 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                     </span>
                   </FloatingBadge>
                 )}
-                {(['ifsc-code-finder', 'sip-calculator', 'currency-converter', 'crypto-inr-tax-calculator', 'pin-code-finder', 'aqi-weather-forecast', 'gold-silver-rate-calculator'].includes(tool.slug) || tool.slug.includes('ifsc') || tool.slug.includes('currency')) && (
+                {(['ifsc-code-finder', 'sip-calculator', 'currency-converter', 'crypto-inr-tax-calculator', 'pin-code-finder', 'aqi-weather-forecast', 'gold-silver-rate-calculator', 'daily-fuel-price-tracker'].includes(tool.slug) || tool.slug.includes('ifsc') || tool.slug.includes('currency')) && (
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold border border-emerald-500/20 shadow-2xs">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>Real-Time API</span>
+                    <span>Real-Time API Connected</span>
                   </span>
                 )}
               </div>
@@ -1048,17 +1059,16 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                       Source: {tool.officialSource}
                     </div>
                   )}
-
                 </div>
               )}
             </div>
           </div>
 
           {/* Action Bar */}
-          <div className="flex items-center gap-2 shrink-0 self-start md:self-auto">
+          <div className="flex items-center gap-2 shrink-0 self-start md:self-auto flex-wrap">
             <button
               onClick={() => toggleFavorite(tool.slug)}
-              className={`p-2.5 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-all ${
+              className={`p-2.5 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-all bu-card-hover cursor-pointer ${
                 fav
                   ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30'
                   : 'bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100'
@@ -1071,7 +1081,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
             <button
               onClick={() => setIsShareModalOpen(true)}
-              className="p-2.5 rounded-xl border bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-all"
+              className="p-2.5 rounded-xl border bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-all bu-card-hover cursor-pointer"
               title="Share this tool"
             >
               <Share2 className="w-4 h-4 text-accent" />
@@ -1086,7 +1096,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                 const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${shareText}\n${window.location.href}`)}`;
                 window.open(waUrl, '_blank', 'noopener,noreferrer');
               }}
-              className="p-2.5 rounded-xl border bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-xs font-semibold flex items-center gap-1.5 transition-all"
+              className="p-2.5 rounded-xl border bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-xs font-semibold flex items-center gap-1.5 transition-all bu-card-hover cursor-pointer"
               title="Share on WhatsApp"
             >
               <MessageCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
@@ -1097,7 +1107,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
               <>
                 <button
                   onClick={copyResultSnapshot}
-                  className="p-2.5 rounded-xl border bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  className="p-2.5 rounded-xl border bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-all bu-card-hover cursor-pointer"
                   title="Copy calculated result"
                 >
                   <Copy className="w-4 h-4" />
@@ -1107,16 +1117,16 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
                 <button
                   onClick={handleDownloadPdf}
                   disabled={isDownloadingPdf}
-                  className="p-2.5 rounded-xl border bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800/60 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  className="p-2.5 rounded-xl border bg-gradient-to-r from-rose-500 to-pink-600 text-white text-xs font-bold shadow-xs hover:from-rose-600 hover:to-pink-700 flex items-center gap-1.5 transition-all bu-card-hover cursor-pointer"
                   title="Download official PDF calculation report"
                 >
-                  <FileDown className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+                  <FileDown className="w-4 h-4" />
                   <span className="hidden sm:inline">{isDownloadingPdf ? 'Generating...' : 'PDF Report'}</span>
                 </button>
 
                 <button
                   onClick={handleOpenVaultModal}
-                  className="p-2.5 rounded-xl border bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/60 hover:bg-amber-100 dark:hover:bg-amber-900/50 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  className="p-2.5 rounded-xl border bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/60 hover:bg-amber-100 dark:hover:bg-amber-900/50 text-xs font-semibold flex items-center gap-1.5 transition-all bu-card-hover cursor-pointer"
                   title="Save this calculation scenario to Personal Vault"
                 >
                   <BookmarkPlus className="w-4 h-4 text-amber-600 dark:text-amber-400" />
@@ -1127,7 +1137,7 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
 
             <button
               onClick={handlePrint}
-              className="p-2.5 rounded-xl border bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-all"
+              className="p-2.5 rounded-xl border bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-all bu-card-hover cursor-pointer"
               title="Print page"
             >
               <Printer className="w-4 h-4" />
@@ -1135,6 +1145,58 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
           </div>
         </div>
       </div>
+
+      {/* Prominent Live Calculation Summary & Official Action Hub (Appears when calculated) */}
+      {calculationSummary && (
+        <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bu-result-highlight border border-emerald-500/35 shadow-lg shadow-emerald-500/5 animate-in fade-in slide-in-from-top-2 duration-200 space-y-3.5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[11px] uppercase font-extrabold tracking-wider text-emerald-700 dark:text-emerald-400">
+                  Computed Output Snapshot
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-500/20">
+                  Ready for Download
+                </span>
+              </div>
+              <p className="text-base sm:text-xl font-bold text-neutral-900 dark:text-white font-mono break-words leading-relaxed">
+                {calculationSummary}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <button
+                onClick={handleDownloadPdf}
+                disabled={isDownloadingPdf}
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-xs font-bold shadow-md shadow-rose-500/25 flex items-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                title="Download 1-Click Official PDF Report"
+              >
+                <FileDown className="w-4 h-4" />
+                <span>{isDownloadingPdf ? 'Creating Report...' : '1-Click PDF Report'}</span>
+              </button>
+
+              <button
+                onClick={handleOpenVaultModal}
+                className="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white text-xs font-bold shadow-md shadow-amber-500/25 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                title="Save Scenario with Custom Name to Personal Vault"
+              >
+                <BookmarkPlus className="w-4 h-4" />
+                <span>Save to Vault</span>
+              </button>
+
+              <button
+                onClick={copyResultSnapshot}
+                className="px-3 py-2.5 rounded-xl bg-white/90 dark:bg-neutral-800/90 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                title="Copy Calculation Snapshot"
+              >
+                <Copy className="w-3.5 h-3.5 text-accent" />
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Interactive Calculator Area */}
       <div id="calculator-workbench">

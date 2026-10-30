@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import { useAdminStore } from '../../hooks/useAdminStore';
 import { CATEGORIES } from '../../data/categories';
@@ -7,7 +7,7 @@ import { CategoryId } from '../../types';
 import { Breadcrumbs } from '../common/Breadcrumbs';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { Link } from '../common/Link';
-import { Star } from 'lucide-react';
+import { Star, Search, Layers, ArrowRight } from 'lucide-react';
 import { RequestToolCta } from '../common/RequestToolCta';
 import { AntigravityParticles } from '../common/AntigravityParticles';
 import { FloatingBadge } from '../common/FloatingBadge';
@@ -19,26 +19,41 @@ interface CategoryViewProps {
 
 export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
   useAdminStore();
-  const { isFavorite, toggleFavorite, navigateToHome, navigateToAllTools } = useApp();
+  const { isFavorite, toggleFavorite, navigateToHome, navigateToAllTools, navigateToCategory } = useApp();
 
   const category = CATEGORIES.find(c => c.id === categoryId) || CATEGORIES[0];
-  const tools = getToolsByCategory(categoryId);
+  const allCategoryTools = useMemo(() => getToolsByCategory(categoryId), [categoryId]);
 
-  const [visibleCount, React_useState] = React.useState(24);
+  const [query, setQuery] = useState('');
+  const [visibleCount, setVisibleCount] = useState(24);
+
+  // Filter tools by local query
+  const filteredTools = useMemo(() => {
+    if (!query.trim()) return allCategoryTools;
+    const q = query.toLowerCase();
+    return allCategoryTools.filter(t => 
+      t.name.toLowerCase().includes(q) ||
+      t.tagline.toLowerCase().includes(q) ||
+      t.description.toLowerCase().includes(q) ||
+      t.keywords.some(k => k.toLowerCase().includes(q))
+    );
+  }, [allCategoryTools, query]);
+
   const handleLoadMore = () => {
-    React_useState(prev => prev + 24);
+    setVisibleCount(prev => prev + 24);
   };
 
-  // Reset when category changes
+  // Reset pagination when category or query changes
   React.useEffect(() => {
-    React_useState(24);
+    setVisibleCount(24);
+    setQuery('');
   }, [categoryId]);
 
-  const currentTools = tools.slice(0, visibleCount);
-  const hasMore = visibleCount < tools.length;
+  const currentTools = filteredTools.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredTools.length;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-8 space-y-3.5 sm:space-y-8 animate-in fade-in duration-200 relative">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-8 space-y-4 sm:space-y-8 animate-in fade-in duration-200 relative">
       {/* Background Subtle Antigravity Ambient Light & Particles */}
       <AntigravityParticles className="opacity-35 dark:opacity-50" particleCount={25} />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[250px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full animate-antigravity-pulse" />
@@ -46,55 +61,118 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ categoryId }) => {
       {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
-          { label: 'Categories', href: '/categories', onClick: navigateToAllTools },
+          { label: 'All Tools', href: '/tools', onClick: navigateToAllTools },
           { label: category.name, active: true }
         ]}
       />
 
       {/* Category Header Hero */}
-      <div className="bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-10 border border-neutral-200/90 dark:border-neutral-800/90 shadow-lg shadow-neutral-900/5 dark:shadow-black/40 relative overflow-hidden">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 relative z-10">
-          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-indigo-500/15 via-purple-500/10 to-indigo-600/20 text-accent flex items-center justify-center shrink-0 border border-neutral-200/90 dark:border-neutral-700/60 shadow-xs">
-            <DynamicIcon name={category.icon} className="w-6 h-6 sm:w-8 sm:h-8" />
+      <div className="bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-5 sm:p-10 border border-neutral-200/90 dark:border-neutral-800/90 shadow-xl shadow-neutral-900/5 dark:shadow-black/40 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-accent/15 via-purple-500/5 to-transparent blur-3xl pointer-events-none rounded-full" />
+        
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 relative z-10">
+          <div className="flex items-start sm:items-center gap-4 sm:gap-5">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-indigo-500/15 via-purple-500/10 to-indigo-600/20 text-accent flex items-center justify-center shrink-0 border border-neutral-200/90 dark:border-neutral-700/60 shadow-xs">
+              <DynamicIcon name={category.icon} className="w-7 h-7 sm:w-8 sm:h-8" />
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display tracking-tight">
+                  {category.name}
+                </h1>
+                <FloatingBadge duration={3} distance={3}>
+                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
+                    {allCategoryTools.length} Utilities
+                  </span>
+                </FloatingBadge>
+              </div>
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
+                {category.description}
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white font-display">
-                {category.name}
-              </h1>
-              <FloatingBadge duration={3} distance={3}>
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
-                  {tools.length} Tools
-                </span>
-              </FloatingBadge>
-            </div>
-            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl">
-              {category.description}
-            </p>
-          </div>
+          <button
+            onClick={navigateToAllTools}
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-bold transition-all cursor-pointer shadow-2xs shrink-0"
+          >
+            <span>Explore All Categories</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Quick Sibling Category Switch Bar */}
+        <div className="mt-5 pt-4 border-t border-neutral-100 dark:border-neutral-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar relative z-10 text-xs">
+          <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider shrink-0 mr-1">Switch:</span>
+          {CATEGORIES.map(cat => {
+            const isCurrent = cat.id === categoryId;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => navigateToCategory(cat.id)}
+                className={`px-2.5 py-1 rounded-lg font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
+                  isCurrent
+                    ? 'bg-accent text-white shadow-xs'
+                    : 'bg-neutral-100/80 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200/80'
+                }`}
+              >
+                <DynamicIcon name={cat.icon} className="w-3 h-3" />
+                <span>{cat.shortName || cat.name}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Tools Grid */}
-      <div className="space-y-3 sm:space-y-4 relative z-10">
-        <h2 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white font-display">
-          Available Calculators & Utilities
-        </h2>
+      {/* Tools Section with In-Category Instant Filter */}
+      <div className="space-y-4 relative z-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h2 className="text-base sm:text-lg font-extrabold text-neutral-900 dark:text-white font-display flex items-center gap-2">
+            <Layers className="w-4 h-4 text-accent" />
+            <span>Available {category.name} Calculators & Tools</span>
+            <span className="text-xs font-normal text-neutral-400">({filteredTools.length})</span>
+          </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
-          {currentTools.map(tool => (
-            <ToolCard key={tool.id} tool={tool} />
-          ))}
+          <div className="relative w-full sm:w-72">
+            <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5" />
+            <input
+              type="text"
+              placeholder={`Search ${category.name}...`}
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              className="w-full pl-8 pr-3 py-1.5 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 text-xs text-neutral-900 dark:text-white outline-none focus:border-accent"
+            />
+          </div>
         </div>
+
+        {currentTools.length === 0 ? (
+          <div className="p-8 text-center rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-2">
+            <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+              No tools matching "{query}" in {category.name}
+            </p>
+            <button
+              onClick={() => setQuery('')}
+              className="text-xs font-bold text-accent hover:underline cursor-pointer"
+            >
+              Clear search filter
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-5">
+            {currentTools.map(tool => (
+              <ToolCard key={tool.id} tool={tool} />
+            ))}
+          </div>
+        )}
         
         {hasMore && (
           <div className="flex justify-center pt-6 pb-2">
             <button
               onClick={handleLoadMore}
-              className="px-6 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white font-bold text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors shadow-sm"
+              className="px-6 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-900 dark:text-white font-bold text-xs transition-colors shadow-2xs cursor-pointer"
             >
-              Load More Tools ({tools.length - visibleCount} remaining)
+              Load More Tools ({filteredTools.length - visibleCount} remaining)
             </button>
           </div>
         )}

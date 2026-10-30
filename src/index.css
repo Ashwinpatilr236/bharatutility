@@ -261,3 +261,45 @@ button {
   min-width: 44px;
 }
 
+/* =========================================================
+   BharatUtility Premium UI Revamp Utilities
+   ========================================================= */
+
+.bu-glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 231, 235, 0.85);
+}
+
+.dark .bu-glass-panel {
+  background: rgba(18, 18, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(38, 38, 48, 0.85);
+}
+
+.bu-card-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bu-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
+}
+
+.dark .bu-card-hover:hover {
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
+}
+
+.bu-result-highlight {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+}
+
+.dark .bu-result-highlight {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.14) 0%, rgba(16, 185, 129, 0.12) 100%);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+}
+
+

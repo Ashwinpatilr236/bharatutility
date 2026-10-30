@@ -120,57 +120,31 @@ export const HeroSection: React.FC = () => {
         </p>
 
         {/* Floating Quick Feature Badges */}
-        <div className="hidden sm:flex items-center justify-center gap-3 mb-5">
+        <div className="hidden sm:flex items-center justify-center gap-3 mb-4">
           <FloatingBadge delay={0.2} duration={4.2} distance={6}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xs">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
               100% Client-Side Privacy
             </span>
           </FloatingBadge>
           <FloatingBadge delay={0.6} duration={3.8} distance={7}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xs">
               <Zap className="w-3.5 h-3.5 text-amber-500" />
               Live RBI & AMFI Feeds
             </span>
           </FloatingBadge>
           <FloatingBadge delay={1.0} duration={4.5} distance={5}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xs">
               <Sparkles className="w-3.5 h-3.5 text-accent" />
               1-Click PDF Reports
             </span>
           </FloatingBadge>
         </div>
 
-        {/* New OTT Tool Promo Banner */}
-        <div 
-          onClick={() => navigateToTool('ott-stream-finder')}
-          className="max-w-2xl mx-auto mb-6 p-4 sm:p-5 rounded-2xl cursor-pointer bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-xl shadow-purple-500/20 hover:shadow-purple-500/40 hover:-translate-y-1 transition-all group relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 group-hover:bg-white/20 transition-colors"></div>
-          <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-start sm:items-center gap-4">
-              <div className="p-3 bg-white/20 rounded-xl shrink-0 backdrop-blur-md">
-                <MonitorPlay className="w-6 h-6 text-white" />
-              </div>
-              <div className="text-left">
-                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white/20 text-[10px] font-bold uppercase tracking-wider mb-1 backdrop-blur-md border border-white/20">
-                  <Sparkles className="w-3 h-3" /> New Tool
-                </div>
-                <h3 className="font-bold text-lg sm:text-xl leading-tight">Where to Watch? OTT Stream Finder</h3>
-                <p className="text-white/80 text-sm mt-0.5 hidden sm:block">Find which platform is streaming your favorite movie in India!</p>
-              </div>
-            </div>
-            <div className="shrink-0 flex justify-end">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white text-white group-hover:text-purple-600 transition-colors backdrop-blur-md">
-                <ArrowRight className="w-5 h-5" />
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Large Clean Native Inline Search Box with Antigravity Glow */}
-        <div className="relative max-w-2xl mx-auto mb-2.5 sm:mb-3.5 text-left">
+        {/* Large Clean Native Inline Search Box with Antigravity Glow - Front & Center */}
+        <div className="relative max-w-2xl mx-auto mb-3 text-left">
           <div
-            className={`flex items-center gap-3 px-4 py-3.5 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl rounded-2xl border-2 transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/50 ${
+            className={`flex items-center gap-3 px-4 py-3.5 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl rounded-2xl border-2 transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/50 ${
               isFocused
                 ? 'border-accent ring-4 ring-accent/20 shadow-accent/10'
                 : 'border-neutral-200/90 dark:border-neutral-800/90 hover:border-neutral-300 dark:hover:border-neutral-700'
@@ -203,7 +177,7 @@ export const HeroSection: React.FC = () => {
                   setSearchQuery('');
                   inputRef.current?.focus();
                 }}
-                className="p-1 rounded-full text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-xs transition-colors shrink-0"
+                className="p-1 rounded-full text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-xs transition-colors shrink-0 cursor-pointer"
                 aria-label="Clear search"
               >
                 <X className="w-4 h-4" />
@@ -211,7 +185,7 @@ export const HeroSection: React.FC = () => {
             ) : (
               <button
                 onClick={() => setCommandPaletteOpen(true)}
-                className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 hover:border-accent/40 hover:text-accent transition-colors shrink-0"
+                className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 hover:border-accent/40 hover:text-accent transition-colors shrink-0 cursor-pointer"
               >
                 <span>Spotlight</span>
                 <kbd className="text-[10px]">Ctrl+K</kbd>
@@ -365,7 +339,7 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* High-Intent Live Tools Quick Jump Bar */}
-        <div className="flex items-center justify-center gap-2 flex-wrap max-w-4xl mx-auto mb-4 text-xs">
+        <div className="flex items-center justify-center gap-2 flex-wrap max-w-4xl mx-auto mb-3.5 text-xs">
           {[
             { label: '🏦 Bank Branch IFSC (Live API)', slug: 'ifsc-code-finder', hot: true },
             { label: '📈 AMFI Mutual Fund & SIP', slug: 'sip-calculator', hot: true },
@@ -385,6 +359,33 @@ export const HeroSection: React.FC = () => {
               <span>{item.label}</span>
             </button>
           ))}
+        </div>
+
+        {/* Featured OTT Stream Finder Banner */}
+        <div 
+          onClick={() => navigateToTool('ott-stream-finder')}
+          className="max-w-4xl mx-auto mb-4 p-3.5 sm:p-4 rounded-2xl cursor-pointer bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/15 hover:shadow-purple-500/30 hover:-translate-y-0.5 transition-all group relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 group-hover:bg-white/20 transition-colors pointer-events-none" />
+          <div className="relative z-10 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-white/20 rounded-xl shrink-0 backdrop-blur-md">
+                <MonitorPlay className="w-5 h-5 text-white" />
+              </div>
+              <div className="text-left min-w-0">
+                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/20 text-[9px] font-bold uppercase tracking-wider backdrop-blur-md border border-white/25">
+                  <Sparkles className="w-2.5 h-2.5" /> Spotlight
+                </div>
+                <h3 className="font-bold text-sm sm:text-base leading-tight">Where to Watch? OTT Stream Finder</h3>
+                <p className="text-white/85 text-xs hidden sm:block">Find which platform is streaming your favorite movie in India across Netflix, Prime, Hotstar & more.</p>
+              </div>
+            </div>
+            <div className="shrink-0">
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white text-white group-hover:text-purple-600 transition-colors backdrop-blur-md">
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* 8 Instant Quick-Access Bento Hero Cards with Spotlight & 3D Tilt */}
