@@ -120,7 +120,7 @@ export const HeroSection: React.FC = () => {
         </p>
 
         {/* Floating Quick Feature Badges */}
-        <div className="hidden sm:flex items-center justify-center gap-3 mb-4">
+        <div className="hidden sm:flex items-center justify-center gap-3 mb-3">
           <FloatingBadge delay={0.2} duration={4.2} distance={6}>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xs">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
@@ -139,6 +139,26 @@ export const HeroSection: React.FC = () => {
               1-Click PDF Reports
             </span>
           </FloatingBadge>
+        </div>
+
+        {/* Live Scale & Trust Stat Bar */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-4xl mx-auto mb-4 p-2 sm:p-2.5 rounded-2xl bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-800 shadow-sm text-center">
+          <div className="p-1 sm:p-1.5">
+            <span className="block text-sm sm:text-lg font-black text-accent font-mono">233+</span>
+            <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium">Free Indian Utilities</span>
+          </div>
+          <div className="p-1 sm:p-1.5 border-l border-neutral-200/60 dark:border-neutral-800">
+            <span className="block text-sm sm:text-lg font-black text-emerald-600 dark:text-emerald-400 font-mono">1.5 Lakh+</span>
+            <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium">Bank Branches Live</span>
+          </div>
+          <div className="p-1 sm:p-1.5 border-l border-neutral-200/60 dark:border-neutral-800">
+            <span className="block text-sm sm:text-lg font-black text-indigo-600 dark:text-indigo-400 font-mono">45,000+</span>
+            <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium">Mutual Funds NAV</span>
+          </div>
+          <div className="p-1 sm:p-1.5 border-l border-neutral-200/60 dark:border-neutral-800">
+            <span className="block text-sm sm:text-lg font-black text-teal-600 dark:text-teal-400 font-mono">100% Private</span>
+            <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium">Zero Server Logs</span>
+          </div>
         </div>
 
         {/* Large Clean Native Inline Search Box with Antigravity Glow - Front & Center */}
@@ -336,6 +356,25 @@ export const HeroSection: React.FC = () => {
               {keyword}
             </button>
           ))}
+        </div>
+
+        {/* Seasonal / Smart Advisory Notice Chip */}
+        <div className="max-w-4xl mx-auto mb-3 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/25 flex items-center justify-between gap-2 text-xs">
+          <div className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
+            <span className="p-1 rounded-md bg-amber-500 text-white shrink-0">
+              <Sparkles className="w-3 h-3" />
+            </span>
+            <span className="font-bold text-[11px] sm:text-xs">
+              <span className="text-amber-600 dark:text-amber-400 font-extrabold uppercase tracking-wide">Popular Now: </span>
+              Calculate Income Tax & HRA Exemption or Check Live Bank IFSC in 1-Click
+            </span>
+          </div>
+          <button
+            onClick={() => navigateToTool('income-tax-calculator')}
+            className="text-[11px] font-bold text-amber-700 dark:text-amber-300 hover:underline shrink-0 cursor-pointer"
+          >
+            Calculate Tax →
+          </button>
         </div>
 
         {/* High-Intent Live Tools Quick Jump Bar */}
