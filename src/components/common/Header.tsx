@@ -6,6 +6,7 @@ import { ThemeAccentPicker } from "./ThemeAccentPicker";
 import { FavoritesHistoryModal } from "./FavoritesHistoryModal";
 import { DynamicIcon } from "./DynamicIcon";
 import { Link } from "./Link";
+import { LiveCivicTicker } from "../home/LiveCivicTicker";
 import {
   Search,
   Star,
@@ -14,18 +15,16 @@ import {
   Menu,
   X,
   ChevronDown,
-  Flame,
-  Download,
   Megaphone,
   BookOpen,
   Shield,
+  Download,
 } from "lucide-react";
 
 export const Header: React.FC = () => {
   const adminStore = useAdminStore();
   const announcements = adminStore.getAnnouncements().filter((a) => a.enabled);
-  const { navigateToCategory, setCommandPaletteOpen, favorites, view } =
-    useApp();
+  const { setCommandPaletteOpen, favorites, view } = useApp();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
@@ -33,74 +32,71 @@ export const Header: React.FC = () => {
 
   return (
     <>
+      {/* ── Top Announcement Banner (if any active) ── */}
       {announcements.length > 0 && (
-        <div className="bg-gradient-to-r from-accent via-indigo-600 to-purple-600 text-white text-xs py-2 px-4 text-center font-medium shadow-xs flex items-center justify-center gap-2">
-          <Megaphone className="w-4 h-4 animate-pulse shrink-0" />
+        <div className="bg-gradient-to-r from-accent via-indigo-600 to-purple-600 text-white text-[11px] py-1.5 px-4 text-center font-medium shadow-2xs flex items-center justify-center gap-2">
+          <Megaphone className="w-3.5 h-3.5 animate-pulse shrink-0" />
           <span>
-            <strong>{announcements[0].title}:</strong>{" "}
-            {announcements[0].message}
+            <strong>{announcements[0].title}:</strong> {announcements[0].message}
           </span>
           {announcements[0].ctaText && announcements[0].ctaUrl && (
             <a
               href={announcements[0].ctaUrl}
-              className="underline font-bold hover:text-amber-200 ml-1"
+              className="underline font-bold hover:text-amber-200 ml-1 inline-flex items-center gap-0.5"
             >
               {announcements[0].ctaText} →
             </a>
           )}
         </div>
       )}
-      <header className="sticky top-0 z-40 w-full border-b border-neutral-200/80 dark:border-neutral-800/80 bg-white/85 dark:bg-black/70 backdrop-blur-xl transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-4">
-          {/* Logo & Brand */}
-          <div className="flex items-center gap-3 lg:gap-4 xl:gap-6 shrink-0">
+
+      {/* ── Sleek Glassmorphic Main Navbar (10/10 Premium) ── */}
+      <header className="sticky top-0 z-40 w-full border-b border-neutral-200/70 dark:border-white/10 bg-white/85 dark:bg-black/80 backdrop-blur-xl transition-colors">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-13 sm:h-14 flex items-center justify-between gap-3">
+          {/* Brand Logo & Tag */}
+          <div className="flex items-center gap-4 lg:gap-6 shrink-0">
             <Link
               id="brand-logo-btn"
               to="/"
-              className="flex items-center gap-2 sm:gap-2.5 group text-left focus:outline-none shrink-0"
+              className="flex items-center gap-2 group text-left focus:outline-none shrink-0 select-none"
             >
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 dark:from-indigo-500 dark:to-indigo-800 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform shrink-0">
-                <span className="font-bold text-sm sm:text-base tracking-tighter">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 dark:from-indigo-500 dark:to-indigo-800 flex items-center justify-center text-white shadow-sm shadow-indigo-500/30 group-hover:scale-105 transition-transform shrink-0 border border-white/20">
+                <span className="font-black text-xs sm:text-sm tracking-tighter">
                   ₹U
                 </span>
               </div>
-              <div className="flex flex-col shrink-0">
-                <div className="flex items-center gap-1 sm:gap-1.5">
-                  <span className="font-extrabold text-base sm:text-xl font-display tracking-tight text-neutral-900 dark:text-white">
-                    Bharat<span className="text-accent">Utility</span>
-                  </span>
-                  <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest px-1 sm:px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
-                    TECH
-                  </span>
-                </div>
-                <span className="text-[10px] text-neutral-400 dark:text-neutral-500 -mt-1 font-medium hidden sm:inline">
-                  ARRJS Ecosystem • Everyday Tools
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="font-black text-base sm:text-lg font-display tracking-tight text-neutral-900 dark:text-white leading-none">
+                  Bharat<span className="text-accent">Utility</span>
+                </span>
+                <span className="text-[9px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 leading-none">
+                  TECH
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-1 lg:gap-2 shrink-0 whitespace-nowrap">
+            <nav className="hidden md:flex items-center gap-1 shrink-0 whitespace-nowrap">
               {/* 1. All Tools */}
               <Link
                 to="/tools"
-                className={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
                   view.type === "all-tools"
                     ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
-                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/60 dark:hover:bg-neutral-800/60"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/70"
                 }`}
               >
                 All Tools
               </Link>
 
-              {/* 2. Categories Dropdown */}
+              {/* 2. Categories Mega-Dropdown */}
               <div className="relative group shrink-0">
                 <button
                   onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                   onMouseEnter={() => setIsCategoriesOpen(true)}
-                  className="whitespace-nowrap shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/60 dark:hover:bg-neutral-800/60 transition-colors"
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/70 transition-colors cursor-pointer"
                 >
-                  <Layers className="w-3.5 h-3.5 shrink-0" />
+                  <Layers className="w-3.5 h-3.5 shrink-0 text-neutral-400 group-hover:text-accent transition-colors" />
                   <span>Categories</span>
                   <ChevronDown className="w-3 h-3 text-neutral-400 group-hover:rotate-180 transition-transform duration-200 shrink-0" />
                 </button>
@@ -108,13 +104,13 @@ export const Header: React.FC = () => {
                 {isCategoriesOpen && (
                   <div
                     onMouseLeave={() => setIsCategoriesOpen(false)}
-                    className="absolute top-full left-0 mt-1.5 w-[520px] sm:w-[560px] max-h-[75vh] overflow-y-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-200/90 dark:border-neutral-800 p-3.5 z-50 animate-in fade-in zoom-in-95 duration-150 space-y-3"
+                    className="absolute top-full left-0 mt-1 w-[520px] max-h-[75vh] overflow-y-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-200/90 dark:border-neutral-800 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 space-y-2.5"
                   >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-3">
                       {/* Column 1: Core & Everyday Utilities */}
-                      <div className="space-y-1">
+                      <div className="space-y-0.5">
                         <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-2 py-1 border-b border-neutral-100 dark:border-neutral-800 mb-1 flex items-center justify-between">
-                          <span>Core & Everyday Utilities</span>
+                          <span>Core Utilities</span>
                           <span className="text-[9px] text-accent font-semibold">
                             7 Suites
                           </span>
@@ -134,25 +130,17 @@ export const Header: React.FC = () => {
                             key={cat.id}
                             to={`/category/${cat.id}`}
                             onClick={() => setIsCategoriesOpen(false)}
-                            className="w-full flex items-center justify-between p-2 rounded-xl text-left hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-colors group"
+                            className="w-full flex items-center justify-between p-1.5 rounded-lg text-left hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-colors group"
                           >
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <div className="p-1.5 rounded-lg bg-accent-subtle text-accent shrink-0">
-                                <DynamicIcon
-                                  name={cat.icon}
-                                  className="w-3.5 h-3.5"
-                                />
+                            <div className="flex items-center gap-2 min-w-0">
+                              <div className="p-1 rounded bg-accent-subtle text-accent shrink-0">
+                                <DynamicIcon name={cat.icon} className="w-3 h-3" />
                               </div>
-                              <div className="min-w-0">
-                                <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200 block truncate group-hover:text-accent">
-                                  {cat.name}
-                                </span>
-                                <span className="text-[10px] text-neutral-400 block truncate leading-tight">
-                                  {cat.description}
-                                </span>
-                              </div>
+                              <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200 truncate group-hover:text-accent">
+                                {cat.name}
+                              </span>
                             </div>
-                            <span className="text-[10px] font-mono font-bold text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded ml-2 shrink-0">
+                            <span className="text-[9px] font-mono font-bold text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-1 py-0.2 rounded shrink-0">
                               {cat.toolCount}
                             </span>
                           </Link>
@@ -160,9 +148,9 @@ export const Header: React.FC = () => {
                       </div>
 
                       {/* Column 2: Civic & Specialty Hubs */}
-                      <div className="space-y-1">
+                      <div className="space-y-0.5">
                         <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-2 py-1 border-b border-neutral-100 dark:border-neutral-800 mb-1 flex items-center justify-between">
-                          <span>Civic & Specialty Hubs</span>
+                          <span>Civic & Transit</span>
                           <span className="text-[9px] text-emerald-500 font-semibold">
                             6 Suites
                           </span>
@@ -181,27 +169,17 @@ export const Header: React.FC = () => {
                             key={cat.id}
                             to={`/category/${cat.id}`}
                             onClick={() => setIsCategoriesOpen(false)}
-                            className="w-full flex items-center justify-between p-2 rounded-xl text-left hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-colors group"
+                            className="w-full flex items-center justify-between p-1.5 rounded-lg text-left hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-colors group"
                           >
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
-                                <DynamicIcon
-                                  name={cat.icon}
-                                  className="w-3.5 h-3.5"
-                                />
+                            <div className="flex items-center gap-2 min-w-0">
+                              <div className="p-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+                                <DynamicIcon name={cat.icon} className="w-3 h-3" />
                               </div>
-                              <div className="min-w-0">
-                                <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200 block truncate group-hover:text-emerald-500">
-                                  {cat.name}
-                                </span>
-                                <span className="text-[10px] text-neutral-400 block truncate leading-tight">
-                                  {cat.id === "document-tools"
-                                    ? "100% Client-side PDF Merge, Split & Compress"
-                                    : cat.description}
-                                </span>
-                              </div>
+                              <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200 truncate group-hover:text-emerald-500">
+                                {cat.name}
+                              </span>
                             </div>
-                            <span className="text-[10px] font-mono font-bold text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded ml-2 shrink-0">
+                            <span className="text-[9px] font-mono font-bold text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-1 py-0.2 rounded shrink-0">
                               {cat.toolCount}
                             </span>
                           </Link>
@@ -209,7 +187,7 @@ export const Header: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Ecosystem Discovery Promo inside Categories Menu */}
+                    {/* Sanatan Next Initiative promo */}
                     <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between p-2 rounded-xl bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-transparent text-xs">
                       <div className="flex items-center gap-2">
                         <span className="text-base">🕉️</span>
@@ -218,15 +196,14 @@ export const Header: React.FC = () => {
                             Sanatan Next
                           </span>
                           <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">
-                            Heritage, 12 Jyotirlingas, 51 Shakti Peeths &
-                            Panchang
+                            Jyotirlingas, Shakti Peeths & Live Panchang
                           </span>
                         </div>
                       </div>
                       <Link
                         to="/sanatan-next"
                         onClick={() => setIsCategoriesOpen(false)}
-                        className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-900 dark:text-amber-200 border border-amber-500/30 text-[10px] font-bold shrink-0 transition-colors"
+                        className="px-2 py-0.5 rounded-md bg-amber-500/15 hover:bg-amber-500/25 text-amber-900 dark:text-amber-200 border border-amber-500/30 text-[10px] font-bold shrink-0 transition-colors"
                       >
                         Explore ↗
                       </Link>
@@ -235,31 +212,29 @@ export const Header: React.FC = () => {
                 )}
               </div>
 
-              {/* 3. ParkSignal */}
+              {/* 3. ParkSignal (Featured High-Tech Pill) */}
               <Link
                 to="/parksignal"
-                className={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                className={`px-2.5 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
                   view.type === "parksignal"
-                    ? "bg-indigo-600 text-white shadow-xs"
-                    : "text-neutral-600 dark:text-neutral-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-neutral-100/60 dark:hover:bg-neutral-800/60"
+                    ? "bg-cyan-500 text-slate-950 shadow-xs"
+                    : "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/30"
                 }`}
               >
                 <Shield className="w-3.5 h-3.5 shrink-0 text-cyan-500" />
                 <span>ParkSignal</span>
-                <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-extrabold uppercase tracking-wider">
+                <span className="text-[8px] px-1 py-0.2 rounded bg-cyan-400 text-slate-950 font-black uppercase tracking-wider">
                   NEW
                 </span>
               </Link>
 
-              {/* 4. Guides & Blog */}
+              {/* 4. Guides */}
               <Link
                 to="/guides"
-                className={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 ${
-                  view.type === "guides" ||
-                  view.type === "blog" ||
-                  view.type === "article"
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                  view.type === "guides" || view.type === "blog" || view.type === "article"
                     ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
-                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/60 dark:hover:bg-neutral-800/60"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/70"
                 }`}
               >
                 <BookOpen className="w-3.5 h-3.5 shrink-0" />
@@ -268,19 +243,17 @@ export const Header: React.FC = () => {
             </nav>
           </div>
 
-          {/* Search Trigger, Favorites & Settings */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Quick Search Spotlight Button */}
+          {/* Quick Search Spotlight Button, Favorites & Theme Switcher */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Linear-Style Spotlight Search Button */}
             <button
               id="global-search-trigger"
               onClick={() => setCommandPaletteOpen(true)}
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-neutral-100/90 dark:bg-neutral-900/90 hover:bg-neutral-200/80 dark:hover:bg-neutral-800/90 text-neutral-500 dark:text-neutral-400 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs hover:shadow-xs transition-all text-xs font-medium focus:ring-2 focus:ring-accent shrink-0"
+              className="flex items-center gap-2 px-2.5 py-1 bg-neutral-100/80 dark:bg-neutral-900/80 hover:bg-neutral-200/80 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 rounded-lg border border-neutral-200/80 dark:border-white/10 shadow-2xs transition-all text-xs font-medium cursor-pointer"
             >
               <Search className="w-3.5 h-3.5 text-accent shrink-0" />
-              <span className="hidden sm:inline text-xs whitespace-nowrap">
-                Search utilities...
-              </span>
-              <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-800 rounded-md border border-neutral-200/90 dark:border-neutral-700 shadow-2xs shrink-0">
+              <span className="hidden sm:inline text-xs">Search 233+ tools...</span>
+              <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.2 text-[9px] font-mono font-bold text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 shadow-2xs">
                 {typeof window !== "undefined" &&
                 navigator.platform?.toUpperCase().indexOf("MAC") >= 0
                   ? "⌘K"
@@ -288,12 +261,12 @@ export const Header: React.FC = () => {
               </kbd>
             </button>
 
-            {/* Saved & History Modal Trigger with live badge */}
+            {/* Saved Tools Star Modal Trigger */}
             <button
               id="favorites-history-button"
               onClick={() => setIsFavModalOpen(true)}
               title="Saved tools and recent calculations"
-              className="relative p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+              className="relative p-1.5 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
             >
               <Star
                 className={`w-4 h-4 ${
@@ -303,38 +276,37 @@ export const Header: React.FC = () => {
                 }`}
               />
               {favorites.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-amber-500 text-white text-[9px] font-bold flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 min-w-[15px] h-3.5 px-0.5 rounded-full bg-amber-500 text-white text-[8px] font-bold flex items-center justify-center">
                   {favorites.length}
                 </span>
               )}
             </button>
 
-            {/* Theme Switcher */}
+            {/* Theme & Accent Switcher */}
             <ThemeAccentPicker />
 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0"
+              className="md:hidden p-1.5 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0 cursor-pointer"
               aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
+        {/* ── Seamless Integrated Live Bharat Ticker ── */}
+        <LiveCivicTicker />
+
+        {/* ── Mobile Drawer Menu ── */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150">
-            <div className="grid grid-cols-5 gap-2">
+          <div className="md:hidden border-t border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl px-4 py-3.5 space-y-3 animate-in slide-in-from-top-2 duration-150">
+            <div className="grid grid-cols-4 gap-2">
               <Link
                 to="/tools"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
               >
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span>All Tools</span>
@@ -342,7 +314,7 @@ export const Header: React.FC = () => {
               <Link
                 to="/guides"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
               >
                 <BookOpen className="w-4 h-4 text-accent" />
                 <span>Guides</span>
@@ -352,19 +324,11 @@ export const Header: React.FC = () => {
                   setIsFavModalOpen(true);
                   setIsMobileMenuOpen(false);
                 }}
-                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
               >
                 <Star className="w-4 h-4 text-amber-500 fill-current" />
                 <span>Saved ({favorites.length})</span>
               </button>
-              <Link
-                to="/request-tool"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 text-[11px] font-semibold text-neutral-800 dark:text-neutral-200"
-              >
-                <Sparkles className="w-4 h-4 text-accent" />
-                <span>Request</span>
-              </Link>
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
@@ -374,25 +338,21 @@ export const Header: React.FC = () => {
                     window.dispatchEvent(new CustomEvent("bu:prompt-install"));
                   }
                 }}
-                className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-accent-subtle text-accent text-[11px] font-bold"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-accent-subtle text-accent text-[11px] font-bold"
               >
                 <Download className="w-4 h-4" />
                 <span>Install</span>
               </button>
             </div>
 
-            {/* ParkSignal Mobile Quick Launch */}
+            {/* ParkSignal Mobile Card */}
             <Link
               to="/parksignal"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white border border-indigo-500/30 shadow-sm"
+              className="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white border border-cyan-500/30 shadow-sm"
             >
               <div className="flex items-center gap-2.5">
-                <img
-                  src="/parksignal-emblem-transparent.png"
-                  alt="ParkSignal"
-                  className="w-7 h-7 object-contain"
-                />
+                <Shield className="w-5 h-5 text-cyan-400 shrink-0" />
                 <div>
                   <div className="text-xs font-black flex items-center gap-1.5">
                     <span>ParkSignal</span>
@@ -405,84 +365,26 @@ export const Header: React.FC = () => {
                   </span>
                 </div>
               </div>
-              <span className="text-xs text-cyan-400 font-bold">Launch →</span>
+              <span className="text-xs text-cyan-400 font-bold">Open →</span>
             </Link>
 
             <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-2">
-                Categories
+              <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1.5">
+                Popular Categories
               </div>
               <div className="grid grid-cols-2 gap-1.5">
-                {CATEGORIES.map((cat) => (
+                {CATEGORIES.slice(0, 8).map((cat) => (
                   <Link
                     key={cat.id}
                     to={`/category/${cat.id}`}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center gap-2 p-2 rounded-lg text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                    className="flex items-center gap-1.5 p-1.5 rounded-lg text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                   >
-                    <DynamicIcon
-                      name={cat.icon}
-                      className="w-3.5 h-3.5 text-accent"
-                    />
+                    <DynamicIcon name={cat.icon} className="w-3 h-3 text-accent" />
                     <span className="truncate">{cat.name}</span>
                   </Link>
                 ))}
               </div>
-            </div>
-
-            {/* Mobile Ecosystem Discovery Card */}
-            <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
-              <Link
-                to="/sanatan-next"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-transparent border border-amber-500/20 text-xs"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-base">🕉️</span>
-                  <div>
-                    <span className="font-bold text-neutral-900 dark:text-white block">
-                      Sanatan Next
-                    </span>
-                    <span className="text-[10px] text-amber-700 dark:text-amber-400">
-                      Cultural heritage & panchang initiative
-                    </span>
-                  </div>
-                </div>
-                <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400">
-                  Explore ↗
-                </span>
-              </Link>
-            </div>
-
-            <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800 flex flex-wrap justify-between items-center gap-2 text-xs text-neutral-500">
-              <Link
-                to="/about"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="hover:underline"
-              >
-                About BharatUtility
-              </Link>
-              <Link
-                to="/sanatan-next"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="hover:underline text-amber-600 dark:text-amber-400 font-medium"
-              >
-                Sanatan Next
-              </Link>
-              <Link
-                to="/request-tool"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="hover:underline text-accent font-medium"
-              >
-                Request a Tool
-              </Link>
-              <Link
-                to="/contact"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="hover:underline"
-              >
-                Contact Us
-              </Link>
             </div>
           </div>
         )}

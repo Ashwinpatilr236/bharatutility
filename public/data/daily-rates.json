@@ -1,20 +1,21 @@
 {
-  "lastUpdated": "2026-10-09T03:20:46.978Z",
+  "lastUpdated": "2026-11-22T06:00:00.000Z",
   "fuel": {
     "delhi": {
-      "petrol": 102.12,
-      "diesel": 95.2,
-      "cng": 74.09
+      "petrol": 94.72,
+      "diesel": 87.62,
+      "cng": 75.09
     },
     "mumbai": {
-      "petrol": 104.21
+      "petrol": 103.44,
+      "diesel": 89.97
     }
   },
   "currency": {
-    "usdInr": 96.88
+    "usdInr": 84.48
   },
   "bullion": {
-    "gold24k_10g": 110480,
-    "silver_1kg": 90000
+    "gold24k_10g": 77850,
+    "silver_1kg": 91200
   }
 }

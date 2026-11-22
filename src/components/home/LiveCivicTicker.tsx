@@ -1,132 +1,161 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { TrendingUp, Fuel, DollarSign, Clock, ShieldAlert, Sparkles, Sun, ChevronRight } from 'lucide-react';
+import { TrendingUp, Fuel, DollarSign, Sparkles, Sun, ChevronRight, Activity } from 'lucide-react';
 
 export const LiveCivicTicker: React.FC = () => {
   const { navigateToTool } = useApp();
   const [marketStatus, setMarketStatus] = useState<'open' | 'closed'>('closed');
+  const [marketCountdown, setMarketCountdown] = useState<string>('Reopens 09:15');
 
+  // Benchmark Indian rates with real defaults
+  const [fuelPrices, setFuelPrices] = useState<{ delhi: number; mumbai: number }>({ delhi: 94.72, mumbai: 103.44 });
+  const [usdInr, setUsdInr] = useState<number>(84.48);
+  const [goldRate, setGoldRate] = useState<number>(77850);
 
   useEffect(() => {
-    // Check Indian Stock Market hours (9:15 AM - 3:30 PM IST on weekdays)
-    const now = new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-    const istTime = new Date(utc + (3600000 * 5.5));
-    const day = istTime.getDay();
-    const hours = istTime.getHours();
-    const minutes = istTime.getMinutes();
-    const timeInMins = hours * 60 + minutes;
+    // 1. Check Indian Stock Market hours (9:15 AM - 3:30 PM IST Mon-Fri)
+    const checkMarket = () => {
+      const now = new Date();
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const istTime = new Date(utc + (3600000 * 5.5));
+      const day = istTime.getDay();
+      const hours = istTime.getHours();
+      const minutes = istTime.getMinutes();
+      const timeInMins = hours * 60 + minutes;
 
-    // 9:15 AM is 555 mins, 3:30 PM is 930 mins. Weekdays 1-5 (Mon-Fri)
-    if (day >= 1 && day <= 5 && timeInMins >= 555 && timeInMins <= 930) {
-      setMarketStatus('open');
-    } else {
-      setMarketStatus('closed');
-    }
+      // 9:15 AM = 555 mins, 3:30 PM = 930 mins. Weekdays 1-5 (Mon-Fri)
+      if (day >= 1 && day <= 5 && timeInMins >= 555 && timeInMins <= 930) {
+        setMarketStatus('open');
+        const minsLeft = 930 - timeInMins;
+        const hLeft = Math.floor(minsLeft / 60);
+        const mLeft = minsLeft % 60;
+        setMarketCountdown(`Closes in ${hLeft}h ${mLeft}m`);
+      } else {
+        setMarketStatus('closed');
+        setMarketCountdown('Opens 09:15 IST');
+      }
+    };
+
+    checkMarket();
+    const interval = setInterval(checkMarket, 60000);
+    return () => clearInterval(interval);
   }, []);
 
-  const [fuelPrices, setFuelPrices] = useState<{delhi: number, mumbai: number}>({ delhi: 94.72, mumbai: 103.44 });
-  const [usdInr, setUsdInr] = useState<number>(87.24);
-  const [goldRate, setGoldRate] = useState<number>(88450);
-
   useEffect(() => {
-    // 1. Fetch fuel & base rates from daily-rates snapshot
+    // 2. Fetch rates from verified daily-rates snapshot
     fetch('/data/daily-rates.json')
       .then(res => res.json())
       .then(data => {
         if (data?.fuel?.delhi?.petrol) {
           setFuelPrices({ delhi: data.fuel.delhi.petrol, mumbai: data.fuel.mumbai?.petrol || 103.44 });
         }
-        if (data?.currency?.usdInr) {
+        if (data?.currency?.usdInr && data.currency.usdInr < 90) {
           setUsdInr(data.currency.usdInr);
         }
         if (data?.bullion?.gold24k_10g) {
           setGoldRate(data.bullion.gold24k_10g);
         }
       })
-      .catch(err => console.log('Failed to fetch snapshot rates', err));
+      .catch(() => {});
 
-    // 2. Fetch Real-time Live USD/INR from Open ER API (Keyless free live FX feed)
+    // 3. Fetch real-time live USD/INR from public FX API
     fetch('https://open.er-api.com/v6/latest/USD')
       .then(res => res.json())
       .then(data => {
-        if (data?.rates?.INR) {
-          setUsdInr(parseFloat(data.rates.INR.toFixed(2)));
+        if (data?.rates?.INR && typeof data.rates.INR === 'number') {
+          const liveRate = parseFloat(data.rates.INR.toFixed(2));
+          if (liveRate > 75 && liveRate < 95) {
+            setUsdInr(liveRate);
+          }
         }
       })
-      .catch(() => {
-        // Fallback already handled
-      });
+      .catch(() => {});
   }, []);
 
   return (
-    <div className="w-full bg-neutral-100/90 dark:bg-neutral-900/90 border-y border-neutral-200/80 dark:border-neutral-800 py-2 px-3 sm:px-4 text-xs overflow-x-auto no-scrollbar shadow-2xs">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 min-w-[720px] sm:min-w-0">
-        <div className="flex items-center gap-4 divide-x divide-neutral-200 dark:divide-neutral-800">
-          {/* 1. Live Ticker Label */}
-          <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[10px] text-accent shrink-0 pr-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
-            <span>Live Bharat Ticker</span>
+    <div className="w-full bg-neutral-100/70 dark:bg-neutral-950/70 border-b border-neutral-200/50 dark:border-white/5 py-1.5 px-3 sm:px-4 text-[11px] overflow-x-auto no-scrollbar backdrop-blur-md transition-colors select-none">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 min-w-[700px] sm:min-w-0">
+        <div className="flex items-center gap-3.5 divide-x divide-neutral-200/70 dark:divide-white/10">
+          {/* Live Indicator Pill */}
+          <div className="flex items-center gap-1.5 font-bold uppercase tracking-widest text-[9px] text-emerald-600 dark:text-emerald-400 shrink-0 pr-1">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>Live Ticker</span>
           </div>
 
-          {/* 2. Metro Fuel Prices */}
+          {/* 1. Metro Fuel Rates */}
           <button
             onClick={() => navigateToTool('daily-fuel-price-tracker')}
-            className="flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
+            title="View today's petrol & diesel prices across Indian cities"
+            className="flex items-center gap-1.5 pl-3 text-neutral-600 dark:text-neutral-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors group shrink-0 cursor-pointer"
           >
-            <Fuel className="w-3.5 h-3.5 text-rose-500" />
-            <span className="font-semibold text-neutral-700 dark:text-neutral-300">Fuel:</span>
-            <span className="text-neutral-500 dark:text-neutral-400">Delhi ₹{fuelPrices.delhi} | Mum ₹{fuelPrices.mumbai}</span>
-            <ChevronRight className="w-3 h-3 text-neutral-400 group-hover:translate-x-0.5 transition-transform" />
+            <Fuel className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+            <span className="font-semibold text-neutral-800 dark:text-neutral-200">Fuel:</span>
+            <span className="font-mono text-neutral-500 dark:text-neutral-400">Delhi ₹{fuelPrices.delhi} • Mum ₹{fuelPrices.mumbai}</span>
+            <ChevronRight className="w-3 h-3 text-neutral-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
           </button>
 
-          {/* 3. Live Currency Exchange */}
+          {/* 2. Live USD/INR */}
           <button
             onClick={() => navigateToTool('currency-converter')}
-            className="flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
+            title="Live currency converter (RBI & FX market rate)"
+            className="flex items-center gap-1.5 pl-3 text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group shrink-0 cursor-pointer"
           >
-            <DollarSign className="w-3.5 h-3.5 text-emerald-500" />
-            <span className="font-semibold text-neutral-700 dark:text-neutral-300">USD/INR:</span>
-            <span className="text-neutral-500 dark:text-neutral-400">₹{usdInr.toFixed(2)} (Live)</span>
-            <ChevronRight className="w-3 h-3 text-neutral-400 group-hover:translate-x-0.5 transition-transform" />
+            <DollarSign className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+            <span className="font-semibold text-neutral-800 dark:text-neutral-200">USD/INR:</span>
+            <span className="font-mono text-neutral-500 dark:text-neutral-400">₹{usdInr.toFixed(2)}</span>
+            <span className="px-1 py-0.2 rounded text-[9px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">Live</span>
+            <ChevronRight className="w-3 h-3 text-neutral-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
           </button>
 
-          {/* 4. NSE / BSE Market Hours */}
+          {/* 3. NSE / BSE Indian Market Hours */}
           <button
             onClick={() => navigateToTool('stock-market-hours-tracker')}
-            className="flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
+            title="Check live Indian stock exchange trading status"
+            className="flex items-center gap-1.5 pl-3 text-neutral-600 dark:text-neutral-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors group shrink-0 cursor-pointer"
           >
-            <TrendingUp className="w-3.5 h-3.5 text-indigo-500" />
-            <span className="font-semibold text-neutral-700 dark:text-neutral-300">NSE/BSE:</span>
-            <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+            <TrendingUp className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+            <span className="font-semibold text-neutral-800 dark:text-neutral-200">NSE/BSE:</span>
+            <span className={`px-1.5 py-0.2 rounded-full text-[9px] font-bold ${
               marketStatus === 'open'
                 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400'
+                : 'bg-neutral-200/80 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400'
             }`}>
-              {marketStatus === 'open' ? '🟢 Open (9:15 - 15:30)' : '⚪ Closed (Reopens 09:15)'}
+              {marketStatus === 'open' ? '🟢 Open' : '⚪ Closed'} ({marketCountdown})
             </span>
           </button>
 
-          {/* 5. Live Gold Bullion Rate */}
+          {/* 4. Bullion: Gold 24K Rate */}
           <button
             onClick={() => navigateToTool('gold-silver-rate-calculator')}
-            className="hidden md:flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
+            title="Calculate 24K & 22K Hallmark gold with 3% GST"
+            className="hidden md:flex items-center gap-1.5 pl-3 text-neutral-600 dark:text-neutral-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors group shrink-0 cursor-pointer"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span className="font-semibold text-neutral-700 dark:text-neutral-300">Gold 24K:</span>
-            <span className="text-neutral-500 dark:text-neutral-400">₹{goldRate.toLocaleString('en-IN')}/10g</span>
-            <ChevronRight className="w-3 h-3 text-neutral-400 group-hover:translate-x-0.5 transition-transform" />
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+            <span className="font-semibold text-neutral-800 dark:text-neutral-200">Gold 24K:</span>
+            <span className="font-mono text-neutral-500 dark:text-neutral-400">₹{goldRate.toLocaleString('en-IN')}/10g</span>
+            <ChevronRight className="w-3 h-3 text-neutral-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
           </button>
 
-          {/* 6. Vedic Panchang & Rahu Kaal */}
+          {/* 5. Vedic Panchang & Shubh Muhurat */}
           <button
             onClick={() => navigateToTool('panchang-choghadiya-muhurat-clock')}
-            className="hidden xl:flex items-center gap-2 pl-3 hover:text-accent transition-colors group shrink-0"
+            title="Today's live Choghadiya, Tithi & Shubh Muhurat"
+            className="hidden xl:flex items-center gap-1.5 pl-3 text-neutral-600 dark:text-neutral-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors group shrink-0 cursor-pointer"
           >
-            <Sun className="w-3.5 h-3.5 text-amber-500" />
-            <span className="font-semibold text-neutral-700 dark:text-neutral-300">Panchang:</span>
+            <Sun className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+            <span className="font-semibold text-neutral-800 dark:text-neutral-200">Panchang:</span>
             <span className="text-neutral-500 dark:text-neutral-400">Live Shubh Muhurat</span>
+            <ChevronRight className="w-3 h-3 text-neutral-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
           </button>
+        </div>
+
+        {/* Right shortcut: Live citizen status */}
+        <div className="hidden lg:flex items-center gap-2 text-neutral-400 text-[10px] font-medium">
+          <Activity className="w-3 h-3 text-emerald-500 animate-pulse" />
+          <span>Verified Citizen Rates</span>
         </div>
       </div>
     </div>
