@@ -57,12 +57,20 @@ export const ParkSignalHomeShowcase: React.FC = () => {
               </div>
               <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
                 <QrCode className="w-4 h-4 text-amber-400 shrink-0" />
-                <span className="font-semibold text-slate-200">No App for Scanner</span>
+                <span className="font-semibold text-slate-200">Self-Print Anywhere</span>
               </div>
               <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" />
-                <span className="font-semibold text-slate-200">Print in 30 Sec</span>
+                <span className="font-semibold text-slate-200">100% Free Service</span>
               </div>
+            </div>
+
+            {/* DIY Print Banner */}
+            <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-200 flex items-center gap-2 text-left">
+              <span className="text-base">🖨️</span>
+              <span>
+                <strong>100% Free DIY Print:</strong> Download your vehicle QR sticker in 1-click and print it at home or any local xerox/stationery shop. No hardware or device purchase needed!
+              </span>
             </div>
 
             {/* Action Buttons */}

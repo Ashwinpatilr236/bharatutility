@@ -23,7 +23,8 @@ import {
   Camera,
   MessageSquare,
   Clock,
-  Sparkles
+  Sparkles,
+  Printer
 } from 'lucide-react';
 
 export const ParkSignalLandingView: React.FC = () => {
@@ -198,11 +199,16 @@ export const ParkSignalLandingView: React.FC = () => {
             <div className="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 font-black text-sm flex items-center justify-center">
               3
             </div>
-            <h3 className="text-base font-bold text-neutral-900 dark:text-white">
-              Download & Print Sticker
-            </h3>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <h3 className="text-base font-bold text-neutral-900 dark:text-white">
+                Download & DIY Self-Print
+              </h3>
+              <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300">
+                100% Free
+              </span>
+            </div>
             <p className="text-xs text-neutral-500 leading-relaxed">
-              Download your high-resolution PNG or vector SVG sticker. Print and tape it inside your vehicle's windshield.
+              Download your high-res sticker in 1-click. Print it yourself at home or at any local Xerox / stationery shop for ₹5-10. No expensive tags or hardware needed!
             </p>
           </div>
 
@@ -216,6 +222,69 @@ export const ParkSignalLandingView: React.FC = () => {
             <p className="text-xs text-neutral-500 leading-relaxed">
               When anyone scans your QR code, they can alert you about blocked driveways, open doors, lights on, or voice notes instantly!
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3.5. 100% FREE DIY SELF-PRINT GUIDE ── */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-500/30 dark:border-amber-500/20 backdrop-blur-sm space-y-4 shadow-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-md shadow-amber-500/25">
+                <Printer className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs uppercase font-black tracking-wider text-amber-700 dark:text-amber-400">
+                    Zero Hardware Cost
+                  </span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500 text-white font-black">
+                    100% Free Service
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-black text-neutral-900 dark:text-white">
+                  Download, Print Yourself & Stick on Windshield
+                </h3>
+              </div>
+            </div>
+            <button
+              onClick={() => navigateToParkSignal('register')}
+              className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-md transition-all shrink-0 cursor-pointer"
+            >
+              Get Free QR Code
+            </button>
+          </div>
+
+          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            You do <strong>not</strong> need to buy any costly plastic device or pay vendor markups. ParkSignal gives you a high-resolution, print-ready sticker matching the standard Fastag size (~10×5 cm). You can print it yourself at home or print at any local photocopy/stationery shop for just ₹5 - ₹10!
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
+            <div className="p-3 rounded-xl bg-white/80 dark:bg-neutral-900/80 border border-amber-200/60 dark:border-amber-900/40 space-y-1">
+              <span className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                <span>1.</span> Instant Free Download
+              </span>
+              <p className="text-neutral-500 dark:text-neutral-400 text-[11px]">
+                One-click download in ultra-sharp PNG or vector SVG format with clear scanning borders.
+              </p>
+            </div>
+            <div className="p-3 rounded-xl bg-white/80 dark:bg-neutral-900/80 border border-amber-200/60 dark:border-amber-900/40 space-y-1">
+              <span className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                <span>2.</span> Print at Any Local Shop
+              </span>
+              <p className="text-neutral-500 dark:text-neutral-400 text-[11px]">
+                Ask your nearby Xerox shop for a sticker paper print or print on regular paper & laminate for ₹5.
+              </p>
+            </div>
+            <div className="p-3 rounded-xl bg-white/80 dark:bg-neutral-900/80 border border-amber-200/60 dark:border-amber-900/40 space-y-1">
+              <span className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                <span>3.</span> Stick on Windshield
+              </span>
+              <p className="text-neutral-500 dark:text-neutral-400 text-[11px]">
+                Stick it neatly inside the front passenger corner or beside your Fastag. Ready to protect your car!
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -533,6 +602,16 @@ export const ParkSignalLandingView: React.FC = () => {
         </div>
 
         <div className="space-y-3">
+          <details className="group p-4 bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/80 dark:border-neutral-800">
+            <summary className="font-bold text-xs sm:text-sm text-neutral-900 dark:text-white cursor-pointer list-none flex items-center justify-between">
+              Do I need to buy expensive tags or can I print it myself?
+              <ChevronRight className="w-4 h-4 text-neutral-400 group-open:rotate-90 transition-transform" />
+            </summary>
+            <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              You can print it yourself 100% free! Simply download the print-ready sticker from your dashboard and print it at home or at any nearby xerox/stationery shop for ₹5 to ₹10. Stick it on your windshield with tape or on a sticker sheet. Zero hardware purchase is required.
+            </p>
+          </details>
+
           <details className="group p-4 bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/80 dark:border-neutral-800">
             <summary className="font-bold text-xs sm:text-sm text-neutral-900 dark:text-white cursor-pointer list-none flex items-center justify-between">
               Is ParkSignal really 100% free?

@@ -93,89 +93,45 @@ export const HeroSection: React.FC = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
-        {/* Antigravity Floating Top Badge */}
-        <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
-          <FloatingBadge duration={3.5} distance={5}>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-accent/30 text-accent text-xs font-semibold shadow-xs hover:border-accent/60 transition-colors">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span>233+ Free Indian Tools • 100% Private Client-Side • Real-Time APIs</span>
-            </div>
-          </FloatingBadge>
+        {/* Modern Minimal Top Badge */}
+        <div className="flex items-center justify-center mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/90 dark:bg-neutral-800/90 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-700/80 text-neutral-700 dark:text-neutral-200 text-xs font-semibold shadow-xs">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>233+ Digital Utilities • 100% Free & Private • Zero Signups</span>
+          </div>
         </div>
 
-        {/* Kinetic Shimmer Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-display text-neutral-900 dark:text-white leading-[1.12] mb-2 sm:mb-3">
+        {/* Clean Modern Headline */}
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-display text-neutral-900 dark:text-white leading-[1.12] mb-3">
           Everyday Utilities for{' '}
-          <span className="bg-gradient-to-r from-accent via-indigo-500 to-emerald-500 bg-clip-text text-transparent animate-antigravity-shimmer">
+          <span className="bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 bg-clip-text text-transparent">
             Modern India
           </span>
         </h1>
 
-        {/* Subhead with Subtle Floating Levitation Badges */}
-        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-2 sm:mb-4 leading-relaxed">
-          Fast, privacy-focused calculators, live citizen bank & post office lookups, document tools, and financial planners — 100% free with zero signups.
+        {/* Clean Focused Subtitle */}
+        <p className="text-xs sm:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-6 leading-relaxed">
+          Fast, privacy-focused calculators, live bank & citizen lookups, and daily utilities — verified, ad-lite, and completely free.
         </p>
 
-        {/* Floating Quick Feature Badges */}
-        <div className="hidden sm:flex items-center justify-center gap-3 mb-3">
-          <FloatingBadge delay={0.2} duration={4.2} distance={6}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xs">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-              100% Client-Side Privacy
-            </span>
-          </FloatingBadge>
-          <FloatingBadge delay={0.6} duration={3.8} distance={7}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xs">
-              <Zap className="w-3.5 h-3.5 text-amber-500" />
-              Live RBI & AMFI Feeds
-            </span>
-          </FloatingBadge>
-          <FloatingBadge delay={1.0} duration={4.5} distance={5}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-neutral-100/90 dark:bg-neutral-800/90 text-neutral-700 dark:text-neutral-300 backdrop-blur-xs border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
-              1-Click PDF Reports
-            </span>
-          </FloatingBadge>
-        </div>
-
-        {/* Live Scale & Trust Stat Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-4xl mx-auto mb-4 p-2 sm:p-2.5 rounded-2xl bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-800 shadow-sm text-center">
-          <div className="p-1 sm:p-1.5">
-            <span className="block text-sm sm:text-lg font-black text-accent font-mono">233+</span>
-            <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium">Free Indian Utilities</span>
-          </div>
-          <div className="p-1 sm:p-1.5 border-l border-neutral-200/60 dark:border-neutral-800">
-            <span className="block text-sm sm:text-lg font-black text-emerald-600 dark:text-emerald-400 font-mono">1.5 Lakh+</span>
-            <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium">Bank Branches Live</span>
-          </div>
-          <div className="p-1 sm:p-1.5 border-l border-neutral-200/60 dark:border-neutral-800">
-            <span className="block text-sm sm:text-lg font-black text-indigo-600 dark:text-indigo-400 font-mono">45,000+</span>
-            <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium">Mutual Funds NAV</span>
-          </div>
-          <div className="p-1 sm:p-1.5 border-l border-neutral-200/60 dark:border-neutral-800">
-            <span className="block text-sm sm:text-lg font-black text-teal-600 dark:text-teal-400 font-mono">100% Private</span>
-            <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium">Zero Server Logs</span>
-          </div>
-        </div>
-
-        {/* Large Clean Native Inline Search Box with Antigravity Glow - Front & Center */}
-        <div className="relative max-w-2xl mx-auto mb-3 text-left">
+        {/* Large Clean Native Inline Search Box - Centerpiece */}
+        <div className="relative max-w-2xl mx-auto mb-4 text-left">
           <div
             className={`flex items-center gap-3 px-4 py-3.5 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl rounded-2xl border-2 transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/50 ${
               isFocused
-                ? 'border-accent ring-4 ring-accent/20 shadow-accent/10'
+                ? 'border-indigo-500 ring-4 ring-indigo-500/20 shadow-indigo-500/10'
                 : 'border-neutral-200/90 dark:border-neutral-800/90 hover:border-neutral-300 dark:hover:border-neutral-700'
             }`}
           >
-            <Search className="w-4 h-4 text-accent shrink-0" />
+            <Search className="w-4 h-4 text-indigo-500 shrink-0" />
             <input
               ref={inputRef}
               id="hero-tool-search-input"
               type="text"
-              placeholder="Search 233+ tools (e.g. Bank IFSC, AMFI SIP NAV, FASTag, EMI, GST, Gratuity)..."
+              placeholder="Search 233+ tools (e.g. Bank IFSC, AMFI SIP NAV, FASTag, EMI, GST)..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
@@ -205,7 +161,7 @@ export const HeroSection: React.FC = () => {
             ) : (
               <button
                 onClick={() => setCommandPaletteOpen(true)}
-                className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 hover:border-accent/40 hover:text-accent transition-colors shrink-0 cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 hover:border-indigo-500/40 hover:text-indigo-500 transition-colors shrink-0 cursor-pointer"
               >
                 <span>Spotlight</span>
                 <kbd className="text-[10px]">Ctrl+K</kbd>
@@ -215,23 +171,23 @@ export const HeroSection: React.FC = () => {
 
           {/* Clean Elevated Real-time Dropdown */}
           {isFocused && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border-2 border-accent/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[580px] sm:max-h-[640px] overflow-y-auto space-y-2">
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border-2 border-indigo-500/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[580px] sm:max-h-[640px] overflow-y-auto space-y-2">
               {/* Natural Language Intent suggestion card */}
               {naturalLanguageIntent && (
                 <div
                   onMouseDown={() => handleToolSelect(naturalLanguageIntent.toolSlug, naturalLanguageIntent.params)}
-                  className="p-2.5 px-3.5 rounded-xl bg-gradient-to-r from-accent/15 via-purple-500/15 to-indigo-500/15 border border-accent/40 hover:border-accent cursor-pointer transition-all flex items-center justify-between gap-3 group shadow-xs"
+                  className="p-2.5 px-3.5 rounded-xl bg-gradient-to-r from-indigo-500/15 via-purple-500/15 to-cyan-500/15 border border-indigo-500/40 hover:border-indigo-500 cursor-pointer transition-all flex items-center justify-between gap-3 group shadow-xs"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-1.5 rounded-lg bg-accent text-white shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="p-1.5 rounded-lg bg-indigo-600 text-white shrink-0 group-hover:scale-105 transition-transform">
                       <Zap className="w-3.5 h-3.5" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold text-accent uppercase tracking-wider">
+                        <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
                           Smart Intent Match
                         </span>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-accent/20 text-accent font-bold">
+                        <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-bold">
                           Prefilled
                         </span>
                       </div>
@@ -240,7 +196,7 @@ export const HeroSection: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 text-xs font-bold text-accent shrink-0">
+                  <div className="flex items-center gap-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 shrink-0">
                     <span>Launch</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -252,7 +208,7 @@ export const HeroSection: React.FC = () => {
                 <div className="space-y-1">
                   <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-2 py-1 flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-1 mb-1">
                     <span>Matching Utilities ({exactAndKeywordMatches.length})</span>
-                    <span className="text-[10px] text-accent font-mono">Press Enter ↵ to launch</span>
+                    <span className="text-[10px] text-indigo-500 font-mono">Press Enter ↵ to launch</span>
                   </div>
                   {exactAndKeywordMatches.slice(0, 12).map(tool => (
                     <div
@@ -261,16 +217,16 @@ export const HeroSection: React.FC = () => {
                       className="flex items-center justify-between p-2.5 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer transition-all group"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="p-2 rounded-lg bg-accent-subtle text-accent shrink-0 group-hover:scale-105 transition-transform">
+                        <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shrink-0 group-hover:scale-105 transition-transform">
                           <DynamicIcon name={tool.icon} className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
+                            <span className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                               {tool.name}
                             </span>
                             {tool.badge && (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-accent/10 text-accent font-bold border border-accent/20">
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold border border-indigo-500/20">
                                 {tool.badge}
                               </span>
                             )}
@@ -280,7 +236,7 @@ export const HeroSection: React.FC = () => {
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-1 text-xs font-semibold text-neutral-400 group-hover:text-accent shrink-0 ml-2">
+                      <div className="flex items-center gap-1 text-xs font-semibold text-neutral-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 shrink-0 ml-2">
                         <span className="hidden sm:inline text-[11px]">Open</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
                       </div>
@@ -301,7 +257,7 @@ export const HeroSection: React.FC = () => {
                   <div className="flex items-center justify-center gap-2 pt-1">
                     <button
                       onMouseDown={handleRequestTool}
-                      className="px-3.5 py-2 rounded-xl bg-accent text-white text-xs font-bold inline-flex items-center gap-1.5 hover:bg-accent/90 transition-all hover:scale-105 active:scale-95 shadow-xs"
+                      className="px-3.5 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold inline-flex items-center gap-1.5 hover:bg-indigo-700 transition-all hover:scale-105 active:scale-95 shadow-xs"
                     >
                       <MessageSquarePlus className="w-3.5 h-3.5" />
                       <span>Request this Tool</span>
@@ -311,7 +267,7 @@ export const HeroSection: React.FC = () => {
                       className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold inline-flex items-center gap-1.5 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
                     >
                       <Compass className="w-3.5 h-3.5" />
-                      <span>Browse All 220 Tools</span>
+                      <span>Browse All Tools</span>
                     </button>
                   </div>
                 </div>
@@ -321,7 +277,7 @@ export const HeroSection: React.FC = () => {
               {!searchQuery && recentSearches.length > 0 && (
                 <div className="p-2 space-y-1">
                   <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 px-1 flex items-center gap-1.5">
-                    <Clock className="w-3 h-3 text-accent" />
+                    <Clock className="w-3 h-3 text-indigo-500" />
                     <span>Recent Searches</span>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
@@ -329,7 +285,7 @@ export const HeroSection: React.FC = () => {
                       <button
                         key={term}
                         onMouseDown={() => handleRecentClick(term)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-accent hover:text-accent text-xs font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer transition-all hover:scale-102"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-indigo-500 hover:text-indigo-500 text-xs font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer transition-all hover:scale-102"
                       >
                         <span>{term}</span>
                       </button>
@@ -341,63 +297,41 @@ export const HeroSection: React.FC = () => {
           )}
         </div>
 
-        {/* Quick Search Shortcut Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-1.5 mb-2 sm:mb-3">
-          <span className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 mr-1 flex items-center gap-1">
+        {/* Clean Single-Row Trending Searches */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-6 text-xs">
+          <span className="font-bold text-neutral-400 dark:text-neutral-500 flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
             Trending:
           </span>
-          {TRENDING_SEARCH_KEYWORDS.slice(0, 8).map(keyword => (
+          {['Bank IFSC', 'FASTag Toll', 'SIP & Mutual Funds', 'Income Tax & HRA', 'ParkSignal QR', 'Home Loan EMI'].map(keyword => (
             <button
               key={keyword}
               onClick={() => handleTrendingClick(keyword)}
-              className="px-2.5 py-1 rounded-full text-xs font-medium bg-white/80 hover:bg-accent hover:text-white dark:bg-neutral-900/80 dark:hover:bg-accent text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 backdrop-blur-xs transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-2xs"
+              className="px-3 py-1 rounded-full text-xs font-medium bg-white/90 dark:bg-neutral-900/90 text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-2xs cursor-pointer"
             >
               {keyword}
             </button>
           ))}
         </div>
 
-        {/* Seasonal / Smart Advisory Notice Chip */}
-        <div className="max-w-4xl mx-auto mb-3 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/25 flex items-center justify-between gap-2 text-xs">
-          <div className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
-            <span className="p-1 rounded-md bg-amber-500 text-white shrink-0">
-              <Sparkles className="w-3 h-3" />
-            </span>
-            <span className="font-bold text-[11px] sm:text-xs">
-              <span className="text-amber-600 dark:text-amber-400 font-extrabold uppercase tracking-wide">Popular Now: </span>
-              Calculate Income Tax & HRA Exemption or Check Live Bank IFSC in 1-Click
-            </span>
+        {/* Live Scale & Trust Stat Bar - Clean Minimal Layout */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto mb-8 p-3 rounded-2xl bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-800 shadow-sm text-center">
+          <div className="p-2">
+            <span className="block text-base sm:text-xl font-black text-indigo-600 dark:text-indigo-400 font-mono">233+</span>
+            <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Free Utilities</span>
           </div>
-          <button
-            onClick={() => navigateToTool('income-tax-calculator')}
-            className="text-[11px] font-bold text-amber-700 dark:text-amber-300 hover:underline shrink-0 cursor-pointer"
-          >
-            Calculate Tax →
-          </button>
-        </div>
-
-        {/* High-Intent Live Tools Quick Jump Bar */}
-        <div className="flex items-center justify-center gap-2 flex-wrap max-w-4xl mx-auto mb-3.5 text-xs">
-          {[
-            { label: '🏦 Bank Branch IFSC (Live API)', slug: 'ifsc-code-finder', hot: true },
-            { label: '📈 AMFI Mutual Fund & SIP', slug: 'sip-calculator', hot: true },
-            { label: '🛣️ FASTag Toll Trip', slug: 'trip-cost-calculator', hot: true },
-            { label: '⚖️ UPI Dispute Notice', slug: 'cyber-crime-emergency-guide', hot: true },
-            { label: '📄 Gratuity 2026', slug: 'gratuity-calculator', hot: false },
-          ].map(item => (
-            <button
-              key={item.slug}
-              onClick={() => navigateToTool(item.slug)}
-              className={`px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs hover:scale-105 active:scale-95 ${
-                item.hot
-                  ? 'bg-accent/10 hover:bg-accent hover:text-white text-accent border-accent/30 font-bold'
-                  : 'bg-white/80 hover:bg-neutral-100 dark:bg-neutral-900/80 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-200/80 dark:border-neutral-800'
-              }`}
-            >
-              <span>{item.label}</span>
-            </button>
-          ))}
+          <div className="p-2 border-l border-neutral-200/60 dark:border-neutral-800">
+            <span className="block text-base sm:text-xl font-black text-emerald-600 dark:text-emerald-400 font-mono">1.5 Lakh+</span>
+            <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Bank Branches</span>
+          </div>
+          <div className="p-2 border-l border-neutral-200/60 dark:border-neutral-800">
+            <span className="block text-base sm:text-xl font-black text-cyan-600 dark:text-cyan-400 font-mono">45,000+</span>
+            <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Mutual Funds</span>
+          </div>
+          <div className="p-2 border-l border-neutral-200/60 dark:border-neutral-800">
+            <span className="block text-base sm:text-xl font-black text-purple-600 dark:text-purple-400 font-mono">100% Free</span>
+            <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Zero Signups</span>
+          </div>
         </div>
 
         {/* Featured OTT Stream Finder Banner */}
