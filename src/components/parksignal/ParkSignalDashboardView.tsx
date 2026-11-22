@@ -56,7 +56,9 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
 }) => {
   const { navigateToParkSignal, showToast } = useApp();
 
-  const [activeTab, setActiveTab] = useState<DashboardTab>(initialTab);
+  const [activeTab, setActiveTab] = useState<DashboardTab>(
+    (initialTab === 'telegram' || initialTab === 'privacy') ? 'account' : initialTab
+  );
   const [currentUser, setCurrentUser] = useState<ParkSignalUser | null>(null);
   const [vehicles, setVehicles] = useState<ParkSignalVehicle[]>([]);
   const [alerts, setAlerts] = useState<ParkSignalAlertLog[]>([]);
@@ -382,7 +384,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
               : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
           }`}
         >
-          <QrCode className="w-3.5 h-3.5" /> QR Codes & Stickers
+          <QrCode className="w-3.5 h-3.5" /> QR Stickers
         </button>
         <button
           onClick={() => setActiveTab('history')}
@@ -395,16 +397,6 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
           <BellRing className="w-3.5 h-3.5" /> Alert History ({alerts.length})
         </button>
         <button
-          onClick={() => setActiveTab('telegram')}
-          className={`px-4 py-2 rounded-xl whitespace-nowrap transition-colors flex items-center gap-2 ${
-            activeTab === 'telegram'
-              ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-sm'
-              : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
-          }`}
-        >
-          <Bot className="w-3.5 h-3.5" /> Telegram Bot Settings
-        </button>
-        <button
           onClick={() => setActiveTab('account')}
           className={`px-4 py-2 rounded-xl whitespace-nowrap transition-colors flex items-center gap-2 ${
             activeTab === 'account'
@@ -412,127 +404,137 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
               : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
           }`}
         >
-          <User className="w-3.5 h-3.5" /> Account Settings
-        </button>
-        <button
-          onClick={() => setActiveTab('privacy')}
-          className={`px-4 py-2 rounded-xl whitespace-nowrap transition-colors flex items-center gap-2 ${
-            activeTab === 'privacy'
-              ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-sm'
-              : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
-          }`}
-        >
-          <ShieldCheck className="w-3.5 h-3.5" /> Privacy & Security
+          <Settings className="w-3.5 h-3.5" /> Account &amp; Settings
         </button>
       </div>
 
       {/* ── TAB 1: OVERVIEW ── */}
       {activeTab === 'overview' && (
         <div className="space-y-6">
-          {/* Top 3 Metric Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-1">
-              <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider block">
+          {/* Top 4 Metric KPI Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div className="p-4 sm:p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-1">
+              <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">
                 Registered Vehicles
               </span>
-              <div className="text-3xl font-black font-display text-neutral-900 dark:text-white">
+              <div className="text-2xl sm:text-3xl font-black font-display text-neutral-900 dark:text-white">
                 {vehicles.length}
               </div>
-              <p className="text-[11px] text-neutral-500">Each with unique QR sticker</p>
+              <p className="text-[11px] text-neutral-500">
+                {vehicles.filter(v => v.is_active).length} Active • Fastag Ready
+              </p>
             </div>
 
-            <div className="p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-1">
-              <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider block">
-                Telegram Status
+            <div className="p-4 sm:p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-1">
+              <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">
+                Telegram Bot
               </span>
-              <div className="text-xl font-black text-neutral-900 dark:text-white flex items-center gap-2 pt-1">
+              <div className="text-base sm:text-lg font-black text-neutral-900 dark:text-white flex items-center gap-1.5 pt-0.5">
                 {currentUser?.isTelegramLinked ? (
-                  <span className="text-emerald-600 flex items-center gap-1.5 text-base">
-                    <CheckCircle2 className="w-5 h-5" /> Connected
+                  <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" /> Connected
                   </span>
                 ) : (
-                  <span className="text-amber-600 flex items-center gap-1.5 text-base">
-                    <AlertTriangle className="w-5 h-5" /> Not Connected
+                  <span className="text-amber-600 dark:text-amber-400 flex items-center gap-1">
+                    <AlertTriangle className="w-4 h-4 shrink-0" /> Not Linked
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-neutral-500">Bot: @ParkSignal_bot</p>
+              <p className="text-[11px] text-neutral-500">
+                <button
+                  onClick={() => setActiveTab('account')}
+                  className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold"
+                >
+                  @ParkSignal_bot →
+                </button>
+              </p>
             </div>
 
-            <div className="p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-1">
-              <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider block">
+            <div className="p-4 sm:p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-1">
+              <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">
                 Alerts Received
               </span>
-              <div className="text-3xl font-black font-display text-neutral-900 dark:text-white">
+              <div className="text-2xl sm:text-3xl font-black font-display text-neutral-900 dark:text-white">
                 {alerts.length}
               </div>
-              <p className="text-[11px] text-neutral-500">Delivered directly to Telegram</p>
+              <p className="text-[11px] text-neutral-500">Instant via Telegram</p>
+            </div>
+
+            <div className="p-4 sm:p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-1">
+              <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">
+                Privacy Protection
+              </span>
+              <div className="text-base sm:text-lg font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 pt-0.5">
+                <ShieldCheck className="w-4 h-4 shrink-0" /> 100% Private
+              </div>
+              <p className="text-[11px] text-neutral-500">Number never exposed</p>
             </div>
           </div>
 
           {/* Quick Telegram Warning if Not Linked */}
           {!currentUser?.isTelegramLinked && (
-            <div className="p-5 bg-amber-50 dark:bg-amber-950/40 rounded-3xl border border-amber-200 dark:border-amber-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="p-4 sm:p-5 bg-amber-50 dark:bg-amber-950/40 rounded-3xl border border-amber-200 dark:border-amber-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-start gap-3">
                 <Bot className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
                   <h3 className="text-sm font-bold text-amber-900 dark:text-amber-200">
-                    Connect Telegram to Receive Parking Alerts
+                    Connect Telegram to Receive Real-Time Parking Alerts
                   </h3>
-                  <p className="text-xs text-amber-700 dark:text-amber-300">
-                    You won't receive notifications when someone scans your QR sticker until you connect with @ParkSignal_bot.
+                  <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                    Bystanders cannot notify you until your account is linked with official bot @ParkSignal_bot.
                   </p>
                 </div>
               </div>
               <button
-                onClick={() => setActiveTab('telegram')}
+                onClick={() => setActiveTab('account')}
                 className="px-5 py-2.5 rounded-xl bg-amber-600 text-white font-bold text-xs shrink-0 hover:bg-amber-700 transition-colors"
               >
-                Connect Now →
+                Connect Telegram Now →
               </button>
             </div>
           )}
 
-          {/* Vehicles Quick Grid */}
-          <div className="space-y-4">
+          {/* Registered Vehicles Quick Section */}
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-neutral-900 dark:text-white">
-                Your Registered Vehicles
+              <h2 className="text-base sm:text-lg font-black text-neutral-900 dark:text-white flex items-center gap-2">
+                <Car className="w-4 h-4 text-indigo-600" />
+                <span>Your Vehicles &amp; Windshield Passes</span>
               </h2>
               <button
                 onClick={() => setShowAddVehicleModal(true)}
                 className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1"
               >
-                + Add Another Vehicle
+                <Plus className="w-3.5 h-3.5" /> Add Vehicle
               </button>
             </div>
 
             {vehicles.length === 0 ? (
-              <div className="p-12 text-center bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 space-y-3">
+              <div className="p-8 sm:p-12 text-center bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 space-y-3">
                 <Car className="w-10 h-10 text-neutral-400 mx-auto" />
                 <h3 className="text-base font-bold text-neutral-800 dark:text-neutral-200">
                   No vehicles registered yet
                 </h3>
                 <p className="text-xs text-neutral-500 max-w-sm mx-auto">
-                  Add your car or two-wheeler to generate your first printable QR sticker.
+                  Add your car or two-wheeler to generate your first printable Fastag-size QR sticker.
                 </p>
                 <button
                   onClick={() => setShowAddVehicleModal(true)}
-                  className="px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700"
+                  className="px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 shadow-md shadow-indigo-600/20"
                 >
                   Register Your First Vehicle
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 {vehicles.map((v) => (
                   <div
                     key={v.id}
-                    className="p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4"
+                    className="p-4 sm:p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-3.5"
                   >
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 flex items-center justify-center font-bold">
+                        <div className="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 flex items-center justify-center font-bold shrink-0">
                           <Car className="w-5 h-5" />
                         </div>
                         <div>
@@ -555,33 +557,34 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
 
                       <button
                         onClick={() => handleToggleStatus(v.id)}
-                        className={`text-[10px] font-bold px-2 py-1 rounded-lg border transition-colors ${
+                        className={`text-[10px] font-bold px-2 py-1 rounded-lg border transition-colors shrink-0 ${
                           v.is_active
                             ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
                             : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
                         }`}
                       >
-                        {v.is_active ? 'Active' : 'Paused'}
+                        {v.is_active ? '🟢 Active' : '🔴 Paused'}
                       </button>
                     </div>
 
                     <div className="pt-2 flex flex-wrap items-center gap-2 border-t border-neutral-100 dark:border-neutral-800 text-xs">
                       <button
                         onClick={() => setSelectedStickerVehicle(v)}
-                        className="flex-1 py-2 px-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold flex items-center justify-center gap-1.5 hover:bg-indigo-100 transition-colors"
+                        className="flex-1 py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold flex items-center justify-center gap-1.5 shadow-sm transition-colors"
                       >
-                        <Printer className="w-3.5 h-3.5" /> View Sticker
+                        <Printer className="w-3.5 h-3.5" /> Print / Download Sticker
                       </button>
                       <button
                         onClick={() => openSettingsModal(v)}
                         className="py-2 px-3 rounded-xl border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold flex items-center gap-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+                        title="Alert Rules"
                       >
-                        <Sliders className="w-3.5 h-3.5" /> ⚙️ Alert Rules
+                        <Sliders className="w-3.5 h-3.5" /> Rules
                       </button>
                       <button
                         onClick={() => handleRegenerateQR(v.id)}
                         className="p-2 rounded-xl border border-neutral-200 dark:border-neutral-700 text-neutral-500 hover:text-indigo-600 hover:bg-neutral-50"
-                        title="Regenerate QR Code"
+                        title="Regenerate QR Token"
                       >
                         <RefreshCw className="w-3.5 h-3.5" />
                       </button>
@@ -592,119 +595,106 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
             )}
           </div>
 
-          {/* Emergency Advisory & Indian Helpline Directory */}
-          <div className="bg-rose-50 dark:bg-rose-950/40 p-5 sm:p-6 rounded-3xl border border-rose-200 dark:border-rose-900/50 space-y-4">
-            <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm">
-                <PhoneCall className="w-5 h-5 animate-pulse" />
+          {/* Recent Alerts Activity Feed */}
+          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-4 sm:p-5 border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <BellRing className="w-4 h-4 text-indigo-600" />
+                <h3 className="text-sm font-bold text-neutral-900 dark:text-white">
+                  Recent Alerts Feed
+                </h3>
               </div>
-              <div className="space-y-1">
-                <div className="font-black text-rose-800 dark:text-rose-200 text-sm sm:text-base flex items-center gap-2">
-                  <span>Emergency Advisory (Dial 112)</span>
-                  <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-rose-600 text-white uppercase font-extrabold tracking-wider">
-                    India 24x7
-                  </span>
-                </div>
-                <p className="text-xs leading-relaxed text-rose-900/80 dark:text-rose-300/80">
-                  ParkSignal is designed for polite parking notifications (blocking cars, open windows, lights left on). In life-threatening emergencies, severe road accidents, or medical crises, always call national emergency helplines directly.
+              <button
+                onClick={() => setActiveTab('history')}
+                className="text-xs font-bold text-indigo-600 hover:underline"
+              >
+                View All History ({alerts.length}) →
+              </button>
+            </div>
+
+            {alerts.length === 0 ? (
+              <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200/60 dark:border-neutral-700/60 text-center space-y-1">
+                <p className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+                  ✨ All quiet — No alerts received yet
                 </p>
+                <p className="text-[11px] text-neutral-400">
+                  When someone scans your windshield QR pass, notification details and voice recordings will show here and in Telegram.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {alerts.slice(0, 3).map((a) => (
+                  <div
+                    key={a.id}
+                    className="p-3 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 flex items-center justify-between gap-3 text-xs"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <span className="text-lg shrink-0">
+                        {a.alert_type === 'BLOCKING' ? '🚗' : a.alert_type === 'EMERGENCY' ? '🚨' : a.alert_type === 'LIGHTS_ON' ? '💡' : a.alert_type === 'WINDOW_OPEN' ? '🪟' : a.alert_type === 'TOWING' ? '🚜' : '⚠️'}
+                      </span>
+                      <div className="truncate">
+                        <div className="font-bold text-neutral-900 dark:text-white truncate">
+                          {a.alert_type.replace('_', ' ')} • {a.vehicle_number}
+                        </div>
+                        <span className="text-[11px] text-neutral-400">
+                          {new Date(a.created_at).toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
+                        a.delivery_status === 'DELIVERED'
+                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                          : 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
+                      }`}
+                    >
+                      {a.delivery_status === 'DELIVERED' ? '✓ Delivered' : 'Failed'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Compact 24x7 Emergency Helplines Bar */}
+          <div className="bg-rose-50/80 dark:bg-rose-950/30 p-4 rounded-3xl border border-rose-200/80 dark:border-rose-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5">
+              <PhoneCall className="w-4 h-4 text-rose-600 shrink-0 animate-pulse" />
+              <div>
+                <span className="font-bold text-rose-900 dark:text-rose-200">
+                  National Emergency Helplines (24x7):
+                </span>
+                <span className="text-[11px] text-rose-700 dark:text-rose-300 ml-1.5 hidden sm:inline">
+                  Direct tap to dial in case of serious road accidents or safety crises
+                </span>
               </div>
             </div>
 
-            {/* Quick Tap-to-Call Buttons for All Indian Emergency Services */}
-            <div className="space-y-2 pt-2 border-t border-rose-200/60 dark:border-rose-900/40">
-              <span className="text-[11px] uppercase font-bold tracking-wider text-rose-700 dark:text-rose-300 block">
-                Direct Emergency Helplines (Tap to Call 24x7):
-              </span>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                <a
-                  href="tel:112"
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-rose-600 text-white hover:bg-rose-700 transition-colors shadow-xs group"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-rose-100 font-medium leading-none">All-in-One</span>
-                    <span className="text-xs font-black">112 National</span>
-                  </div>
-                  <PhoneCall className="w-3.5 h-3.5 text-white/80 group-hover:scale-110 transition-transform" />
-                </a>
-
-                <a
-                  href="tel:100"
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-neutral-400 font-medium leading-none">Police</span>
-                    <span className="text-xs font-black text-rose-700 dark:text-rose-400">100 Control</span>
-                  </div>
-                  <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
-                </a>
-
-                <a
-                  href="tel:101"
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-neutral-400 font-medium leading-none">Fire Brigade</span>
-                    <span className="text-xs font-black text-rose-700 dark:text-rose-400">101 Rescue</span>
-                  </div>
-                  <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
-                </a>
-
-                <a
-                  href="tel:108"
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-neutral-400 font-medium leading-none">Ambulance</span>
-                    <span className="text-xs font-black text-rose-700 dark:text-rose-400">108 / 102</span>
-                  </div>
-                  <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
-                </a>
-
-                <a
-                  href="tel:1073"
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-neutral-400 font-medium leading-none">Road Accident</span>
-                    <span className="text-xs font-black text-rose-700 dark:text-rose-400">1073 Traffic</span>
-                  </div>
-                  <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
-                </a>
-
-                <a
-                  href="tel:1033"
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-neutral-400 font-medium leading-none">Highway NHAI</span>
-                    <span className="text-xs font-black text-rose-700 dark:text-rose-400">1033 Assist</span>
-                  </div>
-                  <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
-                </a>
-
-                <a
-                  href="tel:1098"
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-neutral-400 font-medium leading-none">Childline</span>
-                    <span className="text-xs font-black text-rose-700 dark:text-rose-400">1098 Child</span>
-                  </div>
-                  <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
-                </a>
-
-                <a
-                  href="tel:1091"
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-neutral-400 font-medium leading-none">Women Safety</span>
-                    <span className="text-xs font-black text-rose-700 dark:text-rose-400">1091 Helpline</span>
-                  </div>
-                  <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
-                </a>
-              </div>
+            <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+              <a
+                href="tel:112"
+                className="px-2.5 py-1 rounded-xl bg-rose-600 text-white font-extrabold text-[11px] hover:bg-rose-700 shadow-2xs"
+              >
+                112 All-in-One
+              </a>
+              <a
+                href="tel:100"
+                className="px-2.5 py-1 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-800 font-bold text-rose-700 dark:text-rose-300 text-[11px] hover:bg-rose-50"
+              >
+                100 Police
+              </a>
+              <a
+                href="tel:108"
+                className="px-2.5 py-1 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-800 font-bold text-rose-700 dark:text-rose-300 text-[11px] hover:bg-rose-50"
+              >
+                108 Ambulance
+              </a>
+              <a
+                href="tel:1033"
+                className="px-2.5 py-1 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-800 font-bold text-rose-700 dark:text-rose-300 text-[11px] hover:bg-rose-50"
+              >
+                1033 Highway
+              </a>
             </div>
           </div>
         </div>
@@ -916,41 +906,44 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
         </div>
       )}
 
-      {/* ── TAB 5: TELEGRAM BOT SETTINGS ── */}
-      {activeTab === 'telegram' && (
-        <div className="space-y-6 max-w-2xl">
+      {/* ── TAB 5: ACCOUNT, TELEGRAM BOT & PRIVACY SETTINGS (MERGED) ── */}
+      {(activeTab === 'account' || activeTab === 'telegram' || activeTab === 'privacy') && (
+        <div className="space-y-6 max-w-3xl">
           <div>
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
-              Telegram Account Connection
+            <h2 className="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+              <Settings className="w-5 h-5 text-indigo-600" />
+              <span>Account, Telegram Bot &amp; Privacy Settings</span>
             </h2>
             <p className="text-xs text-neutral-500">
-              Manage connection with the official Telegram bot @ParkSignal_bot
+              Manage your @ParkSignal_bot connection, owner profile, phone privacy guarantees, and account security in one unified place.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-5">
+          {/* ── SECTION 1: TELEGRAM BOT SETTINGS ── */}
+          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-5">
             <div className="flex items-center justify-between pb-4 border-b border-neutral-100 dark:border-neutral-800">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 flex items-center justify-center font-bold">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 flex items-center justify-center font-bold shrink-0">
                   <Bot className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-neutral-900 dark:text-white">
-                    Official Bot: @ParkSignal_bot
+                  <h3 className="text-base font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                    <span>Telegram Alert Bot</span>
+                    <span className="text-xs font-mono font-semibold text-blue-600">@ParkSignal_bot</span>
                   </h3>
                   <p className="text-xs text-neutral-400">
-                    https://t.me/ParkSignal_bot
+                    Parking alerts &amp; voice notes arrive in your Telegram app privately in 5 seconds
                   </p>
                 </div>
               </div>
               <span
-                className={`text-xs font-bold px-3 py-1 rounded-full ${
+                className={`text-xs font-bold px-3 py-1 rounded-full shrink-0 ${
                   currentUser?.isTelegramLinked
                     ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
                     : 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'
                 }`}
               >
-                {currentUser?.isTelegramLinked ? 'Linked & Active' : 'Not Linked'}
+                {currentUser?.isTelegramLinked ? '✓ Linked & Active' : '⚠️ Not Linked'}
               </span>
             </div>
 
@@ -959,23 +952,23 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                 <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-200 space-y-1">
                   <div className="font-bold flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    Notifications Active
+                    Real-Time Notifications Active
                   </div>
                   <p>
                     Your account is securely linked to @ParkSignal_bot. Whenever someone scans any of your registered vehicle QR stickers, alerts will arrive in your Telegram app instantly.
                   </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 pt-2">
+                <div className="flex flex-wrap items-center gap-3 pt-1">
                   <button
                     onClick={() => handleConnectTelegram('RECONNECT')}
-                    className="px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold text-xs hover:bg-neutral-50 dark:hover:bg-neutral-800"
+                    className="px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold text-xs hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
                   >
                     Connect Different Telegram Account
                   </button>
                   <button
                     onClick={handleDisconnectTelegram}
-                    className="px-4 py-2.5 rounded-xl bg-rose-50 text-rose-600 border border-rose-200 font-bold text-xs hover:bg-rose-100"
+                    className="px-4 py-2.5 rounded-xl bg-rose-50 text-rose-600 border border-rose-200 font-bold text-xs hover:bg-rose-100 transition-colors"
                   >
                     Disconnect Telegram
                   </button>
@@ -990,16 +983,16 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                 <button
                   onClick={() => handleConnectTelegram('CONNECT')}
                   disabled={tgLinkLoading}
-                  className="px-6 py-3 rounded-2xl bg-indigo-600 text-white font-extrabold text-xs flex items-center gap-2 hover:bg-indigo-700 shadow-md shadow-indigo-600/20"
+                  className="px-6 py-3 rounded-2xl bg-indigo-600 text-white font-extrabold text-xs flex items-center gap-2 hover:bg-indigo-700 shadow-md shadow-indigo-600/20 transition-colors"
                 >
                   {tgLinkLoading ? 'Generating Secure Token...' : 'Connect Telegram with @ParkSignal_bot →'}
                 </button>
               </div>
             )}
 
-            {/* Deep link modal/box if generated */}
+            {/* Deep link box if generated */}
             {tgDeepLink && (
-              <div className="p-5 bg-indigo-50 dark:bg-indigo-950/60 rounded-2xl border border-indigo-200 dark:border-indigo-800 space-y-3">
+              <div className="p-4 sm:p-5 bg-indigo-50 dark:bg-indigo-950/60 rounded-2xl border border-indigo-200 dark:border-indigo-800 space-y-3">
                 <div className="text-xs font-bold text-indigo-900 dark:text-indigo-200">
                   Step 2: Open Deep Link in Telegram
                 </div>
@@ -1044,146 +1037,154 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
               </div>
             )}
           </div>
-        </div>
-      )}
 
-      {/* ── TAB 6: ACCOUNT SETTINGS ── */}
-      {activeTab === 'account' && (
-        <div className="space-y-6 max-w-xl">
-          <div>
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
-              Owner Profile & Credentials
-            </h2>
-            <p className="text-xs text-neutral-500">
-              Update your personal name and manage login passwords securely
-            </p>
+          {/* ── SECTION 2: OWNER PROFILE & CREDENTIALS ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Profile Name & Details */}
+            <div className="bg-white dark:bg-neutral-900 rounded-3xl p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-4">
+              <h3 className="text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                <User className="w-4 h-4 text-indigo-600" />
+                <span>Profile Details</span>
+              </h3>
+              <form onSubmit={handleUpdateName} className="space-y-3">
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={accountName}
+                    onChange={(e) => setAccountName(e.target.value)}
+                    className="w-full p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    disabled
+                    value={currentUser?.email || ''}
+                    className="w-full p-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-400 cursor-not-allowed"
+                  />
+                  <span className="text-[10px] text-neutral-400">Primary login email (verified)</span>
+                </div>
+                <button
+                  type="submit"
+                  className="py-2 px-4 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-700 transition-colors"
+                >
+                  Save Profile Name
+                </button>
+              </form>
+            </div>
+
+            {/* Change Password */}
+            <div className="bg-white dark:bg-neutral-900 rounded-3xl p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-4">
+              <h3 className="text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                <Lock className="w-4 h-4 text-indigo-600" />
+                <span>Change Password</span>
+              </h3>
+              <form onSubmit={handleChangePassword} className="space-y-2.5">
+                <div>
+                  <label className="text-[11px] font-bold text-neutral-700 dark:text-neutral-300 block mb-0.5">
+                    Current Password
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    className="w-full p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11px] font-bold text-neutral-700 dark:text-neutral-300 block mb-0.5">
+                    New Password (Min 8 chars)
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    className="w-full p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11px] font-bold text-neutral-700 dark:text-neutral-300 block mb-0.5">
+                    Confirm New Password
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    className="w-full p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="py-2 px-4 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-700 transition-colors"
+                >
+                  Update Password
+                </button>
+              </form>
+            </div>
           </div>
 
-          {/* Profile Name */}
-          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
-            <h3 className="text-sm font-bold text-neutral-900 dark:text-white">
-              Profile Details
-            </h3>
-            <form onSubmit={handleUpdateName} className="space-y-3">
-              <div>
-                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  value={accountName}
-                  onChange={(e) => setAccountName(e.target.value)}
-                  className="w-full p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  disabled
-                  value={currentUser?.email || ''}
-                  className="w-full p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-400 cursor-not-allowed"
-                />
-                <span className="text-[10px] text-neutral-400">Primary login email</span>
-              </div>
-              <button
-                type="submit"
-                className="py-2.5 px-4 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-700"
-              >
-                Save Name
-              </button>
-            </form>
-          </div>
-
-          {/* Change Password */}
-          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
-            <h3 className="text-sm font-bold text-neutral-900 dark:text-white">
-              Change Password
-            </h3>
-            <form onSubmit={handleChangePassword} className="space-y-3">
-              <div>
-                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
-                  Current Password
-                </label>
-                <input
-                  type="password"
-                  required
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  className="w-full p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
-                  New Password (Min 8 characters)
-                </label>
-                <input
-                  type="password"
-                  required
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
-                  Confirm New Password
-                </label>
-                <input
-                  type="password"
-                  required
-                  value={confirmNewPassword}
-                  onChange={(e) => setConfirmNewPassword(e.target.value)}
-                  className="w-full p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-              <button
-                type="submit"
-                className="py-2.5 px-4 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-700"
-              >
-                Update Password
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* ── TAB 7: PRIVACY & SECURITY & ACCOUNT DELETION ── */}
-      {activeTab === 'privacy' && (
-        <div className="space-y-6 max-w-xl">
-          <div>
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
-              Privacy Controls & Data Ownership
-            </h2>
-            <p className="text-xs text-neutral-500">
-              Manage data retention, session revocation, and permanent account deletion
-            </p>
-          </div>
-
-          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4">
+          {/* ── SECTION 3: PRIVACY & SECURITY CONTROLS ── */}
+          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-5 sm:p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-xs space-y-4">
             <h3 className="text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              Privacy Guarantees in Effect
+              <ShieldCheck className="w-5 h-5 text-emerald-600" />
+              <span>Active Privacy &amp; Security Protections</span>
             </h3>
-            <ul className="text-xs text-neutral-600 dark:text-neutral-400 space-y-2 list-disc pl-5">
-              <li>Your phone number and email are never shown to any QR code scanner.</li>
-              <li>Voice messages are processed ephemerally and deleted immediately after delivery.</li>
-              <li>Telegram chat IDs are stored in restricted edge records and never rendered in frontend HTML.</li>
-            </ul>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="p-3.5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-1">
+                <span className="font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+                  🔒 Zero Phone Number Sharing
+                </span>
+                <p className="text-neutral-500 leading-relaxed text-[11px]">
+                  Your mobile number and email are never shown to any QR code scanner or caller.
+                </p>
+              </div>
+              <div className="p-3.5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-1">
+                <span className="font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+                  ⚡ Anti-Spam Rate Limiting
+                </span>
+                <p className="text-neutral-500 leading-relaxed text-[11px]">
+                  Each vehicle QR is rate-limited to 3 notifications per 15 minutes to block prank alerts.
+                </p>
+              </div>
+              <div className="p-3.5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-1">
+                <span className="font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+                  🎙️ Ephemeral Voice Notes
+                </span>
+                <p className="text-neutral-500 leading-relaxed text-[11px]">
+                  Bystander voice messages are streamed directly to Telegram and immediately wiped from edge storage.
+                </p>
+              </div>
+              <div className="p-3.5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-1">
+                <span className="font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+                  🔐 Single-Use Cryptographic Tokens
+                </span>
+                <p className="text-neutral-500 leading-relaxed text-[11px]">
+                  Account linking tokens expire after 10 minutes. Telegram chat IDs are never exposed in HTML.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="bg-rose-50/60 dark:bg-rose-950/20 rounded-3xl p-6 border border-rose-200/80 dark:border-rose-900/40 space-y-3">
+          {/* ── SECTION 4: DANGER ZONE (DELETE ACCOUNT) ── */}
+          <div className="bg-rose-50/60 dark:bg-rose-950/20 rounded-3xl p-5 sm:p-6 border border-rose-200/80 dark:border-rose-900/40 space-y-3">
             <h3 className="text-sm font-bold text-rose-700 dark:text-rose-300 flex items-center gap-2">
-              <Trash2 className="w-4 h-4" /> Danger Zone: Delete Account
+              <Trash2 className="w-4 h-4" /> Danger Zone: Permanent Account Deletion
             </h3>
             <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
               Permanently delete your owner account. This will invalidate all your vehicle QR stickers, delete all alert histories, and remove your Telegram bindings immediately. This action cannot be undone.
             </p>
             <button
               onClick={() => setShowDeleteModal(true)}
-              className="py-2.5 px-4 rounded-xl bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 shadow-md shadow-rose-600/20"
+              className="py-2.5 px-4 rounded-xl bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 shadow-md shadow-rose-600/20 transition-colors"
             >
               Delete My Account Permanently
             </button>
