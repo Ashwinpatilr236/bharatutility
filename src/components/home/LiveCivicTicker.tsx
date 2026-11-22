@@ -2,18 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { TrendingUp, Fuel, DollarSign, Sparkles, Sun, ChevronRight } from 'lucide-react';
 
+interface CachedDailyRates {
+  date: string; // Indian Standard Time date "YYYY-MM-DD"
+  fuelPrices: { delhi: number; mumbai: number };
+  usdInr: number;
+  goldRate: number;
+  lastUpdated: string;
+}
+
+const STORAGE_KEY = 'bu_daily_rates_cache_v1';
+
+const getTodayISTString = (): string => {
+  try {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata' }).format(new Date());
+  } catch {
+    return new Date().toISOString().slice(0, 10);
+  }
+};
+
 export const LiveCivicTicker: React.FC = () => {
   const { navigateToTool } = useApp();
   const [marketStatus, setMarketStatus] = useState<'open' | 'closed'>('closed');
   const [marketCountdown, setMarketCountdown] = useState<string>('Reopens 09:15');
 
-  // Real benchmark rates (2026 verified)
+  // Real benchmark rates (2026 verified defaults)
   const [fuelPrices, setFuelPrices] = useState<{ delhi: number; mumbai: number }>({ delhi: 102.12, mumbai: 111.21 });
   const [usdInr, setUsdInr] = useState<number>(92.68);
   const [goldRate, setGoldRate] = useState<number>(125080);
 
   useEffect(() => {
-    // 1. Check Indian Stock Market hours (9:15 AM - 3:30 PM IST Mon-Fri)
+    // 1. Real-time Indian Stock Market Hours (9:15 AM - 3:30 PM IST Mon-Fri)
     const checkMarket = () => {
       const now = new Date();
       const utc = now.getTime() + now.getTimezoneOffset() * 60000;
@@ -51,34 +69,84 @@ export const LiveCivicTicker: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // 2. Fetch daily rates from static public snapshot
-    fetch('/data/daily-rates.json')
-      .then(res => res.json())
-      .then(data => {
-        if (data?.fuel?.delhi?.petrol) {
-          setFuelPrices({ delhi: data.fuel.delhi.petrol, mumbai: data.fuel.mumbai?.petrol || 111.21 });
-        }
-        if (data?.currency?.usdInr && data.currency.usdInr >= 70 && data.currency.usdInr <= 130) {
-          setUsdInr(data.currency.usdInr);
-        }
-        if (data?.bullion?.gold24k_10g && data.bullion.gold24k_10g > 50000) {
-          setGoldRate(data.bullion.gold24k_10g);
-        }
-      })
-      .catch(() => {});
+    // 2. On-Demand "First Visit of the Day" Lazy Refresh Pattern
+    const todayStr = getTodayISTString();
 
-    // 3. Dynamic real-time FX API fetch with reliable range
-    fetch('https://open.er-api.com/v6/latest/USD')
-      .then(res => res.json())
-      .then(data => {
-        if (data?.rates?.INR && typeof data.rates.INR === 'number') {
-          const liveRate = parseFloat(data.rates.INR.toFixed(2));
-          if (liveRate >= 80 && liveRate <= 130) {
-            setUsdInr(liveRate);
+    // Check if we already have fresh cached rates for TODAY
+    try {
+      const cachedRaw = localStorage.getItem(STORAGE_KEY);
+      if (cachedRaw) {
+        const cached: CachedDailyRates = JSON.parse(cachedRaw);
+        if (cached && cached.date === todayStr && cached.fuelPrices && cached.usdInr) {
+          // Rates are already fresh for today! Zero network calls, instant render
+          setFuelPrices(cached.fuelPrices);
+          setUsdInr(cached.usdInr);
+          setGoldRate(cached.goldRate);
+          return;
+        }
+      }
+    } catch {
+      // Fallback to refresh if cache read fails
+    }
+
+    // If not cached for today (1st open of the day, or after several days of inactivity):
+    // Refresh live benchmark data once, then save to cache for the entire day.
+    const refreshDailyRates = async () => {
+      let currentFuel = { delhi: 102.12, mumbai: 111.21 };
+      let currentUsd = 92.68;
+      let currentGold = 125080;
+
+      try {
+        const res = await fetch('/data/daily-rates.json');
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.fuel?.delhi?.petrol) {
+            currentFuel = {
+              delhi: data.fuel.delhi.petrol,
+              mumbai: data.fuel.mumbai?.petrol || 111.21
+            };
+          }
+          if (data?.currency?.usdInr && data.currency.usdInr >= 70 && data.currency.usdInr <= 130) {
+            currentUsd = data.currency.usdInr;
+          }
+          if (data?.bullion?.gold24k_10g && data.bullion.gold24k_10g > 50000) {
+            currentGold = data.bullion.gold24k_10g;
           }
         }
-      })
-      .catch(() => {});
+      } catch {}
+
+      try {
+        const fxRes = await fetch('https://open.er-api.com/v6/latest/USD');
+        if (fxRes.ok) {
+          const fxData = await fxRes.json();
+          if (fxData?.rates?.INR && typeof fxData.rates.INR === 'number') {
+            const liveRate = parseFloat(fxData.rates.INR.toFixed(2));
+            if (liveRate >= 80 && liveRate <= 130) {
+              currentUsd = liveRate;
+            }
+          }
+        }
+      } catch {}
+
+      // Update active state
+      setFuelPrices(currentFuel);
+      setUsdInr(currentUsd);
+      setGoldRate(currentGold);
+
+      // Cache with today's date stamp so subsequent visits today reuse this without re-fetching
+      try {
+        const newCache: CachedDailyRates = {
+          date: todayStr,
+          fuelPrices: currentFuel,
+          usdInr: currentUsd,
+          goldRate: currentGold,
+          lastUpdated: new Date().toISOString()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newCache));
+      } catch {}
+    };
+
+    refreshDailyRates();
   }, []);
 
   return (
