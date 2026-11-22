@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
+import { getSupabase } from '../../services/supabaseClient';
 import { TrendingUp, Fuel, DollarSign, Sparkles, Sun, ChevronRight } from 'lucide-react';
 
 interface CachedDailyRates {
@@ -69,84 +70,123 @@ export const LiveCivicTicker: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // 2. On-Demand "First Visit of the Day" Lazy Refresh Pattern
+    // 2. Centralized Backend On-Demand Daily Lazy Refresh Pattern
     const todayStr = getTodayISTString();
 
-    // Check if we already have fresh cached rates for TODAY
+    // Check fast local cache first
     try {
       const cachedRaw = localStorage.getItem(STORAGE_KEY);
       if (cachedRaw) {
         const cached: CachedDailyRates = JSON.parse(cachedRaw);
         if (cached && cached.date === todayStr && cached.fuelPrices && cached.usdInr) {
-          // Rates are already fresh for today! Zero network calls, instant render
           setFuelPrices(cached.fuelPrices);
           setUsdInr(cached.usdInr);
           setGoldRate(cached.goldRate);
           return;
         }
       }
-    } catch {
-      // Fallback to refresh if cache read fails
-    }
+    } catch {}
 
-    // If not cached for today (1st open of the day, or after several days of inactivity):
-    // Refresh live benchmark data once, then save to cache for the entire day.
-    const refreshDailyRates = async () => {
-      let currentFuel = { delhi: 102.12, mumbai: 111.21 };
-      let currentUsd = 92.68;
-      let currentGold = 125080;
-
+    const syncDailyRates = async () => {
+      // Step A: Call Central Backend Endpoint (/api/daily-rates)
+      // On backend:
+      // If 1st user of the day -> refreshes live data and saves to central Supabase
+      // If user #2 to 10,000 of the day -> returns cached central data instantly without scraping
       try {
-        const res = await fetch('/data/daily-rates.json');
-        if (res.ok) {
-          const data = await res.json();
-          if (data?.fuel?.delhi?.petrol) {
-            currentFuel = {
-              delhi: data.fuel.delhi.petrol,
-              mumbai: data.fuel.mumbai?.petrol || 111.21
+        const apiRes = await fetch('/api/daily-rates');
+        if (apiRes.ok) {
+          const resData = await apiRes.json();
+          const r = resData?.rates;
+          if (r?.fuel?.delhi?.petrol) {
+            const freshFuel = {
+              delhi: r.fuel.delhi.petrol,
+              mumbai: r.fuel.mumbai?.petrol || 111.21
             };
-          }
-          if (data?.currency?.usdInr && data.currency.usdInr >= 70 && data.currency.usdInr <= 130) {
-            currentUsd = data.currency.usdInr;
-          }
-          if (data?.bullion?.gold24k_10g && data.bullion.gold24k_10g > 50000) {
-            currentGold = data.bullion.gold24k_10g;
+            const freshUsd = (typeof r?.currency?.usdInr === 'number' && r.currency.usdInr >= 70 && r.currency.usdInr <= 130)
+              ? r.currency.usdInr
+              : 92.68;
+            const freshGold = (typeof r?.bullion?.gold24k_10g === 'number' && r.bullion.gold24k_10g > 50000)
+              ? r.bullion.gold24k_10g
+              : 125080;
+
+            setFuelPrices(freshFuel);
+            setUsdInr(freshUsd);
+            setGoldRate(freshGold);
+
+            try {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                date: todayStr,
+                fuelPrices: freshFuel,
+                usdInr: freshUsd,
+                goldRate: freshGold,
+                lastUpdated: new Date().toISOString()
+              }));
+            } catch {}
+            return;
           }
         }
       } catch {}
 
+      // Step B: Direct Supabase Central Check fallback (if /api endpoint not reachable)
       try {
-        const fxRes = await fetch('https://open.er-api.com/v6/latest/USD');
-        if (fxRes.ok) {
-          const fxData = await fxRes.json();
-          if (fxData?.rates?.INR && typeof fxData.rates.INR === 'number') {
-            const liveRate = parseFloat(fxData.rates.INR.toFixed(2));
-            if (liveRate >= 80 && liveRate <= 130) {
-              currentUsd = liveRate;
-            }
+        const supabase = getSupabase();
+        if (supabase) {
+          const { data: configData } = await supabase
+            .from('site_config')
+            .select('config_json')
+            .eq('id', 'daily_rates')
+            .maybeSingle();
+
+          const r = configData?.config_json;
+          if (r?.fuel?.delhi?.petrol) {
+            const freshFuel = {
+              delhi: r.fuel.delhi.petrol,
+              mumbai: r.fuel.mumbai?.petrol || 111.21
+            };
+            const freshUsd = (typeof r?.currency?.usdInr === 'number' && r.currency.usdInr >= 70 && r.currency.usdInr <= 130)
+              ? r.currency.usdInr
+              : 92.68;
+            const freshGold = (typeof r?.bullion?.gold24k_10g === 'number' && r.bullion.gold24k_10g > 50000)
+              ? r.bullion.gold24k_10g
+              : 125080;
+
+            setFuelPrices(freshFuel);
+            setUsdInr(freshUsd);
+            setGoldRate(freshGold);
+
+            try {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                date: todayStr,
+                fuelPrices: freshFuel,
+                usdInr: freshUsd,
+                goldRate: freshGold,
+                lastUpdated: new Date().toISOString()
+              }));
+            } catch {}
+            return;
           }
         }
       } catch {}
 
-      // Update active state
-      setFuelPrices(currentFuel);
-      setUsdInr(currentUsd);
-      setGoldRate(currentGold);
-
-      // Cache with today's date stamp so subsequent visits today reuse this without re-fetching
+      // Step C: Static JSON fallback (/data/daily-rates.json)
       try {
-        const newCache: CachedDailyRates = {
-          date: todayStr,
-          fuelPrices: currentFuel,
-          usdInr: currentUsd,
-          goldRate: currentGold,
-          lastUpdated: new Date().toISOString()
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(newCache));
+        const staticRes = await fetch('/data/daily-rates.json');
+        if (staticRes.ok) {
+          const d = await staticRes.json();
+          if (d?.fuel?.delhi?.petrol) {
+            setFuelPrices({ delhi: d.fuel.delhi.petrol, mumbai: d.fuel.mumbai?.petrol || 111.21 });
+          }
+          if (d?.currency?.usdInr && d.currency.usdInr >= 70 && d.currency.usdInr <= 130) {
+            setUsdInr(d.currency.usdInr);
+          }
+          if (d?.bullion?.gold24k_10g && d.bullion.gold24k_10g > 50000) {
+            setGoldRate(d.bullion.gold24k_10g);
+          }
+        }
       } catch {}
     };
 
-    refreshDailyRates();
+    syncDailyRates();
   }, []);
 
   return (
