@@ -5,7 +5,6 @@ import { Footer } from './components/common/Footer';
 import { CommandPalette } from './components/common/CommandPalette';
 import { Toast } from './components/common/Toast';
 import { OfflineStatusIndicator } from './components/common/OfflineStatusIndicator';
-import { PwaInstallBanner } from './components/common/PwaInstallBanner';
 import { RequestToolCta } from './components/common/RequestToolCta';
 
 // Home View Sections (kept eager for instantaneous public home landing)
@@ -16,8 +15,6 @@ import { YourFavoritesSection } from './components/home/YourFavoritesSection';
 import { RecentlyUsedSection } from './components/home/RecentlyUsedSection';
 import { TrustSection } from './components/home/TrustSection';
 import { HomeFaqSection } from './components/home/HomeFaqSection';
-import { FinalDiscoveryCtaSection } from './components/home/FinalDiscoveryCtaSection';
-import { SanatanNextShowcaseSection } from './components/home/SanatanNextShowcaseSection';
 import { ParkSignalHomeShowcase } from './components/home/ParkSignalHomeShowcase';
 import { SocialFollow } from './components/common/SocialFollow';
 import { getToolBySlug } from './data/toolsRegistry';
@@ -25,8 +22,6 @@ import { ArrowLeft } from 'lucide-react';
 
 import { LegalView } from './components/views/LegalView';
 import { ContactView } from './components/views/ContactView';
-
-import { InteractiveMiniTools } from './components/home/InteractiveMiniTools';
 import { MobileNavDock } from './components/common/MobileNavDock';
 
 // Code-split Lazy Loaded Views
@@ -71,40 +66,28 @@ const AppContent: React.FC = () => {
       <main className={`flex-1 ${isVideoPlayerApp ? 'p-0 m-0' : hideChrome ? 'p-0' : 'pb-16 md:pb-0'}`}>
         <ErrorBoundary>
           {view.type === 'home' && (
-            <div className="flex flex-col space-y-1.5 sm:space-y-3.5 py-0.5 sm:py-2">
-              {/* 1. Hero & Smart Discovery Search */}
+            <div className="flex flex-col space-y-6 sm:space-y-10 py-2 sm:py-6">
+              {/* 1. Clean Hero & Smart Discovery Search */}
               <HeroSection />
 
-              {/* 1.5. ParkSignal Launch Showcase */}
+              {/* 2. ParkSignal Smart Vehicle QR Showcase */}
               <ParkSignalHomeShowcase />
 
-              {/* 2. PWA Install App Banner */}
-              <PwaInstallBanner />
-
-              {/* 3. Tabbed Tool Discovery: Trending / Popular / New (3 → 1 widget) */}
-              <ToolDiscoveryWidget />
-
-              {/* 4. Category + Detail Panel: 2-col on desktop, chips+carousel on mobile */}
-              <CategoryDetailPanel />
-
-              {/* 5. Interactive Quick Calculators */}
-              <InteractiveMiniTools />
-
-              {/* 6. Personalized Sections (shown only when user has used tools) */}
+              {/* 3. Personalized Sections (shown only when user has used or starred tools) */}
               <YourFavoritesSection />
               <RecentlyUsedSection />
 
-              {/* 7. Sister Project Showcase: Sanatan Next */}
-              <SanatanNextShowcaseSection />
+              {/* 4. Structured Category Explorer */}
+              <CategoryDetailPanel />
 
-              {/* 8. Why BharatUtility & Privacy Trust */}
+              {/* 5. Tool Discovery: Trending / Popular / New */}
+              <ToolDiscoveryWidget />
+
+              {/* 6. Why BharatUtility & Privacy Trust */}
               <TrustSection />
 
-              {/* 9. Concise Indian User FAQ */}
+              {/* 7. Concise Indian User FAQ */}
               <HomeFaqSection />
-
-              {/* 10. Final Tool Discovery CTA */}
-              <FinalDiscoveryCtaSection />
             </div>
           )}
 

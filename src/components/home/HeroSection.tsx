@@ -3,8 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { useAdminStore } from '../../hooks/useAdminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch, TRENDING_SEARCH_KEYWORDS } from '../../utils/smartSearch';
-import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck, MonitorPlay } from 'lucide-react';
-import { LiveCivicTicker } from './LiveCivicTicker';
+import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck } from 'lucide-react';
 import { AntigravityParticles } from '../common/AntigravityParticles';
 import { SpotlightCard } from '../common/SpotlightCard';
 import { CommandPalette } from '../common/CommandPalette';
@@ -80,17 +79,12 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-1 pb-3 sm:pt-2 sm:pb-5 overflow-hidden">
+    <section className="relative pt-4 pb-6 sm:pt-8 sm:pb-10 overflow-hidden">
       {/* Background Interactive Antigravity Particles & Cosmic Glow */}
-      <AntigravityParticles className="opacity-70 dark:opacity-80" particleCount={48} />
+      <AntigravityParticles className="opacity-60 dark:opacity-70" particleCount={36} />
 
       {/* Background Floating Subtle Ambient Light */}
-      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[300px] bg-gradient-to-b from-indigo-500/15 via-purple-500/10 to-transparent blur-3xl pointer-events-none -z-10 rounded-full animate-antigravity-pulse" />
-
-      {/* Live Civic Status Bar */}
-      <div className="mb-2 sm:mb-3 relative z-10">
-        <LiveCivicTicker />
-      </div>
+      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[300px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full" />
 
       <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
         {/* Modern Minimal Top Badge */}
@@ -298,7 +292,7 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Clean Single-Row Trending Searches */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-6 text-xs">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8 text-xs">
           <span className="font-bold text-neutral-400 dark:text-neutral-500 flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
             Trending:
@@ -312,33 +306,6 @@ export const HeroSection: React.FC = () => {
               {keyword}
             </button>
           ))}
-        </div>
-
-        {/* Featured OTT Stream Finder Banner */}
-        <div 
-          onClick={() => navigateToTool('ott-stream-finder')}
-          className="max-w-4xl mx-auto mb-4 p-3.5 sm:p-4 rounded-2xl cursor-pointer bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/15 hover:shadow-purple-500/30 hover:-translate-y-0.5 transition-all group relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 group-hover:bg-white/20 transition-colors pointer-events-none" />
-          <div className="relative z-10 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-white/20 rounded-xl shrink-0 backdrop-blur-md">
-                <MonitorPlay className="w-5 h-5 text-white" />
-              </div>
-              <div className="text-left min-w-0">
-                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/20 text-[9px] font-bold uppercase tracking-wider backdrop-blur-md border border-white/25">
-                  <Sparkles className="w-2.5 h-2.5" /> Spotlight
-                </div>
-                <h3 className="font-bold text-sm sm:text-base leading-tight">Where to Watch? OTT Stream Finder</h3>
-                <p className="text-white/85 text-xs hidden sm:block">Find which platform is streaming your favorite movie in India across Netflix, Prime, Hotstar & more.</p>
-              </div>
-            </div>
-            <div className="shrink-0">
-              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white text-white group-hover:text-purple-600 transition-colors backdrop-blur-md">
-                <ArrowRight className="w-4 h-4" />
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* 8 Instant Quick-Access Bento Hero Cards with Spotlight & 3D Tilt */}

@@ -80,48 +80,17 @@ export const Header: React.FC = () => {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-0.5 lg:gap-1 shrink-0 whitespace-nowrap">
+            <nav className="hidden md:flex items-center gap-1 lg:gap-2 shrink-0 whitespace-nowrap">
               {/* 1. All Tools */}
               <Link
                 to="/tools"
-                className={`whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                className={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
                   view.type === "all-tools"
                     ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
-                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/60 dark:hover:bg-neutral-800/60"
                 }`}
               >
                 All Tools
-              </Link>
-
-              {/* Guides & Blog */}
-              <Link
-                to="/guides"
-                className={`whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1 ${
-                  view.type === "guides" ||
-                  view.type === "blog" ||
-                  view.type === "article"
-                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
-                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
-                }`}
-              >
-                <BookOpen className="w-3.5 h-3.5 shrink-0" />
-                <span>Guides</span>
-              </Link>
-
-              {/* ParkSignal */}
-              <Link
-                to="/parksignal"
-                className={`whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
-                  view.type === "parksignal"
-                    ? "bg-indigo-600 text-white shadow-xs"
-                    : "text-neutral-600 dark:text-neutral-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-neutral-50 dark:hover:bg-neutral-900"
-                }`}
-              >
-                <Shield className="w-3.5 h-3.5 shrink-0 text-cyan-500" />
-                <span>ParkSignal</span>
-                <span className="text-[9px] px-1 py-0.2 rounded bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-extrabold uppercase tracking-wider">
-                  NEW
-                </span>
               </Link>
 
               {/* 2. Categories Dropdown */}
@@ -129,7 +98,7 @@ export const Header: React.FC = () => {
                 <button
                   onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                   onMouseEnter={() => setIsCategoriesOpen(true)}
-                  className="whitespace-nowrap shrink-0 flex items-center gap-1 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+                  className="whitespace-nowrap shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/60 dark:hover:bg-neutral-800/60 transition-colors"
                 >
                   <Layers className="w-3.5 h-3.5 shrink-0" />
                   <span>Categories</span>
@@ -266,53 +235,42 @@ export const Header: React.FC = () => {
                 )}
               </div>
 
-              {/* 3. Finance & Tax */}
+              {/* 3. ParkSignal */}
               <Link
-                to="/category/money"
-                className="hidden xl:flex whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors items-center gap-1"
-              >
-                <Flame className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                <span className="whitespace-nowrap">Finance & Tax</span>
-              </Link>
-
-              {/* 4. Request a Tool */}
-              <Link
-                to="/request-tool"
-                className={`hidden lg:flex whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors items-center gap-1.5 ${
-                  view.type === "request-tool"
-                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
-                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                to="/parksignal"
+                className={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                  view.type === "parksignal"
+                    ? "bg-indigo-600 text-white shadow-xs"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-neutral-100/60 dark:hover:bg-neutral-800/60"
                 }`}
               >
-                <Sparkles className="w-3.5 h-3.5 text-accent shrink-0" />
-                <span className="whitespace-nowrap">Request a Tool</span>
+                <Shield className="w-3.5 h-3.5 shrink-0 text-cyan-500" />
+                <span>ParkSignal</span>
+                <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-extrabold uppercase tracking-wider">
+                  NEW
+                </span>
               </Link>
 
-              {/* 5. Favorites */}
+              {/* 4. Guides & Blog */}
               <Link
-                to="/favorites"
-                className={`whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
-                  view.type === "favorites"
+                to="/guides"
+                className={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                  view.type === "guides" ||
+                  view.type === "blog" ||
+                  view.type === "article"
                     ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white"
-                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/60 dark:hover:bg-neutral-800/60"
                 }`}
               >
-                <Star
-                  className={`w-3.5 h-3.5 shrink-0 ${favorites.length > 0 ? "text-amber-500 fill-current" : "text-neutral-400"}`}
-                />
-                <span className="whitespace-nowrap">Favorites</span>
-                {favorites.length > 0 && (
-                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0">
-                    {favorites.length}
-                  </span>
-                )}
+                <BookOpen className="w-3.5 h-3.5 shrink-0" />
+                <span>Guides</span>
               </Link>
             </nav>
           </div>
 
           {/* Search Trigger, Favorites & Settings */}
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-            {/* Quick Search Spotlight Button - desktop/tablet only since mobile has central FAB */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Quick Search Spotlight Button */}
             <button
               id="global-search-trigger"
               onClick={() => setCommandPaletteOpen(true)}
@@ -320,7 +278,7 @@ export const Header: React.FC = () => {
             >
               <Search className="w-3.5 h-3.5 text-accent shrink-0" />
               <span className="hidden sm:inline text-xs whitespace-nowrap">
-                Search Indian utilities...
+                Search utilities...
               </span>
               <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-neutral-500 dark:text-neutral-400 bg-white dark:bg-neutral-800 rounded-md border border-neutral-200/90 dark:border-neutral-700 shadow-2xs shrink-0">
                 {typeof window !== "undefined" &&
@@ -330,16 +288,24 @@ export const Header: React.FC = () => {
               </kbd>
             </button>
 
-            {/* Saved & History Modal Trigger - desktop/tablet only since mobile has bottom dock */}
+            {/* Saved & History Modal Trigger with live badge */}
             <button
               id="favorites-history-button"
               onClick={() => setIsFavModalOpen(true)}
               title="Saved tools and recent calculations"
-              className="hidden sm:flex relative p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+              className="relative p-2 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
             >
-              <Star className="w-4 h-4" />
+              <Star
+                className={`w-4 h-4 ${
+                  favorites.length > 0
+                    ? "text-amber-500 fill-current"
+                    : "text-neutral-400"
+                }`}
+              />
               {favorites.length > 0 && (
-                <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-500 ring-2 ring-white dark:ring-neutral-950" />
+                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-amber-500 text-white text-[9px] font-bold flex items-center justify-center">
+                  {favorites.length}
+                </span>
               )}
             </button>
 
