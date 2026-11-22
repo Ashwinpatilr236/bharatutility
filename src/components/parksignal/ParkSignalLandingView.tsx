@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
+import { ParkSignalLogo } from './ParkSignalLogo';
 import {
   Car,
   QrCode,
@@ -24,21 +25,26 @@ export const ParkSignalLandingView: React.FC = () => {
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
       {/* ── 1. HERO SECTION ── */}
-      <section className="relative overflow-hidden pt-8 sm:pt-16 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="relative overflow-hidden pt-8 sm:pt-14 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center space-y-6 max-w-3xl mx-auto">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-bold shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            ParkSignal • By BharatUtility
+          {/* Official Brand Logo Feature Showcase */}
+          <div className="flex flex-col items-center justify-center gap-3">
+            <div className="p-4 sm:p-5 rounded-3xl bg-neutral-900/90 dark:bg-black/80 border border-neutral-800 shadow-2xl backdrop-blur-xl inline-block hover:border-cyan-500/50 transition-all duration-300">
+              <ParkSignalLogo variant="full" height={60} theme="dark" className="max-w-full drop-shadow-lg" />
+            </div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 text-xs font-bold shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Official Fastag-Size Smart Parking Protection
+            </div>
           </div>
 
           {/* Main Title & Tagline */}
           <div className="space-y-3">
-            <h1 className="text-4xl sm:text-6xl font-black font-display tracking-tight text-neutral-900 dark:text-white leading-[1.1]">
-              Your Vehicle. <span className="text-indigo-600 dark:text-indigo-400">Your Privacy.</span>
+            <h1 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-neutral-900 dark:text-white leading-[1.15]">
+              Your Vehicle. <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">Your Privacy.</span>
             </h1>
-            <p className="text-lg sm:text-2xl font-bold text-neutral-600 dark:text-neutral-300">
-              Scan. Alert. Connect.
+            <p className="text-base sm:text-xl font-bold text-neutral-600 dark:text-neutral-300">
+              Instant Windshield QR Alerts via Telegram • Zero Phone Number Sharing
             </p>
           </div>
 

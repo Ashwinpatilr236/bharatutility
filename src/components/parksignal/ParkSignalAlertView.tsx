@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ParkSignalLogo } from './ParkSignalLogo';
 import {
   Car,
   ShieldCheck,
@@ -263,16 +264,19 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
   return (
     <div className="max-w-lg mx-auto px-4 py-6 sm:py-10 space-y-6">
       {/* Brand Header */}
-      <div className="text-center space-y-1">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-[11px] font-bold border border-indigo-200 dark:border-indigo-800">
-          <Car className="w-3.5 h-3.5" />
-          ParkSignal • BharatUtility
+      <div className="text-center space-y-2">
+        <div className="flex justify-center mb-1">
+          <ParkSignalLogo variant="full" height={40} className="hover:opacity-95 transition-opacity" />
+        </div>
+        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-[11px] font-bold border border-indigo-200 dark:border-indigo-800">
+          <ShieldCheck className="w-3.5 h-3.5" />
+          Secure Vehicle Alert Portal
         </div>
         <h1 className="text-2xl sm:text-3xl font-black font-display tracking-tight text-neutral-900 dark:text-white">
           Contact Vehicle Owner
         </h1>
         <p className="text-xs text-neutral-500">
-          Your Vehicle. Your Privacy. • Scan. Alert. Connect.
+          No app download or login required • Instant private notification
         </p>
       </div>
 

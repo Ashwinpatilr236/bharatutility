@@ -145,13 +145,29 @@ export const parkSignalService = {
 
         if (error) {
           // If already registered
-          if (error.message.includes('already registered')) {
+          if (error.message?.toLowerCase().includes('already registered')) {
             return { success: false, error: 'An account with this email already exists. Please log in.' };
           }
-          return { success: false, error: error.message };
-        }
 
-        if (data.user) {
+          // If Supabase endpoint returned an HTML page (<!DOCTYPE), non-JSON, or network error
+          const msg = error.message || '';
+          if (
+            msg.includes('is not valid JSON') ||
+            msg.includes('<!DOCTYPE') ||
+            msg.includes('Failed to fetch') ||
+            msg.includes('NetworkError') ||
+            msg.includes('network') ||
+            error.status === 500 ||
+            error.status === 502 ||
+            error.status === 503 ||
+            error.status === 504
+          ) {
+            console.warn('Supabase auth server unavailable or returned non-JSON, switching to local store:', msg);
+            // Fall through to step 2 (client-side fallback)
+          } else {
+            return { success: false, error: error.message };
+          }
+        } else if (data.user) {
           const user: ParkSignalUser = {
             id: data.user.id,
             email: normEmail,
@@ -217,10 +233,23 @@ export const parkSignalService = {
         });
 
         if (error) {
-          return { success: false, error: error.message };
-        }
-
-        if (data.user && data.session) {
+          const msg = error.message || '';
+          if (
+            msg.includes('is not valid JSON') ||
+            msg.includes('<!DOCTYPE') ||
+            msg.includes('Failed to fetch') ||
+            msg.includes('NetworkError') ||
+            error.status === 500 ||
+            error.status === 502 ||
+            error.status === 503 ||
+            error.status === 504
+          ) {
+            console.warn('Supabase auth server unavailable or returned non-JSON during login, checking local store:', msg);
+            // Fall through to local fallback
+          } else {
+            return { success: false, error: error.message };
+          }
+        } else if (data.user && data.session) {
           // Fetch profile details
           const { data: profile } = await supabase
             .from('parksignal_profiles')

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { parkSignalService } from '../../services/parkSignalService';
+import { ParkSignalLogo } from './ParkSignalLogo';
 import {
   ParkSignalUser,
   ParkSignalVehicle,
@@ -299,7 +300,15 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+      {/* ── Brand Banner ── */}
+      <div className="flex items-center justify-between">
+        <ParkSignalLogo variant="full" height={36} className="hover:opacity-90 transition-opacity cursor-pointer" />
+        <span className="text-xs text-neutral-500 font-semibold hidden sm:inline-block">
+          Owner Portal • Connected via @ParkSignal_bot
+        </span>
+      </div>
+
       {/* ── Top Header & Profile Strip ── */}
       <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">

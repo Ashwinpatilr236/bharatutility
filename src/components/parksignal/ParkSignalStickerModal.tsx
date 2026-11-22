@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import QRCode from 'qrcode';
+import { ParkSignalLogo } from './ParkSignalLogo';
 import {
   X,
   Download,
@@ -510,18 +511,21 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       <div className="relative w-full max-w-4xl bg-neutral-900 text-white rounded-3xl shadow-2xl border border-neutral-800 overflow-hidden flex flex-col max-h-[96vh]">
         {/* Modal Header */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-neutral-800 bg-neutral-950/70">
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-black text-white flex items-center gap-2">
-                <span>Printable Windshield Sticker</span>
-                <span className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-full bg-amber-400 text-black">
-                  Premium Fastag Pass
-                </span>
-              </h3>
+          <div className="flex items-center gap-3">
+            <ParkSignalLogo variant="emblem" height={34} />
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-black text-white flex items-center gap-2">
+                  <span>Printable Windshield Sticker</span>
+                  <span className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-full bg-amber-400 text-black">
+                    Premium Fastag Pass
+                  </span>
+                </h3>
+              </div>
+              <p className="text-xs text-neutral-400 mt-0.5">
+                High-visibility smart parking sticker for <strong className="text-white">{vehicle.vehicle_number}</strong>
+              </p>
             </div>
-            <p className="text-xs text-neutral-400 mt-0.5">
-              High-visibility smart parking sticker for <strong className="text-white">{vehicle.vehicle_number}</strong>
-            </p>
           </div>
           <button
             onClick={onClose}

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { parkSignalService } from '../../services/parkSignalService';
-import { Car, Lock, Mail, User, ShieldCheck, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ParkSignalLogo } from './ParkSignalLogo';
+import { Lock, Mail, User, ShieldCheck, ArrowRight, AlertCircle } from 'lucide-react';
 
 export const ParkSignalRegisterView: React.FC = () => {
   const { navigateToParkSignal, showToast } = useApp();
@@ -35,22 +36,35 @@ export const ParkSignalRegisterView: React.FC = () => {
     }
 
     setLoading(true);
-    const res = await parkSignalService.register(fullName.trim(), email.trim(), password);
-    setLoading(false);
+    try {
+      const res = await parkSignalService.register(fullName.trim(), email.trim(), password);
+      setLoading(false);
 
-    if (res.success) {
-      showToast('Account created successfully! Welcome to ParkSignal.', 'success');
-      navigateToParkSignal('dashboard');
-    } else {
-      setError(res.error || 'Failed to create account.');
+      if (res.success) {
+        showToast('Account created successfully! Welcome to ParkSignal.', 'success');
+        navigateToParkSignal('dashboard');
+      } else {
+        const rawErr = res.error || 'Failed to create account.';
+        const cleanErr = rawErr.includes('<!DOCTYPE') || rawErr.includes('not valid JSON')
+          ? 'Network or server timeout. Please try again or check connection.'
+          : rawErr;
+        setError(cleanErr);
+      }
+    } catch (err: any) {
+      setLoading(false);
+      setError('Something went wrong during account creation. Please try again.');
     }
   };
 
   return (
-    <div className="max-w-md mx-auto px-4 py-8 sm:py-16 space-y-6">
-      <div className="text-center space-y-1">
+    <div className="max-w-md mx-auto px-4 py-8 sm:py-14 space-y-6">
+      <div className="text-center space-y-3">
+        {/* Official Brand Logo */}
+        <div className="flex justify-center mb-1">
+          <ParkSignalLogo variant="full" height={44} className="hover:opacity-95 transition-opacity" />
+        </div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-[11px] font-bold border border-indigo-200 dark:border-indigo-800">
-          <Car className="w-3.5 h-3.5" />
+          <ShieldCheck className="w-3.5 h-3.5" />
           ParkSignal Owner Account
         </div>
         <h1 className="text-2xl sm:text-3xl font-black font-display tracking-tight text-neutral-900 dark:text-white">

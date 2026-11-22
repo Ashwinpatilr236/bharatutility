@@ -7,7 +7,8 @@ import { ParkSignalDashboardView } from './ParkSignalDashboardView';
 import { ParkSignalAlertView } from './ParkSignalAlertView';
 import { ParkSignalPrivacyView } from './ParkSignalPrivacyView';
 import { ParkSignalHelpView } from './ParkSignalHelpView';
-import { Car, QrCode, Shield, HelpCircle, ArrowLeft, User } from 'lucide-react';
+import { ParkSignalLogo } from './ParkSignalLogo';
+import { Shield, HelpCircle, ArrowLeft, User } from 'lucide-react';
 import { parkSignalService } from '../../services/parkSignalService';
 
 export const ParkSignalView: React.FC = () => {
@@ -35,9 +36,13 @@ export const ParkSignalView: React.FC = () => {
               <span className="text-neutral-300 dark:text-neutral-700">/</span>
               <button
                 onClick={() => navigateToParkSignal('landing')}
-                className="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5"
+                className="font-bold flex items-center gap-1.5 hover:opacity-90 transition-opacity"
+                title="ParkSignal by BharatUtility"
               >
-                <Car className="w-4 h-4" /> ParkSignal
+                <ParkSignalLogo variant="emblem" height={26} />
+                <span className="font-extrabold text-neutral-900 dark:text-white text-xs tracking-tight">
+                  PARK<span className="text-cyan-500">SIGNAL</span>
+                </span>
               </button>
             </div>
 
