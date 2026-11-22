@@ -10,10 +10,8 @@ import {
   Play,
   Pause,
   Trash2,
-  RotateCcw,
   CheckCircle2,
   XCircle,
-  HelpCircle,
   PhoneCall,
   Lock,
   ArrowRight,
@@ -21,7 +19,12 @@ import {
   QrCode,
   MapPin,
   Star,
-  Navigation
+  Navigation,
+  Check,
+  BellRing,
+  HelpCircle,
+  Clock,
+  Radio
 } from 'lucide-react';
 import { parkSignalService } from '../../services/parkSignalService';
 import { ParkSignalPublicVehicle } from '../../types';
@@ -231,7 +234,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
       if (res.success && res.delivered) {
         setResultState({
           status: 'success',
-          message: 'Voice alert delivered directly to the vehicle owner!'
+          message: 'Voice alert delivered directly to the vehicle owner on Telegram!'
         });
       } else {
         setResultState({
@@ -251,7 +254,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
       if (res.success && res.delivered) {
         setResultState({
           status: 'success',
-          message: 'Parking alert delivered to the vehicle owner instantly!'
+          message: 'Parking alert delivered to the vehicle owner instantly via Telegram!'
         });
       } else {
         setResultState({
@@ -264,8 +267,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
 
   if (loading) {
     return (
-      <div className="max-w-lg mx-auto px-4 py-16 text-center space-y-4">
-        <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto" />
+      <div className="max-w-lg mx-auto px-4 py-20 text-center space-y-4">
+        <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto" />
         <h2 className="text-lg font-bold text-neutral-800 dark:text-neutral-200">
           Connecting to ParkSignal...
         </h2>
@@ -316,219 +319,206 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
   };
 
   const alertOptions = [
-    { key: 'blocking', text: 'Your vehicle is blocking my vehicle.', icon: '🚗', enabled: s.allowBlocking },
-    { key: 'move', text: 'Please move your vehicle.', icon: '🅿️', enabled: s.allowMoveVehicle },
-    { key: 'emergency', text: 'Emergency – Please check your vehicle immediately.', icon: '⚠️', isEmergency: true, enabled: s.allowEmergency },
-    { key: 'child', text: 'A child or person may be inside your vehicle. Please check immediately.', icon: '👶', isEmergency: true, enabled: s.allowChildPersonInside },
-    { key: 'lights', text: 'Your vehicle lights are ON.', icon: '💡', enabled: s.allowLightsOn },
-    { key: 'window', text: 'Your window or door appears to be open.', icon: '🪟', enabled: s.allowWindowDoorOpen },
-    { key: 'damage', text: 'Possible vehicle damage noticed.', icon: '💥', enabled: s.allowDamageAlert },
-    { key: 'custom', text: 'Other / Custom Message', icon: '📝', enabled: s.allowCustomText }
+    {
+      key: 'blocking',
+      title: 'Vehicle is Blocking',
+      sub: 'Blocking my car, driveway or clear exit path',
+      icon: '🚗',
+      fullText: 'Your vehicle is blocking my vehicle. Please move.',
+      enabled: s.allowBlocking,
+      isEmergency: false
+    },
+    {
+      key: 'move',
+      title: 'Please Move Vehicle',
+      sub: 'Need parking spot or vehicle shifted slightly',
+      icon: '🅿️',
+      fullText: 'Please move your vehicle slightly when convenient.',
+      enabled: s.allowMoveVehicle,
+      isEmergency: false
+    },
+    {
+      key: 'lights',
+      title: 'Headlights Left ON',
+      sub: 'Car lights or parking lamps are draining battery',
+      icon: '💡',
+      fullText: 'Your vehicle lights are ON. Battery may drain.',
+      enabled: s.allowLightsOn,
+      isEmergency: false
+    },
+    {
+      key: 'window',
+      title: 'Window / Door Open',
+      sub: 'Window rolled down or door ajar (theft / rain risk)',
+      icon: '🪟',
+      fullText: 'Your window or door appears to be open.',
+      enabled: s.allowWindowDoorOpen,
+      isEmergency: false
+    },
+    {
+      key: 'damage',
+      title: 'Scratched / Flat Tyre',
+      sub: 'Noticeable exterior damage, flat tyre or leakage',
+      icon: '💥',
+      fullText: 'Possible vehicle damage, flat tyre or dent noticed.',
+      enabled: s.allowDamageAlert,
+      isEmergency: false
+    },
+    {
+      key: 'emergency',
+      title: '🚨 Emergency Situation',
+      sub: 'Urgent situation – owner attention required now',
+      icon: '⚠️',
+      fullText: 'Emergency – Please check your vehicle immediately.',
+      enabled: s.allowEmergency,
+      isEmergency: true
+    },
+    {
+      key: 'child',
+      title: '👶 Child / Pet Inside',
+      sub: 'Urgent safety alert – living being inside vehicle',
+      icon: '🚨',
+      fullText: 'A child or person may be inside your vehicle. Please check immediately.',
+      enabled: s.allowChildPersonInside,
+      isEmergency: true
+    },
+    {
+      key: 'custom',
+      title: 'Custom Note / Other',
+      sub: 'Type specific details or parking instructions',
+      icon: '📝',
+      fullText: 'Other / Custom Message',
+      enabled: s.allowCustomText,
+      isEmergency: false
+    }
   ].filter((opt) => opt.enabled);
 
   const isEmergencySelected =
     selectedCategory.includes('Emergency') || selectedCategory.includes('child or person');
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6 sm:py-10 space-y-6">
-      {/* Brand Header */}
+    <div className="max-w-xl mx-auto px-4 py-5 sm:py-8 space-y-6">
+      {/* ── HEADER BRANDING ── */}
       <div className="text-center space-y-2">
-        <div className="flex justify-center mb-1">
-          <ParkSignalLogo variant="full" height={40} className="hover:opacity-95 transition-opacity" />
+        <div className="flex justify-center">
+          <ParkSignalLogo variant="full" height={36} />
         </div>
-        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-[11px] font-bold border border-indigo-200 dark:border-indigo-800">
-          <ShieldCheck className="w-3.5 h-3.5" />
-          Secure Vehicle Alert Portal
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 text-[11px] font-bold border border-cyan-500/20">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span>Smart Vehicle Alert Portal</span>
+          <span className="text-neutral-400">•</span>
+          <span className="text-[10px] text-neutral-500 font-medium">Fastag-Size QR Pass</span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-black font-display tracking-tight text-neutral-900 dark:text-white">
           Contact Vehicle Owner
         </h1>
-        <p className="text-xs text-neutral-500">
-          No app download or login required • Instant private notification
+        <p className="text-xs text-neutral-500 max-w-sm mx-auto">
+          Send a polite, private notification directly to the driver's phone. No app required.
         </p>
       </div>
 
-      {/* Vehicle Info & Privacy Pledge Card */}
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-5 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold">
-              <Car className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block">
-                {vehicle.vehicleType}
-              </span>
-              <span className="text-base font-extrabold font-mono text-neutral-900 dark:text-white">
-                {vehicle.isPlateMasked ? '•••••••• (Private Plate)' : vehicle.vehicleNumber}
-              </span>
-            </div>
-          </div>
-          <span className="px-2.5 py-1 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold border border-emerald-500/20 flex items-center gap-1">
-            <ShieldCheck className="w-3 h-3" /> Owner Protected
+      {/* ── 1. CAR DETAILS: EMBOSSED INDIAN HSRP NUMBER PLATE ── */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between px-1">
+          <span className="text-[11px] uppercase tracking-wider font-extrabold text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
+            <Car className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+            1. Scanned Vehicle Details
+          </span>
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+            Owner Active on Telegram
           </span>
         </div>
 
-        {/* Reassurance Banner */}
-        <div className="bg-emerald-50/80 dark:bg-emerald-950/30 p-3 rounded-2xl text-[11px] text-emerald-800 dark:text-emerald-300 flex items-start gap-2 border border-emerald-200/60 dark:border-emerald-900/40">
-          <Lock className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-          <span>
-            <strong>100% Private & Anonymous:</strong> Your mobile number and identity are NEVER collected or shared. The vehicle owner receives your polite alert instantly on their private phone.
-          </span>
-        </div>
-      </div>
+        {/* Authentic Indian HSRP Number Plate Card */}
+        <div className="relative overflow-hidden rounded-2xl bg-neutral-900 border-2 border-neutral-700/80 shadow-xl p-4 sm:p-5 text-white">
+          {/* Subtle reflective top gloss */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-indigo-500 to-amber-400 opacity-80" />
 
-      {/* Emergency Advisory & Indian Helpline Directory */}
-      <div className="bg-rose-50/90 dark:bg-rose-950/40 p-4 sm:p-5 rounded-3xl border border-rose-200 dark:border-rose-900/60 space-y-3.5">
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm">
-            <PhoneCall className="w-4 h-4 animate-pulse" />
-          </div>
-          <div className="space-y-1">
-            <div className="font-black text-rose-800 dark:text-rose-200 text-sm flex items-center gap-2">
-              <span>Emergency Advisory (Dial 112)</span>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-600 text-white uppercase font-extrabold tracking-wider">
-                India 24x7
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            {/* The HSRP Plate */}
+            <div className="inline-flex items-stretch rounded-xl border-2 border-neutral-900 shadow-md overflow-hidden bg-white text-neutral-950 font-mono">
+              {/* Blue IND Strip */}
+              <div className="bg-[#002B7F] text-white px-2.5 py-2 flex flex-col items-center justify-center min-w-[36px] select-none border-r border-blue-900">
+                {/* Ashoka Chakra vector representation */}
+                <svg className="w-4 h-4 text-cyan-300" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                  <circle cx="12" cy="12" r="2.5" fill="currentColor" />
+                  <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M5.6 18.4L18.4 5.6" stroke="currentColor" strokeWidth="1" />
+                </svg>
+                <span className="text-[10px] font-black tracking-widest mt-0.5 leading-none">IND</span>
+              </div>
+
+              {/* Monospace Embossed Plate Number */}
+              <div className="px-4 py-2 flex items-center justify-center bg-gradient-to-b from-white to-neutral-100">
+                <span className="text-xl sm:text-2xl font-black tracking-widest uppercase font-mono drop-shadow-xs">
+                  {vehicle.isPlateMasked ? '••••••••' : vehicle.vehicleNumber}
+                </span>
+              </div>
+            </div>
+
+            {/* Vehicle Metadata Badges */}
+            <div className="flex flex-wrap sm:flex-col items-start sm:items-end gap-1.5 text-right">
+              <span className="px-2.5 py-1 rounded-lg bg-neutral-800 border border-neutral-700 text-[11px] font-bold uppercase tracking-wider text-neutral-200 flex items-center gap-1.5">
+                <Car className="w-3.5 h-3.5 text-cyan-400" />
+                {vehicle.vehicleType || 'Vehicle'}
+              </span>
+              <span className="px-2.5 py-0.5 rounded-lg bg-cyan-950/80 border border-cyan-800/60 text-[10px] font-semibold text-cyan-300 flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3 text-cyan-400" />
+                Verified Fastag Pass
               </span>
             </div>
-            <p className="text-[12px] leading-relaxed text-rose-900/80 dark:text-rose-300/80">
-              ParkSignal is designed for polite parking notifications (blocking cars, open windows, lights left on). In life-threatening emergencies, severe accidents, or medical crises, always call national emergency helplines directly.
-            </p>
           </div>
-        </div>
 
-        {/* Quick Tap-to-Call Buttons for All Indian Emergency Services */}
-        <div className="space-y-1.5 pt-1 border-t border-rose-200/60 dark:border-rose-900/40">
-          <span className="text-[10px] uppercase font-bold tracking-wider text-rose-700 dark:text-rose-300 block">
-            Direct Emergency Dials (Tap to Call):
-          </span>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <a
-              href="tel:112"
-              className="flex items-center justify-between p-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 transition-colors shadow-xs group"
-            >
-              <div className="flex flex-col">
-                <span className="text-[10px] text-rose-100 font-medium leading-none">All-in-One</span>
-                <span className="text-xs font-black">112 National</span>
-              </div>
-              <PhoneCall className="w-3.5 h-3.5 text-white/80 group-hover:scale-110 transition-transform" />
-            </a>
-
-            <a
-              href="tel:100"
-              className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-            >
-              <div className="flex flex-col">
-                <span className="text-[10px] text-neutral-400 font-medium leading-none">Police</span>
-                <span className="text-xs font-black text-rose-700 dark:text-rose-400">100 Control</span>
-              </div>
-              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
-            </a>
-
-            <a
-              href="tel:101"
-              className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-            >
-              <div className="flex flex-col">
-                <span className="text-[10px] text-neutral-400 font-medium leading-none">Fire Brigade</span>
-                <span className="text-xs font-black text-rose-700 dark:text-rose-400">101 Rescue</span>
-              </div>
-              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
-            </a>
-
-            <a
-              href="tel:108"
-              className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-            >
-              <div className="flex flex-col">
-                <span className="text-[10px] text-neutral-400 font-medium leading-none">Ambulance</span>
-                <span className="text-xs font-black text-rose-700 dark:text-rose-400">108 / 102</span>
-              </div>
-              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
-            </a>
-
-            <a
-              href="tel:1073"
-              className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-            >
-              <div className="flex flex-col">
-                <span className="text-[10px] text-neutral-400 font-medium leading-none">Road Accident</span>
-                <span className="text-xs font-black text-rose-700 dark:text-rose-400">1073 Traffic</span>
-              </div>
-              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
-            </a>
-
-            <a
-              href="tel:1033"
-              className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-            >
-              <div className="flex flex-col">
-                <span className="text-[10px] text-neutral-400 font-medium leading-none">Highway NHAI</span>
-                <span className="text-xs font-black text-rose-700 dark:text-rose-400">1033 Assist</span>
-              </div>
-              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
-            </a>
-
-            <a
-              href="tel:1098"
-              className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-            >
-              <div className="flex flex-col">
-                <span className="text-[10px] text-neutral-400 font-medium leading-none">Childline</span>
-                <span className="text-xs font-black text-rose-700 dark:text-rose-400">1098 Child</span>
-              </div>
-              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
-            </a>
-
-            <a
-              href="tel:1091"
-              className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
-            >
-              <div className="flex flex-col">
-                <span className="text-[10px] text-neutral-400 font-medium leading-none">Women Safety</span>
-                <span className="text-xs font-black text-rose-700 dark:text-rose-400">1091 Helpline</span>
-              </div>
-              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
-            </a>
+          {/* Privacy & Instant Delivery Banner */}
+          <div className="mt-3.5 pt-3 border-t border-neutral-800 flex items-center justify-between text-[11px] text-neutral-400">
+            <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
+              <Lock className="w-3.5 h-3.5" />
+              100% Anonymous • Your phone number is never asked or shared
+            </span>
+            <span className="hidden sm:inline-block text-[10px] text-neutral-500">
+              Avg alert delivery: &lt; 3s
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Success / Failure Result States */}
+      {/* ── 2. PARKING ALERT REASONS (TOUCH-OPTIMIZED 1-TAP CARDS) ── */}
       {resultState.status === 'success' ? (
-        <div className="bg-emerald-50 dark:bg-emerald-950/40 rounded-3xl p-6 border border-emerald-200 dark:border-emerald-800 text-center space-y-4 animate-fadeIn">
-          <div className="w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
-            <CheckCircle2 className="w-8 h-8" />
+        <div className="bg-emerald-50 dark:bg-emerald-950/40 rounded-3xl p-6 sm:p-8 border border-emerald-200 dark:border-emerald-800 text-center space-y-5 animate-fadeIn">
+          <div className="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/25">
+            <CheckCircle2 className="w-9 h-9" />
           </div>
-          <div className="space-y-1">
-            <h3 className="text-xl font-black text-emerald-900 dark:text-emerald-100">
+          <div className="space-y-1.5">
+            <h3 className="text-xl sm:text-2xl font-black text-emerald-900 dark:text-emerald-100">
               Alert Delivered Successfully!
             </h3>
-            <p className="text-xs text-emerald-700 dark:text-emerald-300">
+            <p className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 font-medium max-w-md mx-auto">
               {resultState.message}
             </p>
           </div>
-          <p className="text-[11px] text-neutral-600 dark:text-neutral-400">
-            The vehicle owner has been privately notified on their phone. Thank you for helping keep parking safe and considerate!
+
+          <p className="text-xs text-neutral-600 dark:text-neutral-400 max-w-sm mx-auto leading-relaxed">
+            The vehicle owner has received your instant alert on their Telegram. Thank you for your courtesy in keeping Indian parking responsible and safe!
           </p>
 
           {/* ── User Feedback & Rating Card ── */}
-          <div className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-emerald-200 dark:border-emerald-800 text-left space-y-3 shadow-xs">
+          <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-emerald-200 dark:border-emerald-800 text-left space-y-3 shadow-xs">
             {reviewSubmitted ? (
-              <div className="text-center py-2 space-y-1">
-                <span className="text-lg">🎉</span>
+              <div className="text-center py-3 space-y-1">
+                <span className="text-2xl">🎉</span>
                 <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300">
                   Thank you for your feedback!
                 </p>
                 <p className="text-[11px] text-neutral-500">
-                  Your review has been shared with BharatUtility to help improve parking across India.
+                  Your feedback helps BharatUtility improve vehicle parking across India.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmitReview} className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200">
-                    Rate Your Experience:
+                    Rate Your Experience (1-Tap):
                   </span>
                   <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
@@ -536,11 +526,11 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                         type="button"
                         key={star}
                         onClick={() => setReviewRating(star)}
-                        className="p-1 text-amber-400 hover:scale-110 transition-transform"
+                        className="p-1 text-amber-400 hover:scale-110 transition-transform cursor-pointer"
                       >
                         <Star
                           className={`w-4 h-4 ${
-                            star <= reviewRating ? 'fill-amber-400 text-amber-400' : 'text-neutral-300'
+                            star <= reviewRating ? 'fill-amber-400 text-amber-400' : 'text-neutral-300 dark:text-neutral-600'
                           }`}
                         />
                       </button>
@@ -550,7 +540,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
 
                 <input
                   type="text"
-                  placeholder="Your Name (Optional, e.g. Bystander / Rahul)"
+                  placeholder="Your Name / Landmark (Optional, e.g. Rahul / Gate 2)"
                   value={reviewerName}
                   onChange={(e) => setReviewerName(e.target.value)}
                   maxLength={60}
@@ -587,42 +577,69 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
               deleteRecording();
               setReviewSubmitted(false);
             }}
-            className="px-5 py-2.5 rounded-xl bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 font-bold text-xs border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 transition-colors cursor-pointer"
+            className="px-6 py-2.5 rounded-xl bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 font-bold text-xs border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
           >
             Send Another Alert
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmitAlert} className="space-y-5">
-          {/* Predefined Alert Selection */}
-          <div className="space-y-2.5">
-            <label className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block px-1">
-              Select Parking Alert Reason:
-            </label>
-            <div className="grid grid-cols-1 gap-2">
+        <form onSubmit={handleSubmitAlert} className="space-y-4">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between px-1">
+              <label className="text-[11px] uppercase tracking-wider font-extrabold text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
+                <BellRing className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                2. Select Parking Alert Reason
+              </label>
+              <span className="text-[10px] text-neutral-400">1-Tap Selection</span>
+            </div>
+
+            {/* Grid of Alert Reasons */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {alertOptions.map((opt) => {
-                const isSelected = selectedCategory === opt.text;
+                const isSelected = selectedCategory === opt.fullText;
                 return (
                   <button
                     type="button"
                     key={opt.key}
                     onClick={() => {
-                      setSelectedCategory(opt.text);
+                      setSelectedCategory(opt.fullText);
                       setResultState({ status: 'idle' });
                     }}
-                    className={`w-full p-3.5 rounded-2xl text-left text-xs font-semibold flex items-center gap-3 transition-all ${
+                    className={`p-3.5 rounded-2xl text-left transition-all cursor-pointer border flex items-start gap-3 relative ${
                       isSelected
                         ? opt.isEmergency
-                          ? 'bg-rose-500 text-white shadow-md shadow-rose-500/20 font-bold scale-[1.01]'
-                          : 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20 font-bold scale-[1.01]'
+                          ? 'bg-rose-500/10 border-rose-500 ring-2 ring-rose-500/50 shadow-md'
+                          : 'bg-cyan-500/10 border-cyan-500 ring-2 ring-cyan-500/50 shadow-md'
                         : opt.isEmergency
-                        ? 'bg-rose-50/70 dark:bg-rose-950/20 text-rose-800 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900/40 hover:bg-rose-100 dark:hover:bg-rose-900/30'
-                        : 'bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 border border-neutral-200/80 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600'
+                        ? 'bg-rose-50/60 dark:bg-rose-950/20 border-rose-200/80 dark:border-rose-900/50 hover:border-rose-400'
+                        : 'bg-white dark:bg-neutral-900 border-neutral-200/90 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-700 shadow-2xs'
                     }`}
                   >
-                    <span className="text-lg shrink-0">{opt.icon}</span>
-                    <span className="flex-1">{opt.text}</span>
-                    {isSelected && <CheckCircle2 className="w-4 h-4 shrink-0" />}
+                    <span className="text-2xl shrink-0 p-1 rounded-xl bg-neutral-100 dark:bg-neutral-800">
+                      {opt.icon}
+                    </span>
+                    <div className="flex-1 min-w-0 pr-6">
+                      <div className="font-bold text-xs sm:text-sm text-neutral-900 dark:text-white leading-tight">
+                        {opt.title}
+                      </div>
+                      <div className="text-[11px] text-neutral-500 dark:text-neutral-400 leading-snug mt-0.5">
+                        {opt.sub}
+                      </div>
+                    </div>
+                    {/* Radio Check Circle */}
+                    <div className="absolute top-3.5 right-3.5">
+                      <div
+                        className={`w-5 h-5 rounded-full flex items-center justify-center border transition-all ${
+                          isSelected
+                            ? opt.isEmergency
+                              ? 'bg-rose-600 border-rose-600 text-white'
+                              : 'bg-cyan-600 border-cyan-600 text-white'
+                            : 'border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800'
+                        }`}
+                      >
+                        {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                      </div>
+                    </div>
                   </button>
                 );
               })}
@@ -631,10 +648,10 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
 
           {/* Optional Voice Message Feature (If enabled by vehicle owner) */}
           {s.allowVoiceMessages && (
-            <div className="bg-white dark:bg-neutral-900 p-4 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 space-y-3">
+            <div className="bg-white dark:bg-neutral-900 p-4 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 space-y-3 shadow-2xs">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Mic className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                  <Mic className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                   <span className="text-xs font-bold text-neutral-900 dark:text-white">
                     Send Voice Note (Max {s.maxVoiceDurationSeconds}s)
                   </span>
@@ -645,18 +662,18 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                     setIsVoiceMode(!isVoiceMode);
                     if (isVoiceMode) deleteRecording();
                   }}
-                  className={`text-[11px] font-bold px-2.5 py-1 rounded-xl transition-colors ${
+                  className={`text-[11px] font-bold px-3 py-1 rounded-xl transition-colors cursor-pointer ${
                     isVoiceMode
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400'
+                      ? 'bg-cyan-600 text-white'
+                      : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200'
                   }`}
                 >
-                  {isVoiceMode ? 'Voice Mode Active' : 'Switch to Voice'}
+                  {isVoiceMode ? 'Voice Mode Active' : '+ Switch to Voice'}
                 </button>
               </div>
 
               {isVoiceMode && (
-                <div className="p-4 bg-neutral-50 dark:bg-neutral-800/60 rounded-2xl space-y-3 border border-neutral-200/60 dark:border-neutral-700/60">
+                <div className="p-3.5 bg-neutral-50 dark:bg-neutral-800/60 rounded-xl space-y-3 border border-neutral-200/60 dark:border-neutral-700/60">
                   {micError && (
                     <div className="text-[11px] text-rose-600 dark:text-rose-400 font-medium">
                       ⚠️ {micError}
@@ -680,7 +697,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                         <button
                           type="button"
                           onClick={stopRecording}
-                          className="px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-rose-600/20"
+                          className="px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-rose-600/20 cursor-pointer"
                         >
                           <Square className="w-3.5 h-3.5" /> Stop
                         </button>
@@ -688,7 +705,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                         <button
                           type="button"
                           onClick={startRecording}
-                          className="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-indigo-600/20 hover:bg-indigo-700"
+                          className="px-4 py-2 rounded-xl bg-cyan-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-cyan-600/20 hover:bg-cyan-700 cursor-pointer"
                         >
                           <Mic className="w-3.5 h-3.5" /> Start Recording
                         </button>
@@ -704,7 +721,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                           <button
                             type="button"
                             onClick={togglePlayback}
-                            className="p-2 rounded-xl bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 hover:bg-neutral-300"
+                            className="p-2 rounded-xl bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 hover:bg-neutral-300 cursor-pointer"
                             title="Preview playback"
                           >
                             {isPlayingAudio ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -712,7 +729,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                           <button
                             type="button"
                             onClick={deleteRecording}
-                            className="p-2 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 hover:bg-rose-200"
+                            className="p-2 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 hover:bg-rose-200 cursor-pointer"
                             title="Delete and re-record"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -731,7 +748,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             <div className="space-y-1.5">
               <div className="flex items-center justify-between px-1">
                 <label className="text-xs font-bold text-neutral-600 dark:text-neutral-300">
-                  Optional Short Note:
+                  Optional Short Note for Driver:
                 </label>
                 <span className="text-[10px] text-neutral-400">
                   {customMessage.length}/{s.maxCustomTextLength}
@@ -741,25 +758,25 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                 value={customMessage}
                 maxLength={s.maxCustomTextLength}
                 onChange={(e) => setCustomMessage(e.target.value)}
-                placeholder="e.g. Parked near pillar B-14, need to exit in 5 mins..."
+                placeholder="e.g. Parked near basement pillar B-14, need to exit in 5 mins..."
                 rows={2}
-                className="w-full p-3.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
+                className="w-full p-3 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-xs focus:ring-2 focus:ring-cyan-500 outline-none resize-none"
               />
             </div>
           )}
 
           {/* Optional Location / Parking Spot Section */}
-          <div className="p-3.5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/60 dark:border-neutral-700/60 space-y-2.5">
+          <div className="p-3.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 space-y-2.5 shadow-2xs">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-indigo-600" />
-                Optional Parking Spot / Location
+                <MapPin className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                Optional Parking Spot / Landmark
               </label>
               <button
                 type="button"
                 onClick={handleGetLocation}
                 disabled={isGettingLocation}
-                className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+                className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer"
               >
                 <Navigation className="w-3 h-3" />
                 {isGettingLocation ? 'Fetching GPS...' : locationCoords ? 'GPS Attached ✓' : '+ Attach GPS'}
@@ -772,7 +789,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
               onChange={(e) => setLocationText(e.target.value)}
               placeholder="e.g. Basement 1 Pillar C-14, or Opposite Gate 2"
               maxLength={150}
-              className="w-full p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-xs focus:ring-2 focus:ring-indigo-500 outline-none"
+              className="w-full p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs focus:ring-2 focus:ring-cyan-500 outline-none"
             />
 
             {locationCoords && (
@@ -783,7 +800,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                 <button
                   type="button"
                   onClick={() => setLocationCoords(null)}
-                  className="text-emerald-700 hover:text-rose-600 font-bold ml-2"
+                  className="text-emerald-700 hover:text-rose-600 font-bold ml-2 cursor-pointer"
                 >
                   Remove
                 </button>
@@ -809,35 +826,169 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           <button
             type="submit"
             disabled={!selectedCategory || isSubmitting || (isVoiceMode && !audioBlob && isRecording)}
-            className={`w-full py-4 px-6 rounded-2xl font-extrabold text-sm flex items-center justify-center gap-2 transition-all ${
+            className={`w-full py-4 px-6 rounded-2xl font-black text-sm flex items-center justify-center gap-2.5 transition-all cursor-pointer ${
               !selectedCategory || isSubmitting
                 ? 'bg-neutral-200 dark:bg-neutral-800 text-neutral-400 cursor-not-allowed'
                 : isEmergencySelected
-                ? 'bg-rose-600 text-white hover:bg-rose-700 shadow-lg shadow-rose-600/30'
-                : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-600/30'
+                ? 'bg-gradient-to-r from-rose-600 to-red-600 text-white hover:from-rose-500 hover:to-red-500 shadow-lg shadow-rose-600/30'
+                : 'bg-gradient-to-r from-cyan-600 to-indigo-600 text-white hover:from-cyan-500 hover:to-indigo-500 shadow-lg shadow-cyan-600/30'
             }`}
           >
             {isSubmitting ? (
               <>
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Delivering Alert to Owner...
+                Delivering Instant Alert to Owner...
               </>
             ) : (
               <>
-                <Send className="w-4 h-4" /> Send Parking Alert
+                <Send className="w-4 h-4" /> Send Instant Alert to Owner
               </>
             )}
           </button>
         </form>
       )}
 
-      {/* ── STORY CARD: WHAT IS PARKSIGNAL? ── */}
-      <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 rounded-3xl p-5 sm:p-7 border border-indigo-500/30 text-white space-y-4 shadow-xl">
+      {/* ── 3. EMERGENCY NUMBERS: DIRECT INDIAN HELPLINE DIRECTORY ── */}
+      <div className="bg-rose-50/90 dark:bg-rose-950/30 rounded-3xl p-4 sm:p-5 border border-rose-200 dark:border-rose-900/50 space-y-3.5">
+        <div className="flex items-start gap-3">
+          <div className="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+            <PhoneCall className="w-4 h-4 animate-pulse" />
+          </div>
+          <div className="space-y-0.5">
+            <div className="font-black text-rose-900 dark:text-rose-100 text-sm flex items-center gap-2">
+              <span>3. Urgent Emergency Helplines</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-600 text-white uppercase font-extrabold tracking-wider">
+                India 24x7
+              </span>
+            </div>
+            <p className="text-[11px] leading-relaxed text-rose-800/80 dark:text-rose-300/80">
+              For accidents, crimes, medical distress or life-threatening situations, tap to dial national emergency services directly:
+            </p>
+          </div>
+        </div>
+
+        {/* Primary 112 National Banner */}
+        <a
+          href="tel:112"
+          className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-rose-600 to-red-600 text-white hover:from-rose-500 hover:to-red-500 transition-all shadow-md group cursor-pointer"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl font-black">
+              🚨
+            </div>
+            <div>
+              <div className="text-xs font-black uppercase tracking-wider text-rose-100">
+                All-in-One National Emergency
+              </div>
+              <div className="text-base font-black tracking-wide">
+                Dial 112 (Police • Ambulance • Fire)
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-rose-600 font-extrabold text-xs group-hover:scale-105 transition-transform">
+            <PhoneCall className="w-3.5 h-3.5" /> Tap to Call
+          </div>
+        </a>
+
+        {/* Quick Tap-to-Call Buttons for Specific Helplines */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+          <a
+            href="tel:100"
+            className="flex flex-col p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/60 hover:border-rose-400 transition-all shadow-2xs group"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-neutral-400">Police</span>
+              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
+            </div>
+            <span className="text-sm font-black text-rose-700 dark:text-rose-400">100 Control</span>
+          </a>
+
+          <a
+            href="tel:108"
+            className="flex flex-col p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/60 hover:border-rose-400 transition-all shadow-2xs group"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-neutral-400">Ambulance</span>
+              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
+            </div>
+            <span className="text-sm font-black text-rose-700 dark:text-rose-400">108 / 102</span>
+          </a>
+
+          <a
+            href="tel:1033"
+            className="flex flex-col p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/60 hover:border-rose-400 transition-all shadow-2xs group"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-neutral-400">Highway</span>
+              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
+            </div>
+            <span className="text-sm font-black text-rose-700 dark:text-rose-400">1033 NHAI</span>
+          </a>
+
+          <a
+            href="tel:101"
+            className="flex flex-col p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/60 hover:border-rose-400 transition-all shadow-2xs group"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-neutral-400">Fire Rescue</span>
+              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
+            </div>
+            <span className="text-sm font-black text-rose-700 dark:text-rose-400">101 Fire</span>
+          </a>
+
+          <a
+            href="tel:1091"
+            className="flex flex-col p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/60 hover:border-rose-400 transition-all shadow-2xs group"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-neutral-400">Women</span>
+              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
+            </div>
+            <span className="text-sm font-black text-rose-700 dark:text-rose-400">1091 Safety</span>
+          </a>
+
+          <a
+            href="tel:1098"
+            className="flex flex-col p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/60 hover:border-rose-400 transition-all shadow-2xs group"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-neutral-400">Childline</span>
+              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
+            </div>
+            <span className="text-sm font-black text-rose-700 dark:text-rose-400">1098 Child</span>
+          </a>
+
+          <a
+            href="tel:1073"
+            className="flex flex-col p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/60 hover:border-rose-400 transition-all shadow-2xs group"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-neutral-400">Traffic</span>
+              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
+            </div>
+            <span className="text-sm font-black text-rose-700 dark:text-rose-400">1073 Traffic</span>
+          </a>
+
+          <a
+            href="tel:1070"
+            className="flex flex-col p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/60 hover:border-rose-400 transition-all shadow-2xs group"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-neutral-400">Disaster</span>
+              <PhoneCall className="w-3 h-3 text-neutral-400 group-hover:text-rose-600" />
+            </div>
+            <span className="text-sm font-black text-rose-700 dark:text-rose-400">1070 Relief</span>
+          </a>
+        </div>
+      </div>
+
+      {/* ── 4. BAKI SAB: PROMO VIRAL CARD FOR FREE VEHICLE QR STICKER ── */}
+      <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 rounded-3xl p-5 sm:p-7 border border-cyan-500/30 text-white space-y-4 shadow-xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-cyan-400" />
             <span className="text-[11px] uppercase font-black tracking-wider text-cyan-400">
-              Do You Own a Car or Bike?
+              Own a Car or Bike in India?
             </span>
           </div>
           <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
@@ -847,17 +998,14 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
 
         <div className="space-y-2">
           <h3 className="text-base sm:text-lg font-black font-display text-white">
-            Never leave your phone number on your dashboard again.
+            Never leave your personal phone number on a car dashboard again.
           </h3>
           <p className="text-xs text-slate-300 leading-relaxed">
-            Ever been blocked by another car in a crowded market or mall? Or worried about leaving your mobile number on a paper slip where anyone walking by can save it and harass you?
-          </p>
-          <p className="text-xs text-slate-300 leading-relaxed">
-            <strong>ParkSignal</strong> gives your vehicle a <strong>Smart Privacy QR Sticker</strong>. If your car is blocking someone, if lights are left on, or in an emergency, anyone can notify you in 5 seconds without ever seeing your phone number.
+            Paper slips expose your mobile number to strangers, spam, and harassment. With <strong>ParkSignal</strong>, place a smart Fastag-size QR sticker on your windshield. Anyone can politely notify you via Telegram in 5 seconds.
           </p>
         </div>
 
-        {/* 3 Quick Value Bullets */}
+        {/* 3 Value Bullets */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
           <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
             <Lock className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
@@ -865,11 +1013,11 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           </div>
           <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            <span className="text-slate-200">Total Driver Privacy</span>
+            <span className="text-slate-200">100% Driver Privacy</span>
           </div>
           <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
             <QrCode className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-            <span className="text-slate-200">Free Printable QR</span>
+            <span className="text-slate-200">Printable Windshield Pass</span>
           </div>
         </div>
 
@@ -877,7 +1025,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
         <div className="pt-2">
           <a
             href="/parksignal"
-            className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
+            className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-cyan-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
           >
             <span>Create Your Free Vehicle QR Sticker</span>
             <ArrowRight className="w-4 h-4 text-slate-950" />

@@ -118,6 +118,38 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   const masterSvg = useMemo(() => {
     if (!qrDataUrl) return '';
 
+    // Vector Brand Logo Generator (100% Crisp Vector, High-Contrast at Any DPI)
+    const getVectorLogoSvg = (x: number, y: number, scale = 1, isDarkBackground = false) => {
+      const parkColor = isDarkBackground ? '#FFFFFF' : '#0B0F19';
+      const subColor = isDarkBackground ? '#94A3B8' : '#64748B';
+      return `
+        <g transform="translate(${x}, ${y}) scale(${scale})">
+          <!-- Vector Car Silhouette & Radar Waves -->
+          <g transform="translate(0, 0)">
+            <path d="M 14 10 A 21 21 0 0 1 41 10" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round" fill="none" />
+            <path d="M 18 15 A 15 15 0 0 1 37 15" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round" fill="none" />
+            <path d="M 22 19 A 9 9 0 0 1 33 19" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" fill="none" />
+            <rect x="2" y="20" width="8" height="8" rx="1" fill="none" stroke="#0284C7" stroke-width="1.8" />
+            <rect x="4" y="22" width="4" height="4" rx="0.5" fill="#00E5FF" />
+            <rect x="12" y="20" width="3" height="3" rx="0.5" fill="#06B6D4" />
+            <rect x="2" y="30" width="3" height="3" rx="0.5" fill="#0284C7" />
+            <rect x="7" y="30" width="2.5" height="2.5" rx="0.5" fill="#38BDF8" />
+            <path d="M 12 30 L 18 30 C 20 25 25 23 28 23 C 33 23 37 26 41 30 L 54 33 C 59 34 63 37 64 41 L 51 41 M 40 41 L 23 41 M 12 41 L 8 41 C 6 41 4 39 4 37 L 4 35" stroke="#0284C7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            <path d="M 20 30 L 27 25 C 33 25 40 28 47 32 L 63 37" stroke="#00E5FF" stroke-width="1.8" stroke-linecap="round" fill="none" />
+            <path d="M 22 21 Q 28 19 34 21 L 34 27 Q 34 33 28 36 Q 22 33 22 27 Z" fill="#0B132B" stroke="#00E5FF" stroke-width="1.8" />
+            <path d="M 26 27 L 28 29 L 32 24" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            <circle cx="17.5" cy="41" r="5" fill="#0B132B" stroke="#0284C7" stroke-width="2" />
+            <circle cx="17.5" cy="41" r="2" fill="#00E5FF" />
+            <circle cx="45.5" cy="41" r="5" fill="#0B132B" stroke="#0284C7" stroke-width="2" />
+            <circle cx="45.5" cy="41" r="2" fill="#00E5FF" />
+          </g>
+          <!-- Bold Brand Typography (High Contrast) -->
+          <text x="76" y="30" class="font-sans" font-size="28" font-weight="900" fill="${parkColor}" letter-spacing="-0.5">PARK<tspan fill="#00B4D8">SIGNAL</tspan></text>
+          <text x="78" y="44" class="font-sans" font-size="9" font-weight="800" fill="${subColor}" letter-spacing="1.5">BY BHARATUTILITY • SMART PASS</text>
+        </g>
+      `;
+    };
+
     // ─────────────────────────────────────────────────────────────
     // FORMAT 1: ROAD HAZARD CAUTION TAPE (Official Logo + QR Code)
     // ─────────────────────────────────────────────────────────────
@@ -152,14 +184,14 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <g transform="translate(48, 62)">
       <rect x="0" y="0" width="456" height="636" rx="26" fill="#FFFFFF" stroke="#0B0F19" stroke-width="4.5" />
       
-      <!-- 1. OFFICIAL PARKSIGNAL LOGO EMBEDDED WITH QR (Exact User Artwork) -->
-      <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="48" y="16" width="360" height="110" preserveAspectRatio="xMidYMid meet" />
+      <!-- 1. VECTOR BRAND LOGO EMBEDDED WITH QR (Crisp Vector Graphic) -->
+      ${getVectorLogoSvg(44, 28, 1.35, false)}
 
       <!-- Thin subtle separator -->
-      <line x1="36" y1="134" x2="420" y2="134" stroke="#E2E8F0" stroke-width="1.5" />
+      <line x1="36" y1="126" x2="420" y2="126" stroke="#E2E8F0" stroke-width="1.5" />
 
       <!-- 2. Crisp QR Code -->
-      <image href="${qrDataUrl}" x="68" y="146" width="320" height="320" />
+      <image href="${qrDataUrl}" x="68" y="142" width="320" height="320" />
       
       <!-- 3. Camera Scanner Pill Badge below QR -->
       <g transform="translate(24, 482)">
@@ -250,7 +282,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
 
       <!-- 5. Official ParkSignal Brand Logo Lockup & Attribution -->
       <g transform="translate(0, 466)">
-        <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="0" y="0" width="260" height="72" preserveAspectRatio="xMidYMid meet" />
+        ${getVectorLogoSvg(0, 0, 1.15, false)}
         
         <text x="776" y="26" class="font-sans" font-size="14" font-weight="900" fill="#0B0F19" text-anchor="end">Official Fastag-Size Smart Vehicle Pass</text>
         <text x="776" y="46" class="font-sans" font-size="12" font-weight="700" fill="#334155" text-anchor="end">Powered by BharatUtility • bharatutility.tech/parksignal</text>
@@ -287,7 +319,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <!-- ════════════════ LEFT HALF: BRAND & SITUATIONS ════════════════ -->
     <!-- Brand Logo Row -->
     <g transform="translate(52, 36)">
-      <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="0" y="0" width="280" height="75" preserveAspectRatio="xMidYMid meet" />
+      ${getVectorLogoSvg(0, 0, 1.25, true)}
     </g>
 
     <!-- Hairline Separator -->
@@ -377,8 +409,8 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <g transform="translate(776, 126)">
       <rect x="0" y="0" width="532" height="480" rx="24" fill="#FFFFFF" stroke="#0B0F19" stroke-width="3.5" />
       
-      <!-- Official Logo placed directly on the QR card -->
-      <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="126" y="14" width="280" height="70" preserveAspectRatio="xMidYMid meet" />
+      <!-- Vector Brand Logo placed directly on the QR card -->
+      ${getVectorLogoSvg(100, 14, 1.25, false)}
       
       <!-- QR Image Centered -->
       <image href="${qrDataUrl}" x="106" y="90" width="320" height="320" />
@@ -437,8 +469,8 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <g transform="translate(48, 184)">
       <rect x="0" y="0" width="984" height="630" rx="28" fill="#FFFFFF" stroke="#0B0F19" stroke-width="4.5" />
       
-      <!-- Official Logo above the QR code -->
-      <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="312" y="16" width="360" height="90" preserveAspectRatio="xMidYMid meet" />
+      <!-- Vector Brand Logo above the QR code -->
+      ${getVectorLogoSvg(280, 20, 1.5, false)}
       
       <!-- QR Image Centered -->
       <image href="${qrDataUrl}" x="272" y="112" width="440" height="440" />

@@ -55,7 +55,7 @@ export const ParkSignalView: React.FC = () => {
                 className="hover:opacity-90 transition-opacity flex items-center"
                 title="ParkSignal by BharatUtility"
               >
-                <ParkSignalLogo variant="full" height={20} />
+                <ParkSignalLogo variant="full" height={24} />
               </button>
             </div>
 
