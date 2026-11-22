@@ -27,6 +27,7 @@ interface AppContextType {
   navigateToBlog: () => void;
   navigateToGuides: (category?: string) => void;
   navigateToArticle: (slug: string) => void;
+  navigateToParkSignal: (subView?: 'landing' | 'register' | 'login' | 'dashboard' | 'vehicles' | 'alert' | 'privacy' | 'help', token?: string) => void;
   theme: ThemeMode;
   setTheme: (theme: ThemeMode) => void;
   accent: AccentColor;
@@ -125,6 +126,9 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
 
   if (cleanPath.startsWith('/tools/')) {
     const slug = cleanPath.replace('/tools/', '').split('?')[0];
+    if (slug === 'parksignal') {
+      return { view: { type: 'parksignal', subView: 'landing' }, redirectPath: `/parksignal${search}` };
+    }
     return { view: { type: 'tool', slug } };
   }
   if (cleanPath.startsWith('/tool/')) {
@@ -205,6 +209,33 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
   if (cleanPath.startsWith('/article/')) {
     const slug = cleanPath.replace('/article/', '').split('?')[0];
     return { view: { type: 'article', slug } };
+  }
+
+  // ── ParkSignal QR Parking Alert System Routes ──
+  if (cleanPath === '/parksignal' || cleanPath === '/parksignal/') {
+    return { view: { type: 'parksignal', subView: 'landing' } };
+  }
+  if (cleanPath === '/parksignal/register') {
+    return { view: { type: 'parksignal', subView: 'register' } };
+  }
+  if (cleanPath === '/parksignal/login') {
+    return { view: { type: 'parksignal', subView: 'login' } };
+  }
+  if (cleanPath === '/parksignal/dashboard') {
+    return { view: { type: 'parksignal', subView: 'dashboard' } };
+  }
+  if (cleanPath === '/parksignal/vehicles') {
+    return { view: { type: 'parksignal', subView: 'vehicles' } };
+  }
+  if (cleanPath.startsWith('/parksignal/alert/')) {
+    const token = cleanPath.replace('/parksignal/alert/', '').split('?')[0];
+    return { view: { type: 'parksignal', subView: 'alert', token } };
+  }
+  if (cleanPath === '/parksignal/privacy') {
+    return { view: { type: 'parksignal', subView: 'privacy' } };
+  }
+  if (cleanPath === '/parksignal/help') {
+    return { view: { type: 'parksignal', subView: 'help' } };
   }
 
   // Root or unhandled paths -> home
@@ -413,6 +444,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const navigateToTool = (slug: string, params?: Record<string, any>) => {
+    if (slug === 'parksignal') {
+      setView({ type: 'parksignal', subView: 'landing' });
+      return;
+    }
     if (params) {
       setCurrentToolParams(params);
     } else {
@@ -456,6 +491,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const navigateToBlog = () => setView({ type: 'blog' });
   const navigateToGuides = (category?: string) => setView({ type: 'guides', category });
   const navigateToArticle = (slug: string) => setView({ type: 'article', slug });
+  const navigateToParkSignal = (subView: 'landing' | 'register' | 'login' | 'dashboard' | 'vehicles' | 'alert' | 'privacy' | 'help' = 'landing', token?: string) =>
+    setView({ type: 'parksignal', subView, token });
 
   const toggleFavorite = (toolSlug: string) => {
     setFavorites(prev => {
@@ -607,6 +644,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         navigateToBlog,
         navigateToGuides,
         navigateToArticle,
+        navigateToParkSignal,
         theme,
         setTheme,
         accent,

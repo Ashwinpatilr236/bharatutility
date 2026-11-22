@@ -136,7 +136,12 @@ export type ViewMode =
   | { type: 'legal'; page: 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact' }
   | { type: 'blog' }
   | { type: 'guides'; category?: string }
-  | { type: 'article'; slug: string };
+  | { type: 'article'; slug: string }
+  | {
+      type: 'parksignal';
+      subView: 'landing' | 'register' | 'login' | 'dashboard' | 'vehicles' | 'alert' | 'privacy' | 'help';
+      token?: string;
+    };
 
 export type ToolRequestStatus =
   | 'new'
@@ -231,3 +236,97 @@ export interface ArticleMetadata {
     keywords: string[];
   };
 }
+
+// ── ParkSignal Types ──
+export type VehicleType = 'Car' | 'Bike' | 'Scooter' | 'Other';
+
+export interface ParkSignalUser {
+  id: string;
+  email: string;
+  fullName: string;
+  isTelegramLinked: boolean;
+  telegramUsername?: string | null;
+  linkedAt?: number | null;
+}
+
+export interface ParkSignalVehicleSettings {
+  allow_blocking?: number | boolean;
+  allow_move_vehicle?: number | boolean;
+  allow_emergency?: number | boolean;
+  allow_child_person_inside?: number | boolean;
+  allow_lights_on?: number | boolean;
+  allow_window_door_open?: number | boolean;
+  allow_damage_alert?: number | boolean;
+  allow_custom_text?: number | boolean;
+  allow_voice_messages?: number | boolean;
+  max_custom_text_length?: number;
+  max_voice_duration_seconds?: number;
+  quiet_hours_enabled?: number | boolean;
+  quiet_hours_start?: string;
+  quiet_hours_end?: string;
+  display_plate_publicly?: number | boolean;
+  nickname?: string;
+}
+
+export interface ParkSignalVehicle {
+  id: string;
+  vehicle_number: string;
+  vehicle_type: VehicleType;
+  nickname?: string | null;
+  display_plate_publicly: number;
+  is_active: number;
+  created_at: number;
+  qr_token?: string;
+  // Included from vehicle_alert_settings
+  allow_blocking?: number;
+  allow_move_vehicle?: number;
+  allow_emergency?: number;
+  allow_child_person_inside?: number;
+  allow_lights_on?: number;
+  allow_window_door_open?: number;
+  allow_damage_alert?: number;
+  allow_custom_text?: number;
+  allow_voice_messages?: number;
+  max_custom_text_length?: number;
+  max_voice_duration_seconds?: number;
+  quiet_hours_enabled?: number;
+  quiet_hours_start?: string;
+  quiet_hours_end?: string;
+}
+
+export interface ParkSignalPublicVehicle {
+  valid: boolean;
+  message?: string;
+  vehicleType?: VehicleType;
+  vehicleNumber?: string | null;
+  isPlateMasked?: boolean;
+  isTelegramLinked?: boolean;
+  settings?: {
+    allowBlocking: boolean;
+    allowMoveVehicle: boolean;
+    allowEmergency: boolean;
+    allowChildPersonInside: boolean;
+    allowLightsOn: boolean;
+    allowWindowDoorOpen: boolean;
+    allowDamageAlert: boolean;
+    allowCustomText: boolean;
+    allowVoiceMessages: boolean;
+    maxCustomTextLength: number;
+    maxVoiceDurationSeconds: number;
+  };
+}
+
+export interface ParkSignalAlertLog {
+  id: string;
+  vehicle_id?: string;
+  vehicle_number: string;
+  vehicle_type: string;
+  nickname?: string | null;
+  alert_type: 'TEXT' | 'VOICE';
+  alert_category: string;
+  custom_message?: string | null;
+  voice_duration_seconds?: number | null;
+  delivery_status: 'DELIVERED' | 'FAILED_BOT_ERROR' | 'UNLINKED' | 'QUIET_HOURS';
+  created_at: number;
+}
+

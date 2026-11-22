@@ -3070,6 +3070,39 @@ export const TOOLS_REGISTRY: Tool[] = [
 
   // 🚗 VEHICLE UTILITY
   {
+    id: 'parksignal',
+    slug: 'parksignal',
+    name: 'ParkSignal – QR Parking Alert System',
+    shortName: 'ParkSignal QR Alert',
+    tagline: 'Your Vehicle. Your Privacy. Scan. Alert. Connect.',
+    description: 'Privacy-first QR parking alert system. Place a smart QR sticker on your car to receive instant parking alerts and voice notes via Telegram @ParkSignal_bot without exposing your phone number.',
+    category: 'vehicle-utility',
+    icon: 'QrCode',
+    keywords: ['parksignal', 'qr parking alert', 'car parking qr code', 'vehicle qr sticker', 'telegram parking alert', 'privacy parking'],
+    popular: true,
+    trending: true,
+    featured: true,
+    badge: 'Privacy QR 🛡️',
+    isNew: true,
+    seo: {
+      title: 'ParkSignal – QR Vehicle Parking Alert System | BharatUtility',
+      description: 'Generate free QR stickers for your vehicle windshield. Receive instant parking notifications and voice notes via Telegram without sharing your phone number.',
+      keywords: ['qr parking alert', 'car qr sticker', 'parksignal', 'vehicle privacy alert', 'telegram bot parking'],
+      canonicalSlug: 'parksignal',
+      h1: 'ParkSignal – QR Parking Alert System'
+    },
+    faqs: [
+      {
+        question: 'How does ParkSignal protect my privacy?',
+        answer: 'When someone scans your QR code, they never see your phone number, name, or email. Notifications are delivered securely via Telegram @ParkSignal_bot.'
+      },
+      {
+        question: 'Does the scanner need an app or Telegram?',
+        answer: 'No. The scanner can use any standard smartphone camera. The alert page opens directly in their browser without login or registration.'
+      }
+    ]
+  },
+  {
     id: 'vehicle-fuel-cost-calculator',
     slug: 'vehicle-fuel-cost-calculator',
   needsManualVerification: true,

@@ -43,6 +43,10 @@ export function getPathForView(view: ViewMode): string {
       return view.category ? `/guides/${view.category}` : '/guides';
     case 'article':
       return `/article/${view.slug}`;
+    case 'parksignal':
+      if (view.subView === 'landing') return '/parksignal';
+      if (view.subView === 'alert' && view.token) return `/parksignal/alert/${view.token}`;
+      return `/parksignal/${view.subView}`;
     case 'admin':
       return '/';
     default:
@@ -365,6 +369,31 @@ export function updateSeoMetadata(view: ViewMode): void {
           'Aane wali peedhi ke liye Sanatan gyan — Free digital platform for Sanatan knowledge, Jyotirlingas, Shakti Peeths, Panchang, and Indian traditions.',
       },
     };
+  } else if (view.type === 'parksignal') {
+    if (view.subView === 'alert') {
+      title = `Send Parking Alert | ParkSignal by ${SITE_NAME}`;
+      description = 'Send an instant, private parking alert or voice note to the vehicle owner without sharing personal contact information.';
+      isNoIndex = true;
+    } else if (view.subView === 'dashboard' || view.subView === 'vehicles') {
+      title = `Owner Dashboard | ParkSignal by ${SITE_NAME}`;
+      description = 'Manage registered vehicles, QR stickers, Telegram alerts, and custom message preferences.';
+      isNoIndex = true;
+    } else if (view.subView === 'register') {
+      title = `Owner Registration | ParkSignal by ${SITE_NAME}`;
+      description = 'Register your vehicle and connect with @ParkSignal_bot for private parking alerts.';
+    } else if (view.subView === 'login') {
+      title = `Owner Login | ParkSignal by ${SITE_NAME}`;
+      description = 'Log in to your ParkSignal account to manage vehicles and QR codes.';
+    } else if (view.subView === 'privacy') {
+      title = `Privacy Policy | ParkSignal by ${SITE_NAME}`;
+      description = 'Learn how ParkSignal protects vehicle owners and scanners with zero contact disclosure.';
+    } else if (view.subView === 'help') {
+      title = `Help & Setup Guide | ParkSignal by ${SITE_NAME}`;
+      description = 'Guide to generating stickers, printing QR codes, and connecting @ParkSignal_bot.';
+    } else {
+      title = `ParkSignal – QR Vehicle Parking Alert System | ${SITE_NAME}`;
+      description = 'Your Vehicle. Your Privacy. Scan. Alert. Connect. Generate unique QR stickers for your vehicle and receive instant alerts through Telegram @ParkSignal_bot.';
+    }
   } else if (view.type === 'admin') {
     title = `Admin Portal & Analytics | ${SITE_NAME}`;
     description = 'BharatUtility administrative control panel and live audience telemetry dashboard.';

@@ -11,7 +11,7 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export const Link: React.FC<LinkProps> = ({ to, children, className = '', onClick, ...props }) => {
-  const { setView, navigateToTool, navigateToCategory, navigateToHome, navigateToAllTools, navigateToFavorites, navigateToLegal, navigateToContact, navigateToRequestTool, navigateToSanatanNext, navigateToAdmin } = useApp();
+  const { setView, navigateToTool, navigateToCategory, navigateToHome, navigateToAllTools, navigateToFavorites, navigateToLegal, navigateToContact, navigateToRequestTool, navigateToSanatanNext, navigateToAdmin, navigateToParkSignal } = useApp();
 
   let href = '#';
   let targetView: ViewMode | null = null;
@@ -68,6 +68,28 @@ export const Link: React.FC<LinkProps> = ({ to, children, className = '', onClic
       } else if (to.startsWith('/category/')) {
         const categoryId = to.replace('/category/', '') as any;
         navigateToCategory(categoryId);
+      } else if (to.startsWith('/parksignal')) {
+        const pathPart = to.replace('/parksignal', '');
+        if (pathPart === '' || pathPart === '/') {
+          navigateToParkSignal('landing');
+        } else if (pathPart === '/register') {
+          navigateToParkSignal('register');
+        } else if (pathPart === '/login') {
+          navigateToParkSignal('login');
+        } else if (pathPart === '/dashboard') {
+          navigateToParkSignal('dashboard');
+        } else if (pathPart === '/vehicles') {
+          navigateToParkSignal('vehicles');
+        } else if (pathPart === '/privacy') {
+          navigateToParkSignal('privacy');
+        } else if (pathPart === '/help') {
+          navigateToParkSignal('help');
+        } else if (pathPart.startsWith('/alert/')) {
+          const token = pathPart.replace('/alert/', '').split('?')[0];
+          navigateToParkSignal('alert', token);
+        } else {
+          navigateToParkSignal('landing');
+        }
       } else if (to.startsWith('/admin')) {
         navigateToAdmin();
       } else {

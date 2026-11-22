@@ -53,6 +53,13 @@ function generateSitemap(): void {
       changefreq: isHighPriority ? 'daily' : 'weekly',
       priority: isHighPriority ? '0.95' : '0.80',
     });
+    if (tool.slug === 'parksignal') {
+      urls.push({
+        loc: `${BASE_URL}/parksignal`,
+        changefreq: 'daily',
+        priority: '1.0',
+      });
+    }
   });
 
   // 4.5. Guide/Article Detail Pages
@@ -72,6 +79,8 @@ function generateSitemap(): void {
     { path: '/about', priority: '0.7', changefreq: 'monthly' as const },
     { path: '/contact', priority: '0.7', changefreq: 'monthly' as const },
     { path: '/request-tool', priority: '0.8', changefreq: 'weekly' as const },
+    { path: '/parksignal/privacy', priority: '0.6', changefreq: 'monthly' as const },
+    { path: '/parksignal/help', priority: '0.7', changefreq: 'monthly' as const },
     { path: '/legal/privacy', priority: '0.5', changefreq: 'yearly' as const },
     { path: '/legal/terms', priority: '0.5', changefreq: 'yearly' as const },
     { path: '/legal/disclaimer', priority: '0.5', changefreq: 'yearly' as const },

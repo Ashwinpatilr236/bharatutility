@@ -37,6 +37,7 @@ const RequestToolView = React.lazy(() => import('./components/views/RequestToolV
 const SanatanNextPromoView = React.lazy(() => import('./components/views/SanatanNextPromoView').then(m => ({ default: m.SanatanNextPromoView })));
 const BlogHomeView = React.lazy(() => import('./components/views/BlogHomeView'));
 const ArticleView = React.lazy(() => import('./components/views/ArticleView'));
+const ParkSignalView = React.lazy(() => import('./components/parksignal/ParkSignalView').then(m => ({ default: m.ParkSignalView })));
 
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 
@@ -55,16 +56,18 @@ const AppContent: React.FC = () => {
   const { view, navigateToHome, toast } = useApp();
 
   const isVideoPlayerApp = view.type === 'tool' && view.slug === 'video-player';
+  const isParkSignalAlert = view.type === 'parksignal' && view.subView === 'alert';
+  const hideChrome = isVideoPlayerApp || isParkSignalAlert;
 
   return (
     <div className={`min-h-screen flex flex-col ${isVideoPlayerApp ? 'bg-black' : 'bg-neutral-50/50 dark:bg-black'} text-neutral-900 dark:text-neutral-100 font-sans transition-colors selection:bg-accent selection:text-white relative w-full overflow-x-hidden`}>
       {/* Global Offline Banner */}
-      {!isVideoPlayerApp && <OfflineStatusIndicator />}
+      {!hideChrome && <OfflineStatusIndicator />}
 
-      {/* Global Header (Hidden on Video Player for immersive IPTV experience) */}
-      {!isVideoPlayerApp && <Header />}
+      {/* Global Header */}
+      {!hideChrome && <Header />}
 
-      <main className={`flex-1 ${isVideoPlayerApp ? 'p-0 m-0' : 'pb-16 md:pb-0'}`}>
+      <main className={`flex-1 ${isVideoPlayerApp ? 'p-0 m-0' : hideChrome ? 'p-0' : 'pb-16 md:pb-0'}`}>
         <ErrorBoundary>
           {view.type === 'home' && (
             <div className="flex flex-col space-y-1.5 sm:space-y-3.5 py-0.5 sm:py-2">
@@ -160,18 +163,22 @@ const AppContent: React.FC = () => {
             {view.type === 'article' && (
               <ArticleView slug={view.slug} />
             )}
+
+            {view.type === 'parksignal' && (
+              <ParkSignalView />
+            )}
           </React.Suspense>
         </ErrorBoundary>
       </main>
 
       {/* Global Social Media Follow Section */}
-      {!isVideoPlayerApp && view.type === 'home' && <SocialFollow />}
+      {!hideChrome && view.type === 'home' && <SocialFollow />}
 
-      {/* Global Footer (Hidden on Video Player) */}
-      {!isVideoPlayerApp && <Footer showEcosystemPromo={view.type === 'home'} />}
+      {/* Global Footer */}
+      {!hideChrome && <Footer showEcosystemPromo={view.type === 'home'} />}
 
-      {/* Global Mobile Bottom Navigation Dock (Hidden on Video Player) */}
-      {!isVideoPlayerApp && <MobileNavDock />}
+      {/* Global Mobile Bottom Navigation Dock */}
+      {!hideChrome && <MobileNavDock />}
 
       {/* Global Command Palette & Toast Notifications */}
       <CommandPalette />

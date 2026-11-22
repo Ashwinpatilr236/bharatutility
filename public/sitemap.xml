@@ -249,6 +249,16 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://bharatutility.tech/tools/parksignal</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/parksignal</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://bharatutility.tech/tools/vehicle-fuel-cost-calculator</loc>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
@@ -1302,6 +1312,16 @@
     <loc>https://bharatutility.tech/request-tool</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/parksignal/privacy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://bharatutility.tech/parksignal/help</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bharatutility.tech/legal/privacy</loc>

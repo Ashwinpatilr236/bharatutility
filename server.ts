@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import dotenv from "dotenv";
+import { localParkSignalRouter } from "./src/services/localParkSignalApi";
 
 dotenv.config();
 
@@ -9,6 +10,9 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json({ limit: "10mb" }));
+
+// ── PARKSIGNAL API (Local dev proxy) ──
+app.use("/api/parksignal", localParkSignalRouter);
 
 // ── HEALTH CHECK ──
 app.get("/api/health", (req, res) => {

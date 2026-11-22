@@ -110,11 +110,11 @@ export const CATEGORIES: Category[] = [
     id: 'vehicle-utility',
     name: 'Vehicle Utility',
     shortName: 'Vehicle',
-    description: 'Used car & bike resale valuation, Motor Vehicle Act (MVA) traffic challan fines, Indian EV fast-charging & running costs, and fuel price tracker.',
+    description: 'ParkSignal QR parking alert system, Used car & bike resale valuation, MVA traffic challan fines, EV running costs, and fuel price tracker.',
     icon: 'Car',
     color: 'emerald',
     badge: 'Vehicle 🚗',
-    toolCount: 16,
+    toolCount: 17,
   },
   {
     id: 'travel-utility',

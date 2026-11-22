@@ -25,7 +25,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
 
   return (
     <Link
-      to={`/tools/${tool.slug}`}
+      to={tool.slug === 'parksignal' ? '/parksignal' : `/tools/${tool.slug}`}
       className="p-3 sm:p-4 w-full min-w-[58vw] sm:min-w-[220px] overflow-hidden snap-start rounded-2xl bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xs border border-neutral-200/90 dark:border-neutral-800/90 text-left hover:border-accent/60 hover:shadow-lg hover:shadow-accent/5 dark:hover:shadow-black/40 transition-all duration-200 group flex flex-row sm:flex-col items-center sm:items-start justify-between gap-3 sm:gap-0 bu-card-hover"
     >
       <div className="flex flex-row sm:flex-col w-full min-w-0 items-center sm:items-start gap-3 sm:gap-0">

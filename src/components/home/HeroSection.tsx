@@ -431,6 +431,14 @@ export const HeroSection: React.FC = () => {
         <ScrollableCarousel className="pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 pt-0.5 text-left">
           {[
             {
+              slug: 'parksignal',
+              name: 'ParkSignal QR Parking Alert',
+              tagline: 'Privacy-first QR parking alerts & voice notes via @ParkSignal_bot',
+              icon: 'Car',
+              badge: 'New Product 🚗',
+              color: 'text-indigo-500 bg-indigo-500/10'
+            },
+            {
               slug: 'ifsc-code-finder',
               name: 'Bank IFSC & Branch Finder',
               tagline: 'Search 1.5L+ Indian bank branches with live UPI/NEFT/RTGS status',
