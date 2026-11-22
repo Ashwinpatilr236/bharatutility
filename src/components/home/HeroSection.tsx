@@ -2,13 +2,9 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { useAdminStore } from '../../hooks/useAdminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
-import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch, TRENDING_SEARCH_KEYWORDS } from '../../utils/smartSearch';
-import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck } from 'lucide-react';
+import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch } from '../../utils/smartSearch';
+import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { AntigravityParticles } from '../common/AntigravityParticles';
-import { SpotlightCard } from '../common/SpotlightCard';
-import { CommandPalette } from '../common/CommandPalette';
-import { ScrollableCarousel } from '../common/ScrollableCarousel';
-import { FloatingBadge } from '../common/FloatingBadge';
 import { VoiceSearchButton } from '../common/VoiceSearchButton';
 
 export const HeroSection: React.FC = () => {
@@ -26,7 +22,7 @@ export const HeroSection: React.FC = () => {
   const searchResults = useMemo(() => executeSmartSearch(searchQuery), [searchQuery]);
   const { exactAndKeywordMatches, naturalLanguageIntent, hasMatches } = searchResults;
 
-  // Record search telemetry debounced outside of render
+  // Record search telemetry debounced
   useEffect(() => {
     if (searchQuery.trim().length >= 2) {
       const timer = setTimeout(() => {
@@ -79,17 +75,15 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-4 pb-6 sm:pt-8 sm:pb-10 overflow-hidden">
-      {/* Background Interactive Antigravity Particles & Cosmic Glow */}
-      <AntigravityParticles className="opacity-60 dark:opacity-70" particleCount={36} />
+    <section className="relative pt-6 pb-8 sm:pt-12 sm:pb-14 overflow-hidden">
+      {/* Background Subtle Ambient Light & Particles */}
+      <AntigravityParticles className="opacity-40 dark:opacity-60" particleCount={24} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[280px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full" />
 
-      {/* Background Floating Subtle Ambient Light */}
-      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[300px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10 rounded-full" />
-
-      <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
-        {/* Modern Minimal Top Badge */}
-        <div className="flex items-center justify-center mb-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/90 dark:bg-neutral-800/90 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-700/80 text-neutral-700 dark:text-neutral-200 text-xs font-semibold shadow-xs">
+      <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+        {/* Modern Minimal Top Pill */}
+        <div className="flex items-center justify-center mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100/90 dark:bg-neutral-800/90 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-700/80 text-neutral-700 dark:text-neutral-200 text-xs font-semibold shadow-2xs">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -98,7 +92,7 @@ export const HeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Clean Modern Headline */}
+        {/* Clean, High-Impact Headline */}
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-display text-neutral-900 dark:text-white leading-[1.12] mb-3">
           Everyday Utilities for{' '}
           <span className="bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 bg-clip-text text-transparent">
@@ -106,12 +100,12 @@ export const HeroSection: React.FC = () => {
           </span>
         </h1>
 
-        {/* Clean Focused Subtitle */}
-        <p className="text-xs sm:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-6 leading-relaxed">
+        {/* Focused Subtitle */}
+        <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto mb-7 leading-relaxed">
           Fast, privacy-focused calculators, live bank & citizen lookups, and daily utilities — verified, ad-lite, and completely free.
         </p>
 
-        {/* Large Clean Native Inline Search Box - Centerpiece */}
+        {/* Spotlight Centerpiece Search Bar */}
         <div className="relative max-w-2xl mx-auto mb-4 text-left">
           <div
             className={`flex items-center gap-3 px-4 py-3.5 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl rounded-2xl border-2 transition-all shadow-xl shadow-neutral-900/5 dark:shadow-black/50 ${
@@ -163,7 +157,7 @@ export const HeroSection: React.FC = () => {
             )}
           </div>
 
-          {/* Clean Elevated Real-time Dropdown */}
+          {/* Elevated Real-time Dropdown */}
           {isFocused && (
             <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border-2 border-indigo-500/40 p-3 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[580px] sm:max-h-[640px] overflow-y-auto space-y-2">
               {/* Natural Language Intent suggestion card */}
@@ -291,8 +285,8 @@ export const HeroSection: React.FC = () => {
           )}
         </div>
 
-        {/* Clean Single-Row Trending Searches */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8 text-xs">
+        {/* Clean Trending Quick-Tags */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-6 text-xs">
           <span className="font-bold text-neutral-400 dark:text-neutral-500 flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
             Trending:
@@ -308,110 +302,37 @@ export const HeroSection: React.FC = () => {
           ))}
         </div>
 
-        {/* 8 Instant Quick-Access Bento Hero Cards with Spotlight & 3D Tilt */}
-        <ScrollableCarousel className="pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 pt-0.5 text-left">
+        {/* Clean Quick Launch Category Pills (No Clutter, 100% Sleek) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 pt-2 text-left">
           {[
-            {
-              slug: 'parksignal',
-              name: 'ParkSignal QR Parking Alert',
-              tagline: 'Privacy-first QR parking alerts & voice notes via @ParkSignal_bot',
-              icon: 'Car',
-              badge: 'New Product 🚗',
-              color: 'text-indigo-500 bg-indigo-500/10'
-            },
-            {
-              slug: 'ifsc-code-finder',
-              name: 'Bank IFSC & Branch Finder',
-              tagline: 'Search 1.5L+ Indian bank branches with live UPI/NEFT/RTGS status',
-              icon: 'Building',
-              badge: '⚡ Live RBI API',
-              color: 'text-emerald-500 bg-emerald-500/10'
-            },
-            {
-              slug: 'sip-calculator',
-              name: 'AMFI Mutual Fund & SIP',
-              tagline: '45,000+ schemes live NAV, 1Y/3Y/5Y CAGR returns',
-              icon: 'TrendingUp',
-              badge: '⚡ Live AMFI',
-              color: 'text-indigo-500 bg-indigo-500/10'
-            },
-            {
-              slug: 'gratuity-calculator',
-              name: 'Gratuity & Leave Encashment',
-              tagline: 'Sec 10(10AA) ₹25L exemption & 15/26 service formula',
-              icon: 'Receipt',
-              badge: 'Updated 2026',
-              color: 'text-amber-500 bg-amber-500/10'
-            },
-            {
-              slug: 'emi-calculator',
-              name: 'Home Loan EMI Calculator',
-              tagline: 'Principal, interest & monthly amortization schedule',
-              icon: 'Calculator',
-              badge: 'Finance',
-              color: 'text-blue-500 bg-blue-500/10'
-            },
-            {
-              slug: 'gst-calculator',
-              name: 'GST Rate Calculator',
-              tagline: '5%, 12%, 18%, 28% inclusive & exclusive tax',
-              icon: 'Receipt',
-              badge: 'Tax & Bill',
-              color: 'text-rose-500 bg-rose-500/10'
-            },
-            {
-              slug: 'pin-code-finder',
-              name: 'PIN Code & Post Office',
-              tagline: 'Search 1.5L+ Indian Post Offices & delivery status',
-              icon: 'MapPin',
-              badge: 'India Hub',
-              color: 'text-teal-500 bg-teal-500/10'
-            },
-            {
-              slug: 'dairy-milk-fat-snf-calculator',
-              name: 'Dairy Milk Fat & SNF Payout',
-              tagline: 'Cow & Buffalo milk rate chart per litre',
-              icon: 'Sparkles',
-              badge: 'Daily Agro',
-              color: 'text-sky-500 bg-sky-500/10'
-            },
-            {
-              slug: 'age-calculator',
-              name: 'Sarkari Exam Age Calculator',
-              tagline: 'Exact DOB, cutoff dates & eligibility analyzer',
-              icon: 'Calendar',
-              badge: 'Education',
-              color: 'text-purple-500 bg-purple-500/10'
-            }
-          ].map(tool => (
-            <SpotlightCard
-              key={tool.slug}
-              onClick={() => navigateToTool(tool.slug)}
-              className="p-3 sm:p-3.5 cursor-pointer group flex flex-col justify-between min-w-[68vw] sm:min-w-[220px] snap-start sm:snap-start"
+            { name: 'Bank IFSC', desc: '1.5L+ Branches', slug: 'ifsc-code-finder', icon: 'Building', color: 'text-emerald-500' },
+            { name: 'Mutual Fund SIP', desc: '45,000+ Schemes', slug: 'sip-calculator', icon: 'TrendingUp', color: 'text-indigo-500' },
+            { name: 'Home Loan EMI', desc: 'Monthly Schedule', slug: 'emi-calculator', icon: 'Calculator', color: 'text-blue-500' },
+            { name: 'GST & Tax', desc: '5% to 28% Slab', slug: 'gst-calculator', icon: 'Receipt', color: 'text-rose-500' },
+            { name: 'PIN Code Finder', desc: '1.5L+ Post Offices', slug: 'pin-code-finder', icon: 'MapPin', color: 'text-teal-500' },
+            { name: 'ParkSignal QR', desc: 'Vehicle Privacy QR', slug: 'parksignal', icon: 'Car', color: 'text-cyan-500' },
+          ].map(item => (
+            <button
+              key={item.slug}
+              onClick={() => navigateToTool(item.slug)}
+              className="p-2.5 rounded-xl bg-white/80 dark:bg-neutral-900/80 border border-neutral-200/70 dark:border-white/5 hover:border-indigo-500/50 hover:bg-white dark:hover:bg-neutral-800/80 transition-all shadow-2xs hover:shadow-xs group cursor-pointer"
             >
-              <div>
-                <div className="flex items-center justify-between mb-2.5">
-                  <div className={`p-2 rounded-xl ${tool.color} group-hover:scale-110 transition-transform`}>
-                    <DynamicIcon name={tool.icon} className="w-4 h-4" />
-                  </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 group-hover:bg-accent/15 group-hover:text-accent transition-colors">
-                    {tool.badge}
-                  </span>
+              <div className="flex items-center gap-2">
+                <div className={`p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 ${item.color} group-hover:scale-110 transition-transform shrink-0`}>
+                  <DynamicIcon name={item.icon} className="w-3.5 h-3.5" />
                 </div>
-                <h3 className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors leading-snug">
-                  {tool.name}
-                </h3>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2 leading-relaxed">
-                  {tool.tagline}
-                </p>
+                <div className="min-w-0">
+                  <div className="text-xs font-bold text-neutral-800 dark:text-neutral-200 truncate group-hover:text-indigo-500 transition-colors">
+                    {item.name}
+                  </div>
+                  <div className="text-[10px] text-neutral-400 truncate">
+                    {item.desc}
+                  </div>
+                </div>
               </div>
-              <div className="mt-2.5 pt-1.5 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs font-semibold text-accent">
-                <span>Open Utility</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
-              </div>
-            </SpotlightCard>
+            </button>
           ))}
-        </ScrollableCarousel>
+        </div>
       </div>
     </section>
   );

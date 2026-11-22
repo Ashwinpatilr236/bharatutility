@@ -10,7 +10,7 @@ import { RequestToolCta } from './components/common/RequestToolCta';
 // Home View Sections (kept eager for instantaneous public home landing)
 import { HeroSection } from './components/home/HeroSection';
 import { ToolDiscoveryWidget } from './components/home/ToolDiscoveryWidget';
-import { CategoryDetailPanel } from './components/home/CategoryDetailPanel';
+import { CategoryShowcase } from './components/home/CategoryShowcase';
 import { YourFavoritesSection } from './components/home/YourFavoritesSection';
 import { RecentlyUsedSection } from './components/home/RecentlyUsedSection';
 import { TrustSection } from './components/home/TrustSection';
@@ -67,7 +67,7 @@ const AppContent: React.FC = () => {
         <ErrorBoundary>
           {view.type === 'home' && (
             <div className="flex flex-col space-y-6 sm:space-y-10 py-2 sm:py-6">
-              {/* 1. Clean Hero & Smart Discovery Search */}
+              {/* 1. Clean Hero & Smart Discovery Search (No Clutter, 10/10 Modern) */}
               <HeroSection />
 
               {/* 2. ParkSignal Smart Vehicle QR Showcase */}
@@ -77,11 +77,11 @@ const AppContent: React.FC = () => {
               <YourFavoritesSection />
               <RecentlyUsedSection />
 
-              {/* 4. Structured Category Explorer */}
-              <CategoryDetailPanel />
-
-              {/* 5. Tool Discovery: Trending / Popular / New */}
+              {/* 4. Core Tool Discovery: Trending / Popular / New (8 Balanced Cards per Tab) */}
               <ToolDiscoveryWidget />
+
+              {/* 5. Clean Category Domain Explorer */}
+              <CategoryShowcase />
 
               {/* 6. Why BharatUtility & Privacy Trust */}
               <TrustSection />
