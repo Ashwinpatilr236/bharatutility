@@ -158,6 +158,9 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <clipPath id="hazard-clip">
       <rect x="0" y="0" width="1360" height="760" rx="32" ry="32" />
     </clipPath>
+    <clipPath id="left-top-banner-clip">
+      <rect x="0" y="0" width="456" height="636" rx="26" ry="26" />
+    </clipPath>
     <!-- Seamless 45-degree repeating caution stripe pattern -->
     <pattern id="hazardStripe" width="50" height="50" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <rect width="25" height="50" fill="#0B0F19" />
@@ -179,35 +182,49 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <g transform="translate(48, 62)">
       <rect x="0" y="0" width="456" height="636" rx="26" fill="#FFFFFF" stroke="#0B0F19" stroke-width="4.5" />
       
-      <!-- 1. VECTOR BRAND LOGO EMBEDDED WITH QR (Crisp Vector Graphic) -->
-      ${getVectorLogoSvg(44, 28, 1.35, false)}
-
-      <!-- Thin subtle separator -->
-      <line x1="36" y1="126" x2="420" y2="126" stroke="#E2E8F0" stroke-width="1.5" />
+      <!-- Top Brand Header Banner inside White Card -->
+      <g clip-path="url(#left-top-banner-clip)">
+        <rect x="0" y="0" width="456" height="104" fill="${colors.bg}" />
+        <line x1="0" y1="104" x2="456" y2="104" stroke="#0B0F19" stroke-width="3" />
+        ${getVectorLogoSvg(36, 22, 1.25, false)}
+      </g>
 
       <!-- 2. Crisp QR Code -->
-      <image href="${qrDataUrl}" x="68" y="142" width="320" height="320" />
+      <image href="${qrDataUrl}" x="58" y="118" width="340" height="340" />
       
       <!-- 3. Camera Scanner Pill Badge below QR -->
-      <g transform="translate(24, 482)">
-        <rect x="0" y="0" width="408" height="66" rx="16" fill="#0B0F19" />
-        <text x="204" y="30" class="font-sans" font-size="15" font-weight="900" fill="#FFD000" text-anchor="middle" letter-spacing="0.5">📷 SCAN WITH ANY PHONE CAMERA</text>
-        <text x="204" y="50" class="font-sans" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">NO APP • NO OTP • 100% PRIVATE</text>
+      <g transform="translate(24, 474)">
+        <rect x="0" y="0" width="408" height="58" rx="15" fill="#0B0F19" />
+        <text x="204" y="26" class="font-sans" font-size="13" font-weight="900" fill="#FFD000" text-anchor="middle" letter-spacing="0.5">📷 SCAN WITH ANY PHONE CAMERA</text>
+        <text x="204" y="44" class="font-sans" font-size="10.5" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">NO APP • NO OTP • 100% PRIVATE</text>
       </g>
       
-      <!-- 4. Security / Website Link -->
-      <text x="228" y="582" class="font-sans" font-size="12" font-weight="800" fill="#0B0F19" text-anchor="middle">🔒 PRIVACY-FIRST SMART VEHICLE PROTECTION</text>
-      <text x="228" y="602" class="font-sans" font-size="11" font-weight="700" fill="#64748B" text-anchor="middle">bharatutility.tech/parksignal</text>
+      <!-- 4. Security / Website Pill -->
+      <g transform="translate(24, 544)">
+        <rect x="0" y="0" width="408" height="58" rx="15" fill="${colors.bg}" stroke="#0B0F19" stroke-width="2" />
+        <text x="204" y="26" class="font-sans" font-size="11.5" font-weight="900" fill="#0B0F19" text-anchor="middle">🔒 PRIVACY-FIRST SMART VEHICLE PROTECTION</text>
+        <text x="204" y="44" class="font-sans" font-size="10.5" font-weight="700" fill="#1E293B" text-anchor="middle">bharatutility.tech/parksignal</text>
+      </g>
     </g>
 
-    <!-- ── RIGHT SIDE: COMMERCIAL SAFETY LAYOUT ── -->
+    <!-- ── RIGHT SIDE: COMMERCIAL SAFETY LAYOUT (MATCHING EXACT PASS) ── -->
     <g transform="translate(536, 62)">
-      <!-- 1. Commercial Safety Headline -->
-      <text x="0" y="40" class="font-sans" font-size="34" font-weight="700" fill="#0B0F19">Scan the QR to contact the</text>
-      <text x="0" y="86" class="font-sans" font-size="42" font-weight="900" fill="#0B0F19">vehicle owner in case of emergency</text>
+      <!-- 1. Top Brand Logo Lockup & Attribution -->
+      <g transform="translate(0, 0)">
+        ${getVectorLogoSvg(0, 4, 1.15, false)}
+        
+        <text x="776" y="22" class="font-sans" font-size="14" font-weight="900" fill="#0B0F19" text-anchor="end">Official Fastag-Size Smart Vehicle Pass</text>
+        <text x="776" y="42" class="font-sans" font-size="12" font-weight="700" fill="#1E293B" text-anchor="end">Powered by BharatUtility • bharatutility.tech/parksignal</text>
+      </g>
 
-      <!-- 2. Row of 7 Standalone Commercial Situation Icons -->
-      <g transform="translate(0, 134)">
+      <!-- 2. Commercial Safety Headline -->
+      <g transform="translate(0, 88)">
+        <text x="0" y="32" class="font-sans" font-size="36" font-weight="700" fill="#0B0F19">Scan the QR to contact the</text>
+        <text x="0" y="78" class="font-sans" font-size="44" font-weight="900" fill="#0B0F19">vehicle owner in case of emergency</text>
+      </g>
+
+      <!-- 3. Row of 7 Standalone Commercial Situation Icons -->
+      <g transform="translate(0, 226)">
         <!-- Icon 1: ACCIDENT (Phone Receiver) -->
         <g transform="translate(42, 0)">
           <path d="M-10 14 C-10 24 0 34 10 34 L14 30 C15 29 15 27 14 26 L8 21 C7 20 5 20 4 21 L2 23 C-2 20 -5 17 -8 13 L-6 11 C-5 10 -5 8 -6 7 L-11 1 C-12 0 -14 0 -15 1 L-18 4 C-20 6 -20 7 -19 9" fill="#0B0F19" />
@@ -258,29 +275,21 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
         </g>
       </g>
 
-      <!-- 3. Explanatory Safety Notice Paragraph -->
-      <g transform="translate(0, 244)">
+      <!-- 4. Explanatory Safety Notice Paragraph -->
+      <g transform="translate(0, 350)">
         <text x="0" y="24" class="font-sans" font-size="18" font-weight="700" fill="#0B0F19">Facing a parking issue or emergency? Notice something wrong with the vehicle?</text>
-        <text x="0" y="50" class="font-sans" font-size="18" font-weight="700" fill="#0B0F19">Please scan the QR tag to contact the owner privately in seconds.</text>
+        <text x="0" y="52" class="font-sans" font-size="18" font-weight="700" fill="#0B0F19">Please scan the QR tag to contact the owner privately in seconds.</text>
       </g>
 
-      <!-- 4. Authentic Indian HSRP License Plate Strip -->
-      <g transform="translate(0, 336)">
-        <rect x="0" y="0" width="776" height="84" rx="16" fill="#FFFFFF" stroke="#0B0F19" stroke-width="3.5" />
+      <!-- 5. Authentic Indian HSRP License Plate Strip -->
+      <g transform="translate(0, 460)">
+        <rect x="0" y="0" width="776" height="88" rx="16" fill="#FFFFFF" stroke="#0B0F19" stroke-width="3.5" />
         <!-- Blue IND Band -->
-        <rect x="0" y="0" width="88" height="84" rx="14" fill="#003399" />
-        <circle cx="44" cy="30" r="10" fill="none" stroke="#FFFFFF" stroke-width="2" />
-        <text x="44" y="64" class="font-sans" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">IND</text>
+        <rect x="0" y="0" width="92" height="88" rx="14" fill="#003399" />
+        <circle cx="46" cy="32" r="11" fill="none" stroke="#FFFFFF" stroke-width="2" />
+        <text x="46" y="68" class="font-sans" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">IND</text>
         <!-- Vehicle Plate Text -->
-        <text x="432" y="55" class="font-mono" font-size="38" font-weight="900" fill="#0F172A" text-anchor="middle" letter-spacing="2">${plateFormatted}</text>
-      </g>
-
-      <!-- 5. Official ParkSignal Brand Logo Lockup & Attribution -->
-      <g transform="translate(0, 466)">
-        ${getVectorLogoSvg(0, 0, 1.15, false)}
-        
-        <text x="776" y="26" class="font-sans" font-size="14" font-weight="900" fill="#0B0F19" text-anchor="end">Official Fastag-Size Smart Vehicle Pass</text>
-        <text x="776" y="46" class="font-sans" font-size="12" font-weight="700" fill="#334155" text-anchor="end">Powered by BharatUtility • bharatutility.tech/parksignal</text>
+        <text x="434" y="57" class="font-mono" font-size="38" font-weight="900" fill="#0F172A" text-anchor="middle" letter-spacing="3">${plateFormatted}</text>
       </g>
     </g>
   </g>

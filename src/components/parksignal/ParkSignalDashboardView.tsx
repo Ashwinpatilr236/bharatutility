@@ -32,9 +32,15 @@ import {
   Check,
   PhoneCall,
   LayoutDashboard,
-  Eye,
-  EyeOff,
-  Sparkles
+  ShieldAlert,
+  Radio,
+  Sparkles,
+  Zap,
+  Volume2,
+  Activity,
+  ChevronRight,
+  HelpCircle,
+  FileText
 } from 'lucide-react';
 import { ParkSignalStickerModal } from './ParkSignalStickerModal';
 
@@ -346,49 +352,59 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
 
   if (loading) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-3">
-        <div className="w-10 h-10 border-3 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto" />
-        <h2 className="text-base font-bold text-neutral-800 dark:text-neutral-200">
-          Loading Owner Dashboard...
-        </h2>
+      <div className="max-w-4xl mx-auto px-4 py-20 text-center space-y-3">
+        <div className="w-10 h-10 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto" />
+        <div className="text-xs font-mono uppercase tracking-widest text-neutral-400">
+          INITIALIZING SECURE TELEMETRY...
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-3 sm:px-5 py-2.5 sm:py-3.5 space-y-3">
-      {/* ── Top Header Strip (Clean, Zero Wasted Padding) ── */}
-      <div className="bg-white dark:bg-neutral-900 rounded-xl p-2.5 sm:p-3 border border-neutral-200/80 dark:border-neutral-800 shadow-2xs flex flex-wrap items-center justify-between gap-2.5">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-600 to-indigo-600 text-white flex items-center justify-center font-black text-xs shadow-2xs shrink-0">
-            {currentUser?.fullName?.charAt(0) || 'U'}
+    <div className="max-w-6xl mx-auto px-3 sm:px-5 py-3 space-y-3 font-sans">
+      {/* ── EXECUTIVE HEADER STRIP (AEROSPACE / AUTOMOTIVE FINISH) ── */}
+      <div className="bg-gradient-to-r from-neutral-900 via-neutral-900 to-slate-900 text-white rounded-2xl p-3 sm:p-4 border border-neutral-800 shadow-xl flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center font-black text-sm text-slate-950 shadow-md">
+              {currentUser?.fullName?.charAt(0) || 'U'}
+            </div>
+            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-neutral-900" />
           </div>
+
           <div>
-            <div className="flex items-center gap-1.5 leading-tight">
-              <h1 className="text-sm font-black font-display text-neutral-900 dark:text-white">
+            <div className="flex items-center gap-2">
+              <span className="text-sm sm:text-base font-black tracking-tight text-white font-display">
                 {currentUser?.fullName}
-              </h1>
-              <span className="px-1.5 py-0.2 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[9px] font-bold border border-emerald-500/20">
-                Verified Owner
+              </span>
+              <span className="px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 text-[10px] font-mono font-bold border border-cyan-500/20 uppercase">
+                Active Fleet
               </span>
             </div>
-            <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
-              {currentUser?.email}
-            </p>
+            <div className="text-[11px] text-neutral-400 font-mono flex items-center gap-2 mt-0.5">
+              <span>{currentUser?.email}</span>
+              <span className="text-neutral-600">•</span>
+              <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" /> 100% Zero-Leak Identity
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        {/* Action Controls */}
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setShowAddVehicleModal(true)}
-            className="px-2.5 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold flex items-center gap-1 shadow-2xs transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-slate-950 text-xs font-black flex items-center gap-1.5 shadow-md shadow-cyan-500/20 transition-all cursor-pointer"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-3.5 h-3.5 stroke-[3]" />
             <span>Add Vehicle</span>
           </button>
           <button
             onClick={handleLogout}
-            className="px-2 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:text-rose-600 text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer"
+            className="px-2.5 py-1.5 rounded-xl border border-neutral-800 hover:border-neutral-700 bg-neutral-900/60 text-neutral-400 hover:text-rose-400 text-xs font-medium flex items-center gap-1 transition-colors cursor-pointer"
+            title="Sign out securely"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Logout</span>
@@ -396,150 +412,168 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
         </div>
       </div>
 
-      {/* ── 4 Unified Navigation Tabs (Merged Vehicles & Stickers, Low Vertical Gap) ── */}
-      <div className="flex items-center gap-1 overflow-x-auto pb-0.5 border-b border-neutral-200 dark:border-neutral-800 text-xs font-bold scrollbar-none">
+      {/* ── 4 STREAMLINED SEGMENTED CONTROL TABS ── */}
+      <div className="bg-neutral-100 dark:bg-neutral-900/80 p-1 rounded-xl border border-neutral-200 dark:border-neutral-800 flex items-center gap-1 overflow-x-auto text-xs font-bold scrollbar-none">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${
+          className={`flex-1 min-w-[100px] py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             activeTab === 'overview'
-              ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-2xs'
-              : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+              ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs border border-neutral-200/60 dark:border-neutral-700'
+              : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
           }`}
         >
-          <LayoutDashboard className="w-3.5 h-3.5" />
+          <LayoutDashboard className="w-3.5 h-3.5 text-cyan-500" />
           <span>Overview</span>
         </button>
 
         <button
           onClick={() => setActiveTab('vehicles')}
-          className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${
+          className={`flex-1 min-w-[170px] py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             activeTab === 'vehicles'
-              ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-2xs'
-              : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+              ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs border border-neutral-200/60 dark:border-neutral-700'
+              : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
           }`}
         >
-          <Car className="w-3.5 h-3.5" />
-          <span>My Vehicles &amp; QR Stickers ({vehicles.length})</span>
+          <Car className="w-3.5 h-3.5 text-cyan-500" />
+          <span>My Vehicles &amp; QR Passes ({vehicles.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab('history')}
-          className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${
+          className={`flex-1 min-w-[130px] py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             activeTab === 'history'
-              ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-2xs'
-              : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+              ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs border border-neutral-200/60 dark:border-neutral-700'
+              : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
           }`}
         >
-          <BellRing className="w-3.5 h-3.5" />
+          <BellRing className="w-3.5 h-3.5 text-cyan-500" />
           <span>Alert History ({alerts.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab('account')}
-          className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${
+          className={`flex-1 min-w-[140px] py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             activeTab === 'account'
-              ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-2xs'
-              : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+              ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs border border-neutral-200/60 dark:border-neutral-700'
+              : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
           }`}
         >
-          <Settings className="w-3.5 h-3.5" />
+          <Settings className="w-3.5 h-3.5 text-cyan-500" />
           <span>Account &amp; Settings</span>
         </button>
       </div>
 
-      {/* ── TAB 1: OVERVIEW (COMPACT) ── */}
+      {/* ── TAB 1: OVERVIEW ── */}
       {activeTab === 'overview' && (
-        <div className="space-y-3">
-          {/* Top 4 KPI Metrics */}
+        <div className="space-y-3 animate-fadeIn">
+          {/* Executive Telemetry Metric Grid */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
-            <div className="p-3 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-0.5">
-              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
-                Registered Vehicles
-              </span>
-              <div className="text-xl sm:text-2xl font-black font-display text-neutral-900 dark:text-white leading-none pt-0.5">
+            {/* Metric 1 */}
+            <div className="p-3.5 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-1">
+              <div className="flex items-center justify-between text-neutral-400">
+                <span className="text-[10px] font-mono uppercase tracking-wider font-bold">
+                  Registered Fleet
+                </span>
+                <Car className="w-3.5 h-3.5 text-cyan-500" />
+              </div>
+              <div className="text-2xl font-black font-display tracking-tight text-neutral-900 dark:text-white">
                 {vehicles.length}
               </div>
-              <p className="text-[10px] text-neutral-500 pt-0.5">
-                {vehicles.filter((v) => v.is_active).length} Active • Fastag Ready
-              </p>
+              <div className="text-[10px] text-neutral-500 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span>{vehicles.filter((v) => v.is_active).length} Active • Fastag Ready</span>
+              </div>
             </div>
 
-            <div className="p-3 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-0.5">
-              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
-                Telegram Bot Link
-              </span>
-              <div className="text-sm sm:text-base font-black text-neutral-900 dark:text-white flex items-center gap-1 leading-none pt-0.5">
+            {/* Metric 2 */}
+            <div className="p-3.5 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-1">
+              <div className="flex items-center justify-between text-neutral-400">
+                <span className="text-[10px] font-mono uppercase tracking-wider font-bold">
+                  Telegram Relay
+                </span>
+                <Bot className="w-3.5 h-3.5 text-blue-500" />
+              </div>
+              <div className="text-base sm:text-lg font-black text-neutral-900 dark:text-white flex items-center gap-1.5 pt-0.5">
                 {currentUser?.isTelegramLinked ? (
-                  <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> Connected
+                  <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-mono text-sm">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" /> @ParkSignal_bot
                   </span>
                 ) : (
-                  <span className="text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                    <AlertTriangle className="w-3.5 h-3.5 shrink-0" /> Not Linked
+                  <span className="text-amber-500 flex items-center gap-1 font-mono text-sm">
+                    <AlertTriangle className="w-4 h-4 shrink-0" /> Pending Link
                   </span>
                 )}
               </div>
-              <p className="text-[10px] text-neutral-500 pt-0.5">
-                <button
-                  onClick={() => setActiveTab('account')}
-                  className="text-cyan-600 dark:text-cyan-400 hover:underline font-bold cursor-pointer"
-                >
-                  @ParkSignal_bot →
-                </button>
-              </p>
+              <div className="text-[10px] text-neutral-500">
+                {currentUser?.isTelegramLinked ? 'Avg latency < 2s' : 'Tap Settings to connect'}
+              </div>
             </div>
 
-            <div className="p-3 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-0.5">
-              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
-                Alerts Received
-              </span>
-              <div className="text-xl sm:text-2xl font-black font-display text-neutral-900 dark:text-white leading-none pt-0.5">
+            {/* Metric 3 */}
+            <div className="p-3.5 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-1">
+              <div className="flex items-center justify-between text-neutral-400">
+                <span className="text-[10px] font-mono uppercase tracking-wider font-bold">
+                  Total Dispatches
+                </span>
+                <Activity className="w-3.5 h-3.5 text-indigo-500" />
+              </div>
+              <div className="text-2xl font-black font-display tracking-tight text-neutral-900 dark:text-white">
                 {alerts.length}
               </div>
-              <p className="text-[10px] text-neutral-500 pt-0.5">Instant via Telegram</p>
+              <div className="text-[10px] text-neutral-500">
+                Instant delivery logs recorded
+              </div>
             </div>
 
-            <div className="p-3 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-0.5">
-              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
-                Driver Privacy
-              </span>
-              <div className="text-sm sm:text-base font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1 leading-none pt-0.5">
-                <ShieldCheck className="w-3.5 h-3.5 shrink-0" /> 100% Protected
+            {/* Metric 4 */}
+            <div className="p-3.5 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-1">
+              <div className="flex items-center justify-between text-neutral-400">
+                <span className="text-[10px] font-mono uppercase tracking-wider font-bold">
+                  Privacy Shield
+                </span>
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
               </div>
-              <p className="text-[10px] text-neutral-500 pt-0.5">Zero Phone Sharing</p>
+              <div className="text-base font-black text-emerald-600 dark:text-emerald-400 pt-0.5">
+                100% Protected
+              </div>
+              <div className="text-[10px] text-neutral-500 font-mono">
+                0 mobile numbers exposed
+              </div>
             </div>
           </div>
 
           {/* Quick Telegram Warning if Not Linked */}
           {!currentUser?.isTelegramLinked && (
-            <div className="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-              <div className="flex items-center gap-2.5">
-                <Bot className="w-5 h-5 text-amber-600 shrink-0" />
-                <div className="space-y-0.5">
-                  <h3 className="text-xs font-bold text-amber-900 dark:text-amber-200">
-                    Connect Telegram to Receive Real-Time Parking Alerts
+            <div className="p-3.5 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent rounded-xl border border-amber-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-500 flex items-center justify-center shrink-0">
+                  <Bot className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-neutral-900 dark:text-white">
+                    Link Telegram Bot to Receive Windshield Parking Alerts
                   </h3>
-                  <p className="text-[11px] text-neutral-600 dark:text-neutral-400">
-                    Bystanders cannot notify you until your account is linked with @ParkSignal_bot.
+                  <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
+                    Bystanders cannot reach you until your account is linked with official bot @ParkSignal_bot.
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setActiveTab('account')}
-                className="px-3 py-1.5 rounded-lg bg-amber-600 text-white font-bold text-xs shrink-0 hover:bg-amber-700 transition-colors cursor-pointer"
+                className="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs shrink-0 transition-colors cursor-pointer"
               >
-                Connect Telegram →
+                Connect Telegram Bot →
               </button>
             </div>
           )}
 
-          {/* Vehicles Quick Section */}
+          {/* Fleet Cards Section */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <h2 className="text-xs uppercase font-extrabold tracking-wider text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
-                <Car className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                <span>Your Vehicles &amp; Windshield Passes</span>
-              </h2>
+              <div className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
+                <Car className="w-3.5 h-3.5 text-cyan-500" />
+                <span>Active Windshield Passes</span>
+              </div>
               <button
                 onClick={() => setShowAddVehicleModal(true)}
                 className="text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer"
@@ -549,66 +583,74 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
             </div>
 
             {vehicles.length === 0 ? (
-              <div className="p-6 text-center bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/80 dark:border-neutral-800 space-y-2">
-                <Car className="w-8 h-8 text-neutral-400 mx-auto" />
-                <h3 className="text-xs font-bold text-neutral-800 dark:text-neutral-200">
-                  No vehicles registered yet
+              <div className="p-8 text-center bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 space-y-2">
+                <Car className="w-10 h-10 text-neutral-400 mx-auto" />
+                <h3 className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
+                  No vehicles registered in fleet
                 </h3>
-                <p className="text-[11px] text-neutral-500 max-w-sm mx-auto">
-                  Add your car or two-wheeler to generate your first printable Fastag-size QR sticker.
+                <p className="text-xs text-neutral-500 max-w-sm mx-auto">
+                  Add your car or motorcycle to generate your first printable Fastag-size QR sticker.
                 </p>
                 <button
                   onClick={() => setShowAddVehicleModal(true)}
-                  className="px-3.5 py-1.5 rounded-lg bg-cyan-600 text-white text-xs font-bold hover:bg-cyan-700 cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-cyan-600 text-white text-xs font-bold hover:bg-cyan-700 cursor-pointer"
                 >
                   Register Your First Vehicle
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {vehicles.map((v) => (
                   <div
                     key={v.id}
-                    className="p-3 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-2.5"
+                    className="p-3.5 bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-3"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        {/* Mini Indian Plate */}
-                        <div className="inline-flex items-stretch rounded-md border border-neutral-900 overflow-hidden bg-white text-neutral-950 font-mono shadow-2xs">
-                          <span className="bg-[#002B7F] text-white px-1.5 py-0.5 text-[8px] font-black flex items-center">
-                            IND
-                          </span>
-                          <span className="px-2 py-0.5 text-xs font-black tracking-wider uppercase">
+                      {/* Realistic Indian Number Plate Card */}
+                      <div className="inline-flex items-stretch rounded-lg border-2 border-neutral-900 shadow-xs overflow-hidden bg-white text-neutral-950 font-mono">
+                        <div className="bg-[#002B7F] text-white px-2 py-1 flex items-center justify-center text-[9px] font-black border-r border-blue-900 select-none">
+                          IND
+                        </div>
+                        <div className="px-3 py-1 flex items-center bg-gradient-to-b from-white to-neutral-100">
+                          <span className="text-sm sm:text-base font-black tracking-widest uppercase">
                             {v.vehicle_number}
                           </span>
                         </div>
-                        <span className="text-[11px] text-neutral-400">
-                          {v.vehicle_type} {v.nickname ? `• ${v.nickname}` : ''}
-                        </span>
                       </div>
 
                       <button
                         onClick={() => handleToggleStatus(v.id)}
-                        className={`text-[9px] font-bold px-2 py-0.5 rounded border transition-colors shrink-0 cursor-pointer ${
+                        className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border transition-colors shrink-0 cursor-pointer ${
                           v.is_active
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            : 'bg-rose-50 text-rose-700 border-rose-200'
+                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                            : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'
                         }`}
                       >
-                        {v.is_active ? '🟢 Active' : '🔴 Paused'}
+                        {v.is_active ? 'ACTIVE' : 'PAUSED'}
                       </button>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-xs">
+                    <div className="flex items-center justify-between text-xs text-neutral-500 pt-0.5">
+                      <span className="font-semibold text-neutral-700 dark:text-neutral-300">
+                        {v.vehicle_type} {v.nickname ? `• "${v.nickname}"` : ''}
+                      </span>
+                      <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400">
+                        Fastag Size Pass
+                      </span>
+                    </div>
+
+                    {/* Quick Action Buttons */}
+                    <div className="flex items-center gap-1.5 pt-1 border-t border-neutral-100 dark:border-neutral-800">
                       <button
                         onClick={() => setSelectedStickerVehicle(v)}
-                        className="flex-1 py-1.5 px-2.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white font-bold flex items-center justify-center gap-1 shadow-2xs transition-colors cursor-pointer"
+                        className="flex-1 py-1.5 px-2.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors cursor-pointer"
                       >
-                        <Printer className="w-3.5 h-3.5" /> Print Sticker
+                        <Printer className="w-3.5 h-3.5" />
+                        <span>Print Windshield Pass</span>
                       </button>
                       <button
                         onClick={() => handleCopyAlertLink(v)}
-                        className="py-1.5 px-2.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold flex items-center gap-1 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+                        className="py-1.5 px-2.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold text-xs flex items-center gap-1 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
                         title="Copy QR Alert Link"
                       >
                         {copiedVehicleId === v.id ? (
@@ -625,7 +667,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                       </button>
                       <button
                         onClick={() => openSettingsModal(v)}
-                        className="py-1.5 px-2 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+                        className="p-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
                         title="Alert Rules"
                       >
                         <Sliders className="w-3.5 h-3.5" />
@@ -637,30 +679,28 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
             )}
           </div>
 
-          {/* Recent Alerts Activity Feed */}
-          <div className="bg-white dark:bg-neutral-900 rounded-xl p-3 border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-2">
+          {/* Security Event Log Feed */}
+          <div className="bg-white dark:bg-neutral-900 rounded-2xl p-3.5 border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-2.5">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5">
-                <BellRing className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                <h3 className="text-xs uppercase font-extrabold tracking-wider text-neutral-500 dark:text-neutral-400">
-                  Recent Alerts Feed
-                </h3>
+              <div className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
+                <Activity className="w-3.5 h-3.5 text-cyan-500" />
+                <span>Recent Security Dispatches</span>
               </div>
               <button
                 onClick={() => setActiveTab('history')}
                 className="text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:underline cursor-pointer"
               >
-                View All History ({alerts.length}) →
+                Full Log ({alerts.length}) →
               </button>
             </div>
 
             {alerts.length === 0 ? (
-              <div className="p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200/60 dark:border-neutral-700/60 text-center space-y-0.5">
+              <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200/60 dark:border-neutral-700/60 text-center space-y-0.5">
                 <p className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
-                  ✨ No alerts received yet
+                  Zero security alerts recorded
                 </p>
                 <p className="text-[11px] text-neutral-400">
-                  When someone scans your windshield QR pass, notification details will show here and in Telegram.
+                  When a bystander scans your windshield QR, instant notifications will appear here.
                 </p>
               </div>
             ) : (
@@ -668,27 +708,23 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                 {alerts.slice(0, 3).map((a) => (
                   <div
                     key={a.id}
-                    className="p-2 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 flex items-center justify-between gap-2.5 text-xs"
+                    className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 flex items-center justify-between gap-2.5 text-xs"
                   >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="text-base shrink-0">
-                        {a.alert_type === 'BLOCKING'
-                          ? '🚗'
-                          : a.alert_type === 'EMERGENCY'
-                          ? '🚨'
-                          : a.alert_type === 'LIGHTS_ON'
-                          ? '💡'
-                          : a.alert_type === 'WINDOW_OPEN'
-                          ? '🪟'
-                          : a.alert_type === 'TOWING'
-                          ? '🚜'
-                          : '⚠️'}
-                      </span>
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-7 h-7 rounded-lg bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center shrink-0 text-xs font-bold">
+                        {a.alert_type === 'EMERGENCY' ? (
+                          <ShieldAlert className="w-3.5 h-3.5 text-rose-500" />
+                        ) : a.alert_type === 'VOICE' ? (
+                          <Volume2 className="w-3.5 h-3.5 text-cyan-500" />
+                        ) : (
+                          <Car className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-300" />
+                        )}
+                      </div>
                       <div className="truncate">
                         <div className="font-bold text-neutral-900 dark:text-white truncate">
-                          {a.alert_type.replace('_', ' ')} • {a.vehicle_number}
+                          {a.alert_category || a.alert_type} • <span className="font-mono">{a.vehicle_number}</span>
                         </div>
-                        <span className="text-[10px] text-neutral-400">
+                        <span className="text-[10px] text-neutral-400 font-mono">
                           {new Date(a.created_at).toLocaleString('en-IN', {
                             dateStyle: 'short',
                             timeStyle: 'short'
@@ -697,13 +733,13 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                       </div>
                     </div>
                     <span
-                      className={`text-[9px] font-bold px-2 py-0.5 rounded shrink-0 ${
+                      className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full shrink-0 ${
                         a.delivery_status === 'DELIVERED'
-                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200'
-                          : 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200'
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                          : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
                       }`}
                     >
-                      {a.delivery_status === 'DELIVERED' ? '✓ Delivered' : 'Failed'}
+                      {a.delivery_status === 'DELIVERED' ? '✓ RELAYED' : 'FAILED'}
                     </span>
                   </div>
                 ))}
@@ -711,7 +747,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
             )}
           </div>
 
-          {/* Compact 24x7 Emergency Helplines Bar */}
+          {/* National Helplines Bar */}
           <div className="bg-rose-50/70 dark:bg-rose-950/20 p-2.5 rounded-xl border border-rose-200/70 dark:border-rose-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-2">
               <PhoneCall className="w-3.5 h-3.5 text-rose-600 shrink-0" />
@@ -750,58 +786,58 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
         </div>
       )}
 
-      {/* ── TAB 2: MY VEHICLES & QR STICKERS (MERGED) ── */}
+      {/* ── TAB 2: MY VEHICLES & QR STICKERS ── */}
       {activeTab === 'vehicles' && (
-        <div className="space-y-3">
+        <div className="space-y-3 animate-fadeIn">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-base font-black text-neutral-900 dark:text-white">
-                Vehicle Fleet &amp; Smart QR Passes
+                Vehicle Fleet &amp; Windshield Passes
               </h2>
               <p className="text-xs text-neutral-500">
-                Manage vehicle plates, alert preferences, and print Fastag-size windshield stickers
+                Generate high-resolution printable windshield passes and configure privacy alert rules
               </p>
             </div>
             <button
               onClick={() => setShowAddVehicleModal(true)}
-              className="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold flex items-center gap-1 shadow-2xs transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold flex items-center gap-1 shadow-xs transition-colors cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5" /> Add Vehicle
+              <Plus className="w-3.5 h-3.5 stroke-[3]" /> Add Vehicle
             </button>
           </div>
 
           {vehicles.length === 0 ? (
-            <div className="p-8 text-center bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/80 dark:border-neutral-800 space-y-2">
+            <div className="p-8 text-center bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 space-y-2">
               <Car className="w-10 h-10 text-neutral-400 mx-auto" />
               <h3 className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
-                No vehicles registered
+                No vehicles registered in fleet
               </h3>
               <p className="text-xs text-neutral-500 max-w-sm mx-auto">
-                Add your car or motorcycle to generate your free printable Fastag-size windshield QR sticker.
+                Add your vehicle plate to generate your official Fastag-size QR windshield pass.
               </p>
               <button
                 onClick={() => setShowAddVehicleModal(true)}
-                className="px-4 py-2 rounded-lg bg-cyan-600 text-white text-xs font-bold hover:bg-cyan-700 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-cyan-600 text-white text-xs font-bold hover:bg-cyan-700 cursor-pointer"
               >
                 Register Vehicle Now
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
               {vehicles.map((v) => (
                 <div
                   key={v.id}
-                  className="p-3.5 sm:p-4 bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-3"
+                  className="p-4 bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/90 dark:border-neutral-800 shadow-xs space-y-3"
                 >
                   {/* Card Header: Plate & Status */}
                   <div className="flex items-start justify-between gap-2">
                     <div className="space-y-1">
                       {/* Realistic Indian Number Plate Display */}
                       <div className="inline-flex items-stretch rounded-lg border-2 border-neutral-900 shadow-xs overflow-hidden bg-white text-neutral-950 font-mono">
-                        <div className="bg-[#002B7F] text-white px-2 py-1 flex items-center justify-center text-[10px] font-black border-r border-blue-900 select-none">
+                        <div className="bg-[#002B7F] text-white px-2.5 py-1 flex items-center justify-center text-[10px] font-black border-r border-blue-900 select-none">
                           IND
                         </div>
-                        <div className="px-3 py-1 flex items-center bg-gradient-to-b from-white to-neutral-100">
+                        <div className="px-3.5 py-1 flex items-center bg-gradient-to-b from-white to-neutral-100">
                           <span className="text-base font-black tracking-widest uppercase">
                             {v.vehicle_number}
                           </span>
@@ -814,7 +850,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                         </span>
                         {v.nickname && <span>• "{v.nickname}"</span>}
                         <span>•</span>
-                        <span className="text-cyan-600 dark:text-cyan-400 font-medium">
+                        <span className="text-cyan-600 dark:text-cyan-400 font-mono text-[11px]">
                           Fastag Size Pass
                         </span>
                       </div>
@@ -822,23 +858,23 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
 
                     <button
                       onClick={() => handleToggleStatus(v.id)}
-                      className={`text-[10px] font-bold px-2 py-1 rounded-lg border transition-colors shrink-0 cursor-pointer ${
+                      className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border transition-colors shrink-0 cursor-pointer ${
                         v.is_active
-                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
-                          : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
+                          : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20 hover:bg-rose-500/20'
                       }`}
                     >
-                      {v.is_active ? '🟢 Alerts Active' : '🔴 Paused'}
+                      {v.is_active ? '🟢 ACTIVE' : '🔴 PAUSED'}
                     </button>
                   </div>
 
                   {/* QR Link & Privacy Settings Strip */}
-                  <div className="p-2.5 bg-neutral-50 dark:bg-neutral-800/60 rounded-xl text-xs space-y-2 border border-neutral-200/60 dark:border-neutral-700/60">
+                  <div className="p-3 bg-neutral-50 dark:bg-neutral-800/60 rounded-xl text-xs space-y-2 border border-neutral-200/60 dark:border-neutral-700/60">
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-1.5 min-w-0">
                         <QrCode className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
                         <span className="font-mono text-[11px] text-neutral-600 dark:text-neutral-300 truncate">
-                          bharatutility.tech/parksignal/alert/{v.qr_token?.slice(0, 8)}...
+                          bharatutility.tech/parksignal/alert/{v.qr_token?.slice(0, 10)}...
                         </span>
                       </div>
                       <button
@@ -861,13 +897,13 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
 
                     <div className="grid grid-cols-2 gap-2 pt-1 border-t border-neutral-200/60 dark:border-neutral-700/40 text-[11px]">
                       <div>
-                        <span className="text-neutral-400 block text-[10px] uppercase font-bold">Plate Privacy</span>
+                        <span className="text-neutral-400 block text-[10px] font-mono uppercase font-bold">Plate Privacy</span>
                         <span className="font-bold text-neutral-800 dark:text-neutral-200">
                           {v.display_plate_publicly ? 'Number Visible' : 'Masked (••••)'}
                         </span>
                       </div>
                       <div>
-                        <span className="text-neutral-400 block text-[10px] uppercase font-bold">Voice Notes</span>
+                        <span className="text-neutral-400 block text-[10px] font-mono uppercase font-bold">Voice Notes</span>
                         <span className={`font-bold ${Boolean(v.allow_voice_messages) ? 'text-emerald-600 dark:text-emerald-400' : 'text-neutral-400'}`}>
                           {Boolean(v.allow_voice_messages) ? `Enabled (${v.max_voice_duration_seconds || 60}s)` : 'Disabled'}
                         </span>
@@ -875,13 +911,14 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                     </div>
                   </div>
 
-                  {/* Actions Toolbar (Compact) */}
+                  {/* Actions Toolbar */}
                   <div className="flex items-center gap-1.5 pt-0.5">
                     <button
                       onClick={() => setSelectedStickerVehicle(v)}
-                      className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
+                      className="flex-1 py-2 px-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors cursor-pointer"
                     >
-                      <Printer className="w-3.5 h-3.5" /> Print / Download Sticker
+                      <Printer className="w-3.5 h-3.5" />
+                      <span>Print / Download Sticker</span>
                     </button>
                     <button
                       onClick={() => openSettingsModal(v)}
@@ -912,20 +949,20 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
         </div>
       )}
 
-      {/* ── TAB 3: ALERT HISTORY (COMPACT) ── */}
+      {/* ── TAB 3: ALERT HISTORY ── */}
       {activeTab === 'history' && (
-        <div className="space-y-3">
+        <div className="space-y-3 animate-fadeIn">
           <div>
             <h2 className="text-base font-black text-neutral-900 dark:text-white">
               Notification &amp; Alert History
             </h2>
             <p className="text-xs text-neutral-500">
-              Log of parking alerts and voice notes dispatched to your Telegram
+              Complete chronological audit trail of parking alerts dispatched to your Telegram
             </p>
           </div>
 
           {alerts.length === 0 ? (
-            <div className="p-8 text-center bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/80 dark:border-neutral-800 space-y-1.5">
+            <div className="p-8 text-center bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 space-y-1.5">
               <BellRing className="w-8 h-8 text-neutral-400 mx-auto" />
               <h3 className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
                 No alerts received yet
@@ -935,7 +972,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
               </p>
             </div>
           ) : (
-            <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200/80 dark:border-neutral-800 overflow-hidden shadow-2xs divide-y divide-neutral-100 dark:divide-neutral-800">
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/90 dark:border-neutral-800 overflow-hidden shadow-2xs divide-y divide-neutral-100 dark:divide-neutral-800">
               {alerts.map((a) => (
                 <div key={a.id} className="p-3 sm:p-3.5 flex items-start justify-between gap-3 text-xs">
                   <div className="space-y-0.5 min-w-0">
@@ -944,8 +981,8 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                         {a.vehicle_number}
                       </span>
                       <span className="text-[10px] text-neutral-400">({a.vehicle_type})</span>
-                      <span className="px-1.5 py-0.2 rounded bg-cyan-50 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 text-[10px] font-bold">
-                        {a.alert_type === 'VOICE' ? '🎙️ Voice Note' : '📝 Text'}
+                      <span className="px-1.5 py-0.2 rounded bg-cyan-50 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 text-[10px] font-mono font-bold">
+                        {a.alert_type === 'VOICE' ? '🎙️ VOICE NOTE' : 'TEXT'}
                       </span>
                     </div>
                     <div className="font-bold text-neutral-800 dark:text-neutral-200">
@@ -956,7 +993,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                         "{a.custom_message}"
                       </p>
                     )}
-                    <div className="text-[10px] text-neutral-400 flex items-center gap-1 pt-0.5">
+                    <div className="text-[10px] text-neutral-400 flex items-center gap-1 pt-0.5 font-mono">
                       <Clock className="w-3 h-3" />
                       {new Date(a.created_at).toLocaleString('en-IN', {
                         dateStyle: 'medium',
@@ -966,13 +1003,13 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                   </div>
 
                   <span
-                    className={`text-[9px] font-bold px-2 py-0.5 rounded shrink-0 ${
+                    className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full shrink-0 ${
                       a.delivery_status === 'DELIVERED'
-                        ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200'
-                        : 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200'
+                        ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                        : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
                     }`}
                   >
-                    {a.delivery_status === 'DELIVERED' ? '✓ Delivered' : 'Failed'}
+                    {a.delivery_status === 'DELIVERED' ? '✓ RELAYED' : 'FAILED'}
                   </span>
                 </div>
               ))}
@@ -981,21 +1018,21 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
         </div>
       )}
 
-      {/* ── TAB 4: ACCOUNT, TELEGRAM BOT & PRIVACY SETTINGS (COMPACT) ── */}
+      {/* ── TAB 4: ACCOUNT, TELEGRAM BOT & PRIVACY ── */}
       {activeTab === 'account' && (
-        <div className="space-y-3">
+        <div className="space-y-3 animate-fadeIn">
           <div>
             <h2 className="text-base font-black text-neutral-900 dark:text-white flex items-center gap-1.5">
               <Settings className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
               <span>Account, Telegram Bot &amp; Privacy Controls</span>
             </h2>
             <p className="text-xs text-neutral-500">
-              Manage your @ParkSignal_bot connection, profile name, password, and privacy settings in one unified screen.
+              Manage your @ParkSignal_bot connection, profile credentials, and driver privacy protections
             </p>
           </div>
 
           {/* 1. Telegram Alert Bot Card */}
-          <div className="bg-white dark:bg-neutral-900 rounded-xl p-3.5 sm:p-4 border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-3">
+          <div className="bg-white dark:bg-neutral-900 rounded-2xl p-4 border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-3">
             <div className="flex items-center justify-between pb-2.5 border-b border-neutral-100 dark:border-neutral-800">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center font-bold shrink-0">
@@ -1003,33 +1040,33 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                 </div>
                 <div>
                   <h3 className="text-xs font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
-                    <span>Telegram Alert Bot</span>
-                    <span className="text-[11px] font-mono font-semibold text-blue-600">@ParkSignal_bot</span>
+                    <span>Telegram Alert Bot Bridge</span>
+                    <span className="text-[11px] font-mono font-semibold text-blue-500">@ParkSignal_bot</span>
                   </h3>
                   <p className="text-[11px] text-neutral-400">
-                    Parking alerts &amp; voice notes arrive privately in your Telegram in under 3 seconds
+                    Instant alerts and voice notes dispatch privately to your Telegram in under 2 seconds
                   </p>
                 </div>
               </div>
               <span
-                className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
+                className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full shrink-0 ${
                   currentUser?.isTelegramLinked
-                    ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
-                    : 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'
+                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                    : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
                 }`}
               >
-                {currentUser?.isTelegramLinked ? '✓ Connected' : '⚠️ Not Linked'}
+                {currentUser?.isTelegramLinked ? '✓ CONNECTED' : '⚠️ NOT LINKED'}
               </span>
             </div>
 
             {currentUser?.isTelegramLinked ? (
               <div className="space-y-2.5">
-                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-950/40 rounded-lg border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-200 space-y-0.5">
+                <div className="p-3 bg-emerald-500/5 dark:bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-xs text-emerald-900 dark:text-emerald-200 space-y-0.5">
                   <div className="font-bold flex items-center gap-1 text-[11px]">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    Real-Time Notifications Active
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                    Real-Time Security Relay Active
                   </div>
-                  <p className="text-[11px]">
+                  <p className="text-[11px] leading-relaxed">
                     Your account is securely bound to @ParkSignal_bot. Whenever someone scans any of your registered vehicle QR stickers, alerts will arrive in your Telegram app instantly.
                   </p>
                 </div>
@@ -1043,7 +1080,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                   </button>
                   <button
                     onClick={handleDisconnectTelegram}
-                    className="px-3 py-1.5 rounded-lg bg-rose-50 text-rose-600 border border-rose-200 font-bold text-xs hover:bg-rose-100 transition-colors cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-600 border border-rose-200 dark:border-rose-900 font-bold text-xs hover:bg-rose-100 transition-colors cursor-pointer"
                   >
                     Disconnect Telegram
                   </button>
@@ -1051,14 +1088,14 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
               </div>
             ) : (
               <div className="space-y-2.5">
-                <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                   Click the button below to generate a secure 10-minute linking token. You will be redirected to @ParkSignal_bot in Telegram. Simply tap <strong>START</strong> to bind your account.
                 </p>
 
                 <button
                   onClick={() => handleConnectTelegram('CONNECT')}
                   disabled={tgLinkLoading}
-                  className="px-4 py-2 rounded-xl bg-cyan-600 text-white font-extrabold text-xs flex items-center gap-1.5 hover:bg-cyan-700 shadow-2xs transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-cyan-600 text-white font-black text-xs flex items-center gap-1.5 hover:bg-cyan-500 shadow-xs transition-colors cursor-pointer"
                 >
                   {tgLinkLoading ? 'Generating Secure Token...' : 'Connect Telegram with @ParkSignal_bot →'}
                 </button>
@@ -1116,10 +1153,10 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
           {/* 2. Profile Details & Password Side-by-Side */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Profile Name & Details */}
-            <div className="bg-white dark:bg-neutral-900 rounded-xl p-3.5 border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-2.5">
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl p-4 border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-2.5">
               <h3 className="text-xs font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                <span>Profile Details</span>
+                <User className="w-3.5 h-3.5 text-cyan-500" />
+                <span>Profile Credentials</span>
               </h3>
               <form onSubmit={handleUpdateName} className="space-y-2">
                 <div>
@@ -1130,34 +1167,34 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                     type="text"
                     value={accountName}
                     onChange={(e) => setAccountName(e.target.value)}
-                    className="w-full p-2 rounded-lg bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-cyan-500"
+                    className="w-full p-2.5 rounded-lg bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-cyan-500"
                   />
                 </div>
                 <div>
                   <label className="text-[11px] font-bold text-neutral-700 dark:text-neutral-300 block mb-0.5">
-                    Email Address
+                    Email Address (Verified)
                   </label>
                   <input
                     type="email"
                     disabled
                     value={currentUser?.email || ''}
-                    className="w-full p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-400 cursor-not-allowed"
+                    className="w-full p-2.5 rounded-lg bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-400 cursor-not-allowed font-mono"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="py-1.5 px-3 rounded-lg bg-cyan-600 text-white font-bold text-xs hover:bg-cyan-700 transition-colors cursor-pointer"
+                  className="py-1.5 px-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white dark:bg-white dark:text-neutral-950 font-bold text-xs transition-colors cursor-pointer"
                 >
-                  Save Profile Name
+                  Save Profile
                 </button>
               </form>
             </div>
 
             {/* Change Password */}
-            <div className="bg-white dark:bg-neutral-900 rounded-xl p-3.5 border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-2.5">
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl p-4 border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-2.5">
               <h3 className="text-xs font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                <span>Change Password</span>
+                <Lock className="w-3.5 h-3.5 text-cyan-500" />
+                <span>Security &amp; Password</span>
               </h3>
               <form onSubmit={handleChangePassword} className="space-y-2">
                 <div>
@@ -1192,7 +1229,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                 </div>
                 <button
                   type="submit"
-                  className="py-1.5 px-3 rounded-lg bg-cyan-600 text-white font-bold text-xs hover:bg-cyan-700 transition-colors cursor-pointer"
+                  className="py-1.5 px-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white dark:bg-white dark:text-neutral-950 font-bold text-xs transition-colors cursor-pointer"
                 >
                   Update Password
                 </button>
@@ -1200,50 +1237,50 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
             </div>
           </div>
 
-          {/* 3. Active Privacy & Security Protections */}
-          <div className="bg-white dark:bg-neutral-900 rounded-xl p-3.5 border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-2">
+          {/* 3. Driver Privacy & Cryptographic Guarantees */}
+          <div className="bg-white dark:bg-neutral-900 rounded-2xl p-4 border border-neutral-200/90 dark:border-neutral-800 shadow-2xs space-y-2">
             <h3 className="text-xs font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Active Privacy &amp; Security Guarantees</span>
+              <ShieldCheck className="w-4 h-4 text-emerald-500" />
+              <span>Cryptographic Privacy Architecture</span>
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-              <div className="p-2.5 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-0.5">
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-0.5">
                 <span className="font-bold text-neutral-900 dark:text-white flex items-center gap-1 text-[11px]">
-                  🔒 Zero Phone Number Sharing
+                  <Lock className="w-3 h-3 text-cyan-500" /> Zero Phone Number Exposure
                 </span>
-                <p className="text-neutral-500 text-[10px]">
-                  Your mobile number and email are never shown to any QR code scanner or bystander.
+                <p className="text-neutral-500 text-[10px] leading-relaxed">
+                  Your phone number is never disclosed to QR scanners, callers, or bystanders.
                 </p>
               </div>
-              <div className="p-2.5 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-0.5">
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-0.5">
                 <span className="font-bold text-neutral-900 dark:text-white flex items-center gap-1 text-[11px]">
-                  ⚡ Anti-Spam Rate Limiting
+                  <Zap className="w-3 h-3 text-amber-500" /> Anti-Spam Rate Limiter
                 </span>
-                <p className="text-neutral-500 text-[10px]">
-                  Each vehicle QR is rate-limited to 3 notifications per 15 minutes to block prank alerts.
+                <p className="text-neutral-500 text-[10px] leading-relaxed">
+                  Each vehicle pass enforces atomic rate limiting (max 3 alerts / 15 min) to prevent spam.
                 </p>
               </div>
-              <div className="p-2.5 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-0.5">
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-0.5">
                 <span className="font-bold text-neutral-900 dark:text-white flex items-center gap-1 text-[11px]">
-                  🎙️ Ephemeral Voice Notes
+                  <Volume2 className="w-3 h-3 text-indigo-500" /> Ephemeral Voice Audio
                 </span>
-                <p className="text-neutral-500 text-[10px]">
-                  Bystander voice messages are streamed directly to Telegram and immediately wiped from edge storage.
+                <p className="text-neutral-500 text-[10px] leading-relaxed">
+                  Voice messages stream directly into Telegram and are purged immediately from storage.
                 </p>
               </div>
-              <div className="p-2.5 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-0.5">
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-neutral-700/60 space-y-0.5">
                 <span className="font-bold text-neutral-900 dark:text-white flex items-center gap-1 text-[11px]">
-                  🔐 Single-Use Cryptographic Tokens
+                  <ShieldCheck className="w-3 h-3 text-emerald-500" /> Tokenized QR Security
                 </span>
-                <p className="text-neutral-500 text-[10px]">
-                  Account linking tokens expire in 10 minutes. Telegram chat IDs are never exposed in HTML.
+                <p className="text-neutral-500 text-[10px] leading-relaxed">
+                  Tokens are rotated at will. Telegram Chat IDs are strictly guarded in secure backend RPCs.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* 4. Danger Zone (Delete Account) */}
-          <div className="bg-rose-50/60 dark:bg-rose-950/20 rounded-xl p-3 border border-rose-200/80 dark:border-rose-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
+          {/* 4. Danger Zone */}
+          <div className="bg-rose-50/60 dark:bg-rose-950/20 rounded-2xl p-3.5 border border-rose-200/80 dark:border-rose-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
             <div className="space-y-0.5">
               <h3 className="font-bold text-rose-700 dark:text-rose-300 flex items-center gap-1">
                 <Trash2 className="w-3.5 h-3.5" /> Danger Zone: Permanent Account Deletion
@@ -1254,7 +1291,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
             </div>
             <button
               onClick={() => setShowDeleteModal(true)}
-              className="py-1.5 px-3 rounded-lg bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 shrink-0 cursor-pointer"
+              className="py-1.5 px-3 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shrink-0 cursor-pointer transition-colors"
             >
               Delete Account
             </button>
@@ -1262,17 +1299,17 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
         </div>
       )}
 
-      {/* ── MODAL 1: ADD VEHICLE MODAL (COMPACT) ── */}
+      {/* ── MODAL 1: ADD VEHICLE MODAL ── */}
       {showAddVehicleModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/60 backdrop-blur-xs animate-fadeIn">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/70 backdrop-blur-xs animate-fadeIn">
           <div className="bg-white dark:bg-neutral-900 rounded-2xl p-4 sm:p-5 max-w-sm w-full border border-neutral-200 dark:border-neutral-800 shadow-2xl space-y-3.5">
             <div className="flex items-center justify-between pb-2 border-b border-neutral-100 dark:border-neutral-800">
               <div>
                 <h3 className="text-sm font-black text-neutral-900 dark:text-white">
-                  Register New Vehicle
+                  Register Vehicle Plate
                 </h3>
                 <p className="text-[11px] text-neutral-500">
-                  Add vehicle plate to generate unique QR sticker
+                  Generates an authentic Fastag-size QR pass
                 </p>
               </div>
               <button
@@ -1286,15 +1323,15 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
             <form onSubmit={handleAddVehicle} className="space-y-3">
               <div>
                 <label className="text-[11px] font-bold text-neutral-700 dark:text-neutral-300 block mb-1">
-                  Vehicle Registration Number
+                  Registration Number (HSRP Format)
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. GJ 06 RA 1111, DL 01 AB 1234"
+                  placeholder="e.g. GJ 06 RA 1111, MH 12 AB 1234"
                   value={newVehicleNumber}
                   onChange={(e) => setNewVehicleNumber(e.target.value.toUpperCase())}
-                  className="w-full p-2.5 rounded-lg bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-mono font-bold tracking-wider outline-none focus:ring-2 focus:ring-cyan-500"
+                  className="w-full p-2.5 rounded-lg bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-mono font-black tracking-wider outline-none focus:ring-2 focus:ring-cyan-500"
                 />
               </div>
 
@@ -1310,7 +1347,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                   <option value="Car">Car / SUV</option>
                   <option value="Bike">Motorcycle / Bike</option>
                   <option value="Scooter">Scooter / Moped</option>
-                  <option value="Other">Commercial / Other</option>
+                  <option value="Commercial">Commercial / Truck</option>
                 </select>
               </div>
 
@@ -1353,7 +1390,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                   disabled={isAddingVehicle}
                   className="flex-1 py-2 rounded-lg bg-cyan-600 text-white text-xs font-bold hover:bg-cyan-700 shadow-2xs cursor-pointer"
                 >
-                  {isAddingVehicle ? 'Generating...' : 'Add & Generate QR'}
+                  {isAddingVehicle ? 'Generating...' : 'Add & Generate Pass'}
                 </button>
               </div>
             </form>
@@ -1361,17 +1398,17 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
         </div>
       )}
 
-      {/* ── MODAL 2: VEHICLE ALERT CUSTOMIZATION (COMPACT) ── */}
+      {/* ── MODAL 2: VEHICLE ALERT CUSTOMIZATION ── */}
       {settingsVehicle && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/60 backdrop-blur-xs animate-fadeIn">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/70 backdrop-blur-xs animate-fadeIn">
           <div className="bg-white dark:bg-neutral-900 rounded-2xl p-4 sm:p-5 max-w-md w-full border border-neutral-200 dark:border-neutral-800 shadow-2xl space-y-3.5 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-2 border-b border-neutral-100 dark:border-neutral-800">
               <div>
                 <h3 className="text-sm font-black text-neutral-900 dark:text-white">
-                  Alert Rules: {settingsVehicle.vehicle_number}
+                  Security Rules: {settingsVehicle.vehicle_number}
                 </h3>
                 <p className="text-[11px] text-neutral-500">
-                  Configure what messages scanners can send without reprinting sticker
+                  Configure allowed scanner notifications without reprinting sticker
                 </p>
               </div>
               <button
@@ -1384,12 +1421,12 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
 
             <form onSubmit={handleSaveSettings} className="space-y-3 text-xs">
               <div className="space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400 block">
                   Allowed Alert Categories:
                 </span>
                 <div className="space-y-1 text-xs">
                   <label className="flex items-center justify-between p-2 rounded-lg bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
-                    <span>🚗 Vehicle blocking car/gate</span>
+                    <span className="font-medium">Vehicle blocking car/gate</span>
                     <input
                       type="checkbox"
                       checked={Boolean(vehicleSettingsForm.allow_blocking)}
@@ -1400,7 +1437,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                     />
                   </label>
                   <label className="flex items-center justify-between p-2 rounded-lg bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
-                    <span>🅿️ Please move your vehicle</span>
+                    <span className="font-medium">Please move your vehicle</span>
                     <input
                       type="checkbox"
                       checked={Boolean(vehicleSettingsForm.allow_move_vehicle)}
@@ -1411,7 +1448,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                     />
                   </label>
                   <label className="flex items-center justify-between p-2 rounded-lg bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
-                    <span>⚠️ Emergency alert</span>
+                    <span className="font-medium">Emergency alert</span>
                     <input
                       type="checkbox"
                       checked={Boolean(vehicleSettingsForm.allow_emergency)}
@@ -1422,7 +1459,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                     />
                   </label>
                   <label className="flex items-center justify-between p-2 rounded-lg bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
-                    <span>👶 Possible child or pet inside</span>
+                    <span className="font-medium">Possible child or pet inside</span>
                     <input
                       type="checkbox"
                       checked={Boolean(vehicleSettingsForm.allow_child_person_inside)}
@@ -1433,7 +1470,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                     />
                   </label>
                   <label className="flex items-center justify-between p-2 rounded-lg bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
-                    <span>💡 Vehicle lights left ON</span>
+                    <span className="font-medium">Vehicle lights left ON</span>
                     <input
                       type="checkbox"
                       checked={Boolean(vehicleSettingsForm.allow_lights_on)}
@@ -1444,7 +1481,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                     />
                   </label>
                   <label className="flex items-center justify-between p-2 rounded-lg bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
-                    <span>🪟 Window or door open</span>
+                    <span className="font-medium">Window or door open</span>
                     <input
                       type="checkbox"
                       checked={Boolean(vehicleSettingsForm.allow_window_door_open)}
@@ -1455,7 +1492,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                     />
                   </label>
                   <label className="flex items-center justify-between p-2 rounded-lg bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
-                    <span>💥 Possible vehicle damage</span>
+                    <span className="font-medium">Possible vehicle damage</span>
                     <input
                       type="checkbox"
                       checked={Boolean(vehicleSettingsForm.allow_damage_alert)}
@@ -1592,7 +1629,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
       {showDeleteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/70 backdrop-blur-xs animate-fadeIn">
           <div className="bg-white dark:bg-neutral-900 rounded-2xl p-4 sm:p-5 max-w-sm w-full border border-neutral-200 dark:border-neutral-800 shadow-2xl space-y-3 text-center">
-            <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 mx-auto flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 mx-auto flex items-center justify-center">
               <AlertTriangle className="w-5 h-5" />
             </div>
             <h3 className="text-sm font-black text-neutral-900 dark:text-white">
