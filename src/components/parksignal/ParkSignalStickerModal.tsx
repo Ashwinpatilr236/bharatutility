@@ -13,7 +13,6 @@ import {
   Flame,
   Layers,
   AlertTriangle,
-  SplitSquareVertical,
   FileCode2
 } from 'lucide-react';
 import { ParkSignalVehicle } from '../../types';
@@ -25,7 +24,7 @@ interface ParkSignalStickerModalProps {
   onClose: () => void;
 }
 
-export type StickerLayout = 'hazard' | 'twotone' | 'square';
+export type StickerLayout = 'hazard' | 'square';
 export type StickerTheme = 'safety_yellow' | 'emergency_orange' | 'clean_white' | 'carbon_dark';
 
 export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
@@ -81,7 +80,6 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
           bg: '#FF5722',
           text: '#FFFFFF',
           hazardStripe: '#FF5722',
-          twoToneRight: '#FF5722',
           accent: '#FF5722',
         };
       case 'clean_white':
@@ -89,7 +87,6 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
           bg: '#FFFFFF',
           text: '#0B0F19',
           hazardStripe: '#CBD5E1',
-          twoToneRight: '#FFFFFF',
           accent: '#0B0F19',
         };
       case 'carbon_dark':
@@ -97,7 +94,6 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
           bg: '#0F172A',
           text: '#FFFFFF',
           hazardStripe: '#0284C7',
-          twoToneRight: '#0F172A',
           accent: '#38BDF8',
         };
       case 'safety_yellow':
@@ -106,7 +102,6 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
           bg: '#FFD000',
           text: '#0B0F19',
           hazardStripe: '#FFD000',
-          twoToneRight: '#FFD000',
           accent: '#FFD000',
         };
     }
@@ -205,7 +200,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       <text x="228" y="602" class="font-sans" font-size="11" font-weight="700" fill="#64748B" text-anchor="middle">bharatutility.tech/parksignal</text>
     </g>
 
-    <!-- ── RIGHT SIDE: PROFILETAP COMMERCIAL SAFETY LAYOUT ── -->
+    <!-- ── RIGHT SIDE: COMMERCIAL SAFETY LAYOUT ── -->
     <g transform="translate(536, 62)">
       <!-- 1. Commercial Safety Headline -->
       <text x="0" y="40" class="font-sans" font-size="34" font-weight="700" fill="#0B0F19">Scan the QR to contact the</text>
@@ -263,7 +258,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
         </g>
       </g>
 
-      <!-- 3. Explanatory Commercial Paragraph (Exact ProfileTap Copy) -->
+      <!-- 3. Explanatory Safety Notice Paragraph -->
       <g transform="translate(0, 244)">
         <text x="0" y="24" class="font-sans" font-size="18" font-weight="700" fill="#0B0F19">Facing a parking issue or emergency? Notice something wrong with the vehicle?</text>
         <text x="0" y="50" class="font-sans" font-size="18" font-weight="700" fill="#0B0F19">Please scan the QR tag to contact the owner privately in seconds.</text>
@@ -296,144 +291,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     }
 
     // ─────────────────────────────────────────────────────────────
-    // FORMAT 2: EXECUTIVE TWO-TONE SPLIT (Logo + QR Code)
-    // ─────────────────────────────────────────────────────────────
-    else if (selectedLayout === 'twotone') {
-      return `<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="760" viewBox="0 0 1360 760" style="background:#FFFFFF;">
-  <defs>
-    <style>
-      .font-sans { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-      .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Courier New', monospace; }
-    </style>
-    <clipPath id="twotone-clip">
-      <rect x="0" y="0" width="1360" height="760" rx="32" ry="32" />
-    </clipPath>
-  </defs>
-
-  <g clip-path="url(#twotone-clip)">
-    <!-- Left Half: Obsidian Black (53%) -->
-    <rect x="0" y="0" width="730" height="760" fill="#0B0F19" />
-    <!-- Right Half: Vibrant Safety Yellow (47%) -->
-    <rect x="730" y="0" width="630" height="760" fill="${colors.twoToneRight}" />
-
-    <!-- ════════════════ LEFT HALF: BRAND & SITUATIONS ════════════════ -->
-    <!-- Brand Logo Row -->
-    <g transform="translate(52, 36)">
-      ${getVectorLogoSvg(0, 0, 1.25, true)}
-    </g>
-
-    <!-- Hairline Separator -->
-    <line x1="52" y1="120" x2="678" y2="120" stroke="#1E293B" stroke-width="1.5" />
-
-    <!-- Big Headline -->
-    <g transform="translate(52, 164)">
-      <text x="0" y="0" class="font-sans" font-size="34" font-weight="900" fill="#FFFFFF">SCAN TO REACH</text>
-      <text x="296" y="0" class="font-sans" font-size="34" font-weight="900" fill="${colors.accent}">THE OWNER</text>
-      <text x="0" y="28" class="font-sans" font-size="15" font-weight="600" fill="#CBD5E1">Both numbers stay 100% private</text>
-      
-      <!-- Right Scanner Icon -->
-      <g transform="translate(566, -26)" stroke="${colors.accent}" stroke-width="2.5" fill="none">
-        <path d="M0 8 V0 H8 M32 0 H40 V8 M40 24 V32 H32 M8 32 H0 V24" />
-        <circle cx="20" cy="16" r="3" fill="${colors.accent}" />
-      </g>
-    </g>
-
-    <!-- Situation Badges Grid (5 badges) -->
-    <!-- Row 1: 3 badges (Accident, Parking, Flat Tyre) -->
-    <g transform="translate(52, 244)">
-      <!-- Badge 1: Accident -->
-      <g transform="translate(36, 0)">
-        <circle cx="40" cy="40" r="36" fill="#181F2E" stroke="#334155" stroke-width="2" />
-        <path d="M22 46 L28 34 L38 34 L42 46 Z" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" />
-        <path d="M58 46 L52 34 L44 34" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" />
-        <path d="M40 24 L42 30 L48 28 L44 34 L48 38 L42 36 L40 42 L38 36 L32 38 L36 34 L32 28 L38 30 Z" fill="${colors.accent}" />
-        <text x="40" y="102" class="font-sans" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Accident</text>
-      </g>
-
-      <!-- Badge 2: Parking (Universal Red Circle with White P) -->
-      <g transform="translate(268, 0)">
-        <circle cx="40" cy="40" r="36" fill="#DC2626" />
-        <text x="40" y="52" class="font-sans" font-size="38" font-weight="900" fill="#FFFFFF" text-anchor="middle">P</text>
-        <text x="40" y="102" class="font-sans" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Parking</text>
-      </g>
-
-      <!-- Badge 3: Flat Tyre -->
-      <g transform="translate(500, 0)">
-        <circle cx="40" cy="40" r="36" fill="#181F2E" stroke="#334155" stroke-width="2" />
-        <circle cx="40" cy="38" r="22" fill="none" stroke="#FFFFFF" stroke-width="5" />
-        <circle cx="40" cy="38" r="10" fill="none" stroke="#FFFFFF" stroke-width="2.5" />
-        <line x1="56" y1="54" x2="42" y2="40" stroke="#EF4444" stroke-width="4.5" stroke-linecap="round" />
-        <text x="40" y="102" class="font-sans" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Flat Tyre</text>
-      </g>
-    </g>
-
-    <!-- Row 2: 2 badges (Notice suspicious, Forgot something) -->
-    <g transform="translate(52, 384)">
-      <!-- Badge 4: Notice something suspicious -->
-      <g transform="translate(144, 0)">
-        <circle cx="40" cy="40" r="36" fill="#181F2E" stroke="#334155" stroke-width="2" />
-        <path d="M18 48 L25 36 L44 36 L50 48 Z" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" />
-        <circle cx="56" cy="30" r="7" fill="${colors.accent}" />
-        <path d="M48 48 C48 42 52 39 56 39 C60 39 64 42 64 48" fill="none" stroke="${colors.accent}" stroke-width="2.5" />
-        <text x="40" y="102" class="font-sans" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Notice suspicious</text>
-      </g>
-
-      <!-- Badge 5: Owner forgot something -->
-      <g transform="translate(390, 0)">
-        <circle cx="40" cy="40" r="36" fill="#181F2E" stroke="#334155" stroke-width="2" />
-        <circle cx="34" cy="28" r="6" fill="none" stroke="#FFFFFF" stroke-width="2.5" />
-        <path d="M26 48 C26 40 42 40 42 48" fill="none" stroke="#FFFFFF" stroke-width="2.5" />
-        <path d="M48 26 C48 20 56 20 56 25 C56 29 52 30 52 34 M52 39 H52.1" fill="none" stroke="${colors.accent}" stroke-width="3" stroke-linecap="round" />
-        <text x="40" y="102" class="font-sans" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Forgot something</text>
-      </g>
-    </g>
-
-    <!-- HSRP License Plate Strip at Bottom-Left -->
-    <g transform="translate(52, 638)">
-      <rect x="0" y="0" width="626" height="74" rx="14" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" />
-      <rect x="0" y="0" width="76" height="74" rx="12" fill="#003399" />
-      <circle cx="38" cy="24" r="8" fill="none" stroke="#FFFFFF" stroke-width="1.8" />
-      <text x="38" y="54" class="font-sans" font-size="17" font-weight="900" fill="#FFFFFF" text-anchor="middle">IND</text>
-      <text x="351" y="48" class="font-mono" font-size="34" font-weight="900" fill="#0F172A" text-anchor="middle" letter-spacing="2">${plateFormatted}</text>
-    </g>
-
-    <!-- ════════════════ RIGHT HALF: EMERGENCY CALLOUT & QR WITH LOGO ════════════════ -->
-    <!-- Top Black Pill: "Scan This QR In Case Of Emergency" -->
-    <g transform="translate(776, 44)">
-      <rect x="0" y="0" width="532" height="66" rx="18" fill="#0B0F19" />
-      <text x="266" y="27" class="font-sans" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">Scan This QR</text>
-      <text x="266" y="51" class="font-sans" font-size="20" font-weight="900" fill="${colors.accent}" text-anchor="middle" letter-spacing="0.5">In Case Of Emergency</text>
-    </g>
-
-    <!-- Large White Rounded Card with QR Code AND Official Logo -->
-    <g transform="translate(776, 126)">
-      <rect x="0" y="0" width="532" height="480" rx="24" fill="#FFFFFF" stroke="#0B0F19" stroke-width="3.5" />
-      
-      <!-- Vector Brand Logo placed directly on the QR card -->
-      ${getVectorLogoSvg(100, 14, 1.25, false)}
-      
-      <!-- QR Image Centered -->
-      <image href="${qrDataUrl}" x="106" y="90" width="320" height="320" />
-      
-      <text x="266" y="434" class="font-sans" font-size="14" font-weight="800" fill="#0B0F19" text-anchor="middle">🔒 100% PRIVATE • NO APP REQUIRED</text>
-      <text x="266" y="456" class="font-sans" font-size="12" font-weight="600" fill="#64748B" text-anchor="middle">Scan with any smartphone camera</text>
-    </g>
-
-    <!-- Bottom White Action Pill Button -->
-    <g transform="translate(776, 634)">
-      <rect x="0" y="0" width="532" height="78" rx="20" fill="#FFFFFF" stroke="#0B0F19" stroke-width="3.5" />
-      <text x="266" y="38" class="font-sans" font-size="18" font-weight="900" fill="#0B0F19" text-anchor="middle" letter-spacing="0.8">CONTACT VEHICLE OWNER / DRIVER</text>
-      <text x="266" y="60" class="font-sans" font-size="12" font-weight="700" fill="#0284C7" text-anchor="middle">⚡ Powered by ParkSignal • bharatutility.tech/parksignal</text>
-    </g>
-  </g>
-
-  <!-- Outer Card Stroke -->
-  <rect x="2" y="2" width="1356" height="756" rx="32" fill="none" stroke="#0B0F19" stroke-width="5" />
-</svg>`;
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // FORMAT 3: SQUARE DECAL FORMAT (Logo + QR Code for Bike / Glass)
+    // FORMAT 2: SQUARE DECAL FORMAT (Logo + QR Code for Bike / Glass)
     // ─────────────────────────────────────────────────────────────
     else {
       return `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" style="background:#FFFFFF;">
@@ -584,39 +442,28 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
         <div className="px-4 py-2.5 bg-neutral-950/95 border-b border-neutral-800 flex flex-wrap items-center justify-between gap-2.5">
           {/* Layout Selection */}
           <div className="flex items-center gap-1.5 text-xs">
-            <span className="font-bold text-neutral-400 text-[11px]">Design:</span>
+            <span className="font-bold text-neutral-400 text-[11px]">Format:</span>
             <button
               onClick={() => setSelectedLayout('hazard')}
-              className={`py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all ${
+              className={`py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
                 selectedLayout === 'hazard'
                   ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20 font-black'
                   : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
               }`}
             >
               <AlertTriangle className="w-3.5 h-3.5" />
-              <span>🚧 Road Hazard Caution (ProfileTap Style)</span>
-            </button>
-            <button
-              onClick={() => setSelectedLayout('twotone')}
-              className={`py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all ${
-                selectedLayout === 'twotone'
-                  ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20 font-black'
-                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
-              }`}
-            >
-              <SplitSquareVertical className="w-3.5 h-3.5" />
-              <span>🌗 Executive Two-Tone (RepiQR Style)</span>
+              <span>Landscape Card (Fastag Size)</span>
             </button>
             <button
               onClick={() => setSelectedLayout('square')}
-              className={`py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all ${
+              className={`py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
                 selectedLayout === 'square'
                   ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20 font-black'
                   : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>🔲 Square Pass</span>
+              <span>Square Decal</span>
             </button>
           </div>
 
