@@ -1,18 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import QRCode from 'qrcode';
 import {
   X,
   Download,
-  Printer,
   ShieldCheck,
   Car,
   Check,
   Camera,
-  Smartphone,
-  Scissors,
-  LayoutTemplate,
   Layers,
-  Sparkles
+  Sparkles,
+  Smartphone,
+  Eye,
+  Zap,
+  Flame,
+  Shield
 } from 'lucide-react';
 import { ParkSignalVehicle } from '../../types';
 
@@ -22,8 +23,8 @@ interface ParkSignalStickerModalProps {
   onClose: () => void;
 }
 
-type StickerTheme = 'high_vis' | 'executive' | 'modern_blue';
-type StickerLayout = 'landscape' | 'portrait' | 'square';
+type StickerTheme = 'neon_yellow' | 'fire_orange' | 'cyber_cyan';
+type StickerLayout = 'landscape' | 'square';
 
 export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   vehicle,
@@ -31,85 +32,59 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   onClose,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [selectedTheme, setSelectedTheme] = useState<StickerTheme>('high_vis');
+  const qrCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  const [selectedTheme, setSelectedTheme] = useState<StickerTheme>('neon_yellow');
   const [selectedLayout, setSelectedLayout] = useState<StickerLayout>('landscape');
-  const [showCutGuide, setShowCutGuide] = useState(true);
-  const [svgDataUrl, setSvgDataUrl] = useState<string>('');
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
+  const [isRendering, setIsRendering] = useState(true);
 
   const publicUrl = `https://bharatutility.tech/parksignal/alert/${vehicle.qr_token || 'demo'}`;
 
-  // Theme Configurations
+  // High-Attention Attention-Grabbing Color Palettes
   const themes = {
-    high_vis: {
-      name: 'High-Visibility Yellow',
-      icon: '⚡',
-      primaryDark: '#0f172a',
-      accentColor: '#f59e0b',
-      accentDark: '#d97706',
+    neon_yellow: {
+      name: 'Electric Neon Yellow',
+      shortName: 'Neon Yellow',
+      icon: Zap,
+      accent: '#FFDE00', // Eye-catching neon yellow
       accentText: '#000000',
-      badgeBg: '#fef3c7',
-      badgeText: '#92400e',
-      border: '#f59e0b',
+      badgeBg: '#FFF9C4',
+      badgeText: '#7A5E00',
+      darkBg: '#090D16', // Deep Jet Black
+      cardBorder: '#FFDE00',
+      highlightBar: '#FFE600',
+      tagline: 'MAXIMUM DAY & NIGHT VISIBILITY'
     },
-    executive: {
-      name: 'Executive Dark Gold',
-      icon: '👑',
-      primaryDark: '#090d16',
-      accentColor: '#d97706',
-      accentDark: '#b45309',
-      accentText: '#ffffff',
-      badgeBg: '#1e293b',
-      badgeText: '#fcd34d',
-      border: '#d97706',
+    fire_orange: {
+      name: 'Safety Fire Orange',
+      shortName: 'Safety Orange',
+      icon: Flame,
+      accent: '#FF5722', // High-alert road safety orange
+      accentText: '#FFFFFF',
+      badgeBg: '#FFCCBC',
+      badgeText: '#BF360C',
+      darkBg: '#0B0D14',
+      cardBorder: '#FF5722',
+      highlightBar: '#FF7043',
+      tagline: 'EMERGENCY ROAD ALERT GRADE'
     },
-    modern_blue: {
-      name: 'Fleet Navy & Indigo',
-      icon: '🛡️',
-      primaryDark: '#0f2042',
-      accentColor: '#2563eb',
-      accentDark: '#1d4ed8',
-      accentText: '#ffffff',
-      badgeBg: '#eff6ff',
-      badgeText: '#1e40af',
-      border: '#2563eb',
+    cyber_cyan: {
+      name: 'Cyber Electric Cyan',
+      shortName: 'Cyber Cyan',
+      icon: Shield,
+      accent: '#00E5FF', // High-tech luminous cyan
+      accentText: '#000000',
+      badgeBg: '#E0F7FA',
+      badgeText: '#006064',
+      darkBg: '#070C18',
+      cardBorder: '#00E5FF',
+      highlightBar: '#18FFFF',
+      tagline: 'EXECUTIVE LUXURY PASS'
     }
   };
 
   const currentTheme = themes[selectedTheme];
-
-  useEffect(() => {
-    if (!isOpen || !vehicle.qr_token) return;
-
-    if (canvasRef.current) {
-      QRCode.toCanvas(canvasRef.current, publicUrl, {
-        width: 320,
-        margin: 1,
-        color: {
-          dark: '#0f172a',
-          light: '#ffffff',
-        },
-        errorCorrectionLevel: 'H',
-      });
-    }
-
-    QRCode.toString(publicUrl, {
-      type: 'svg',
-      width: 450,
-      margin: 1,
-      color: {
-        dark: '#0f172a',
-        light: '#ffffff',
-      },
-    })
-      .then((svgString) => {
-        const blob = new Blob([svgString], { type: 'image/svg+xml' });
-        setSvgDataUrl(URL.createObjectURL(blob));
-      })
-      .catch((err) => console.error('SVG QR error', err));
-  }, [isOpen, vehicle.qr_token, publicUrl]);
-
-  if (!isOpen) return null;
 
   const displayPlate =
     vehicle.display_plate_publicly === 1
@@ -118,858 +93,515 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       ? `${vehicle.vehicle_number.slice(0, 4)} •••• ${vehicle.vehicle_number.slice(-4)}`
       : '••••••••';
 
-  // Helper function to draw the official BharatUtility Brand Emblem
-  const drawBharatUtilityBrand = (ctx: CanvasRenderingContext2D, x: number, y: number, isDarkBg: boolean = true) => {
-    ctx.save();
-    // Logo Icon Box
-    ctx.fillStyle = '#4f46e5';
+  // Helper to draw rounded rectangle
+  const drawRoundRect = (
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    r: number | number[]
+  ) => {
     ctx.beginPath();
-    ctx.roundRect(x, y, 42, 42, 10);
-    ctx.fill();
-
-    // Icon Symbol "₹U"
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '900 20px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('₹U', x + 21, y + 28);
-
-    // Brand Name Typography
-    ctx.textAlign = 'left';
-    ctx.font = '900 24px sans-serif';
-    ctx.fillStyle = isDarkBg ? '#ffffff' : '#0f172a';
-    ctx.fillText('Bharat', x + 50, y + 25);
-
-    ctx.fillStyle = '#6366f1';
-    ctx.fillText('Utility', x + 130, y + 25);
-
-    // TECH Pill
-    ctx.fillStyle = '#f59e0b';
-    ctx.beginPath();
-    ctx.roundRect(x + 208, y + 10, 48, 18, 5);
-    ctx.fill();
-
-    ctx.fillStyle = '#000000';
-    ctx.font = '900 11px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('TECH', x + 232, y + 23);
-
-    // Ecosystem Subtitle
-    ctx.font = 'bold 11px sans-serif';
-    ctx.fillStyle = isDarkBg ? '#94a3b8' : '#64748b';
-    ctx.textAlign = 'left';
-    ctx.fillText('PARKSIGNAL • OFFICIAL VEHICLE PASS', x + 50, y + 40);
-    ctx.restore();
+    ctx.roundRect(x, y, w, h, r);
   };
 
-  // High-Resolution 300-DPI Download Engine (Supports Landscape, Portrait, and Square)
-  const downloadPng = () => {
-    const compCanvas = document.createElement('canvas');
-    let width = 1200;
-    let height = 720;
+  // Render the Master Canvas (What you see is exactly what downloads)
+  const renderMasterCanvas = useCallback(async () => {
+    if (!isOpen || !canvasRef.current) return;
+    setIsRendering(true);
 
-    if (selectedLayout === 'portrait') {
-      width = 1000;
-      height = 1360;
-    } else if (selectedLayout === 'square') {
-      width = 1000;
-      height = 1000;
-    }
-
-    compCanvas.width = width;
-    compCanvas.height = height;
-    const ctx = compCanvas.getContext('2d');
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Canvas Background
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, width, height);
+    // Generate QR in an offscreen canvas
+    const qrCanvas = document.createElement('canvas');
+    await QRCode.toCanvas(qrCanvas, publicUrl, {
+      width: 480,
+      margin: 1,
+      color: {
+        dark: '#050811',
+        light: '#FFFFFF',
+      },
+      errorCorrectionLevel: 'H',
+    });
+
+    const isLandscape = selectedLayout === 'landscape';
+    const W = isLandscape ? 1200 : 1080;
+    const H = isLandscape ? 740 : 1080;
+
+    canvas.width = W;
+    canvas.height = H;
+
+    // Clear background
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, W, H);
+
+    const drawBharatUtilityBrand = (x: number, y: number) => {
+      ctx.save();
+      // Icon Box
+      ctx.fillStyle = '#4F46E5';
+      drawRoundRect(ctx, x, y, 48, 48, 12);
+      ctx.fill();
+
+      // Icon Text ₹U
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 24px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('₹U', x + 24, y + 33);
+
+      // Brand Wordmark
+      ctx.textAlign = 'left';
+      ctx.font = '900 28px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillText('Bharat', x + 60, y + 33);
+      ctx.fillStyle = '#818CF8';
+      ctx.fillText('Utility', x + 154, y + 33);
+
+      // TECH Pill
+      ctx.fillStyle = currentTheme.accent;
+      drawRoundRect(ctx, x + 248, y + 15, 54, 22, 6);
+      ctx.fill();
+      ctx.fillStyle = currentTheme.accentText;
+      ctx.font = '900 12px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('TECH', x + 275, y + 31);
+      ctx.restore();
+    };
 
     // ─────────────────────────────────────────────────────────────
-    // A. LANDSCAPE CARD LAYOUT (Visiting Card / Fastag Style)
+    // FORMAT 1: LANDSCAPE FASTAG / VISITING CARD FORMAT (1200x740)
     // ─────────────────────────────────────────────────────────────
-    if (selectedLayout === 'landscape') {
+    if (isLandscape) {
       const pad = 24;
-      const cW = width - pad * 2;
-      const cH = height - pad * 2;
+      const cardW = W - pad * 2;
+      const cardH = H - pad * 2;
 
-      // Cut guide line
-      if (showCutGuide) {
-        ctx.save();
-        ctx.setLineDash([8, 8]);
-        ctx.strokeStyle = '#94a3b8';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(10, 10, width - 20, height - 20);
-        ctx.fillStyle = '#64748b';
-        ctx.font = 'bold 13px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('✂  CUT ALONG DOTTED LINE & PLACE INSIDE WINDSHIELD FACING OUTWARD  ✂', width / 2, 20);
-        ctx.restore();
-      }
-
-      // Outer Card Frame
-      ctx.fillStyle = currentTheme.primaryDark;
-      ctx.beginPath();
-      ctx.roundRect(pad, pad, cW, cH, 28);
+      // Outer Deep Dark Card Body
+      ctx.fillStyle = currentTheme.darkBg;
+      drawRoundRect(ctx, pad, pad, cardW, cardH, 32);
       ctx.fill();
 
-      // Inner White Card
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.roundRect(pad + 6, pad + 6, cW - 12, cH - 12, 24);
+      // Outer Glow / Border
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = currentTheme.cardBorder;
+      drawRoundRect(ctx, pad, pad, cardW, cardH, 32);
+      ctx.stroke();
+
+      // ── TOP HEADER BAR ──
+      const headerH = 92;
+      ctx.fillStyle = '#06080F';
+      drawRoundRect(ctx, pad, pad, cardW, headerH, [32, 32, 0, 0]);
       ctx.fill();
 
-      // Top Dark Banner (Full Width)
-      ctx.fillStyle = currentTheme.primaryDark;
-      ctx.beginPath();
-      ctx.roundRect(pad + 6, pad + 6, cW - 12, 85, [24, 24, 0, 0]);
-      ctx.fill();
+      // Accent dividing line
+      ctx.fillStyle = currentTheme.accent;
+      ctx.fillRect(pad, pad + headerH, cardW, 5);
 
-      // Accent Stripe
-      ctx.fillStyle = currentTheme.accentColor;
-      ctx.fillRect(pad + 6, pad + 88, cW - 12, 6);
+      // BharatUtility Brand Logo (Left)
+      drawBharatUtilityBrand(pad + 28, pad + 22);
 
-      // Top Banner Brand Logo & Product Title
-      drawBharatUtilityBrand(ctx, pad + 28, pad + 24, true);
-
-      ctx.fillStyle = currentTheme.accentColor;
-      ctx.font = '900 28px sans-serif';
+      // Product Title (Right)
       ctx.textAlign = 'right';
-      ctx.fillText('PARKSIGNAL', width - pad - 30, pad + 48);
+      ctx.fillStyle = currentTheme.accent;
+      ctx.font = '900 32px system-ui, -apple-system, sans-serif';
+      ctx.fillText('PARKSIGNAL', W - pad - 28, pad + 50);
 
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = 'bold 13px sans-serif';
-      ctx.fillText('SMART VEHICLE ALERT PASS', width - pad - 30, pad + 68);
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '800 13px system-ui, -apple-system, sans-serif';
+      ctx.letterSpacing = '1px';
+      ctx.fillText('SMART PRIVACY PARKING TAG', W - pad - 28, pad + 72);
 
-      // LEFT COLUMN: QR Code Box
+      // ── LEFT SIDE: QR CODE CAPSULE ──
       const qrBoxX = pad + 32;
-      const qrBoxY = pad + 115;
-      const qrSize = 420;
+      const qrBoxY = pad + headerH + 32;
+      const qrSize = 440;
 
-      ctx.fillStyle = '#f8fafc';
-      ctx.strokeStyle = '#e2e8f0';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.roundRect(qrBoxX, qrBoxY, qrSize, qrSize, 20);
+      // QR White Container
+      ctx.fillStyle = '#FFFFFF';
+      drawRoundRect(ctx, qrBoxX, qrBoxY, qrSize, qrSize, 28);
       ctx.fill();
+
+      // QR Inner Border with Theme Accent
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = currentTheme.accent;
+      drawRoundRect(ctx, qrBoxX, qrBoxY, qrSize, qrSize, 28);
       ctx.stroke();
 
-      if (canvasRef.current) {
-        ctx.drawImage(canvasRef.current, qrBoxX + 20, qrBoxY + 20, qrSize - 40, qrSize - 40);
-      }
+      // Draw QR Code
+      ctx.drawImage(qrCanvas, qrBoxX + 24, qrBoxY + 20, qrSize - 48, qrSize - 48);
 
-      ctx.fillStyle = '#64748b';
-      ctx.font = 'bold 14px monospace';
+      // Micro Bot Footer on QR
+      ctx.fillStyle = '#0F172A';
+      ctx.font = '900 14px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('@ParkSignal_bot', qrBoxX + qrSize / 2, qrBoxY + qrSize - 12);
+      ctx.fillText('⚡ @ParkSignal_bot', qrBoxX + qrSize / 2, qrBoxY + qrSize - 16);
 
-      // RIGHT COLUMN: Vehicle Details & Instructions
-      const rightX = qrBoxX + qrSize + 30;
-      const rightW = width - pad - rightX - 25;
+      // ── RIGHT SIDE: CALLOUT & VEHICLE INFO ──
+      const rightX = qrBoxX + qrSize + 32;
+      const rightW = W - pad - rightX - 28;
 
-      // 1. Problem Callout Box
-      ctx.fillStyle = currentTheme.accentColor;
-      ctx.beginPath();
-      ctx.roundRect(rightX, qrBoxY, rightW, 95, 18);
+      // 1. HIGH-ALERT ATTENTION CALLOUT BANNER
+      const bannerH = 112;
+      ctx.fillStyle = currentTheme.accent;
+      drawRoundRect(ctx, rightX, qrBoxY, rightW, bannerH, 20);
       ctx.fill();
 
       ctx.fillStyle = currentTheme.accentText;
-      ctx.font = '900 24px sans-serif';
       ctx.textAlign = 'left';
-      ctx.fillText('WRONG PARKING? NEED ME TO MOVE?', rightX + 24, qrBoxY + 40);
+      ctx.font = '900 27px system-ui, -apple-system, sans-serif';
+      ctx.fillText('🚨 WRONG PARKING? NEED TO MOVE?', rightX + 24, qrBoxY + 44);
 
-      ctx.font = 'bold 17px sans-serif';
-      ctx.fillText('📷 Scan QR to send me an instant private alert', rightX + 24, qrBoxY + 72);
+      ctx.font = '800 18px system-ui, -apple-system, sans-serif';
+      ctx.fillText('📷 Point phone camera at QR to alert me instantly', rightX + 24, qrBoxY + 84);
 
-      // 2. HSRP Plate Badge
-      const plateY = qrBoxY + 115;
-      const plateH = 88;
-
-      ctx.fillStyle = '#ffffff';
-      ctx.strokeStyle = '#0f172a';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.roundRect(rightX, plateY, rightW, plateH, 16);
-      ctx.fill();
-      ctx.stroke();
-
-      // Blue IND Band
-      ctx.fillStyle = '#003399';
-      ctx.beginPath();
-      ctx.roundRect(rightX, plateY, 75, plateH, [14, 0, 0, 14]);
-      ctx.fill();
-
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '900 22px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('IND', rightX + 37, plateY + 52);
-
-      // Plate Text
-      ctx.fillStyle = '#0f172a';
-      ctx.font = '900 36px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText(`${vehicle.vehicle_type.toUpperCase()} • ${displayPlate}`, rightX + 75 + (rightW - 75) / 2, plateY + 56);
-
-      // 3. 3-Step Instruction Strip
-      const stepY = plateY + 105;
-      ctx.fillStyle = '#f1f5f9';
-      ctx.beginPath();
-      ctx.roundRect(rightX, stepY, rightW, 60, 14);
-      ctx.fill();
-
-      ctx.fillStyle = '#1e293b';
-      ctx.font = 'bold 16px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('1. Open Camera   ➜   2. Scan QR   ➜   3. Send Message', rightX + rightW / 2, stepY + 37);
-
-      // 4. Privacy Footer
-      const footY = stepY + 80;
-      ctx.fillStyle = '#059669';
-      ctx.font = 'bold 16px sans-serif';
-      ctx.textAlign = 'left';
-      ctx.fillText('🛡️ 100% Privacy Protected • Owner phone number is NEVER shared', rightX, footY + 10);
-
-      ctx.fillStyle = '#64748b';
-      ctx.font = '14px sans-serif';
-      ctx.fillText('Direct alerts via Telegram @ParkSignal_bot • No app download required', rightX, footY + 34);
-
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '13px monospace';
-      ctx.fillText('bharatutility.tech/parksignal', rightX, footY + 56);
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // B. PORTRAIT CARD LAYOUT (Standard Windshield Permit)
-    // ─────────────────────────────────────────────────────────────
-    else if (selectedLayout === 'portrait') {
-      const pad = 36;
-      const cW = width - pad * 2;
-      const cH = height - pad * 2;
-
-      // Cut guide
-      if (showCutGuide) {
-        ctx.save();
-        ctx.setLineDash([8, 8]);
-        ctx.strokeStyle = '#94a3b8';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(15, 15, width - 30, height - 30);
-        ctx.fillStyle = '#64748b';
-        ctx.font = 'bold 15px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('✂  CUT ALONG DOTTED LINE & PLACE INSIDE WINDSHIELD FACING OUTWARD  ✂', width / 2, 28);
-        ctx.restore();
-      }
-
-      // Card Base
-      ctx.fillStyle = currentTheme.primaryDark;
-      ctx.beginPath();
-      ctx.roundRect(pad, pad, cW, cH, 36);
-      ctx.fill();
-
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.roundRect(pad + 8, pad + 8, cW - 16, cH - 16, 30);
-      ctx.fill();
-
-      // Header Banner
-      ctx.fillStyle = currentTheme.primaryDark;
-      ctx.beginPath();
-      ctx.roundRect(pad + 8, pad + 8, cW - 16, 175, [30, 30, 0, 0]);
-      ctx.fill();
-
-      ctx.fillStyle = currentTheme.accentColor;
-      ctx.fillRect(pad + 8, pad + 180, cW - 16, 6);
-
-      // Header Brand
-      drawBharatUtilityBrand(ctx, pad + 32, pad + 32, true);
-
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '900 42px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('PARKSIGNAL', width / 2, pad + 130);
-
-      ctx.fillStyle = currentTheme.accentColor;
-      ctx.font = 'bold 18px sans-serif';
-      ctx.fillText('SMART PRIVACY VEHICLE PARKING ALERT', width / 2, pad + 160);
-
-      // Callout Banner
-      const callY = pad + 215;
-      ctx.fillStyle = currentTheme.accentColor;
-      ctx.beginPath();
-      ctx.roundRect(pad + 40, callY, cW - 80, 105, 20);
-      ctx.fill();
-
-      ctx.fillStyle = currentTheme.accentText;
-      ctx.font = '900 28px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('WRONG PARKING? NEED ME TO MOVE?', width / 2, callY + 44);
-
-      ctx.font = 'bold 20px sans-serif';
-      ctx.fillText('📷 Scan QR to send me an instant private alert', width / 2, callY + 80);
-
-      // QR Code
-      const qrBoxSize = 440;
-      const qrBoxX = (width - qrBoxSize) / 2;
-      const qrBoxY = callY + 125;
-
-      ctx.fillStyle = '#f8fafc';
-      ctx.strokeStyle = '#e2e8f0';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.roundRect(qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 24);
-      ctx.fill();
-      ctx.stroke();
-
-      if (canvasRef.current) {
-        ctx.drawImage(canvasRef.current, qrBoxX + 20, qrBoxY + 20, qrBoxSize - 40, qrBoxSize - 40);
-      }
-
-      ctx.fillStyle = '#64748b';
-      ctx.font = 'bold 15px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText('@ParkSignal_bot', width / 2, qrBoxY + qrBoxSize - 12);
-
-      // 3 Steps
-      const stepY = qrBoxY + qrBoxSize + 25;
-      ctx.fillStyle = '#f1f5f9';
-      ctx.beginPath();
-      ctx.roundRect(pad + 40, stepY, cW - 80, 65, 14);
-      ctx.fill();
-
-      ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 18px sans-serif';
-      ctx.fillText('1. Open Camera   ➜   2. Scan QR   ➜   3. Send Message', width / 2, stepY + 40);
-
-      // HSRP Plate Badge
-      const plateY = stepY + 85;
-      const plateW = 620;
+      // 2. AUTHENTIC HSRP NUMBER PLATE BADGE
+      const plateY = qrBoxY + bannerH + 24;
       const plateH = 92;
-      const plateX = (width - plateW) / 2;
 
-      ctx.fillStyle = '#ffffff';
-      ctx.strokeStyle = '#0f172a';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.roundRect(plateX, plateY, plateW, plateH, 18);
+      // Plate White Embossed Base
+      ctx.fillStyle = '#FFFFFF';
+      drawRoundRect(ctx, rightX, plateY, rightW, plateH, 18);
       ctx.fill();
+
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#000000';
+      drawRoundRect(ctx, rightX, plateY, rightW, plateH, 18);
       ctx.stroke();
 
+      // Left Blue IND Band
       ctx.fillStyle = '#003399';
-      ctx.beginPath();
-      ctx.roundRect(plateX, plateY, 80, plateH, [16, 0, 0, 16]);
+      drawRoundRect(ctx, rightX, plateY, 84, plateH, [16, 0, 0, 16]);
       ctx.fill();
 
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '900 24px sans-serif';
-      ctx.fillText('IND', plateX + 40, plateY + 56);
+      // Chakra Symbol Circle
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(rightX + 42, plateY + 34, 10, 0, 2 * Math.PI);
+      ctx.stroke();
 
-      ctx.fillStyle = '#0f172a';
-      ctx.font = '900 40px monospace';
-      ctx.fillText(`${vehicle.vehicle_type.toUpperCase()} • ${displayPlate}`, plateX + 350, plateY + 60);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 20px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('IND', rightX + 42, plateY + 68);
 
-      // Privacy Footer
-      const footY = plateY + 125;
-      ctx.fillStyle = '#059669';
-      ctx.font = 'bold 18px sans-serif';
-      ctx.fillText('🛡️ 100% Privacy Protected • Owner phone number is NEVER shared', width / 2, footY);
+      // Vehicle Plate Text
+      ctx.fillStyle = '#0F172A';
+      ctx.font = '900 42px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${vehicle.vehicle_type.toUpperCase()} • ${displayPlate}`, rightX + 84 + (rightW - 84) / 2, plateY + 60);
 
-      ctx.fillStyle = '#64748b';
-      ctx.font = '15px sans-serif';
-      ctx.fillText('Alerts delivered via Telegram @ParkSignal_bot • No app required', width / 2, footY + 28);
+      // 3. 3-STEP QUICK SCAN STRIP
+      const stepY = plateY + plateH + 20;
+      const stepH = 64;
 
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '13px monospace';
-      ctx.fillText('bharatutility.tech/parksignal', width / 2, footY + 52);
+      ctx.fillStyle = '#111827';
+      drawRoundRect(ctx, rightX, stepY, rightW, stepH, 16);
+      ctx.fill();
+
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = '#374151';
+      drawRoundRect(ctx, rightX, stepY, rightW, stepH, 16);
+      ctx.stroke();
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#F3F4F6';
+      ctx.font = '800 17px system-ui, -apple-system, sans-serif';
+      ctx.fillText('1. Open Camera   ➜   2. Scan QR   ➜   3. Send Alert', rightX + rightW / 2, stepY + 39);
+
+      // 4. PRIVACY FOOTER
+      const footY = stepY + stepH + 26;
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#10B981'; // Emerald 500
+      ctx.font = '900 17px system-ui, -apple-system, sans-serif';
+      ctx.fillText('🛡️ 100% Privacy Protected • Owner phone number is NEVER shared', rightX, footY + 14);
+
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '600 14px system-ui, -apple-system, sans-serif';
+      ctx.fillText('Instant alert delivered via @ParkSignal_bot • No app download required', rightX, footY + 38);
+
+      ctx.fillStyle = currentTheme.accent;
+      ctx.font = '700 13px monospace';
+      ctx.fillText('bharatutility.tech/parksignal', rightX, footY + 60);
     }
 
     // ─────────────────────────────────────────────────────────────
-    // C. SQUARE CARD LAYOUT (Compact Window Decal)
+    // FORMAT 2: SQUARE SMART WINDOW DECAL (1080x1080)
     // ─────────────────────────────────────────────────────────────
     else {
-      const pad = 30;
-      const cW = width - pad * 2;
-      const cH = height - pad * 2;
+      const pad = 36;
+      const cardW = W - pad * 2;
+      const cardH = H - pad * 2;
 
-      // Card Base
-      ctx.fillStyle = currentTheme.primaryDark;
-      ctx.beginPath();
-      ctx.roundRect(pad, pad, cW, cH, 32);
+      // Outer Deep Dark Card Body
+      ctx.fillStyle = currentTheme.darkBg;
+      drawRoundRect(ctx, pad, pad, cardW, cardH, 36);
       ctx.fill();
 
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.roundRect(pad + 6, pad + 6, cW - 12, cH - 12, 26);
-      ctx.fill();
-
-      // Header Banner
-      ctx.fillStyle = currentTheme.primaryDark;
-      ctx.beginPath();
-      ctx.roundRect(pad + 6, pad + 6, cW - 12, 130, [26, 26, 0, 0]);
-      ctx.fill();
-
-      ctx.fillStyle = currentTheme.accentColor;
-      ctx.fillRect(pad + 6, pad + 135, cW - 12, 5);
-
-      drawBharatUtilityBrand(ctx, pad + 25, pad + 20, true);
-
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '900 32px sans-serif';
-      ctx.textAlign = 'right';
-      ctx.fillText('PARKSIGNAL', width - pad - 25, pad + 45);
-
-      ctx.fillStyle = currentTheme.accentColor;
-      ctx.font = 'bold 14px sans-serif';
-      ctx.fillText('SCAN TO ALERT VEHICLE OWNER', width - pad - 25, pad + 70);
-
-      // Centered QR Code
-      const qrBoxSize = 460;
-      const qrBoxX = (width - qrBoxSize) / 2;
-      const qrBoxY = pad + 160;
-
-      ctx.fillStyle = '#f8fafc';
-      ctx.strokeStyle = '#e2e8f0';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.roundRect(qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 22);
-      ctx.fill();
+      // Border Glow
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = currentTheme.cardBorder;
+      drawRoundRect(ctx, pad, pad, cardW, cardH, 36);
       ctx.stroke();
 
-      if (canvasRef.current) {
-        ctx.drawImage(canvasRef.current, qrBoxX + 20, qrBoxY + 20, qrBoxSize - 40, qrBoxSize - 40);
-      }
-
-      ctx.fillStyle = '#64748b';
-      ctx.font = 'bold 15px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText('@ParkSignal_bot', width / 2, qrBoxY + qrBoxSize - 12);
-
-      // HSRP Badge
-      const plateY = qrBoxY + qrBoxSize + 25;
-      const plateW = 580;
-      const plateH = 80;
-      const plateX = (width - plateW) / 2;
-
-      ctx.fillStyle = '#ffffff';
-      ctx.strokeStyle = '#0f172a';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.roundRect(plateX, plateY, plateW, plateH, 16);
+      // Header Banner
+      const headerH = 135;
+      ctx.fillStyle = '#06080F';
+      drawRoundRect(ctx, pad, pad, cardW, headerH, [36, 36, 0, 0]);
       ctx.fill();
+
+      ctx.fillStyle = currentTheme.accent;
+      ctx.fillRect(pad, pad + headerH, cardW, 6);
+
+      // Brand Logo in Header
+      drawBharatUtilityBrand(pad + 32, pad + 24);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = currentTheme.accent;
+      ctx.font = '900 34px system-ui, -apple-system, sans-serif';
+      ctx.fillText('PARKSIGNAL', W - pad - 32, pad + 54);
+
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '800 15px system-ui, -apple-system, sans-serif';
+      ctx.fillText('VEHICLE ALERT PASS', W - pad - 32, pad + 78);
+
+      // Urgent Callout
+      const callY = pad + headerH + 30;
+      ctx.fillStyle = currentTheme.accent;
+      drawRoundRect(ctx, pad + 40, callY, cardW - 80, 100, 20);
+      ctx.fill();
+
+      ctx.fillStyle = currentTheme.accentText;
+      ctx.textAlign = 'center';
+      ctx.font = '900 27px system-ui, -apple-system, sans-serif';
+      ctx.fillText('🚨 WRONG PARKING? NEED ME TO MOVE?', W / 2, callY + 42);
+
+      ctx.font = '800 18px system-ui, -apple-system, sans-serif';
+      ctx.fillText('📷 Scan QR to send me an instant private alert', W / 2, callY + 76);
+
+      // Centered QR Code
+      const qrBoxSize = 420;
+      const qrBoxX = (W - qrBoxSize) / 2;
+      const qrBoxY = callY + 125;
+
+      ctx.fillStyle = '#FFFFFF';
+      drawRoundRect(ctx, qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 26);
+      ctx.fill();
+
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = currentTheme.accent;
+      drawRoundRect(ctx, qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 26);
+      ctx.stroke();
+
+      ctx.drawImage(qrCanvas, qrBoxX + 20, qrBoxY + 16, qrBoxSize - 40, qrBoxSize - 40);
+
+      ctx.fillStyle = '#0F172A';
+      ctx.font = '900 14px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('⚡ @ParkSignal_bot', W / 2, qrBoxY + qrBoxSize - 14);
+
+      // HSRP Plate Badge
+      const plateY = qrBoxY + qrBoxSize + 28;
+      const plateW = cardW - 80;
+      const plateH = 88;
+      const plateX = (W - plateW) / 2;
+
+      ctx.fillStyle = '#FFFFFF';
+      drawRoundRect(ctx, plateX, plateY, plateW, plateH, 18);
+      ctx.fill();
+
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#000000';
+      drawRoundRect(ctx, plateX, plateY, plateW, plateH, 18);
       ctx.stroke();
 
       ctx.fillStyle = '#003399';
-      ctx.beginPath();
-      ctx.roundRect(plateX, plateY, 70, plateH, [14, 0, 0, 14]);
+      drawRoundRect(ctx, plateX, plateY, 84, plateH, [16, 0, 0, 16]);
       ctx.fill();
 
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '900 20px sans-serif';
-      ctx.fillText('IND', plateX + 35, plateY + 48);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 20px system-ui, -apple-system, sans-serif';
+      ctx.fillText('IND', plateX + 42, plateY + 62);
 
-      ctx.fillStyle = '#0f172a';
-      ctx.font = '900 34px monospace';
-      ctx.fillText(`${vehicle.vehicle_type.toUpperCase()} • ${displayPlate}`, plateX + 325, plateY + 52);
+      ctx.fillStyle = '#0F172A';
+      ctx.font = '900 40px monospace';
+      ctx.fillText(`${vehicle.vehicle_type.toUpperCase()} • ${displayPlate}`, plateX + 84 + (plateW - 84) / 2, plateY + 58);
 
       // Privacy Footer
-      const footY = plateY + 115;
-      ctx.fillStyle = '#059669';
-      ctx.font = 'bold 17px sans-serif';
-      ctx.fillText('🛡️ Privacy Protected • No Phone Number Exposed • Free Bot Alerts', width / 2, footY);
+      const footY = plateY + plateH + 24;
+      ctx.fillStyle = '#10B981';
+      ctx.font = '900 17px system-ui, -apple-system, sans-serif';
+      ctx.fillText('🛡️ 100% Privacy Protected • Owner phone number is NEVER shared', W / 2, footY + 12);
 
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '13px monospace';
-      ctx.fillText('bharatutility.tech/parksignal', width / 2, footY + 26);
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '600 14px system-ui, -apple-system, sans-serif';
+      ctx.fillText('Free alerts via Telegram @ParkSignal_bot • No app download required', W / 2, footY + 36);
+
+      ctx.fillStyle = currentTheme.accent;
+      ctx.font = '700 13px monospace';
+      ctx.fillText('bharatutility.tech/parksignal', W / 2, footY + 58);
     }
 
-    // Trigger Download
+    setIsRendering(false);
+  }, [isOpen, publicUrl, selectedLayout, selectedTheme, vehicle.vehicle_number, vehicle.vehicle_type, displayPlate, currentTheme]);
+
+  // Re-render master canvas whenever theme or layout changes
+  useEffect(() => {
+    if (isOpen) {
+      renderMasterCanvas();
+    }
+  }, [isOpen, renderMasterCanvas]);
+
+  if (!isOpen) return null;
+
+  // Direct PNG Download from the Master Canvas
+  const downloadPng = () => {
+    if (!canvasRef.current) return;
     const link = document.createElement('a');
     link.download = `ParkSignal-${vehicle.vehicle_number}-${selectedLayout}-${selectedTheme}.png`;
-    link.href = compCanvas.toDataURL('image/png');
+    link.href = canvasRef.current.toDataURL('image/png', 1.0);
     link.click();
-    setDownloadSuccess(`Downloaded high-res ${selectedLayout} PNG!`);
+    setDownloadSuccess(`Downloaded high-res ${selectedLayout} sticker!`);
     setTimeout(() => setDownloadSuccess(null), 3000);
-  };
-
-  const downloadSvg = () => {
-    if (!svgDataUrl) return;
-    const link = document.createElement('a');
-    link.download = `ParkSignal-QR-${vehicle.vehicle_number}.svg`;
-    link.href = svgDataUrl;
-    link.click();
-    setDownloadSuccess('Vector SVG downloaded!');
-    setTimeout(() => setDownloadSuccess(null), 3000);
-  };
-
-  // Dedicated Print Routine that prints ONLY the sticker card cleanly
-  const printCleanSticker = () => {
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      window.print();
-      return;
-    }
-
-    const stickerElem = document.getElementById('parksignal-printable-sticker');
-    if (!stickerElem) return;
-
-    printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>ParkSignal QR Sticker - ${vehicle.vehicle_number}</title>
-        <style>
-          @page { size: auto; margin: 10mm; }
-          body { font-family: system-ui, -apple-system, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 90vh; margin: 0; background: white; }
-          .sticker-container { transform: scale(1); max-width: ${selectedLayout === 'landscape' ? '650px' : '400px'}; width: 100%; }
-          .cut-guide { border: 2px dashed #94a3b8; padding: 15px; border-radius: 20px; }
-          .cut-text { text-align: center; font-size: 11px; color: #64748b; font-weight: bold; margin-bottom: 8px; }
-          @media print {
-            body { padding: 0; }
-          }
-        </style>
-      </head>
-      <body>
-        <div class="sticker-container">
-          <div class="cut-guide">
-            <div class="cut-text">✂ CUT ALONG DOTTED LINE & PLACE INSIDE WINDSHIELD FACING OUTWARD ✂</div>
-            ${stickerElem.outerHTML}
-          </div>
-        </div>
-        <script>
-          window.onload = function() {
-            setTimeout(function() { window.print(); window.close(); }, 250);
-          };
-        </script>
-      </body>
-      </html>
-    `);
-    printWindow.document.close();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden flex flex-col max-h-[94vh]">
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-neutral-100 dark:border-neutral-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+      <div className="relative w-full max-w-3xl bg-neutral-900 text-white rounded-3xl shadow-2xl border border-neutral-800 overflow-hidden flex flex-col max-h-[95vh]">
+        {/* Modal Header */}
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-neutral-800 bg-neutral-950/60">
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-lg font-black text-neutral-900 dark:text-white">
-                Printable Windshield Sticker
+              <h3 className="text-lg font-black text-white flex items-center gap-2">
+                <span>Printable Windshield Sticker</span>
+                <span
+                  className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-full"
+                  style={{
+                    backgroundColor: currentTheme.accent,
+                    color: currentTheme.accentText
+                  }}
+                >
+                  HD Tag
+                </span>
               </h3>
-              <span className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-300 dark:border-amber-800">
-                Premium Edition
-              </span>
             </div>
-            <p className="text-xs text-neutral-500 mt-0.5">
-              High-DPI smart QR sticker for {vehicle.vehicle_number}
+            <p className="text-xs text-neutral-400 mt-0.5">
+              High-visibility smart parking sticker for <strong className="text-white">{vehicle.vehicle_number}</strong>
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-neutral-400 hover:text-neutral-700 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+            className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Toolbar: Layout & Theme Selection */}
-        <div className="px-4 py-3 bg-neutral-50 dark:bg-neutral-800/40 border-b border-neutral-100 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3">
-          {/* Layout Options */}
-          <div className="flex items-center gap-1 text-xs">
-            <span className="font-bold text-neutral-500 mr-1 text-[11px]">Card Layout:</span>
+        {/* Toolbar: Layout & Colors */}
+        <div className="px-4 py-3 bg-neutral-950/80 border-b border-neutral-800 flex flex-wrap items-center justify-between gap-3">
+          {/* Layout Switcher */}
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="font-bold text-neutral-400 text-[11px]">Format:</span>
             <button
               onClick={() => setSelectedLayout('landscape')}
-              className={`py-1 px-2.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all ${
+              className={`py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all ${
                 selectedLayout === 'landscape'
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 border border-neutral-200 dark:border-neutral-700'
+                  ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20'
+                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
               }`}
             >
-              <LayoutTemplate className="w-3.5 h-3.5 rotate-90" />
-              <span>Landscape (Visiting Card)</span>
-            </button>
-            <button
-              onClick={() => setSelectedLayout('portrait')}
-              className={`py-1 px-2.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all ${
-                selectedLayout === 'portrait'
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 border border-neutral-200 dark:border-neutral-700'
-              }`}
-            >
-              <LayoutTemplate className="w-3.5 h-3.5" />
-              <span>Portrait Permit</span>
+              <span>🚘 Landscape Card (Fastag Size)</span>
             </button>
             <button
               onClick={() => setSelectedLayout('square')}
-              className={`py-1 px-2.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all ${
+              className={`py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all ${
                 selectedLayout === 'square'
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 border border-neutral-200 dark:border-neutral-700'
+                  ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20'
+                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
               }`}
             >
-              <Layers className="w-3.5 h-3.5" />
-              <span>Square Decal</span>
+              <span>🔲 Square Window Decal</span>
             </button>
           </div>
 
-          {/* Color Themes */}
-          <div className="flex items-center gap-1 text-xs">
-            <span className="font-bold text-neutral-500 mr-1 text-[11px]">Style:</span>
-            {(['high_vis', 'executive', 'modern_blue'] as StickerTheme[]).map((thm) => (
-              <button
-                key={thm}
-                onClick={() => setSelectedTheme(thm)}
-                className={`py-1 px-2 rounded-lg font-bold text-xs flex items-center gap-1 transition-all ${
-                  selectedTheme === thm
-                    ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-xs'
-                    : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 border border-neutral-200 dark:border-neutral-700'
-                }`}
-              >
-                <span>{themes[thm].icon}</span>
-                <span>{thm === 'high_vis' ? 'Yellow' : thm === 'executive' ? 'Gold' : 'Navy'}</span>
-              </button>
-            ))}
+          {/* Color Switcher */}
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="font-bold text-neutral-400 text-[11px]">Color:</span>
+            {(['neon_yellow', 'fire_orange', 'cyber_cyan'] as StickerTheme[]).map((thm) => {
+              const Icon = themes[thm].icon;
+              return (
+                <button
+                  key={thm}
+                  onClick={() => setSelectedTheme(thm)}
+                  className={`py-1 px-2.5 rounded-xl font-bold text-xs flex items-center gap-1 transition-all ${
+                    selectedTheme === thm
+                      ? 'ring-2 ring-white text-white bg-neutral-800 shadow-xs'
+                      : 'bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 border border-neutral-800'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" style={{ color: themes[thm].accent }} />
+                  <span>{themes[thm].shortName}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Live Sticker Card Preview */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 flex flex-col items-center justify-center bg-neutral-100/80 dark:bg-neutral-950/70">
-          <div
-            id="parksignal-printable-sticker"
-            className={`w-full bg-white text-neutral-900 rounded-3xl overflow-hidden shadow-2xl border-4 transition-all duration-300 relative ${
-              selectedLayout === 'landscape' ? 'max-w-[540px]' : selectedLayout === 'portrait' ? 'max-w-[340px]' : 'max-w-[380px]'
-            } ${
-              showCutGuide ? 'ring-2 ring-dashed ring-neutral-400 ring-offset-4 ring-offset-neutral-100 dark:ring-offset-neutral-900' : ''
-            }`}
-            style={{ borderColor: currentTheme.primaryDark }}
-          >
-            {/* ─────────────────────────────────────────────────────────────
-                PREVIEW: LANDSCAPE LAYOUT
-               ───────────────────────────────────────────────────────────── */}
-            {selectedLayout === 'landscape' ? (
-              <div className="flex flex-col">
-                {/* Brand Header */}
-                <div
-                  className="py-2.5 px-4 text-white flex items-center justify-between"
-                  style={{ backgroundColor: currentTheme.primaryDark }}
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-black text-xs">
-                      ₹U
-                    </div>
-                    <div className="text-left">
-                      <div className="font-extrabold text-xs leading-none text-white">
-                        Bharat<span className="text-indigo-400">Utility</span>
-                      </div>
-                      <div className="text-[8px] text-neutral-400 font-medium">
-                        PARKSIGNAL PASS
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="text-right">
-                    <div className="font-black text-sm uppercase tracking-wider" style={{ color: currentTheme.accentColor }}>
-                      PARKSIGNAL
-                    </div>
-                    <div className="text-[8px] text-neutral-400 uppercase tracking-widest font-bold">
-                      Privacy Parking Pass
-                    </div>
-                  </div>
-                </div>
-                <div className="h-1 w-full" style={{ backgroundColor: currentTheme.accentColor }} />
-
-                {/* Body: Left QR, Right Details */}
-                <div className="p-4 flex items-center gap-4">
-                  {/* Left QR */}
-                  <div className="shrink-0 p-2 bg-neutral-50 rounded-2xl border border-neutral-200 text-center shadow-inner">
-                    <canvas ref={canvasRef} className="w-36 h-36 block mx-auto" />
-                    <div className="text-[9px] font-mono font-bold text-neutral-400 mt-1">
-                      @ParkSignal_bot
-                    </div>
-                  </div>
-
-                  {/* Right Details */}
-                  <div className="flex-1 min-w-0 text-left">
-                    {/* Callout */}
-                    <div
-                      className="py-1.5 px-2.5 rounded-xl font-black text-[11px] uppercase tracking-wide mb-2 leading-tight shadow-xs"
-                      style={{
-                        backgroundColor: currentTheme.accentColor,
-                        color: currentTheme.accentText,
-                      }}
-                    >
-                      <div>WRONG PARKING? NEED TO MOVE?</div>
-                      <div className="text-[9px] font-bold mt-0.5 opacity-90">
-                        Scan QR to send me an instant private alert
-                      </div>
-                    </div>
-
-                    {/* HSRP Plate */}
-                    <div className="flex items-center bg-white rounded-lg border-2 border-neutral-900 overflow-hidden shadow-xs mb-2">
-                      <div className="bg-[#003399] text-white px-2 py-1 flex items-center justify-center font-black text-[9px] leading-none">
-                        IND
-                      </div>
-                      <div className="px-2 py-0.5 flex-1 text-center font-mono font-black text-xs tracking-wider text-neutral-900">
-                        {vehicle.vehicle_type.toUpperCase()} • {displayPlate}
-                      </div>
-                    </div>
-
-                    {/* 3 Step Instruction */}
-                    <div className="py-1 px-1.5 bg-neutral-100 rounded-lg text-[9px] font-bold text-neutral-700 flex items-center justify-between border border-neutral-200 mb-2">
-                      <span>1. Scan QR</span>
-                      <span className="text-neutral-300">➜</span>
-                      <span>2. Pick Alert</span>
-                      <span className="text-neutral-300">➜</span>
-                      <span className="text-emerald-700">3. Delivered</span>
-                    </div>
-
-                    {/* Privacy */}
-                    <div className="text-[8px] text-neutral-500 leading-tight">
-                      <div className="font-bold text-emerald-700 flex items-center gap-1">
-                        <ShieldCheck className="w-2.5 h-2.5 text-emerald-600" /> 100% Privacy Protected
-                      </div>
-                      Owner phone number is never shared • Free Telegram alerts
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              /* ─────────────────────────────────────────────────────────────
-                  PREVIEW: PORTRAIT & SQUARE LAYOUTS
-                 ───────────────────────────────────────────────────────────── */
-              <div>
-                {/* Brand Header */}
-                <div
-                  className="py-3 px-4 text-white text-center relative"
-                  style={{ backgroundColor: currentTheme.primaryDark }}
-                >
-                  <div className="flex items-center justify-center gap-1.5 mb-0.5">
-                    <div className="w-5 h-5 rounded-md bg-indigo-600 flex items-center justify-center text-white font-black text-[10px]">
-                      ₹U
-                    </div>
-                    <span className="font-black text-sm tracking-wider uppercase">
-                      PARKSIGNAL
-                    </span>
-                    <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-black">
-                      TECH
-                    </span>
-                  </div>
-                  <div
-                    className="text-[9px] font-extrabold uppercase tracking-widest"
-                    style={{ color: currentTheme.accentColor }}
-                  >
-                    By BharatUtility • Privacy Vehicle Alert
-                  </div>
-                  <div
-                    className="h-1 w-full absolute bottom-0 left-0"
-                    style={{ backgroundColor: currentTheme.accentColor }}
-                  />
-                </div>
-
-                <div className="p-4 text-center">
-                  {/* Urgent Callout */}
-                  <div
-                    className="py-2 px-2.5 rounded-xl font-black text-xs uppercase tracking-wide shadow-xs leading-tight mb-2.5"
-                    style={{
-                      backgroundColor: currentTheme.accentColor,
-                      color: currentTheme.accentText,
-                    }}
-                  >
-                    <div>WRONG PARKING? NEED ME TO MOVE?</div>
-                    <div className="text-[10px] font-bold mt-0.5 opacity-90">
-                      Scan QR below to send instant private alert
-                    </div>
-                  </div>
-
-                  {/* QR Box */}
-                  <div className="relative inline-block p-2.5 bg-neutral-50 rounded-2xl border-2 border-neutral-200 shadow-inner my-1">
-                    <canvas ref={canvasRef} className="w-40 h-40 sm:w-44 sm:h-44 block mx-auto" />
-                    <div className="text-[9px] font-extrabold tracking-wider text-neutral-400 uppercase mt-1">
-                      @ParkSignal_bot
-                    </div>
-                  </div>
-
-                  {/* 3 Step Instruction */}
-                  <div className="mt-2 py-1 px-2 bg-neutral-100 rounded-xl text-[9px] font-bold text-neutral-700 flex items-center justify-around border border-neutral-200">
-                    <span className="flex items-center gap-0.5">
-                      <Camera className="w-2.5 h-2.5 text-neutral-500" /> 1. Scan
-                    </span>
-                    <span className="text-neutral-300">➜</span>
-                    <span className="flex items-center gap-0.5">
-                      <Smartphone className="w-2.5 h-2.5 text-neutral-500" /> 2. Alert
-                    </span>
-                    <span className="text-neutral-300">➜</span>
-                    <span className="text-emerald-700 font-black">
-                      3. Delivered
-                    </span>
-                  </div>
-
-                  {/* HSRP Plate Badge */}
-                  <div className="mt-2.5 flex items-center justify-center bg-white rounded-xl border-2 border-neutral-900 overflow-hidden shadow-xs">
-                    <div className="bg-[#003399] text-white px-2.5 py-1.5 flex flex-col items-center justify-center font-black text-[9px] leading-none">
-                      <span>IND</span>
-                    </div>
-                    <div className="py-1 px-3 text-center flex-1">
-                      <div className="text-[8px] font-bold uppercase text-neutral-500 tracking-wider">
-                        {vehicle.vehicle_type}
-                      </div>
-                      <div className="text-xs font-black font-mono tracking-wider text-neutral-900">
-                        {displayPlate}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Privacy Footer */}
-                  <div className="mt-2.5 pt-2 border-t border-neutral-100 text-center">
-                    <div className="text-[9px] font-bold text-emerald-700 flex items-center justify-center gap-1">
-                      <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                      100% Privacy Protected
-                    </div>
-                    <p className="text-[8px] text-neutral-500 mt-0.5">
-                      Owner phone number is never shared • Instant Telegram alert • No app required
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
+        {/* Live Canvas Preview (Zero distortion, 100% pixel-perfect match) */}
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 flex flex-col items-center justify-center bg-black/60">
+          <div className="relative w-full max-w-xl flex items-center justify-center">
+            {/* The Master Canvas is displayed directly */}
+            <canvas
+              ref={canvasRef}
+              className="max-w-full h-auto rounded-2xl shadow-2xl border-2 border-neutral-700 transition-all duration-300"
+              style={{
+                maxHeight: '52vh',
+                boxShadow: `0 20px 50px -10px ${currentTheme.accent}25`
+              }}
+            />
           </div>
 
-          <div className="mt-3 text-[11px] text-neutral-500 text-center">
-            💡 <strong>Recommended Format:</strong> <strong>Landscape (Visiting Card)</strong> is the standard size for car windshield corners & Fastag tags.
+          <div className="mt-3 text-xs text-neutral-400 text-center flex items-center gap-2">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <span>
+              <strong>100% Exact Preview:</strong> What you see above is the exact high-resolution file that will be downloaded.
+            </span>
           </div>
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 sm:p-5 border-t border-neutral-100 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-900/70 flex flex-wrap items-center justify-between gap-2.5">
-          {downloadSuccess && (
-            <div className="w-full text-center text-xs font-semibold text-emerald-600 flex items-center justify-center gap-1 pb-1">
+        <div className="p-4 sm:p-5 border-t border-neutral-800 bg-neutral-950/80 flex flex-wrap items-center justify-between gap-3">
+          {downloadSuccess ? (
+            <div className="w-full text-center text-xs font-semibold text-emerald-400 flex items-center justify-center gap-1 pb-1">
               <Check className="w-4 h-4" /> {downloadSuccess}
+            </div>
+          ) : (
+            <div className="text-xs text-neutral-400 hidden sm:block">
+              Print at home or local shop on vinyl sticker / glossy paper.
             </div>
           )}
 
-          {/* Clean Print (Prints ONLY the sticker card without webpage chrome) */}
-          <button
-            onClick={printCleanSticker}
-            className="py-2.5 px-3.5 rounded-xl bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 transition-colors shadow-xs"
-            title="Prints only the clean sticker without website elements"
-          >
-            <Printer className="w-4 h-4" /> Print Sticker
-          </button>
-
-          {/* Primary High-DPI Download */}
-          <button
-            onClick={downloadPng}
-            className="flex-1 min-w-[160px] py-2.5 px-4 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors shadow-md shadow-indigo-600/20"
-          >
-            <Download className="w-4 h-4" /> Download {selectedLayout.toUpperCase()} PNG
-          </button>
-
-          {/* SVG Download */}
-          <button
-            onClick={downloadSvg}
-            className="py-2.5 px-3 rounded-xl border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold text-xs hover:bg-white dark:hover:bg-neutral-800 transition-colors"
-            title="Download Vector SVG for vinyl printing"
-          >
-            SVG
-          </button>
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <button
+              onClick={onClose}
+              className="py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-bold text-xs transition-colors"
+            >
+              Close
+            </button>
+            <button
+              onClick={downloadPng}
+              className="flex-1 sm:flex-none py-2.5 px-6 rounded-xl font-black text-xs flex items-center justify-center gap-2 transition-all shadow-lg hover:scale-102"
+              style={{
+                backgroundColor: currentTheme.accent,
+                color: currentTheme.accentText,
+                boxShadow: `0 10px 25px -5px ${currentTheme.accent}50`
+              }}
+            >
+              <Download className="w-4 h-4" /> Download High-DPI PNG
+            </button>
+          </div>
         </div>
       </div>
     </div>
