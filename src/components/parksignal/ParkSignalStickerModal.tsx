@@ -17,6 +17,7 @@ import {
   FileCode2
 } from 'lucide-react';
 import { ParkSignalVehicle } from '../../types';
+import { PARKSIGNAL_FULL_LOGO_B64, PARKSIGNAL_EMBLEM_B64 } from './parkSignalLogoBase64';
 
 interface ParkSignalStickerModalProps {
   vehicle: ParkSignalVehicle;
@@ -32,7 +33,6 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  // Default to Road Hazard Caution (matching user's preferred ProfileTap highway style)
   const [selectedLayout, setSelectedLayout] = useState<StickerLayout>('hazard');
   const [selectedTheme, setSelectedTheme] = useState<StickerTheme>('safety_yellow');
   const [showCutBorder, setShowCutBorder] = useState(true);
@@ -113,13 +113,13 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   }, [selectedTheme]);
 
   // ══════════════════════════════════════════════════════════════════
-  // GENERATE MASTER SVG (True High-End Commercial Retail Graphics)
+  // GENERATE MASTER SVG (Featuring Official Artwork WITH the QR Code)
   // ══════════════════════════════════════════════════════════════════
   const masterSvg = useMemo(() => {
     if (!qrDataUrl) return '';
 
     // ─────────────────────────────────────────────────────────────
-    // FORMAT 1: ROAD HAZARD CAUTION TAPE (Exact ProfileTap Commercial Pass)
+    // FORMAT 1: ROAD HAZARD CAUTION TAPE (Official Logo + QR Code)
     // ─────────────────────────────────────────────────────────────
     if (selectedLayout === 'hazard') {
       return `<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="760" viewBox="0 0 1360 760" style="background:#FFFFFF;">
@@ -148,23 +148,29 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <!-- Full-Bleed Bottom Hazard Caution Tape -->
     <rect x="0" y="716" width="1360" height="44" fill="url(#hazardStripe)" />
 
-    <!-- ── LEFT SIDE: LARGE WHITE ROUNDED CONTAINER FOR QR CODE ── -->
+    <!-- ── LEFT SIDE: WHITE CARD FEATURING OFFICIAL LOGO + QR CODE ── -->
     <g transform="translate(48, 62)">
       <rect x="0" y="0" width="456" height="636" rx="26" fill="#FFFFFF" stroke="#0B0F19" stroke-width="4.5" />
       
-      <!-- Crisp QR Code (Centered with proper quiet zone) -->
-      <image href="${qrDataUrl}" x="28" y="28" width="400" height="400" />
+      <!-- 1. OFFICIAL PARKSIGNAL LOGO EMBEDDED WITH QR (Exact User Artwork) -->
+      <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="48" y="16" width="360" height="110" preserveAspectRatio="xMidYMid meet" />
+
+      <!-- Thin subtle separator -->
+      <line x1="36" y1="134" x2="420" y2="134" stroke="#E2E8F0" stroke-width="1.5" />
+
+      <!-- 2. Crisp QR Code -->
+      <image href="${qrDataUrl}" x="68" y="146" width="320" height="320" />
       
-      <!-- Camera Scanner Pill Badge below QR -->
-      <g transform="translate(24, 460)">
-        <rect x="0" y="0" width="408" height="68" rx="18" fill="#0B0F19" />
-        <text x="204" y="32" class="font-sans" font-size="16" font-weight="900" fill="#FFD000" text-anchor="middle" letter-spacing="0.5">📷 SCAN WITH ANY PHONE CAMERA</text>
-        <text x="204" y="52" class="font-sans" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">NO APP • NO OTP • 100% PRIVATE</text>
+      <!-- 3. Camera Scanner Pill Badge below QR -->
+      <g transform="translate(24, 482)">
+        <rect x="0" y="0" width="408" height="66" rx="16" fill="#0B0F19" />
+        <text x="204" y="30" class="font-sans" font-size="15" font-weight="900" fill="#FFD000" text-anchor="middle" letter-spacing="0.5">📷 SCAN WITH ANY PHONE CAMERA</text>
+        <text x="204" y="50" class="font-sans" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">NO APP • NO OTP • 100% PRIVATE</text>
       </g>
       
-      <!-- Security / Website Link -->
-      <text x="228" y="580" class="font-sans" font-size="13" font-weight="800" fill="#0B0F19" text-anchor="middle">🔒 PRIVACY-PROTECTED SMART QR PASS</text>
-      <text x="228" y="602" class="font-sans" font-size="12" font-weight="700" fill="#64748B" text-anchor="middle">bharatutility.tech/parksignal</text>
+      <!-- 4. Security / Website Link -->
+      <text x="228" y="582" class="font-sans" font-size="12" font-weight="800" fill="#0B0F19" text-anchor="middle">🔒 PRIVACY-FIRST SMART VEHICLE PROTECTION</text>
+      <text x="228" y="602" class="font-sans" font-size="11" font-weight="700" fill="#64748B" text-anchor="middle">bharatutility.tech/parksignal</text>
     </g>
 
     <!-- ── RIGHT SIDE: PROFILETAP COMMERCIAL SAFETY LAYOUT ── -->
@@ -242,22 +248,12 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
         <text x="432" y="55" class="font-mono" font-size="38" font-weight="900" fill="#0F172A" text-anchor="middle" letter-spacing="2">${plateFormatted}</text>
       </g>
 
-      <!-- 5. Official ParkSignal Brand Logo & Attribution Lockup -->
-      <g transform="translate(0, 470)">
-        <!-- Official ParkSignal Logo Emblem -->
-        <g transform="translate(0, 4)">
-          <path d="M4 28 L12 14 L32 14 L40 28 Z" fill="none" stroke="#0B0F19" stroke-width="3.5" stroke-linejoin="round" />
-          <circle cx="12" cy="33" r="4" fill="#0B0F19" />
-          <circle cx="32" cy="33" r="4" fill="#0B0F19" />
-          <path d="M10 9 A 18 18 0 0 1 34 9" fill="none" stroke="#0B0F19" stroke-width="3" stroke-linecap="round" />
-          <path d="M4 4 A 24 24 0 0 1 40 4" fill="none" stroke="#0B0F19" stroke-width="3.5" stroke-linecap="round" />
-        </g>
-        <text x="56" y="24" class="font-sans" font-size="24" font-weight="900" fill="#0B0F19" letter-spacing="1">PARKSIGNAL</text>
-        <text x="56" y="42" class="font-sans" font-size="12" font-weight="800" fill="#334155" letter-spacing="0.5">OFFICIAL FASTAG-SIZE SMART VEHICLE PASS</text>
+      <!-- 5. Official ParkSignal Brand Logo Lockup & Attribution -->
+      <g transform="translate(0, 466)">
+        <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="0" y="0" width="260" height="72" preserveAspectRatio="xMidYMid meet" />
         
-        <!-- Right Attribution -->
-        <text x="776" y="24" class="font-sans" font-size="14" font-weight="900" fill="#0B0F19" text-anchor="end">Powered by BharatUtility</text>
-        <text x="776" y="42" class="font-sans" font-size="12" font-weight="700" fill="#475569" text-anchor="end">bharatutility.tech/parksignal</text>
+        <text x="776" y="26" class="font-sans" font-size="14" font-weight="900" fill="#0B0F19" text-anchor="end">Official Fastag-Size Smart Vehicle Pass</text>
+        <text x="776" y="46" class="font-sans" font-size="12" font-weight="700" fill="#334155" text-anchor="end">Powered by BharatUtility • bharatutility.tech/parksignal</text>
       </g>
     </g>
   </g>
@@ -268,7 +264,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     }
 
     // ─────────────────────────────────────────────────────────────
-    // FORMAT 2: EXECUTIVE TWO-TONE SPLIT (RepiQR Commercial Luxury Pass)
+    // FORMAT 2: EXECUTIVE TWO-TONE SPLIT (Logo + QR Code)
     // ─────────────────────────────────────────────────────────────
     else if (selectedLayout === 'twotone') {
       return `<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="760" viewBox="0 0 1360 760" style="background:#FFFFFF;">
@@ -290,24 +286,15 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
 
     <!-- ════════════════ LEFT HALF: BRAND & SITUATIONS ════════════════ -->
     <!-- Brand Logo Row -->
-    <g transform="translate(52, 44)">
-      <!-- Official ParkSignal Car & Radar Emblem -->
-      <g transform="translate(0, 2)">
-        <path d="M6 34 L14 18 L36 18 L44 34 Z" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round" />
-        <circle cx="14" cy="38" r="4" fill="#06B6D4" />
-        <circle cx="36" cy="38" r="4" fill="#06B6D4" />
-        <path d="M12 12 A 18 18 0 0 1 38 12" fill="none" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" />
-        <path d="M5 6 A 26 26 0 0 1 45 6" fill="none" stroke="#06B6D4" stroke-width="3" stroke-linecap="round" />
-      </g>
-      <text x="62" y="24" class="font-sans" font-size="28" font-weight="900" fill="#FFFFFF" letter-spacing="1">PARKSIGNAL</text>
-      <text x="62" y="44" class="font-sans" font-size="13" font-weight="600" fill="#94A3B8">Smart vehicle safety, one scan away</text>
+    <g transform="translate(52, 36)">
+      <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="0" y="0" width="280" height="75" preserveAspectRatio="xMidYMid meet" />
     </g>
 
     <!-- Hairline Separator -->
-    <line x1="52" y1="112" x2="678" y2="112" stroke="#1E293B" stroke-width="1.5" />
+    <line x1="52" y1="120" x2="678" y2="120" stroke="#1E293B" stroke-width="1.5" />
 
     <!-- Big Headline -->
-    <g transform="translate(52, 156)">
+    <g transform="translate(52, 164)">
       <text x="0" y="0" class="font-sans" font-size="34" font-weight="900" fill="#FFFFFF">SCAN TO REACH</text>
       <text x="296" y="0" class="font-sans" font-size="34" font-weight="900" fill="${colors.accent}">THE OWNER</text>
       <text x="0" y="28" class="font-sans" font-size="15" font-weight="600" fill="#CBD5E1">Both numbers stay 100% private</text>
@@ -319,9 +306,9 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       </g>
     </g>
 
-    <!-- Situation Badges Grid (5 badges matching Image 3) -->
+    <!-- Situation Badges Grid (5 badges) -->
     <!-- Row 1: 3 badges (Accident, Parking, Flat Tyre) -->
-    <g transform="translate(52, 236)">
+    <g transform="translate(52, 244)">
       <!-- Badge 1: Accident -->
       <g transform="translate(36, 0)">
         <circle cx="40" cy="40" r="36" fill="#181F2E" stroke="#334155" stroke-width="2" />
@@ -349,7 +336,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     </g>
 
     <!-- Row 2: 2 badges (Notice suspicious, Forgot something) -->
-    <g transform="translate(52, 376)">
+    <g transform="translate(52, 384)">
       <!-- Badge 4: Notice something suspicious -->
       <g transform="translate(144, 0)">
         <circle cx="40" cy="40" r="36" fill="#181F2E" stroke="#334155" stroke-width="2" />
@@ -378,7 +365,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       <text x="351" y="48" class="font-mono" font-size="34" font-weight="900" fill="#0F172A" text-anchor="middle" letter-spacing="2">${plateFormatted}</text>
     </g>
 
-    <!-- ════════════════ RIGHT HALF: EMERGENCY CALLOUT & QR ════════════════ -->
+    <!-- ════════════════ RIGHT HALF: EMERGENCY CALLOUT & QR WITH LOGO ════════════════ -->
     <!-- Top Black Pill: "Scan This QR In Case Of Emergency" -->
     <g transform="translate(776, 44)">
       <rect x="0" y="0" width="532" height="66" rx="18" fill="#0B0F19" />
@@ -386,12 +373,18 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       <text x="266" y="51" class="font-sans" font-size="20" font-weight="900" fill="${colors.accent}" text-anchor="middle" letter-spacing="0.5">In Case Of Emergency</text>
     </g>
 
-    <!-- Large White Rounded Card with QR Code -->
-    <g transform="translate(776, 128)">
-      <rect x="0" y="0" width="532" height="476" rx="24" fill="#FFFFFF" stroke="#0B0F19" stroke-width="3.5" />
-      <image href="${qrDataUrl}" x="86" y="22" width="360" height="360" />
-      <text x="266" y="420" class="font-sans" font-size="14" font-weight="800" fill="#0B0F19" text-anchor="middle">🔒 100% PRIVATE • NO APP REQUIRED</text>
-      <text x="266" y="444" class="font-sans" font-size="13" font-weight="600" fill="#64748B" text-anchor="middle">Scan with any smartphone camera</text>
+    <!-- Large White Rounded Card with QR Code AND Official Logo -->
+    <g transform="translate(776, 126)">
+      <rect x="0" y="0" width="532" height="480" rx="24" fill="#FFFFFF" stroke="#0B0F19" stroke-width="3.5" />
+      
+      <!-- Official Logo placed directly on the QR card -->
+      <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="126" y="14" width="280" height="70" preserveAspectRatio="xMidYMid meet" />
+      
+      <!-- QR Image Centered -->
+      <image href="${qrDataUrl}" x="106" y="90" width="320" height="320" />
+      
+      <text x="266" y="434" class="font-sans" font-size="14" font-weight="800" fill="#0B0F19" text-anchor="middle">🔒 100% PRIVATE • NO APP REQUIRED</text>
+      <text x="266" y="456" class="font-sans" font-size="12" font-weight="600" fill="#64748B" text-anchor="middle">Scan with any smartphone camera</text>
     </g>
 
     <!-- Bottom White Action Pill Button -->
@@ -408,7 +401,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     }
 
     // ─────────────────────────────────────────────────────────────
-    // FORMAT 3: SQUARE DECAL FORMAT (1080x1080 for Bike / Glass)
+    // FORMAT 3: SQUARE DECAL FORMAT (Logo + QR Code for Bike / Glass)
     // ─────────────────────────────────────────────────────────────
     else {
       return `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" style="background:#FFFFFF;">
@@ -440,12 +433,18 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       <text x="492" y="74" class="font-sans" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">Scan QR with phone camera to send an instant private alert</text>
     </g>
 
-    <!-- Large White QR Card -->
+    <!-- Large White QR Card with Official Logo -->
     <g transform="translate(48, 184)">
       <rect x="0" y="0" width="984" height="630" rx="28" fill="#FFFFFF" stroke="#0B0F19" stroke-width="4.5" />
-      <image href="${qrDataUrl}" x="242" y="32" width="500" height="500" />
-      <text x="492" y="570" class="font-sans" font-size="20" font-weight="900" fill="#0B0F19" text-anchor="middle">📷 SCAN WITH ANY PHONE CAMERA</text>
-      <text x="492" y="602" class="font-sans" font-size="15" font-weight="700" fill="#64748B" text-anchor="middle">No App Download • No Login • 100% Free &amp; Private</text>
+      
+      <!-- Official Logo above the QR code -->
+      <image href="${PARKSIGNAL_FULL_LOGO_B64}" x="312" y="16" width="360" height="90" preserveAspectRatio="xMidYMid meet" />
+      
+      <!-- QR Image Centered -->
+      <image href="${qrDataUrl}" x="272" y="112" width="440" height="440" />
+      
+      <text x="492" y="582" class="font-sans" font-size="20" font-weight="900" fill="#0B0F19" text-anchor="middle">📷 SCAN WITH ANY PHONE CAMERA</text>
+      <text x="492" y="608" class="font-sans" font-size="14" font-weight="700" fill="#64748B" text-anchor="middle">No App Download • No Login • 100% Free &amp; Private</text>
     </g>
 
     <!-- HSRP License Plate -->
@@ -524,12 +523,12 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/90 backdrop-blur-md animate-fadeIn">
       <div className="relative w-full max-w-4xl bg-neutral-900 text-white rounded-3xl shadow-2xl border border-neutral-800 overflow-hidden flex flex-col max-h-[96vh]">
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-neutral-800 bg-neutral-950/80">
+        <div className="flex items-center justify-between p-3.5 sm:p-4 border-b border-neutral-800 bg-neutral-950/80">
           <div className="flex items-center gap-3">
             <ParkSignalLogo variant="emblem" height={36} />
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-lg font-black text-white flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
                   <span>Printable Windshield Sticker</span>
                   <span className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-full bg-amber-400 text-black">
                     Official Commercial Pass
@@ -550,7 +549,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
         </div>
 
         {/* Toolbar: Design Layouts, Color Schemes, Guide */}
-        <div className="px-4 py-3 bg-neutral-950/95 border-b border-neutral-800 flex flex-wrap items-center justify-between gap-3">
+        <div className="px-4 py-2.5 bg-neutral-950/95 border-b border-neutral-800 flex flex-wrap items-center justify-between gap-2.5">
           {/* Layout Selection */}
           <div className="flex items-center gap-1.5 text-xs">
             <span className="font-bold text-neutral-400 text-[11px]">Design:</span>
@@ -630,10 +629,10 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
         </div>
 
         {/* Live Vector SVG Preview Container */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 flex flex-col items-center justify-center bg-black/80">
+        <div className="p-3 sm:p-5 overflow-y-auto flex-1 flex flex-col items-center justify-center bg-black/80">
           <div className="relative w-full max-w-3xl flex items-center justify-center">
             {showCutBorder && (
-              <div className="absolute -inset-2.5 border-2 border-dashed border-neutral-500/50 rounded-[36px] pointer-events-none flex items-start justify-center pt-0.5">
+              <div className="absolute -inset-2 border-2 border-dashed border-neutral-500/50 rounded-[34px] pointer-events-none flex items-start justify-center pt-0.5">
                 <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-400 bg-neutral-900 px-3 py-0.5 rounded-full border border-neutral-700">
                   ✂ Cut along dotted guide &amp; place on windshield facing outward ✂
                 </span>
@@ -657,16 +656,16 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
             )}
           </div>
 
-          <div className="mt-4 text-xs text-neutral-400 text-center flex items-center gap-2">
+          <div className="mt-3 text-xs text-neutral-400 text-center flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
             <span>
-              <strong>100% Authentic Commercial Grade:</strong> Vector-sharp graphics with official ParkSignal Logo, 7 situation icons, and HSRP number plate. Zero blur, ready for print!
+              <strong>100% Commercial Standard:</strong> Official ParkSignal logo with dissolving QR pixels embedded directly with the QR code. Ready for print!
             </span>
           </div>
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 sm:p-5 border-t border-neutral-800 bg-neutral-950/80 flex flex-wrap items-center justify-between gap-3">
+        <div className="p-3.5 sm:p-4 border-t border-neutral-800 bg-neutral-950/80 flex flex-wrap items-center justify-between gap-3">
           {downloadSuccess ? (
             <div className="w-full text-center text-xs font-semibold text-emerald-400 flex items-center justify-center gap-1 pb-1">
               <Check className="w-4 h-4" /> {downloadSuccess}
