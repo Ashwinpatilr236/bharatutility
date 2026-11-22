@@ -213,6 +213,15 @@ function parseCurrentLocation(): { view: ViewMode; redirectPath?: string } {
 
   // ── ParkSignal QR Parking Alert System Routes ──
   if (cleanPath === '/parksignal' || cleanPath === '/parksignal/') {
+    try {
+      if (typeof window !== 'undefined' && window.location.search) {
+        const params = new URLSearchParams(window.location.search);
+        const scanToken = params.get('scan') || params.get('token') || params.get('alert');
+        if (scanToken) {
+          return { view: { type: 'parksignal', subView: 'alert', token: scanToken } };
+        }
+      }
+    } catch {}
     return { view: { type: 'parksignal', subView: 'landing' } };
   }
   if (cleanPath === '/parksignal/register') {

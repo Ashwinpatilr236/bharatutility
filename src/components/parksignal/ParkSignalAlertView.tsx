@@ -16,7 +16,9 @@ import {
   HelpCircle,
   PhoneCall,
   Lock,
-  ArrowRight
+  ArrowRight,
+  Sparkles,
+  QrCode
 } from 'lucide-react';
 import { parkSignalService } from '../../services/parkSignalService';
 import { ParkSignalPublicVehicle } from '../../types';
@@ -169,12 +171,12 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
       if (res.success && res.delivered) {
         setResultState({
           status: 'success',
-          message: 'Voice message delivered to vehicle owner via Telegram @ParkSignal_bot!'
+          message: 'Voice alert delivered directly to the vehicle owner!'
         });
       } else {
         setResultState({
           status: 'failed',
-          message: res.error || 'Failed to deliver voice alert. Please try sending a standard text message.'
+          message: res.error || 'Failed to deliver voice alert. Please try sending a quick text alert instead.'
         });
       }
     } else {
@@ -183,12 +185,12 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
       if (res.success && res.delivered) {
         setResultState({
           status: 'success',
-          message: 'Parking alert delivered to the vehicle owner successfully!'
+          message: 'Parking alert delivered to the vehicle owner instantly!'
         });
       } else {
         setResultState({
           status: 'failed',
-          message: res.error || 'Delivery failed. The owner might not have connected Telegram notifications yet.'
+          message: res.error || 'Delivery failed. The owner might not be currently receiving notifications.'
         });
       }
     }
@@ -302,10 +304,10 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
         </div>
 
         {/* Reassurance Banner */}
-        <div className="bg-neutral-50 dark:bg-neutral-800/60 p-3 rounded-2xl text-[11px] text-neutral-600 dark:text-neutral-400 flex items-start gap-2 border border-neutral-200/50 dark:border-neutral-700/50">
-          <Lock className="w-3.5 h-3.5 text-neutral-500 shrink-0 mt-0.5" />
+        <div className="bg-emerald-50/80 dark:bg-emerald-950/30 p-3 rounded-2xl text-[11px] text-emerald-800 dark:text-emerald-300 flex items-start gap-2 border border-emerald-200/60 dark:border-emerald-900/40">
+          <Lock className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
           <span>
-            <strong>Zero Personal Data Sharing:</strong> Your identity and phone number will NOT be asked or shared. The owner will receive this alert instantly on Telegram via <strong>@ParkSignal_bot</strong>.
+            <strong>100% Private & Anonymous:</strong> Your mobile number and identity are NEVER collected or shared. The vehicle owner receives your polite alert instantly on their private phone.
           </span>
         </div>
       </div>
@@ -434,14 +436,14 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           </div>
           <div className="space-y-1">
             <h3 className="text-xl font-black text-emerald-900 dark:text-emerald-100">
-              Alert Sent Successfully!
+              Alert Delivered Successfully!
             </h3>
             <p className="text-xs text-emerald-700 dark:text-emerald-300">
               {resultState.message}
             </p>
           </div>
-          <p className="text-[11px] text-neutral-500">
-            The owner has been notified on their Telegram app. Thank you for helping keep parking safe and considerate.
+          <p className="text-[11px] text-neutral-600 dark:text-neutral-400">
+            The vehicle owner has been privately notified on their phone. Thank you for helping keep parking safe and considerate!
           </p>
           <button
             onClick={() => {
@@ -450,7 +452,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
               setCustomMessage('');
               deleteRecording();
             }}
-            className="px-5 py-2.5 rounded-xl bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 font-bold text-xs border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 transition-colors"
+            className="px-5 py-2.5 rounded-xl bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 font-bold text-xs border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 transition-colors cursor-pointer"
           >
             Send Another Alert
           </button>
@@ -634,7 +636,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             {isSubmitting ? (
               <>
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Dispatching Alert via Telegram...
+                Delivering Alert to Owner...
               </>
             ) : (
               <>
@@ -645,15 +647,67 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
         </form>
       )}
 
-      {/* Footer Info */}
-      <div className="text-center space-y-2 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60">
-        <div className="text-[11px] text-neutral-500 flex items-center justify-center gap-1.5">
-          <span>Powered by <strong>ParkSignal</strong></span>
-          <span>•</span>
-          <span>Official Telegram: <strong>@ParkSignal_bot</strong></span>
+      {/* ── STORY CARD: WHAT IS PARKSIGNAL? ── */}
+      <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 rounded-3xl p-5 sm:p-7 border border-indigo-500/30 text-white space-y-4 shadow-xl">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-cyan-400" />
+            <span className="text-[11px] uppercase font-black tracking-wider text-cyan-400">
+              Do You Own a Car or Bike?
+            </span>
+          </div>
+          <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            100% Free Forever
+          </span>
         </div>
-        <p className="text-[10px] text-neutral-400">
-          Want a free QR sticker for your vehicle? Visit <a href="/parksignal" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">bharatutility.tech/parksignal</a>
+
+        <div className="space-y-2">
+          <h3 className="text-base sm:text-lg font-black font-display text-white">
+            Never leave your phone number on your dashboard again.
+          </h3>
+          <p className="text-xs text-slate-300 leading-relaxed">
+            Ever been blocked by another car in a crowded market or mall? Or worried about leaving your mobile number on a paper slip where anyone walking by can save it and harass you?
+          </p>
+          <p className="text-xs text-slate-300 leading-relaxed">
+            <strong>ParkSignal</strong> gives your vehicle a <strong>Smart Privacy QR Sticker</strong>. If your car is blocking someone, if lights are left on, or in an emergency, anyone can notify you in 5 seconds without ever seeing your phone number.
+          </p>
+        </div>
+
+        {/* 3 Quick Value Bullets */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
+          <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
+            <Lock className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+            <span className="text-slate-200">Zero Spam Calls</span>
+          </div>
+          <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span className="text-slate-200">Total Driver Privacy</span>
+          </div>
+          <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
+            <QrCode className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <span className="text-slate-200">Free Printable QR</span>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <div className="pt-2">
+          <a
+            href="/parksignal"
+            className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
+          >
+            <span>Create Your Free Vehicle QR Sticker</span>
+            <ArrowRight className="w-4 h-4 text-slate-950" />
+          </a>
+        </div>
+      </div>
+
+      {/* Clean Footer Info */}
+      <div className="text-center space-y-1.5 pt-2">
+        <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
+          Powered by <strong>ParkSignal</strong> • Free Public Utility by <strong>BharatUtility</strong>
+        </p>
+        <p className="text-[10px] text-neutral-400 dark:text-neutral-500">
+          Your vehicle. Your privacy. Scan. Alert. Connect.
         </p>
       </div>
     </div>

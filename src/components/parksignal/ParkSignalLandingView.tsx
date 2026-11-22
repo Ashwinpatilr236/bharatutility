@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { ParkSignalLogo } from './ParkSignalLogo';
+import { ParkSignalScanModal } from './ParkSignalScanModal';
 import {
   Car,
   QrCode,
@@ -17,11 +18,13 @@ import {
   ChevronRight,
   ExternalLink,
   Bot,
-  PhoneCall
+  PhoneCall,
+  Camera
 } from 'lucide-react';
 
 export const ParkSignalLandingView: React.FC = () => {
   const { navigateToParkSignal } = useApp();
+  const [isScanModalOpen, setIsScanModalOpen] = useState(false);
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
@@ -58,15 +61,21 @@ export const ParkSignalLandingView: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
             <button
               onClick={() => navigateToParkSignal('register')}
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm sm:text-base shadow-xl shadow-indigo-600/25 transition-all flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm sm:text-base shadow-xl shadow-indigo-600/25 transition-all flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               <QrCode className="w-5 h-5" /> Generate Free QR Sticker
             </button>
             <button
-              onClick={() => navigateToParkSignal('login')}
-              className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2"
+              onClick={() => setIsScanModalOpen(true)}
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white dark:bg-neutral-900 border-2 border-indigo-500/30 hover:border-indigo-500 text-indigo-600 dark:text-indigo-400 font-extrabold text-sm sm:text-base transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
             >
-              Owner Dashboard <ArrowRight className="w-4 h-4" />
+              <Camera className="w-5 h-5 text-indigo-600 dark:text-indigo-400" /> Scan Vehicle Sticker
+            </button>
+            <button
+              onClick={() => navigateToParkSignal('login')}
+              className="w-full sm:w-auto px-5 py-3.5 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white font-bold text-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              Owner Login <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
@@ -441,6 +450,12 @@ export const ParkSignalLandingView: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Interactive Scan Modal */}
+      <ParkSignalScanModal
+        isOpen={isScanModalOpen}
+        onClose={() => setIsScanModalOpen(false)}
+      />
     </div>
   );
 };

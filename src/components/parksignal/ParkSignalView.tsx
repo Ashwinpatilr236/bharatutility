@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { ParkSignalLandingView } from './ParkSignalLandingView';
 import { ParkSignalRegisterView } from './ParkSignalRegisterView';
@@ -7,12 +7,14 @@ import { ParkSignalDashboardView } from './ParkSignalDashboardView';
 import { ParkSignalAlertView } from './ParkSignalAlertView';
 import { ParkSignalPrivacyView } from './ParkSignalPrivacyView';
 import { ParkSignalHelpView } from './ParkSignalHelpView';
+import { ParkSignalScanModal } from './ParkSignalScanModal';
 import { ParkSignalLogo } from './ParkSignalLogo';
-import { Shield, HelpCircle, ArrowLeft, User } from 'lucide-react';
+import { Shield, HelpCircle, ArrowLeft, User, Camera } from 'lucide-react';
 import { parkSignalService } from '../../services/parkSignalService';
 
 export const ParkSignalView: React.FC = () => {
   const { view, navigateToParkSignal, navigateToHome } = useApp();
+  const [isScanModalOpen, setIsScanModalOpen] = useState(false);
 
   if (view.type !== 'parksignal') return null;
 
@@ -47,6 +49,14 @@ export const ParkSignalView: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsScanModalOpen(true)}
+                className="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 font-bold flex items-center gap-1 border border-indigo-200 dark:border-indigo-800 cursor-pointer"
+                title="Scan or enter vehicle QR code"
+              >
+                <Camera className="w-3.5 h-3.5" />
+                <span>Scan QR</span>
+              </button>
               <button
                 onClick={() => navigateToParkSignal('help')}
                 className="px-2.5 py-1 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 font-semibold"
@@ -91,6 +101,12 @@ export const ParkSignalView: React.FC = () => {
         {view.subView === 'privacy' && <ParkSignalPrivacyView />}
         {view.subView === 'help' && <ParkSignalHelpView />}
       </div>
+
+      {/* Global ParkSignal Scan Modal */}
+      <ParkSignalScanModal
+        isOpen={isScanModalOpen}
+        onClose={() => setIsScanModalOpen(false)}
+      />
     </div>
   );
 };

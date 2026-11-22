@@ -18,6 +18,7 @@ import { TrustSection } from './components/home/TrustSection';
 import { HomeFaqSection } from './components/home/HomeFaqSection';
 import { FinalDiscoveryCtaSection } from './components/home/FinalDiscoveryCtaSection';
 import { SanatanNextShowcaseSection } from './components/home/SanatanNextShowcaseSection';
+import { ParkSignalHomeShowcase } from './components/home/ParkSignalHomeShowcase';
 import { SocialFollow } from './components/common/SocialFollow';
 import { getToolBySlug } from './data/toolsRegistry';
 import { ArrowLeft } from 'lucide-react';
@@ -73,6 +74,9 @@ const AppContent: React.FC = () => {
             <div className="flex flex-col space-y-1.5 sm:space-y-3.5 py-0.5 sm:py-2">
               {/* 1. Hero & Smart Discovery Search */}
               <HeroSection />
+
+              {/* 1.5. ParkSignal Launch Showcase */}
+              <ParkSignalHomeShowcase />
 
               {/* 2. PWA Install App Banner */}
               <PwaInstallBanner />

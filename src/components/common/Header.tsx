@@ -18,6 +18,7 @@ import {
   Download,
   Megaphone,
   BookOpen,
+  Shield,
 } from "lucide-react";
 
 export const Header: React.FC = () => {
@@ -105,6 +106,22 @@ export const Header: React.FC = () => {
               >
                 <BookOpen className="w-3.5 h-3.5 shrink-0" />
                 <span>Guides</span>
+              </Link>
+
+              {/* ParkSignal */}
+              <Link
+                to="/parksignal"
+                className={`whitespace-nowrap shrink-0 px-2 lg:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                  view.type === "parksignal"
+                    ? "bg-indigo-600 text-white shadow-xs"
+                    : "text-neutral-600 dark:text-neutral-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                }`}
+              >
+                <Shield className="w-3.5 h-3.5 shrink-0 text-cyan-500" />
+                <span>ParkSignal</span>
+                <span className="text-[9px] px-1 py-0.2 rounded bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-extrabold uppercase tracking-wider">
+                  NEW
+                </span>
               </Link>
 
               {/* 2. Categories Dropdown */}
@@ -397,6 +414,33 @@ export const Header: React.FC = () => {
                 <span>Install</span>
               </button>
             </div>
+
+            {/* ParkSignal Mobile Quick Launch */}
+            <Link
+              to="/parksignal"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white border border-indigo-500/30 shadow-sm"
+            >
+              <div className="flex items-center gap-2.5">
+                <img
+                  src="/parksignal-emblem-transparent.png"
+                  alt="ParkSignal"
+                  className="w-7 h-7 object-contain"
+                />
+                <div>
+                  <div className="text-xs font-black flex items-center gap-1.5">
+                    <span>ParkSignal</span>
+                    <span className="text-[9px] px-1.5 py-0.2 rounded bg-cyan-400 text-slate-950 font-black">
+                      NEW
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-slate-300">
+                    Vehicle Privacy QR Stickers (100% Free)
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs text-cyan-400 font-bold">Launch →</span>
+            </Link>
 
             <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
               <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-2">
