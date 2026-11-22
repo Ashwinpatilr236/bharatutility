@@ -18,7 +18,10 @@ import {
   Lock,
   ArrowRight,
   Sparkles,
-  QrCode
+  QrCode,
+  MapPin,
+  Star,
+  Navigation
 } from 'lucide-react';
 import { parkSignalService } from '../../services/parkSignalService';
 import { ParkSignalPublicVehicle } from '../../types';
@@ -49,6 +52,19 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [micError, setMicError] = useState<string | null>(null);
+
+  // Optional Location Sharing State
+  const [locationText, setLocationText] = useState<string>('');
+  const [locationCoords, setLocationCoords] = useState<string | null>(null);
+  const [isGettingLocation, setIsGettingLocation] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
+
+  // Customer Review & Rating State
+  const [reviewRating, setReviewRating] = useState<number>(5);
+  const [reviewComment, setReviewComment] = useState<string>('');
+  const [reviewerName, setReviewerName] = useState<string>('');
+  const [reviewSubmitted, setReviewSubmitted] = useState<boolean>(false);
+  const [isSubmittingReview, setIsSubmittingReview] = useState<boolean>(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
@@ -157,7 +173,44 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     }
   };
 
-  // Submit Text Alert
+  // GPS Location Trigger
+  const handleGetLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationError('GPS is not supported by your mobile browser.');
+      return;
+    }
+    setIsGettingLocation(true);
+    setLocationError(null);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setIsGettingLocation(false);
+        const coords = `${pos.coords.latitude.toFixed(6)},${pos.coords.longitude.toFixed(6)}`;
+        setLocationCoords(coords);
+      },
+      (err) => {
+        setIsGettingLocation(false);
+        setLocationError('Unable to fetch GPS. You can type the parking spot or landmark manually.');
+      },
+      { timeout: 8000, enableHighAccuracy: true }
+    );
+  };
+
+  // Submit Review Handler
+  const handleSubmitReview = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmittingReview(true);
+    await parkSignalService.submitReview({
+      rating: reviewRating,
+      reviewerName: reviewerName.trim() || 'Bystander',
+      reviewerRole: 'Bystander',
+      comment: reviewComment.trim() || undefined,
+      vehicleNumber: vehicle?.vehicleNumber || undefined,
+    });
+    setIsSubmittingReview(false);
+    setReviewSubmitted(true);
+  };
+
+  // Submit Alert (Text or Voice)
   const handleSubmitAlert = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!token || !selectedCategory) return;
@@ -166,7 +219,14 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     setResultState({ status: 'idle' });
 
     if (isVoiceMode && audioBlob) {
-      const res = await parkSignalService.sendVoiceAlert(token, selectedCategory, audioBlob, recordingSeconds);
+      const res = await parkSignalService.sendVoiceAlert(
+        token,
+        selectedCategory,
+        audioBlob,
+        recordingSeconds,
+        locationText.trim() || undefined,
+        locationCoords || undefined
+      );
       setIsSubmitting(false);
       if (res.success && res.delivered) {
         setResultState({
@@ -180,7 +240,13 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
         });
       }
     } else {
-      const res = await parkSignalService.sendTextAlert(token, selectedCategory, customMessage);
+      const res = await parkSignalService.sendTextAlert(
+        token,
+        selectedCategory,
+        customMessage.trim() || undefined,
+        locationText.trim() || undefined,
+        locationCoords || undefined
+      );
       setIsSubmitting(false);
       if (res.success && res.delivered) {
         setResultState({
@@ -445,12 +511,81 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           <p className="text-[11px] text-neutral-600 dark:text-neutral-400">
             The vehicle owner has been privately notified on their phone. Thank you for helping keep parking safe and considerate!
           </p>
+
+          {/* ── User Feedback & Rating Card ── */}
+          <div className="p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-emerald-200 dark:border-emerald-800 text-left space-y-3 shadow-xs">
+            {reviewSubmitted ? (
+              <div className="text-center py-2 space-y-1">
+                <span className="text-lg">🎉</span>
+                <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300">
+                  Thank you for your feedback!
+                </p>
+                <p className="text-[11px] text-neutral-500">
+                  Your review has been shared with BharatUtility to help improve parking across India.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitReview} className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-neutral-800 dark:text-neutral-200">
+                    Rate Your Experience:
+                  </span>
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        type="button"
+                        key={star}
+                        onClick={() => setReviewRating(star)}
+                        className="p-1 text-amber-400 hover:scale-110 transition-transform"
+                      >
+                        <Star
+                          className={`w-4 h-4 ${
+                            star <= reviewRating ? 'fill-amber-400 text-amber-400' : 'text-neutral-300'
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <input
+                  type="text"
+                  placeholder="Your Name (Optional, e.g. Bystander / Rahul)"
+                  value={reviewerName}
+                  onChange={(e) => setReviewerName(e.target.value)}
+                  maxLength={60}
+                  className="w-full p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+
+                <textarea
+                  placeholder="How did ParkSignal work for you? Any suggestions?"
+                  value={reviewComment}
+                  onChange={(e) => setReviewComment(e.target.value)}
+                  maxLength={300}
+                  rows={2}
+                  className="w-full p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                />
+
+                <button
+                  type="submit"
+                  disabled={isSubmittingReview}
+                  className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-colors cursor-pointer"
+                >
+                  {isSubmittingReview ? 'Submitting...' : 'Submit Feedback ⭐'}
+                </button>
+              </form>
+            )}
+          </div>
+
           <button
             onClick={() => {
               setResultState({ status: 'idle' });
               setSelectedCategory('');
               setCustomMessage('');
+              setLocationText('');
+              setLocationCoords(null);
               deleteRecording();
+              setReviewSubmitted(false);
             }}
             className="px-5 py-2.5 rounded-xl bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 font-bold text-xs border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 transition-colors cursor-pointer"
           >
@@ -612,6 +747,55 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
               />
             </div>
           )}
+
+          {/* Optional Location / Parking Spot Section */}
+          <div className="p-3.5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/60 dark:border-neutral-700/60 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-indigo-600" />
+                Optional Parking Spot / Location
+              </label>
+              <button
+                type="button"
+                onClick={handleGetLocation}
+                disabled={isGettingLocation}
+                className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+              >
+                <Navigation className="w-3 h-3" />
+                {isGettingLocation ? 'Fetching GPS...' : locationCoords ? 'GPS Attached ✓' : '+ Attach GPS'}
+              </button>
+            </div>
+
+            <input
+              type="text"
+              value={locationText}
+              onChange={(e) => setLocationText(e.target.value)}
+              placeholder="e.g. Basement 1 Pillar C-14, or Opposite Gate 2"
+              maxLength={150}
+              className="w-full p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-xs focus:ring-2 focus:ring-indigo-500 outline-none"
+            />
+
+            {locationCoords && (
+              <div className="flex items-center justify-between text-[11px] px-2.5 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60">
+                <span className="font-mono flex items-center gap-1">
+                  📍 GPS Coordinates: {locationCoords}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setLocationCoords(null)}
+                  className="text-emerald-700 hover:text-rose-600 font-bold ml-2"
+                >
+                  Remove
+                </button>
+              </div>
+            )}
+
+            {locationError && (
+              <p className="text-[11px] text-amber-600 dark:text-amber-400">
+                ⚠️ {locationError}
+              </p>
+            )}
+          </div>
 
           {/* Failure Alert Notice */}
           {resultState.status === 'failed' && (

@@ -615,6 +615,7 @@ export const parkSignalService = {
     vehicleType: string;
     nickname?: string;
     displayPlatePublicly?: boolean;
+    rules?: any;
   }): Promise<{ success: boolean; vehicle?: ParkSignalVehicle; error?: string }> {
     const cur = this.getCurrentUser();
     if (!cur) return { success: false, error: 'Unauthorized' };
@@ -637,6 +638,7 @@ export const parkSignalService = {
           vehicleType: params.vehicleType || 'Car',
           nickname: params.nickname ? params.nickname.trim() : null,
           displayPlatePublicly: params.displayPlatePublicly !== false,
+          rules: params.rules || {},
         }),
       });
 
@@ -964,13 +966,15 @@ export const parkSignalService = {
   async sendTextAlert(
     qrToken: string,
     category: string,
-    customMessage?: string
+    customMessage?: string,
+    locationText?: string,
+    locationCoords?: string
   ): Promise<{ success: boolean; delivered?: boolean; message?: string; error?: string }> {
     const supabase = getSupabase();
     if (supabase && isSupabaseConfigured()) {
       try {
         const { data, error } = await supabase.functions.invoke('parksignal-alert', {
-          body: { qrToken, category, customMessage }
+          body: { qrToken, category, customMessage, locationText, locationCoords }
         });
 
         if (!error && data) {
@@ -1012,7 +1016,9 @@ export const parkSignalService = {
     qrToken: string,
     category: string,
     voiceBlob: Blob,
-    durationSeconds: number
+    durationSeconds: number,
+    locationText?: string,
+    locationCoords?: string
   ): Promise<{ success: boolean; delivered?: boolean; message?: string; error?: string }> {
     const supabase = getSupabase();
     if (supabase && isSupabaseConfigured()) {
@@ -1022,6 +1028,8 @@ export const parkSignalService = {
         formData.append('category', category);
         formData.append('voice', voiceBlob, 'voice_alert.ogg');
         formData.append('durationSeconds', String(durationSeconds));
+        if (locationText) formData.append('locationText', locationText);
+        if (locationCoords) formData.append('locationCoords', locationCoords);
 
         const { data, error } = await supabase.functions.invoke('parksignal-alert', {
           body: formData
@@ -1104,5 +1112,45 @@ export const parkSignalService = {
     const userVehicles = new Set(db.vehicles.filter((v) => v.ownerId === cur.id).map((v) => v.id));
     const userAlerts = db.alerts.filter((a) => !a.vehicle_id || userVehicles.has(a.vehicle_id));
     return { alerts: userAlerts.slice(0, 50) };
+  },
+
+  // ── Customer Reviews & Ratings ──
+  async submitReview(review: {
+    rating: number;
+    reviewerName?: string;
+    reviewerRole?: string;
+    comment?: string;
+    vehicleNumber?: string;
+  }): Promise<{ success: boolean; message?: string; error?: string }> {
+    const supabase = getSupabase();
+    if (supabase && isSupabaseConfigured()) {
+      try {
+        const { data, error } = await supabase.functions.invoke('parksignal-alert', {
+          body: {
+            action: 'submit_review',
+            ...review,
+          }
+        });
+        if (!error && data?.success) {
+          return { success: true, message: 'Thank you for your review! Your feedback helps us protect more vehicles across India.' };
+        }
+      } catch (err: any) {
+        console.warn('Review submission edge function fallback:', err);
+      }
+
+      // Direct insert fallback
+      try {
+        await supabase.from('parksignal_reviews').insert({
+          rating: review.rating,
+          reviewer_name: review.reviewerName || 'Bystander',
+          reviewer_role: review.reviewerRole || 'Bystander',
+          comment: review.comment || null,
+          vehicle_number: review.vehicleNumber || null,
+        });
+        return { success: true, message: 'Thank you for your feedback!' };
+      } catch {}
+    }
+
+    return { success: true, message: 'Thank you for reviewing ParkSignal!' };
   }
 };

@@ -72,6 +72,18 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
   const [newNickname, setNewNickname] = useState('');
   const [newDisplayPlate, setNewDisplayPlate] = useState(true);
   const [isAddingVehicle, setIsAddingVehicle] = useState(false);
+  const [showAdvancedRules, setShowAdvancedRules] = useState(false);
+  const [newVehicleRules, setNewVehicleRules] = useState({
+    allow_blocking: true,
+    allow_move_vehicle: true,
+    allow_emergency: true,
+    allow_child_person_inside: true,
+    allow_lights_on: true,
+    allow_window_door_open: true,
+    allow_damage_alert: true,
+    allow_custom_text: true,
+    allow_voice_messages: false,
+  });
 
   // Vehicle Settings Customizer Modal
   const [settingsVehicle, setSettingsVehicle] = useState<ParkSignalVehicle | null>(null);
@@ -139,7 +151,8 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
       vehicleNumber: newVehicleNumber,
       vehicleType: newVehicleType,
       nickname: newNickname,
-      displayPlatePublicly: newDisplayPlate
+      displayPlatePublicly: newDisplayPlate,
+      rules: newVehicleRules,
     });
     setIsAddingVehicle(false);
 
@@ -569,7 +582,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                         onClick={() => openSettingsModal(v)}
                         className="py-2 px-3 rounded-xl border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold flex items-center gap-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
                       >
-                        <Sliders className="w-3.5 h-3.5" /> Rules
+                        <Sliders className="w-3.5 h-3.5" /> ⚙️ Alert Rules
                       </button>
                       <button
                         onClick={() => handleRegenerateQR(v.id)}
@@ -1263,6 +1276,85 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                 <label htmlFor="displayPlate" className="text-xs text-neutral-700 dark:text-neutral-300 font-medium">
                   Display registration number publicly on scanner page (Uncheck to mask)
                 </label>
+              </div>
+
+              {/* Alert Rules Quick Config */}
+              <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
+                <button
+                  type="button"
+                  onClick={() => setShowAdvancedRules(!showAdvancedRules)}
+                  className="w-full flex items-center justify-between py-2 text-xs font-bold text-neutral-700 dark:text-neutral-300 hover:text-indigo-600 transition-colors"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Sliders className="w-3.5 h-3.5 text-indigo-600" />
+                    Configure Alert Rules (Optional)
+                  </span>
+                  <span className="text-[11px] text-indigo-600">
+                    {showAdvancedRules ? '▲ Hide' : '▼ Customize'}
+                  </span>
+                </button>
+
+                {showAdvancedRules && (
+                  <div className="space-y-2 pt-2 text-xs animate-fadeIn">
+                    <p className="text-[11px] text-neutral-500 pb-1">
+                      Choose which alert categories bystanders can send to this vehicle:
+                    </p>
+                    <label className="flex items-center justify-between p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
+                      <span>🚗 Vehicle blocking car/gate</span>
+                      <input
+                        type="checkbox"
+                        checked={newVehicleRules.allow_blocking}
+                        onChange={(e) => setNewVehicleRules({ ...newVehicleRules, allow_blocking: e.target.checked })}
+                        className="rounded text-indigo-600"
+                      />
+                    </label>
+                    <label className="flex items-center justify-between p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
+                      <span>🅿️ Move vehicle request</span>
+                      <input
+                        type="checkbox"
+                        checked={newVehicleRules.allow_move_vehicle}
+                        onChange={(e) => setNewVehicleRules({ ...newVehicleRules, allow_move_vehicle: e.target.checked })}
+                        className="rounded text-indigo-600"
+                      />
+                    </label>
+                    <label className="flex items-center justify-between p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
+                      <span>⚠️ Emergency alert</span>
+                      <input
+                        type="checkbox"
+                        checked={newVehicleRules.allow_emergency}
+                        onChange={(e) => setNewVehicleRules({ ...newVehicleRules, allow_emergency: e.target.checked })}
+                        className="rounded text-indigo-600"
+                      />
+                    </label>
+                    <label className="flex items-center justify-between p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
+                      <span>💡 Lights left ON</span>
+                      <input
+                        type="checkbox"
+                        checked={newVehicleRules.allow_lights_on}
+                        onChange={(e) => setNewVehicleRules({ ...newVehicleRules, allow_lights_on: e.target.checked })}
+                        className="rounded text-indigo-600"
+                      />
+                    </label>
+                    <label className="flex items-center justify-between p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
+                      <span>🪟 Window or door open</span>
+                      <input
+                        type="checkbox"
+                        checked={newVehicleRules.allow_window_door_open}
+                        onChange={(e) => setNewVehicleRules({ ...newVehicleRules, allow_window_door_open: e.target.checked })}
+                        className="rounded text-indigo-600"
+                      />
+                    </label>
+                    <label className="flex items-center justify-between p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 cursor-pointer">
+                      <span>🎙️ 60-second voice notes</span>
+                      <input
+                        type="checkbox"
+                        checked={newVehicleRules.allow_voice_messages}
+                        onChange={(e) => setNewVehicleRules({ ...newVehicleRules, allow_voice_messages: e.target.checked })}
+                        className="rounded text-indigo-600"
+                      />
+                    </label>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center gap-3 pt-2">

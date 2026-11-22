@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+import { parkSignalService } from '../../services/parkSignalService';
 import { ParkSignalLogo } from './ParkSignalLogo';
 import { ParkSignalScanModal } from './ParkSignalScanModal';
 import {
@@ -19,12 +20,16 @@ import {
   ExternalLink,
   Bot,
   PhoneCall,
-  Camera
+  Camera,
+  MessageSquare,
+  Clock,
+  Sparkles
 } from 'lucide-react';
 
 export const ParkSignalLandingView: React.FC = () => {
   const { navigateToParkSignal } = useApp();
   const [isScanModalOpen, setIsScanModalOpen] = useState(false);
+  const currentUser = parkSignalService.getCurrentUser();
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
@@ -33,8 +38,8 @@ export const ParkSignalLandingView: React.FC = () => {
         <div className="text-center space-y-6 max-w-3xl mx-auto">
           {/* Official Brand Logo Feature Showcase */}
           <div className="flex flex-col items-center justify-center gap-3">
-            <div className="p-4 sm:p-5 rounded-3xl bg-neutral-900/90 dark:bg-black/80 border border-neutral-800 shadow-2xl backdrop-blur-xl inline-block hover:border-cyan-500/50 transition-all duration-300">
-              <ParkSignalLogo variant="full" height={60} theme="dark" className="max-w-full drop-shadow-lg" />
+            <div className="inline-flex items-center justify-center p-2 rounded-2xl transition-all duration-300">
+              <ParkSignalLogo variant="full" height={56} theme="auto" className="max-w-full drop-shadow-md" />
             </div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 text-xs font-bold shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -72,10 +77,10 @@ export const ParkSignalLandingView: React.FC = () => {
               <Camera className="w-5 h-5 text-indigo-600 dark:text-indigo-400" /> Scan Vehicle Sticker
             </button>
             <button
-              onClick={() => navigateToParkSignal('login')}
+              onClick={() => navigateToParkSignal(currentUser ? 'dashboard' : 'login')}
               className="w-full sm:w-auto px-5 py-3.5 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white font-bold text-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
-              Owner Login <ArrowRight className="w-4 h-4" />
+              {currentUser ? 'Open Dashboard' : 'Owner Login'} <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
@@ -254,6 +259,145 @@ export const ParkSignalLandingView: React.FC = () => {
             </div>
             <div className="p-3.5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center gap-2">
               <span>🎙️</span> 60s Voice Messages
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4. NOTIFICATION CHANNELS & SERVICE TIERS ── */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-xl mx-auto mb-8 space-y-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 text-xs font-bold">
+            <Sparkles className="w-3.5 h-3.5" /> Notification Channels
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black font-display text-neutral-900 dark:text-white">
+            How You Receive Parking Alerts
+          </h2>
+          <p className="text-xs sm:text-sm text-neutral-500">
+            Enjoy 100% free unlimited alerts via Telegram today. WhatsApp and SMS channels are in active development.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* Channel 1: Telegram (Active & Free) */}
+          <div className="relative p-6 rounded-3xl bg-gradient-to-b from-blue-50/70 to-indigo-50/40 dark:from-blue-950/30 dark:to-indigo-950/20 border-2 border-blue-500/40 dark:border-blue-500/30 shadow-md space-y-4 flex flex-col justify-between">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500 text-white flex items-center justify-center shadow-md shadow-blue-500/30">
+                  <Bot className="w-6 h-6" />
+                </div>
+                <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-[11px] font-black uppercase tracking-wider border border-emerald-300/60">
+                  🟢 100% Free Forever
+                </span>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
+                  Telegram Bot (@ParkSignal_bot)
+                </h3>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Instant real-time push alerts, quick vehicle commands, and 60-second voice note playback.
+                </p>
+              </div>
+              <ul className="space-y-2 text-xs text-neutral-600 dark:text-neutral-400 pt-2 border-t border-blue-200/50 dark:border-blue-900/40">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Unlimited text & voice alerts</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>No phone number shared ever</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Interactive /myvehicles commands</span>
+                </li>
+              </ul>
+            </div>
+            <a
+              href="https://t.me/ParkSignal_bot"
+              target="_blank"
+              rel="noreferrer"
+              className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer mt-4"
+            >
+              <Bot className="w-4 h-4" /> Open @ParkSignal_bot <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          {/* Channel 2: WhatsApp (Coming Soon - Paid) */}
+          <div className="relative p-6 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4 flex flex-col justify-between opacity-90">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/20">
+                  <MessageSquare className="w-6 h-6" />
+                </div>
+                <span className="px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-[10px] font-black uppercase tracking-wider border border-amber-300/60">
+                  🟡 Coming Soon (Paid)
+                </span>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
+                  WhatsApp Direct Alerts
+                </h3>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Receive verified parking notifications directly inside WhatsApp without sharing numbers.
+                </p>
+              </div>
+              <ul className="space-y-2 text-xs text-neutral-600 dark:text-neutral-400 pt-2 border-t border-neutral-100 dark:border-neutral-800">
+                <li className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Official Meta WhatsApp Cloud API</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Paid subscription / token bundle</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Currently under active development</span>
+                </li>
+              </ul>
+            </div>
+            <div className="w-full py-2.5 px-4 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-xs font-bold text-center mt-4">
+              In Development • Coming Soon
+            </div>
+          </div>
+
+          {/* Channel 3: SMS Alerts (Coming Soon - Paid) */}
+          <div className="relative p-6 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-4 flex flex-col justify-between opacity-90">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center shadow-md shadow-purple-600/20">
+                  <Smartphone className="w-6 h-6" />
+                </div>
+                <span className="px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-[10px] font-black uppercase tracking-wider border border-amber-300/60">
+                  🟡 Coming Soon (Paid)
+                </span>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
+                  SMS / Cellular Alerts
+                </h3>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Offline carrier SMS fallback for when you don't have active internet connectivity.
+                </p>
+              </div>
+              <ul className="space-y-2 text-xs text-neutral-600 dark:text-neutral-400 pt-2 border-t border-neutral-100 dark:border-neutral-800">
+                <li className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Direct Indian telecom DLT route</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Paid cellular gateway bundle</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Currently under active development</span>
+                </li>
+              </ul>
+            </div>
+            <div className="w-full py-2.5 px-4 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-xs font-bold text-center mt-4">
+              In Development • Coming Soon
             </div>
           </div>
         </div>
