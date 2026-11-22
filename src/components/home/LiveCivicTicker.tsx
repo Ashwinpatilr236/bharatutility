@@ -128,13 +128,6 @@ export const LiveCivicTicker: React.FC = () => {
             <span className="text-neutral-500 dark:text-neutral-400">Live Shubh Muhurat</span>
           </button>
         </div>
-
-        {/* 7. Direct Link to All 233 Tools */}
-        <div className="hidden lg:flex items-center gap-2 shrink-0 pl-4 border-l border-neutral-200 dark:border-neutral-800">
-          <span className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 bg-neutral-200/60 dark:bg-neutral-800/60 px-2.5 py-0.5 rounded-md border border-neutral-200/80 dark:border-neutral-700/80">
-            233 Verified Utilities
-          </span>
-        </div>
       </div>
     </div>
   );

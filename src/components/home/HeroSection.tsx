@@ -314,26 +314,6 @@ export const HeroSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Live Scale & Trust Stat Bar - Clean Minimal Layout */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto mb-8 p-3 rounded-2xl bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-800 shadow-sm text-center">
-          <div className="p-2">
-            <span className="block text-base sm:text-xl font-black text-indigo-600 dark:text-indigo-400 font-mono">233+</span>
-            <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Free Utilities</span>
-          </div>
-          <div className="p-2 border-l border-neutral-200/60 dark:border-neutral-800">
-            <span className="block text-base sm:text-xl font-black text-emerald-600 dark:text-emerald-400 font-mono">1.5 Lakh+</span>
-            <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Bank Branches</span>
-          </div>
-          <div className="p-2 border-l border-neutral-200/60 dark:border-neutral-800">
-            <span className="block text-base sm:text-xl font-black text-cyan-600 dark:text-cyan-400 font-mono">45,000+</span>
-            <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Mutual Funds</span>
-          </div>
-          <div className="p-2 border-l border-neutral-200/60 dark:border-neutral-800">
-            <span className="block text-base sm:text-xl font-black text-purple-600 dark:text-purple-400 font-mono">100% Free</span>
-            <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Zero Signups</span>
-          </div>
-        </div>
-
         {/* Featured OTT Stream Finder Banner */}
         <div 
           onClick={() => navigateToTool('ott-stream-finder')}
