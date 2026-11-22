@@ -81,7 +81,7 @@ export const ParkSignalView: React.FC = () => {
                     }`}
                   >
                     <Car className="w-3.5 h-3.5" />
-                    <span>My Vehicles</span>
+                    <span>Vehicles &amp; Stickers</span>
                   </button>
 
                   <button
