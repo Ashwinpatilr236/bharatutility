@@ -16,7 +16,8 @@ import {
   FileCheck,
   ChevronRight,
   ExternalLink,
-  Bot
+  Bot,
+  PhoneCall
 } from 'lucide-react';
 
 export const ParkSignalLandingView: React.FC = () => {
@@ -244,6 +245,124 @@ export const ParkSignalLandingView: React.FC = () => {
             </div>
             <div className="p-3.5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center gap-2">
               <span>🎙️</span> 60s Voice Messages
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4.5. EMERGENCY ADVISORY & 24x7 HELPLINES ── */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-rose-50 dark:bg-rose-950/40 p-5 sm:p-7 rounded-3xl border border-rose-200 dark:border-rose-900/50 space-y-4 shadow-sm">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-2xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+              <PhoneCall className="w-5 h-5 animate-pulse" />
+            </div>
+            <div className="space-y-1">
+              <div className="font-black text-rose-800 dark:text-rose-200 text-base sm:text-lg flex items-center gap-2">
+                <span>Emergency Advisory (Dial 112)</span>
+                <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-rose-600 text-white uppercase font-extrabold tracking-wider">
+                  India 24x7
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm leading-relaxed text-rose-900/80 dark:text-rose-300/80">
+                ParkSignal is designed for polite parking notifications (blocking cars, open windows, lights left on). In life-threatening emergencies, severe road accidents, or medical crises, always call national emergency helplines directly.
+              </p>
+            </div>
+          </div>
+
+          {/* Quick Tap-to-Call Buttons for All Indian Emergency Services */}
+          <div className="space-y-2 pt-2 border-t border-rose-200/60 dark:border-rose-900/40">
+            <span className="text-[11px] uppercase font-bold tracking-wider text-rose-700 dark:text-rose-300 block">
+              Direct Emergency Helplines (Tap to Call 24x7):
+            </span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <a
+                href="tel:112"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-rose-600 text-white hover:bg-rose-700 transition-colors shadow-xs group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-rose-100 font-medium leading-none">All-in-One</span>
+                  <span className="text-xs font-black">112 National</span>
+                </div>
+                <PhoneCall className="w-3.5 h-3.5 text-white/80 group-hover:scale-110 transition-transform" />
+              </a>
+
+              <a
+                href="tel:100"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-400 font-medium leading-none">Police</span>
+                  <span className="text-xs font-black text-rose-700 dark:text-rose-400">100 Control</span>
+                </div>
+                <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
+              </a>
+
+              <a
+                href="tel:101"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-400 font-medium leading-none">Fire Brigade</span>
+                  <span className="text-xs font-black text-rose-700 dark:text-rose-400">101 Rescue</span>
+                </div>
+                <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
+              </a>
+
+              <a
+                href="tel:108"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-400 font-medium leading-none">Ambulance</span>
+                  <span className="text-xs font-black text-rose-700 dark:text-rose-400">108 / 102</span>
+                </div>
+                <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
+              </a>
+
+              <a
+                href="tel:1073"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-400 font-medium leading-none">Road Accident</span>
+                  <span className="text-xs font-black text-rose-700 dark:text-rose-400">1073 Traffic</span>
+                </div>
+                <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
+              </a>
+
+              <a
+                href="tel:1033"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-400 font-medium leading-none">Highway NHAI</span>
+                  <span className="text-xs font-black text-rose-700 dark:text-rose-400">1033 Assist</span>
+                </div>
+                <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
+              </a>
+
+              <a
+                href="tel:1098"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-400 font-medium leading-none">Childline</span>
+                  <span className="text-xs font-black text-rose-700 dark:text-rose-400">1098 Child</span>
+                </div>
+                <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
+              </a>
+
+              <a
+                href="tel:1091"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-rose-200 dark:border-rose-900/50 text-neutral-800 dark:text-neutral-200 hover:border-rose-400 transition-colors shadow-2xs group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-400 font-medium leading-none">Women Safety</span>
+                  <span className="text-xs font-black text-rose-700 dark:text-rose-400">1091 Helpline</span>
+                </div>
+                <PhoneCall className="w-3.5 h-3.5 text-neutral-400 group-hover:text-rose-600" />
+              </a>
             </div>
           </div>
         </div>
