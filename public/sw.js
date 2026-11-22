@@ -3,13 +3,12 @@
  * Progressive Web App offline caching & performance optimization engine
  */
 
-const CACHE_NAME = 'bharatutility-pwa-v2';
+const CACHE_NAME = 'bharatutility-pwa-v4';
 const OFFLINE_FALLBACK_URL = '/';
 
 // Core assets to pre-cache immediately upon install
 const STATIC_ASSETS = [
   '/',
-  '/index.html',
   '/manifest.json',
   '/robots.txt',
   '/icons/icon-192.png',
@@ -18,18 +17,19 @@ const STATIC_ASSETS = [
   '/icons/apple-touch-icon.png',
 ];
 
-// Install Event: Pre-cache core shell assets
+// Install Event: Skip waiting immediately so new code activates without delay
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(STATIC_ASSETS).catch((err) => {
         console.warn('[PWA SW] Pre-cache non-fatal warning:', err);
       });
-    }).then(() => self.skipWaiting())
+    })
   );
 });
 
-// Activate Event: Clear outdated caches and claim clients
+// Activate Event: Clear all outdated caches immediately and claim clients
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -37,7 +37,7 @@ self.addEventListener('activate', (event) => {
         cacheNames
           .filter((name) => name !== CACHE_NAME)
           .map((name) => {
-            console.log('[PWA SW] Removing old cache:', name);
+            console.log('[PWA SW] Removing outdated cache:', name);
             return caches.delete(name);
           })
       );
@@ -51,14 +51,15 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
 
   // Ignore non-GET requests (e.g. POST, PUT, DELETE) and Supabase/API backend calls
-  if (request.method !== 'GET' || url.origin.includes('supabase.co')) {
+  if (request.method !== 'GET' || url.origin.includes('supabase.co') || url.pathname.startsWith('/api/')) {
     return;
   }
 
-  // 1. Navigation / HTML Document requests: Network-First with Cache Fallback
+  // 1. Navigation / HTML Document requests: ALWAYS Network-First
+  // Prevents stale layout blinks on refresh
   if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: 'no-cache' })
         .then((response) => {
           if (response && response.status === 200) {
             const copy = response.clone();
@@ -80,7 +81,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2. Static Assets (JS, CSS, Images, Fonts): Cache-First with Background Revalidation
+  // 2. Static Assets (JS, CSS, Images, Fonts)
   if (
     url.pathname.match(/\.(js|css|png|jpg|jpeg|svg|webp|woff2|woff|ttf|ico)$/) ||
     url.hostname.includes('fonts.googleapis.com') ||
@@ -89,14 +90,6 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
         if (cachedResponse) {
-          // Fetch fresh copy in background for next time (Stale-While-Revalidate)
-          fetch(request)
-            .then((networkResponse) => {
-              if (networkResponse && networkResponse.status === 200) {
-                caches.open(CACHE_NAME).then((cache) => cache.put(request, networkResponse));
-              }
-            })
-            .catch(() => {});
           return cachedResponse;
         }
 

@@ -70,10 +70,16 @@ export const Header: React.FC = () => {
     };
   })();
 
+  const isParkSignalPage = view.type === "parksignal";
+  const shouldShowAnnouncement =
+    formattedAnnouncement &&
+    !isAnnouncementDismissed &&
+    !(isParkSignalPage && (formattedAnnouncement.ctaUrl?.includes("parksignal") || formattedAnnouncement.displayText.toLowerCase().includes("parksignal")));
+
   return (
     <>
-      {/* ── Top Announcement Banner (if any active & not dismissed) ── */}
-      {formattedAnnouncement && !isAnnouncementDismissed && (
+      {/* ── Top Announcement Banner (if any active & not dismissed; suppressed on target page) ── */}
+      {shouldShowAnnouncement && (
         <div className="relative bg-gradient-to-r from-accent via-indigo-600 to-purple-600 text-white text-[11px] py-1.5 px-8 text-center font-medium shadow-2xs flex items-center justify-center gap-2">
           <Megaphone className="w-3.5 h-3.5 animate-pulse shrink-0" />
           <span>{formattedAnnouncement.displayText}</span>
@@ -347,8 +353,8 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* ── Seamless Integrated Live Bharat Ticker ── */}
-        <LiveCivicTicker />
+        {/* ── Seamless Integrated Live Bharat Ticker (Rendered strictly on Home page only) ── */}
+        {view.type === "home" && <LiveCivicTicker />}
 
         {/* ── Mobile Drawer Menu ── */}
         {isMobileMenuOpen && (

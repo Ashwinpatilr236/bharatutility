@@ -26,7 +26,7 @@ export const ParkSignalView: React.FC = () => {
       {/* Sub-navigation bar for ParkSignal (hidden on scanner alert view for maximum focus) */}
       {!isAlertView && (
         <div className="border-b border-neutral-200/70 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md sticky top-14 sm:top-16 z-30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between gap-3 text-xs">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-11 flex items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2">
               <button
                 onClick={navigateToHome}
@@ -41,7 +41,7 @@ export const ParkSignalView: React.FC = () => {
                 className="font-bold flex items-center gap-1.5 hover:opacity-90 transition-opacity"
                 title="ParkSignal by BharatUtility"
               >
-                <ParkSignalLogo variant="emblem" height={26} />
+                <ParkSignalLogo variant="emblem" height={22} />
                 <span className="font-extrabold text-neutral-900 dark:text-white text-xs tracking-tight">
                   PARK<span className="text-cyan-500">SIGNAL</span>
                 </span>

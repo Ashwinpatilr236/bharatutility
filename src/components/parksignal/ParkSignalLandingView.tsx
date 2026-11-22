@@ -33,38 +33,35 @@ export const ParkSignalLandingView: React.FC = () => {
   const currentUser = parkSignalService.getCurrentUser();
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-16">
-      {/* ── 1. HERO SECTION ── */}
-      <section className="relative overflow-hidden pt-8 sm:pt-14 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center space-y-6 max-w-3xl mx-auto">
-          {/* Official Brand Logo Feature Showcase */}
-          <div className="flex flex-col items-center justify-center gap-3">
-            <div className="inline-flex items-center justify-center p-2 rounded-2xl transition-all duration-300">
-              <ParkSignalLogo variant="full" height={56} theme="auto" className="max-w-full drop-shadow-md" />
-            </div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 text-xs font-bold shadow-xs">
+    <div className="space-y-10 sm:space-y-16 pb-12">
+      {/* ── 1. HERO SECTION (Compact, No Duplicate Logos, Zero Wasted Space) ── */}
+      <section className="relative overflow-hidden pt-4 sm:pt-8 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center space-y-4 sm:space-y-5 max-w-3xl mx-auto">
+          {/* Official Badge Pill */}
+          <div className="flex items-center justify-center">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 text-xs font-bold shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               Official Fastag-Size Smart Parking Protection
             </div>
           </div>
 
           {/* Main Title & Tagline */}
-          <div className="space-y-3">
-            <h1 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-neutral-900 dark:text-white leading-[1.15]">
+          <div className="space-y-2">
+            <h1 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-neutral-900 dark:text-white leading-[1.12]">
               Your Vehicle. <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">Your Privacy.</span>
             </h1>
-            <p className="text-base sm:text-xl font-bold text-neutral-600 dark:text-neutral-300">
+            <p className="text-sm sm:text-lg font-bold text-neutral-600 dark:text-neutral-300">
               Instant Windshield QR Alerts via Telegram • Zero Phone Number Sharing
             </p>
           </div>
 
           {/* Subtext */}
-          <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
             Never write your personal phone number on your car dashboard again. Place a smart ParkSignal QR sticker on your windshield. Anyone can send you instant parking alerts or voice notes through Telegram — without ever seeing your phone number or identity.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <button
               onClick={() => navigateToParkSignal('register')}
               className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm sm:text-base shadow-xl shadow-indigo-600/25 transition-all flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
