@@ -38,7 +38,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   const [qrDataUrl, setQrDataUrl] = useState<string>('');
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
 
-  const publicUrl = `https://bharatutility.tech/parksignal/alert/${vehicle.qr_token || 'demo'}`;
+  const publicUrl = `https://bharatutility.tech/parksignal/alert/${vehicle.qr_token || ''}`;
 
   // Generate ultra high-resolution QR data URL on mount or URL change
   useEffect(() => {
