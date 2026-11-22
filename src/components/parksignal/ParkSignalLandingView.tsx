@@ -33,52 +33,52 @@ export const ParkSignalLandingView: React.FC = () => {
   const currentUser = parkSignalService.getCurrentUser();
 
   return (
-    <div className="space-y-10 sm:space-y-16 pb-12">
+    <div className="space-y-6 sm:space-y-10 pb-10">
       {/* ── 1. HERO SECTION (Compact, No Duplicate Logos, Zero Wasted Space) ── */}
-      <section className="relative overflow-hidden pt-4 sm:pt-8 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center space-y-4 sm:space-y-5 max-w-3xl mx-auto">
+      <section className="relative overflow-hidden pt-3 sm:pt-6 pb-4 px-4 sm:px-6 max-w-5xl mx-auto">
+        <div className="text-center space-y-3 sm:space-y-4 max-w-2xl mx-auto">
           {/* Official Badge Pill */}
           <div className="flex items-center justify-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 text-xs font-bold shadow-xs">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200/80 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 text-xs font-bold shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               Official Fastag-Size Smart Parking Protection
             </div>
           </div>
 
           {/* Main Title & Tagline */}
-          <div className="space-y-2">
-            <h1 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-neutral-900 dark:text-white leading-[1.12]">
+          <div className="space-y-1.5">
+            <h1 className="text-2xl sm:text-4xl font-black font-display tracking-tight text-neutral-900 dark:text-white leading-tight">
               Your Vehicle. <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">Your Privacy.</span>
             </h1>
-            <p className="text-sm sm:text-lg font-bold text-neutral-600 dark:text-neutral-300">
+            <p className="text-xs sm:text-base font-bold text-neutral-600 dark:text-neutral-300">
               Instant Windshield QR Alerts via Telegram • Zero Phone Number Sharing
             </p>
           </div>
 
           {/* Subtext */}
-          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed">
             Never write your personal phone number on your car dashboard again. Place a smart ParkSignal QR sticker on your windshield. Anyone can send you instant parking alerts or voice notes through Telegram — without ever seeing your phone number or identity.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-1">
             <button
               onClick={() => navigateToParkSignal('register')}
-              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm sm:text-base shadow-xl shadow-indigo-600/25 transition-all flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-indigo-600/20 transition-all flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
             >
-              <QrCode className="w-5 h-5" /> Generate Free QR Sticker
+              <QrCode className="w-4 h-4" /> Generate Free QR Sticker
             </button>
             <button
               onClick={() => setIsScanModalOpen(true)}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white dark:bg-neutral-900 border-2 border-indigo-500/30 hover:border-indigo-500 text-indigo-600 dark:text-indigo-400 font-extrabold text-sm sm:text-base transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-indigo-500/30 hover:border-indigo-500 text-indigo-600 dark:text-indigo-400 font-extrabold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer"
             >
-              <Camera className="w-5 h-5 text-indigo-600 dark:text-indigo-400" /> Scan Vehicle Sticker
+              <Camera className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Scan Vehicle Sticker
             </button>
             <button
               onClick={() => navigateToParkSignal(currentUser ? 'dashboard' : 'login')}
-              className="w-full sm:w-auto px-5 py-3.5 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white font-bold text-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full sm:w-auto px-4 py-2.5 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white font-bold text-xs transition-all flex items-center justify-center gap-1 cursor-pointer"
             >
-              {currentUser ? 'Open Dashboard' : 'Owner Login'} <ArrowRight className="w-4 h-4" />
+              {currentUser ? 'Open Dashboard' : 'Owner Login'} <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
 

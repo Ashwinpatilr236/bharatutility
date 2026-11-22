@@ -314,52 +314,46 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
-      {/* ── Brand Banner ── */}
-      <div className="flex items-center justify-between">
-        <ParkSignalLogo variant="full" height={36} className="hover:opacity-90 transition-opacity cursor-pointer" />
-        <span className="text-xs text-neutral-500 font-semibold hidden sm:inline-block">
-          Owner Portal • Connected via @ParkSignal_bot
-        </span>
-      </div>
-
-      {/* ── Top Header & Profile Strip ── */}
-      <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 border border-neutral-200/80 dark:border-neutral-800 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-center gap-3.5">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-indigo-600/20">
+    <div className="max-w-6xl mx-auto px-3 sm:px-6 py-3 sm:py-4 space-y-4">
+      {/* ── Top Header & Profile Strip (Compact, Zero Wasted Space) ── */}
+      <div className="bg-white dark:bg-neutral-900 rounded-2xl p-3 sm:p-4 border border-neutral-200/80 dark:border-neutral-800 shadow-xs flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-800 text-white flex items-center justify-center font-black text-sm shadow-xs shrink-0">
             {currentUser?.fullName?.charAt(0) || 'U'}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl font-black font-display text-neutral-900 dark:text-white">
+              <h1 className="text-base font-black font-display text-neutral-900 dark:text-white leading-none">
                 {currentUser?.fullName}
               </h1>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold border border-emerald-500/20">
+              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold border border-emerald-500/20 leading-none">
                 Verified Owner
               </span>
             </div>
-            <p className="text-xs text-neutral-500">{currentUser?.email}</p>
+            <p className="text-[11px] text-neutral-500 mt-0.5">{currentUser?.email}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setShowAddVehicleModal(true)}
-            className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-indigo-600/20 transition-all"
+            className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1 shadow-sm transition-all"
           >
-            <Plus className="w-4 h-4" /> Add Vehicle
+            <Plus className="w-3.5 h-3.5" />
+            <span>Add Vehicle</span>
           </button>
           <button
             onClick={handleLogout}
-            className="px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:text-rose-600 text-xs font-bold flex items-center gap-1.5 transition-colors"
+            className="px-2.5 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:text-rose-600 text-xs font-bold flex items-center gap-1 transition-colors"
           >
-            <LogOut className="w-4 h-4" /> Logout
+            <LogOut className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Logout</span>
           </button>
         </div>
       </div>
 
-      {/* ── Dashboard Navigation Tabs ── */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-2 border-b border-neutral-200 dark:border-neutral-800 text-xs font-bold scrollbar-none">
+      {/* ── Dashboard Navigation Tabs (Compact) ── */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-neutral-200/80 dark:border-neutral-800 text-xs font-bold scrollbar-none">
         <button
           onClick={() => setActiveTab('overview')}
           className={`px-4 py-2 rounded-xl whitespace-nowrap transition-colors flex items-center gap-2 ${
