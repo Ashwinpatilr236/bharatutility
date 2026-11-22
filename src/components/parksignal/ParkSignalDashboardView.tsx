@@ -82,7 +82,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
     allow_window_door_open: true,
     allow_damage_alert: true,
     allow_custom_text: true,
-    allow_voice_messages: false,
+    allow_voice_messages: true,
   });
 
   // Vehicle Settings Customizer Modal
@@ -179,7 +179,7 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
       allow_window_door_open: v.allow_window_door_open !== 0,
       allow_damage_alert: v.allow_damage_alert !== 0,
       allow_custom_text: v.allow_custom_text !== 0,
-      allow_voice_messages: v.allow_voice_messages === 1,
+      allow_voice_messages: Boolean(v.allow_voice_messages),
       max_custom_text_length: v.max_custom_text_length || 200,
       max_voice_duration_seconds: v.max_voice_duration_seconds || 60,
       display_plate_publicly: v.display_plate_publicly !== 0,
@@ -774,8 +774,8 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-neutral-500">Voice Messages:</span>
-                    <span className="font-bold">
-                      {v.allow_voice_messages ? 'Enabled (60s)' : 'Disabled'}
+                    <span className={`font-bold ${Boolean(v.allow_voice_messages) ? 'text-emerald-600 dark:text-emerald-400' : 'text-neutral-400'}`}>
+                      {Boolean(v.allow_voice_messages) ? `🟢 Active (${v.max_voice_duration_seconds || 60}s)` : '⚪ Disabled'}
                     </span>
                   </div>
                 </div>

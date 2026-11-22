@@ -682,15 +682,15 @@ export const parkSignalService = {
           // Insert default vehicle alert settings
           await supabase.from('parksignal_vehicle_settings').insert({
             vehicle_id: vRec.id,
-            allow_blocking: true,
-            allow_move_vehicle: true,
-            allow_emergency: true,
-            allow_child_person_inside: true,
-            allow_lights_on: true,
-            allow_window_door_open: true,
-            allow_damage_alert: true,
-            allow_custom_text: true,
-            allow_voice_messages: false,
+            allow_blocking: params.rules?.allow_blocking !== false,
+            allow_move_vehicle: params.rules?.allow_move_vehicle !== false,
+            allow_emergency: params.rules?.allow_emergency !== false,
+            allow_child_person_inside: params.rules?.allow_child_person_inside !== false,
+            allow_lights_on: params.rules?.allow_lights_on !== false,
+            allow_window_door_open: params.rules?.allow_window_door_open !== false,
+            allow_damage_alert: params.rules?.allow_damage_alert !== false,
+            allow_custom_text: params.rules?.allow_custom_text !== false,
+            allow_voice_messages: Boolean(params.rules?.allow_voice_messages ?? true),
             max_custom_text_length: 200,
             max_voice_duration_seconds: 60
           });
@@ -712,7 +712,7 @@ export const parkSignalService = {
             allow_window_door_open: 1,
             allow_damage_alert: 1,
             allow_custom_text: 1,
-            allow_voice_messages: 0,
+            allow_voice_messages: Boolean(params.rules?.allow_voice_messages ?? true) ? 1 : 0,
             max_custom_text_length: 200,
             max_voice_duration_seconds: 60
           };
@@ -776,7 +776,7 @@ export const parkSignalService = {
             allow_window_door_open: settings.allow_window_door_open !== 0,
             allow_damage_alert: settings.allow_damage_alert !== 0,
             allow_custom_text: settings.allow_custom_text !== 0,
-            allow_voice_messages: settings.allow_voice_messages === 1,
+            allow_voice_messages: Boolean(settings.allow_voice_messages),
             max_custom_text_length: settings.max_custom_text_length || 200,
             max_voice_duration_seconds: settings.max_voice_duration_seconds || 60,
             quiet_hours_enabled: settings.quiet_hours_enabled === 1,
