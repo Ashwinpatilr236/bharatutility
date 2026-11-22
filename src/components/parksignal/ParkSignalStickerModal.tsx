@@ -4,17 +4,16 @@ import { ParkSignalLogo } from './ParkSignalLogo';
 import {
   X,
   Download,
-  ShieldCheck,
   Check,
-  Camera,
   Scissors,
   Sparkles,
   Zap,
   Sun,
   Moon,
   Flame,
-  LayoutTemplate,
-  Layers
+  Layers,
+  AlertTriangle,
+  SplitSquareVertical
 } from 'lucide-react';
 import { ParkSignalVehicle } from '../../types';
 
@@ -24,8 +23,8 @@ interface ParkSignalStickerModalProps {
   onClose: () => void;
 }
 
-type StickerTheme = 'bright_yellow' | 'clean_white' | 'carbon_dark' | 'safety_orange';
-type StickerLayout = 'landscape' | 'square';
+export type StickerLayout = 'hazard' | 'twotone' | 'square';
+export type StickerTheme = 'safety_yellow' | 'emergency_orange' | 'clean_white' | 'carbon_dark';
 
 export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   vehicle,
@@ -34,106 +33,12 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const [selectedTheme, setSelectedTheme] = useState<StickerTheme>('bright_yellow');
-  const [selectedLayout, setSelectedLayout] = useState<StickerLayout>('landscape');
+  const [selectedLayout, setSelectedLayout] = useState<StickerLayout>('hazard');
+  const [selectedTheme, setSelectedTheme] = useState<StickerTheme>('safety_yellow');
   const [showCutBorder, setShowCutBorder] = useState(true);
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
 
   const publicUrl = `https://bharatutility.tech/parksignal/alert/${vehicle.qr_token || 'demo'}`;
-
-  // Attention-Grabbing Color Palettes
-  const themes = {
-    bright_yellow: {
-      id: 'bright_yellow',
-      name: 'Safety Yellow (Recommended)',
-      shortName: 'Safety Yellow',
-      icon: Sun,
-      cardBg: '#FFDE00', // Vibrant Road Safety Yellow
-      cardBorder: '#000000',
-      headerBg: '#090D16',
-      headerText: '#FFFFFF',
-      calloutBg: '#090D16',
-      calloutText: '#FFDE00',
-      calloutSub: '#FFFFFF',
-      qrBg: '#FFFFFF',
-      qrBorder: '#000000',
-      stripBg: '#090D16',
-      stripText: '#FFFFFF',
-      accentPillBg: '#000000',
-      accentPillText: '#FFDE00',
-      footerText: '#000000',
-      footerSub: '#333333',
-      tagline: 'MAXIMUM DAYLIGHT & TINT VISIBILITY'
-    },
-    clean_white: {
-      id: 'clean_white',
-      name: 'Crisp White & Yellow',
-      shortName: 'Crisp White',
-      icon: Zap,
-      cardBg: '#FFFFFF',
-      cardBorder: '#090D16',
-      headerBg: '#090D16',
-      headerText: '#FFFFFF',
-      calloutBg: '#FFDE00',
-      calloutText: '#000000',
-      calloutSub: '#111827',
-      qrBg: '#FFFFFF',
-      qrBorder: '#FFDE00',
-      stripBg: '#F3F4F6',
-      stripText: '#111827',
-      accentPillBg: '#090D16',
-      accentPillText: '#FFDE00',
-      footerText: '#047857',
-      footerSub: '#4B5563',
-      tagline: 'CLEAN EXECUTIVE FINISH'
-    },
-    carbon_dark: {
-      id: 'carbon_dark',
-      name: 'Stealth Carbon Black',
-      shortName: 'Carbon Black',
-      icon: Moon,
-      cardBg: '#090D16',
-      cardBorder: '#FFDE00',
-      headerBg: '#000000',
-      headerText: '#FFFFFF',
-      calloutBg: '#FFDE00',
-      calloutText: '#000000',
-      calloutSub: '#000000',
-      qrBg: '#FFFFFF',
-      qrBorder: '#FFDE00',
-      stripBg: '#1F2937',
-      stripText: '#F9FAFB',
-      accentPillBg: '#1F2937',
-      accentPillText: '#FFDE00',
-      footerText: '#10B981',
-      footerSub: '#9CA3AF',
-      tagline: 'HIGH-CONTRAST NIGHT EDITION'
-    },
-    safety_orange: {
-      id: 'safety_orange',
-      name: 'Emergency Road Orange',
-      shortName: 'Safety Orange',
-      icon: Flame,
-      cardBg: '#FF5722', // High-Alert Road Orange
-      cardBorder: '#000000',
-      headerBg: '#090D16',
-      headerText: '#FFFFFF',
-      calloutBg: '#090D16',
-      calloutText: '#FFCCBC',
-      calloutSub: '#FFFFFF',
-      qrBg: '#FFFFFF',
-      qrBorder: '#000000',
-      stripBg: '#090D16',
-      stripText: '#FFFFFF',
-      accentPillBg: '#000000',
-      accentPillText: '#FFCCBC',
-      footerText: '#000000',
-      footerSub: '#262626',
-      tagline: 'URGENT HAZARD ALERT GRADE'
-    }
-  };
-
-  const currentTheme = themes[selectedTheme];
 
   const displayPlate =
     vehicle.display_plate_publicly === 1
@@ -155,7 +60,273 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     ctx.roundRect(x, y, w, h, r);
   };
 
-  // Helper to draw crisp ParkSignal Car & Radar Emblem on Canvas
+  // Helper: Draw authentic 45-degree Safety Hazard Stripes (Caution Tape)
+  const drawHazardStripes = (
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    stripeW = 26,
+    stripeColor = '#0B0F19',
+    bgColor = '#FFD000'
+  ) => {
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x, y, w, h);
+    ctx.clip();
+
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(x, y, w, h);
+
+    ctx.fillStyle = stripeColor;
+    const totalW = w + h * 2;
+    for (let pos = -h * 2; pos < totalW; pos += stripeW * 2) {
+      ctx.beginPath();
+      ctx.moveTo(x + pos, y);
+      ctx.lineTo(x + pos + stripeW, y);
+      ctx.lineTo(x + pos + stripeW - h, y + h);
+      ctx.lineTo(x + pos - h, y + h);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+  };
+
+  // Helper to draw crisp vector situation icons directly on Canvas
+  const drawIconCircle = (
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    radius: number,
+    bgColor: string,
+    borderColor?: string
+  ) => {
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fillStyle = bgColor;
+    ctx.fill();
+    if (borderColor) {
+      ctx.strokeStyle = borderColor;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+  };
+
+  // Vector Icon: Accident / Collision
+  const drawAccidentIcon = (ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color = '#FFFFFF') => {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    // Left Car
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.45, cy + size * 0.2);
+    ctx.lineTo(cx - size * 0.35, cy - size * 0.05);
+    ctx.lineTo(cx - size * 0.15, cy - size * 0.05);
+    ctx.lineTo(cx - size * 0.05, cy + size * 0.2);
+    ctx.closePath();
+    ctx.stroke();
+
+    // Right Car
+    ctx.beginPath();
+    ctx.moveTo(cx + size * 0.45, cy + size * 0.2);
+    ctx.lineTo(cx + size * 0.35, cy - size * 0.05);
+    ctx.lineTo(cx + size * 0.15, cy - size * 0.05);
+    ctx.lineTo(cx + size * 0.05, cy + size * 0.2);
+    ctx.closePath();
+    ctx.stroke();
+
+    // Impact Starburst in center
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - size * 0.35);
+    ctx.lineTo(cx + size * 0.1, cy - size * 0.15);
+    ctx.lineTo(cx + size * 0.3, cy - size * 0.2);
+    ctx.lineTo(cx + size * 0.15, cy - size * 0.05);
+    ctx.lineTo(cx + size * 0.25, cy + size * 0.15);
+    ctx.lineTo(cx, cy);
+    ctx.lineTo(cx - size * 0.25, cy + size * 0.15);
+    ctx.lineTo(cx - size * 0.15, cy - size * 0.05);
+    ctx.lineTo(cx - size * 0.3, cy - size * 0.2);
+    ctx.lineTo(cx - size * 0.1, cy - size * 0.15);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  };
+
+  // Vector Icon: Parking Badge ("P" inside circle)
+  const drawParkingIcon = (ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color = '#FFFFFF') => {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.45, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Letter P
+    ctx.font = `900 ${Math.round(size * 0.58)}px system-ui, -apple-system, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('P', cx, cy + 1);
+    ctx.restore();
+  };
+
+  // Vector Icon: Breakdown (Crossed Wrench & Spanner)
+  const drawBreakdownIcon = (ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color = '#FFFFFF') => {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+
+    // Tool 1
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.3, cy - size * 0.3);
+    ctx.lineTo(cx + size * 0.3, cy + size * 0.3);
+    ctx.stroke();
+
+    // Tool 2
+    ctx.beginPath();
+    ctx.moveTo(cx + size * 0.3, cy - size * 0.3);
+    ctx.lineTo(cx - size * 0.3, cy + size * 0.3);
+    ctx.stroke();
+
+    // Center bolt
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  // Vector Icon: Towing / Traffic Cone
+  const drawTowingIcon = (ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color = '#FFFFFF') => {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2.5;
+
+    // Traffic cone base
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.4, cy + size * 0.35);
+    ctx.lineTo(cx + size * 0.4, cy + size * 0.35);
+    ctx.stroke();
+
+    // Cone body
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.28, cy + size * 0.32);
+    ctx.lineTo(cx - size * 0.08, cy - size * 0.32);
+    ctx.lineTo(cx + size * 0.08, cy - size * 0.32);
+    ctx.lineTo(cx + size * 0.28, cy + size * 0.32);
+    ctx.closePath();
+    ctx.stroke();
+
+    // White stripe in cone
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.18, cy + size * 0.05);
+    ctx.lineTo(cx + size * 0.18, cy + size * 0.05);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // Vector Icon: Police / Authority Shield
+  const drawPoliceIcon = (ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color = '#FFFFFF') => {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.32, cy - size * 0.3);
+    ctx.lineTo(cx + size * 0.32, cy - size * 0.3);
+    ctx.lineTo(cx + size * 0.32, cy);
+    ctx.quadraticCurveTo(cx + size * 0.32, cy + size * 0.38, cx, cy + size * 0.45);
+    ctx.quadraticCurveTo(cx - size * 0.32, cy + size * 0.38, cx - size * 0.32, cy);
+    ctx.closePath();
+    ctx.stroke();
+
+    // Small star inside shield
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(cx, cy - size * 0.02, size * 0.12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  // Vector Icon: Flat Tyre
+  const drawFlatTyreIcon = (ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color = '#FFFFFF') => {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+
+    // Deflated tyre (oval squished at bottom)
+    ctx.beginPath();
+    ctx.ellipse(cx, cy - size * 0.05, size * 0.36, size * 0.32, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Rim circle
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy - size * 0.05, size * 0.18, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Nail/Puncture entering bottom right
+    ctx.strokeStyle = '#EF4444';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx + size * 0.25, cy + size * 0.38);
+    ctx.lineTo(cx + size * 0.1, cy + size * 0.2);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // Vector Icon: Suspicious / Window Light
+  const drawSuspiciousIcon = (ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color = '#FFFFFF') => {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+
+    // Eye shape
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.38, cy);
+    ctx.quadraticCurveTo(cx, cy - size * 0.28, cx + size * 0.38, cy);
+    ctx.quadraticCurveTo(cx, cy + size * 0.28, cx - size * 0.38, cy);
+    ctx.stroke();
+
+    // Pupil
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.14, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  // Vector Icon: Forgot Item / Key
+  const drawKeyIcon = (ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color = '#FFFFFF') => {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+
+    // Key head
+    ctx.beginPath();
+    ctx.arc(cx - size * 0.15, cy - size * 0.1, size * 0.18, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Key shaft
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - size * 0.02);
+    ctx.lineTo(cx + size * 0.32, cy + size * 0.28);
+    // Key teeth
+    ctx.lineTo(cx + size * 0.38, cy + size * 0.22);
+    ctx.moveTo(cx + size * 0.22, cy + size * 0.18);
+    ctx.lineTo(cx + size * 0.28, cy + size * 0.12);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // Helper to draw ParkSignal Car & Radar Emblem on Canvas
   const drawParkSignalEmblem = (
     ctx: CanvasRenderingContext2D,
     x: number,
@@ -198,7 +369,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     ctx.restore();
   };
 
-  // Render the Master Canvas (What you see is exactly what downloads)
+  // Render the Master Canvas
   const renderMasterCanvas = useCallback(async () => {
     if (!isOpen || !canvasRef.current) return;
 
@@ -206,10 +377,10 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Generate crisp QR in offscreen canvas
+    // Generate crisp QR in offscreen canvas with high error correction
     const qrCanvas = document.createElement('canvas');
     await QRCode.toCanvas(qrCanvas, publicUrl, {
-      width: 520,
+      width: 600,
       margin: 1,
       color: {
         dark: '#050811',
@@ -218,187 +389,174 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       errorCorrectionLevel: 'H',
     });
 
-    const isLandscape = selectedLayout === 'landscape';
-    const W = isLandscape ? 1200 : 1080;
-    const H = isLandscape ? 720 : 1080;
+    // Theme color sets
+    const isThemeOrange = selectedTheme === 'emergency_orange';
+    const isThemeWhite = selectedTheme === 'clean_white';
+    const isThemeDark = selectedTheme === 'carbon_dark';
 
-    canvas.width = W;
-    canvas.height = H;
+    const primaryYellow = isThemeOrange ? '#FF5722' : isThemeWhite ? '#FFFFFF' : isThemeDark ? '#0F172A' : '#FFCE00';
+    const hazardStripeBg = isThemeOrange ? '#FF5722' : isThemeWhite ? '#E2E8F0' : '#FFCE00';
+    const primaryDark = '#090D16';
 
-    // Base background
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, W, H);
+    // ═════════════════════════════════════════════════════════════════
+    // LAYOUT 1: ROAD HAZARD CAUTION TAPE (Commercial Image 2 Style)
+    // ═════════════════════════════════════════════════════════════════
+    if (selectedLayout === 'hazard') {
+      const W = 1360;
+      const H = 760;
+      canvas.width = W;
+      canvas.height = H;
 
-    // Optional Cut Guide Border
-    const pad = showCutBorder ? 22 : 12;
-    if (showCutBorder) {
+      // Base background
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, W, H);
+
+      // Optional Cut Guide Border
+      const pad = showCutBorder ? 26 : 14;
+      if (showCutBorder) {
+        ctx.save();
+        ctx.setLineDash([8, 8]);
+        ctx.strokeStyle = '#94A3B8';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(10, 10, W - 20, H - 20);
+        ctx.fillStyle = '#64748B';
+        ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('✂  CUT ALONG DOTTED LINE & PLACE INSIDE WINDSHIELD FACING OUTWARD  ✂', W / 2, 18);
+        ctx.restore();
+      }
+
+      const cardW = W - pad * 2;
+      const cardH = H - pad * 2;
+      const cornerR = 28;
+
+      // Card Body Fill (Vibrant Yellow / Orange)
+      ctx.fillStyle = primaryYellow;
+      drawRoundRect(ctx, pad, pad, cardW, cardH, cornerR);
+      ctx.fill();
+
+      // Top Hazard Caution Stripe Band
+      const stripeH = 38;
       ctx.save();
-      ctx.setLineDash([8, 8]);
-      ctx.strokeStyle = '#94A3B8';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(8, 8, W - 16, H - 16);
-      ctx.fillStyle = '#64748B';
-      ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('✂  CUT ALONG DOTTED LINE & PLACE INSIDE WINDSHIELD FACING OUTWARD  ✂', W / 2, 17);
+      drawRoundRect(ctx, pad, pad, cardW, cardH, cornerR);
+      ctx.clip();
+      drawHazardStripes(ctx, pad, pad, cardW, stripeH, 24, primaryDark, hazardStripeBg);
+      // Bottom Hazard Caution Stripe Band
+      drawHazardStripes(ctx, pad, pad + cardH - stripeH, cardW, stripeH, 24, primaryDark, hazardStripeBg);
       ctx.restore();
-    }
 
-    const cardW = W - pad * 2;
-    const cardH = H - pad * 2;
-
-    // Outer Card Body
-    ctx.fillStyle = currentTheme.cardBg;
-    drawRoundRect(ctx, pad, pad, cardW, cardH, 26);
-    ctx.fill();
-
-    // Outer Border
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = currentTheme.cardBorder;
-    drawRoundRect(ctx, pad, pad, cardW, cardH, 26);
-    ctx.stroke();
-
-    // ── Helper to draw Brand Header with Crisp Dual Logos ──
-    const drawHeader = (headerH: number, title: string, subtitle: string) => {
-      ctx.fillStyle = currentTheme.headerBg;
-      drawRoundRect(ctx, pad, pad, cardW, headerH, [24, 24, 0, 0]);
-      ctx.fill();
-
-      // 1. Left: BharatUtility Brand Emblem
-      const bX = pad + 22;
-      const bY = pad + (headerH - 46) / 2;
-
-      // Indigo Monogram Box
-      ctx.fillStyle = '#4F46E5';
-      drawRoundRect(ctx, bX, bY, 44, 44, 11);
-      ctx.fill();
-
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '900 22px system-ui, -apple-system, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('₹U', bX + 22, bY + 31);
-
-      // BharatUtility Text
-      ctx.textAlign = 'left';
-      ctx.font = '900 23px system-ui, -apple-system, sans-serif';
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillText('Bharat', bX + 54, bY + 26);
-      ctx.fillStyle = '#818CF8';
-      ctx.fillText('Utility', bX + 130, bY + 26);
-
-      // TECH Tag
-      ctx.fillStyle = '#F59E0B';
-      drawRoundRect(ctx, bX + 214, bY + 10, 44, 20, 5);
-      ctx.fill();
-      ctx.fillStyle = '#000000';
-      ctx.font = '900 11px system-ui, -apple-system, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('TECH', bX + 236, bY + 24);
-
-      // Subtext
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#94A3B8';
-      ctx.font = '700 11px system-ui, -apple-system, sans-serif';
-      ctx.fillText('OFFICIAL CITIZEN UTILITY PLATFORM', bX + 54, bY + 41);
-
-      // 2. Right: Official ParkSignal Emblem & Title
-      const rightEdge = W - pad - 22;
-      drawParkSignalEmblem(ctx, rightEdge - 270, bY - 1, 46);
-
-      ctx.textAlign = 'right';
-      ctx.fillStyle = '#FFDE00';
-      ctx.font = '900 27px system-ui, -apple-system, sans-serif';
-      ctx.fillText(title, rightEdge, bY + 26);
-
-      ctx.fillStyle = '#94A3B8';
-      ctx.font = '800 11px system-ui, -apple-system, sans-serif';
-      ctx.fillText(subtitle, rightEdge, bY + 41);
-    };
-
-    // ─────────────────────────────────────────────────────────────
-    // FORMAT 1: LANDSCAPE CARD (FASTAG SIZE - 1200x720)
-    // ─────────────────────────────────────────────────────────────
-    if (isLandscape) {
-      const headerH = 78;
-      drawHeader(headerH, 'PARKSIGNAL', 'FASTAG-SIZE SMART VEHICLE PASS');
-
-      // ── LEFT COLUMN: QR CODE CARD ──
-      const qrBoxX = pad + 20;
-      const qrBoxY = pad + headerH + 16;
-      const qrBoxW = 430;
-      const qrBoxH = cardH - headerH - 32;
-
-      ctx.fillStyle = currentTheme.qrBg;
-      drawRoundRect(ctx, qrBoxX, qrBoxY, qrBoxW, qrBoxH, 20);
-      ctx.fill();
-
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = currentTheme.qrBorder;
-      drawRoundRect(ctx, qrBoxX, qrBoxY, qrBoxW, qrBoxH, 20);
+      // Outer Card Border
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = primaryDark;
+      drawRoundRect(ctx, pad, pad, cardW, cardH, cornerR);
       ctx.stroke();
 
-      // Draw QR Code centered with breathing room
-      const qrActual = 370;
-      ctx.drawImage(qrCanvas, qrBoxX + (qrBoxW - qrActual) / 2, qrBoxY + 16, qrActual, qrActual);
+      // Content Boundaries inside the stripes
+      const contentY = pad + stripeH + 14;
 
-      // Below QR: Scanner instruction badge
-      const qrFootY = qrBoxY + qrActual + 22;
-      const qrFootH = 64;
-      ctx.fillStyle = '#090D16';
-      drawRoundRect(ctx, qrBoxX + 16, qrFootY, qrBoxW - 32, qrFootH, 14);
+      // ── LEFT SIDE: LARGE WHITE ROUNDED CARD WITH QR CODE ──
+      const qrBoxW = 460;
+      const qrBoxH = cardH - stripeH * 2 - 28;
+      const qrBoxX = pad + 24;
+      const qrBoxY = contentY;
+
+      ctx.fillStyle = '#FFFFFF';
+      drawRoundRect(ctx, qrBoxX, qrBoxY, qrBoxW, qrBoxH, 22);
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = primaryDark;
+      drawRoundRect(ctx, qrBoxX, qrBoxY, qrBoxW, qrBoxH, 22);
+      ctx.stroke();
+
+      // Draw high-res QR Code
+      const qrSize = 390;
+      const qrOffset = (qrBoxW - qrSize) / 2;
+      ctx.drawImage(qrCanvas, qrBoxX + qrOffset, qrBoxY + 16, qrSize, qrSize);
+
+      // Bottom Scanner Guide inside QR box
+      const scanPillY = qrBoxY + qrSize + 24;
+      const scanPillH = 56;
+      ctx.fillStyle = primaryDark;
+      drawRoundRect(ctx, qrBoxX + 16, scanPillY, qrBoxW - 32, scanPillH, 14);
       ctx.fill();
 
       ctx.fillStyle = '#FFDE00';
       ctx.font = '900 16px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('📷 SCAN WITH PHONE CAMERA', qrBoxX + qrBoxW / 2, qrFootY + 28);
+      ctx.fillText('📷 SCAN WITH PHONE CAMERA', qrBoxX + qrBoxW / 2, scanPillY + 26);
 
-      ctx.fillStyle = '#94A3B8';
+      ctx.fillStyle = '#FFFFFF';
       ctx.font = '700 12px system-ui, -apple-system, sans-serif';
-      ctx.fillText('No App Download • Works on Any Phone', qrBoxX + qrBoxW / 2, qrFootY + 48);
+      ctx.fillText('NO APP DOWNLOAD • 100% PRIVATE & FREE', qrBoxX + qrBoxW / 2, scanPillY + 44);
 
-      // ── RIGHT COLUMN: USER & SCANNER GUIDES ──
-      const rightX = qrBoxX + qrBoxW + 20;
-      const rightW = W - pad - rightX - 20;
+      // ── RIGHT SIDE: MAIN COPY & SITUATION ICONS (ProfileTap style) ──
+      const rightX = qrBoxX + qrBoxW + 28;
+      const rightW = W - pad - rightX - 24;
 
-      // 1. High-Impact Urgent Callout Banner
-      const calloutH = 94;
-      ctx.fillStyle = currentTheme.calloutBg;
-      drawRoundRect(ctx, rightX, qrBoxY, rightW, calloutH, 18);
-      ctx.fill();
-
-      // Heading with safety check against text overflow
-      const calloutHead = '🚨 NEED THIS VEHICLE MOVED?';
-      let calloutHeadSize = 26;
-      ctx.font = `900 ${calloutHeadSize}px system-ui, -apple-system, sans-serif`;
-      while (ctx.measureText(calloutHead).width > rightW - 40 && calloutHeadSize > 18) {
-        calloutHeadSize -= 1;
-        ctx.font = `900 ${calloutHeadSize}px system-ui, -apple-system, sans-serif`;
-      }
+      // 1. Big Bold Headline: "Scan the QR to contact the vehicle owner in case of emergency"
       ctx.textAlign = 'left';
-      ctx.fillStyle = currentTheme.calloutText;
-      ctx.fillText(calloutHead, rightX + 20, qrBoxY + 38);
+      ctx.fillStyle = primaryDark;
+      ctx.font = '900 34px system-ui, -apple-system, sans-serif';
+      ctx.fillText('Scan the QR to contact the', rightX, contentY + 36);
 
-      const calloutSub = 'Wrong parking or emergency? Alert owner privately in 5 seconds.';
-      ctx.fillStyle = currentTheme.calloutSub;
-      ctx.font = '800 16px system-ui, -apple-system, sans-serif';
-      ctx.fillText(calloutSub, rightX + 20, qrBoxY + 70);
+      ctx.font = '900 38px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = isThemeOrange ? '#FFFFFF' : '#000000';
+      ctx.fillText('vehicle owner in case of emergency', rightX, contentY + 76);
 
-      // 2. Authentic Indian HSRP Number Plate Badge
-      const plateY = qrBoxY + calloutH + 14;
-      const plateH = 82;
+      // 2. Horizontal Row of 6 Situation Icons (Accident, Police, Breakdown, Towing, Safety, Parking)
+      const iconRowY = contentY + 104;
+      const icons = [
+        { label: 'ACCIDENT', draw: drawAccidentIcon },
+        { label: 'POLICE', draw: drawPoliceIcon },
+        { label: 'BREAKDOWN', draw: drawBreakdownIcon },
+        { label: 'TOWING', draw: drawTowingIcon },
+        { label: 'SAFETY', draw: drawSuspiciousIcon },
+        { label: 'PARKING', draw: drawParkingIcon },
+      ];
+
+      const iconCount = icons.length;
+      const iconGap = (rightW - iconCount * 76) / (iconCount - 1);
+
+      icons.forEach((item, idx) => {
+        const iX = rightX + idx * (76 + iconGap);
+        const circleCenterX = iX + 38;
+        const circleCenterY = iconRowY + 36;
+
+        // Dark circle background
+        drawIconCircle(ctx, circleCenterX, circleCenterY, 32, primaryDark);
+
+        // Vector icon drawn crisp in gold/white
+        item.draw(ctx, circleCenterX, circleCenterY, 34, '#FFDE00');
+
+        // Label below icon
+        ctx.fillStyle = primaryDark;
+        ctx.font = '900 11px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(item.label, circleCenterX, iconRowY + 88);
+      });
+
+      // 3. Clear Instruction Paragraph (Exactly like Image 2)
+      const descY = iconRowY + 116;
+      ctx.textAlign = 'left';
+      ctx.fillStyle = primaryDark;
+      ctx.font = '700 16px system-ui, -apple-system, sans-serif';
+      ctx.fillText('Facing a parking issue or emergency? Notice something wrong with the vehicle?', rightX, descY);
+      ctx.fillText('Please scan the QR tag to contact the owner privately in seconds.', rightX, descY + 22);
+
+      // 4. Authentic Indian HSRP License Plate Strip
+      const plateY = descY + 44;
+      const plateH = 78;
 
       ctx.fillStyle = '#FFFFFF';
       drawRoundRect(ctx, rightX, plateY, rightW, plateH, 16);
       ctx.fill();
-
       ctx.lineWidth = 3;
-      ctx.strokeStyle = '#000000';
+      ctx.strokeStyle = primaryDark;
       drawRoundRect(ctx, rightX, plateY, rightW, plateH, 16);
       ctx.stroke();
 
       // Blue IND Band
-      const indBandW = 74;
+      const indBandW = 76;
       ctx.fillStyle = '#003399';
       drawRoundRect(ctx, rightX, plateY, indBandW, plateH, [13, 0, 0, 13]);
       ctx.fill();
@@ -407,149 +565,348 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       ctx.strokeStyle = '#FFFFFF';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.arc(rightX + indBandW / 2, plateY + 28, 9, 0, 2 * Math.PI);
+      ctx.arc(rightX + indBandW / 2, plateY + 26, 9, 0, 2 * Math.PI);
       ctx.stroke();
 
       ctx.fillStyle = '#FFFFFF';
       ctx.font = '900 18px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('IND', rightX + indBandW / 2, plateY + 58);
+      ctx.fillText('IND', rightX + indBandW / 2, plateY + 56);
 
-      // Plate Text with dynamic font scaling to strictly prevent border collisions
-      const plateAvailableW = rightW - indBandW - 30;
-      const plateCenter = rightX + indBandW + plateAvailableW / 2;
+      // Plate Text with dynamic scaling
+      const plateAvailW = rightW - indBandW - 30;
+      const plateCenter = rightX + indBandW + plateAvailW / 2;
       const plateText = `${vehicle.vehicle_type.toUpperCase()}  •  ${displayPlate}`;
 
       let plateFontSize = 38;
       ctx.font = `900 ${plateFontSize}px monospace`;
-      while (ctx.measureText(plateText).width > plateAvailableW && plateFontSize > 20) {
+      while (ctx.measureText(plateText).width > plateAvailW && plateFontSize > 20) {
         plateFontSize -= 2;
         ctx.font = `900 ${plateFontSize}px monospace`;
       }
       ctx.fillStyle = '#0F172A';
       ctx.textAlign = 'center';
-      ctx.fillText(plateText, plateCenter, plateY + 52);
+      ctx.fillText(plateText, plateCenter, plateY + 50);
 
-      // 3. Clear 3-Step Guide (Large & Easy to Read from Distance)
-      const stepY = plateY + plateH + 14;
-      const stepH = 138;
-
-      ctx.fillStyle = currentTheme.stripBg;
-      drawRoundRect(ctx, rightX, stepY, rightW, stepH, 16);
-      ctx.fill();
-
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = currentTheme.cardBorder;
-      drawRoundRect(ctx, rightX, stepY, rightW, stepH, 16);
-      ctx.stroke();
-
-      ctx.fillStyle = currentTheme.stripText;
+      // 5. Subtle Footer Brand & Watermark
+      const footY = plateY + plateH + 22;
+      ctx.fillStyle = primaryDark;
+      ctx.font = '800 13px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'left';
-      ctx.font = '900 13px system-ui, -apple-system, sans-serif';
-      ctx.fillText('HOW TO ALERT OWNER (QUICK & ANONYMOUS):', rightX + 16, stepY + 24);
+      ctx.fillText('PARKSIGNAL SMART PASS', rightX, footY + 14);
 
-      // 3 Step Columns side-by-side
-      const stepColW = (rightW - 32 - 16) / 3;
-      const steps = [
-        { num: '1', title: 'Open Camera', desc: 'Scan QR with phone' },
-        { num: '2', title: 'Tap Alert', desc: 'Opens in browser' },
-        { num: '3', title: 'Send Note', desc: 'Instant Telegram alert' },
-      ];
-
-      steps.forEach((step, idx) => {
-        const sX = rightX + 16 + idx * (stepColW + 8);
-        const sY = stepY + 34;
-        const sH = 88;
-
-        ctx.fillStyle = '#FFFFFF';
-        drawRoundRect(ctx, sX, sY, stepColW, sH, 12);
-        ctx.fill();
-        ctx.lineWidth = 1.5;
-        ctx.strokeStyle = '#CBD5E1';
-        drawRoundRect(ctx, sX, sY, stepColW, sH, 12);
-        ctx.stroke();
-
-        // Step Number Badge
-        ctx.fillStyle = '#0F172A';
-        drawRoundRect(ctx, sX + 10, sY + 10, 24, 24, 6);
-        ctx.fill();
-        ctx.fillStyle = '#FFDE00';
-        ctx.font = '900 13px system-ui, -apple-system, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText(step.num, sX + 22, sY + 26);
-
-        // Step Title
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#0F172A';
-        ctx.font = '900 13px system-ui, -apple-system, sans-serif';
-        ctx.fillText(step.title, sX + 38, sY + 26);
-
-        // Step Description
-        ctx.fillStyle = '#64748B';
-        ctx.font = '700 11px system-ui, -apple-system, sans-serif';
-        ctx.fillText(step.desc, sX + 10, sY + 54);
-        ctx.fillText('No App Required', sX + 10, sY + 70);
-      });
-
-      // 4. Privacy Footer & Telegram Assurance
-      const footY = stepY + stepH + 14;
-      const footH = 64;
-
-      ctx.fillStyle = currentTheme.accentPillBg;
-      drawRoundRect(ctx, rightX, footY, rightW, footH, 14);
-      ctx.fill();
-
-      ctx.fillStyle = currentTheme.accentPillText;
-      ctx.font = '900 15px system-ui, -apple-system, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('🔒 100% PRIVATE • OWNER PHONE NUMBER IS NEVER SHARED', rightX + rightW / 2, footY + 27);
-
-      ctx.fillStyle = currentTheme.calloutSub;
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#1E293B';
       ctx.font = '700 12px system-ui, -apple-system, sans-serif';
-      ctx.fillText('Direct Telegram Alert • No OTP • Free Instant Delivery • bharatutility.tech/parksignal', rightX + rightW / 2, footY + 47);
+      ctx.fillText('Powered by BharatUtility • bharatutility.tech/parksignal', rightX + rightW, footY + 14);
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // FORMAT 2: SQUARE DECAL FORMAT (1080x1080)
-    // ─────────────────────────────────────────────────────────────
-    else {
-      const headerH = 100;
-      drawHeader(headerH, 'PARKSIGNAL', 'SMART VEHICLE PRIVACY PASS');
+    // ═════════════════════════════════════════════════════════════════
+    // LAYOUT 2: EXECUTIVE TWO-TONE SPLIT (Commercial Image 3 Style)
+    // ═════════════════════════════════════════════════════════════════
+    else if (selectedLayout === 'twotone') {
+      const W = 1360;
+      const H = 760;
+      canvas.width = W;
+      canvas.height = H;
 
-      // 1. Callout Banner
-      const callY = pad + headerH + 20;
-      const callH = 88;
-      ctx.fillStyle = currentTheme.calloutBg;
-      drawRoundRect(ctx, pad + 24, callY, cardW - 48, callH, 18);
+      // Base background
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, W, H);
+
+      // Optional Cut Guide Border
+      const pad = showCutBorder ? 26 : 14;
+      if (showCutBorder) {
+        ctx.save();
+        ctx.setLineDash([8, 8]);
+        ctx.strokeStyle = '#94A3B8';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(10, 10, W - 20, H - 20);
+        ctx.fillStyle = '#64748B';
+        ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('✂  CUT ALONG DOTTED LINE & PLACE INSIDE WINDSHIELD FACING OUTWARD  ✂', W / 2, 18);
+        ctx.restore();
+      }
+
+      const cardW = W - pad * 2;
+      const cardH = H - pad * 2;
+      const cornerR = 28;
+
+      // Split 50% left & 50% right
+      const splitX = pad + cardW * 0.49;
+
+      // Left Half: Obsidian Carbon Black (#0B0F19)
+      ctx.save();
+      drawRoundRect(ctx, pad, pad, cardW, cardH, cornerR);
+      ctx.clip();
+
+      ctx.fillStyle = '#090D16';
+      ctx.fillRect(pad, pad, cardW * 0.49, cardH);
+
+      // Right Half: Vibrant Safety Yellow (#FFD000) or selected color
+      ctx.fillStyle = isThemeOrange ? '#FF5722' : isThemeWhite ? '#FFFFFF' : '#FFCE00';
+      ctx.fillRect(splitX, pad, cardW - (splitX - pad), cardH);
+
+      // ── LEFT SIDE (CARBON BLACK): LOGO, HEADLINE, SITUATION BADGES ──
+      const leftPadX = pad + 38;
+      const leftW = splitX - leftPadX - 28;
+
+      // 1. Brand Logo & Tagline (RepiQR style)
+      drawParkSignalEmblem(ctx, leftPadX, pad + 34, 48);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 28px system-ui, -apple-system, sans-serif';
+      ctx.fillText('PARKSIGNAL', leftPadX + 58, pad + 56);
+
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '800 12px system-ui, -apple-system, sans-serif';
+      ctx.fillText('Family safety, one scan away', leftPadX + 58, pad + 74);
+
+      // Thin separator
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(leftPadX, pad + 98);
+      ctx.lineTo(leftPadX + leftW, pad + 98);
+      ctx.stroke();
+
+      // 2. High-Impact Headline
+      ctx.fillStyle = '#FFCE00';
+      ctx.font = '900 32px system-ui, -apple-system, sans-serif';
+      ctx.fillText('SCAN TO REACH', leftPadX, pad + 138);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 32px system-ui, -apple-system, sans-serif';
+      ctx.fillText('THE OWNER', leftPadX + 266, pad + 138);
+
+      ctx.fillStyle = '#CBD5E1';
+      ctx.font = '800 15px system-ui, -apple-system, sans-serif';
+      ctx.fillText('Both numbers stay 100% private', leftPadX, pad + 168);
+
+      // 3. Situation Badges Grid (5 items matching Image 3)
+      const gridY = pad + 196;
+      const badges = [
+        { label: 'Accident', draw: drawAccidentIcon },
+        { label: 'Parking', draw: drawParkingIcon },
+        { label: 'Flat Tyre', draw: drawFlatTyreIcon },
+        { label: 'Notice suspicious', draw: drawSuspiciousIcon },
+        { label: 'Forgot something', draw: drawKeyIcon },
+      ];
+
+      // Row 1: 3 badges
+      const r1Y = gridY;
+      const col3W = leftW / 3;
+      badges.slice(0, 3).forEach((item, idx) => {
+        const bX = leftPadX + idx * col3W + col3W / 2;
+        drawIconCircle(ctx, bX, r1Y + 30, 26, '#1E293B', '#334155');
+        item.draw(ctx, bX, r1Y + 30, 28, '#FFFFFF');
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '900 12px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(item.label, bX, r1Y + 76);
+      });
+
+      // Row 2: 2 wider badges
+      const r2Y = gridY + 98;
+      const col2W = leftW / 2;
+      badges.slice(3, 5).forEach((item, idx) => {
+        const bX = leftPadX + idx * col2W + col2W / 2;
+        drawIconCircle(ctx, bX, r2Y + 28, 26, '#1E293B', '#334155');
+        item.draw(ctx, bX, r2Y + 28, 28, '#FFFFFF');
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '900 12px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(item.label, bX, r2Y + 72);
+      });
+
+      // 4. Vehicle Plate Badge at Bottom-Left
+      const plateY = pad + cardH - 100;
+      const plateH = 68;
+
+      ctx.fillStyle = '#0F172A';
+      drawRoundRect(ctx, leftPadX, plateY, leftW, plateH, 14);
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#334155';
+      drawRoundRect(ctx, leftPadX, plateY, leftW, plateH, 14);
+      ctx.stroke();
+
+      // IND Blue tag
+      const indW = 56;
+      ctx.fillStyle = '#003399';
+      drawRoundRect(ctx, leftPadX, plateY, indW, plateH, [12, 0, 0, 12]);
+      ctx.fill();
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 15px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('IND', leftPadX + indW / 2, plateY + 40);
+
+      // Plate Number
+      const pAvailW = leftW - indW - 20;
+      const pCenter = leftPadX + indW + pAvailW / 2;
+      const pText = `${vehicle.vehicle_type.toUpperCase()}  •  ${displayPlate}`;
+      let pFontSize = 28;
+      ctx.font = `900 ${pFontSize}px monospace`;
+      while (ctx.measureText(pText).width > pAvailW && pFontSize > 16) {
+        pFontSize -= 2;
+        ctx.font = `900 ${pFontSize}px monospace`;
+      }
+      ctx.fillStyle = '#FFCE00';
+      ctx.textAlign = 'center';
+      ctx.fillText(pText, pCenter, plateY + 43);
+
+      // ── RIGHT SIDE (SAFETY YELLOW): EMERGENCY PILL, WHITE QR CARD, CONTACT BUTTON ──
+      const rightPadX = splitX + 38;
+      const rightW = W - pad - rightPadX - 38;
+
+      // 1. Top Pill: "Scan This QR In Case Of Emergency"
+      const topPillH = 64;
+      const topPillY = pad + 32;
+      ctx.fillStyle = '#090D16';
+      drawRoundRect(ctx, rightPadX, topPillY, rightW, topPillH, 16);
       ctx.fill();
 
-      ctx.fillStyle = currentTheme.calloutText;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 15px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
-      ctx.font = '900 26px system-ui, -apple-system, sans-serif';
-      ctx.fillText('🚨 WRONG PARKING? NEED THIS VEHICLE MOVED?', W / 2, callY + 38);
+      ctx.fillText('Scan This QR', rightPadX + rightW / 2, topPillY + 26);
 
-      ctx.fillStyle = currentTheme.calloutSub;
+      ctx.fillStyle = '#FFDE00';
+      ctx.font = '900 19px system-ui, -apple-system, sans-serif';
+      ctx.fillText('In Case Of Emergency', rightPadX + rightW / 2, topPillY + 50);
+
+      // 2. Large White Rounded QR Card
+      const qrCardY = topPillY + topPillH + 18;
+      const qrCardH = 430;
+      ctx.fillStyle = '#FFFFFF';
+      drawRoundRect(ctx, rightPadX, qrCardY, rightW, qrCardH, 24);
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#090D16';
+      drawRoundRect(ctx, rightPadX, qrCardY, rightW, qrCardH, 24);
+      ctx.stroke();
+
+      // QR Code centered
+      const qrActual = 340;
+      const qrX = rightPadX + (rightW - qrActual) / 2;
+      ctx.drawImage(qrCanvas, qrX, qrCardY + 20, qrActual, qrActual);
+
+      // Website Link below QR
+      ctx.fillStyle = '#090D16';
+      ctx.font = '900 13px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('bharatutility.tech/parksignal', rightPadX + rightW / 2, qrCardY + qrActual + 48);
+
+      // 3. Bottom White Rounded Pill (RepiQR style): "CONTACT TO VEHICLE OWNER"
+      const botPillY = qrCardY + qrCardH + 18;
+      const botPillH = 60;
+      ctx.fillStyle = '#FFFFFF';
+      drawRoundRect(ctx, rightPadX, botPillY, rightW, botPillH, 16);
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#090D16';
+      drawRoundRect(ctx, rightPadX, botPillY, rightW, botPillH, 16);
+      ctx.stroke();
+
+      ctx.fillStyle = '#090D16';
+      ctx.font = '900 17px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('CONTACT TO VEHICLE OWNER / DRIVER', rightPadX + rightW / 2, botPillY + 36);
+
+      ctx.restore();
+
+      // Outer Card Stroke
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = '#090D16';
+      drawRoundRect(ctx, pad, pad, cardW, cardH, cornerR);
+      ctx.stroke();
+    }
+
+    // ═════════════════════════════════════════════════════════════════
+    // LAYOUT 3: SQUARE DECAL FORMAT (1080x1080 for Bike / Glass)
+    // ═════════════════════════════════════════════════════════════════
+    else {
+      const W = 1080;
+      const H = 1080;
+      canvas.width = W;
+      canvas.height = H;
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, W, H);
+
+      const pad = showCutBorder ? 26 : 14;
+      if (showCutBorder) {
+        ctx.save();
+        ctx.setLineDash([8, 8]);
+        ctx.strokeStyle = '#94A3B8';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(10, 10, W - 20, H - 20);
+        ctx.fillStyle = '#64748B';
+        ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('✂  CUT ALONG DOTTED LINE & PLACE INSIDE WINDSHIELD FACING OUTWARD  ✂', W / 2, 18);
+        ctx.restore();
+      }
+
+      const cardW = W - pad * 2;
+      const cardH = H - pad * 2;
+      const cornerR = 28;
+
+      ctx.fillStyle = primaryYellow;
+      drawRoundRect(ctx, pad, pad, cardW, cardH, cornerR);
+      ctx.fill();
+
+      // Hazard Stripes on top and bottom
+      const stripeH = 36;
+      ctx.save();
+      drawRoundRect(ctx, pad, pad, cardW, cardH, cornerR);
+      ctx.clip();
+      drawHazardStripes(ctx, pad, pad, cardW, stripeH, 24, primaryDark, hazardStripeBg);
+      drawHazardStripes(ctx, pad, pad + cardH - stripeH, cardW, stripeH, 24, primaryDark, hazardStripeBg);
+      ctx.restore();
+
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = primaryDark;
+      drawRoundRect(ctx, pad, pad, cardW, cardH, cornerR);
+      ctx.stroke();
+
+      // Header Banner
+      const headY = pad + stripeH + 18;
+      const headH = 88;
+      ctx.fillStyle = primaryDark;
+      drawRoundRect(ctx, pad + 24, headY, cardW - 48, headH, 18);
+      ctx.fill();
+
+      ctx.fillStyle = '#FFDE00';
+      ctx.textAlign = 'center';
+      ctx.font = '900 25px system-ui, -apple-system, sans-serif';
+      ctx.fillText('🚨 WRONG PARKING? NEED THIS VEHICLE MOVED?', W / 2, headY + 38);
+
+      ctx.fillStyle = '#FFFFFF';
       ctx.font = '800 16px system-ui, -apple-system, sans-serif';
-      ctx.fillText('Scan QR with phone camera to send an instant private alert', W / 2, callY + 68);
+      ctx.fillText('Scan QR to contact vehicle owner privately in 5 seconds', W / 2, headY + 66);
 
-      // 2. Large QR Code Box
-      const qrBoxSize = 470;
+      // Large QR Card
+      const qrBoxSize = 480;
       const qrBoxX = (W - qrBoxSize) / 2;
-      const qrBoxY = callY + callH + 20;
+      const qrBoxY = headY + headH + 22;
 
-      ctx.fillStyle = currentTheme.qrBg;
+      ctx.fillStyle = '#FFFFFF';
       drawRoundRect(ctx, qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 24);
       ctx.fill();
-
       ctx.lineWidth = 4;
-      ctx.strokeStyle = currentTheme.qrBorder;
+      ctx.strokeStyle = primaryDark;
       drawRoundRect(ctx, qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 24);
       ctx.stroke();
 
-      ctx.drawImage(qrCanvas, qrBoxX + 20, qrBoxY + 16, qrBoxSize - 40, qrBoxSize - 40);
+      ctx.drawImage(qrCanvas, qrBoxX + 25, qrBoxY + 20, qrBoxSize - 50, qrBoxSize - 50);
 
-      // 3. Authentic Indian HSRP Plate
-      const plateY = qrBoxY + qrBoxSize + 20;
+      // Number Plate
+      const plateY = qrBoxY + qrBoxSize + 22;
       const plateW = cardW - 48;
       const plateH = 82;
       const plateX = (W - plateW) / 2;
@@ -557,13 +914,11 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       ctx.fillStyle = '#FFFFFF';
       drawRoundRect(ctx, plateX, plateY, plateW, plateH, 16);
       ctx.fill();
-
       ctx.lineWidth = 3;
-      ctx.strokeStyle = '#000000';
+      ctx.strokeStyle = primaryDark;
       drawRoundRect(ctx, plateX, plateY, plateW, plateH, 16);
       ctx.stroke();
 
-      // Blue IND Band
       const indW = 76;
       ctx.fillStyle = '#003399';
       drawRoundRect(ctx, plateX, plateY, indW, plateH, [13, 0, 0, 13]);
@@ -580,52 +935,36 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       ctx.textAlign = 'center';
       ctx.fillText('IND', plateX + indW / 2, plateY + 58);
 
-      // Plate Text with dynamic scaling
-      const plateAvailableW = plateW - indW - 30;
-      const plateCenter = plateX + indW + plateAvailableW / 2;
-      const plateText = `${vehicle.vehicle_type.toUpperCase()}  •  ${displayPlate}`;
-
-      let plateFontSize = 38;
-      ctx.font = `900 ${plateFontSize}px monospace`;
-      while (ctx.measureText(plateText).width > plateAvailableW && plateFontSize > 20) {
-        plateFontSize -= 2;
-        ctx.font = `900 ${plateFontSize}px monospace`;
+      const pAvailW = plateW - indW - 30;
+      const pCenter = plateX + indW + pAvailW / 2;
+      const pText = `${vehicle.vehicle_type.toUpperCase()}  •  ${displayPlate}`;
+      let pFontSize = 38;
+      ctx.font = `900 ${pFontSize}px monospace`;
+      while (ctx.measureText(pText).width > pAvailW && pFontSize > 20) {
+        pFontSize -= 2;
+        ctx.font = `900 ${pFontSize}px monospace`;
       }
       ctx.fillStyle = '#0F172A';
       ctx.textAlign = 'center';
-      ctx.fillText(plateText, plateCenter, plateY + 52);
+      ctx.fillText(pText, plateCenter, plateY + 52);
 
-      // 4. Large Steps & Assurance
-      const stepY = plateY + plateH + 16;
-      const stepH = 68;
-
-      ctx.fillStyle = currentTheme.stripBg;
-      drawRoundRect(ctx, plateX, stepY, plateW, stepH, 14);
-      ctx.fill();
-
-      ctx.fillStyle = currentTheme.stripText;
-      ctx.textAlign = 'center';
-      ctx.font = '900 19px system-ui, -apple-system, sans-serif';
-      ctx.fillText('1. Open Camera   ➜   2. Scan QR   ➜   3. Send Alert to Owner', W / 2, stepY + 41);
-
-      // 5. Privacy Footer
-      const footY = stepY + stepH + 20;
-      const footH = 58;
-
-      ctx.fillStyle = currentTheme.accentPillBg;
+      // Privacy Footer
+      const footY = plateY + plateH + 20;
+      const footH = 64;
+      ctx.fillStyle = primaryDark;
       drawRoundRect(ctx, plateX, footY, plateW, footH, 14);
       ctx.fill();
 
-      ctx.fillStyle = currentTheme.accentPillText;
+      ctx.fillStyle = '#FFDE00';
       ctx.textAlign = 'center';
       ctx.font = '900 15px system-ui, -apple-system, sans-serif';
-      ctx.fillText('🔒 100% PRIVATE • NO APP • NO LOGIN • NO PHONE NUMBER SHARED', W / 2, footY + 26);
+      ctx.fillText('🔒 100% PRIVATE • OWNER PHONE NUMBER IS NEVER SHARED', W / 2, footY + 27);
 
-      ctx.fillStyle = currentTheme.calloutSub;
+      ctx.fillStyle = '#CBD5E1';
       ctx.font = '700 12px system-ui, -apple-system, sans-serif';
-      ctx.fillText('Direct Telegram Alert • Fastag Pass • bharatutility.tech/parksignal', W / 2, footY + 45);
+      ctx.fillText('Instant Telegram Alert • No OTP • bharatutility.tech/parksignal', W / 2, footY + 48);
     }
-  }, [isOpen, publicUrl, selectedLayout, selectedTheme, showCutBorder, vehicle.vehicle_number, vehicle.vehicle_type, displayPlate, currentTheme]);
+  }, [isOpen, publicUrl, selectedLayout, selectedTheme, showCutBorder, vehicle.vehicle_number, vehicle.vehicle_type, displayPlate]);
 
   // Re-render master canvas whenever options change
   useEffect(() => {
@@ -659,7 +998,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
                 <h3 className="text-lg font-black text-white flex items-center gap-2">
                   <span>Printable Windshield Sticker</span>
                   <span className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-full bg-amber-400 text-black">
-                    Premium Fastag Pass
+                    Official Commercial Pass
                   </span>
                 </h3>
               </div>
@@ -678,19 +1017,30 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
 
         {/* Toolbar: Format, Colors, Cut Border */}
         <div className="px-4 py-3 bg-neutral-950/90 border-b border-neutral-800 flex flex-wrap items-center justify-between gap-3">
-          {/* Format Selection */}
+          {/* Format Selection with Clear Commercial Names */}
           <div className="flex items-center gap-1.5 text-xs">
-            <span className="font-bold text-neutral-400 text-[11px]">Format:</span>
+            <span className="font-bold text-neutral-400 text-[11px]">Design:</span>
             <button
-              onClick={() => setSelectedLayout('landscape')}
+              onClick={() => setSelectedLayout('hazard')}
               className={`py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all ${
-                selectedLayout === 'landscape'
+                selectedLayout === 'hazard'
                   ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20 font-black'
                   : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
               }`}
             >
-              <LayoutTemplate className="w-3.5 h-3.5 rotate-90" />
-              <span>🚘 Landscape Card (Fastag Size)</span>
+              <AlertTriangle className="w-3.5 h-3.5 text-black" />
+              <span>🚧 Road Hazard Caution</span>
+            </button>
+            <button
+              onClick={() => setSelectedLayout('twotone')}
+              className={`py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all ${
+                selectedLayout === 'twotone'
+                  ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20 font-black'
+                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+              }`}
+            >
+              <SplitSquareVertical className="w-3.5 h-3.5 text-black" />
+              <span>🌗 Executive Two-Tone</span>
             </button>
             <button
               onClick={() => setSelectedLayout('square')}
@@ -701,27 +1051,32 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>🔲 Square Decal</span>
+              <span>🔲 Square Pass</span>
             </button>
           </div>
 
           {/* Color Palettes */}
           <div className="flex items-center gap-1.5 text-xs">
             <span className="font-bold text-neutral-400 text-[11px]">Color:</span>
-            {(['bright_yellow', 'clean_white', 'carbon_dark', 'safety_orange'] as StickerTheme[]).map((thm) => {
-              const Icon = themes[thm].icon;
+            {[
+              { id: 'safety_yellow', label: 'Safety Yellow', icon: Sun, color: '#FFCE00' },
+              { id: 'emergency_orange', label: 'Safety Orange', icon: Flame, color: '#FF5722' },
+              { id: 'clean_white', label: 'Crisp White', icon: Zap, color: '#FFFFFF' },
+              { id: 'carbon_dark', label: 'Carbon Black', icon: Moon, color: '#090D16' },
+            ].map((thm) => {
+              const Icon = thm.icon;
               return (
                 <button
-                  key={thm}
-                  onClick={() => setSelectedTheme(thm)}
+                  key={thm.id}
+                  onClick={() => setSelectedTheme(thm.id as StickerTheme)}
                   className={`py-1 px-2.5 rounded-xl font-bold text-xs flex items-center gap-1 transition-all ${
-                    selectedTheme === thm
+                    selectedTheme === thm.id
                       ? 'ring-2 ring-white text-white bg-neutral-800 shadow-xs'
                       : 'bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 border border-neutral-800'
                   }`}
                 >
-                  <Icon className="w-3.5 h-3.5" style={{ color: themes[thm].cardBg === '#FFFFFF' ? '#FFDE00' : themes[thm].cardBg }} />
-                  <span>{themes[thm].shortName}</span>
+                  <Icon className="w-3.5 h-3.5" style={{ color: thm.color }} />
+                  <span>{thm.label}</span>
                 </button>
               );
             })}
@@ -736,14 +1091,13 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
               className="rounded text-amber-500"
             />
             <Scissors className="w-3.5 h-3.5 text-amber-400" />
-            <span>Cut Border</span>
+            <span>Cut Guide</span>
           </label>
         </div>
 
-        {/* Live Canvas Preview (Zero distortion, 100% pixel-perfect match) */}
+        {/* Live Canvas Preview */}
         <div className="p-4 sm:p-6 overflow-y-auto flex-1 flex flex-col items-center justify-center bg-black/70">
           <div className="relative w-full max-w-2xl flex items-center justify-center">
-            {/* The Master Canvas is displayed directly */}
             <canvas
               ref={canvasRef}
               className="max-w-full h-auto rounded-2xl shadow-2xl transition-all duration-300"
@@ -757,7 +1111,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
           <div className="mt-3 text-xs text-neutral-400 text-center flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
             <span>
-              <strong>100% Scanner Perspective:</strong> No bot or Telegram details are shown to scanners. They simply scan to alert you in 5 seconds without app or login!
+              <strong>100% Commercial Standard:</strong> Authentic vehicle windshield format matching ProfileTap &amp; RepiQR products. Ready to print on vinyl sticker or photo paper!
             </span>
           </div>
         </div>
