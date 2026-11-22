@@ -438,11 +438,44 @@ export const parkSignalService = {
     expiresAt?: number;
     error?: string;
   }> {
+    const cur = this.getCurrentUser();
+    const endpoint = 'https://nyqjcfutsqgxpnisvggv.supabase.co/functions/v1/parksignal-alert';
+
+    // 1. Primary: Secure Edge Function (Writes directly to Supabase with Service Role)
+    try {
+      const resp = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'create_telegram_link',
+          userId: cur?.id,
+          email: cur?.email,
+          fullName: cur?.fullName,
+          intent,
+        }),
+      });
+
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data.success && data.deepLink) {
+          return {
+            success: true,
+            token: data.token,
+            deepLink: data.deepLink,
+            expiresAt: data.expiresAt,
+          };
+        }
+      }
+    } catch (err: any) {
+      console.warn('Edge Function create_telegram_link error, trying client RPC fallback:', err);
+    }
+
+    // 2. Client RPC fallback
     const supabase = getSupabase();
     if (supabase && isSupabaseConfigured()) {
       try {
         const { data, error } = await supabase.rpc('create_parksignal_telegram_link', {
-          p_intent: intent
+          p_intent: intent,
         });
 
         if (!error && data?.success) {
@@ -450,22 +483,17 @@ export const parkSignalService = {
             success: true,
             token: data.token,
             deepLink: data.deepLink,
-            expiresAt: data.expiresAt
+            expiresAt: data.expiresAt,
           };
         }
       } catch (err: any) {
-        console.warn('RPC create_parksignal_telegram_link error, using standard fallback:', err);
+        console.warn('RPC create_parksignal_telegram_link error:', err);
       }
     }
 
-    // Fallback link generation
-    const token = `link_${generateRandomHex(12)}`;
-    const deepLink = `https://t.me/ParkSignal_bot?start=${token}`;
     return {
-      success: true,
-      token,
-      deepLink,
-      expiresAt: Date.now() + 10 * 60 * 1000
+      success: false,
+      error: 'Unable to connect to ParkSignal database. Please check your internet connection or try again.',
     };
   },
 
@@ -561,7 +589,15 @@ export const parkSignalService = {
             };
           });
 
-          return { vehicles: mapped };
+          if (mapped.length > 0) {
+            return { vehicles: mapped };
+          }
+          // If Supabase returned 0 vehicles for this ID, check client-side fallback list
+          const db = getLocalDb();
+          const localList = db.vehicles.filter((v) => v.ownerId === cur.id);
+          if (localList.length > 0) return { vehicles: localList };
+
+          return { vehicles: [] };
         }
       } catch (err) {
         console.warn('Supabase getVehicles error, falling back to local store:', err);
@@ -586,6 +622,35 @@ export const parkSignalService = {
     const normPlate = params.vehicleNumber.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
     const qrToken = generateRandomHex(12);
 
+    // 1. Primary: Secure Edge Function (Writes directly to Supabase with Service Role)
+    const endpoint = 'https://nyqjcfutsqgxpnisvggv.supabase.co/functions/v1/parksignal-alert';
+    try {
+      const resp = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'register_vehicle',
+          userId: cur.id,
+          email: cur.email,
+          fullName: cur.fullName,
+          vehicleNumber: normPlate,
+          vehicleType: params.vehicleType || 'Car',
+          nickname: params.nickname ? params.nickname.trim() : null,
+          displayPlatePublicly: params.displayPlatePublicly !== false,
+        }),
+      });
+
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data.success && data.vehicle) {
+          return { success: true, vehicle: data.vehicle };
+        }
+      }
+    } catch (err: any) {
+      console.warn('Edge Function register_vehicle error, trying direct client insert:', err);
+    }
+
+    // 2. Direct client insert
     const supabase = getSupabase();
     if (supabase && isSupabaseConfigured()) {
       try {
@@ -603,55 +668,55 @@ export const parkSignalService = {
           .single();
 
         if (vErr || !vRec) {
-          return { success: false, error: vErr?.message || 'Failed to register vehicle' };
+          console.warn('Supabase vehicle insert issue, falling back to local vehicle store:', vErr?.message);
+        } else {
+          // Insert QR token
+          await supabase.from('parksignal_qr_tokens').insert({
+            token: qrToken,
+            vehicle_id: vRec.id,
+            is_active: true
+          });
+
+          // Insert default vehicle alert settings
+          await supabase.from('parksignal_vehicle_settings').insert({
+            vehicle_id: vRec.id,
+            allow_blocking: true,
+            allow_move_vehicle: true,
+            allow_emergency: true,
+            allow_child_person_inside: true,
+            allow_lights_on: true,
+            allow_window_door_open: true,
+            allow_damage_alert: true,
+            allow_custom_text: true,
+            allow_voice_messages: false,
+            max_custom_text_length: 200,
+            max_voice_duration_seconds: 60
+          });
+
+          const newV: ParkSignalVehicle = {
+            id: vRec.id,
+            vehicle_number: normPlate,
+            vehicle_type: (params.vehicleType || 'Car') as any,
+            nickname: params.nickname || null,
+            display_plate_publicly: params.displayPlatePublicly !== false ? 1 : 0,
+            is_active: 1,
+            qr_token: qrToken,
+            created_at: new Date(vRec.created_at).getTime(),
+            allow_blocking: 1,
+            allow_move_vehicle: 1,
+            allow_emergency: 1,
+            allow_child_person_inside: 1,
+            allow_lights_on: 1,
+            allow_window_door_open: 1,
+            allow_damage_alert: 1,
+            allow_custom_text: 1,
+            allow_voice_messages: 0,
+            max_custom_text_length: 200,
+            max_voice_duration_seconds: 60
+          };
+
+          return { success: true, vehicle: newV };
         }
-
-        // Insert QR token
-        await supabase.from('parksignal_qr_tokens').insert({
-          token: qrToken,
-          vehicle_id: vRec.id,
-          is_active: true
-        });
-
-        // Insert default vehicle alert settings
-        await supabase.from('parksignal_vehicle_settings').insert({
-          vehicle_id: vRec.id,
-          allow_blocking: true,
-          allow_move_vehicle: true,
-          allow_emergency: true,
-          allow_child_person_inside: true,
-          allow_lights_on: true,
-          allow_window_door_open: true,
-          allow_damage_alert: true,
-          allow_custom_text: true,
-          allow_voice_messages: false,
-          max_custom_text_length: 200,
-          max_voice_duration_seconds: 60
-        });
-
-        const newV: ParkSignalVehicle = {
-          id: vRec.id,
-          vehicle_number: normPlate,
-          vehicle_type: (params.vehicleType || 'Car') as any,
-          nickname: params.nickname || null,
-          display_plate_publicly: params.displayPlatePublicly !== false ? 1 : 0,
-          is_active: 1,
-          qr_token: qrToken,
-          created_at: new Date(vRec.created_at).getTime(),
-          allow_blocking: 1,
-          allow_move_vehicle: 1,
-          allow_emergency: 1,
-          allow_child_person_inside: 1,
-          allow_lights_on: 1,
-          allow_window_door_open: 1,
-          allow_damage_alert: 1,
-          allow_custom_text: 1,
-          allow_voice_messages: 0,
-          max_custom_text_length: 200,
-          max_voice_duration_seconds: 60
-        };
-
-        return { success: true, vehicle: newV };
       } catch (err: any) {
         console.warn('Supabase registerVehicle error, falling back to local db:', err);
       }

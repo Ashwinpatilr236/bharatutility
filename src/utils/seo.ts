@@ -523,12 +523,15 @@ export function updateSeoMetadata(view: ViewMode): void {
   setMetaTag('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
   setMetaTag('meta[property="og:type"]', 'property', 'og:type', ogType);
   setMetaTag('meta[property="og:site_name"]', 'property', 'og:site_name', SITE_NAME);
-  setMetaTag('meta[property="og:image"]', 'property', 'og:image', DEFAULT_OG_IMAGE);
+  const pageOgImage = view.type === 'parksignal' || (view.type === 'tool' && view.toolSlug === 'parksignal')
+    ? `${CANONICAL_BASE}/parksignal-logo.png`
+    : DEFAULT_OG_IMAGE;
+  setMetaTag('meta[property="og:image"]', 'property', 'og:image', pageOgImage);
 
   setMetaTag('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image');
   setMetaTag('meta[name="twitter:title"]', 'name', 'twitter:title', socialTitle);
   setMetaTag('meta[name="twitter:description"]', 'name', 'twitter:description', description);
-  setMetaTag('meta[name="twitter:image"]', 'name', 'twitter:image', DEFAULT_OG_IMAGE);
+  setMetaTag('meta[name="twitter:image"]', 'name', 'twitter:image', pageOgImage);
 
   // Update Canonical URL
   setCanonicalUrl(canonicalUrl);

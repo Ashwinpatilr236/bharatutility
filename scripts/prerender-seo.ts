@@ -69,6 +69,7 @@ interface PageData {
   keywords?: string[];
   canonicalUrl: string;
   ogType?: string;
+  ogImage?: string;
   jsonLd?: object;
   bodyHtml: string;
 }
@@ -123,6 +124,16 @@ function renderHtml(template: string, data: PageData): string {
     html = html.replace(
       /<meta\s+property="og:type"\s+content=".*?"\s*\/?>/i,
       `<meta property="og:type" content="${data.ogType}" />`
+    );
+  }
+  if (data.ogImage) {
+    html = html.replace(
+      /<meta\s+property="og:image"\s+content=".*?"\s*\/?>/i,
+      `<meta property="og:image" content="${escapeAttr(data.ogImage)}" />`
+    );
+    html = html.replace(
+      /<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i,
+      `<meta name="twitter:image" content="${escapeAttr(data.ogImage)}" />`
     );
   }
 
@@ -369,6 +380,7 @@ export function prerenderAllRoutes() {
       keywords: tool.seo?.keywords || tool.keywords,
       canonicalUrl,
       ogType: 'article',
+      ogImage: tool.id === 'parksignal' ? `${BASE_URL}/parksignal-logo.png` : undefined,
       jsonLd,
       bodyHtml,
     });
@@ -633,6 +645,14 @@ export function prerenderAllRoutes() {
       content: '<p>BharatUtility evolves through user requests. If there is a calculation, conversion, or document tool you need, let us know!</p>'
     },
     {
+      path: '/parksignal',
+      title: 'ParkSignal by BharatUtility – Smart Vehicle QR Alerts',
+      description: 'Private windshield QR parking alerts via Telegram @ParkSignal_bot. Scan to alert vehicle owners instantly without exposing personal phone numbers.',
+      h1: 'ParkSignal — Your Vehicle. Your Privacy.',
+      ogImage: `${BASE_URL}/parksignal-logo.png`,
+      content: '<p>ParkSignal provides private vehicle windshield QR alerts directly to your Telegram without revealing your phone number. Place a smart QR sticker on your car to receive instant notifications and voice notes safely.</p>'
+    },
+    {
       path: '/sanatan-next',
       title: 'Sanatan Next — Aane Wali Peedhi Ke Liye Sanatan Gyan | BharatUtility',
       description: 'Discover Sanatan Next, a digital platform exploring Sanatan knowledge, traditions, festivals, sacred places and Indian cultural heritage.',
@@ -676,6 +696,7 @@ export function prerenderAllRoutes() {
       title: p.title,
       description: p.description,
       canonicalUrl,
+      ogImage: (p as any).ogImage,
       bodyHtml,
     });
     writePage(p.path, pageHtml);
