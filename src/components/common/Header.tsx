@@ -29,24 +29,75 @@ export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isFavModalOpen, setIsFavModalOpen] = useState(false);
+  const [isAnnouncementDismissed, setIsAnnouncementDismissed] = useState(() => {
+    try {
+      return sessionStorage.getItem("bu_announcement_dismissed") === "true";
+    } catch {
+      return false;
+    }
+  });
+
+  const activeAnnouncement = announcements[0];
+  const formattedAnnouncement = (() => {
+    if (!activeAnnouncement) return null;
+    const title = (activeAnnouncement.title || "").trim();
+    const msg = (activeAnnouncement.message || "").trim();
+    const cta = (activeAnnouncement.ctaText || "").trim();
+
+    const isDuplicate = 
+      !msg || 
+      title.toLowerCase() === msg.toLowerCase() ||
+      (title.toLowerCase().includes("parksignal") && msg.toLowerCase().includes("parksignal"));
+
+    let displayText = "";
+    if (isDuplicate) {
+      displayText = title.toLowerCase().includes("parksignal")
+        ? "🚨 ParkSignal — Smart Vehicle Privacy QR Stickers is now live!"
+        : title;
+    } else {
+      displayText = `${title}: ${msg}`;
+    }
+
+    let displayCta = cta;
+    if (isDuplicate || cta.toLowerCase() === title.toLowerCase()) {
+      displayCta = "Explore ParkSignal";
+    }
+
+    return {
+      displayText,
+      displayCta,
+      ctaUrl: activeAnnouncement.ctaUrl || "/parksignal"
+    };
+  })();
 
   return (
     <>
-      {/* ── Top Announcement Banner (if any active) ── */}
-      {announcements.length > 0 && (
-        <div className="bg-gradient-to-r from-accent via-indigo-600 to-purple-600 text-white text-[11px] py-1.5 px-4 text-center font-medium shadow-2xs flex items-center justify-center gap-2">
+      {/* ── Top Announcement Banner (if any active & not dismissed) ── */}
+      {formattedAnnouncement && !isAnnouncementDismissed && (
+        <div className="relative bg-gradient-to-r from-accent via-indigo-600 to-purple-600 text-white text-[11px] py-1.5 px-8 text-center font-medium shadow-2xs flex items-center justify-center gap-2">
           <Megaphone className="w-3.5 h-3.5 animate-pulse shrink-0" />
-          <span>
-            <strong>{announcements[0].title}:</strong> {announcements[0].message}
-          </span>
-          {announcements[0].ctaText && announcements[0].ctaUrl && (
+          <span>{formattedAnnouncement.displayText}</span>
+          {formattedAnnouncement.displayCta && formattedAnnouncement.ctaUrl && (
             <a
-              href={announcements[0].ctaUrl}
+              href={formattedAnnouncement.ctaUrl}
               className="underline font-bold hover:text-amber-200 ml-1 inline-flex items-center gap-0.5"
             >
-              {announcements[0].ctaText} →
+              {formattedAnnouncement.displayCta} →
             </a>
           )}
+          <button
+            onClick={() => {
+              setIsAnnouncementDismissed(true);
+              try {
+                sessionStorage.setItem("bu_announcement_dismissed", "true");
+              } catch {}
+            }}
+            className="absolute right-3 p-1 text-white/80 hover:text-white rounded hover:bg-white/10 transition-colors cursor-pointer"
+            title="Dismiss announcement"
+            aria-label="Dismiss announcement"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
         </div>
       )}
 
