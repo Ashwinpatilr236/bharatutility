@@ -169,7 +169,21 @@ async function runTests() {
     assert(scan1Updated.settings.allowVoiceMessages === true, 'Voice messages enabled on scanner UI');
     assert(scan1Updated.settings.maxCustomTextLength === 150, 'Custom text length constraint enforced');
 
-    // 13. QR Regeneration
+    // 13. Voice Alert Dispatch
+    const voiceForm = new FormData();
+    voiceForm.append('qrToken', v1Qr);
+    voiceForm.append('category', 'Emergency voice message');
+    voiceForm.append('durationSeconds', '14');
+    voiceForm.append('voice', new Blob(['RIFF....WAVEfmt '], { type: 'audio/ogg' }), 'test_voice.ogg');
+
+    const voiceRes = await fetch(`${BASE}/public/alert/voice`, {
+      method: 'POST',
+      body: voiceForm
+    });
+    const voiceData = await voiceRes.json();
+    assert(voiceRes.status === 200 && voiceData.success === true, 'Voice alert dispatched and recorded successfully');
+
+    // 14. QR Regeneration
     const regenRes = await fetch(`${BASE}/vehicles/${v1Id}/regenerate-qr`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` }
@@ -178,16 +192,16 @@ async function runTests() {
     assert(regenData.success && regenData.qrToken !== v1Qr, 'QR regenerated with new cryptographic token');
     const newV1Qr = regenData.qrToken;
 
-    // 14. Invalidation of Old QR Code
+    // 15. Invalidation of Old QR Code
     const oldScanRes = await fetch(`${BASE}/public/vehicle/${v1Qr}`);
     assert(oldScanRes.status === 404, 'Old revoked QR token now returns 404 / Inactive');
 
-    // 15. New QR Works
+    // 16. New QR Works
     const newScanRes = await fetch(`${BASE}/public/vehicle/${newV1Qr}`);
     const newScanData = await newScanRes.json();
     assert(newScanData.valid === true, 'New QR code resolves properly');
 
-    // 16. Vehicle Deactivation Toggle
+    // 17. Vehicle Deactivation Toggle
     const toggleRes = await fetch(`${BASE}/vehicles/${v1Id}/toggle-status`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` }
@@ -198,7 +212,7 @@ async function runTests() {
     const pausedScan = await (await fetch(`${BASE}/public/vehicle/${newV1Qr}`)).json();
     assert(pausedScan.valid === false, 'Inactive vehicle displays polite deactivated message');
 
-    console.log('\n🎉 ALL 16 CORE END-TO-END VERIFICATION CHECKS PASSED!\n');
+    console.log('\n🎉 ALL 17 CORE END-TO-END VERIFICATION CHECKS PASSED!\n');
   } finally {
     server.close();
   }

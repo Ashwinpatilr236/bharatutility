@@ -2,6 +2,13 @@
   command = "npm run build"
   publish = "dist"
 
+# To proxy API calls from bharatutility.tech to your live Cloudflare Worker:
+# [[redirects]]
+#   from = "/api/parksignal/*"
+#   to = "https://parksignal-api.<your-subdomain>.workers.dev/api/parksignal/:splat"
+#   status = 200
+#   force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

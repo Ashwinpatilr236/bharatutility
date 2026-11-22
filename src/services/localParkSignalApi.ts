@@ -3,7 +3,8 @@
  * Mirrors Cloudflare Worker logic for local development & testing
  */
 
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import type { Request, Response } from 'express';
 import crypto from 'crypto';
 
 export const localParkSignalRouter = Router();
@@ -489,6 +490,89 @@ localParkSignalRouter.post('/public/alert', async (req: Request, res: Response) 
     res.json({ success: true, delivered: true, message: 'Alert delivered to vehicle owner successfully!' });
   } else {
     res.status(502).json({ success: false, delivered: false, error: 'Telegram delivery failed.' });
+  }
+});
+
+localParkSignalRouter.post('/public/alert/voice', async (req: Request, res: Response) => {
+  try {
+    let qrToken = '';
+    let category = 'Voice Alert';
+    let durationSeconds = 0;
+    let voiceBlob: any = null;
+
+    if (req.headers['content-type']?.includes('multipart/form-data')) {
+      const webReq = new Response(req as any, {
+        headers: req.headers as any
+      });
+      const formData = await webReq.formData();
+      qrToken = (formData.get('qrToken') as string) || '';
+      category = (formData.get('category') as string) || 'Voice Alert';
+      durationSeconds = parseInt((formData.get('durationSeconds') as string) || '0', 10);
+      voiceBlob = formData.get('voice');
+    } else {
+      qrToken = req.body?.qrToken || '';
+      category = req.body?.category || 'Voice Alert';
+      durationSeconds = req.body?.durationSeconds || 0;
+    }
+
+    if (!qrToken) return res.status(400).json({ error: 'QR token is required' });
+
+    const qr = store.qrTokens.get(qrToken);
+    if (!qr || !qr.isActive) return res.status(404).json({ error: 'Invalid QR token' });
+
+    const vehicle = store.vehicles.get(qr.vehicleId);
+    if (!vehicle || !vehicle.is_active) return res.status(404).json({ error: 'Vehicle inactive' });
+
+    const settings = store.vehicleSettings.get(vehicle.id) || {};
+    if (settings.allow_voice_messages !== 1) {
+      return res.status(403).json({ error: 'Voice messages are not enabled for this vehicle.' });
+    }
+
+    const tg = store.telegramAccounts.get(vehicle.ownerId);
+    const botToken = process.env.TELEGRAM_BOT_TOKEN;
+
+    let deliveryStatus: 'DELIVERED' | 'FAILED_BOT_ERROR' = 'DELIVERED';
+
+    if (tg && tg.chatId && botToken && voiceBlob) {
+      try {
+        const tgFormData = new FormData();
+        tgFormData.append('chat_id', tg.chatId);
+        tgFormData.append('voice', voiceBlob, 'voice_alert.ogg');
+        const dateStr = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+        tgFormData.append('caption', `🚨 *PARKSIGNAL VOICE ALERT*\n🚗 Vehicle: \`${vehicle.vehicle_number}\` (${vehicle.vehicle_type})\n⚠️ Alert: ${category}\n🕒 ${dateStr}`);
+        tgFormData.append('parse_mode', 'Markdown');
+
+        const tgRes = await fetch(`https://api.telegram.org/bot${botToken}/sendVoice`, {
+          method: 'POST',
+          body: tgFormData
+        });
+        const tgData = (await tgRes.json()) as any;
+        if (!tgData.ok) deliveryStatus = 'FAILED_BOT_ERROR';
+      } catch {
+        deliveryStatus = 'FAILED_BOT_ERROR';
+      }
+    }
+
+    store.alerts.unshift({
+      id: crypto.randomUUID(),
+      vehicle_id: vehicle.id,
+      vehicle_number: vehicle.vehicle_number,
+      vehicle_type: vehicle.vehicle_type,
+      nickname: vehicle.nickname,
+      alert_type: 'VOICE',
+      alert_category: category,
+      voice_duration_seconds: durationSeconds,
+      delivery_status: deliveryStatus,
+      created_at: Date.now()
+    });
+
+    if (deliveryStatus === 'DELIVERED') {
+      res.json({ success: true, delivered: true, message: 'Voice alert sent to owner via Telegram successfully!' });
+    } else {
+      res.status(502).json({ success: false, delivered: false, error: 'Telegram delivery failed.' });
+    }
+  } catch (err: any) {
+    res.status(500).json({ error: err?.message || 'Internal Server Error' });
   }
 });
 
