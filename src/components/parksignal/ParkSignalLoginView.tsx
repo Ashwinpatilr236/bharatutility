@@ -12,6 +12,8 @@ export const ParkSignalLoginView: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotLoading, setForgotLoading] = useState(false);
+  const [forgotError, setForgotError] = useState<string | null>(null);
   const [forgotSubmitted, setForgotSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,15 +46,24 @@ export const ParkSignalLoginView: React.FC = () => {
     }
   };
 
-  const handleForgotSubmit = (e: React.FormEvent) => {
+  const handleForgotSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!forgotEmail) return;
-    setForgotSubmitted(true);
-    setTimeout(() => {
-      setForgotSubmitted(false);
-      setShowForgotModal(false);
-      showToast('Password reset instructions sent if email exists.', 'info');
-    }, 2000);
+    if (!forgotEmail.trim()) return;
+    setForgotError(null);
+    setForgotLoading(true);
+    try {
+      const res = await parkSignalService.requestPasswordReset(forgotEmail.trim());
+      setForgotLoading(false);
+      if (res.success) {
+        setForgotSubmitted(true);
+        showToast('Password reset link sent! Check your inbox or spam.', 'info');
+      } else {
+        setForgotError(res.error || 'Could not send reset email. Please try again.');
+      }
+    } catch {
+      setForgotLoading(false);
+      setForgotError('Network error while sending reset link. Please try again.');
+    }
   };
 
   return (
@@ -176,11 +187,36 @@ export const ParkSignalLoginView: React.FC = () => {
             </div>
 
             {forgotSubmitted ? (
-              <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 rounded-2xl text-xs text-emerald-700 dark:text-emerald-300 text-center flex items-center justify-center gap-2">
-                <Check className="w-4 h-4" /> Reset link sent if account exists.
+              <div className="space-y-3">
+                <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 text-xs text-emerald-800 dark:text-emerald-200 space-y-2">
+                  <div className="flex items-center gap-2 font-bold text-emerald-700 dark:text-emerald-300">
+                    <Check className="w-4 h-4 shrink-0" />
+                    <span>Reset link sent if account exists!</span>
+                  </div>
+                  <p className="text-[11px] leading-relaxed text-emerald-700/90 dark:text-emerald-300/90">
+                    Since we provide ParkSignal as a <strong>100% free service</strong>, the email will arrive from{' '}
+                    <strong className="font-mono">Supabase Auth (noreply@mail.app.supabase.io)</strong> with subject{' '}
+                    <strong>"Reset your password"</strong>. Please also check your Spam/Promotions folder if not seen in Inbox.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setForgotSubmitted(false);
+                    setShowForgotModal(false);
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-bold cursor-pointer"
+                >
+                  Done
+                </button>
               </div>
             ) : (
               <form onSubmit={handleForgotSubmit} className="space-y-3">
+                {forgotError && (
+                  <div className="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900/50 text-[11px] text-rose-700 dark:text-rose-300">
+                    {forgotError}
+                  </div>
+                )}
                 <input
                   type="email"
                   required
@@ -189,19 +225,28 @@ export const ParkSignalLoginView: React.FC = () => {
                   placeholder="name@example.com"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
                 />
+                <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/50 text-[11px] text-amber-900 dark:text-amber-200 leading-relaxed">
+                  <strong>Heads up:</strong> Because we try to keep ParkSignal <strong>100% free</strong> for everyone, you will receive an email from{' '}
+                  <span className="font-mono font-semibold">Supabase Auth (noreply@mail.app.supabase.io)</span> titled{' '}
+                  <strong>"Reset your password"</strong> (powered by Supabase). That email is genuine!
+                </div>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    onClick={() => setShowForgotModal(false)}
-                    className="flex-1 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-600 dark:text-neutral-300"
+                    onClick={() => {
+                      setForgotError(null);
+                      setShowForgotModal(false);
+                    }}
+                    className="flex-1 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-600 dark:text-neutral-300 cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700"
+                    disabled={forgotLoading}
+                    className="flex-1 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 disabled:opacity-60 cursor-pointer"
                   >
-                    Send Reset Link
+                    {forgotLoading ? 'Sending...' : 'Send Reset Link'}
                   </button>
                 </div>
               </form>
