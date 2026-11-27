@@ -16,7 +16,7 @@ import {
   FileCode2
 } from 'lucide-react';
 import { ParkSignalVehicle } from '../../types';
-import { PARKSIGNAL_FULL_LOGO_B64, PARKSIGNAL_EMBLEM_B64 } from './parkSignalLogoBase64';
+import { PARKSIGNAL_LIGHT_BG_LOGO_B64, PARKSIGNAL_DARK_BG_LOGO_B64, PARKSIGNAL_EMBLEM_B64 } from './parkSignalLogoBase64';
 
 interface ParkSignalStickerModalProps {
   vehicle: ParkSignalVehicle;
@@ -113,29 +113,12 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   const masterSvg = useMemo(() => {
     if (!qrDataUrl) return '';
 
-    // Precision Vector Brand Logo Lockup
+    // Precision Official Brand Logo Lockup
     const getVectorLogoSvg = (x: number, y: number, scale = 1, isDarkBackground = false) => {
-      const parkColor = isDarkBackground ? '#FFFFFF' : '#0B0F19';
-      const subColor = isDarkBackground ? '#94A3B8' : '#475569';
-      return `
-        <g transform="translate(${x}, ${y}) scale(${scale})">
-          <!-- Sleek Modern Automotive Shield Emblem -->
-          <g transform="translate(0, 2)">
-            <!-- Outer Shield Base -->
-            <path d="M 4 8 C 18 4 32 4 46 8 C 46 26 32 42 25 48 C 18 42 4 26 4 8 Z" fill="#0B0F19" />
-            <!-- Aerodynamic Car Silhouette -->
-            <path d="M 12 32 C 14 26 19 24 23 24 L 27 24 C 31 24 36 26 38 32 L 40 33 C 41 33 42 34 42 35 L 42 37 C 42 38 41 39 40 39 L 38 39 C 38 41 36 42 34 42 C 32 42 30 41 30 39 L 20 39 C 20 41 18 42 16 42 C 14 42 12 41 12 39 L 10 39 C 9 39 8 38 8 37 L 8 35 C 8 34 9 33 10 33 Z" fill="#00D2FF" />
-            <!-- Radar Pulse Waves -->
-            <path d="M 16 14 C 21 11 29 11 34 14" stroke="#00D2FF" stroke-width="2.5" stroke-linecap="round" fill="none" />
-            <path d="M 19 18 C 22 16 28 16 31 18" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none" />
-            <!-- Micro Pulse Dot -->
-            <circle cx="25" cy="21" r="1.5" fill="#FFC700" />
-          </g>
-          <!-- Typography -->
-          <text x="56" y="29" class="font-sans" font-size="28" font-weight="900" fill="${parkColor}" letter-spacing="-0.5">PARK<tspan fill="#0284C7">SIGNAL</tspan></text>
-          <text x="58" y="44" class="font-sans" font-size="9" font-weight="800" fill="${subColor}" letter-spacing="1.8">SMART VEHICLE PASS • BHARATUTILITY</text>
-        </g>
-      `;
+      const logoB64 = isDarkBackground ? PARKSIGNAL_DARK_BG_LOGO_B64 : PARKSIGNAL_LIGHT_BG_LOGO_B64;
+      const width = Math.round(230 * scale);
+      const height = Math.round(92 * scale);
+      return `<image href="${logoB64}" x="${x}" y="${y}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet" />`;
     };
 
     // ─────────────────────────────────────────────────────────────
