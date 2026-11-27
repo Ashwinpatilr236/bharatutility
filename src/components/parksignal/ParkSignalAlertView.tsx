@@ -370,8 +370,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             </p>
           </div>
 
-          {/* 4 Large Touch-Friendly Language Buttons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          {/* 13 Major Indian Languages Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1">
             {ALERT_LANGUAGES.map((l) => (
               <button
                 key={l.id}
@@ -380,17 +380,17 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                   setLang(l.id);
                   setHasSelectedLang(true);
                 }}
-                className="group p-4 rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-800/60 hover:border-cyan-500 hover:bg-cyan-50/50 dark:hover:bg-cyan-950/30 transition-all text-left flex items-center justify-between cursor-pointer"
+                className="group p-3 rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-800/60 hover:border-cyan-500 hover:bg-cyan-50/50 dark:hover:bg-cyan-950/30 transition-all text-left flex items-center justify-between cursor-pointer"
               >
-                <div>
-                  <div className="text-base font-black text-neutral-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400">
+                <div className="min-w-0">
+                  <div className="text-sm sm:text-base font-black text-neutral-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 truncate">
                     {l.native}
                   </div>
-                  <div className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400">
+                  <div className="text-[10px] font-semibold text-neutral-500 dark:text-neutral-400">
                     {l.label}
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
+                <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 shrink-0 transition-all" />
               </button>
             ))}
           </div>
@@ -499,26 +499,22 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
 
   return (
     <div className="max-w-xl mx-auto px-4 py-4 sm:py-7 space-y-5">
-      {/* ── TOP UTILITY BAR: LANGUAGE SELECTION + DARK/LIGHT MODE ── */}
-      <div className="flex flex-wrap items-center justify-between gap-2.5 bg-white dark:bg-neutral-900 px-3 py-2.5 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-neutral-500 dark:text-neutral-400 mr-1">
-            <Globe className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-          </span>
-          {ALERT_LANGUAGES.map((l) => (
-            <button
-              key={l.id}
-              type="button"
-              onClick={() => setLang(l.id)}
-              className={`px-2.5 py-1 rounded-xl text-[11px] font-bold transition-all cursor-pointer ${
-                lang === l.id
-                  ? 'bg-cyan-600 text-white shadow-xs'
-                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-              }`}
-            >
-              {l.native}
-            </button>
-          ))}
+      {/* ── TOP UTILITY BAR: LANGUAGE SELECTOR (13 LANGUAGES) + DARK/LIGHT MODE ── */}
+      <div className="flex items-center justify-between gap-2.5 bg-white dark:bg-neutral-900 px-3 py-2 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
+        <div className="flex items-center gap-2">
+          <Globe className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
+          <select
+            value={lang}
+            onChange={(e) => setLang(e.target.value as AlertLanguage)}
+            aria-label="Select Language"
+            className="bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white text-xs font-bold px-2.5 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 outline-none focus:ring-2 focus:ring-cyan-500 cursor-pointer"
+          >
+            {ALERT_LANGUAGES.map((l) => (
+              <option key={l.id} value={l.id}>
+                {l.native} ({l.label})
+              </option>
+            ))}
+          </select>
         </div>
 
         <button
@@ -558,6 +554,9 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
         <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto">
           {t.pageSubtitle}
         </p>
+        <div className="inline-block px-3 py-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700/80 text-[11px] font-bold text-neutral-700 dark:text-neutral-300">
+          {t.howItWorks}
+        </div>
       </div>
 
       {/* ── 1. CAR DETAILS: EMBOSSED INDIAN HSRP NUMBER PLATE ── */}
@@ -799,12 +798,17 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           {/* Optional Voice Message Feature (If enabled by vehicle owner) */}
           {s.allowVoiceMessages && (
             <div className="bg-white dark:bg-neutral-900 p-4 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 space-y-3 shadow-2xs">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Mic className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                  <span className="text-xs font-bold text-neutral-900 dark:text-white">
-                    {t.voiceNoteTitle} (Max {s.maxVoiceDurationSeconds}s)
-                  </span>
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <Mic className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                    <span className="text-xs font-bold text-neutral-900 dark:text-white">
+                      {t.voiceNoteTitle} (Max {s.maxVoiceDurationSeconds}s)
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5 pl-6">
+                    {t.voiceNoteHint}
+                  </p>
                 </div>
                 <button
                   type="button"
@@ -917,11 +921,16 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
 
           {/* Optional Location / Parking Spot Section */}
           <div className="p-3.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 space-y-2.5 shadow-2xs">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                {t.locationLabel}
-              </label>
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                  {t.locationLabel}
+                </label>
+                <p className="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5 pl-5">
+                  {t.locationHint}
+                </p>
+              </div>
               <button
                 type="button"
                 onClick={handleGetLocation}
