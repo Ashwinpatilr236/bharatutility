@@ -37,6 +37,20 @@ function generateRandomHex(bytes: number = 16): string {
     .join('');
 }
 
+async function extractEdgeFunctionError(error: any, data: any, fallback: string): Promise<string> {
+  if (data?.error) return String(data.error);
+  if (error?.context && typeof error.context.json === 'function') {
+    try {
+      const body = await error.context.json();
+      if (body?.error) return String(body.error);
+      if (body?.message) return String(body.message);
+    } catch {
+      // ignore body parse failure
+    }
+  }
+  return error?.message || fallback;
+}
+
 export const parkSignalService = {
   // ── Auth Token & User Storage ──
   getToken(): string | null {
@@ -788,7 +802,8 @@ export const parkSignalService = {
       if (!error && data) {
         return { success: data.success, delivered: data.delivered, message: data.message, error: data.error };
       }
-      return { success: false, error: error?.message || data?.error || 'Failed to send alert.' };
+      const errMsg = await extractEdgeFunctionError(error, data, 'Failed to send alert.');
+      return { success: false, error: errMsg };
     } catch (err: any) {
       return { success: false, error: err?.message || 'Alert service request failed.' };
     }
@@ -823,7 +838,8 @@ export const parkSignalService = {
       if (!error && data) {
         return { success: data.success, delivered: data.delivered, message: data.message, error: data.error };
       }
-      return { success: false, error: error?.message || data?.error || 'Failed to dispatch voice message.' };
+      const errMsg = await extractEdgeFunctionError(error, data, 'Failed to dispatch voice message.');
+      return { success: false, error: errMsg };
     } catch (err: any) {
       return { success: false, error: err?.message || 'Voice alert request failed.' };
     }
