@@ -170,33 +170,34 @@ export const ParkSignalLoginView: React.FC = () => {
 
       {/* Forgot Password Modal */}
       {showForgotModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 max-w-sm w-full border border-neutral-200 dark:border-neutral-800 shadow-2xl space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="p-2.5 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fadeIn">
+          <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 max-w-md w-full border border-neutral-200/80 dark:border-neutral-800 shadow-2xl space-y-5">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-100 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
                 <KeyRound className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-neutral-900 dark:text-white">
+                <h3 className="text-lg font-black font-display text-neutral-900 dark:text-white leading-tight">
                   Reset Password
                 </h3>
-                <p className="text-[11px] text-neutral-500">
-                  Enter your registered email address
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+                  Enter your registered email to receive a reset link
                 </p>
               </div>
             </div>
 
             {forgotSubmitted ? (
-              <div className="space-y-3">
-                <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 text-xs text-emerald-800 dark:text-emerald-200 space-y-2">
-                  <div className="flex items-center gap-2 font-bold text-emerald-700 dark:text-emerald-300">
+              <div className="space-y-4">
+                <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200/80 dark:border-emerald-800/60 space-y-2.5">
+                  <div className="flex items-center gap-2 text-sm font-bold text-emerald-700 dark:text-emerald-300">
                     <Check className="w-4 h-4 shrink-0" />
-                    <span>Reset link sent if account exists!</span>
+                    <span>Reset link sent!</span>
                   </div>
-                  <p className="text-[11px] leading-relaxed text-emerald-700/90 dark:text-emerald-300/90">
-                    Since we provide ParkSignal as a <strong>100% free service</strong>, the email will arrive from{' '}
-                    <strong className="font-mono">Supabase Auth (noreply@mail.app.supabase.io)</strong> with subject{' '}
-                    <strong>"Reset your password"</strong>. Please also check your Spam/Promotions folder if not seen in Inbox.
+                  <p className="text-xs leading-relaxed text-emerald-800/80 dark:text-emerald-200/80">
+                    To keep ParkSignal <strong>100% free</strong>, this email is delivered by{' '}
+                    <strong className="text-emerald-950 dark:text-white">Supabase Auth</strong>{' '}
+                    (<span className="text-emerald-700 dark:text-emerald-300">noreply@mail.app.supabase.io</span>)
+                    with the subject <strong>"Reset your password"</strong>. Check Spam/Promotions if needed.
                   </p>
                 </div>
                 <button
@@ -205,46 +206,56 @@ export const ParkSignalLoginView: React.FC = () => {
                     setForgotSubmitted(false);
                     setShowForgotModal(false);
                   }}
-                  className="w-full py-2.5 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-bold cursor-pointer"
+                  className="w-full py-2.5 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-bold hover:opacity-90 transition-opacity cursor-pointer"
                 >
                   Done
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleForgotSubmit} className="space-y-3">
+              <form onSubmit={handleForgotSubmit} className="space-y-4">
                 {forgotError && (
-                  <div className="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900/50 text-[11px] text-rose-700 dark:text-rose-300">
+                  <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900/50 text-xs text-rose-700 dark:text-rose-300">
                     {forgotError}
                   </div>
                 )}
-                <input
-                  type="email"
-                  required
-                  value={forgotEmail}
-                  onChange={(e) => setForgotEmail(e.target.value)}
-                  placeholder="name@example.com"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-                <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/50 text-[11px] text-amber-900 dark:text-amber-200 leading-relaxed">
-                  <strong>Heads up:</strong> Because we try to keep ParkSignal <strong>100% free</strong> for everyone, you will receive an email from{' '}
-                  <span className="font-mono font-semibold">Supabase Auth (noreply@mail.app.supabase.io)</span> titled{' '}
-                  <strong>"Reset your password"</strong> (powered by Supabase). That email is genuine!
+
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="email"
+                    required
+                    value={forgotEmail}
+                    onChange={(e) => setForgotEmail(e.target.value)}
+                    placeholder="name@example.com"
+                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
                 </div>
-                <div className="flex items-center gap-2">
+
+                <div className="p-3.5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/60 flex items-start gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-indigo-500 dark:text-indigo-400 shrink-0 mt-0.5" />
+                  <div className="text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-300">
+                    To keep ParkSignal <strong>100% free</strong> for everyone, reset emails come from{' '}
+                    <span className="font-semibold text-neutral-900 dark:text-white">Supabase Auth</span>{' '}
+                    <span className="text-neutral-500 dark:text-neutral-400">(noreply@mail.app.supabase.io)</span>{' '}
+                    titled <span className="font-semibold text-neutral-900 dark:text-white">"Reset your password"</span>.
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2.5 pt-1">
                   <button
                     type="button"
                     onClick={() => {
                       setForgotError(null);
                       setShowForgotModal(false);
                     }}
-                    className="flex-1 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-600 dark:text-neutral-300 cursor-pointer"
+                    className="flex-1 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 text-xs font-bold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={forgotLoading}
-                    className="flex-1 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 disabled:opacity-60 cursor-pointer"
+                    className="flex-1 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-600/20 disabled:opacity-60 transition-all cursor-pointer"
                   >
                     {forgotLoading ? 'Sending...' : 'Send Reset Link'}
                   </button>
