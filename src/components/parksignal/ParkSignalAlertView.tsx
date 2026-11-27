@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ParkSignalLogo } from './ParkSignalLogo';
+import { useApp } from '../../context/AppContext';
+import {
+  ALERT_LANGUAGES,
+  ALERT_TRANSLATIONS,
+  AlertLanguage
+} from './parkSignalAlertI18n';
 import {
   Car,
   ShieldCheck,
@@ -22,9 +28,9 @@ import {
   Navigation,
   Check,
   BellRing,
-  HelpCircle,
-  Clock,
-  Radio
+  Sun,
+  Moon,
+  Globe
 } from 'lucide-react';
 import { parkSignalService } from '../../services/parkSignalService';
 import { ParkSignalPublicVehicle } from '../../types';
@@ -34,6 +40,16 @@ interface ParkSignalAlertViewProps {
 }
 
 export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token }) => {
+  const { theme, setTheme } = useApp();
+  const [lang, setLang] = useState<AlertLanguage>('en');
+  const t = ALERT_TRANSLATIONS[lang];
+
+  const isDarkActive =
+    theme === 'dark' ||
+    (theme === 'system' &&
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches);
+
   const [loading, setLoading] = useState(true);
   const [vehicle, setVehicle] = useState<ParkSignalPublicVehicle | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -234,7 +250,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
       if (res.success && res.delivered) {
         setResultState({
           status: 'success',
-          message: 'Voice alert delivered directly to the vehicle owner on Telegram!'
+          message: t.successVoiceMsg
         });
       } else {
         setResultState({
@@ -254,7 +270,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
       if (res.success && res.delivered) {
         setResultState({
           status: 'success',
-          message: 'Parking alert delivered to the vehicle owner instantly via Telegram!'
+          message: t.successTextMsg
         });
       } else {
         setResultState({
@@ -270,9 +286,9 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
       <div className="max-w-lg mx-auto px-4 py-20 text-center space-y-4">
         <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto" />
         <h2 className="text-lg font-bold text-neutral-800 dark:text-neutral-200">
-          Connecting to ParkSignal...
+          {t.connectingTitle}
         </h2>
-        <p className="text-xs text-neutral-500">Checking vehicle status securely</p>
+        <p className="text-xs text-neutral-500">{t.connectingSub}</p>
       </div>
     );
   }
@@ -285,7 +301,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           <AlertTriangle className="w-8 h-8" />
         </div>
         <h2 className="text-2xl font-black font-display text-neutral-900 dark:text-white">
-          Vehicle Alert Inactive
+          {t.inactiveTitle}
         </h2>
         <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
           {vehicle?.message || errorMsg || 'This vehicle QR code is either invalid, revoked, or temporarily disabled by the owner.'}
@@ -293,11 +309,9 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
         <div className="p-4 bg-neutral-100 dark:bg-neutral-800/60 rounded-2xl border border-neutral-200/60 dark:border-neutral-700/60 text-xs text-neutral-500 text-left space-y-2">
           <div className="flex items-center gap-1.5 font-bold text-neutral-700 dark:text-neutral-300">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            ParkSignal Privacy & Security Assurance
+            {t.privacyAssuranceTitle}
           </div>
-          <p>
-            No vehicle owner contact information is disclosed through inactive or active QR codes.
-          </p>
+          <p>{t.privacyAssuranceDesc}</p>
         </div>
       </div>
     );
@@ -321,8 +335,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
   const alertOptions = [
     {
       key: 'blocking',
-      title: 'Vehicle is Blocking',
-      sub: 'Blocking my car, driveway or clear exit path',
+      title: t.options.blocking.title,
+      sub: t.options.blocking.sub,
       icon: '🚗',
       fullText: 'Your vehicle is blocking my vehicle. Please move.',
       enabled: s.allowBlocking,
@@ -330,8 +344,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     },
     {
       key: 'move',
-      title: 'Please Move Vehicle',
-      sub: 'Need parking spot or vehicle shifted slightly',
+      title: t.options.move.title,
+      sub: t.options.move.sub,
       icon: '🅿️',
       fullText: 'Please move your vehicle slightly when convenient.',
       enabled: s.allowMoveVehicle,
@@ -339,8 +353,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     },
     {
       key: 'lights',
-      title: 'Headlights Left ON',
-      sub: 'Car lights or parking lamps are draining battery',
+      title: t.options.lights.title,
+      sub: t.options.lights.sub,
       icon: '💡',
       fullText: 'Your vehicle lights are ON. Battery may drain.',
       enabled: s.allowLightsOn,
@@ -348,8 +362,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     },
     {
       key: 'window',
-      title: 'Window / Door Open',
-      sub: 'Window rolled down or door ajar (theft / rain risk)',
+      title: t.options.window.title,
+      sub: t.options.window.sub,
       icon: '🪟',
       fullText: 'Your window or door appears to be open.',
       enabled: s.allowWindowDoorOpen,
@@ -357,8 +371,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     },
     {
       key: 'damage',
-      title: 'Scratched / Flat Tyre',
-      sub: 'Noticeable exterior damage, flat tyre or leakage',
+      title: t.options.damage.title,
+      sub: t.options.damage.sub,
       icon: '💥',
       fullText: 'Possible vehicle damage, flat tyre or dent noticed.',
       enabled: s.allowDamageAlert,
@@ -366,8 +380,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     },
     {
       key: 'emergency',
-      title: '🚨 Emergency Situation',
-      sub: 'Urgent situation – owner attention required now',
+      title: t.options.emergency.title,
+      sub: t.options.emergency.sub,
       icon: '⚠️',
       fullText: 'Emergency – Please check your vehicle immediately.',
       enabled: s.allowEmergency,
@@ -375,8 +389,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     },
     {
       key: 'child',
-      title: '👶 Child / Pet Inside',
-      sub: 'Urgent safety alert – living being inside vehicle',
+      title: t.options.child.title,
+      sub: t.options.child.sub,
       icon: '🚨',
       fullText: 'A child or person may be inside your vehicle. Please check immediately.',
       enabled: s.allowChildPersonInside,
@@ -384,8 +398,8 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     },
     {
       key: 'custom',
-      title: 'Custom Note / Other',
-      sub: 'Type specific details or parking instructions',
+      title: t.options.custom.title,
+      sub: t.options.custom.sub,
       icon: '📝',
       fullText: 'Other / Custom Message',
       enabled: s.allowCustomText,
@@ -397,7 +411,49 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     selectedCategory.includes('Emergency') || selectedCategory.includes('child or person');
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-5 sm:py-8 space-y-6">
+    <div className="max-w-xl mx-auto px-4 py-4 sm:py-7 space-y-5">
+      {/* ── TOP UTILITY BAR: LANGUAGE SELECTION + DARK/LIGHT MODE ── */}
+      <div className="flex flex-wrap items-center justify-between gap-2.5 bg-white dark:bg-neutral-900 px-3 py-2.5 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-neutral-500 dark:text-neutral-400 mr-1">
+            <Globe className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+          </span>
+          {ALERT_LANGUAGES.map((l) => (
+            <button
+              key={l.id}
+              type="button"
+              onClick={() => setLang(l.id)}
+              className={`px-2.5 py-1 rounded-xl text-[11px] font-bold transition-all cursor-pointer ${
+                lang === l.id
+                  ? 'bg-cyan-600 text-white shadow-xs'
+                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+              }`}
+            >
+              {l.native}
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setTheme(isDarkActive ? 'light' : 'dark')}
+          className="p-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors cursor-pointer flex items-center gap-1.5 text-[11px] font-bold"
+          title={isDarkActive ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        >
+          {isDarkActive ? (
+            <>
+              <Sun className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden xs:inline">Light</span>
+            </>
+          ) : (
+            <>
+              <Moon className="w-3.5 h-3.5 text-indigo-600" />
+              <span className="hidden xs:inline">Dark</span>
+            </>
+          )}
+        </button>
+      </div>
+
       {/* ── HEADER BRANDING ── */}
       <div className="text-center space-y-2">
         <div className="flex justify-center">
@@ -405,15 +461,15 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
         </div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 text-[11px] font-bold border border-cyan-500/20">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span>Smart Vehicle Alert Portal</span>
+          <span>{t.portalBadge}</span>
           <span className="text-neutral-400">•</span>
-          <span className="text-[10px] text-neutral-500 font-medium">Fastag-Size QR Pass</span>
+          <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium">{t.passBadge}</span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-black font-display tracking-tight text-neutral-900 dark:text-white">
-          Contact Vehicle Owner
+          {t.pageTitle}
         </h1>
-        <p className="text-xs text-neutral-500 max-w-sm mx-auto">
-          Send a polite, private notification directly to the driver's phone. No app required.
+        <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto">
+          {t.pageSubtitle}
         </p>
       </div>
 
@@ -422,22 +478,22 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
         <div className="flex items-center justify-between px-1">
           <span className="text-[11px] uppercase tracking-wider font-extrabold text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
             <Car className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-            1. Scanned Vehicle Details
+            {t.sec1Title}
           </span>
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-            Owner Active on Telegram
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-cyan-700 dark:text-cyan-300 bg-cyan-500/10 px-2.5 py-0.5 rounded-full border border-cyan-500/20">
+            <ShieldCheck className="w-3 h-3" />
+            {t.verifiedPass}
           </span>
         </div>
 
-        {/* Authentic Indian HSRP Number Plate Card */}
-        <div className="relative overflow-hidden rounded-2xl bg-neutral-900 border-2 border-neutral-700/80 shadow-xl p-4 sm:p-5 text-white">
+        {/* Authentic Indian HSRP Number Plate Card (Adaptive Light & Dark Mode) */}
+        <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700/80 shadow-lg p-4 sm:p-5 text-neutral-900 dark:text-white">
           {/* Subtle reflective top gloss */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-indigo-500 to-amber-400 opacity-80" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-indigo-500 to-amber-400 opacity-85" />
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             {/* The HSRP Plate */}
-            <div className="inline-flex items-stretch rounded-xl border-2 border-neutral-900 shadow-md overflow-hidden bg-white text-neutral-950 font-mono">
+            <div className="inline-flex items-stretch rounded-xl border-2 border-neutral-300 dark:border-neutral-800 shadow-sm overflow-hidden bg-white text-neutral-950 font-mono">
               {/* Blue IND Strip */}
               <div className="bg-[#002B7F] text-white px-2.5 py-2 flex flex-col items-center justify-center min-w-[36px] select-none border-r border-blue-900">
                 {/* Ashoka Chakra vector representation */}
@@ -449,35 +505,35 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                 <span className="text-[10px] font-black tracking-widest mt-0.5 leading-none">IND</span>
               </div>
 
-              {/* Monospace Embossed Plate Number */}
+              {/* Monospace Embossed Plate Number (Shows GJ06 •••• 88 when masked) */}
               <div className="px-4 py-2 flex items-center justify-center bg-gradient-to-b from-white to-neutral-100">
-                <span className="text-xl sm:text-2xl font-black tracking-widest uppercase font-mono drop-shadow-xs">
-                  {vehicle.isPlateMasked ? '••••••••' : vehicle.vehicleNumber}
+                <span className="text-xl sm:text-2xl font-black tracking-widest uppercase font-mono drop-shadow-xs text-neutral-950">
+                  {vehicle.vehicleNumber || '••••••••'}
                 </span>
               </div>
             </div>
 
             {/* Vehicle Metadata Badges */}
             <div className="flex flex-wrap sm:flex-col items-start sm:items-end gap-1.5 text-right">
-              <span className="px-2.5 py-1 rounded-lg bg-neutral-800 border border-neutral-700 text-[11px] font-bold uppercase tracking-wider text-neutral-200 flex items-center gap-1.5">
-                <Car className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-[11px] font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200 flex items-center gap-1.5">
+                <Car className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                 {vehicle.vehicleType || 'Vehicle'}
               </span>
-              <span className="px-2.5 py-0.5 rounded-lg bg-cyan-950/80 border border-cyan-800/60 text-[10px] font-semibold text-cyan-300 flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3 text-cyan-400" />
-                Verified Fastag Pass
+              <span className="px-2.5 py-0.5 rounded-lg bg-cyan-50 dark:bg-cyan-950/80 border border-cyan-200 dark:border-cyan-800/60 text-[10px] font-semibold text-cyan-700 dark:text-cyan-300 flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
+                {t.verifiedPass}
               </span>
             </div>
           </div>
 
           {/* Privacy & Instant Delivery Banner */}
-          <div className="mt-3.5 pt-3 border-t border-neutral-800 flex items-center justify-between text-[11px] text-neutral-400">
-            <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
+          <div className="mt-3.5 pt-3 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-[11px] text-neutral-500 dark:text-neutral-400">
+            <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold">
               <Lock className="w-3.5 h-3.5" />
-              100% Anonymous • Your phone number is never asked or shared
+              {t.anonymousNotice}
             </span>
-            <span className="hidden sm:inline-block text-[10px] text-neutral-500">
-              Avg alert delivery: &lt; 3s
+            <span className="hidden sm:inline-block text-[10px] text-neutral-400 dark:text-neutral-500">
+              {t.avgDelivery}
             </span>
           </div>
         </div>
@@ -491,7 +547,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           </div>
           <div className="space-y-1.5">
             <h3 className="text-xl sm:text-2xl font-black text-emerald-900 dark:text-emerald-100">
-              Alert Delivered Successfully!
+              {t.successTitle}
             </h3>
             <p className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 font-medium max-w-md mx-auto">
               {resultState.message}
@@ -499,7 +555,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           </div>
 
           <p className="text-xs text-neutral-600 dark:text-neutral-400 max-w-sm mx-auto leading-relaxed">
-            The vehicle owner has received your instant alert on their Telegram. Thank you for your courtesy in keeping Indian parking responsible and safe!
+            {t.successDesc}
           </p>
 
           {/* ── User Feedback & Rating Card ── */}
@@ -579,7 +635,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             }}
             className="px-6 py-2.5 rounded-xl bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 font-bold text-xs border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
           >
-            Send Another Alert
+            {t.sendAnother}
           </button>
         </div>
       ) : (
@@ -588,9 +644,9 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             <div className="flex items-center justify-between px-1">
               <label className="text-[11px] uppercase tracking-wider font-extrabold text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
                 <BellRing className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                2. Select Parking Alert Reason
+                {t.sec2Title}
               </label>
-              <span className="text-[10px] text-neutral-400">1-Tap Selection</span>
+              <span className="text-[10px] text-neutral-400">{t.oneTap}</span>
             </div>
 
             {/* Grid of Alert Reasons */}
@@ -653,7 +709,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                 <div className="flex items-center gap-2">
                   <Mic className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                   <span className="text-xs font-bold text-neutral-900 dark:text-white">
-                    Send Voice Note (Max {s.maxVoiceDurationSeconds}s)
+                    {t.voiceNoteTitle} (Max {s.maxVoiceDurationSeconds}s)
                   </span>
                 </div>
                 <button
@@ -668,7 +724,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                       : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200'
                   }`}
                 >
-                  {isVoiceMode ? 'Voice Mode Active' : '+ Switch to Voice'}
+                  {isVoiceMode ? t.voiceActive : t.switchToVoice}
                 </button>
               </div>
 
@@ -686,10 +742,10 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                         {isRecording ? (
                           <span className="flex items-center gap-2 text-rose-600 font-bold animate-pulse">
                             <span className="w-2.5 h-2.5 rounded-full bg-rose-600" />
-                            Recording ({recordingSeconds}s / {s.maxVoiceDurationSeconds}s)
+                            {t.recording} ({recordingSeconds}s / {s.maxVoiceDurationSeconds}s)
                           </span>
                         ) : (
-                          'Tap record to speak your message'
+                          t.tapToRecord
                         )}
                       </div>
 
@@ -699,7 +755,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                           onClick={stopRecording}
                           className="px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-rose-600/20 cursor-pointer"
                         >
-                          <Square className="w-3.5 h-3.5" /> Stop
+                          <Square className="w-3.5 h-3.5" /> {t.stop}
                         </button>
                       ) : (
                         <button
@@ -707,7 +763,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                           onClick={startRecording}
                           className="px-4 py-2 rounded-xl bg-cyan-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-cyan-600/20 hover:bg-cyan-700 cursor-pointer"
                         >
-                          <Mic className="w-3.5 h-3.5" /> Start Recording
+                          <Mic className="w-3.5 h-3.5" /> {t.startRecording}
                         </button>
                       )}
                     </div>
@@ -715,7 +771,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-bold text-emerald-600 flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5" /> Audio Ready ({recordingSeconds}s)
+                          <CheckCircle2 className="w-3.5 h-3.5" /> {t.audioReady} ({recordingSeconds}s)
                         </span>
                         <div className="flex items-center gap-2">
                           <button
@@ -748,7 +804,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             <div className="space-y-1.5">
               <div className="flex items-center justify-between px-1">
                 <label className="text-xs font-bold text-neutral-600 dark:text-neutral-300">
-                  Optional Short Note for Driver:
+                  {t.customNoteLabel}
                 </label>
                 <span className="text-[10px] text-neutral-400">
                   {customMessage.length}/{s.maxCustomTextLength}
@@ -758,9 +814,9 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                 value={customMessage}
                 maxLength={s.maxCustomTextLength}
                 onChange={(e) => setCustomMessage(e.target.value)}
-                placeholder="e.g. Parked near basement pillar B-14, need to exit in 5 mins..."
+                placeholder={t.customNotePlaceholder}
                 rows={2}
-                className="w-full p-3 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-xs focus:ring-2 focus:ring-cyan-500 outline-none resize-none"
+                className="w-full p-3 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 text-xs text-neutral-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none resize-none"
               />
             </div>
           )}
@@ -770,7 +826,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                Optional Parking Spot / Landmark
+                {t.locationLabel}
               </label>
               <button
                 type="button"
@@ -779,7 +835,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
                 className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer"
               >
                 <Navigation className="w-3 h-3" />
-                {isGettingLocation ? 'Fetching GPS...' : locationCoords ? 'GPS Attached ✓' : '+ Attach GPS'}
+                {isGettingLocation ? t.fetchingGps : locationCoords ? t.gpsAttached : t.attachGps}
               </button>
             </div>
 
@@ -787,22 +843,22 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
               type="text"
               value={locationText}
               onChange={(e) => setLocationText(e.target.value)}
-              placeholder="e.g. Basement 1 Pillar C-14, or Opposite Gate 2"
+              placeholder={t.locationPlaceholder}
               maxLength={150}
-              className="w-full p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs focus:ring-2 focus:ring-cyan-500 outline-none"
+              className="w-full p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none"
             />
 
             {locationCoords && (
               <div className="flex items-center justify-between text-[11px] px-2.5 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60">
                 <span className="font-mono flex items-center gap-1">
-                  📍 GPS Coordinates: {locationCoords}
+                  📍 GPS: {locationCoords}
                 </span>
                 <button
                   type="button"
                   onClick={() => setLocationCoords(null)}
                   className="text-emerald-700 hover:text-rose-600 font-bold ml-2 cursor-pointer"
                 >
-                  Remove
+                  {t.removeGps}
                 </button>
               </div>
             )}
@@ -837,11 +893,11 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             {isSubmitting ? (
               <>
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Delivering Instant Alert to Owner...
+                {t.sendingButton}
               </>
             ) : (
               <>
-                <Send className="w-4 h-4" /> Send Instant Alert to Owner
+                <Send className="w-4 h-4" /> {t.sendButton}
               </>
             )}
           </button>
@@ -856,13 +912,13 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           </div>
           <div className="space-y-0.5">
             <div className="font-black text-rose-900 dark:text-rose-100 text-sm flex items-center gap-2">
-              <span>3. Urgent Emergency Helplines</span>
+              <span>{t.sec3Title}</span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-600 text-white uppercase font-extrabold tracking-wider">
-                India 24x7
+                {t.india24x7}
               </span>
             </div>
             <p className="text-[11px] leading-relaxed text-rose-800/80 dark:text-rose-300/80">
-              For accidents, crimes, medical distress or life-threatening situations, tap to dial national emergency services directly:
+              {t.sec3Desc}
             </p>
           </div>
         </div>
@@ -878,15 +934,15 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             </div>
             <div>
               <div className="text-xs font-black uppercase tracking-wider text-rose-100">
-                All-in-One National Emergency
+                {t.allInOne}
               </div>
               <div className="text-base font-black tracking-wide">
-                Dial 112 (Police • Ambulance • Fire)
+                {t.dial112}
               </div>
             </div>
           </div>
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-rose-600 font-extrabold text-xs group-hover:scale-105 transition-transform">
-            <PhoneCall className="w-3.5 h-3.5" /> Tap to Call
+            <PhoneCall className="w-3.5 h-3.5" /> {t.tapToCall}
           </div>
         </a>
 
@@ -988,20 +1044,20 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-cyan-400" />
             <span className="text-[11px] uppercase font-black tracking-wider text-cyan-400">
-              Own a Car or Bike in India?
+              {t.promoBadge}
             </span>
           </div>
           <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-            100% Free Forever
+            {t.freeForever}
           </span>
         </div>
 
         <div className="space-y-2">
           <h3 className="text-base sm:text-lg font-black font-display text-white">
-            Never leave your personal phone number on a car dashboard again.
+            {t.promoTitle}
           </h3>
           <p className="text-xs text-slate-300 leading-relaxed">
-            Paper slips expose your mobile number to strangers, spam, and harassment. With <strong>ParkSignal</strong>, place a smart Fastag-size QR sticker on your windshield. Anyone can politely notify you via Telegram in 5 seconds.
+            {t.promoDesc}
           </p>
         </div>
 
@@ -1009,15 +1065,15 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
           <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
             <Lock className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-            <span className="text-slate-200">Zero Spam Calls</span>
+            <span className="text-slate-200">{t.zeroSpam}</span>
           </div>
           <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            <span className="text-slate-200">100% Driver Privacy</span>
+            <span className="text-slate-200">{t.driverPrivacy}</span>
           </div>
           <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
             <QrCode className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-            <span className="text-slate-200">Printable Windshield Pass</span>
+            <span className="text-slate-200">{t.printablePass}</span>
           </div>
         </div>
 
@@ -1027,7 +1083,7 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
             href="/parksignal"
             className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-cyan-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
           >
-            <span>Create Your Free Vehicle QR Sticker</span>
+            <span>{t.createFreeQr}</span>
             <ArrowRight className="w-4 h-4 text-slate-950" />
           </a>
         </div>
@@ -1036,10 +1092,10 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
       {/* Clean Footer Info */}
       <div className="text-center space-y-1.5 pt-2">
         <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
-          Powered by <strong>ParkSignal</strong> • Free Public Utility by <strong>BharatUtility</strong>
+          {t.footerPowered}
         </p>
         <p className="text-[10px] text-neutral-400 dark:text-neutral-500">
-          Your vehicle. Your privacy. Scan. Alert. Connect.
+          {t.footerTagline}
         </p>
       </div>
     </div>

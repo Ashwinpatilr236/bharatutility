@@ -413,14 +413,16 @@ localParkSignalRouter.get('/public/vehicle/:token', (req: Request, res: Response
   }
 
   const settings = store.vehicleSettings.get(vehicle.id) || {};
-  const tg = store.telegramAccounts.get(vehicle.ownerId);
+  const cleanPlate = (vehicle.vehicle_number || '').trim().toUpperCase();
+  const maskedPlate = cleanPlate.length > 4
+    ? `${cleanPlate.slice(0, 4)} •••• ${cleanPlate.slice(-2)}`
+    : '••••';
 
   res.json({
     valid: true,
     vehicleType: vehicle.vehicle_type,
-    vehicleNumber: vehicle.display_plate_publicly === 1 ? vehicle.vehicle_number : null,
+    vehicleNumber: vehicle.display_plate_publicly === 1 ? vehicle.vehicle_number : maskedPlate,
     isPlateMasked: vehicle.display_plate_publicly !== 1,
-    isTelegramLinked: Boolean(tg && tg.isActive),
     settings: {
       allowBlocking: settings.allow_blocking !== 0,
       allowMoveVehicle: settings.allow_move_vehicle !== 0,
