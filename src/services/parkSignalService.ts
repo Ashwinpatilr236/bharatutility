@@ -29,6 +29,23 @@ try {
   // Storage unavailable
 }
 
+// Keep cached localStorage session strictly synchronized with Supabase Auth state
+const initSb = getSupabase();
+if (initSb && isSupabaseConfigured()) {
+  initSb.auth.onAuthStateChange((event, session) => {
+    try {
+      if (event === 'SIGNED_OUT' || !session) {
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(USER_KEY);
+      } else if (session?.access_token) {
+        localStorage.setItem(TOKEN_KEY, session.access_token);
+      }
+    } catch {
+      // Ignore storage errors
+    }
+  });
+}
+
 function generateRandomHex(bytes: number = 16): string {
   const array = new Uint8Array(bytes);
   crypto.getRandomValues(array);
@@ -101,7 +118,8 @@ export const parkSignalService = {
         email: normEmail,
         password,
         options: {
-          data: { full_name: fullName.trim() }
+          data: { full_name: fullName.trim() },
+          emailRedirectTo: typeof window !== 'undefined' ? `${window.location.origin}/parksignal/dashboard` : undefined
         }
       });
 
@@ -863,6 +881,7 @@ export const parkSignalService = {
           voice_duration_seconds, delivery_status, created_at,
           parksignal_vehicles!inner(id, vehicle_number, vehicle_type, nickname, owner_id)
         `)
+        .eq('parksignal_vehicles.owner_id', cur.id)
         .order('created_at', { ascending: false })
         .limit(50);
 

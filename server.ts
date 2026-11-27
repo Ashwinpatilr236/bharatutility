@@ -11,8 +11,10 @@ const PORT = 3000;
 
 app.use(express.json({ limit: "10mb" }));
 
-// ── PARKSIGNAL API (Local dev proxy) ──
-app.use("/api/parksignal", localParkSignalRouter);
+// ── PARKSIGNAL API (Local dev only; production uses Supabase Edge Functions) ──
+if (process.env.NODE_ENV !== "production") {
+  app.use("/api/parksignal", localParkSignalRouter);
+}
 
 // ── HEALTH CHECK ──
 app.get("/api/health", (req, res) => {
@@ -93,6 +95,9 @@ app.get("/api/admin/health-check", async (req, res) => {
 });
 
 app.get("/api/admin/system-stats", (req, res) => {
+  if (process.env.NODE_ENV === "production") {
+    return res.status(403).json({ error: "Forbidden in production" });
+  }
   res.json({
     nodeVersion: process.version,
     platform: process.platform,

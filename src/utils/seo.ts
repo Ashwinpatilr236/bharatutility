@@ -523,7 +523,7 @@ export function updateSeoMetadata(view: ViewMode): void {
   setMetaTag('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
   setMetaTag('meta[property="og:type"]', 'property', 'og:type', ogType);
   setMetaTag('meta[property="og:site_name"]', 'property', 'og:site_name', SITE_NAME);
-  const pageOgImage = view.type === 'parksignal' || (view.type === 'tool' && view.toolSlug === 'parksignal')
+  const pageOgImage = view.type === 'parksignal' || (view.type === 'tool' && view.slug === 'parksignal')
     ? `${CANONICAL_BASE}/parksignal-logo.png`
     : DEFAULT_OG_IMAGE;
   setMetaTag('meta[property="og:image"]', 'property', 'og:image', pageOgImage);

@@ -467,8 +467,8 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
 
     const img = new Image();
     const svgBlob = new Blob([masterSvg], { type: 'image/svg+xml;charset=utf-8' });
-    const URL = window.URL || window.webkitURL || window;
-    const blobURL = URL.createObjectURL(svgBlob);
+    const urlApi = window.URL || window.webkitURL;
+    const blobURL = urlApi.createObjectURL(svgBlob);
 
     img.onload = () => {
       const canvas = document.createElement('canvas');
@@ -486,7 +486,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
         setDownloadSuccess(`Downloaded Ultra High-DPI (300 DPI) ${selectedLayout.toUpperCase()} PNG!`);
         setTimeout(() => setDownloadSuccess(null), 3500);
       }
-      URL.revokeObjectURL(blobURL);
+      urlApi.revokeObjectURL(blobURL);
     };
     img.src = blobURL;
   };
