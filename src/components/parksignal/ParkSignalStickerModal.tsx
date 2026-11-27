@@ -7,16 +7,12 @@ import {
   Check,
   Scissors,
   Sparkles,
-  Zap,
-  Sun,
-  Moon,
-  Flame,
   Layers,
   AlertTriangle,
   FileCode2
 } from 'lucide-react';
 import { ParkSignalVehicle } from '../../types';
-import { PARKSIGNAL_LIGHT_BG_LOGO_B64, PARKSIGNAL_DARK_BG_LOGO_B64, PARKSIGNAL_EMBLEM_B64 } from './parkSignalLogoBase64';
+import { PARKSIGNAL_DARK_BG_LOGO_B64 } from './parkSignalLogoBase64';
 
 interface ParkSignalStickerModalProps {
   vehicle: ParkSignalVehicle;
@@ -25,7 +21,6 @@ interface ParkSignalStickerModalProps {
 }
 
 export type StickerLayout = 'hazard' | 'square';
-export type StickerTheme = 'safety_yellow' | 'emergency_orange' | 'clean_white' | 'carbon_dark';
 
 export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   vehicle,
@@ -33,7 +28,6 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
   onClose,
 }) => {
   const [selectedLayout, setSelectedLayout] = useState<StickerLayout>('hazard');
-  const [selectedTheme, setSelectedTheme] = useState<StickerTheme>('safety_yellow');
   const [showCutBorder, setShowCutBorder] = useState(true);
   const [qrDataUrl, setQrDataUrl] = useState<string>('');
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
@@ -47,7 +41,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       width: 900,
       margin: 1,
       color: {
-        dark: '#0B0F19',
+        dark: '#111318',
         light: '#FFFFFF',
       },
       errorCorrectionLevel: 'H',
@@ -62,70 +56,30 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     };
   }, [publicUrl]);
 
+  // Safety plate masking: show state+RTO prefix (e.g. GJ06) + dots + last 2 digits only (e.g. 88)
+  const cleanPlate = (vehicle.vehicle_number || '').trim().toUpperCase();
   const displayPlate =
     vehicle.display_plate_publicly === 1
-      ? vehicle.vehicle_number
-      : vehicle.vehicle_number.length > 4
-      ? `${vehicle.vehicle_number.slice(0, 4)} •••• ${vehicle.vehicle_number.slice(-4)}`
-      : '••••••••';
+      ? cleanPlate
+      : cleanPlate.length > 4
+      ? `${cleanPlate.slice(0, 4)} •••• ${cleanPlate.slice(-2)}`
+      : '••••';
 
   const vehicleTypeUpper = vehicle.vehicle_type ? vehicle.vehicle_type.toUpperCase() : 'VEHICLE';
-  const plateFormatted = `${vehicleTypeUpper}  •  ${displayPlate}`;
-
-  // Dynamic colors for themes
-  const colors = useMemo(() => {
-    switch (selectedTheme) {
-      case 'emergency_orange':
-        return {
-          bg: '#FF5722',
-          text: '#FFFFFF',
-          hazardStripe: '#FF5722',
-          accent: '#FF5722',
-        };
-      case 'clean_white':
-        return {
-          bg: '#FFFFFF',
-          text: '#0B0F19',
-          hazardStripe: '#CBD5E1',
-          accent: '#0B0F19',
-        };
-      case 'carbon_dark':
-        return {
-          bg: '#0F172A',
-          text: '#FFFFFF',
-          hazardStripe: '#0284C7',
-          accent: '#38BDF8',
-        };
-      case 'safety_yellow':
-      default:
-        return {
-          bg: '#FFD000',
-          text: '#0B0F19',
-          hazardStripe: '#FFD000',
-          accent: '#FFD000',
-        };
-    }
-  }, [selectedTheme]);
+  const plateFormatted = `${vehicleTypeUpper} • ${displayPlate}`;
 
   // ══════════════════════════════════════════════════════════════════
-  // GENERATE MASTER SVG (Retail Commercial Automotive Standard)
+  // GENERATE MASTER SVG (Clean Industrial Automotive Safety Standard)
+  // Strict 4-color palette: #FF5A00, #111318, #FFD600, #FFFFFF
   // ══════════════════════════════════════════════════════════════════
   const masterSvg = useMemo(() => {
     if (!qrDataUrl) return '';
 
-    // Precision Official Brand Logo Lockup
-    const getVectorLogoSvg = (x: number, y: number, scale = 1, isDarkBackground = false) => {
-      const logoB64 = isDarkBackground ? PARKSIGNAL_DARK_BG_LOGO_B64 : PARKSIGNAL_LIGHT_BG_LOGO_B64;
-      const width = Math.round(230 * scale);
-      const height = Math.round(92 * scale);
-      return `<image href="${logoB64}" x="${x}" y="${y}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet" />`;
-    };
-
     // ─────────────────────────────────────────────────────────────
-    // FORMAT 1: COMMERCIAL FASTAG PASS (ProfileTap / Retail Standard)
+    // FORMAT 1: LANDSCAPE SAFETY STICKER (1360 x 680)
     // ─────────────────────────────────────────────────────────────
     if (selectedLayout === 'hazard') {
-      return `<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="680" viewBox="0 0 1360 680" style="background:#FFFFFF;">
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="680" viewBox="0 0 1360 680">
   <defs>
     <style>
       .font-sans { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
@@ -134,145 +88,196 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <clipPath id="pass-clip">
       <rect x="0" y="0" width="1360" height="680" rx="28" ry="28" />
     </clipPath>
-    <!-- Sharp 45-degree Repeating Caution Hazard Tape Pattern -->
-    <pattern id="hazardStripe" width="44" height="44" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <rect width="22" height="44" fill="#0B0F19" />
-      <rect x="22" width="22" height="44" fill="${colors.hazardStripe}" />
+    <clipPath id="qr-card-clip">
+      <rect x="0" y="0" width="440" height="512" rx="22" ry="22" />
+    </clipPath>
+    <!-- Minimal 45-degree Top & Bottom Hazard Stripes -->
+    <pattern id="hazardStripe" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="20" height="40" fill="#111318" />
+      <rect x="20" width="20" height="40" fill="#FFD600" />
     </pattern>
   </defs>
 
-  <!-- Base Card -->
   <g clip-path="url(#pass-clip)">
-    <!-- Solid Safety Background -->
-    <rect x="0" y="0" width="1360" height="680" fill="${colors.bg}" />
+    <!-- Jet Black Base -->
+    <rect x="0" y="0" width="1360" height="680" fill="#111318" />
 
-    <!-- Thin Crisp Top Hazard Caution Tape -->
-    <rect x="0" y="0" width="1360" height="24" fill="url(#hazardStripe)" />
-    <!-- Thin Crisp Bottom Hazard Caution Tape -->
-    <rect x="0" y="656" width="1360" height="24" fill="url(#hazardStripe)" />
+    <!-- Minimal Top & Bottom Hazard Stripes -->
+    <rect x="0" y="0" width="1360" height="22" fill="url(#hazardStripe)" />
+    <rect x="0" y="658" width="1360" height="22" fill="url(#hazardStripe)" />
 
-    <!-- ── LEFT SIDE: CLEAN WHITE CARD FOR QR CODE (NO CLUTTER) ── -->
-    <g transform="translate(44, 44)">
-      <rect x="0" y="0" width="440" height="592" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+    <!-- ── LEFT SECTION: CLEAN QR CARD ── -->
+    <g transform="translate(42, 42)">
+      <g clip-path="url(#qr-card-clip)">
+        <!-- Yellow Header -->
+        <rect x="0" y="0" width="440" height="106" fill="#FFD600" />
+        <text x="24" y="47" class="font-sans" font-size="31" font-weight="900" fill="#111318" letter-spacing="-0.5">SCAN QR CODE</text>
+        <text x="24" y="80" class="font-sans" font-size="18.5" font-weight="700" fill="#111318">Use Any Phone Camera</text>
 
-      <!-- High-Resolution Centered QR Code with Generous Breathing Room -->
-      <image href="${qrDataUrl}" x="25" y="25" width="390" height="390" />
+        <!-- Minimal Phone Scanning Icon -->
+        <g transform="translate(362, 18)">
+          <rect x="0" y="0" width="44" height="70" rx="7" fill="#111318" />
+          <rect x="4" y="8" width="36" height="50" rx="3" fill="#FFFFFF" />
+          <rect x="10" y="16" width="24" height="24" rx="2" fill="#111318" />
+          <rect x="14" y="20" width="16" height="16" fill="#FFD600" />
+          <rect x="17" y="23" width="10" height="10" fill="#111318" />
+          <circle cx="22" cy="63" r="2.5" fill="#FFD600" />
+        </g>
 
-      <!-- Minimalist Dark Camera Scan Badge -->
-      <g transform="translate(20, 436)">
-        <rect x="0" y="0" width="400" height="66" rx="16" fill="#0B0F19" />
-        <text x="200" y="30" class="font-sans" font-size="13.5" font-weight="900" fill="#FFC700" text-anchor="middle" letter-spacing="0.5">📷 SCAN WITH ANY PHONE CAMERA</text>
-        <text x="200" y="50" class="font-sans" font-size="10.5" font-weight="700" fill="#94A3B8" text-anchor="middle" letter-spacing="0.5">NO APP REQUIRED • 100% PRIVATE ALERT</text>
+        <!-- Pure White QR Background -->
+        <rect x="0" y="106" width="440" height="406" fill="#FFFFFF" />
+
+        <!-- Actual High-Res Working QR Code -->
+        <image href="${qrDataUrl}" x="30" y="116" width="380" height="380" />
       </g>
 
-      <!-- Bottom Micro URL -->
-      <text x="220" y="540" class="font-sans" font-size="11" font-weight="700" fill="#64748B" text-anchor="middle">bharatutility.tech/parksignal</text>
+      <!-- Scan Instruction Pill -->
+      <g transform="translate(14, 528)">
+        <rect x="0" y="0" width="412" height="48" rx="24" fill="#111318" stroke="#FFD600" stroke-width="2" />
+        <text x="206" y="21" class="font-sans" font-size="12.5" font-weight="900" fill="#FFD600" text-anchor="middle" letter-spacing="0.5">SCAN WITH ANY PHONE CAMERA</text>
+        <text x="206" y="38" class="font-sans" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.8">• NO APP REQUIRED</text>
+      </g>
+
+      <!-- Website -->
+      <text x="220" y="596" class="font-sans" font-size="12" font-weight="700" fill="#FFFFFF" opacity="0.75" text-anchor="middle">bharatutility.tech/parksignal</text>
     </g>
 
-    <!-- ── RIGHT SIDE: COMMERCIAL SAFETY LAYOUT ── -->
-    <g transform="translate(528, 44)">
-      <!-- 1. Header Bar: Official Brand Lockup & Size Pill -->
-      <g transform="translate(0, 0)">
-        ${getVectorLogoSvg(0, 2, 1.15, false)}
+    <!-- ── RIGHT SECTION: HIGH-VISIBILITY SAFETY COMMUNICATION ── -->
+    <g transform="translate(520, 42)">
+      <!-- 1. Top ParkSignal Branding (Clean, no Fastag pill) -->
+      <g transform="translate(0, -4)">
+        <image href="${PARKSIGNAL_DARK_BG_LOGO_B64}" x="0" y="0" width="225" height="78" preserveAspectRatio="xMidYMid meet" />
+      </g>
 
-        <!-- FASTAG Verification Pill -->
-        <g transform="translate(548, 6)">
-          <rect x="0" y="0" width="240" height="34" rx="10" fill="#0B0F19" />
-          <text x="120" y="22" class="font-sans" font-size="11" font-weight="900" fill="#FFC700" text-anchor="middle" letter-spacing="0.8">FASTAG SIZE • SMART PASS</text>
+      <!-- 2. Bold Headline Banner -->
+      <g transform="translate(0, 82)">
+        <!-- Safety Orange Block -->
+        <rect x="0" y="0" width="526" height="82" rx="12" fill="#FF5A00" />
+        <text x="24" y="57" class="font-sans" font-size="45" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5">PARKING ISSUE?</text>
+
+        <!-- Signal Yellow Block -->
+        <rect x="536" y="0" width="260" height="82" rx="12" fill="#FFD600" />
+        <text x="554" y="36" class="font-sans" font-size="27" font-weight="900" fill="#111318" letter-spacing="0.4">CONTACT</text>
+        <text x="554" y="66" class="font-sans" font-size="22.5" font-weight="900" fill="#111318" letter-spacing="0.3">VEHICLE OWNER</text>
+      </g>
+
+      <!-- 3. Three Clearly Numbered Steps -->
+      <g transform="translate(0, 184)">
+        <!-- Step 01 -->
+        <g transform="translate(0, 0)">
+          <text x="0" y="54" class="font-sans" font-size="56" font-weight="900" fill="#FF5A00" letter-spacing="-1">01</text>
+          <rect x="72" y="10" width="44" height="4" rx="2" fill="#FF5A00" />
+          <text x="72" y="34" class="font-sans" font-size="16" font-weight="900" fill="#FFFFFF">SCAN</text>
+          <text x="72" y="54" class="font-sans" font-size="14" font-weight="900" fill="#FF5A00">QR</text>
+        </g>
+
+        <text x="194" y="46" class="font-sans" font-size="28" font-weight="900" fill="#FFFFFF" opacity="0.6">&gt;</text>
+
+        <!-- Step 02 -->
+        <g transform="translate(238, 0)">
+          <text x="0" y="54" class="font-sans" font-size="56" font-weight="900" fill="#FF5A00" letter-spacing="-1">02</text>
+          <rect x="76" y="10" width="44" height="4" rx="2" fill="#FF5A00" />
+          <text x="76" y="34" class="font-sans" font-size="16" font-weight="900" fill="#FFFFFF">OPEN</text>
+          <text x="76" y="54" class="font-sans" font-size="14" font-weight="900" fill="#FF5A00">PARKSIGNAL</text>
+        </g>
+
+        <text x="476" y="46" class="font-sans" font-size="28" font-weight="900" fill="#FFFFFF" opacity="0.6">&gt;</text>
+
+        <!-- Step 03 -->
+        <g transform="translate(520, 0)">
+          <text x="0" y="54" class="font-sans" font-size="56" font-weight="900" fill="#FF5A00" letter-spacing="-1">03</text>
+          <rect x="76" y="10" width="44" height="4" rx="2" fill="#FF5A00" />
+          <text x="76" y="34" class="font-sans" font-size="16" font-weight="900" fill="#FFFFFF">CONTACT</text>
+          <text x="76" y="54" class="font-sans" font-size="14" font-weight="900" fill="#FF5A00">OWNER</text>
         </g>
       </g>
 
-      <!-- 2. Commercial Safety Headline -->
-      <g transform="translate(0, 78)">
-        <text x="0" y="28" class="font-sans" font-size="30" font-weight="700" fill="#0B0F19">Scan the QR to contact the</text>
-        <text x="0" y="70" class="font-sans" font-size="40" font-weight="900" fill="#0B0F19" letter-spacing="-0.5">vehicle owner in case of emergency</text>
-      </g>
-
-      <!-- 3. Row of 6 Uniform Automotive Situation Icons -->
-      <g transform="translate(0, 180)">
-        <!-- Icon 1: ACCIDENT (Phone Receiver) -->
-        <g transform="translate(40, 0)">
-          <circle cx="0" cy="22" r="22" fill="#0B0F19" />
-          <path d="M-8 8 C-8 15 -1 22 6 22 L9 19 C10 18 10 16 9 15 L5 12 C4 11 3 11 2 12 L1 13 C-2 11 -4 9 -6 6 L-5 5 C-4 4 -4 3 -5 2 L-8 -2 C-9 -3 -10 -3 -11 -2 L-13 0 C-14 2 -14 3 -13 4" fill="#FFC700" />
-          <text x="0" y="62" class="font-sans" font-size="11" font-weight="900" fill="#0B0F19" text-anchor="middle" letter-spacing="0.5">ACCIDENT</text>
-        </g>
-
-        <!-- Icon 2: POLICE (Shield Badge with Star) -->
-        <g transform="translate(180, 0)">
-          <circle cx="0" cy="22" r="22" fill="#0B0F19" />
-          <path d="M-10 14 L0 7 L10 14 V23 C10 30 0 36 0 36 C0 36 -10 30 -10 23 Z" fill="none" stroke="#FFC700" stroke-width="2.5" />
-          <circle cx="0" cy="21" r="3.5" fill="#FFC700" />
-          <text x="0" y="62" class="font-sans" font-size="11" font-weight="900" fill="#0B0F19" text-anchor="middle" letter-spacing="0.5">POLICE</text>
-        </g>
-
-        <!-- Icon 3: BREAKDOWN (Crossed Tools) -->
-        <g transform="translate(320, 0)">
-          <circle cx="0" cy="22" r="22" fill="#0B0F19" />
-          <path d="M-9 13 L9 31 M9 13 L-9 31" stroke="#FFC700" stroke-width="3" stroke-linecap="round" />
-          <circle cx="0" cy="22" r="3.5" fill="#FFC700" />
-          <text x="0" y="62" class="font-sans" font-size="11" font-weight="900" fill="#0B0F19" text-anchor="middle" letter-spacing="0.5">BREAKDOWN</text>
-        </g>
-
-        <!-- Icon 4: TOWING (Traffic Safety Cone) -->
-        <g transform="translate(460, 0)">
-          <circle cx="0" cy="22" r="22" fill="#0B0F19" />
-          <path d="M-11 32 L11 32 M-8 30 L-2 12 L2 12 L8 30 Z" fill="none" stroke="#FFC700" stroke-width="2.5" stroke-linejoin="round" />
-          <line x1="-5" y1="22" x2="5" y2="22" stroke="#FFC700" stroke-width="2" />
-          <text x="0" y="62" class="font-sans" font-size="11" font-weight="900" fill="#0B0F19" text-anchor="middle" letter-spacing="0.5">TOWING</text>
-        </g>
-
-        <!-- Icon 5: SAFETY (Hazard Warning Triangle) -->
-        <g transform="translate(600, 0)">
-          <circle cx="0" cy="22" r="22" fill="#0B0F19" />
-          <path d="M0 10 L12 32 L-12 32 Z" fill="none" stroke="#FFC700" stroke-width="2.5" stroke-linejoin="round" />
-          <line x1="0" y1="16" x2="0" y2="24" stroke="#FFC700" stroke-width="2.2" stroke-linecap="round" />
-          <circle cx="0" cy="28" r="1.5" fill="#FFC700" />
-          <text x="0" y="62" class="font-sans" font-size="11" font-weight="900" fill="#0B0F19" text-anchor="middle" letter-spacing="0.5">SAFETY</text>
-        </g>
-
-        <!-- Icon 6: PARKING (Uniform Black Roundel with P) -->
-        <g transform="translate(740, 0)">
-          <circle cx="0" cy="22" r="22" fill="#0B0F19" />
-          <text x="0" y="30" class="font-sans" font-size="22" font-weight="900" fill="#FFC700" text-anchor="middle">P</text>
-          <text x="0" y="62" class="font-sans" font-size="11" font-weight="900" fill="#0B0F19" text-anchor="middle" letter-spacing="0.5">PARKING</text>
-        </g>
-      </g>
-
-      <!-- 4. Explanatory Safety Notice Paragraph -->
+      <!-- 4. Compact Row of 6 Emergency Icons -->
       <g transform="translate(0, 276)">
-        <text x="0" y="20" class="font-sans" font-size="16" font-weight="700" fill="#0B0F19">Facing a parking issue or emergency? Notice something wrong with the vehicle?</text>
-        <text x="0" y="44" class="font-sans" font-size="16" font-weight="700" fill="#0B0F19">Please scan the QR tag to contact the owner privately in seconds.</text>
+        <!-- 1. ACCIDENT -->
+        <g transform="translate(66, 0)">
+          <circle cx="0" cy="27" r="27" fill="#FFD600" />
+          <path d="M-9 13 C-9 20 -2 27 5 27 L8 24 C9 23 9 21 8 20 L4 17 C3 16 2 16 1 17 L0 18 C-3 16 -5 14 -7 11 L-6 10 C-5 9 -5 8 -6 7 L-9 3 C-10 2 -11 2 -12 3 L-14 5 C-15 7 -15 8 -14 9" fill="#111318" transform="translate(3, 12)" />
+          <text x="0" y="72" class="font-sans" font-size="11.5" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">ACCIDENT</text>
+        </g>
+
+        <!-- 2. POLICE -->
+        <g transform="translate(198, 0)">
+          <circle cx="0" cy="27" r="27" fill="#FFD600" />
+          <path d="M-11 17 L0 9 L11 17 V28 C11 36 0 42 0 42 C0 42 -11 36 -11 28 Z" fill="none" stroke="#111318" stroke-width="3" />
+          <circle cx="0" cy="25" r="4" fill="#111318" />
+          <text x="0" y="72" class="font-sans" font-size="11.5" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">POLICE</text>
+        </g>
+
+        <!-- 3. BREAKDOWN -->
+        <g transform="translate(330, 0)">
+          <circle cx="0" cy="27" r="27" fill="#FFD600" />
+          <path d="M-10 17 L10 37 M10 17 L-10 37" stroke="#111318" stroke-width="3.5" stroke-linecap="round" />
+          <circle cx="0" cy="27" r="4.5" fill="#111318" />
+          <text x="0" y="72" class="font-sans" font-size="11.5" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">BREAKDOWN</text>
+        </g>
+
+        <!-- 4. TOWING -->
+        <g transform="translate(462, 0)">
+          <circle cx="0" cy="27" r="27" fill="#FFD600" />
+          <path d="M-13 38 L13 38 M-9 36 L-3 15 L3 15 L9 36 Z" fill="none" stroke="#111318" stroke-width="3" stroke-linejoin="round" />
+          <line x1="-6" y1="27" x2="6" y2="27" stroke="#111318" stroke-width="2.5" />
+          <text x="0" y="72" class="font-sans" font-size="11.5" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">TOWING</text>
+        </g>
+
+        <!-- 5. SAFETY -->
+        <g transform="translate(594, 0)">
+          <circle cx="0" cy="27" r="27" fill="#FFD600" />
+          <path d="M0 13 L13 37 L-13 37 Z" fill="none" stroke="#111318" stroke-width="3" stroke-linejoin="round" />
+          <line x1="0" y1="21" x2="0" y2="29" stroke="#111318" stroke-width="2.8" stroke-linecap="round" />
+          <circle cx="0" cy="33" r="1.8" fill="#111318" />
+          <text x="0" y="72" class="font-sans" font-size="11.5" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">SAFETY</text>
+        </g>
+
+        <!-- 6. PARKING -->
+        <g transform="translate(726, 0)">
+          <circle cx="0" cy="27" r="27" fill="#FFD600" />
+          <text x="0" y="36" class="font-sans" font-size="26" font-weight="900" fill="#111318" text-anchor="middle">P</text>
+          <text x="0" y="72" class="font-sans" font-size="11.5" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">PARKING</text>
+        </g>
       </g>
 
-      <!-- 5. Authentic Indian HSRP License Plate Strip -->
-      <g transform="translate(0, 344)">
-        <rect x="0" y="0" width="788" height="84" rx="14" fill="#FFFFFF" stroke="#0B0F19" stroke-width="2.5" />
-        <!-- Blue IND Band -->
-        <rect x="0" y="0" width="92" height="84" rx="12" fill="#003399" />
-        <circle cx="46" cy="30" r="11" fill="none" stroke="#FFFFFF" stroke-width="2" />
-        <text x="46" y="66" class="font-sans" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">IND</text>
-        <!-- Vehicle Plate Text -->
-        <text x="440" y="55" class="font-mono" font-size="38" font-weight="900" fill="#0F172A" text-anchor="middle" letter-spacing="4">${plateFormatted}</text>
+      <!-- 5. Clean Supporting Context Strip -->
+      <g transform="translate(0, 374)">
+        <rect x="0" y="0" width="796" height="36" rx="8" fill="#1B1F27" />
+        <text x="398" y="23" class="font-sans" font-size="13.5" font-weight="600" fill="#FFFFFF" opacity="0.9" text-anchor="middle">Facing a parking issue or emergency? Scan the QR to contact the owner privately.</text>
       </g>
 
-      <!-- 6. Bottom Security Assurance Footer -->
-      <g transform="translate(0, 448)">
-        <rect x="0" y="0" width="788" height="42" rx="10" fill="#0B0F19" />
-        <text x="394" y="26" class="font-sans" font-size="12" font-weight="800" fill="#FFC700" text-anchor="middle" letter-spacing="0.5">🔒 100% PRIVATE • OWNER PHONE NUMBER IS NEVER SHARED • bharatutility.tech/parksignal</text>
+      <!-- 6. Vehicle Number in Clean White Strip (HSRP Format) -->
+      <g transform="translate(0, 426)">
+        <rect x="0" y="0" width="796" height="88" rx="14" fill="#FFFFFF" />
+        <!-- Standard IND Plate Strip -->
+        <rect x="0" y="0" width="96" height="88" rx="12" fill="#003399" />
+        <circle cx="48" cy="31" r="12" fill="none" stroke="#FFFFFF" stroke-width="2" />
+        <text x="48" y="69" class="font-sans" font-size="21" font-weight="900" fill="#FFFFFF" text-anchor="middle">IND</text>
+        <!-- Plate Text -->
+        <text x="446" y="58" class="font-mono" font-size="40" font-weight="900" fill="#111318" text-anchor="middle" letter-spacing="4">${plateFormatted}</text>
+      </g>
+
+      <!-- 7. Privacy Statement -->
+      <g transform="translate(0, 536)">
+        <text x="398" y="20" class="font-sans" font-size="14" font-weight="900" fill="#FFD600" text-anchor="middle" letter-spacing="0.6">
+          🔒 100% PRIVATE • <tspan fill="#FFFFFF">OWNER PHONE NUMBER IS NEVER SHARED</tspan>
+        </text>
       </g>
     </g>
   </g>
 
-  <!-- Clean Outer Die-Cut Stroke -->
-  <rect x="1.5" y="1.5" width="1357" height="677" rx="28" fill="none" stroke="#CBD5E1" stroke-width="3" />
+  <!-- Clean Rounded Outer Border -->
+  <rect x="2" y="2" width="1356" height="676" rx="28" fill="none" stroke="#FFD600" stroke-width="3" />
 </svg>`;
     }
 
     // ─────────────────────────────────────────────────────────────
-    // FORMAT 2: SQUARE DECAL FORMAT (Logo + QR Code for Bike / Glass)
+    // FORMAT 2: SQUARE DECAL FORMAT (1080 x 1080)
     // ─────────────────────────────────────────────────────────────
     else {
-      return `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" style="background:#FFFFFF;">
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
   <defs>
     <style>
       .font-sans { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
@@ -281,65 +286,67 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
     <clipPath id="square-clip">
       <rect x="0" y="0" width="1080" height="1080" rx="32" ry="32" />
     </clipPath>
-    <pattern id="hazardStripeSq" width="44" height="44" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <rect width="22" height="44" fill="#0B0F19" />
-      <rect x="22" width="22" height="44" fill="${colors.hazardStripe}" />
+    <pattern id="hazardStripeSq" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="20" height="40" fill="#111318" />
+      <rect x="20" width="20" height="40" fill="#FFD600" />
     </pattern>
   </defs>
 
   <g clip-path="url(#square-clip)">
-    <rect x="0" y="0" width="1080" height="1080" fill="${colors.bg}" />
+    <rect x="0" y="0" width="1080" height="1080" fill="#111318" />
 
-    <!-- Top & Bottom Hazard Tape -->
-    <rect x="0" y="0" width="1080" height="24" fill="url(#hazardStripeSq)" />
-    <rect x="0" y="1056" width="1080" height="24" fill="url(#hazardStripeSq)" />
+    <!-- Top & Bottom Hazard Stripes -->
+    <rect x="0" y="0" width="1080" height="22" fill="url(#hazardStripeSq)" />
+    <rect x="0" y="1058" width="1080" height="22" fill="url(#hazardStripeSq)" />
 
-    <!-- Top Callout Banner -->
-    <g transform="translate(48, 48)">
-      <rect x="0" y="0" width="984" height="92" rx="18" fill="#0B0F19" />
-      <text x="492" y="38" class="font-sans" font-size="26" font-weight="900" fill="#FFC700" text-anchor="middle">🚨 WRONG PARKING? NEED THIS VEHICLE MOVED?</text>
-      <text x="492" y="70" class="font-sans" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">Scan QR with phone camera to send an instant private alert</text>
+    <!-- Top Headline Banner -->
+    <g transform="translate(48, 44)">
+      <rect x="0" y="0" width="664" height="90" rx="14" fill="#FF5A00" />
+      <text x="332" y="60" class="font-sans" font-size="46" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="-0.5">PARKING ISSUE?</text>
+
+      <rect x="676" y="0" width="308" height="90" rx="14" fill="#FFD600" />
+      <text x="830" y="40" class="font-sans" font-size="28" font-weight="900" fill="#111318" text-anchor="middle">CONTACT</text>
+      <text x="830" y="72" class="font-sans" font-size="24" font-weight="900" fill="#111318" text-anchor="middle">VEHICLE OWNER</text>
     </g>
 
-    <!-- Large White QR Card with Official Logo -->
-    <g transform="translate(48, 160)">
-      <rect x="0" y="0" width="984" height="660" rx="26" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2.5" />
-
-      <!-- Vector Brand Logo centered above QR -->
-      ${getVectorLogoSvg(332, 28, 1.35, false)}
-
-      <!-- QR Image Centered -->
-      <image href="${qrDataUrl}" x="282" y="104" width="420" height="420" />
-
-      <!-- Minimalist Dark Camera Scan Badge -->
-      <g transform="translate(262, 544)">
-        <rect x="0" y="0" width="460" height="62" rx="16" fill="#0B0F19" />
-        <text x="230" y="28" class="font-sans" font-size="14" font-weight="900" fill="#FFC700" text-anchor="middle">📷 SCAN WITH ANY PHONE CAMERA</text>
-        <text x="230" y="48" class="font-sans" font-size="11" font-weight="700" fill="#94A3B8" text-anchor="middle">No App Download • 100% Free &amp; Private</text>
-      </g>
+    <!-- Brand Lockup -->
+    <g transform="translate(48, 148)">
+      <image href="${PARKSIGNAL_DARK_BG_LOGO_B64}" x="382" y="0" width="220" height="72" preserveAspectRatio="xMidYMid meet" />
     </g>
 
-    <!-- HSRP License Plate -->
-    <g transform="translate(48, 842)">
-      <rect x="0" y="0" width="984" height="96" rx="18" fill="#FFFFFF" stroke="#0B0F19" stroke-width="3" />
-      <rect x="0" y="0" width="100" height="96" rx="16" fill="#003399" />
+    <!-- Large White QR Card with Yellow Header -->
+    <g transform="translate(180, 234)">
+      <rect x="0" y="0" width="720" height="546" rx="26" fill="#FFFFFF" />
+      <rect x="0" y="0" width="720" height="92" rx="24" fill="#FFD600" />
+      <rect x="0" y="66" width="720" height="26" fill="#FFD600" />
+      <text x="360" y="46" class="font-sans" font-size="32" font-weight="900" fill="#111318" text-anchor="middle">SCAN QR CODE</text>
+      <text x="360" y="76" class="font-sans" font-size="18" font-weight="700" fill="#111318" text-anchor="middle">Use Any Phone Camera • No App Required</text>
+
+      <!-- Actual High-Res QR Image -->
+      <image href="${qrDataUrl}" x="155" y="114" width="410" height="410" />
+    </g>
+
+    <!-- Vehicle Number White Strip -->
+    <g transform="translate(48, 804)">
+      <rect x="0" y="0" width="984" height="96" rx="16" fill="#FFFFFF" />
+      <rect x="0" y="0" width="100" height="96" rx="14" fill="#003399" />
       <circle cx="50" cy="34" r="11" fill="none" stroke="#FFFFFF" stroke-width="2.5" />
       <text x="50" y="74" class="font-sans" font-size="23" font-weight="900" fill="#FFFFFF" text-anchor="middle">IND</text>
-      <text x="542" y="62" class="font-mono" font-size="44" font-weight="900" fill="#0F172A" text-anchor="middle" letter-spacing="3">${plateFormatted}</text>
+      <text x="542" y="62" class="font-mono" font-size="44" font-weight="900" fill="#111318" text-anchor="middle" letter-spacing="3">${plateFormatted}</text>
     </g>
 
-    <!-- Privacy Assurance Footer -->
-    <g transform="translate(48, 958)">
-      <rect x="0" y="0" width="984" height="64" rx="14" fill="#0B0F19" />
-      <text x="492" y="28" class="font-sans" font-size="15" font-weight="900" fill="#FFC700" text-anchor="middle">🔒 100% PRIVATE • OWNER PHONE NUMBER IS NEVER SHARED</text>
-      <text x="492" y="50" class="font-sans" font-size="12" font-weight="700" fill="#94A3B8" text-anchor="middle">PARKSIGNAL by BharatUtility • Direct Telegram Alert • bharatutility.tech/parksignal</text>
+    <!-- Privacy Statement & Website Footer -->
+    <g transform="translate(48, 924)">
+      <rect x="0" y="0" width="984" height="94" rx="14" fill="#1B1F27" />
+      <text x="492" y="38" class="font-sans" font-size="16" font-weight="900" fill="#FFD600" text-anchor="middle">🔒 100% PRIVATE • <tspan fill="#FFFFFF">OWNER PHONE NUMBER IS NEVER SHARED</tspan></text>
+      <text x="492" y="70" class="font-sans" font-size="15" font-weight="700" fill="#FFFFFF" opacity="0.75" text-anchor="middle">bharatutility.tech/parksignal</text>
     </g>
   </g>
 
-  <rect x="1.5" y="1.5" width="1077" height="1077" rx="32" fill="none" stroke="#CBD5E1" stroke-width="3" />
+  <rect x="2" y="2" width="1076" height="1076" rx="32" fill="none" stroke="#FFD600" stroke-width="3" />
 </svg>`;
     }
-  }, [selectedLayout, colors, qrDataUrl, plateFormatted]);
+  }, [selectedLayout, qrDataUrl, plateFormatted]);
 
   if (!isOpen) return null;
 
@@ -369,7 +376,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
         ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(img, 0, 0, exportW, exportH);
         const link = document.createElement('a');
-        link.download = `ParkSignal-${vehicle.vehicle_number}-${selectedLayout}-${selectedTheme}.png`;
+        link.download = `ParkSignal-${vehicle.vehicle_number}-${selectedLayout}.png`;
         link.href = canvas.toDataURL('image/png', 1.0);
         link.click();
         setDownloadSuccess(`Downloaded Ultra High-DPI (300 DPI) ${selectedLayout.toUpperCase()} PNG!`);
@@ -403,12 +410,12 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
                 <h3 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
                   <span>Printable Windshield Sticker</span>
                   <span className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-full bg-amber-400 text-black">
-                    Official Commercial Pass
+                    Safety Pass
                   </span>
                 </h3>
               </div>
               <p className="text-xs text-neutral-400 mt-0.5">
-                Authentic retail format for <strong className="text-white">{vehicle.vehicle_number}</strong>
+                High-visibility industrial safety pass for <strong className="text-white">{vehicle.vehicle_number}</strong>
               </p>
             </div>
           </div>
@@ -420,7 +427,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
           </button>
         </div>
 
-        {/* Toolbar: Design Layouts, Color Schemes, Guide */}
+        {/* Toolbar: Format & Guide */}
         <div className="px-4 py-2.5 bg-neutral-950/95 border-b border-neutral-800 flex flex-wrap items-center justify-between gap-2.5">
           {/* Layout Selection */}
           <div className="flex items-center gap-1.5 text-xs">
@@ -434,7 +441,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
               }`}
             >
               <AlertTriangle className="w-3.5 h-3.5" />
-              <span>Landscape Card (Fastag Size)</span>
+              <span>Landscape Safety Sticker</span>
             </button>
             <button
               onClick={() => setSelectedLayout('square')}
@@ -447,33 +454,6 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
               <Layers className="w-3.5 h-3.5" />
               <span>Square Decal</span>
             </button>
-          </div>
-
-          {/* Color Palettes */}
-          <div className="flex items-center gap-1.5 text-xs">
-            <span className="font-bold text-neutral-400 text-[11px]">Accent:</span>
-            {[
-              { id: 'safety_yellow', label: 'Safety Yellow', icon: Sun, color: '#FFD000' },
-              { id: 'emergency_orange', label: 'Safety Orange', icon: Flame, color: '#FF5722' },
-              { id: 'clean_white', label: 'Arctic White', icon: Zap, color: '#FFFFFF' },
-              { id: 'carbon_dark', label: 'Stealth Blue', icon: Moon, color: '#0284C7' },
-            ].map((thm) => {
-              const Icon = thm.icon;
-              return (
-                <button
-                  key={thm.id}
-                  onClick={() => setSelectedTheme(thm.id as StickerTheme)}
-                  className={`py-1 px-2.5 rounded-xl font-bold text-xs flex items-center gap-1 transition-all ${
-                    selectedTheme === thm.id
-                      ? 'ring-2 ring-white text-white bg-neutral-800 shadow-xs'
-                      : 'bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 border border-neutral-800'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" style={{ color: thm.color }} />
-                  <span>{thm.label}</span>
-                </button>
-              );
-            })}
           </div>
 
           {/* Cut Border Toggle */}
@@ -505,7 +485,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
               <div
                 className="w-full h-auto flex items-center justify-center rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 select-none"
                 style={{
-                  maxHeight: '52vh',
+                  maxHeight: '54vh',
                   boxShadow: '0 25px 60px -15px rgba(0,0,0,0.9)',
                 }}
                 dangerouslySetInnerHTML={{ __html: masterSvg }}
@@ -520,7 +500,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
           <div className="mt-3 text-xs text-neutral-400 text-center flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
             <span>
-              <strong>100% Commercial Standard:</strong> Official retail-grade ParkSignal Windshield Pass matching ProfileTap &amp; RepiQR products. Ready for print!
+              <strong>Industrial Safety Standard:</strong> Bold high-visibility contrast, transparent outer corners, 300 DPI print-ready.
             </span>
           </div>
         </div>
