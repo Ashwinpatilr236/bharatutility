@@ -160,12 +160,12 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
 
       <!-- ── RIGHT SECTION: HIGH-VISIBILITY SAFETY COMMUNICATION ── -->
       <g transform="translate(522, 42)">
-        <!-- 1. Organized Brand Identity & Highlighted BharatUtility -->
-        <g transform="translate(0, 2)">
-          <!-- Authentic Car-Cyber Emblem -->
-          <image href="${PARKSIGNAL_EMBLEM_B64}" x="0" y="0" width="76" height="66" preserveAspectRatio="xMidYMid meet" />
+        <!-- 1. Centered, Unclipped Brand Identity & Highlighted BharatUtility -->
+        <g transform="translate(196, 2)">
+          <!-- Complete Unclipped Car-Cyber Emblem (472x316 = 1.49:1) -->
+          <image href="${PARKSIGNAL_EMBLEM_B64}" x="0" y="0" width="98" height="66" preserveAspectRatio="xMidYMid meet" />
           <!-- Crisp Brand Lockup -->
-          <g transform="translate(88, 6)">
+          <g transform="translate(112, 6)">
             <text x="0" y="30" class="font-sans" font-size="32" font-weight="900" fill="#FFFFFF" letter-spacing="0.5">PARK<tspan fill="#FFD600">SIGNAL</tspan></text>
             <g transform="translate(0, 40)">
               <text x="0" y="14" class="font-sans" font-size="11" font-weight="700" fill="#94A3B8" letter-spacing="1.4">SMART VEHICLE PASS • BY</text>
@@ -372,10 +372,10 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       </g>
 
       <!-- Organized Brand Lockup -->
-      <g transform="translate(310, 152)">
-        <image href="${PARKSIGNAL_EMBLEM_B64}" x="0" y="0" width="68" height="58" preserveAspectRatio="xMidYMid meet" />
-        <text x="80" y="30" class="font-sans" font-size="30" font-weight="900" fill="#FFFFFF" letter-spacing="0.5">PARK<tspan fill="#FFD600">SIGNAL</tspan></text>
-        <text x="80" y="50" class="font-sans" font-size="11" font-weight="800" fill="#94A3B8" letter-spacing="1.2">BY <tspan fill="#FFD600">BHARATUTILITY</tspan></text>
+      <g transform="translate(298, 152)">
+        <image href="${PARKSIGNAL_EMBLEM_B64}" x="0" y="0" width="86" height="58" preserveAspectRatio="xMidYMid meet" />
+        <text x="98" y="30" class="font-sans" font-size="30" font-weight="900" fill="#FFFFFF" letter-spacing="0.5">PARK<tspan fill="#FFD600">SIGNAL</tspan></text>
+        <text x="98" y="50" class="font-sans" font-size="11" font-weight="800" fill="#94A3B8" letter-spacing="1.2">BY <tspan fill="#FFD600">BHARATUTILITY</tspan></text>
       </g>
 
       <!-- Large White QR Card with Yellow Header -->
