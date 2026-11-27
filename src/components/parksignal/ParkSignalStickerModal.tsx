@@ -125,19 +125,55 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
       <!-- ── LEFT SECTION: CLEAN QR CARD ── -->
       <g transform="translate(42, 42)">
         <g clip-path="url(#qr-card-clip)">
-          <!-- Signal Yellow Header -->
+          <!-- Signal Yellow Header (Centered Typography + Realistic Smartphone) -->
           <rect x="0" y="0" width="440" height="104" fill="#FFD600" />
-          <text x="26" y="46" class="font-sans" font-size="31" font-weight="900" fill="#111318" letter-spacing="-0.5">SCAN QR CODE</text>
-          <text x="26" y="79" class="font-sans" font-size="18" font-weight="700" fill="#111318">Use Any Phone Camera</text>
+          <text x="184" y="46" class="font-sans" font-size="31" font-weight="900" fill="#111318" text-anchor="middle" letter-spacing="-0.4">SCAN QR CODE</text>
+          <text x="184" y="79" class="font-sans" font-size="18" font-weight="800" fill="#111318" text-anchor="middle">Use Any Phone Camera</text>
 
-          <!-- Clean Geometric Phone Scanning Icon -->
-          <g transform="translate(364, 17)">
-            <rect x="0" y="0" width="44" height="70" rx="7" fill="#111318" />
-            <rect x="4" y="8" width="36" height="50" rx="3" fill="#FFFFFF" />
-            <rect x="10" y="16" width="24" height="24" rx="2" fill="#111318" />
-            <rect x="14" y="20" width="16" height="16" fill="#FFD600" />
-            <rect x="17" y="23" width="10" height="10" fill="#111318" />
-            <circle cx="22" cy="63" r="2.5" fill="#FFD600" />
+          <!-- Realistic Modern Smartphone Scanning QR -->
+          <g transform="translate(362, 13)">
+            <!-- Side Hardware Buttons -->
+            <rect x="-2" y="16" width="2" height="9" rx="1" fill="#111318" />
+            <rect x="-2" y="28" width="2" height="9" rx="1" fill="#111318" />
+            <rect x="46" y="20" width="2" height="14" rx="1" fill="#111318" />
+            <!-- Sleek Phone Chassis -->
+            <rect x="0" y="0" width="46" height="78" rx="9" fill="#111318" />
+            <!-- Edge-to-Edge Screen -->
+            <rect x="3" y="3" width="40" height="72" rx="6.5" fill="#FFFFFF" />
+            <!-- Top Dynamic Island / Speaker Notch -->
+            <rect x="15" y="6" width="16" height="4" rx="2" fill="#111318" />
+            <!-- Camera Viewfinder Corner Brackets -->
+            <path d="M9 22 V17 H14 M32 17 H37 V22 M9 45 V50 H14 M32 50 H37 V45" fill="none" stroke="#111318" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <!-- Realistic Miniature QR Code inside Viewfinder -->
+            <g transform="translate(12, 21)" fill="#111318">
+              <!-- Top-left finder -->
+              <rect x="0" y="0" width="8" height="8" rx="1" />
+              <rect x="1.8" y="1.8" width="4.4" height="4.4" fill="#FFFFFF" />
+              <rect x="3" y="3" width="2" height="2" />
+              <!-- Top-right finder -->
+              <rect x="14" y="0" width="8" height="8" rx="1" />
+              <rect x="15.8" y="1.8" width="4.4" height="4.4" fill="#FFFFFF" />
+              <rect x="17" y="3" width="2" height="2" />
+              <!-- Bottom-left finder -->
+              <rect x="0" y="14" width="8" height="8" rx="1" />
+              <rect x="1.8" y="15.8" width="4.4" height="4.4" fill="#FFFFFF" />
+              <rect x="3" y="17" width="2" height="2" />
+              <!-- Data modules -->
+              <rect x="10" y="2" width="2" height="2" />
+              <rect x="10" y="6" width="2" height="4" />
+              <rect x="2" y="10" width="4" height="2" />
+              <rect x="8" y="11" width="4" height="2" />
+              <rect x="14" y="10" width="3" height="2" />
+              <rect x="19" y="10" width="3" height="3" />
+              <rect x="10" y="15" width="3" height="3" />
+              <rect x="15" y="15" width="3" height="2" />
+              <rect x="19" y="15" width="3" height="7" />
+              <rect x="11" y="19" width="6" height="3" />
+            </g>
+            <!-- Safety Orange Active Scan Line -->
+            <rect x="7" y="32" width="32" height="2.4" rx="1.2" fill="#FF5A00" />
+            <!-- Bottom Gesture Home Bar -->
+            <rect x="15" y="70" width="16" height="2.2" rx="1.1" fill="#111318" opacity="0.65" />
           </g>
 
           <!-- Pure White QR Background -->
@@ -151,7 +187,7 @@ export const ParkSignalStickerModal: React.FC<ParkSignalStickerModalProps> = ({
         <g transform="translate(14, 526)">
           <rect x="0" y="0" width="412" height="48" rx="24" fill="#171A21" stroke="#FFD600" stroke-width="1.8" />
           <text x="206" y="21" class="font-sans" font-size="12.5" font-weight="900" fill="#FFD600" text-anchor="middle" letter-spacing="0.6">SCAN WITH ANY PHONE CAMERA</text>
-          <text x="206" y="38" class="font-sans" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.8">• NO APP REQUIRED</text>
+          <text x="206" y="38" class="font-sans" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="1.2">NO APP REQUIRED</text>
         </g>
 
         <!-- Website -->
