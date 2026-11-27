@@ -1,44 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4f46e5" />
-      <stop offset="50%" stop-color="#3b82f6" />
-      <stop offset="100%" stop-color="#06b6d4" />
+      <stop offset="0%" stop-color="#5549F0" />
+      <stop offset="55%" stop-color="#4338CA" />
+      <stop offset="100%" stop-color="#312E81" />
     </linearGradient>
-    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="100%" stop-color="#e0e7ff" />
-    </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.25" />
-    </filter>
   </defs>
 
-  <!-- Background rounded rect -->
-  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+  <!-- Clean Rounded Squircle Background -->
+  <rect x="8" y="8" width="496" height="496" rx="124" fill="url(#bg)" />
+  <rect x="12" y="12" width="488" height="488" rx="120" fill="none" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="6" />
 
-  <!-- Outer Indian Tricolor accent ring -->
-  <circle cx="256" cy="256" r="190" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="4" />
+  <!-- Bold Vector '₹U' Monogram (Centered at x=256, y=256) -->
+  <g fill="#FFFFFF" transform="translate(-7, 0)">
+    <!-- ₹ Top Bar -->
+    <rect x="108" y="154" width="136" height="30" rx="5" />
+    <!-- ₹ Middle Bar -->
+    <rect x="108" y="206" width="136" height="28" rx="5" />
+    <!-- ₹ Curve & Diagonal Leg -->
+    <path d="M 156 178 H 188 C 218 178 232 198 232 226 C 232 256 208 278 164 280 L 236 356 H 186 L 114 280 V 252 H 160 C 186 252 198 240 198 224 C 198 206 186 196 156 196 Z" />
 
-  <!-- Central Symbol: Bharat Utility Modern Monogram (B + Geometric Utility Calculator Grid) -->
-  <g filter="url(#shadow)">
-    <!-- Main Stylized 'B' with calculation grid elements -->
-    <path d="M168 128 h100 c55 0 92 28 92 68 c0 26 -16 48 -42 58 c34 10 54 36 54 68 c0 46 -40 76 -104 76 h-100 z" fill="url(#accent)" />
-    <!-- Cutouts -->
-    <rect x="220" y="172" width="46" height="42" rx="10" fill="#4338ca" />
-    <rect x="220" y="298" width="56" height="46" rx="10" fill="#3b82f6" />
-
-    <!-- Math/Utility symbols overlay -->
-    <!-- Plus -->
-    <circle cx="380" cy="140" r="28" fill="#10b981" />
-    <path d="M380 126 v28 M366 140 h28" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
-
-    <!-- Percentage -->
-    <circle cx="396" cy="372" r="28" fill="#f59e0b" />
-    <text x="396" y="382" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">%</text>
-
-    <!-- Rupee Symbol -->
-    <circle cx="120" cy="380" r="32" fill="#6366f1" />
-    <text x="120" y="392" font-family="system-ui, sans-serif" font-size="34" font-weight="900" fill="#ffffff" text-anchor="middle">₹</text>
+    <!-- Bold Geometric 'U' -->
+    <path d="M 272 154 H 314 V 282 C 314 308 328 322 345 322 C 362 322 376 308 376 282 V 154 H 418 V 282 C 418 332 386 360 345 360 C 304 360 272 332 272 282 Z" />
   </g>
 </svg>
