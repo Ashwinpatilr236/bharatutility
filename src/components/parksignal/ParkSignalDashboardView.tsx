@@ -159,39 +159,50 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
     if (!newVehicleNumber.trim()) return;
 
     setIsAddingVehicle(true);
-    const res = await parkSignalService.registerVehicle(
-      newVehicleNumber.trim().toUpperCase(),
-      newVehicleType,
-      newNickname.trim() || undefined,
-      newDisplayPlate
-    );
-    setIsAddingVehicle(false);
+    try {
+      const res = await parkSignalService.registerVehicle(
+        newVehicleNumber.trim().toUpperCase(),
+        newVehicleType,
+        newNickname.trim() || undefined,
+        newDisplayPlate
+      );
 
-    if (res.success && res.vehicle) {
-      showToast(`Vehicle ${res.vehicle.vehicle_number} registered!`, 'success');
-      setShowAddVehicleModal(false);
-      setNewVehicleNumber('');
-      setNewNickname('');
-      loadDashboardData();
-      setSelectedStickerVehicle(res.vehicle);
-    } else {
-      showToast(res.error || 'Failed to register vehicle.', 'error');
+      if (res.success && res.vehicle) {
+        showToast(`Vehicle ${res.vehicle.vehicle_number} registered!`, 'success');
+        setShowAddVehicleModal(false);
+        setNewVehicleNumber('');
+        setNewNickname('');
+        await loadDashboardData();
+        setSelectedStickerVehicle(res.vehicle);
+      } else {
+        showToast(res.error || 'Failed to register vehicle.', 'error');
+      }
+    } catch (err: any) {
+      console.error('handleAddVehicle error:', err);
+      showToast(err?.message || 'Failed to register vehicle.', 'error');
+    } finally {
+      setIsAddingVehicle(false);
     }
   };
 
   // Toggle Vehicle Active Status
   const handleToggleStatus = async (vehicleId: string) => {
-    const res = await parkSignalService.toggleVehicleStatus(vehicleId);
-    if (res.success) {
-      showToast(
-        res.vehicle?.is_active
-          ? 'Alerts resumed for this vehicle.'
-          : 'Alerts paused for this vehicle.',
-        'info'
-      );
-      loadDashboardData();
-    } else {
-      showToast(res.error || 'Failed to update vehicle status.', 'error');
+    try {
+      const res = await parkSignalService.toggleVehicleStatus(vehicleId);
+      if (res.success) {
+        const isNowActive = res.isActive ?? res.vehicle?.is_active;
+        showToast(
+          isNowActive
+            ? 'Alerts resumed for this vehicle.'
+            : 'Alerts paused for this vehicle.',
+          'info'
+        );
+        loadDashboardData();
+      } else {
+        showToast(res.error || 'Failed to update vehicle status.', 'error');
+      }
+    } catch (err: any) {
+      showToast(err?.message || 'Failed to update vehicle status.', 'error');
     }
   };
 
@@ -274,14 +285,19 @@ export const ParkSignalDashboardView: React.FC<ParkSignalDashboardViewProps> = (
   // Connect Telegram
   const handleConnectTelegram = async (mode: 'CONNECT' | 'RECONNECT' = 'CONNECT') => {
     setTgLinkLoading(true);
-    const res = await parkSignalService.getTelegramLinkToken();
-    setTgLinkLoading(false);
-
-    if (res.success && res.deepLink) {
-      setTgDeepLink(res.deepLink);
-      window.open(res.deepLink, '_blank', 'noopener,noreferrer');
-    } else {
-      showToast(res.error || 'Failed to create Telegram link token.', 'error');
+    try {
+      const res = await parkSignalService.getTelegramLinkToken(mode);
+      if (res.success && res.deepLink) {
+        setTgDeepLink(res.deepLink);
+        window.open(res.deepLink, '_blank', 'noopener,noreferrer');
+      } else {
+        showToast(res.error || 'Failed to create Telegram link token.', 'error');
+      }
+    } catch (err: any) {
+      console.error('handleConnectTelegram error:', err);
+      showToast(err?.message || 'Failed to create Telegram link token.', 'error');
+    } finally {
+      setTgLinkLoading(false);
     }
   };
 

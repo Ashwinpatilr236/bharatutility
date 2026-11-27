@@ -360,6 +360,10 @@ export const parkSignalService = {
     return this.createTelegramLinkToken(intent);
   },
 
+  async getTelegramLinkToken(intent: 'CONNECT' | 'RECONNECT' = 'CONNECT') {
+    return this.createTelegramLinkToken(intent);
+  },
+
   async disconnectTelegram(): Promise<{ success: boolean; error?: string }> {
     const cur = this.getCurrentUser();
     if (!cur) return { success: false, error: 'Unauthorized' };
@@ -454,17 +458,40 @@ export const parkSignalService = {
     return { vehicles: [] };
   },
 
-  async registerVehicle(params: {
-    vehicleNumber: string;
-    vehicleType: string;
-    nickname?: string;
-    displayPlatePublicly?: boolean;
-    rules?: any;
-  }): Promise<{ success: boolean; vehicle?: ParkSignalVehicle; error?: string }> {
+  async registerVehicle(
+    paramsOrNumber:
+      | string
+      | {
+          vehicleNumber: string;
+          vehicleType: string;
+          nickname?: string;
+          displayPlatePublicly?: boolean;
+          rules?: any;
+        },
+    vehicleTypeArg?: string,
+    nicknameArg?: string,
+    displayPlatePubliclyArg?: boolean,
+    rulesArg?: any
+  ): Promise<{ success: boolean; vehicle?: ParkSignalVehicle; error?: string }> {
+    const params = typeof paramsOrNumber === 'string'
+      ? {
+          vehicleNumber: paramsOrNumber,
+          vehicleType: vehicleTypeArg || 'Car',
+          nickname: nicknameArg,
+          displayPlatePublicly: displayPlatePubliclyArg !== false,
+          rules: rulesArg || {}
+        }
+      : (paramsOrNumber || { vehicleNumber: '', vehicleType: 'Car' });
+
     const cur = this.getCurrentUser();
     if (!cur) return { success: false, error: 'Unauthorized. Please sign in.' };
 
-    const normPlate = params.vehicleNumber.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const rawPlate = params.vehicleNumber || '';
+    const normPlate = rawPlate.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (!normPlate) {
+      return { success: false, error: 'Please enter a valid vehicle plate number.' };
+    }
+
     const qrToken = generateRandomHex(12);
 
     // 1. Primary: Secure Edge Function (Writes directly to Supabase with Service Role)
@@ -491,6 +518,16 @@ export const parkSignalService = {
         if (data.success && data.vehicle) {
           return { success: true, vehicle: data.vehicle };
         }
+        if (data.error) {
+          return { success: false, error: data.error };
+        }
+      } else {
+        try {
+          const errData = await resp.json();
+          if (errData.error) {
+            return { success: false, error: errData.error };
+          }
+        } catch {}
       }
     } catch (err: any) {
       console.warn('Edge Function register_vehicle error, trying direct client insert:', err);
@@ -514,7 +551,11 @@ export const parkSignalService = {
           .single();
 
         if (vErr || !vRec) {
-          return { success: false, error: vErr?.message || 'Could not register vehicle in database.' };
+          const msg = vErr?.message || '';
+          if (msg.includes('duplicate') || msg.includes('unique')) {
+            return { success: false, error: `Vehicle ${normPlate} is already registered.` };
+          }
+          return { success: false, error: msg || 'Could not register vehicle in database.' };
         }
 
         // Insert QR token
@@ -619,7 +660,7 @@ export const parkSignalService = {
     }
   },
 
-  async toggleVehicleStatus(vehicleId: string): Promise<{ success: boolean; isActive?: boolean; error?: string }> {
+  async toggleVehicleStatus(vehicleId: string): Promise<{ success: boolean; isActive?: boolean; vehicle?: { is_active: boolean }; error?: string }> {
     const supabase = getSupabase();
     if (!supabase || !isSupabaseConfigured()) {
       return { success: false, error: 'Database service unavailable.' };
@@ -638,7 +679,7 @@ export const parkSignalService = {
         .update({ is_active: next, updated_at: new Date().toISOString() })
         .eq('id', vehicleId);
 
-      return { success: true, isActive: next };
+      return { success: true, isActive: next, vehicle: { is_active: next } };
     } catch (err: any) {
       return { success: false, error: err?.message || 'Failed to toggle vehicle status.' };
     }
