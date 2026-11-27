@@ -42,7 +42,16 @@ interface ParkSignalAlertViewProps {
 export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token }) => {
   const { theme, setTheme } = useApp();
   const [lang, setLang] = useState<AlertLanguage>('en');
+  const [hasSelectedLang, setHasSelectedLang] = useState(false);
   const t = ALERT_TRANSLATIONS[lang];
+
+  // Auto Day (Light) / Night (Dark) mode by default on mount
+  useEffect(() => {
+    const hour = new Date().getHours();
+    const isDaytime = hour >= 6 && hour < 19; // 6 AM - 6:59 PM = Light, 7 PM - 5:59 AM = Dark
+    setTheme(isDaytime ? 'light' : 'dark');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isDarkActive =
     theme === 'dark' ||
@@ -317,6 +326,84 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
     );
   }
 
+  // Welcome Language Selection Gate (shown first upon QR scan)
+  if (!hasSelectedLang) {
+    return (
+      <div className="max-w-md mx-auto px-4 py-8 sm:py-12 space-y-6 animate-fadeIn">
+        {/* Top-right Day/Night Toggle */}
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={() => setTheme(isDarkActive ? 'light' : 'dark')}
+            className="px-3 py-1.5 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer flex items-center gap-1.5 text-xs font-bold shadow-2xs"
+          >
+            {isDarkActive ? (
+              <>
+                <Sun className="w-3.5 h-3.5 text-amber-400" />
+                <span>Light Mode</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Dark Mode</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Welcome Card */}
+        <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-xl text-center space-y-6">
+          <div className="flex justify-center">
+            <ParkSignalLogo variant="full" height={42} />
+          </div>
+
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 text-[11px] font-bold border border-cyan-500/20">
+              <Globe className="w-3.5 h-3.5" />
+              <span>Welcome to ParkSignal</span>
+            </div>
+            <h1 className="text-xl sm:text-2xl font-black font-display tracking-tight text-neutral-900 dark:text-white">
+              Please select your preferred language
+            </h1>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              कृपया अपनी भाषा चुनें • કૃપા કરીને તમારી ભાષા પસંદ કરો • कृपया तुमची भाषा निवडा
+            </p>
+          </div>
+
+          {/* 4 Large Touch-Friendly Language Buttons */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            {ALERT_LANGUAGES.map((l) => (
+              <button
+                key={l.id}
+                type="button"
+                onClick={() => {
+                  setLang(l.id);
+                  setHasSelectedLang(true);
+                }}
+                className="group p-4 rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-800/60 hover:border-cyan-500 hover:bg-cyan-50/50 dark:hover:bg-cyan-950/30 transition-all text-left flex items-center justify-between cursor-pointer"
+              >
+                <div>
+                  <div className="text-base font-black text-neutral-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400">
+                    {l.native}
+                  </div>
+                  <div className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400">
+                    {l.label}
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
+              </button>
+            ))}
+          </div>
+
+          <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-center gap-2 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
+            <Lock className="w-3.5 h-3.5" />
+            <span>100% Anonymous • No App Required</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Define alert choices filtered by owner settings
   const s = vehicle.settings || {
     allowBlocking: true,
@@ -508,7 +595,14 @@ export const ParkSignalAlertView: React.FC<ParkSignalAlertViewProps> = ({ token 
               {/* Monospace Embossed Plate Number (Shows GJ06 •••• 88 when masked) */}
               <div className="px-4 py-2 flex items-center justify-center bg-gradient-to-b from-white to-neutral-100">
                 <span className="text-xl sm:text-2xl font-black tracking-widest uppercase font-mono drop-shadow-xs text-neutral-950">
-                  {vehicle.vehicleNumber || '••••••••'}
+                  {(() => {
+                    const num = (vehicle.vehicleNumber || '').trim().toUpperCase();
+                    if (!num) return '••••••••';
+                    if (vehicle.isPlateMasked && !num.includes('•') && num.length > 4) {
+                      return `${num.slice(0, 4)} •••• ${num.slice(-2)}`;
+                    }
+                    return num;
+                  })()}
                 </span>
               </div>
             </div>

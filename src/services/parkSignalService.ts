@@ -622,7 +622,7 @@ export const parkSignalService = {
     }
 
     try {
-      await supabase
+      const { error: settingsErr } = await supabase
         .from('parksignal_vehicle_settings')
         .upsert({
           vehicle_id: vehicleId,
@@ -643,15 +643,28 @@ export const parkSignalService = {
           updated_at: new Date().toISOString()
         });
 
+      if (settingsErr) {
+        return { success: false, error: settingsErr.message };
+      }
+
       if (typeof settings.display_plate_publicly !== 'undefined' || typeof settings.nickname !== 'undefined') {
-        await supabase
+        const updatePayload: Record<string, any> = {
+          updated_at: new Date().toISOString()
+        };
+        if (typeof settings.display_plate_publicly !== 'undefined') {
+          updatePayload.display_plate_publicly = Boolean(settings.display_plate_publicly);
+        }
+        if (typeof settings.nickname !== 'undefined') {
+          updatePayload.nickname = settings.nickname;
+        }
+        const { error: vehicleErr } = await supabase
           .from('parksignal_vehicles')
-          .update({
-            display_plate_publicly: settings.display_plate_publicly,
-            nickname: settings.nickname,
-            updated_at: new Date().toISOString()
-          })
+          .update(updatePayload)
           .eq('id', vehicleId);
+
+        if (vehicleErr) {
+          return { success: false, error: vehicleErr.message };
+        }
       }
 
       return { success: true };
