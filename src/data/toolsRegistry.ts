@@ -10,7 +10,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'OTT Finder',
     tagline: 'Find which OTT platform is streaming your favorite movie or web series in India.',
     description: 'Instantly check if a movie or TV show is available on Netflix, Prime Video, Hotstar, JioCinema, SonyLIV, or other Indian streaming platforms. Includes TMDB ratings and reviews.',
-    category: 'daily-life',
+    category: 'technology',
     icon: 'MonitorPlay',
     keywords: [
       'where to watch',
@@ -45,7 +45,12 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Yes! The deep links allow you to immediately check availability across all major Indian platforms whether you have a subscription (like Netflix, Prime, Hotstar) or are looking for free/rent streaming options.'
       }
     ],
-    relatedToolSlugs: []
+    relatedToolSlugs: [
+      'video-player',
+      'aspect-ratio-calculator',
+      'network-speed-ping-probe',
+      'live-room-noise-decibel-meter'
+    ]
   },
   {
     id: 'video-player',
@@ -98,10 +103,10 @@ export const TOOLS_REGISTRY: Tool[] = [
       }
     ],
     relatedToolSlugs: [
-      'download-time-calculator',
-      'data-usage-calculator',
+      'ott-stream-finder',
+      'aspect-ratio-calculator',
       'network-speed-ping-probe',
-      'tv-viewing-distance-calculator'
+      'live-room-noise-decibel-meter'
     ],
   },
   // New P0 Business/Tax Calculators
@@ -10351,7 +10356,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     shortName: 'Milk Fat & SNF Payout',
     tagline: 'Calculate milk purchase rate per litre and total farmer payout based on Fat % (3.5%-10%) and SNF % for Cow and Buffalo milk',
     description: "Calculate milk rates and dairy farmer payment based on Fat % and Solid-Not-Fat (SNF %) standards used by Indian dairy cooperatives (Amul, Mother Dairy, Nandini, Saras).",
-    category: 'daily-life',
+    category: 'business',
     icon: 'Milk',
     keywords: ['dairy milk fat snf rate calculator', 'cow buffalo milk rate per litre', 'dudh dairy fat formula amul', 'milk collection center rate chart', 'dairy farmer payment calculation'],
     popular: true,
@@ -10382,7 +10387,12 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Cow milk typically averages 3.5% - 4.5% Fat and 8.5% SNF. Buffalo milk is richer with 6.5% - 8.5% Fat and 9.0% SNF, commanding a higher price per litre.'
       }
     ],
-    relatedToolSlugs: ['apmc-mandi-bhav-live-tracker', 'food-adulteration-test-kit', 'unit-converter']
+    relatedToolSlugs: [
+      'apmc-mandi-bhav-live-tracker',
+      'apmc-mandi-msp-procurement-calculator',
+      'pm-kisan-eligibility-checker',
+      'all-india-land-unit-converter'
+    ]
   },
   // 163. All-India Multi-State Land Unit Converter
   {
@@ -12447,7 +12457,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'Averaging down means buying more shares of an asset when its price falls, lowering your overall average cost per share.'
       }
     ],
-    relatedToolSlugs: ['mutual-fund-sip-calculator', 'mutual-fund-lumpsum-calculator']
+    relatedToolSlugs: ['sip-calculator', 'lumpsum-calculator', 'crorepati-sip-goal-calculator', 'sip-step-up-calculator']
   },
   {
     id: 'hra-tax-exemption-calculator',
@@ -12691,7 +12701,7 @@ export const TOOLS_REGISTRY: Tool[] = [
         answer: 'FOIR stands for Fixed Obligation to Income Ratio. It is the maximum percentage of your income that a bank assumes can be safely used to pay EMIs. Usually, it is around 50%.'
       }
     ],
-    relatedToolSlugs: ['emi-calculator', 'personal-loan-emi-calculator']
+    relatedToolSlugs: ['emi-calculator', 'home-loan-prepayment-calculator', 'rent-vs-buy-calculator']
   },
   {
     id: 'term-insurance-calculator',

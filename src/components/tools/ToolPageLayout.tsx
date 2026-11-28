@@ -281,18 +281,36 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ tool }) => {
     setIsVaultModalOpen(false);
   };
 
-  // Dynamic 3-6 Related Tools (never empty, fallback to category/popular)
+  // Dynamic 4 Related Tools: explicit slugs first, then keyword-relevance-scored same-category tools (never unrelated cross-category tools)
   const explicitRelated = (tool.relatedToolSlugs || [])
     .map(slug => getToolBySlug(slug))
     .filter((t): t is Tool => Boolean(t) && t.slug !== tool.slug);
 
+  const currentTokens = new Set(
+    [
+      ...(tool.keywords || []).flatMap(k => k.toLowerCase().split(/\W+/)),
+      ...tool.name.toLowerCase().split(/\W+/)
+    ].filter(w => w.length >= 3 && !['calculator', 'india', 'indian', 'online', 'free', 'tool', 'tools', 'converter', 'finder', 'guide', 'tracker'].includes(w))
+  );
+
   const categoryFallback = getToolsByCategory(tool.category)
-    .filter(t => t.slug !== tool.slug && !explicitRelated.some(r => r.slug === t.slug));
+    .filter(t => t.slug !== tool.slug && !explicitRelated.some(r => r.slug === t.slug))
+    .map(candidate => {
+      const candTokens = new Set([
+        ...(candidate.keywords || []).flatMap(k => k.toLowerCase().split(/\W+/)),
+        ...candidate.name.toLowerCase().split(/\W+/)
+      ]);
+      let score = 0;
+      for (const tok of currentTokens) {
+        if (candTokens.has(tok)) score += 5;
+      }
+      if (candidate.popular) score += 1;
+      return { tool: candidate, score };
+    })
+    .sort((a, b) => b.score - a.score)
+    .map(item => item.tool);
 
-  const popularFallback = getPopularTools(6)
-    .filter(t => t.slug !== tool.slug && !explicitRelated.some(r => r.slug === t.slug) && !categoryFallback.some(c => c.slug === t.slug));
-
-  const relatedTools = [...explicitRelated, ...categoryFallback, ...popularFallback].slice(0, 4);
+  const relatedTools = [...explicitRelated, ...categoryFallback].slice(0, 4);
   const relatedArticles = getAllArticles().filter(a => a.relatedToolSlugs.includes(tool.slug));
 
   // Render the matching calculator component

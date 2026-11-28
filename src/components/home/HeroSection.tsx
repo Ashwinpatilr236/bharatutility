@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { useAdminStore } from '../../hooks/useAdminStore';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { executeSmartSearch, recordSearchTelemetry, getRecentSearches, saveRecentSearch } from '../../utils/smartSearch';
+import { getActiveTools } from '../../data/toolsRegistry';
 import { Search, Sparkles, ArrowRight, Zap, TrendingUp, Clock, X, MessageSquarePlus, Compass, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { AntigravityParticles } from '../common/AntigravityParticles';
 import { VoiceSearchButton } from '../common/VoiceSearchButton';
@@ -88,7 +89,7 @@ export const HeroSection: React.FC = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span>233+ Digital Utilities • 100% Free & Private • Zero Signups</span>
+            <span>{getActiveTools().length}+ Digital Utilities • 100% Free &amp; Private • Zero Signups</span>
           </div>
         </div>
 

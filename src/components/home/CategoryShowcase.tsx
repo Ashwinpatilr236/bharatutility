@@ -30,7 +30,8 @@ export const CategoryShowcase: React.FC = () => {
 
         <ScrollableCarousel className="pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5 no-scrollbar">
           {categories.map(cat => {
-            const categoryTools = getToolsByCategory(cat.id).slice(0, 3);
+            const allCategoryTools = getToolsByCategory(cat.id);
+            const categoryTools = allCategoryTools.slice(0, 3);
 
             return (
               <div
@@ -43,7 +44,7 @@ export const CategoryShowcase: React.FC = () => {
                       <DynamicIcon name={cat.icon} className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">
-                      {cat.toolCount} Utilities
+                      {allCategoryTools.length} Utilities
                     </span>
                   </div>
 
